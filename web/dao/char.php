@@ -53,7 +53,6 @@
 				
 				if(is_string($value))
 				{
-					$value = strval($value);
 					
 					if(strlen($value) > $max || strlen($value) < $min)
 						self::log_error('String type received of invalid length via __set(); '.$name, true);
@@ -63,7 +62,11 @@
 					return;
 				}
 				if(is_bool($value)
-					$value = intval($value);
+				{
+					$this->data[$name] = $value;
+					
+					return;
+				}
 				
 				if($value > $max || $value < $min)
 				{
@@ -130,11 +133,11 @@
 				$this->data['head_bottom']=0;
 				$this->data['robe']=0;
 				$this->data['last_map']='new_1-1';
-				$this->data['last_x']=0;
-				$this->data['last_y']=0;
+				$this->data['last_x']=53;
+				$this->data['last_y']=111;
 				$this->data['save_map']='new_1-1'; //TODO: add start map config here for last_map and save_map on the ctor
-				$this->data['save_x']=0;
-				$this->data['save_y']=0;
+				$this->data['save_x']=53;
+				$this->data['save_y']=111;
 				$this->data['partner_id']=0;
 				$this->data['online']=false;
 				$this->data['father']=0;
