@@ -171,7 +171,7 @@
                         \config\config::$db_options
                         );
 
-                $error += ' in '. __FILE__ .' on line '. __LINE__;
+                $error .= ' in '. __FILE__ .' on line '. __LINE__;
                 $error  = \lib\string\left($error, 2048);
 
                 $stmt = $errdb->prepare('INSERT INTO `www_log_error` (`uuid`,`hit`,`error`) VALUES (:uuid,:hit,:error);');
