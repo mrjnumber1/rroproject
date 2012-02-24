@@ -85,7 +85,7 @@
 	{ 
 		// TODO: add a way to get the minimum\maximum value
 		// TODO: add a way to build these from the folder!
-		function enum($base_class, array $arg0s, $namespace)
+		function enum($base_class, array $args, $namespace)
 		{
 			$class_parts = preg_split('/\s+/', $base_class);
 			$base_class_name = array_shift($class_parts);
@@ -110,8 +110,10 @@
 					}';
 			}
 			
-			if(!isset($namespace))
+			if( !isset($namespace) )
+            {
 				$namespace = 'lib';
+            }
 				
 			$namespace_declaration = 'namespace ' .strval($namespace). ' {' .PHP_EOL;
 			

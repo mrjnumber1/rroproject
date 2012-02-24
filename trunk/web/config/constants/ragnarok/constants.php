@@ -28,12 +28,18 @@
 			const MAP_NAME_LENGTH = 11;
 			const MAP_NAME_LENGTH_EXT = 15; // NAME_LENGTH + strlen('.gat');
 		}
-		
-		
+
 		class server
 		{
 			const NAME_LENGTH = 23;
 			const MAX_FAME_LIST = 10;
 		}
-	
+    }
+
+    namespace config\constants\ragnarok\enums
+    {
+        function dummy()
+        {
+
+        }
 	}
