@@ -14,6 +14,19 @@
 			protected $table = '';
 			protected $id_column = '';
 
+			protected $min       =  0;
+			protected $int_min   = -0x80000000;
+			protected $int_max   =  0x7FFFFFFF;
+			protected $uint_max  =  0xFFFFFFFF;
+			protected $mint_min  = -0x800000;
+			protected $mint_max  =  0x7FFFFF;
+			protected $umint_max =  0xFFFFFF;
+			protected $sint_min  = -0x8000;
+			protected $sint_max  =  0x7FFF;
+			protected $usint_max =  0xFFFF;
+			protected $tint_min  = -0x80;
+			protected $tint_max  =  0x7F;
+			protected $utint_max =  0xFF;
 			
 			public function __construct()
 			{
@@ -231,6 +244,36 @@
             {
                 unset($this->data[$name]);
             }
+
+			protected function check_value($name, $value, $min, $max)
+			{
+				if ( is_string($value) )
+				{
+					
+					if ( (strlen($value) > $max) || (strlen($value) < $min) )
+                    {
+						db::log_error('String type received of invalid length via __set(); '.$name, true);
+                    }
+					else
+                    {
+						$this->data[$name] = \lib\string\left($value, $max);
+                    }
+						
+					return;
+				}
+				if ( is_bool($value) )
+				{
+					$this->data[$name] = $value;
+					
+					return;
+				}
+				
+				if ($value > $max || $value < $min)
+				{
+					db::log_error('Value out of range via __set(); '.$name, true);
+					return;
+				}
+			}
 
         }
 		
