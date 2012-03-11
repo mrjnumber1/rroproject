@@ -2,53 +2,70 @@
 
 namespace dao
 {
-	class bg_log
+	class bg_log extends db
 	{
 		public function __set($name, $value)
 		{
 			$min = 0;
-			$max = 0xFFFFFFFF;
+			$max = \config\constants\number::INT_MAX;
 
-			switch($name)
+			switch ($name)
 			{
-				case 'id':
 				case 'killer_id':
 				case 'killed_id':
+					$min = \config\constants\ragnarok\character::START_CHAR_NUM;
+					break;
 				case 'skill':
-					$this->check_value($name, $value, $this->int_min, $this->int_max);
+					// 0 = Melee/Reflect
+					$max = \config\constants\ragnarok\skill::MAX_SKILL;
 					break;
 				case 'time':
-					$this->check_value($name, $value, 0, 20);
+					$max = \lib\timer\current_timestamp();
 					break;
 				case 'killer':
 				case 'killed':
-					$this->check_value($name, $value, 0, 25);
+					$min = \config\constants\ragnarok\server::NAME_LENGTH_MIN;
+					$max = \config\constants\ragnarok\server::NAME_LENGTH;
 					break;
 				case 'map':
-					$this->check_value($name, $value, 0, 11);
+					$min = \config\constants\ragnarok\server::NAME_LENGTH_MIN;
+					$max = \config\constants\ragnarok\map::MAP_NAME_LENGTH;
 					break;
 			}
 
-			parent:__set($name, $value);
+			if ( ! $this->set_value($name, $value, $min, $max) )
+			{
+				parent::__set($name, $value);
+			}
 		}
 
-		public function __construct($id=null)
+		public function __construct($id = null, $killer = true)
 		{
 			$this->table     = 'bg_log';
-			$this->id_column = 'id';
 
-			$this->data['id']        = null;
-			$this->data['time']      = '0000-00-00 00:00:00';
+			if ($killer)
+			{
+				$this->id_column = 'killer_id';
+				$this->data['killed_id'] = 0;
+			}
+			else
+			{
+				$this->id_column = 'killed_id';
+				$this->data['killer_id'] = 0;
+			}
+
+			parent::__construct();
+
+			$this->data['id']        = 0;
+			$this->data['time']      = null;
 			$this->data['killer']    = '';
-			$this->data['killer_id'] = 0;
 			$this->data['killed']    = '';
-			$this->data['killed_id'] = 0;
 			$this->data['map']       = '';
 			$this->data['skill']     = 0;
 
 			if ( !is_null($id))
 			{
-				$this->load_by_id(intval($id));
+				$this->load_by_id( intval($id) );
 			}
 		}
 	}
