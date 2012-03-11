@@ -2,24 +2,32 @@
 
 namespace dao
 {
-	class char_log extends db
+	class charlog extends db
 	{
 	 	public function __set($name, $value)
 		{
-			switch($name)
+			$min = 0;
+			$max = \config\constants\number::INT_MAX;
+
+			switch ($name)
 			{
 				case 'time':
-					$this->check_value($name, $value, 0, 20);
+					$max = \lib\timer\current_timestamp();
 					break;
 				case 'char_msg':
-					$this->check_value($name, $value, 0, 255);
+					$min = 1; //no empty messages
+					$max = 255;
 					break;
 				case 'name':
-					$this->check_value($name, $value, 0, 23);
+					$min = \config\constants\ragnarok\server::NAME_LENGTH_MIN;
+					$max = \config\constants\ragnarok\server::NAME_LENGTH;
 					break;
 				case 'account_id':
+					$min = \config\constants\ragnarok\account::START_ACCOUNT_NUM;
+					$max = \config\constants\ragnarok\account::END_ACCOUNT_NUM;
+					break;
 				case 'hair_color':
-					$this->check_value($name, $value, $this->int_min, $this->int_max);
+					$max = \config\constants\ragnarok\character::MAX_HAIR_COLOR;
 					break;
 				case 'str':
 				case 'agi':
@@ -27,21 +35,26 @@ namespace dao
 				case 'int':
 				case 'dex':
 				case 'luk':
-					$this->check_value($name, $value, $this->min, $this->uint_max);
+					$min = 1;
+					$max = \config\constants\ragnarok\character::MAX_STAT;
 					break;
 			}
 
-			parent::__set($name, $value);
+			if ( ! $this->set_value($name, $value, $min, $max) )
+			{
+				parent::__set($name, $value);
+			}
 		}
 
-		public function __construct($id=null)
+		public function __construct($id = null)
 		{
 			$this->table     = 'char_log';
-			$this->id_column = ''; //TODO: id column is not defined in the table
+			$this->id_column = 'account_id'; // We sort these by accoutn id;
+
+			parent::__construct();
 
 			$this->data['time']       = 0;
 			$this->data['char_msg']   = '';
-			$this->data['account_id'] = 0;
 			$this->data['char_num']   = 0;
 			$this->data['name']       = '';
 			$this->data['str']        = 0;
@@ -52,6 +65,11 @@ namespace dao
 			$this->data['luk']        = 0;
 			$this->data['hair']       = 0;
 			$this->data['hair_color'] = 0;
+
+			if ( !is_null($id) )
+			{
+				$this->load_by_id( intval($id) );
+			}
 		}
 	} 
 }

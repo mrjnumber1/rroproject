@@ -14,23 +14,14 @@
 			protected $table = '';
 			protected $id_column = '';
 
-			protected $min       =  0;
-			protected $int_min   = -0x80000000;
-			protected $int_max   =  0x7FFFFFFF;
-			protected $uint_max  =  0xFFFFFFFF;
-			protected $mint_min  = -0x800000;
-			protected $mint_max  =  0x7FFFFF;
-			protected $umint_max =  0xFFFFFF;
-			protected $sint_min  = -0x8000;
-			protected $sint_max  =  0x7FFF;
-			protected $usint_max =  0xFFFF;
-			protected $tint_min  = -0x80;
-			protected $tint_max  =  0x7F;
-			protected $utint_max =  0xFF;
-			
 			public function __construct()
 			{
-                if(self::$dbh == null)
+				if ( get_class($this) == __CLASS__ )
+				{
+					self::log_error( 'attempted to instantiate db!', true);
+				}
+
+                if (self::$dbh == null)
                 {
                     self::$dbh = new \PDO(\config\config::$db_dsn,
                         \config\config::$db_user,
@@ -43,7 +34,7 @@
 					self::log_error('Main Class ID Column undefined', true);
                 }
 					
-				$this->data[$this->id_column]=null;
+				$this->data[$this->id_column] = 0;
 				//$this->data['uuid']='';
 			}
 
@@ -82,19 +73,31 @@
 			}
 			protected function fetch(\PDOStatement $statement)
             {
-                return $statement->fetch(PDO::FETCH_ASSOC);
+                return $statement->fetch(\PDO::FETCH_ASSOC);
             }
 			protected function fetchall(\PDOStatement $statement)
             {
-                return $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $statement->fetchAll(\PDO::FETCH_ASSOC);
             }
-			
-			protected function load_by_id($id)
+
+			protected function read_row($row)
 			{
-				$this->load_by_query( "SELECT * FROM `{$this->_table}` WHERE `{$this->id_column}`=:{$this->id_column}", array( $this->id_column => $id) );
+				foreach ($row as $column => $value)
+				{
+					$this->data[$column] = $value;
+				}
+			}
+			protected function fetch_rows($rows)
+			{
+
 			}
 
 
+			protected function load_by_id($id)
+			{
+				$id = intval($id);
+				$this->load_by_query( "SELECT * FROM `{$this->table}` WHERE `{$this->id_column}`=:{$this->id_column}", array( $this->id_column => $id) );
+			}
 			protected function load_by_query($query, array $vars)
 			{
 				$statement = $this->prepare($query);
@@ -122,15 +125,7 @@
 				
 				$this->new = false;
 			}
-			
-			protected function read_row($row)
-            {
-                foreach($row as $column => $value)
-                {
-                    $this->data[$column] = $value;
-                }
-            }
-			
+
 			public function save()
 			{
 				$updates = array();
@@ -156,9 +151,9 @@
 
 				$statement = $this->prepare($query);
 				
-				foreach($this->data as $column => $value)
+				foreach ($this->data as $column => $value)
                 {
-					if( !$this->bind($statement,":$column",$value) )
+					if ( !$this->bind($statement,":$column",$value) )
                     {
 						throw new CannotBindException();
                     }
@@ -195,19 +190,60 @@
 
                 $stmt->execute();
 
-                if($die)
+                if ($die)
                 {
-                    trigger_error( \lib\debug\print_s($error . '\n' .\lib\debug\get_backtrace() ), E_USER_NOTICE);
+					if(\lib\debug\PRINT_ERRORS == true)
+                    	trigger_error( \lib\debug\print_s($error . '\n' .\lib\debug\get_backtrace() ), E_USER_NOTICE);
+
+					trigger_error('Error', E_USER_NOTICE);
                     die();
                 }
             }
 
-			protected function fetch_rows($rows)
-            {
 
-            }
 
-			
+			protected function set_value($name, $value, $min, $max)
+			{
+				if ( !array_key_exists($this->data, $name) )
+				{
+					db::log_error('Undefined property via __set() '. $name, true);
+					return false;
+				}
+
+				if ( is_string($value) )
+				{
+					if ( (strlen($value) > $max) || (strlen($value) < $min) )
+					{
+						db::log_error('String type received of invalid length via __set(); '.$name, true);
+						return false;
+					}
+					else
+					{
+						$this->data[$name] = \lib\string\left($value, $max);
+						return true;
+					}
+				}
+
+				if ($value > $max || $value < $min)
+				{
+					db::log_error('Value out of range via __set(); '.$name, true);
+					return false;
+				}
+				else
+				{
+					$this->data[$name] = intval($value);
+					return true;
+				}
+
+				if ( is_bool($value) )
+				{
+					$this->data[$name] = intval($value);
+					return true;
+				}
+
+				return false;
+			}
+
 			public function __set($name, $value)
 			{
 				switch($name)
@@ -226,10 +262,10 @@
 			
 			public function __get($name)
 			{
-				switch($name)
+				switch ($name)
 				{
 					default:
-						if(array_key_exists($this->data,$name))
+						if(array_key_exists($this->data, $name))
 							return intval($this->data[$name]);
 				}
 				self::log_error('Undefined property via __get(): '.$name, true);
@@ -245,45 +281,15 @@
                 unset($this->data[$name]);
             }
 
-			protected function check_value($name, $value, $min, $max)
-			{
-				if ( is_string($value) )
-				{
-					
-					if ( (strlen($value) > $max) || (strlen($value) < $min) )
-                    {
-						db::log_error('String type received of invalid length via __set(); '.$name, true);
-                    }
-					else
-                    {
-						$this->data[$name] = \lib\string\left($value, $max);
-                    }
-						
-					return;
-				}
-				if ( is_bool($value) )
-				{
-					$this->data[$name] = $value;
-					
-					return;
-				}
-				
-				if ($value > $max || $value < $min)
-				{
-					db::log_error('Value out of range via __set(); '.$name, true);
-					return;
-				}
-			}
-
-        }
+        }  // class db
 		
-		class CannotBindException extends Exception
+		class CannotBindException extends \Exception
         {
         }
-		class InvalidQueryException extends Exception
+		class InvalidQueryException extends \Exception
         {
         }
-		class NotFoundException extends Exception
+		class NotFoundException extends \Exception
         {
         }
 	}

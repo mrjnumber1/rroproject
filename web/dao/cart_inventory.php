@@ -6,51 +6,56 @@ namespace dao
 	{
 		public function __set($name, $value)
 		{
-			switch($name)
+			$min = 0;
+			$max = \config\constants\number::INT_MAX;
+
+			switch ($name)
 			{
 				case 'char_id':
+					$min = \config\constants\ragnarok\character::START_CHAR_NUM;
 				case 'nameid':
+					$min = \config\constants\ragnarok\item::START_ITEMID;
+					$max = \config\constants\ragnarok\item::MAX_ITEMID;
+					break;
 				case 'amount':
-					$this->check_value($name, $value, $this->int_min, $this->int_max);
+					$max = \config\constants\ragnarok\server::MAX_AMOUNT;
 					break;
-				case 'equip':
-					$this->check_value($name, $value, $this->min, $this->umint_max);
-					break;
-				case 'identify':
 				case 'card0':
 				case 'card1':
 				case 'card2':
 				case 'card3':
-					$this->check_value($name, $value, $this->sint_min, $this->sint_max);
+					// 0 = no card
+					$max = \config\constants\ragnarok\item::MAX_ITEMID_CARD;
 					break;
 				case 'refine':
-				case 'price':
-					$this->check_value($name, $value, $this->min, $this->utint_max);
+					$max = \config\constants\ragnarok\item::MAX_REFINE;
 					break;
 				case 'attribute':
-					$this->check_value($name, $value, $this->tint_min, $this->tint_max);
+					$max = \config\constants\ragnarok\item::MAX_ATTRIBUTE;
 					break;
-				case 'expire_time':
+				case 'type':
+					//$max = \config\constants\ragnarok\enums\item_type::max_value();
+					break;
 				case 'serial':
-					$this->check_value($name, $value, $min, $uint_max);
+					$max = \config\constants\number::UINT_MAX;
 					break;
 			}
 
-			parent::__set($name, $value);
+			if ( !$this->set_value($name, $value, $min, $max) )
+			{
+				parent::__set($name, $value);
+			}
 		}
 
-		public function __get($name)
-		{
-			return parent:__get($name);
-		}
 
-		public function __construct($id=null)
+		public function __construct($id = null)
 		{
 			$this->table     = 'cart_inventory';
-			$this->id_column = 'id';
+			$this->id_column = 'char_id';
 			
-			$this->data['id']          = null;
-			$this->data['char_id']     = 0;
+			parent::__construct();
+
+			$this->data['id']     = 0;
 			$this->data['nameid']      = 0;
 			$this->data['amount']      = 0;
 			$this->data['equip']       = 0;
@@ -65,15 +70,11 @@ namespace dao
 			$this->data['expire_time'] = 0;
 			$this->data['serial']      = 0;
 
-			if ( !is_null($id))
+			if ( !is_null($id) )
 			{
-				$this->load_by_id(intval($id));
+				$this->load_by_id( intval($id) );
 			}
 		}
 
-		public function __destruct()
-		{
-			parent::__destruct();
-		}
 	}
 }

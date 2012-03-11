@@ -39,6 +39,8 @@
 
 	namespace lib\debug
 	{
+		define('PRINT_ERRORS', true);
+
 		// get_backtrace pulled from php.net commenter
 		function get_backtrace($traces_to_ignore = 1) // to ignore this call
 		{
@@ -73,6 +75,25 @@
 			}
 
 			return implode("\n",$ret);
+		}
+
+		function get_arg(&$arg)
+		{
+			if (is_object($arg))
+			{
+				$arr = (array)$arg;
+				$args = array();
+				foreach ($arr as $key => $value)
+				{
+					if (strpos($key, chr(0)) !== false)
+					{
+						$key = '';    // Private variable found
+					}
+					$args[] =  '['.$key.'] => '.get_arg($value);
+				}
+
+				$arg = get_class($arg) . ' Object ('.implode(',', $args).')';
+			}
 		}
 		
 		function print_s($variable, $printed = true)

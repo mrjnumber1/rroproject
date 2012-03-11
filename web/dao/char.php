@@ -8,14 +8,25 @@
 				$max = 0xFFFFFFFF;
 				$min = 0;
 				
-				switch($name)
+				switch ($name)
 				{
 					case 'account_id':
 						$min = \config\constants\ragnarok\account::START_ACCOUNT_NUM;
 						$max = \config\constants\ragnarok\account::END_ACCOUNT_NUM;
 						break;
+					case 'partner_id':
+					case 'mother':
+					case 'father':
+						if (intval($value) == $this->data['char_id'])
+						{
+							db::log_error('Value '.$name.'cannot equal the current char_id! via __set()', true);
+							return;
+						}
 					case 'char_id':
 						$min = \config\constants\ragnarok\character::START_CHAR_NUM;
+						break;
+					case 'guild_id':
+						$max = \config\constants\number::SINT_MAX;
 						break;
 					case 'char_num':
 						$max = \config\constants\ragnarok\character::MAX_CHARS;
@@ -32,62 +43,55 @@
 						break;
 					case 'hair':
 						$min = 1;
+						$max = \config\constants\ragnarok\character::MAX_HAIR_STYLE;
+						break;
+					case 'hair_color':
+						$max = \config\constants\ragnarok\character::MAX_HAIR_COLOR;
+						break;
+					case 'clothes_color':
+						$max = \config\constants\ragnarok\character::MAX_CLOTH_COLOR;
 						break;
 					case 'str':
 					case 'agi':
 					case 'int':
 					case 'dex':
 					case 'luk':
+						$min = 1;
 						$max = \config\constants\ragnarok\character::MAX_STAT;
 						break;
 					case 'weapon':
 					//	$max = \config\constants\ragnarok\enums\weapon_type::max_value(); //TODO: add these functions
 					//	$min = \config\constants\ragnarok\enums\weapon_type::min_value();
-						
-						//TODO: finish me!
 						break;
-						
+					case 'shield':
+					//	$max = \config\constants\ragnarok\enums\shield_type::max_value();
+						break;
+					case 'last_map':
+					case 'save_map':
+						$min = \config\constants\ragnarok\map::MAP_NAME_LENGTH_MIN;
+						$max = \config\constants\ragnarok\map::MAP_NAME_LENGTH;
+						break;
+					case 'last_x':
+					case 'last_y':
+					case 'save_y':
+					case 'save_x':
+						$min = 50;
+						$max = 400;
+						break;
+					case 'fame':
+						$max = \config\constants\ragnarok\character::MAX_FAME;
+						break;
+					case 'delete_date':
+						$min = -1;
+						$max = \lib\timer\current_timestamp();
+					case 'online':
+						$value = (bool)$value;
 				}
 				
-				if ( is_string($value) )
+				if ( !$this->set_value($name, $value, $min, $max) )
 				{
-					
-					if ( (strlen($value) > $max) || (strlen($value) < $min) )
-                    {
-						db::log_error('String type received of invalid length via __set(); '.$name, true);
-                    }
-					else
-                    {
-						$this->data[$name] = \lib\string\left($value, $max);
-                    }
-						
-					return;
+					parent::__set($name, $value);
 				}
-				if ( is_bool($value) )
-				{
-					$this->data[$name] = $value;
-					
-					return;
-				}
-				
-				if ($value > $max || $value < $min)
-				{
-					db::log_error('Value out of range via __set(); '.$name, true);
-					return;
-				}
-						
-				return parent::__set($name, $value);
-			}
-			
-			public function __get($name)
-			{
-				// switch($name)
-				// {
-					// case '':
-						// if($this->_data[$name]==null){return null;}
-						// return new $name($this->_data[$name]);
-				// }
-				return parent::_get($name);
 			}
 			
 			public function __construct($id = null)
@@ -162,10 +166,5 @@
                     $this->load_by_id( intval($id) );
                 }
 			}
-			public function __destruct()
-            {
-                parent::__destruct();
-            }
-
 		}
 	}

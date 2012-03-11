@@ -1,4 +1,4 @@
-<php
+<?php
 
 namespace dao
 {
@@ -7,48 +7,67 @@ namespace dao
 	    public function __set($name, $value)
 		{
 			$min = 0;
-			$max = 0xFFFFFFFF;
+			$max = \config\constants\number::INT_MAX;
 
-			switch($name)
+			switch ($name)
 			{
 				case 'seller_name':
 				case 'buyer_name':
-					$this->check_value($name, $value, $min, 30);
+					$min = \config\constants\ragnarok\server::NAME_LENGTH_MIN;
+					$max = \config\constants\ragnarok\server::NAME_LENGTH;
 					break;
 				case 'item_name':
-					$this->check_value($name, $value, $min, 50);
+					$min = \config\constants\ragnarok\server::NAME_LENGTH_MIN;
+					$max = 50;
 					break;
 				case 'seller_id':
 				case 'buyer_id':
+					$min = \config\constants\ragnarok\character::START_CHAR_NUM;
+					break;
 				case 'price':
+					$max = \config\constants\ragnarok\character::MAX_ZENY / 2 - 1; // defined in battle_config
+					break;
 				case 'buy_now':
-				case 'timestamp':
-				case 'nameid':
-				case 'serial':
-					$this->check_value($name, $value, $min, $max);
+					$max = \config\constants\ragnarok\character::MAX_ZENY / 2;
 					break;
 				case 'hours':
-				case 'type':
+					$min = 1;
+					$max = 48;
+					break;
+				case 'timestamp':
+					$max = \lib\timer\current_timestamp();
+					break;
+				case 'nameid': //these are all item ids
+					$min = \config\constants\ragnarok\item::START_ITEMID;
+					$max = \config\constants\ragnarok\item::MAX_ITEMID;
+					break;
 				case 'card0':
 				case 'card1':
 				case 'card2':
 				case 'card3':
-					$this->check_value($name, $value, $min, 32767); // smallint
+					// 0 = no card
+					$max = \config\constants\ragnarok\item::MAX_ITEMID_CARD;
 					break;
 				case 'refine':
+					$max = \config\constants\ragnarok\item::MAX_REFINE;
+					break;
 				case 'attribute':
-					$this->check_value($name, $value, $min, 255); // tinyint
-				break;
+					$max = \config\constants\ragnarok\item::MAX_ATTRIBUTE;
+					break;
+				case 'type':
+					//$max = \config\constants\ragnarok\enums\item_type::max_value();
+					break;
+				case 'serial':
+					$max = \config\constants\number::UINT_MAX;
+					break;
 			}
 
-			parent:__set($name, $value);
+			if ( ! $this->set_value($name, $value, $min, $max) )
+			{
+				parent::__set($name, $value);
+			}
 		}
 
-		public function __get($name)
-		{
-			return parent::__get($name);
-		}
-	    
 		public function __construct($id = null)
 		{
 		    $this->table     = 'auction';
@@ -64,8 +83,8 @@ namespace dao
 			$this->data['buy_now']     = 0;
 			$this->data['hours']       = 0;
 			$this->data['timestamp']   = 0;
-			$this->data['nameid']      = 0;
 			$this->data['item_name']   = '';
+			$this->data['nameid']      = 0;
 			$this->data['type']        = 0;
 			$this->data['refine']      = 0;
 			$this->data['attribute']   = 0;
@@ -75,16 +94,12 @@ namespace dao
 			$this->data['card3']       = 0;
 			$this->data['serial']      = 0;
 
-			if (! is_null($id))
+			if ( !is_null($id) )
 			{
-				$this->load_by_id(intval($id));
+				$this->load_by_id( intval($id) );
 			}
 		}
 
-		public function __destruct()
-		{
-			parent::__destruct();
-		}
 	}
 }
 
