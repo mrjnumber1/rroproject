@@ -1,7 +1,8 @@
 <?php
+
 	namespace dao
 	{
-		class bg_skillcount extends db
+		class mercenary extends db
 		{
 
 			public function __set($name, $value)
@@ -13,12 +14,12 @@
 				{
 					case 'char_id':
 						$min = \config\constants\ragnarok\character::START_CHAR_NUM;
-						$max = \config\constants\number::UINT_MAX;
 						break;
-					case 'id':
-						$max = \config\constants\ragnarok\skill::MAX_SKILL;
+					case 'class':
+						$min = \config\constants\ragnarok\mercenary::MERC_CLASS_BASE;
+						$max = \config\constants\ragnarok\mercenary::MERC_CLASS_MAX;
 						break;
-					case 'count':
+					case 'mer_id':
 						$max = \config\constants\number::UINT_MAX;
 						break;
 				}
@@ -33,21 +34,28 @@
 			{
 				switch ($name)
 				{
+					case 'master_id':
 					case 'char_id':
-						return new char($this->data[$name]);
+						return new char($this->data['char_id']);
+					case 'life_time':
+						return new \DateTime($this->data[$name]);
 				}
-			}
 
+				return parent::__get($name);
+			}
 			public function __construct($id = null)
 			{
-
-				$this->table = __CLASS__;
 				$this->id_column = 'char_id';
+				$this->table = 'mercenary';
 
 				parent::__construct();
 
-				$this->data['id']   = 0;
-				$this->data['count']= 0;
+				$this->data['mer_id'] = 0;
+				$this->data['class'] = 0;
+				$this->data['kill_counter'] = 0;
+				$this->data['life_time'] = 0;
+				$this->data['hp'] = 0;
+				$this->data['sp'] = 0;
 
 				if ( !is_null($id) )
 				{

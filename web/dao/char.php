@@ -35,6 +35,10 @@
 						//TODO: add a real job id checker of some sort..
 						$max = 4049;
 						break;
+					case 'name':
+						$min = \config\constants\ragnarok\server::NAME_LENGTH_MIN;
+						$max = \config\constants\ragnarok\server::NAME_LENGTH;
+						break;
 					case 'base_level':
 						$max = \config\constants\ragnarok\character::MAX_LEVEL;
 						break;
@@ -75,7 +79,7 @@
 					case 'last_y':
 					case 'save_y':
 					case 'save_x':
-						$min = 50;
+						$min = 0;
 						$max = 400;
 						break;
 					case 'fame':
@@ -91,6 +95,26 @@
 				if ( !$this->set_value($name, $value, $min, $max) )
 				{
 					parent::__set($name, $value);
+				}
+			}
+
+			public function __get($name)
+			{
+				switch ($name)
+				{
+					case 'account_id':
+						return new login($this->data[$name]);
+					case 'party_id':
+						return new party($this->data[$name]);
+					case 'guild_id':
+						return new guild($this->data[$name]);
+					case 'pet_id':
+						return new pet($this->data[$name]);
+					case 'mother':
+					case 'father':
+					case 'child':
+					case 'partner_id':
+						return new char($this->data[$name]);
 				}
 			}
 			

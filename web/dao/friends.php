@@ -32,6 +32,18 @@
 					parent::__set($name, $value);
 				}
 			}
+			public function __get($name)
+			{
+				switch ($name)
+				{
+					case 'friend_id':
+					case 'char_id':
+						return new char($this->data[$name]);
+					case 'friend_account':
+						return new login($this->data[$name]);
+				}
+			}
+
 			public function __construct($id = null)
 			{
 				$this->table = 'friends';

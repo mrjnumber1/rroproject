@@ -1,9 +1,8 @@
 <?php
 	namespace dao
 	{
-		class bg_skillcount extends db
+		class mercenary_owner extends db
 		{
-
 			public function __set($name, $value)
 			{
 				$min = 0;
@@ -13,13 +12,6 @@
 				{
 					case 'char_id':
 						$min = \config\constants\ragnarok\character::START_CHAR_NUM;
-						$max = \config\constants\number::UINT_MAX;
-						break;
-					case 'id':
-						$max = \config\constants\ragnarok\skill::MAX_SKILL;
-						break;
-					case 'count':
-						$max = \config\constants\number::UINT_MAX;
 						break;
 				}
 
@@ -34,25 +26,32 @@
 				switch ($name)
 				{
 					case 'char_id':
-						return new char($this->data[$name]);
+						return new char($this->data['char_id']);
 				}
+
+				return parent::__get($name);
 			}
 
 			public function __construct($id = null)
 			{
-
-				$this->table = __CLASS__;
+				$this->table = 'mercenary_owner';
 				$this->id_column = 'char_id';
 
 				parent::__construct();
 
-				$this->data['id']   = 0;
-				$this->data['count']= 0;
+				$this->data['mer_id'] = 0;
+				$this->data['arch_calls'] = 0;
+				$this->data['arch_faith'] = 0;
+				$this->data['spear_calls'] = 0;
+				$this->data['spear_faith'] = 0;
+				$this->data['sword_calls'] = 0;
+				$this->data['sword_faith'] = 0;
 
 				if ( !is_null($id) )
 				{
 					$this->load_by_id( intval($id) );
 				}
+
 			}
 		}
 	}

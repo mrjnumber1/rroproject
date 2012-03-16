@@ -91,9 +91,19 @@
 					db::log_error('Attempted to retrieve irretrievable value', true);
 					return 0;
 				}
+				switch ($name)
+				{
+					case 'value':
+						if ( $this->data['str'] == '##SECURITY' )
+						{
+							db::log_error('Attempted to retrieve irretrievable value', true);
+						}
+				}
 
 				return parent::__get($name);
 			}
+
+
 
 			public function __construct($id = null, $id_type = \config\constants\ragnarok\registry::CHAR_ID)
 			{

@@ -81,4 +81,4 @@ return array(
 	4048 => 'Star Gladiator (Floating)',
 	4049 => 'Soul Linker',
 
-)
+);
