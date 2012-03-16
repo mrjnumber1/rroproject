@@ -10,7 +10,7 @@
 			protected $new = true;
 			
 			protected $data = array(); // for table's data
-			protected $data_ext = array(); //for JOINED data
+			protected $daseta_ext = array(); //for JOINED data
 			protected $table = '';
 			protected $id_column = '';
 
@@ -18,12 +18,12 @@
 			{
 				if ( get_class($this) == __CLASS__ )
 				{
-					self::log_error( 'attempted to instantiate db!', true);
+					static::log_error( 'attempted to instantiate db!', true);
 				}
 
-                if (self::$dbh == null)
+                if (static::$dbh == null)
                 {
-                    self::$dbh = new \PDO(\config\config::$db_dsn,
+                    static::$dbh = new \PDO(\config\config::$db_dsn,
                         \config\config::$db_user,
                         \config\config::$db_pass,
                         \config\config::$db_options
@@ -31,7 +31,7 @@
                 }
 				if ( empty($this->id_column) )
                 {
-					self::log_error('Main Class ID Column undefined', true);
+					static::log_error('Main Class ID Column undefined', true);
                 }
 					
 				$this->data[$this->id_column] = 0;
@@ -44,23 +44,23 @@
 			
 			protected function begin()
             {
-                return self::$dbh->beginTransaction();
+                return static::$dbh->beginTransaction();
             }
 			protected function commit()
             {
-                return self::$dbh->commit();
+                return static::$dbh->commit();
             }
 			protected function rollback()
             {
-                return self::$dbh->rollBack();
+                return static::$dbh->rollBack();
             }
 			protected function lastid()
             {
-                return self::$dbh->lastInsertId();
+                return static::$dbh->lastInsertId();
             }
 			protected function prepare($query)
             {
-                return self::$dbh->prepare($query);
+                return static::$dbh->prepare($query);
             }
 			protected function bind(\PDOStatement $statement, $parameter, $value)
             {
@@ -256,7 +256,7 @@
 							return;
 						}
 				}
-				self::log_error('Undefined property via __set(): '.$name,true);
+				static::log_error('Undefined property via __set(): '.$name,true);
 				return;
 			}
 			
@@ -266,9 +266,23 @@
 				{
 					default:
 						if(array_key_exists($this->data, $name))
-							return intval($this->data[$name]);
+						{
+							if ( is_string($this->data[$name]) )
+							{
+								$flags = ENT_QUOTES;
+								if (defined('ENT_SUBSTITUTE') )
+								{
+									$flags |= ENT_SUBSTITUTE;
+								}
+								return ( htmlspecialchars(\lib\string\left($this->data[$name], 1024), $flags, 'UTF-8') );
+							}
+							else
+							{
+								return ( intval($this->data[$name]) );
+							}
+						}
 				}
-				self::log_error('Undefined property via __get(): '.$name, true);
+				static::log_error('Undefined property via __get(): '.$name, true);
 				return null;
 			}
 			

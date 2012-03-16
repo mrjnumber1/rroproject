@@ -31,8 +31,8 @@ namespace dao
 					$max = \config\constants\ragnarok\character::MAX_ZENY / 2;
 					break;
 				case 'hours':
-					$min = 1;
-					$max = 48;
+					$min = \config\constants\ragnarok\auction::MIN_HOURS;
+					$max = \config\constants\ragnarok\auction::MAX_HOURS;
 					break;
 				case 'timestamp':
 					$max = \lib\timer\current_timestamp();
@@ -62,12 +62,43 @@ namespace dao
 					break;
 			}
 
-			if ( ! $this->set_value($name, $value, $min, $max) )
+			if ( !$this->set_value($name, $value, $min, $max) )
 			{
 				parent::__set($name, $value);
 			}
 		}
 
+		public function __get($name)
+		{
+			switch ($name)
+			{
+				case 'buyer_id':
+				case 'seller_id':
+					return new char($this->data[$name]);
+					break;
+				case 'nameid':
+				case 'card0':
+				case 'card1':
+				case 'card2':
+				case 'card3':
+					return new item_db($this->data[$name]);
+					break;
+				case 'attribute':
+					//return new \config\constants\ragnarok\enums\attribute($this->data[$name])
+					break;
+				case 'type':
+					//return new \config\constants\ragnarok\enums\item_type($this->data[$name]);
+					break;
+				case 'timestamp':
+					return new \DateTime($this->data[$name]);
+					break;
+				case 'buy_now':
+				case 'price':
+					return \lib\string\number_format($this->data[$name]);;
+			}
+
+			return parent::__get($name);
+		}
 		public function __construct($id = null)
 		{
 		    $this->table     = 'auction';

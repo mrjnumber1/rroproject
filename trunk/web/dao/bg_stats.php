@@ -29,9 +29,18 @@ namespace dao
 			}
 		}
 
+		public function __get($name)
+		{
+			switch ($name)
+			{
+				case 'char_id':
+					return new char($this->data[$name]);
+			}
+		}
+
 		public function __construct($id=null)
 		{
-			$this->table     = 'bg_stats';
+			$this->table     = __CLASS__;
 			$this->id_column = 'char_id';
 
 			parent::__construct();

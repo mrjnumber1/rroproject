@@ -1,7 +1,8 @@
 <?php
+
 	namespace dao
 	{
-		class guild_storage extends db
+		class inventory extends db
 		{
 			public function __set($name, $value)
 			{
@@ -10,8 +11,8 @@
 
 				switch ($name)
 				{
-					case 'guild_id':
-						$max = \config\constants\number::SINT_MAX;
+					case 'char_id':
+						$min = \config\constants\ragnarok\character::START_CHAR_NUM;
 						break;
 					case 'nameid':
 						$min = \config\constants\ragnarok\item::START_ITEMID;
@@ -43,14 +44,28 @@
 					parent::__set($name, $value);
 				}
 			}
+
+			public function __get($name)
+			{
+				switch($name)
+				{
+
+					case 'expire_time':
+						return new \DateTime($this->data[$name]);
+						break;
+				}
+
+				return parent::__get($name);
+			}
+
 			public function __construct($id = null)
 			{
-				$this->table = 'guild_storage';
-				$this->id_column = 'guild_id';
+				$this->table     = 'inventory';
+				$this->id_column = 'char_id';
 
 				parent::__construct();
 
-				$this->data['id']          = 0;
+				$this->data['id']     = 0;
 				$this->data['nameid']      = 0;
 				$this->data['amount']      = 0;
 				$this->data['equip']       = 0;
@@ -70,5 +85,6 @@
 					$this->load_by_id( intval($id) );
 				}
 			}
+
 		}
 	}

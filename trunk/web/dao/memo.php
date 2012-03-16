@@ -1,25 +1,25 @@
 <?php
+
 	namespace dao
 	{
-		class bg_skillcount extends db
+		class memo extends db
 		{
-
 			public function __set($name, $value)
 			{
 				$min = 0;
-				$max = \config\constants\number::INT_MAX;
+				$max = 400;
 
 				switch ($name)
 				{
+					case 'memo_id':
+						$max = \config\constants\number::UINT_MAX;
+						break;
 					case 'char_id':
 						$min = \config\constants\ragnarok\character::START_CHAR_NUM;
-						$max = \config\constants\number::UINT_MAX;
 						break;
-					case 'id':
-						$max = \config\constants\ragnarok\skill::MAX_SKILL;
-						break;
-					case 'count':
-						$max = \config\constants\number::UINT_MAX;
+					case 'map':
+						$min = \config\constants\ragnarok\map::MAP_NAME_LENGTH_MIN;
+						$max = \config\constants\ragnarok\map::MAP_NAME_LENGTH;
 						break;
 				}
 
@@ -36,18 +36,21 @@
 					case 'char_id':
 						return new char($this->data[$name]);
 				}
+
+				return parent::__get($name);
 			}
 
 			public function __construct($id = null)
 			{
-
-				$this->table = __CLASS__;
+				$this->table = 'memo';
 				$this->id_column = 'char_id';
 
 				parent::__construct();
 
-				$this->data['id']   = 0;
-				$this->data['count']= 0;
+				$this->data['memo_id'] = 0;
+				$this->data['map'] = '';
+				$this->data['y'] = 0;
+				$this->data['x'] = 0;
 
 				if ( !is_null($id) )
 				{

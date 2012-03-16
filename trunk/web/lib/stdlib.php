@@ -98,7 +98,13 @@
 		
 		function print_s($variable, $printed = true)
         {
-            $str = nl2br(html_entities(str_replace(' ', '&nbsp;',print_r($variable,true) ) ) );
+			if ( !defined('PRINT_ERRORS') )
+			{
+				\dao\db::log_error('Attempted to print '.$variable.' with error printing off. Var data: '.print_r($variable, true), false );
+				return '';
+			}
+
+            $str = nl2br(htmlentities(str_replace(' ', '&nbsp;',print_r($variable,true) ) ) );
 
             if($printed)
             {
@@ -114,6 +120,10 @@
         {
             return date('Y-m-d H:i:s');
         }
+		function duration(\DateTime $start, \DateTime $end)
+		{
+
+		}
 		
 		class timer
 		{
@@ -136,13 +146,28 @@
 	
 	namespace lib\string
 	{
-		function right($string,$count)
+		function right($string, $count)
         {
             return substr($string, ($count * -1) );
         }
+
 		function left($string,$count)
         {
             return substr($string, 0, $count);
         }
+
+		function number_format($amount, $decimals = 0)
+		{
+			// TODO: create modifs based on logged in member language
+			$dec_point = '.';
+			$thousands_sep = ',';
+
+			return number_format($amount, $decimals, $dec_point, $thousands_sep);
+		}
+
+		function percent($amount, $symbol = false, $precision = 2)
+		{
+			return (round($amount, $precision).($symbol?'%':''));
+		}
 	}
 	

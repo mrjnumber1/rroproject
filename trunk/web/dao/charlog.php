@@ -46,6 +46,15 @@ namespace dao
 			}
 		}
 
+		public function __get($name)
+		{
+			switch ($name)
+			{
+				case 'account_id':
+					return new login($this->data[$name]);
+			}
+		}
+
 		public function __construct($id = null)
 		{
 			$this->table     = 'char_log';

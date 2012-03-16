@@ -13,6 +13,7 @@ namespace dao
 			{
 				case 'char_id':
 					$min = \config\constants\ragnarok\character::START_CHAR_NUM;
+					break;
 				case 'nameid':
 					$min = \config\constants\ragnarok\item::START_ITEMID;
 					$max = \config\constants\ragnarok\item::MAX_ITEMID;
@@ -31,10 +32,7 @@ namespace dao
 					$max = \config\constants\ragnarok\item::MAX_REFINE;
 					break;
 				case 'attribute':
-					$max = \config\constants\ragnarok\item::MAX_ATTRIBUTE;
-					break;
-				case 'type':
-					//$max = \config\constants\ragnarok\enums\item_type::max_value();
+					//$max = \config\constants\ragnarok\enums\attribute::max_value();
 					break;
 				case 'serial':
 					$max = \config\constants\number::UINT_MAX;
@@ -47,6 +45,16 @@ namespace dao
 			}
 		}
 
+		public function __get($name)
+		{
+			switch ($name)
+			{
+				case 'char_id':
+					return new char($this->data[$name]);
+				case 'nameid':
+					return new item_db($this->data[$name]);
+			}
+		}
 
 		public function __construct($id = null)
 		{

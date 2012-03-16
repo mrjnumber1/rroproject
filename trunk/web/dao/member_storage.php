@@ -1,7 +1,7 @@
 <?php
 	namespace dao
 	{
-		class guild_storage extends db
+		class member_storage extends db
 		{
 			public function __set($name, $value)
 			{
@@ -10,8 +10,8 @@
 
 				switch ($name)
 				{
-					case 'guild_id':
-						$max = \config\constants\number::SINT_MAX;
+					case 'member_id':
+						$max = \config\constants\ragnarok\account::END_ACCOUNT_NUM;
 						break;
 					case 'nameid':
 						$min = \config\constants\ragnarok\item::START_ITEMID;
@@ -45,8 +45,8 @@
 			}
 			public function __construct($id = null)
 			{
-				$this->table = 'guild_storage';
-				$this->id_column = 'guild_id';
+				$this->table = 'member_storage';
+				$this->id_column = 'member_id';
 
 				parent::__construct();
 

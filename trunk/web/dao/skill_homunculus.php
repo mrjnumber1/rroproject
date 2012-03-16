@@ -1,9 +1,8 @@
 <?php
 	namespace dao
 	{
-		class bg_skillcount extends db
+		class skill_homunculus extends db
 		{
-
 			public function __set($name, $value)
 			{
 				$min = 0;
@@ -11,15 +10,13 @@
 
 				switch ($name)
 				{
-					case 'char_id':
-						$min = \config\constants\ragnarok\character::START_CHAR_NUM;
-						$max = \config\constants\number::UINT_MAX;
-						break;
 					case 'id':
-						$max = \config\constants\ragnarok\skill::MAX_SKILL;
+						$min = \config\constants\ragnarok\homunculus::HM_SKILLBASE;
+						$max = $min + \config\constants\ragnarok\homunculus::MAX_HOMUNSKILL;
 						break;
-					case 'count':
-						$max = \config\constants\number::UINT_MAX;
+					case 'lv':
+						// TODO: add real max lv checker :)
+						$max = 10;
 						break;
 				}
 
@@ -27,32 +24,37 @@
 				{
 					parent::__set($name, $value);
 				}
+
 			}
 
 			public function __get($name)
 			{
 				switch ($name)
 				{
-					case 'char_id':
-						return new char($this->data[$name]);
+					case 'homun_id':
+						return new homunculus($this->data[$name]);
 				}
+
+				return parent::__get($name);
 			}
 
 			public function __construct($id = null)
 			{
-
-				$this->table = __CLASS__;
-				$this->id_column = 'char_id';
+				$this->table = 'skill_homunculus';
+				$this->id_column = 'homun_id';
 
 				parent::__construct();
 
-				$this->data['id']   = 0;
-				$this->data['count']= 0;
+				$this->data['id'] = 0;
+				$this->data['lv'] = 0;
+
 
 				if ( !is_null($id) )
 				{
 					$this->load_by_id( intval($id) );
 				}
+
 			}
+
 		}
 	}
