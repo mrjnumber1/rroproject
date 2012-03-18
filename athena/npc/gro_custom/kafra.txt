@@ -70,6 +70,11 @@
 		}
 		if (@K_Menu0$[@num] == "Use Member Storage")
 		{
+			if(memberopenstorage() == 1)
+			{
+				mes "[Kafra Employee]";
+				mes "I'm sorry but another person is using the member storage right now. Please wait until that person is finished.";
+			}
 			close2;
 			cutin "",255;
 			message strcharinfo(0), "Not implemented yet!";
