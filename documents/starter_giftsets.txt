@@ -1,0 +1,5 @@
+For LR chars:
+	free tickets for things like the warper and resetter. Account bound
+
+For Non-LR chars:
+	~400 Starter Badges. They should only be usable for Account bound items
