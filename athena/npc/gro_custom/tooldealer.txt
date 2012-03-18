@@ -225,7 +225,7 @@ function	script	EnchantGear	{
 			next;
 			mes "[Mann Co. Engineer]";
 			mes "^FFA500To enchant your Weapon^000000:";
-			mes "a) 50 Bravery, 50 Valor and 50 Heroism Badges.";
+			mes "a) 50 Battle Badges.";
 			mes "b) 200,000 Zeny";
 			mes "c) 20 Kafra Points";
 			next;
@@ -276,7 +276,7 @@ function	script	EnchantGear	{
 
 			mes "[Mann Co. Engineer]";
 			mes "You want to enchant your " + getitemname(.@Item) + "?";
-			mes "The cost of this is ^0000FF50 Bravery, 50 Valor and 50 Heroism Badges as well as 200,000 zeny and 20 Kafra Points^000000.";
+			mes "The cost of this is ^0000FF50 Battle Badges,  200,000 zeny, and 20 Kafra Points^000000.";
 			mes "But before that, I must warn you of the risk.";
 			mes "Once the weapon receives the enchant ^FF0000it will lose refine and cards^000000.";
 			mes "This process cannot destroy your weapon, so you may proceed safely.";
@@ -290,7 +290,7 @@ function	script	EnchantGear	{
 			}
 
 			set .@Type, @menu; // 1 : Elemental | 2 : Racial
-			if( countitem(7828) < 50 || countitem(7829) < 50 || countitem(7773) < 50 || Zeny < 200000 || #KAFRAPOINTS < 20 )
+			if( countitem(7773) < 50 || Zeny < 200000 || ##KAFRAPOINTS < 20 )
 			{
 				mes "[Mann Co. Engineer]";
 				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
@@ -332,8 +332,6 @@ function	script	EnchantGear	{
 				break;
 			}
 
-			delitem 7828,50;
-			delitem 7829,50;
 			delitem 7773,50;
 			set Zeny, Zeny - 200000;
 			paypoints 20;
@@ -456,7 +454,7 @@ function	script	EnchantGear	{
 		case 3:
 			mes "[Mann Co. Engineer]";
 			mes "^FFA500To enchant your HeadGear^000000:";
-			mes "a) 100 Bravery, 100 Valor and 100 Heroism Badges.";
+			mes "a) 200 Battle Badges.";
 			mes "b) 2,000,000 Zeny";
 			mes "c) 100 Kafra Points"; 
 			mes "You will gain +1 to a random stat.";
@@ -498,7 +496,7 @@ function	script	EnchantGear	{
 
 			mes "[Mann Co. Engineer]";
 			mes "You want to enchant your " + getitemname(getequipid(1)) + "?";
-			mes "The cost of this work is ^0000FF100 Bravery, 100 Valor, 100 Heroism Badges, 2,000,000 zeny, and 100 Kafra Points^000000.";
+			mes "The cost of this work is ^0000FF200 Battle Badges, 2,000,000 zeny, and 100 Kafra Points^000000.";
 			mes "I must warn you of the risk.";
 			mes "Once the headgear receives the enchant, ^FF0000it will lose refine and cards^000000.";
 			mes "Do you still want to Enchant?";
@@ -511,7 +509,7 @@ function	script	EnchantGear	{
 				close;
 			}
 
-			if( countitem(7828) < 100 || countitem(7829) < 100 || countitem(7773) < 100 || Zeny < 2000000 || #KAFRAPOINTS < 100 )
+			if( countitem(7773) < 200 || Zeny < 2000000 || ##KAFRAPOINTS < 100 )
 			{
 				mes "[Mann Co. Engineer]";
 				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
@@ -550,9 +548,7 @@ function	script	EnchantGear	{
 				}
 			}
 
-			delitem 7828,100;
-			delitem 7829,100;
-			delitem 7773,100;
+			delitem 7773,200;
 			set Zeny, Zeny - 200000;
 			paypoints 100;
 			if( .@Enchant == 0 ) set .@Enchant, 4768 + (rand(6) * 3);
@@ -567,8 +563,9 @@ function	script	EnchantGear	{
 		case 4:
 			mes "[Mann Co. Engineer]";
 			mes "^FFA500To enchant Footgear or Garment.^000000:";
-			mes "a) 30 Bravery, 30 Valor and 30 Heroism Badges.";
+			mes "a) 30 Battle Badges.";
 			mes "b) 200,000 Zeny";
+			mes "c) 10 Kafra Points.";
 			mes "You will receive an HP or SP bonus";
 			mes "^FF0000Equip will loose refines and cards^000000.";
 			next;
@@ -599,7 +596,7 @@ function	script	EnchantGear	{
 
 			mes "[Mann Co. Engineer]";
 			mes "You want to enchant your " + getitemname(getequipid(.@Equip)) + "?";
-			mes "The cost of this work is ^0000FF30 Bravery, 30 Valor, 30 Heroism Badges, 200,000 zeny, and 5 Kafra Points^000000.";
+			mes "The cost of this work is ^0000FF30 Battle Badges, 200,000 zeny, and 10 Kafra Points^000000.";
 			mes "But before that, I must warn you of the risk.";
 			mes "Once the equip receives the enchant ^FF0000it will lose refine and cards^000000.";
 			mes "Do you still want to Enchant?";
@@ -613,7 +610,7 @@ function	script	EnchantGear	{
 			}
 
 			set .@Type, @menu - 1; // 0 : HP | 1 : SP
-			if( countitem(7828) < 30 || countitem(7829) < 30 || countitem(7773) < 30 || Zeny < 200000 || #KAFRAPOINTS < 5 )
+			if( countitem(7773) < 30 || Zeny < 200000 || ##KAFRAPOINTS < 10 )
 			{
 				mes "[Mann Co. Engineer]";
 				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
@@ -661,11 +658,9 @@ function	script	EnchantGear	{
 				
 	//		}
 
-			delitem 7828,30;
-			delitem 7829,30;
 			delitem 7773,30;
 			set Zeny, Zeny - 200000;
-			paypoints 5;
+			paypoints 10;
 
 			successenchant .@Equip,.@Enchant;
 
@@ -677,7 +672,7 @@ function	script	EnchantGear	{
 		case 5:
 			mes "[Mann Co. Engineer]";
 			mes "^FFA500To enchant a Shield you need:^000000:";
-			mes "a) Need 30 Bravery, 30 Valor and 30 Heroism Badges.";
+			mes "a) 30 Battle Badges.";
 			mes "b) 200,000 Zeny";
 			mes "c) 10 Kafra Points";
 			mes "You gain 5% Elemental or Racial resistance.";
@@ -716,7 +711,7 @@ function	script	EnchantGear	{
 
 			mes "[Mann Co. Engineer]";
 			mes "You want to enchant your " + getitemname(getequipid(3)) + "?";
-			mes "The cost of this work is ^0000FF30 Bravery, 30 Valor, 30 Heroism Badges, 200,000 zeny, and 10 Kafra Points^000000.";
+			mes "The cost of this work is ^0000FF30 Battle Badges, 200,000 zeny, and 10 Kafra Points^000000.";
 			mes "I must warn you of the risk.";
 			mes "Once the equip receives the enchant ^FF0000it will lose refine and cards^000000.";
 			mes "Do you still want to Enchant?";
@@ -730,7 +725,7 @@ function	script	EnchantGear	{
 			}
 
 			set .@Type, @menu; // 1 : Elemental | 2 : Racial
-			if( countitem(7828) < 30 || countitem(7829) < 30 || countitem(7773) < 30 || Zeny < 200000 || #KAFRAPOINTS < 10)
+			if( countitem(7773) < 30 || Zeny < 200000 || ##KAFRAPOINTS < 10)
 			{
 				mes "[Mann Co. Engineer]";
 				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
@@ -773,8 +768,6 @@ function	script	EnchantGear	{
 				break;
 			}
 
-			delitem 7828,30;
-			delitem 7829,30;
 			delitem 7773,30;
 			set Zeny, Zeny - 200000;
 			paypoints 10;
@@ -791,7 +784,7 @@ function	script	EnchantGear	{
 		case 6:
 			mes "[Mann Co. Engineer]";
 			mes "^FFA500To enchant your Accesory^000000:";
-			mes "a) 150 Bravery, 150 Valor and 100 Heroism Badges.";
+			mes "a) 200 Battle Badges.";
 			mes "b) 1,000,000 Zeny";
 			mes "c) 100 Kafra Points";
 			mes "Enchant Type is a Bonus on Max Weight";
@@ -835,7 +828,7 @@ function	script	EnchantGear	{
 
 			mes "[Mann Co. Engineer]";
 			mes "You want to enchant your " + getitemname(.@Item) + "?";
-			mes "The cost of this work is ^0000FF150 Bravery, 150 Valor, 100 Heroism Badges, 1,000,000 Zeny, and 100 Kafra Points^000000.";
+			mes "The cost of this work is ^0000FF200 Battle Badges, 1,000,000 Zeny, and 100 Kafra Points^000000.";
 			mes "I must warn you of the risk.";
 			mes "Once the Accesory receives the enchant ^FF0000it will loose cards^000000.";
 			mes "Do you still want to Enchant?";
@@ -848,7 +841,7 @@ function	script	EnchantGear	{
 				close;
 			}
 
-			if( countitem(7828) < 150 || countitem(7829) < 150 || countitem(7773) < 100 || Zeny < 1000000 || #KAFRAPOINTS < 100 )
+			if( countitem(7773) < 200 || Zeny < 1000000 || ##KAFRAPOINTS < 100 )
 			{
 				mes "[Mann Co. Engineer]";
 				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
@@ -865,9 +858,7 @@ function	script	EnchantGear	{
 				close;
 			}
 
-			delitem 7828,150;
-			delitem 7829,150;
-			delitem 7773,100;
+			delitem 7773,200;
 			set Zeny, Zeny - 1000000;
 			paypoints 100;
 			successenchant .@Part,4900;
