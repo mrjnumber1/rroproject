@@ -1,0 +1,16 @@
+-	script	eventbonuses	-1,{
+
+OnPCBaseLvUpEvent:
+
+	if( islowratechar() == 1 && )
+	{
+		announce strcharinfo(0) + " reached Level 99! Congratulations!!";
+		
+		
+		
+	}
+
+ONPCJobLvUpEvent:
+
+
+}

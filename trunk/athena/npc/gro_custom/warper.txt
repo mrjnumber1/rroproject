@@ -1,0 +1,3716 @@
+-	script	f_warper	-1,{
+	
+if(!@warp_x || !@warp_y)
+{
+	set @warp_name$, "Prontera";
+	set @warp_map$, "prontera";
+	set @warp_x, 153;
+	set @warp_y, 174;
+}
+		
+mes "[Warp NPC]";
+mes "Where would you like to be warped to?";
+menu	("(Last)-" + @warp_name$),LWarpEnd,"Towns",town,"Dungeons",dungeon,"Fields",field,"WoE",woe;
+
+woe:
+	message strcharinfo(0),"Not implemented yet.";
+	close;
+	
+town:
+menu 	
+	"Prontera",LWTProntera,
+	"Alberta",LWTAlberta,
+	"Aldebaran",LWTAldebaran,
+	"Amatsu",LWTAmatsu,
+	"Ayothaya",LWTAyothaya,
+	"Brasilis",LWTBrasilis,
+	"Comodo",LWTComodo,
+	"Dicastes",LWTDicastes,
+	"Einbech",LWTEinbech,
+	"Einbroch",LWTEinbroch,
+	"Geffen",LWTGeffen,
+	"Gonryun",LWTGonryun,
+	"Hugel",LWTHugel,
+	"Izlude",LWTIzlude,
+	"Jawaii",LWTJawaii,
+	"Lighthalzen",LWTLighthalzen,
+	"Louyang",LWTLouyang,
+	"Lutie",LWTLutie,	
+	"Manuk",LWTManuk,
+	"Midgard Camp",LWTMid_camp,
+	"Morroc",LWTMorocc,
+	"Moscovia",LWTMoscovia,
+	"Nameless Island",LWTNameless,
+	"Niflheim",LWTNifltown,
+	"Payon",LWTPayon,
+	"Rachel",LWTRachel,
+	"Splendide",LWTSplendide,
+	"St. Capitolina Abbey",LWTPrt_monk,
+	"Thor Camp",LWTThorcamp,
+	"Veins",LWTVeins,
+	"Yuno",LWTYuno,
+	"Umbala",LWTUmbala;
+
+field:
+
+	if( islowratechar() == 0)
+	{
+		mes "Not available for non-LR chars.";
+		close;
+	}
+	
+menu 	
+	"Amatsu Fields",wamafild,
+	"Ayothaya Fields",wayofild,
+	"Bifrost Fields",wbiffild,
+	"Brasilis Field",wbrafild,
+	"Comodo Fields",wcmdfild,
+	"Dicastes Fields",wdicfild,
+	"Einbroch Fields",weinfild,
+	"Geffen Fields",wgeffild,
+	"Gonryun Fields",wgonfild,
+	"Hugel Fields",whufild,
+	"Lighthalzen Fields",wlhzfild,
+	"Louyang Field",wloufild,
+	"Lutie Field",wxmasfild,
+	"Manuk Fields",wmanfild,
+	"Mjolnir Fields",wmjolnir,
+	"Moscovia Fields",wmosc,
+	"Niflheim Fields",wniffild,
+	"Payon Forests",wpayfor,
+	"Prontera Fields",wprtfild,
+	"Rachel Fields",warunfild,
+	"Sograt Deserts",wmocfild,
+	"Splendide Fields",wsplfild,
+	"Umbala Fields",wumfild,
+	"Veins Fields",wveinsfild,
+	"Yuno Fields",wyunofild;
+
+dungeon: 	
+
+	if( islowratechar() == 0)
+	{
+		mes "Not available for non-LR chars.";
+		close;
+	}
+	
+menu
+	//"Abbey, Cursed Monastery",wabbey,
+	"Abyss Lake",wabyss,
+	"Amatsu Shrine",ama,
+	"Ant Hell",ant,
+	"Ayothaya Dungeons",wayodun,
+	"Byalan Tunnel",byalan,
+	"Clock Tower",clock,
+	"Comodo Caves",beach,
+	//"Dimensonal Gorge",dimen;
+	"Einbech Mine",weindun,
+	//"Gefenia",gefenia,
+	"Geffen Dungeon",geffen,
+	"Glast Heim",glast,
+	"Gonryun Shrine",gon,
+	"Ice Cave",iced,
+	"Juperos Ruins",wjuper,
+	"Kiel Robot Factory",wkieldun,
+	"Labyrinth Forest",hidden,
+	"Louyang Royal Tomb",wloudun,
+	"Magma Nogg Road",magma,
+	//"Malangdo Dungeon",malangdo,
+	"Morroc Pyramid",pyramids,
+	"Morroc Sphinx",sphinx,
+	//"Moscovia Forest",wmosk,
+	"Mjolnir Coal Mine",coal,
+	"Nidhoggur's Dungeon",wnyd,
+	"Odin Temple",wodint,
+	"Orc Dungeon",orc,
+	"Payon Cave",payon,
+	"Prontera Culvert",culvert,
+	"Rachel Sanctuary",rachels,
+	//"Somatology Laboratory",wlhzdun,
+	"Sunken Ship",sunken,
+	"Thanatos Tower",wthat,
+	"Thor Volcano",wthor,
+	"Toy Factory",toy,
+	"Turtle Island Dungeon",turtle,
+	"Umbala Tree",wumdun;
+	
+	LWTProntera: // Prontera
+	set @warp_name$, "Prontera";
+	set @warp_map$, "prontera";
+	SF_Pront_Area:
+		menu	"Center",LWTPrnC,
+				"North", LWTPrnN,
+				"South", LWTPrnS;
+			
+	LWTPrnC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 153;
+		set @warp_y, 174;
+		goto LWarpEnd;
+		
+	LWTPrnN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 152;
+		set @warp_y, 258;
+		goto LWarpEnd;
+		
+	LWTPrnS:
+		set @warp_name$, @warp_name$ + " - South";
+		set @warp_x, 153;
+		set @warp_y, 109;
+		goto LWarpEnd;
+
+		
+		
+LWTAlberta: // Alberta
+	  set @warp_name$, "Alberta";
+	  set @warp_map$, "alberta";
+	  SF_Alberta_Area:
+			  menu 	"Center",LWTAlbertaBoat,
+						"North", LWTAlbertaN,
+						"South", LWTAlbertaS;
+							  
+	  LWTAlbertaBoat:
+			  set @warp_name$, @warp_name$ + " - Boat";
+			  set @warp_x, 185;
+			  set @warp_y, 132;
+			  goto LWarpEnd;
+			  
+	  LWTAlbertaN:
+			  set @warp_name$, @warp_name$ + " - North";
+			  set @warp_x, 50;
+			  set @warp_y, 235;
+			  goto LWarpEnd;
+			  
+	  LWTAlbertaS:
+			  set @warp_name$, @warp_name$ + " - South";
+			  set @warp_x, 51;
+			  set @warp_y, 45;
+			  goto LWarpEnd;
+			  
+			  
+			  
+LWTMorocc: // Morocc
+	set @warp_name$, "Morocc";
+	set @warp_map$, "morocc";
+	SF_Morocc_Area:
+		menu 	"Center", LWTMoroccC,
+					"West", LWTMoroccW,
+					"East", LWTMorroccE;
+			
+	LWTMoroccC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 154;
+		set @warp_y,  84;
+		goto LWarpEnd;
+		
+	LWTMoroccW:
+		set @warp_name$, @warp_name$ + " West";
+		set @warp_x, 38;
+		set @warp_y, 171;
+		goto LWarpEnd;
+		
+	LWTMorroccE:
+		set @warp_name$, @warp_name$ + " East";
+		set @warp_x, 279;
+		set @warp_y, 199;
+		goto LWarpEnd;
+
+		
+		
+LWTGeffen: // Geffen
+	set @warp_name$, "Geffen";
+	set @warp_map$, "geffen";
+	SF_Geffen_Area:
+		menu 	"Center", LWTGeffenC,
+					"North", LWTGeffenN,
+					"East", LWTGeffenE;
+					
+	LWTGeffenC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 117;
+		set @warp_y, 94;
+		goto LWarpEnd;
+		
+	LWTGeffenN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 117;
+		set @warp_y, 193;
+		goto LWarpEnd;
+		
+	LWTGeffenE:
+		set @warp_name$, @warp_name$ + " - East";
+		set @warp_x, 185;
+		set @warp_y, 114;
+		goto LWarpEnd;
+
+		
+		
+LWTPayon: // Payon
+	set @warp_name$, "Payon";
+	set @warp_map$, "payon";
+	SF_Payon_Area:
+		menu 	"North", LWTPayonN,
+					"Center", LWTPayonC,
+					"South", LWTPayonS;
+					
+	LWTPayonN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 104;
+		set @warp_y, 310;
+		goto LWarpEnd;
+	
+	LWTPayonC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 152;
+		set @warp_y, 205;
+		goto LWarpEnd;
+
+	LWTPayonS:
+		set @warp_name$, @warp_name$ + " - South";
+		set @warp_x, 155;
+		set @warp_y, 82;
+		goto LWarpEnd;
+
+		
+		
+		
+LWTIzlude: // Izlude
+	set @warp_name$, "Izlude";
+	set @warp_map$, "izlude";
+	SF_Izlude_Area:
+		menu 	"Center", LWTIzludeC,
+					"North", LWTIzludeN,
+					"West", LWTIzludeW;
+					
+	LWTIzludeC:
+		set @warp_x, 124;
+		set @warp_y, 101;
+		goto LWarpEnd;
+		
+	LWTIzludeN:
+		set @warp_x, 124;
+		set @warp_y, 156;
+		goto LWarpEnd;
+		
+	LWTIzludeW:
+		set @warp_x, 48;
+		set @warp_y, 129;
+		goto LWarpEnd;
+		
+		
+		
+LWTAldebaran: // Aldebaran
+	set @warp_name$, "Aldebaran";
+	set @warp_map$, "aldebaran";
+	SF_Aldebaran_Area:
+		menu 	"South", LWTAldeS,
+					"Center", LWTAldeC,
+					"North", LWTAldeN;
+					
+	LWTAldeS:
+		set @warp_x, 138;
+		set @warp_y, 106;
+		goto LWarpEnd;
+		
+	LWTAldeC:
+		set @warp_x, 137;
+		set @warp_y, 168;
+		goto LWarpEnd;
+		
+	LWTAldeN:
+		set @warp_x, 137;
+		set @warp_y, 232;
+		goto LWarpEnd;
+
+		
+		
+LWTLutie: // Lutie
+	set @warp_name$, "Lutie";
+	set @warp_map$, "xmas";
+	SF_Lutie_Area:
+		menu 	"Center", LWTLutieC,
+					"South", LWTLutieS,
+					"North", LWTLutieN;
+					
+	LWTLutieC:
+		set @warp_x, 145;
+		set @warp_y, 127;
+		goto LWarpEnd;
+		
+	LWTLutieS:
+		set @warp_x, 146;
+		set @warp_y, 44;
+		goto LWarpEnd;
+		
+	LWTLutieN:
+		set @warp_x, 141;
+		set @warp_y, 284;
+		goto LWarpEnd;
+
+		
+		
+LWTComodo: // Comodo
+	set @warp_name$, "Comodo";
+	set @warp_map$, "comodo";
+	SF_Comodo_Area:
+		menu 	"Center", LWTComodoC,
+					"North", LWTComodoN,
+					"East", LWTComodoE;
+
+	LWTComodoC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 187;
+		set @warp_y, 144;
+		goto LWarpEnd;
+
+	LWTComodoN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 203;
+		set @warp_y, 289;
+		goto LWarpEnd;
+	
+	LWTComodoE:
+		set @warp_name$, @warp_name$ + " - East";
+		set @warp_x, 259;
+		set @warp_y, 190;
+		goto LWarpEnd;
+
+		
+		
+LWTYuno: // Juno
+	set @warp_name$, "Juno";
+	set @warp_map$, "yuno";
+	SF_Juno_Area:
+		menu 	"South", LWTJunoS,
+					"North", LWTJunoN,
+					"East", LWTJunoE;
+	
+	LWTJunoS:
+		set @warp_name$, @warp_name$ + " - South";
+		set @warp_x, 155;
+		set @warp_y, 73;
+		goto LWarpEnd;
+
+	LWTJunoN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 155;
+		set @warp_y, 287;
+		goto LWarpEnd;
+
+	LWTJunoE:
+		set @warp_name$, @warp_name$ + " - East";
+		set @warp_x, 338;
+		set @warp_y, 249;
+		goto LWarpEnd;
+
+		
+		
+LWTAmatsu: // Amatsu
+	set @warp_name$, "Amatsu";
+	set @warp_map$, "amatsu";
+	SF_Amatsu_Area:
+		menu 	"Center", LWTamaC,
+					"West", LWTamaW,
+					"North", LWTamaN;
+
+	LWTamaC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 197;
+		set @warp_y, 137;
+		goto LWarpEnd;
+
+	LWTamaW:
+		set @warp_name$, @warp_name$ + " - West";
+		set @warp_x, 56;
+		set @warp_y, 104;
+		goto LWarpEnd;
+
+	LWTamaN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 244;
+		set @warp_y, 267;
+		goto LWarpEnd;
+
+		
+		
+LWTGonryun: // Kunlun
+	set @warp_name$, "Gonryun";
+	set @warp_map$, "gonryun";
+	SF_Kunlun_Area:
+		menu 	"Center", LWTgonC,
+					"North", LWTgonN,
+					"West", LWTgonW;
+		
+	LWTgonC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 156;
+		set @warp_y, 110;
+		goto LWarpEnd;
+
+	LWTgonN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 156;
+		set @warp_y, 172;
+		goto LWarpEnd;
+
+	LWTgonW:
+		set @warp_name$, @warp_name$ + " - West";
+		set @warp_x, 36;
+		set @warp_y, 176;
+		goto LWarpEnd;
+
+		
+		
+LWTUmbala: // Umbala
+	set @warp_name$, "Umbala";
+	set @warp_map$, "umbala";
+	
+	SF_Umb_Area:
+		menu 	"West", LWTumbW,
+					"South", LWTumbS,
+					"North", LWTumbN;
+					
+	LWTumbW:
+		set @warp_name$, @warp_name$ + " - West";
+		set @warp_x, 89;
+		set @warp_y, 150;
+		goto LWarpEnd;
+		
+	LWTumbS:
+		set @warp_name$, @warp_name$ + " - South";
+		set @warp_x, 117;
+		set @warp_y, 126;
+		goto LWarpEnd;
+		
+	LWTumbN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 140;
+		set @warp_y, 151;
+		goto LWarpEnd;
+		
+		
+		
+LWTLouyang: // Louyang
+	set @warp_name$, "Louyang";
+	set @warp_map$, "louyang";
+	SF_Louyang_Area:
+		menu 	"South", LWTlouS,
+					"Center", LWTlouC,
+					"North", LWTlouN;
+
+	LWTlouS:
+		set @warp_name$, @warp_name$ + " - South";
+		set @warp_x, 215;
+		set @warp_y, 53;
+		goto LWarpEnd;
+		
+	LWTlouC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 214;
+		set @warp_y, 100;
+		goto LWarpEnd;
+
+	LWTlouN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 215;
+		set @warp_y, 201;
+		goto LWarpEnd;
+
+		
+		
+LWTJawaii: // Jawaii
+	set @warp_name$, "Jawaii";
+	set @warp_map$, "jawaii";
+	SF_Jawaii_Area:
+		menu 	"South", LWTjawS,
+					"Beach", LWTjawB,
+					"Center", LWTjawC;
+
+	LWTjawS:
+		set @warp_name$, @warp_name$ + " - South";
+		set @warp_x, 229;
+		set @warp_y, 99;
+		goto LWarpEnd;
+
+	LWTjawB:
+		set @warp_name$, @warp_name$ + " - Beach";
+		set @warp_x, 218;
+		set @warp_y, 218;
+		goto LWarpEnd;
+
+	LWTjawC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 110;
+		set @warp_y, 182;
+		goto LWarpEnd;
+
+		
+		
+LWTAyothaya: // Ayothaya
+	set @warp_name$, "Ayothaya";
+	set @warp_map$, "ayothaya";
+	SF_Ayo_Area:
+		menu 	"South", LWTayoS,
+					"Center", LWTayoC,
+					"North", LWTayoN;
+
+	LWTayoS:
+		set @warp_name$, @warp_name$ + " - South";
+		set @warp_x, 146;
+		set @warp_y, 107;
+		goto LWarpEnd;
+
+	LWTayoC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 147;
+		set @warp_y, 158;
+		goto LWarpEnd;
+		
+	LWTayoN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 203;
+		set @warp_y, 252;
+		goto LWarpEnd;
+
+		
+		
+LWTEinbroch: // Einbroch
+	set @warp_name$, "Einbroch";
+	set @warp_map$, "einbroch";
+	SF_Ebr_Area:
+		menu 	"West", LWTebrW,
+					"South", LWTebrS,
+					"North", LWTebrN;
+
+	LWTebrW:
+		set @warp_name$, @warp_name$ + " - West";
+		set @warp_x, 61;
+		set @warp_y, 189;
+		goto LWarpEnd;
+
+	LWTebrS:
+		set @warp_name$, @warp_name$ + " - South";
+		set @warp_x, 135;
+		set @warp_y, 43;
+		goto LWarpEnd;
+
+	LWTebrN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 155;
+		set @warp_y, 297;
+		goto LWarpEnd;
+
+		
+		
+LWTLighthalzen: // Lighthalzen
+	set @warp_name$, "Lighthalzen";
+	set @warp_map$, "lighthalzen";
+	SF_lhz_Area:
+		menu 	"South", LWTlhzS,
+					"North", LWTlhzN,
+					"East", LWTlhzE;
+
+	LWTlhzS:
+		set @warp_name$, @warp_name$ + " - South";
+		set @warp_x, 155;
+		set @warp_y, 88;
+		goto LWarpEnd;
+
+	LWTlhzN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 100;
+		set @warp_y, 230;
+		goto LWarpEnd;
+
+	LWTlhzE:
+		set @warp_name$, @warp_name$ + " - East";
+		set @warp_x, 333;
+		set @warp_y, 279;
+		goto LWarpEnd;
+
+		
+
+LWTHugel: // Hugel
+	set @warp_name$, "Hugel";
+	set @warp_map$, "hugel";
+	SF_hugel_Area:
+		menu 	"Center", LWTHugelC,
+					"North", LWTHugelN,
+					"East", LWTHugelE;
+
+	LWTHugelC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 92;
+		set @warp_y, 136;
+		goto LWarpEnd;
+
+	LWTHugelN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 96;
+		set @warp_y, 219;
+		goto LWarpEnd;
+		
+	LWTHugelE:
+		set @warp_name$, @warp_name$ + " - East";
+		set @warp_x, 172;
+		set @warp_y, 98;
+		goto LWarpEnd;
+
+		
+		
+LWTRachel: // Rachel
+	set @warp_name$, "Rachel";
+	set @warp_map$, "rachel";
+	SF_rachel_area:
+		menu 	"Center", LWTrachC,
+					"East", LWTrachE,
+					"West", LWTrachW;
+
+	LWTrachC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 127;
+		set @warp_y, 104;
+		goto LWarpEnd;
+
+	LWTrachE:
+		set @warp_name$, @warp_name$ + " - East";
+		set @warp_x, 254;
+		set @warp_y, 122;
+		goto LWarpEnd;
+
+	LWTrachW:
+		set @warp_name$, @warp_name$ + " - West";
+		set @warp_x, 60;
+		set @warp_y, 233;
+		goto LWarpEnd;
+
+		
+		
+LWTVeins: // Veins
+	set @warp_name$, "Veins";
+	set @warp_map$, "veins";
+	SF_veins_area:
+		menu 	"Center", LWTveinsC,
+					"North", LWTveinsN,
+					"East", LWTveinsE;
+
+	LWTveinsC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 213;
+		set @warp_y, 123;
+		goto LWarpEnd;
+
+	LWTveinsN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 193;
+		set @warp_y, 222;
+		goto LWarpEnd;
+
+	LWTveinsE:
+		set @warp_name$, @warp_name$ + " - East";
+		set @warp_x, 283;
+		set @warp_y, 194;
+		goto LWarpEnd;
+		
+		
+		
+LWTMoscovia: // Moscovia
+	set @warp_name$, "Moscovia";
+	set @warp_map$, "moscovia";
+	SF_Mosc_area:
+		menu 	"Center", LWTMoscC,
+					"North", LWTMoscN,
+					"West", LWTMoscW;
+					
+	LWTMoscC:
+		set @warp_x, 220 ;
+		set @warp_y, 184;
+		goto LWarpEnd;
+					
+	LWTMoscN:
+		set @warp_x, 217 ;
+		set @warp_y, 217;
+		goto LWarpEnd;
+					
+	LWTMoscW:
+		set @warp_x, 152 ;
+		set @warp_y, 124;
+		goto LWarpEnd;
+
+		
+		
+LWTBrasilis: // Brasilis
+	set @warp_name$, "Brasilis";
+	set @warp_map$, "brasilis";
+	SF_bras_area:
+		menu 	"Center", LWTbrasC,
+					"Beach", LWTbrasB,
+					"North", LWTbrasN;
+					
+	LWTbrasC:
+		set @warp_x, 193;
+		set @warp_y, 175;
+		goto LWarpEnd;
+		
+	LWTbrasB:
+		set @warp_x, 202;
+		set @warp_y, 72;
+		goto LWarpEnd;
+		
+	LWTbrasN:
+		set @warp_x, 193;
+		set @warp_y, 312;
+		goto LWarpEnd;
+
+		
+		
+LWTManuk: // Manuk
+	set @warp_name$, "Manuk";
+	set @warp_map$, "manuk";
+	SF_manuk_area:
+		menu 	"North", LWTmanukN,
+					"Center", LWTmanukC,
+					"South", LWTmanukS;
+
+	LWTmanukN:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 286;
+		set @warp_y, 226;
+		goto LWarpEnd;
+
+	LWTmanukC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 271;
+		set @warp_y, 129;
+		goto LWarpEnd;
+		
+	LWTmanukS:
+		set @warp_name$, @warp_name$ + " - South";
+		set @warp_x, 85  ;
+		set @warp_y, 245;
+		goto LWarpEnd;
+
+		
+		
+LWTSplendide: // Splendide
+	set @warp_name$, "Splendide";
+	set @warp_map$, "splendide";
+	SF_sple_area:
+		menu 	"Center", LWTspleC,
+					"South", LWTspleS,
+					"East", LWTspleE; 
+
+	LWTspleC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 195;
+		set @warp_y, 141;
+		goto LWarpEnd;
+
+	LWTspleS:
+		set @warp_name$, @warp_name$ + " - East";
+		set @warp_x, 191;
+		set @warp_y, 19;
+		goto LWarpEnd;
+
+	LWTspleE:
+		set @warp_name$, @warp_name$ + " - East";
+		set @warp_x, 358;
+		set @warp_y, 232;
+		goto LWarpEnd;
+
+		
+		
+LWTMid_camp: // Rune Midgard Allied Forces Post
+	set @warp_name$, "Midgard Camp";
+	set @warp_map$, "mid_camp";
+	SF_mid_camp_area:
+		menu 	"Center", LWTcampC,
+					"West", LWTcampW,
+					"East", LWTcampE;
+
+	LWTcampC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 178;
+		set @warp_y, 226;
+		goto LWarpEnd;
+
+	LWTcampW:
+		set @warp_name$, @warp_name$ + " - West";
+		set @warp_x, 28;
+		set @warp_y, 144;
+		goto LWarpEnd;
+	
+	LWTcampE:
+		set @warp_name$, @warp_name$ + " - East";
+		set @warp_x, 319;
+		set @warp_y, 148;
+		goto LWarpEnd;
+		
+
+
+LWTDicastes:
+	set @warp_name$, "Dicastes";
+	set @warp_map$, "dicastes01";
+	SF_dicastes_area:
+		menu 	"Center", LWTdicaC,
+					"West", LWTdicaW,
+					"North", LWTdicaE;
+
+	LWTdicaC:
+		set @warp_name$, @warp_name$ + " - Center";
+		set @warp_x, 194;
+		set @warp_y, 182;
+		goto LWarpEnd;
+
+	LWTdicaW:
+		set @warp_name$, @warp_name$ + " - West";
+		set @warp_x, 120;
+		set @warp_y, 199;
+		goto LWarpEnd;
+	
+	LWTdicaE:
+		set @warp_name$, @warp_name$ + " - North";
+		set @warp_x, 195;
+		set @warp_y, 315;
+		goto LWarpEnd;
+
+		
+		
+LWTNameless: // Nameless Island
+	set @warp_name$, "Nameless Island";
+	set @warp_map$, "nameless_i";
+	SF_namei_area:
+		menu 	"North", LWTnameiN,
+					"Center", LWTnameiC,
+					"South", LWTnameiS;
+	
+	LWTnameiN:
+	set @warp_x, 226;
+	set @warp_y, 207;
+	goto LWarpEnd;
+	
+	LWTnameiC:
+	set @warp_x, 101;
+	set @warp_y, 168;
+	goto LWarpEnd;
+	
+	LWTnameiS:
+	set @warp_x, 83;
+	set @warp_y, 96;
+	goto LWarpEnd;
+
+	
+	
+LWTEinbech: // Einbech
+	set @warp_name$, "Einbech";
+	set @warp_map$, "einbech";
+	SF_einbk_area:
+		menu 	"West", LWTeinbkW,
+					"East", LWTeinbkE,
+					"South", LWTeinbkS;
+	
+	LWTeinbkW:
+		set @warp_x, 39;
+		set @warp_y, 200;
+		goto LWarpEnd;
+		
+	LWTeinbkE:
+		set @warp_x, 167;
+		set @warp_y, 119;
+		goto LWarpEnd;
+		
+	LWTeinbkS:
+		set @warp_x, 68;
+		set @warp_y, 95;
+		goto LWarpEnd;
+
+		
+		
+LWTRa_temple: // Freya's Grand Temple
+	set @warp_name$, "Freya's Grand Temple";
+	set @warp_map$, "ra_temple";
+	SF_rtemp_area:
+		menu	"North",LWTrtempN,
+					"South",LWTrtempS,
+					"West",LWTrtempW;
+	
+	LWTrtempN:
+	set @warp_x, 85;
+	set @warp_y, 180;
+	goto LWarpEnd;
+	
+	LWTrtempS:
+	set @warp_x, 117;
+	set @warp_y, 34;
+	goto LWarpEnd;
+	
+	LWTrtempW:
+	set @warp_x, 60;
+	set @warp_y, 134;
+	goto LWarpEnd;
+	
+	
+LWTPrt_monk: // St. Capitolina Abbey
+	set @warp_name$, "St. Capitolina Abbey";
+	set @warp_map$, "prt_monk";
+	SF_pmonk_area:
+		menu 	"Center",LWTpmonkC,
+					"West",LWTpmonkW,
+					"South",LWTpmonkS;
+	
+	LWTpmonkC:
+	set @warp_x, 179;
+	set @warp_y, 236;
+	goto LWarpEnd;
+	
+	LWTpmonkW:
+	set @warp_x, 138;
+	set @warp_y, 241;
+	goto LWarpEnd;
+	
+	LWTpmonkS:
+	set @warp_x, 225;
+	set @warp_y, 86;
+	goto LWarpEnd;
+	
+	
+	
+LWTNifltown: // Niflheim why
+	set @warp_name$, "Niflheim";
+	set @warp_map$, "niflheim";
+	SF_niflheim_area:
+		menu	"Center",LWTniflC,
+					"West", LWTniflW,
+					"South", LWTniflS;
+	
+	LWTniflC:
+		set @warp_x, 190;
+		set @warp_y, 180;
+		goto LWarpEnd;
+	
+	LWTniflW:
+		set @warp_x, 126;
+		set @warp_y, 137;
+		goto LWarpEnd;
+	
+	LWTniflS:
+		set @warp_x, 195;
+		set @warp_y, 38;
+		goto LWarpEnd;
+		
+	
+LWTThorcamp: // Thor Camp
+	set @warp_name$, "Thor Camp";
+	set @warp_map$, "thor_camp";
+	SF_thorcamp_area:
+		menu	"North",LWTthorcampC,
+					"West", LWTthorcampW,
+					"South", LWTthorcampS;
+	
+	LWTthorcampN:
+		set @warp_x, 108;
+		set @warp_y, 216;
+		goto LWarpEnd;
+	
+	LWTthorcampW:
+		set @warp_x, 43;
+		set @warp_y, 67;
+		goto LWarpEnd;
+	
+	LWTthorcampS:
+		set @warp_x, 232;
+		set @warp_y, 105;
+		goto LWarpEnd;
+
+LWarpEnd:
+	warp @warp_map$, @warp_x+rand(3), @warp_y+rand(3);
+	end;
+	
+	
+
+//-------------------------------
+//          Fields
+//-------------------------------
+
+wbiffild:
+set @warp_name$,"Bifrost Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Bifrost Field 1",dbiffild1,
+	"Bifrost Field 2",dbiffild2;
+
+wmanfild:
+set @warp_name$,"Manuk Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Manuk Field 1",dmanfild1,
+	"Manuk Field 2",dmanfild2,
+	"Manuk Field 3",dmanfild3;
+
+wbrafild:
+
+set @warp_name$,"Brasilis Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu	"Brasilis Field 1",dbrafild1;
+
+wdicfild:
+
+set @warp_name$,"Dicastes Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu	"Dicastes Field 1",ddicfild1,
+	"Dicastes Field 2",ddicfild2;
+
+wsplfild:
+
+set @warp_name$,"Splendide Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Splendide Field 1",dsplfild1,
+	"Splendide Field 2",dsplfild2,
+	"Splendide Field 3",dsplfild3;
+
+warunfild:
+
+set @warp_name$,"Rachel Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Rachel Field 1",drunfild1,
+	"Rachel Field 2",drunfild2,
+	"Rachel Field 3",drunfild3,
+	"Rachel Field 4",drunfild4,
+	"Rachel Field 5",drunfild5,
+	"Rachel Field 6",drunfild6,
+	"Rachel Field 7",drunfild7,
+	"Rachel Field 8",drunfild8,
+	"Rachel Field 9",drunfild9,
+	"Rachel Field 10",drunfild10,
+	"Rachel Field 11",drunfild11,
+	"Rachel Field 12",drunfild12,
+	"Rachel Field 13",drunfild13;
+
+wgeffild:
+
+set @warp_name$,"Geffen Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Geffen Field 0",dgeffild00,
+	"Geffen Field 1",dgeffild01,
+	"Geffen Field 2",dgeffild02,
+	"Geffen Field 3",dgeffild03,
+	"Geffen Field 4",dgeffild04,
+	"Geffen Field 5",dgeffild05,
+	"Geffen Field 6",dgeffild06,
+	"Geffen Field 7",dgeffild07,
+	"Geffen Field 8",dgeffild08,
+	"Geffen Field 9",dgeffild09,
+	"Geffen Field 10",dgeffild10,
+	"Geffen Field 11",dgeffild11,
+	"Geffen Field 12",dgeffild12,
+	"Geffen Field 13",dgeffild13,
+	"Geffen Field 14",dgeffild14;
+
+wmjolnir:
+
+set @warp_name$,"Mjolnir Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Mjolnir Field 1",dmjolnir1,
+	"Mjolnir Field 2",dmjolnir2,
+	"Mjolnir Field 3",dmjolnir3,
+	"Mjolnir Field 4",dmjolnir4,
+	"Mjolnir Field 5",dmjolnir5,
+	"Mjolnir Field 6",dmjolnir6,
+	"Mjolnir Field 7",dmjolnir7,
+	"Mjolnir Field 8",dmjolnir8,
+	"Mjolnir Field 9",dmjolnir9,
+	"Mjolnir Field 10",dmjolnir10,
+	"Mjolnir Field 11",dmjolnir11,
+	"Mjolnir Field 12",dmjolnir12;
+
+wmosc:
+
+set @warp_name$,"Moscovia Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Moscovia Field 1",dmosc1,
+	"Moscovia Field 2",dmosc2;
+	
+
+wmocfild:
+
+set @warp_name$,"Sograt Desert";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Sograt Desert 1",dmocfild1,
+	"Sograt Desert 2",dmocfild2,
+	"Sograt Desert 3",dmocfild3,
+	"Sograt Desert 4",dmocfild4,
+	"Sograt Desert 5",dmocfild5,
+	"Sograt Desert 6",dmocfild6,
+	"Sograt Desert 7",dmocfild7,
+	"Sograt Desert 8",dmocfild8,
+	"Sograt Desert 9",dmocfild9,
+	"Sograt Desert 10",dmocfild10,
+	"Sograt Desert 11",dmocfild11,
+	"Sograt Desert 12",dmocfild12,
+	"Sograt Desert 13",dmocfild13,
+	"Sograt Desert 14",dmocfild14,
+	"Sograt Desert 15",dmocfild15,
+	"Sograt Desert 16",dmocfild16,
+	"Sograt Desert 17",dmocfild17,
+	"Sograt Desert 18",dmocfild18,
+	"Sograt Desert 19",dmocfild19;
+
+wpayfor:
+
+set @warp_name$,"Payon Forest";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Payon Forest 1",dpayfild1,
+	"Payon Forest 2",dpayfild2,
+	"Payon Forest 3",dpayfild3,
+	"Payon Forest 4",dpayfild4,
+	"Payon Forest 5",dpayfild5,
+	"Payon Forest 6",dpayfild6,
+	"Payon Forest 7",dpayfild7,
+	"Payon Forest 8",dpayfild8,
+	"Payon Forest 9",dpayfild9,
+	"Payon Forest 10",dpayfild10,
+	"Payon Forest 11",dpayfild11;
+
+wprtfild:
+
+set @warp_name$,"Prontera Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Prontera Field 1",dprtfild1,
+	"Prontera Field 2",dprtfild2,
+	"Prontera Field 3",dprtfild3,
+	"Prontera Field 4",dprtfild4,
+	"Prontera Field 5",dprtfild5,
+	"Prontera Field 6",dprtfild6,
+	"Prontera Field 7",dprtfild7,
+	"Prontera Field 8",dprtfild8,
+	"Prontera Field 9",dprtfild9,
+	"Prontera Field 10",dprtfild10,
+	"Prontera Field 11",dprtfild11;
+
+wxmasfild:
+
+set @warp_name$,"Lutie Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Lutie Field 1",dxmasfild1;
+
+wcmdfild:
+
+set @warp_name$,"Comodo Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Comodo Field 1",dcmdfild1,
+	"Comodo Field 2",dcmdfild2,
+	"Comodo Field 3",dcmdfild3,
+	"Comodo Field 4",dcmdfild4,
+	"Comodo Field 5",dcmdfild5,
+	"Comodo Field 6",dcmdfild6,
+	"Comodo Field 7",dcmdfild7,
+	"Comodo Field 8",dcmdfild8,
+	"Comodo Field 9",dcmdfild9;
+
+wyunofild:
+
+set @warp_name$,"Yuno Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Yuno Field 1",dyunofild1,
+	"Yuno Field 2",dyunofild2,
+	"Yuno Field 3",dyunofild3,
+	"Yuno Field 4",dyunofild4,
+	"Yuno Field 5",dyunofild5,
+	"Yuno Field 6",dyunofild6,
+	"Yuno Field 7",dyunofild7,
+	"Yuno Field 8",dyunofild8,
+	"Yuno Field 9",dyunofild9,
+	"Yuno Field 10",dyunofild10,
+	"Yuno Field 11",dyunofild11,
+	"Yuno Field 12",dyunofild12;
+
+wamafild:
+
+set @warp_name$,"Amatsu Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Amatsu Field 1",damafild1;
+
+wgonfild:
+
+set @warp_name$,"Gonryun Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Gonryun Field 1",dgonfild1;
+
+wumfild:
+
+set @warp_name$,"Umbala Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Umbala Field 1",dumfild1,
+	"Umbala Field 2",dumfild2,
+	"Umbala Field 3",dumfild3,
+	"Umbala Field 4",dumfild4;
+
+wniffild:
+
+set @warp_name$,"Niflheim Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Niflheim Field 1",dniffild1,
+	"Niflheim Field 2",dniffild2;
+
+wodint:
+
+set @warp_name$,"Odin Temple";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Odin Temple 1",wodtemp1,
+	"Odin Temple 2",wodtemp2,
+	"Odin Temple 3",wodtemp3;
+
+wloufild:
+
+set @warp_name$,"Louyang Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Louyang Field 1",dloufild1;
+
+wayofild:
+
+set @warp_name$,"Ayothaya Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Ayothaya Field 1",dayofild1,
+	"Ayothaya Field 2",dayofild2;
+
+weinfild:
+
+set @warp_name$,"Einbroch Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Einbroch Field 1",deinfild1,
+	"Einbroch Field 2",deinfild2,
+	"Einbroch Field 3",deinfild3,
+	"Einbroch Field 4",deinfild4,
+	"Einbroch Field 5",deinfild5,
+	"Einbroch Field 6",deinfild6,
+	"Einbroch Field 7",deinfild7,
+	"Einbroch Field 8",deinfild8,
+	"Einbroch Field 9",deinfild9,
+	"Einbroch Field 10",deinfild10;
+
+wlhzfild:
+
+set @warp_name$,"Lighthalzen Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Lighthalzen Field 1",dlhzfild1,
+	"Lighthalzen Field 2",dlhzfild2,
+	"Lighthalzen Field 3",dlhzfild3;
+
+whufild:
+
+set @warp_name$,"Hugel Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu 	"Hugel Field 1",dhufild1,
+	"Hugel Field 2",dhufild2,
+	"Hugel Field 3",dhufild3,
+	"Hugel Field 4",dhufild4,
+	"Hugel Field 5",dhufild5,
+	"Hugel Field 6",dhufild6,
+	"Hugel Field 7",dhufild7;
+
+wveinsfild:
+
+set @warp_name$,"Veins Field";
+mes "Please select a Field. You will be warped to the center of that map.";
+menu	"Veins Field 1",dvfild1,
+	"Veins Field 2",dvfild2,
+	"Veins Field 3",dvfild3,
+	"Veins Field 4",dvfild4,
+	"Veins Field 5",dvfild5,
+	"Veins Field 6",dvfild6,
+	"Veins Field 7",dvfild7;
+
+//-------------------------------
+//          Dungeons
+//-------------------------------
+
+
+wnyd:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu	"Level 1",dnyd1,
+	"Level 2",dnyd2;
+
+malangdo:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu	"Malangdo",malangdo,
+	"Level 1",dmaldun1;
+
+wjuper:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",djuperos1,
+	"Level 2",djuperos3,
+	"Core",djuperos2;
+
+wumdun:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Carpenter's Shop in the Tree",dumdun1,
+	"Passage to a Foreign World",dumdun2,
+	"Hvergermil's Fountain",dyggdrasil1;
+
+wloudun:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"The Royal Tomb",dloudun1,
+	"Inside the Royal Tomb",dloudun2,
+	"Suei Long Gon",dloudun3;
+
+wayodun:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Ancient Shrine Maze",dayodun1,
+	"Inside Ancient Shrine",dayodun2;
+
+weindun:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",deindun1,
+	"Level 2",deindun2;
+
+wlhzdun:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dlhzdun1,
+	"Level 2",dlhzdun2,
+	"Level 3",dlhzdun3;
+
+wabyss:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dabyss1,
+	"Level 2",dabyss2,
+	"Level 3",dabyss3;
+
+wthat:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+	next;
+menu 	"Level 1",dthat1,
+	"Level 2",dthat2,
+	"Level 3",dthat3,
+	"Level 4",dthat4,
+	"Level 5",dthat5,
+	"Level 6",dthat6,
+	"Level 7",dthat7,
+	"Level 8",dthat8,
+	"Level 9",dthat9,
+	"Level 10",dthat10,
+	"Level 11",dthat11,
+	"Level 12",dthat12;
+
+wkieldun:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dkieldun1,
+	"Level 2",dkieldun2;
+
+ant:
+	
+	mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+	next;
+menu 	"Level 1",danthell1,
+	"Level 2",danthell2;
+
+beach:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dbeach1,
+	"Level 2",dbeach2,
+	"Level 3",dbeach3;
+
+byalan:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dbyalan1,
+	"Level 2",dbyalan2,
+	"Level 3",dbyalan3,
+	"Level 4",dbyalan4,
+	"Level 5",dbyalan5;
+clock:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dclock1,
+	"Level 2",dclock2,
+	"Level 3",dclock3,
+	"Level 4",dclock4,
+	"Basement 1",dalde1,
+	"Basement 2",dalde2,
+	"Basement 3",dalde3,
+	"Basement 4",dalde4;
+
+coal:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dcoal1,
+	"Level 2",dcoal2,
+	"Level 3",dcoal3;
+
+culvert:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dculvert1,
+	"Level 2",dculvert2,
+	"Level 3",dculvert3,
+	"Level 4",dculvert4;
+
+geffen:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dgeffen1,
+	"Level 2",dgeffen2,
+	"Level 3",dgeffen3,
+	"Level 4",dgeffen4;
+
+glast:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Entrance",dglastent,
+	"Castle 1",dglastcast1,
+	"Castle 2",dglastcast2,
+	"Chivalry 1",dglastchiv1,
+	"Chivalry 2",dglastchiv2,
+	"Churchyard",dglastyard,
+	"Culvert 1",dglastcul1,
+	"Culvert 2",dglastcul1,
+	"Culvert 3",dglastcul3,
+	"Culvert 4",dglastcul4,
+	"St.Abbey",dglastchur,
+	"Staircase Dungeon",dglaststep,
+	"Underground Cave 1",dglastcave1,
+	"Underground Cave 2",dglastcave2,
+	"Underground Prison 1",dglastpris1,
+	"Underground Prison 2",dglastpris2;
+
+hidden:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dhidden1,
+	"Level 2",dhidden2,
+	"Level 3",dhidden3;
+
+iced:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",diced1,
+	"Level 2",diced2,
+	"Level 3",diced3;
+	//"Level 4",diced4;
+
+magma:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dmagma1,
+	"Level 2",dmagma2;
+
+wmosk:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dmosk1,
+	"Level 2",dmosk2,
+	"Level 3",dmosk3;
+
+orc:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dorc1,
+	"Level 2",dorc2;
+
+payon:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dpayon1,
+	"Level 2",dpayon2,
+	"Level 3",dpayon3,
+	"Level 4",dpayon4,
+	"Level 5",dpayon5;
+
+pyramids:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dpyramids1,
+	"Level 2",dpyramids2,
+	"Level 3",dpyramids3,
+	"Level 4",dpyramids4,
+	"Basement 1",dpyramidsb1,
+	"Basement 2",dpyramidsb2;
+
+sphinx:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dsphinx1,
+	"Level 2",dsphinx2,
+	"Level 3",dsphinx3,
+	"Level 4",dsphinx4,
+	"Level 5",dsphinx5;
+
+sunken:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dsunken1,
+	"Level 2",dsunken2;
+
+toy:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dtoy1,
+	"Level 2",dtoy2;
+
+turtle:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Entrance",dturtleent,
+	"Level 1",dturtle1,
+	"Level 2",dturtle2,
+	"Level 3",dturtle3;
+
+ama:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dama1,
+	"Level 2",dama2,
+	"Level 3",dama3;
+
+gon:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dgon1,
+	"Level 2",dgon2,
+	"Level 3",dgon3;
+
+gefenia:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dgefenia1,
+	"Level 2",dgefenia2,
+	"Level 3",dgefenia3,
+	"Level 4",dgefenia4;
+
+wthor:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dthor1,
+	"Level 2",dthor2,
+	"Level 3",dthor3;
+
+rachels:
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",drachel1,
+	"Level 2",drachel2,
+	"Level 3",drachel3,
+	"Level 4",drachel4,		
+	"Level 5",drachel5;
+
+wabbey:
+
+mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+next;
+menu 	"Level 1",dabbey1,
+	"Level 2",dabbey2,
+	"Level 3",dabbey3;	
+	
+	
+
+dnyd1:
+
+set @warp_name$, "Yggdrasil Root F1";
+set @warp_map$,"nyd_dun01";
+set @warp_x,150;
+set @warp_y,150;
+goto LWarpEnd;
+end;
+dnyd2:
+set @warp_name$, "Yggdrasil Root F2";
+set @warp_map$,"nyd_dun02";
+set @warp_x,150;
+set @warp_y,150;
+goto LWarpEnd;
+end;
+dmalangdo:
+set @warp_name$, "Malangdo Island";
+set @warp_map$,"malangdo";
+set @warp_x,174;
+set @warp_y,160;
+goto LWarpEnd;
+end;
+dkieldun1:
+set @warp_name$, "Robot Factory F1";
+set @warp_map$,"kh_dun01"; 
+set @warp_x,28; 
+set @warp_y,226; 
+goto LWarpEnd;
+end;
+dkieldun2:
+set @warp_name$, "Robot Factory F2";
+set @warp_map$,"kh_dun02"; 
+set @warp_x,41; 
+set @warp_y,198; 
+goto LWarpEnd;
+end;
+djuperos1:
+set @warp_name$, "Juperos Ruins F1";
+set @warp_map$,"juperos_01"; 
+set @warp_x,53; 
+set @warp_y,247; 
+goto LWarpEnd;
+end;
+djuperos3:
+set @warp_name$, "Juperos Ruins F2";
+set @warp_map$,"juperos_02"; 
+set @warp_x,37; 
+set @warp_y,63; 
+goto LWarpEnd;
+end;
+djuperos2:
+set @warp_name$, "Juperos Core Center";
+set @warp_map$,"jupe_core"; 
+set @warp_x,150; 
+set @warp_y,285; 
+goto LWarpEnd;
+end;
+dumdun1:
+set @warp_name$, "Carpenter's Shop in the Tree";
+set @warp_map$,"um_dun01"; 
+set @warp_x,42; 
+set @warp_y,31; 
+goto LWarpEnd;
+end;
+dumdun2:
+set @warp_name$, "Passage to a Foreign World";
+set @warp_map$,"um_dun02"; 
+set @warp_x,51; 
+set @warp_y,25; 
+goto LWarpEnd;
+end;
+dloudun1:
+set @warp_name$, "Royal Tomb";
+set @warp_map$,"lou_dun01"; 
+set @warp_x,218; 
+set @warp_y,196; 
+goto LWarpEnd;
+end;
+dloudun2:
+set @warp_name$, "Inside the Royal Tomb";
+set @warp_map$,"lou_dun02"; 
+set @warp_x,282; 
+set @warp_y,20; 
+goto LWarpEnd;
+end;
+dloudun3:
+set @warp_name$, "Suei Long Gon";
+set @warp_map$,"lou_dun03"; 
+set @warp_x,165; 
+set @warp_y,38; 
+goto LWarpEnd;
+end;
+dayodun1:
+set @warp_name$, "Ancient Shrine Maze";
+set @warp_map$,"ayo_dun01"; 
+set @warp_x,275; 
+set @warp_y,19; 
+goto LWarpEnd;
+end;
+dayodun2:
+set @warp_name$, "Inside Ancient Shrine";
+set @warp_map$,"ayo_dun02"; 
+set @warp_x,24; 
+set @warp_y,26; 
+goto LWarpEnd;
+end;
+deindun1:
+set @warp_name$, "Mine Dungeon F1";
+set @warp_map$,"ein_dun01"; 
+set @warp_x,22; 
+set @warp_y,14; 
+goto LWarpEnd; 
+end;
+deindun2:
+set @warp_name$, "Mine Dungeon F2";
+set @warp_map$,"ein_dun02"; 
+set @warp_x,292; 
+set @warp_y,290; 
+goto LWarpEnd;
+end;
+dlhzdun1:
+set @warp_name$, "Somatology Laboratory F1";
+set @warp_map$,"lhz_dun01"; 
+set @warp_x,150; 
+set @warp_y,228; 
+goto LWarpEnd;
+end;
+dlhzdun2:
+set @warp_name$, "Somatology Laboratory F2";
+set @warp_map$,"lhz_dun02"; 
+set @warp_x,150; 
+set @warp_y,18; 
+goto LWarpEnd;
+end;
+dlhzdun3:
+set @warp_name$, "Somatology Laboratory F3";
+set @warp_map$,"lhz_dun03"; 
+set @warp_x,140; 
+set @warp_y,133; 
+goto LWarpEnd;
+end;
+dabyss1:
+set @warp_name$, "Abyss Lakes Underground Cave F1";
+set @warp_map$,"abyss_01"; 
+set @warp_x,192; 
+set @warp_y,207; 
+goto LWarpEnd;
+end;
+dabyss2:
+set @warp_name$, "Abyss Lakes Underground Cave F2";
+set @warp_map$,"abyss_02"; 
+set @warp_x,275; 
+set @warp_y,270; 
+goto LWarpEnd;
+end;
+dabyss3:
+set @warp_name$, "Abyss Lakes Underground Cave F3";
+set @warp_map$,"abyss_03"; 
+set @warp_x,116; 
+set @warp_y,28; 
+goto LWarpEnd;
+end;
+dthat1:
+set @warp_name$, "Thanatos Tower F1 - Lower Level";
+set @warp_map$,"tha_t01"; 
+set @warp_x,150; 
+set @warp_y,39; 
+goto LWarpEnd;
+end;
+dthat2:
+set @warp_name$, "Thanatos Tower F2 - Lower Level";
+set @warp_map$,"tha_t02"; 
+set @warp_x,150; 
+set @warp_y,136; 
+goto LWarpEnd;
+end;
+dthat3:
+set @warp_name$, "Thanatos Tower F3 - Lower Level";
+set @warp_map$,"tha_t03"; 
+set @warp_x,220; 
+set @warp_y,158; 
+goto LWarpEnd;
+end;
+dthat4:
+set @warp_name$, "Thanatos Tower F4 - Lower Level";
+set @warp_map$,"tha_t04"; 
+set @warp_x,59; 
+set @warp_y,143; 
+goto LWarpEnd;
+end;
+dthat5:
+set @warp_name$, "Thanatos Tower F5 - Upper Level";
+set @warp_map$,"tha_t05"; 
+set @warp_x,62; 
+set @warp_y,11; 
+goto LWarpEnd;
+end;
+dthat6:
+set @warp_name$, "Thanatos Tower F6 - Upper Level";
+set @warp_map$,"tha_t06"; 
+set @warp_x,89; 
+set @warp_y,221; 
+goto LWarpEnd;
+end;
+dthat7:
+set @warp_name$, "Thanatos Tower F7 - Upper Level";
+set @warp_map$,"tha_t07"; 
+set @warp_x,35; 
+set @warp_y,166; 
+goto LWarpEnd;
+end;
+dthat8:
+set @warp_name$, "Thanatos Tower F8 - Upper Level";
+set @warp_map$,"tha_t08"; 
+set @warp_x,93; 
+set @warp_y,148; 
+goto LWarpEnd;
+end;
+dthat9:
+set @warp_name$, "Thanatos Tower F9 - Upper Level";
+set @warp_map$,"tha_t09"; 
+set @warp_x,29; 
+set @warp_y,107; 
+goto LWarpEnd;
+end;
+dthat10:
+set @warp_name$, "Thanatos Tower F10 - Upper Level";
+set @warp_map$,"tha_t10"; 
+set @warp_x,159; 
+set @warp_y,138; 
+goto LWarpEnd;
+end;
+dthat11:
+set @warp_name$, "Thanatos Tower F11 - Upper Level";
+set @warp_map$,"tha_t11"; 
+set @warp_x,19; 
+set @warp_y,20; 
+goto LWarpEnd;
+end;
+dthat12:
+set @warp_name$, "Thanatos Tower F12 - Upper Level";
+set @warp_map$,"tha_t12"; 
+set @warp_x,130; 
+set @warp_y,52; 
+goto LWarpEnd;
+end;
+danthell1:
+set @warp_name$, "Ant Hell - F1";
+set @warp_map$,"anthell01"; 
+set @warp_x,35; 
+set @warp_y,262; 
+goto LWarpEnd;
+end;
+danthell2:
+set @warp_name$, "Ant Hell - F2";
+set @warp_map$,"anthell02"; 
+set @warp_x,168; 
+set @warp_y,170; 
+goto LWarpEnd;
+end;
+dbeach1:
+set @warp_name$, "Karu, the West Cave";
+set @warp_map$,"beach_dun"; 
+set @warp_x,266; 
+set @warp_y,67; 
+goto LWarpEnd;
+end;
+dbeach2:
+set @warp_name$, "Ruande, the North Cave";
+set @warp_map$,"beach_dun2"; 
+set @warp_x,255; 
+set @warp_y,244; 
+goto LWarpEnd;
+end;
+dbeach3:
+set @warp_name$, "Mao, the East Cave";
+set @warp_map$,"beach_dun3"; 
+set @warp_x,23; 
+set @warp_y,260; 
+goto LWarpEnd;
+end;
+dbyalan1:
+set @warp_name$, "Undersea Tunnel F1";
+set @warp_map$,"iz_dun00"; 
+set @warp_x,168; 
+set @warp_y,168; 
+goto LWarpEnd;
+end;
+dbyalan2:
+set @warp_name$, "Undersea Tunnel F2";
+set @warp_map$,"iz_dun01"; 
+set @warp_x,253; 
+set @warp_y,252; 
+goto LWarpEnd; 
+end;
+dbyalan3:
+set @warp_name$, "Undersea Tunnel F3";
+set @warp_map$,"iz_dun02"; 
+set @warp_x,236; 
+set @warp_y,204; 
+goto LWarpEnd;
+end;
+dbyalan4:
+set @warp_name$, "Undersea Tunnel F4";
+set @warp_map$,"iz_dun03"; 
+set @warp_x,32; 
+set @warp_y,63; 
+goto LWarpEnd;
+end;
+dbyalan5:
+set @warp_name$, "Undersea Tunnel F5";
+set @warp_map$,"iz_dun04"; 
+set @warp_x,26; 
+set @warp_y,27; 
+goto LWarpEnd;
+end;
+dalde1:
+set @warp_name$, "Clock Tower B1";
+set @warp_map$,"alde_dun01"; 
+set @warp_x,297; 
+set @warp_y,25; 
+goto LWarpEnd;
+end;
+dalde2:
+set @warp_name$, "Clock Tower B2";
+set @warp_map$,"alde_dun02"; 
+set @warp_x,127; 
+set @warp_y,169; 
+goto LWarpEnd;
+end;
+dalde3:
+set @warp_name$, "Clock Tower B3";
+set @warp_map$,"alde_dun03"; 
+set @warp_x,277; 
+set @warp_y,178; 
+goto LWarpEnd;
+end;
+dalde4:
+set @warp_name$, "Clock Tower B4";
+set @warp_map$,"alde_dun04"; 
+set @warp_x,268; 
+set @warp_y,74; 
+goto LWarpEnd;
+end;
+dclock1:
+set @warp_name$, "Clock Tower F1";
+set @warp_map$,"c_tower1"; 
+set @warp_x,199; 
+set @warp_y,159; 
+goto LWarpEnd;
+end;
+dclock2:
+set @warp_name$, "Clock Tower F2";
+set @warp_map$,"c_tower2"; 
+set @warp_x,148; 
+set @warp_y,283; 
+goto LWarpEnd;
+end;
+dclock3:
+set @warp_name$, "Clock Tower F3";
+set @warp_map$,"c_tower3"; 
+set @warp_x,65; 
+set @warp_y,147; 
+goto LWarpEnd;
+end;
+dclock4:
+set @warp_name$, "Clock Tower F4";
+set @warp_map$,"c_tower4"; 
+set @warp_x,56; 
+set @warp_y,155; 
+goto LWarpEnd; 
+end;
+dcoal1:
+set @warp_name$, "Mjolnir Dead Pit F1";
+set @warp_map$,"mjo_dun01"; 
+set @warp_x,52; 
+set @warp_y,17; 
+goto LWarpEnd;
+end;
+dcoal2:
+set @warp_name$, "Mjolnir Dead Pit F2";
+set @warp_map$,"mjo_dun02"; 
+set @warp_x,381; 
+set @warp_y,343; 
+goto LWarpEnd;
+end;
+dcoal3:
+set @warp_name$, "Mjolnir Dead Pit F3";
+set @warp_map$,"mjo_dun03"; 
+set @warp_x,302; 
+set @warp_y,262; 
+goto LWarpEnd;
+end;
+dculvert1:
+set @warp_name$, "Prontera Culvert F1";
+set @warp_map$,"prt_sewb1"; 
+set @warp_x,131; 
+set @warp_y,247; 
+goto LWarpEnd;
+end;
+dculvert2:
+set @warp_name$, "Prontera Culvert F2";
+set @warp_map$,"prt_sewb2"; 
+set @warp_x,19; 
+set @warp_y,19; 
+goto LWarpEnd;
+end;
+dculvert3:
+set @warp_name$, "Prontera Culvert F3";
+set @warp_map$,"prt_sewb3"; 
+set @warp_x,180; 
+set @warp_y,169; 
+goto LWarpEnd;
+end;
+dculvert4:
+set @warp_name$, "Prontera Culvert F4";
+set @warp_map$,"prt_sewb4"; 
+set @warp_x,100; 
+set @warp_y,92; 
+goto LWarpEnd;
+end;
+dgeffen1:
+set @warp_name$, "Geffen Dungeon F1";
+set @warp_map$,"gef_dun00"; 
+set @warp_x,104; 
+set @warp_y,99; 
+goto LWarpEnd;
+end;
+dgeffen2:
+set @warp_name$, "Geffen Dungeon F2";
+set @warp_map$,"gef_dun01"; 
+set @warp_x,115; 
+set @warp_y,236; 
+goto LWarpEnd;
+end;
+dgeffen3:
+set @warp_name$, "Geffenia";
+set @warp_map$,"gef_dun02"; 
+set @warp_x,106; 
+set @warp_y,132; 
+goto LWarpEnd;
+end;
+dgeffen4:
+set @warp_name$, "Geffenia";
+set @warp_map$,"gef_dun03"; 
+set @warp_x,203; 
+set @warp_y,200; 
+goto LWarpEnd;
+end;
+dglastent:
+set @warp_name$, "Glast Heim";
+set @warp_map$,"glast_01"; 
+set @warp_x,370; 
+set @warp_y,304; 
+goto LWarpEnd;
+end;
+dglastcast1:
+set @warp_name$, "Glast Heim F1";
+set @warp_map$,"gl_cas01"; 
+set @warp_x,199; 
+set @warp_y,29; 
+goto LWarpEnd;
+end;
+dglastcast2:
+set @warp_name$, "Glast Heim F2";
+set @warp_map$,"gl_cas02"; 
+set @warp_x,104; 
+set @warp_y,25; 
+goto LWarpEnd;
+end;
+dglastchiv1:
+set @warp_name$, "Inside Glast Heim Chivalry F1";
+set @warp_map$,"gl_knt01"; 
+set @warp_x,150; 
+set @warp_y,15; 
+goto LWarpEnd;
+end;
+dglastchiv2:
+set @warp_name$, "Inside Glast Heim Chivalry F2";
+set @warp_map$,"gl_knt02"; 
+set @warp_x,157; 
+set @warp_y,287; 
+goto LWarpEnd;
+end;
+dglastyard:
+set @warp_name$, "Glast Heim Churchyard";
+set @warp_map$,"gl_chyard"; 
+set @warp_x,147; 
+set @warp_y,15; 
+goto LWarpEnd;
+end;
+dglastcul1:
+set @warp_name$, "Glast Heim Culvert F1";
+set @warp_map$,"gl_sew01"; 
+set @warp_x,258; 
+set @warp_y,255; 
+goto LWarpEnd;
+end;
+dglastcul2:
+set @warp_name$, "Glast Heim Culvert F2";
+set @warp_map$,"gl_sew02"; 
+set @warp_x,108; 
+set @warp_y,291; 
+goto LWarpEnd;
+end;
+dglastcul3:
+set @warp_name$, "Glast Heim Culvert F3";
+set @warp_map$,"gl_sew03"; 
+set @warp_x,171; 
+set @warp_y,283; 
+goto LWarpEnd;
+end;
+dglastcul4:
+set @warp_name$, "Glast Heim Culvert F4";
+set @warp_map$,"gl_sew04"; 
+set @warp_x,68; 
+set @warp_y,277; 
+goto LWarpEnd;
+end;
+dglastchur:
+set @warp_name$, "Glast Heim St.Abbey";
+set @warp_map$,"gl_church"; 
+set @warp_x,156; 
+set @warp_y,7; 
+goto LWarpEnd;
+end;
+dglaststep:
+set @warp_name$, "Glast Heim Staircase Dungeon";
+set @warp_map$,"gl_step"; 
+set @warp_x,12; 
+set @warp_y,7; 
+goto LWarpEnd;
+end;
+dglastcave1:
+set @warp_name$, "The Lowest Cave in Glast Heim F1";
+set @warp_map$,"gl_dun01"; 
+set @warp_x,133; 
+set @warp_y,271; 
+goto LWarpEnd;
+end;
+dglastcave2:
+set @warp_name$, "The Lowest Cave in Glast Heim F2";
+set @warp_map$,"gl_dun02"; 
+set @warp_x,224; 
+set @warp_y,274; 
+goto LWarpEnd;
+end;
+dglastpris1:
+set @warp_name$, "Glast Heim Underprison F1";
+set @warp_map$,"gl_prison"; 
+set @warp_x,14; 
+set @warp_y,70; 
+goto LWarpEnd;
+end;
+dglastpris2:
+set @warp_name$, "Glast Heim Underprison F2";
+set @warp_map$,"gl_prison1"; 
+set @warp_x,150; 
+set @warp_y,14; 
+goto LWarpEnd; 
+end;
+dhidden1:
+set @warp_name$, "Labyrinth Forest F1";
+set @warp_map$,"prt_maze01"; 
+set @warp_x,176; 
+set @warp_y,7; 
+goto LWarpEnd;
+end;
+dhidden2:
+set @warp_name$, "Labyrinth Forest F2";
+set @warp_map$,"prt_maze02"; 
+set @warp_x,94; 
+set @warp_y,9; 
+goto LWarpEnd;
+end;
+dhidden3:
+set @warp_name$, "Labyrinth Forest F3";
+set @warp_map$,"prt_maze03"; 
+set @warp_x,23; 
+set @warp_y,8; 
+goto LWarpEnd;
+end;
+diced1:
+set @warp_name$, "Ice Cave F1";
+set @warp_map$,"ice_dun01"; 
+set @warp_x,157; 
+set @warp_y,14; 
+goto LWarpEnd;
+end;
+diced2:
+set @warp_name$, "Ice Cave F2";
+set @warp_map$,"ice_dun02"; 
+set @warp_x,151; 
+set @warp_y,155; 
+goto LWarpEnd;
+end;
+diced3:
+set @warp_name$, "Ice Cave F3";
+set @warp_map$,"ice_dun03"; 
+set @warp_x,149; 
+set @warp_y,22; 
+goto LWarpEnd;
+end;
+diced4:
+set @warp_name$, "Ice Cave F4";
+set @warp_map$,"ice_dun04"; 
+set @warp_x,33; 
+set @warp_y,158; 
+goto LWarpEnd;
+end;
+dmagma1:
+set @warp_name$, "Nogg Halt F1";
+set @warp_map$,"mag_dun01"; 
+set @warp_x,126; 
+set @warp_y,68; 
+goto LWarpEnd;
+end;
+dmagma2:
+set @warp_name$, "Nogg Halt F2";
+set @warp_map$,"mag_dun02"; 
+set @warp_x,47; 
+set @warp_y,30; 
+goto LWarpEnd;
+end;
+dmosk1:
+set @warp_name$, "Les Forest";
+set @warp_map$,"mosk_dun01"; 
+set @warp_x,189; 
+set @warp_y,46; 
+goto LWarpEnd;
+end;
+dmosk2:
+set @warp_name$, "Temny Forest";
+set @warp_map$,"mosk_dun02"; 
+set @warp_x,163; 
+set @warp_y,33; 
+goto LWarpEnd;
+end;
+dmosk3:
+set @warp_name$, "Dremuci";
+set @warp_map$,"mosk_dun03"; 
+set @warp_x,33; 
+set @warp_y,136; 
+goto LWarpEnd; 
+end;
+dorc1:
+set @warp_name$, "Orc Dungeon F1";
+set @warp_map$,"orcsdun01"; 
+set @warp_x,32; 
+set @warp_y,170; 
+goto LWarpEnd;
+end;
+dorc2:
+set @warp_name$, "Orc Dungeon F2";
+set @warp_map$,"orcsdun02"; 
+set @warp_x,21; 
+set @warp_y,185; 
+goto LWarpEnd;
+end;
+dpayon1:
+set @warp_name$, "Payon Cave F1";
+set @warp_map$,"pay_dun00"; 
+set @warp_x,21; 
+set @warp_y,183; 
+goto LWarpEnd;
+end;
+dpayon2:
+set @warp_name$, "Payon Cave F2";
+set @warp_map$,"pay_dun01"; 
+set @warp_x,19; 
+set @warp_y,33; 
+goto LWarpEnd;
+end;
+dpayon3:
+set @warp_name$, "Payon Cave F3";
+set @warp_map$,"pay_dun02"; 
+set @warp_x,19; 
+set @warp_y,63; 
+goto LWarpEnd;
+end;
+dpayon4:
+set @warp_name$, "Payon Cave F4";
+set @warp_map$,"pay_dun03"; 
+set @warp_x,155; 
+set @warp_y,159; 
+goto LWarpEnd;
+end;
+dpayon5:
+set @warp_name$, "Payon Cave F5";
+set @warp_map$,"pay_dun04"; 
+set @warp_x,201; 
+set @warp_y,204; 
+warp "pay_dun04.gat",201,204; 
+end;
+dpyramids1:
+set @warp_name$, "Inside Pyramid F1";
+set @warp_map$,"moc_pryd01"; 
+set @warp_x,192; 
+set @warp_y,9; 
+goto LWarpEnd;
+end;
+dpyramids2:
+set @warp_name$, "Inside Pyramid F2";
+set @warp_map$,"moc_pryd02"; 
+set @warp_x,10; 
+set @warp_y,192; 
+goto LWarpEnd;
+end;
+dpyramids3:
+set @warp_name$, "Inside Pyramid F3";
+set @warp_map$,"moc_pryd03"; 
+set @warp_x,100; 
+set @warp_y,92; 
+goto LWarpEnd;
+end;
+dpyramids4:
+set @warp_name$, "Inside Pyramid F4";
+set @warp_map$,"moc_pryd04"; 
+set @warp_x,181; 
+set @warp_y,11; 
+goto LWarpEnd;
+end;
+dpyramidsb1:
+set @warp_name$, "Inside Pyramid B1";
+set @warp_map$,"moc_pryd05"; 
+set @warp_x,94; 
+set @warp_y,96; 
+goto LWarpEnd;
+end;
+dpyramidsb2:
+set @warp_name$, "Inside Pyramid B2";
+set @warp_map$,"moc_pryd06"; 
+set @warp_x,192; 
+set @warp_y,8; 
+goto LWarpEnd;
+end;
+dsphinx1:
+set @warp_name$, "Sphinx F1";
+set @warp_map$,"in_sphinx1"; 
+set @warp_x,288; 
+set @warp_y,9; 
+goto LWarpEnd;
+end;
+dsphinx2:
+set @warp_name$, "Sphinx F2";
+set @warp_map$,"in_sphinx2"; 
+set @warp_x,149; 
+set @warp_y,81; 
+goto LWarpEnd;
+end;
+dsphinx3:
+set @warp_name$, "Sphinx F3";
+set @warp_map$,"in_sphinx3"; 
+set @warp_x,210; 
+set @warp_y,54; 
+goto LWarpEnd;
+end;
+dsphinx4:
+set @warp_name$, "Sphinx F4";
+set @warp_map$,"in_sphinx4"; 
+set @warp_x,10; 
+set @warp_y,222; 
+goto LWarpEnd;
+end;
+dsphinx5:
+set @warp_name$, "Sphinx F5";
+set @warp_map$,"in_sphinx5"; 
+set @warp_x,100; 
+set @warp_y,99; 
+goto LWarpEnd;
+end;
+dsunken1:
+set @warp_name$, "Sunken Ship F1";
+set @warp_map$,"treasure01"; 
+set @warp_x,69; 
+set @warp_y,24; 
+goto LWarpEnd;
+end;
+dsunken2:
+set @warp_name$, "Sunken Ship F2";
+set @warp_map$,"treasure02"; 
+set @warp_x,102; 
+set @warp_y,27; 
+goto LWarpEnd; 
+end;
+dtoy1:
+set @warp_name$, "Toy Factory Warehouse";
+set @warp_map$,"xmas_dun01"; 
+set @warp_x,205; 
+set @warp_y,15; 
+goto LWarpEnd;
+end;
+dtoy2:
+set @warp_name$, "Toy Monitoring Room";
+set @warp_map$,"xmas_dun02"; 
+set @warp_x,129; 
+set @warp_y,133; 
+goto LWarpEnd;
+end;
+dturtleent:
+set @warp_name$, "Turtle Island";
+set @warp_map$,"tur_dun01"; 
+set @warp_x,154; 
+set @warp_y,49; 
+goto LWarpEnd; 
+end;
+dturtle1:
+set @warp_name$, "Turtle Island Dungeon";
+set @warp_map$,"tur_dun02"; 
+set @warp_x,148; 
+set @warp_y,261; 
+goto LWarpEnd;
+end;
+dturtle2:
+set @warp_name$, "Good Turtles Village";
+set @warp_map$,"tur_dun03"; 
+set @warp_x,132; 
+set @warp_y,189; 
+goto LWarpEnd;
+end;
+dturtle3:
+set @warp_name$, "Turtle Palace";
+set @warp_map$,"tur_dun04"; 
+set @warp_x,100; 
+set @warp_y,192; 
+goto LWarpEnd;
+end;
+dama1:
+set @warp_name$, "Tatami Maze";
+set @warp_map$,"ama_dun01"; 
+set @warp_x,228; 
+set @warp_y,11; 
+goto LWarpEnd;
+end;
+dama2:
+set @warp_name$, "Battlefield in the Underground Forest";
+set @warp_map$,"ama_dun02"; 
+set @warp_x,34; 
+set @warp_y,41; 
+goto LWarpEnd;
+end;
+dama3:
+set @warp_name$, "Amatsu Underground Shrine";
+set @warp_map$,"ama_dun03"; 
+set @warp_x,119; 
+set @warp_y,14; 
+goto LWarpEnd;
+end;
+dgon1:
+set @warp_name$, "Shrine of Gonryun Queen";
+set @warp_map$,"gon_dun01"; 
+set @warp_x,153; 
+set @warp_y,53; 
+goto LWarpEnd;
+end;
+dgon2:
+set @warp_name$, "Hermit's Checkers";
+set @warp_map$,"gon_dun02"; 
+set @warp_x,28; 
+set @warp_y,113; 
+goto LWarpEnd;
+end;
+dgon3:
+set @warp_name$, "Arcadia";
+set @warp_map$,"gon_dun03"; 
+set @warp_x,68; 
+set @warp_y,16; 
+goto LWarpEnd;
+end;
+dgefenia1:
+set @warp_name$, "Gefenia Southwest";
+set @warp_map$,"gefenia01"; 
+set @warp_x,40; 
+set @warp_y,103; 
+goto LWarpEnd;
+end;
+dgefenia2:
+set @warp_name$, "Gefenia Northeast";
+set @warp_map$,"gefenia02"; 
+set @warp_x,203; 
+set @warp_y,34; 
+goto LWarpEnd; 
+end;
+dgefenia3:
+set @warp_name$, "Gefenia Northwest";
+set @warp_map$,"gefenia03"; 
+set @warp_x,266; 
+set @warp_y,168; 
+goto LWarpEnd;
+end;
+dgefenia4:
+set @warp_name$, "Gefenia Southwest";
+set @warp_map$,"gefenia04"; 
+set @warp_x,130; 
+set @warp_y,272; 
+goto LWarpEnd;
+end;
+dgldun1:
+set @warp_name$, "Baldur Guild Dungeon";
+set @warp_map$,"gld_dun01"; 
+set @warp_x,119; 
+set @warp_y,93; 
+goto LWarpEnd;
+end;
+dgldun2:
+set @warp_name$, "Luina Guild Dungeon";
+set @warp_map$,"gld_dun02"; 
+set @warp_x,39; 
+set @warp_y,161; 
+goto LWarpEnd;
+end;
+dgldun3:
+set @warp_name$, "Valkyrie Guild Dungeon";
+set @warp_map$,"gld_dun03"; 
+set @warp_x,50; 
+set @warp_y,44; 
+goto LWarpEnd;
+end;
+dgldun4:
+set @warp_name$, "Britoniah Guild Dungeon";
+set @warp_map$,"gld_dun04"; 
+set @warp_x,116; 
+set @warp_y,45; 
+goto LWarpEnd;
+end;
+casino:
+set @warp_map$,"cmd_in02"; 
+set @warp_x,179; 
+set @warp_y,129; 
+goto LWarpEnd;
+end;
+dthor1:
+set @warp_name$, "Thor Volcano F1";
+set @warp_map$,"thor_v01"; 
+set @warp_x,21; 
+set @warp_y,228; 
+goto LWarpEnd;
+end;
+dthor2:
+set @warp_name$, "Thor Volcano F2";
+set @warp_map$,"thor_v02"; 
+set @warp_x,75; 
+set @warp_y,205; 
+goto LWarpEnd; 
+end;
+dthor3:
+set @warp_name$, "Thor Volcano F3";
+set @warp_map$,"thor_v03"; 
+set @warp_x,34; 
+set @warp_y,272; 
+goto LWarpEnd;
+end;
+drachel1:
+set @warp_name$, "Freya's Secret Precinct F1";
+set @warp_map$,"ra_san01"; 
+set @warp_x,140; 
+set @warp_y,11; 
+goto LWarpEnd;
+end;
+drachel2:
+set @warp_name$, "Freya's Secret Precinct F2";
+set @warp_map$,"ra_san02"; 
+set @warp_x,32; 
+set @warp_y,21; 
+goto LWarpEnd;
+end;
+drachel3:
+set @warp_name$, "Freya's Secret Precinct F3";
+set @warp_map$,"ra_san03"; 
+set @warp_x,10; 
+set @warp_y,149; 
+goto LWarpEnd;
+end;
+drachel4:
+set @warp_name$, "Freya's Secret Precinct F4";
+set @warp_map$,"ra_san04"; 
+set @warp_x,204; 
+set @warp_y,218; 
+goto LWarpEnd;
+end;
+drachel5:
+set @warp_name$, "Freya's Secret Precinct F5";
+set @warp_map$,"ra_san05"; 
+set @warp_x,150; 
+set @warp_y,9; 
+goto LWarpEnd;
+end;
+dabbey1:
+set @warp_name$, "Cursed Abbey Dungeon F1";
+set @warp_map$,"abbey01"; 
+set @warp_x,51; 
+set @warp_y,14; 
+goto LWarpEnd;
+end;
+dabbey2:
+set @warp_name$, "Cursed Abbey Dungeon F2";
+set @warp_map$,"abbey02"; 
+set @warp_x,150; 
+set @warp_y,11; 
+goto LWarpEnd;
+end;
+dabbey3:
+set @warp_name$, "Cursed Abbey Dungeon F3";
+set @warp_map$,"abbey03"; 
+set @warp_x,120; 
+set @warp_y,10; 
+goto LWarpEnd;
+end;
+
+//-------------------------------
+//         Field Warps
+//-------------------------------
+
+dbiffild1:
+set @warp_map$,"bif_fild01";
+set @warp_x,226;
+set @warp_y,192;
+goto LWarpEnd;
+end;
+dbiffild2:
+set @warp_map$,"bif_fild02";
+set @warp_x,213;
+set @warp_y,192;
+goto LWarpEnd;
+end;
+dmanfild1:
+set @warp_map$,"man_fild01";
+set @warp_x,191;
+set @warp_y,213;
+goto LWarpEnd;
+end;
+dmanfild2:
+set @warp_map$,"man_fild02";
+set @warp_x,206;
+set @warp_y,194;
+goto LWarpEnd;
+end;
+dmanfild3:
+set @warp_map$,"man_fild03";
+set @warp_x,102;
+set @warp_y,197;
+goto LWarpEnd;
+end;
+dbrafild1:
+set @warp_map$,"bra_fild01";
+set @warp_x,161;
+set @warp_y,178;
+goto LWarpEnd;
+end;
+ddicfild1:
+set @warp_map$,"dic_fild01";
+set @warp_x,174;
+set @warp_y,170;
+goto LWarpEnd;
+end;
+ddicfild2:
+set @warp_map$,"dic_fild02";
+set @warp_x,159;
+set @warp_y,200;
+goto LWarpEnd;
+end;
+dsplfild1:
+set @warp_map$,"spl_fild01";
+set @warp_x,223;
+set @warp_y,161;
+goto LWarpEnd;
+end;
+dsplfild2:
+set @warp_map$,"spl_fild02";
+set @warp_x,186;
+set @warp_y,193;
+goto LWarpEnd;
+end;
+dsplfild3:
+set @warp_map$,"spl_fild03";
+set @warp_x,203;
+set @warp_y,193;
+goto LWarpEnd;
+end;
+drunfild1:
+set @warp_map$,"ra_fild01"; 
+set @warp_x,192; 
+set @warp_y,162; 
+goto LWarpEnd;
+end;
+drunfild2:
+set @warp_map$,"ra_fild02"; 
+set @warp_x,235; 
+set @warp_y,166; 
+goto LWarpEnd;
+end;
+drunfild3:
+set @warp_map$,"ra_fild03"; 
+set @warp_x,202; 
+set @warp_y,206; 
+goto LWarpEnd;
+end;
+drunfild4:
+set @warp_map$,"ra_fild04"; 
+set @warp_x,202; 
+set @warp_y,208; 
+goto LWarpEnd;
+end;
+drunfild5:
+set @warp_map$,"ra_fild05"; 
+set @warp_x,225; 
+set @warp_y,202; 
+goto LWarpEnd;
+end;
+drunfild6:
+set @warp_map$,"ra_fild06"; 
+set @warp_x,202; 
+set @warp_y,214; 
+goto LWarpEnd;
+end;
+drunfild7:
+set @warp_map$,"ra_fild07"; 
+set @warp_x,263; 
+set @warp_y,196; 
+goto LWarpEnd;
+end;
+drunfild8:
+set @warp_map$,"ra_fild08"; 
+set @warp_x,217; 
+set @warp_y,201; 
+goto LWarpEnd;
+end;
+drunfild9:
+set @warp_map$,"ra_fild09"; 
+set @warp_x,87; 
+set @warp_y,121; 
+goto LWarpEnd;
+end;
+drunfild10:
+set @warp_map$,"ra_fild10"; 
+set @warp_x,277; 
+set @warp_y,181; 
+goto LWarpEnd;
+end;
+drunfild11:
+set @warp_map$,"ra_fild11"; 
+set @warp_x,221; 
+set @warp_y,185; 
+goto LWarpEnd;
+end;
+drunfild12:
+set @warp_map$,"ra_fild12"; 
+set @warp_x,175; 
+set @warp_y,200; 
+goto LWarpEnd;
+end;
+drunfild13:
+set @warp_map$,"ra_fild13"; 
+set @warp_x,174; 
+set @warp_y,197; 
+goto LWarpEnd;
+end;
+dgeffild00:
+set @warp_map$,"gef_fild00"; 
+set @warp_x,46; 
+set @warp_y,199; 
+goto LWarpEnd;
+end;
+dgeffild01:
+set @warp_map$,"gef_fild01"; 
+set @warp_x,213; 
+set @warp_y,204; 
+goto LWarpEnd;
+end;
+dgeffild02:
+set @warp_map$,"gef_fild02"; 
+set @warp_x,195; 
+set @warp_y,212; 
+goto LWarpEnd;
+end;
+dgeffild03:
+set @warp_map$,"gef_fild03"; 
+set @warp_x,257; 
+set @warp_y,192; 
+goto LWarpEnd;
+end;
+dgeffild04:
+set @warp_map$,"gef_fild04"; 
+set @warp_x,188; 
+set @warp_y,171; 
+goto LWarpEnd;
+end;
+dgeffild05:
+set @warp_map$,"gef_fild05"; 
+set @warp_x,166; 
+set @warp_y,263; 
+goto LWarpEnd;
+end;
+dgeffild06:
+set @warp_map$,"gef_fild06"; 
+set @warp_x,248; 
+set @warp_y,158; 
+goto LWarpEnd;
+end;
+dgeffild07:
+set @warp_map$,"gef_fild07"; 
+set @warp_x,195; 
+set @warp_y,191; 
+goto LWarpEnd;
+end;
+dgeffild08:
+set @warp_map$,"gef_fild08"; 
+set @warp_x,186; 
+set @warp_y,183; 
+goto LWarpEnd;
+end;
+dgeffild09:
+set @warp_map$,"gef_fild09"; 
+set @warp_x,221; 
+set @warp_y,117; 
+goto LWarpEnd;
+end;
+dgeffild10:
+set @warp_map$,"gef_fild10"; 
+set @warp_x,178; 
+set @warp_y,218; 
+goto LWarpEnd;
+end;
+dgeffild11:
+set @warp_map$,"gef_fild11"; 
+set @warp_x,136; 
+set @warp_y,328; 
+goto LWarpEnd;
+end;
+dgeffild12:
+set @warp_map$,"gef_fild12"; 
+set @warp_x,240; 
+set @warp_y,181; 
+goto LWarpEnd;
+end;
+dgeffild13:
+set @warp_map$,"gef_fild13"; 
+set @warp_x,235; 
+set @warp_y,235; 
+goto LWarpEnd;
+end;
+dgeffild14:
+set @warp_map$,"gef_fild14"; 
+set @warp_x,211; 
+set @warp_y,185; 
+goto LWarpEnd;
+end;
+dmjolnir1:
+set @warp_map$,"mjolnir_01"; 
+set @warp_x,204; 
+set @warp_y,120; 
+goto LWarpEnd;
+end;
+dmjolnir2:
+set @warp_map$,"mjolnir_02"; 
+set @warp_x,175; 
+set @warp_y,193; 
+goto LWarpEnd;
+end;
+dmjolnir3:
+set @warp_map$,"mjolnir_03"; 
+set @warp_x,208; 
+set @warp_y,213; 
+goto LWarpEnd;
+end;
+dmjolnir4:
+set @warp_map$,"mjolnir_04"; 
+set @warp_x,179; 
+set @warp_y,180; 
+goto LWarpEnd;
+end;
+dmjolnir5:
+set @warp_map$,"mjolnir_05"; 
+set @warp_x,181; 
+set @warp_y,240; 
+goto LWarpEnd;
+end;
+dmjolnir6:
+set @warp_map$,"mjolnir_06"; 
+set @warp_x,195; 
+set @warp_y,270; 
+goto LWarpEnd;
+end;
+dmjolnir7:
+set @warp_map$,"mjolnir_07"; 
+set @warp_x,235; 
+set @warp_y,202; 
+goto LWarpEnd;
+end;
+dmjolnir8:
+set @warp_map$,"mjolnir_08"; 
+set @warp_x,188; 
+set @warp_y,215; 
+goto LWarpEnd;
+end;
+dmjolnir9:
+set @warp_map$,"mjolnir_09"; 
+set @warp_x,205; 
+set @warp_y,144; 
+goto LWarpEnd;
+end;
+dmjolnir10:
+set @warp_map$,"mjolnir_10"; 
+set @warp_x,245; 
+set @warp_y,223; 
+goto LWarpEnd;
+end;
+dmjolnir11:
+set @warp_map$,"mjolnir_11"; 
+set @warp_x,180; 
+set @warp_y,206; 
+goto LWarpEnd;
+end;
+dmjolnir12:
+set @warp_map$,"mjolnir_12"; 
+set @warp_x,196; 
+set @warp_y,208; 
+goto LWarpEnd;
+end;
+dmosc1:
+set @warp_map$,"mosk_fild01"; 
+set @warp_x,99; 
+set @warp_y,105; 
+goto LWarpEnd; 
+end;
+dmosc2:
+set @warp_map$,"mosk_fild02"; 
+set @warp_x,204; 
+set @warp_y,59; 
+goto LWarpEnd;
+end;
+dmocfild1:
+set @warp_map$,"moc_fild01"; 
+set @warp_x,219; 
+set @warp_y,205; 
+goto LWarpEnd;
+end;
+dmocfild2:
+set @warp_map$,"moc_fild02"; 
+set @warp_x,177; 
+set @warp_y,206; 
+goto LWarpEnd;
+end;
+dmocfild3:
+set @warp_map$,"moc_fild03"; 
+set @warp_x,194; 
+set @warp_y,182; 
+goto LWarpEnd;
+end;
+dmocfild4:
+set @warp_map$,"moc_fild04"; 
+set @warp_x,184; 
+set @warp_y,217; 
+goto LWarpEnd;
+end;
+dmocfild5:
+set @warp_map$,"moc_fild05"; 
+set @warp_x,203; 
+set @warp_y,213; 
+goto LWarpEnd;
+end;
+dmocfild6:
+set @warp_map$,"moc_fild06"; 
+set @warp_x,213; 
+set @warp_y,208; 
+goto LWarpEnd;
+end;
+dmocfild7:
+set @warp_map$,"moc_fild07"; 
+set @warp_x,224; 
+set @warp_y,170; 
+goto LWarpEnd;
+end;
+dmocfild8:
+set @warp_map$,"moc_fild08"; 
+set @warp_x,229; 
+set @warp_y,177; 
+goto LWarpEnd;
+end;
+dmocfild9:
+set @warp_map$,"moc_fild09"; 
+set @warp_x,195; 
+set @warp_y,198; 
+goto LWarpEnd;
+end;
+dmocfild10:
+set @warp_map$,"moc_fild10"; 
+set @warp_x,209; 
+set @warp_y,168; 
+goto LWarpEnd; 
+end;
+dmocfild11:
+set @warp_map$,"moc_fild11"; 
+set @warp_x,198; 
+set @warp_y,216; 
+goto LWarpEnd;
+end;
+dmocfild12:
+set @warp_map$,"moc_fild12"; 
+set @warp_x,156; 
+set @warp_y,187; 
+goto LWarpEnd;
+end;
+dmocfild13:
+set @warp_map$,"moc_fild13"; 
+set @warp_x,185; 
+set @warp_y,263; 
+goto LWarpEnd;
+end;
+dmocfild14:
+set @warp_map$,"moc_fild14"; 
+set @warp_x,209; 
+set @warp_y,219; 
+goto LWarpEnd;
+end;
+dmocfild15:
+set @warp_map$,"moc_fild15"; 
+set @warp_x,223; 
+set @warp_y,188; 
+goto LWarpEnd;
+end;
+dmocfild16:
+set @warp_map$,"moc_fild16"; 
+set @warp_x,206; 
+set @warp_y,228; 
+goto LWarpEnd;
+end;
+dmocfild17:
+set @warp_map$,"moc_fild17"; 
+set @warp_x,208; 
+set @warp_y,238; 
+goto LWarpEnd;
+end;
+dmocfild18:
+set @warp_map$,"moc_fild18"; 
+set @warp_x,209; 
+set @warp_y,223; 
+goto LWarpEnd;
+end;
+dmocfild19:
+set @warp_map$,"moc_fild19"; 
+set @warp_x,85; 
+set @warp_y,97; 
+goto LWarpEnd;
+end;
+dpayfild1:
+set @warp_map$,"pay_fild01"; 
+set @warp_x,158; 
+set @warp_y,206; 
+goto LWarpEnd;
+end;
+dpayfild2:
+set @warp_map$,"pay_fild02"; 
+set @warp_x,151; 
+set @warp_y,219; 
+goto LWarpEnd;
+end;
+dpayfild3:
+set @warp_map$,"pay_fild03"; 
+set @warp_x,205; 
+set @warp_y,148; 
+goto LWarpEnd;
+end;
+dpayfild4:
+set @warp_map$,"pay_fild04"; 
+set @warp_x,186; 
+set @warp_y,247; 
+goto LWarpEnd;
+end;
+dpayfild5:
+set @warp_map$,"pay_fild05"; 
+set @warp_x,134; 
+set @warp_y,204; 
+goto LWarpEnd;
+end;
+dpayfild6:
+set @warp_map$,"pay_fild06"; 
+set @warp_x,193; 
+set @warp_y,235; 
+goto LWarpEnd;
+end;
+dpayfild7:
+set @warp_map$,"pay_fild07"; 
+set @warp_x,200; 
+set @warp_y,177; 
+goto LWarpEnd;
+end;
+dpayfild8:
+set @warp_map$,"pay_fild08"; 
+set @warp_x,137; 
+set @warp_y,189; 
+goto LWarpEnd;
+end;
+dpayfild9:
+set @warp_map$,"pay_fild09"; 
+set @warp_x,201; 
+set @warp_y,224; 
+goto LWarpEnd;
+end;
+dpayfild10:
+set @warp_map$,"pay_fild10"; 
+set @warp_x,160; 
+set @warp_y,205; 
+goto LWarpEnd;
+end;
+dpayfild11:
+set @warp_map$,"pay_fild11"; 
+set @warp_x,194; 
+set @warp_y,150; 
+goto LWarpEnd;
+end;
+dprtfild0:
+set @warp_map$,"prt_fild00"; 
+set @warp_x,184; 
+set @warp_y,235; 
+goto LWarpEnd;
+end;
+dprtfild1:
+set @warp_map$,"prt_fild01"; 
+set @warp_x,190; 
+set @warp_y,206; 
+goto LWarpEnd;
+end;
+dprtfild2:
+set @warp_map$,"prt_fild02"; 
+set @warp_x,240; 
+set @warp_y,206; 
+goto LWarpEnd;
+end;
+dprtfild3:
+set @warp_map$,"prt_fild03"; 
+set @warp_x,190; 
+set @warp_y,143; 
+goto LWarpEnd;
+end;
+dprtfild4:
+set @warp_map$,"prt_fild04"; 
+set @warp_x,307; 
+set @warp_y,252; 
+goto LWarpEnd;
+end;
+dprtfild5:
+set @warp_map$,"prt_fild05"; 
+set @warp_x,239; 
+set @warp_y,213; 
+goto LWarpEnd;
+end;
+dprtfild6:
+set @warp_map$,"prt_fild06"; 
+set @warp_x,185; 
+set @warp_y,188; 
+goto LWarpEnd;
+end;
+dprtfild7:
+set @warp_map$,"prt_fild07"; 
+set @warp_x,193; 
+set @warp_y,194; 
+goto LWarpEnd;
+end;
+dprtfild8:
+set @warp_map$,"prt_fild08"; 
+set @warp_x,187; 
+set @warp_y,218; 
+goto LWarpEnd;
+end;
+dprtfild9:
+set @warp_map$,"prt_fild09"; 
+set @warp_x,210; 
+set @warp_y,183; 
+goto LWarpEnd;
+end;
+dprtfild10:
+set @warp_map$,"prt_fild10"; 
+set @warp_x,195; 
+set @warp_y,149; 
+goto LWarpEnd;
+end;
+dprtfild11:
+set @warp_map$,"prt_fild11"; 
+set @warp_x,198; 
+set @warp_y,164; 
+goto LWarpEnd;
+end;
+dxmasfild1:
+set @warp_map$,"xmas_fild01"; 
+set @warp_x,115; 
+set @warp_y,145; 
+goto LWarpEnd;
+end;
+dcmdfild1:
+set @warp_map$,"cmd_fild01"; 
+set @warp_x,180; 
+set @warp_y,178; 
+goto LWarpEnd;
+end;
+dcmdfild2:
+set @warp_map$,"cmd_fild02"; 
+set @warp_x,231; 
+set @warp_y,160; 
+goto LWarpEnd;
+end;
+dcmdfild3:
+set @warp_map$,"cmd_fild03"; 
+set @warp_x,191; 
+set @warp_y,172; 
+goto LWarpEnd;
+end;
+dcmdfild4:
+set @warp_map$,"cmd_fild04"; 
+set @warp_x,228; 
+set @warp_y,194; 
+goto LWarpEnd;
+end;
+dcmdfild5:
+set @warp_map$,"cmd_fild05"; 
+set @warp_x,224; 
+set @warp_y,203; 
+goto LWarpEnd;
+end;
+dcmdfild6:
+set @warp_map$,"cmd_fild06"; 
+set @warp_x,190; 
+set @warp_y,223; 
+goto LWarpEnd;
+end;
+dcmdfild7:
+set @warp_map$,"cmd_fild07"; 
+set @warp_x,234; 
+set @warp_y,177; 
+goto LWarpEnd;
+end;
+dcmdfild8:
+set @warp_map$,"cmd_fild08"; 
+set @warp_x,194; 
+set @warp_y,175; 
+goto LWarpEnd;
+end;
+dcmdfild9:
+set @warp_map$,"cmd_fild09"; 
+set @warp_x,172; 
+set @warp_y,172; 
+goto LWarpEnd; 
+end;
+dyunofild1:
+set @warp_map$,"yuno_fild01"; 
+set @warp_x,189; 
+set @warp_y,224; 
+goto LWarpEnd;
+end;
+dyunofild2:
+set @warp_map$,"yuno_fild02"; 
+set @warp_x,192; 
+set @warp_y,207; 
+goto LWarpEnd;
+end;
+dyunofild3:
+set @warp_map$,"yuno_fild03"; 
+set @warp_x,221; 
+set @warp_y,157; 
+goto LWarpEnd;
+end;
+dyunofild4:
+set @warp_map$,"yuno_fild04"; 
+set @warp_x,226; 
+set @warp_y,199; 
+goto LWarpEnd;
+end;
+dyunofild5:
+set @warp_map$,"yuno_fild05"; 
+set @warp_x,223; 
+set @warp_y,177; 
+goto LWarpEnd;
+end;
+dyunofild6:
+set @warp_map$,"yuno_fild06"; 
+set @warp_x,187; 
+set @warp_y,232; 
+goto LWarpEnd;
+end;
+dyunofild7:
+set @warp_map$,"yuno_fild07"; 
+set @warp_x,231; 
+set @warp_y,174; 
+goto LWarpEnd;
+end;
+dyunofild8:
+set @warp_map$,"yuno_fild08"; 
+set @warp_x,196; 
+set @warp_y,203; 
+goto LWarpEnd;
+end;
+dyunofild9:
+set @warp_map$,"yuno_fild09"; 
+set @warp_x,183; 
+set @warp_y,214; 
+goto LWarpEnd;
+end;
+dyunofild10:
+set @warp_map$,"yuno_fild10"; 
+set @warp_x,200; 
+set @warp_y,124; 
+goto LWarpEnd;
+end;
+dyunofild11:
+set @warp_map$,"yuno_fild11"; 
+set @warp_x,195; 
+set @warp_y,226; 
+goto LWarpEnd;
+end;
+dyunofild12:
+set @warp_map$,"yuno_fild12"; 
+set @warp_x,210; 
+set @warp_y,304; 
+goto LWarpEnd;
+end;
+damafild1:
+set @warp_map$,"ama_fild01"; 
+set @warp_x,190; 
+set @warp_y,197; 
+goto LWarpEnd;
+end;
+dgonfild1:
+set @warp_map$,"gon_fild01"; 
+set @warp_x,220; 
+set @warp_y,227; 
+goto LWarpEnd;
+end;
+dumfild1:
+set @warp_map$,"um_fild01"; 
+set @warp_x,217; 
+set @warp_y,206; 
+goto LWarpEnd;
+end;
+dumfild2:
+set @warp_map$,"um_fild02"; 
+set @warp_x,223; 
+set @warp_y,221; 
+goto LWarpEnd;
+end;
+dumfild3:
+set @warp_map$,"um_fild03"; 
+set @warp_x,237; 
+set @warp_y,215; 
+goto LWarpEnd;
+end;
+dumfild4:
+set @warp_map$,"um_fild04"; 
+set @warp_x,202; 
+set @warp_y,197; 
+goto LWarpEnd;
+end;
+dniffild1:
+set @warp_map$,"nif_fild01"; 
+set @warp_x,215; 
+set @warp_y,229; 
+goto LWarpEnd;
+end;
+dniffild2:
+set @warp_map$,"nif_fild02"; 
+set @warp_x,167; 
+set @warp_y,234; 
+goto LWarpEnd;
+end;
+dyggdrasil1:
+set @warp_map$,"yggdrasil01"; 
+set @warp_x,204; 
+set @warp_y,78; 
+goto LWarpEnd;
+end;
+dloufild1:
+set @warp_map$,"lou_fild01"; 
+set @warp_x,229; 
+set @warp_y,187; 
+goto LWarpEnd;
+end;
+dayofild1:
+set @warp_map$,"ayo_fild01"; 
+set @warp_x,173; 
+set @warp_y,134; 
+goto LWarpEnd;
+end;
+dayofild2:
+set @warp_map$,"ayo_fild02"; 
+set @warp_x,212; 
+set @warp_y,150; 
+goto LWarpEnd;
+end;
+deinfild1:
+set @warp_map$,"ein_fild01"; 
+set @warp_x,142; 
+set @warp_y,225; 
+goto LWarpEnd;
+end;
+deinfild2:
+set @warp_map$,"ein_fild02"; 
+set @warp_x,182; 
+set @warp_y,141; 
+goto LWarpEnd;
+end;
+deinfild3:
+set @warp_map$,"ein_fild03"; 
+set @warp_x,187; 
+set @warp_y,228; 
+goto LWarpEnd;
+end;
+deinfild4:
+set @warp_map$,"ein_fild04"; 
+set @warp_x,185; 
+set @warp_y,173; 
+goto LWarpEnd;
+end;
+deinfild5:
+set @warp_map$,"ein_fild05"; 
+set @warp_x,216; 
+set @warp_y,173; 
+goto LWarpEnd;
+end;
+deinfild6:
+set @warp_map$,"ein_fild06"; 
+set @warp_x,195; 
+set @warp_y,148; 
+goto LWarpEnd;
+end;
+deinfild7:
+set @warp_map$,"ein_fild07"; 
+set @warp_x,272; 
+set @warp_y,220; 
+goto LWarpEnd;
+end;
+deinfild8:
+set @warp_map$,"ein_fild08"; 
+set @warp_x,173; 
+set @warp_y,214; 
+goto LWarpEnd;
+end;
+deinfild9:
+set @warp_map$,"ein_fild09"; 
+set @warp_x,207; 
+set @warp_y,174; 
+goto LWarpEnd;
+end;
+deinfild10:
+set @warp_map$,"ein_fild10"; 
+set @warp_x,196; 
+set @warp_y,200; 
+goto LWarpEnd;
+end;
+dlhzfild1:
+set @warp_map$,"lhz_fild01"; 
+set @warp_x,240; 
+set @warp_y,179; 
+goto LWarpEnd;
+end;
+dlhzfild2:
+set @warp_map$,"lhz_fild02"; 
+set @warp_x,185; 
+set @warp_y,235; 
+goto LWarpEnd;
+end;
+dlhzfild3:
+set @warp_map$,"lhz_fild03"; 
+set @warp_x,240; 
+set @warp_y,226; 
+goto LWarpEnd;
+end;
+dhufild1:
+set @warp_map$,"hu_fild01"; 
+set @warp_x,268; 
+set @warp_y,101; 
+goto LWarpEnd;
+end;
+dhufild2:
+set @warp_map$,"hu_fild02"; 
+set @warp_x,222; 
+set @warp_y,193; 
+goto LWarpEnd;
+end;
+dhufild3:
+set @warp_map$,"hu_fild03"; 
+set @warp_x,232; 
+set @warp_y,185; 
+goto LWarpEnd;
+end;
+dhufild4:
+set @warp_map$,"hu_fild04"; 
+set @warp_x,252; 
+set @warp_y,189; 
+goto LWarpEnd;
+end;
+dhufild5:
+set @warp_map$,"hu_fild05"; 
+set @warp_x,196; 
+set @warp_y,106; 
+goto LWarpEnd;
+end;
+dhufild6:
+set @warp_map$,"hu_fild06"; 
+set @warp_x,216; 
+set @warp_y,220; 
+goto LWarpEnd;
+end;
+dhufild7:
+set @warp_map$,"hu_fild07"; 
+set @warp_x,227; 
+set @warp_y,197; 
+goto LWarpEnd;
+end;
+wodtemp1:
+set @warp_map$,"odin_tem01"; 
+set @warp_x,298; 
+set @warp_y,167; 
+goto LWarpEnd;
+end;
+wodtemp2:
+set @warp_map$,"odin_tem02"; 
+set @warp_x,224; 
+set @warp_y,149; 
+goto LWarpEnd;
+end;
+wodtemp3:
+set @warp_map$,"odin_tem03"; 
+set @warp_x,266; 
+set @warp_y,280; 
+goto LWarpEnd;
+end;
+dvfild1:
+set @warp_map$,"ve_fild01"; 
+set @warp_x,186; 
+set @warp_y,175; 
+goto LWarpEnd;
+end;
+dvfild2:
+set @warp_map$,"ve_fild02"; 
+set @warp_x,196; 
+set @warp_y,370; 
+goto LWarpEnd;
+end;
+dvfild3:
+set @warp_map$,"ve_fild03"; 
+set @warp_x,222; 
+set @warp_y,45; 
+goto LWarpEnd;
+end;
+dvfild4:
+set @warp_map$,"ve_fild04"; 
+set @warp_x,51; 
+set @warp_y,250; 
+goto LWarpEnd;
+end;
+dvfild5:
+set @warp_map$,"ve_fild05"; 
+set @warp_x,202; 
+set @warp_y,324; 
+goto LWarpEnd;
+end;
+dvfild6:
+set @warp_map$,"ve_fild06"; 
+set @warp_x,150; 
+set @warp_y,223; 
+goto LWarpEnd;
+end;
+dvfild7:
+set @warp_map$,"ve_fild07"; 
+set @warp_x,149; 
+set @warp_y,307; 
+goto LWarpEnd;
+end;	
+	
+}
+
+prontera, 161, 180,3	duplicate(f_warper)	Warp Agent#0	894
+prontera, 160, 264,3	duplicate(f_warper)	Warp Agent#1	894
+prontera, 161, 115,3	duplicate(f_warper)	Warp Agent#2	894
+morocc, 162, 90,3	duplicate(f_warper)	Warp Agent#3	894
+morocc, 46, 177,3	duplicate(f_warper)	Warp Agent#4	894
+morocc, 287, 205,3	duplicate(f_warper)	Warp Agent#5	894
+geffen, 125, 100,3	duplicate(f_warper)	Warp Agent#6	894
+geffen, 125, 199,3	duplicate(f_warper)	Warp Agent#7	894
+geffen, 193, 120,3	duplicate(f_warper)	Warp Agent#8	894
+payon, 112, 316,3	duplicate(f_warper)	Warp Agent#9	894
+payon, 160, 211,3	duplicate(f_warper)	Warp Agent#10	894
+payon, 163, 88,3	duplicate(f_warper)	Warp Agent#11	894
+alberta, 193, 138,3	duplicate(f_warper)	Warp Agent#12	894
+alberta, 58, 241,3	duplicate(f_warper)	Warp Agent#13	894
+alberta, 59, 51,3	duplicate(f_warper)	Warp Agent#14	894
+izlude, 132, 107,3	duplicate(f_warper)	Warp Agent#15	894
+izlude, 132, 162,3	duplicate(f_warper)	Warp Agent#16	894
+izlude, 56, 135,3	duplicate(f_warper)	Warp Agent#17	894
+aldebaran, 146, 112,3	duplicate(f_warper)	Warp Agent#18	894
+aldebaran, 145, 174,3	duplicate(f_warper)	Warp Agent#19	894
+aldebaran, 145, 238,3	duplicate(f_warper)	Warp Agent#20	894
+xmas, 153, 133,3	duplicate(f_warper)	Warp Agent#21	894
+xmas, 154, 50,3	duplicate(f_warper)	Warp Agent#22	894
+xmas, 149, 290,3	duplicate(f_warper)	Warp Agent#23	894
+comodo, 195, 150,3	duplicate(f_warper)	Warp Agent#24	894
+comodo, 211, 295,3	duplicate(f_warper)	Warp Agent#25	894
+comodo, 267, 196,3	duplicate(f_warper)	Warp Agent#26	894
+yuno, 163, 79,3	duplicate(f_warper)	Warp Agent#27	894
+yuno, 163, 293,3	duplicate(f_warper)	Warp Agent#28	894
+yuno, 346, 255,3	duplicate(f_warper)	Warp Agent#29	894
+amatsu, 205, 143,3	duplicate(f_warper)	Warp Agent#30	894
+amatsu, 64, 110,3	duplicate(f_warper)	Warp Agent#31	894
+amatsu, 252, 273,3	duplicate(f_warper)	Warp Agent#32	894
+gonryun, 164, 116,3	duplicate(f_warper)	Warp Agent#33	894
+gonryun, 164, 178,3	duplicate(f_warper)	Warp Agent#34	894
+gonryun, 44, 182,3	duplicate(f_warper)	Warp Agent#35	894
+umbala, 97, 156,3	duplicate(f_warper)	Warp Agent#36	894
+umbala, 125, 132,3	duplicate(f_warper)	Warp Agent#37	894
+umbala, 148, 157,3	duplicate(f_warper)	Warp Agent#38	894
+niflheim, 198, 186,3	duplicate(f_warper)	Warp Agent#39	894
+niflheim, 134, 143,3	duplicate(f_warper)	Warp Agent#40	894
+niflheim, 203, 44,3	duplicate(f_warper)	Warp Agent#41	894
+louyang, 223, 59,3	duplicate(f_warper)	Warp Agent#42	894
+louyang, 222, 106,3	duplicate(f_warper)	Warp Agent#43	894
+louyang, 223, 207,3	duplicate(f_warper)	Warp Agent#44	894
+prt_monk, 187, 242,3	duplicate(f_warper)	Warp Agent#45	894
+prt_monk, 146, 247,3	duplicate(f_warper)	Warp Agent#46	894
+prt_monk, 233, 92,3	duplicate(f_warper)	Warp Agent#47	894
+brasilis, 201, 181,3	duplicate(f_warper)	Warp Agent#48	894
+brasilis, 210, 78,3	duplicate(f_warper)	Warp Agent#49	894
+brasilis, 201, 318,3	duplicate(f_warper)	Warp Agent#50	894
+jawaii, 237, 105,3	duplicate(f_warper)	Warp Agent#51	894
+jawaii, 226, 224,3	duplicate(f_warper)	Warp Agent#52	894
+jawaii, 118, 188,3	duplicate(f_warper)	Warp Agent#53	894
+ayothaya, 154, 113,3	duplicate(f_warper)	Warp Agent#54	894
+ayothaya, 155, 164,3	duplicate(f_warper)	Warp Agent#55	894
+ayothaya, 211, 258,3	duplicate(f_warper)	Warp Agent#56	894
+einbroch, 69, 195,3	duplicate(f_warper)	Warp Agent#57	894
+einbroch, 143, 49,3	duplicate(f_warper)	Warp Agent#58	894
+einbroch, 163, 303,3	duplicate(f_warper)	Warp Agent#59	894
+lighthalzen, 163, 94,3	duplicate(f_warper)	Warp Agent#60	894
+lighthalzen, 108, 236,3	duplicate(f_warper)	Warp Agent#61	894
+lighthalzen, 341, 285,3	duplicate(f_warper)	Warp Agent#62	894
+einbech, 47, 206,3	duplicate(f_warper)	Warp Agent#63	894
+einbech, 175, 125,3	duplicate(f_warper)	Warp Agent#64	894
+einbech, 76, 101,3	duplicate(f_warper)	Warp Agent#65	894
+hugel, 100, 142,3	duplicate(f_warper)	Warp Agent#66	894
+hugel, 104, 225,3	duplicate(f_warper)	Warp Agent#67	894
+hugel, 180, 104,3	duplicate(f_warper)	Warp Agent#68	894
+rachel, 135, 110,3	duplicate(f_warper)	Warp Agent#69	894
+rachel, 262, 128,3	duplicate(f_warper)	Warp Agent#70	894
+rachel, 68, 239,3	duplicate(f_warper)	Warp Agent#71	894
+veins, 221, 129,3	duplicate(f_warper)	Warp Agent#72	894
+veins, 201, 228,3	duplicate(f_warper)	Warp Agent#73	894
+veins, 291, 200,3	duplicate(f_warper)	Warp Agent#74	894
+moscovia, 228, 190,3	duplicate(f_warper)	Warp Agent#75	894
+moscovia, 225, 223,3	duplicate(f_warper)	Warp Agent#76	894
+moscovia, 160, 130,3	duplicate(f_warper)	Warp Agent#77	894
+nameless_i, 234, 213,3	duplicate(f_warper)	Warp Agent#78	894
+nameless_i, 109, 174,3	duplicate(f_warper)	Warp Agent#79	894
+nameless_i, 91, 101,3	duplicate(f_warper)	Warp Agent#80	894
+ra_temple, 93, 186,3	duplicate(f_warper)	Warp Agent#81	894
+ra_temple, 125, 40,3	duplicate(f_warper)	Warp Agent#82	894
+ra_temple, 68, 140,3	duplicate(f_warper)	Warp Agent#83	894
+thor_camp, 116, 222,3	duplicate(f_warper)	Warp Agent#84	894
+thor_camp, 51, 73,3	duplicate(f_warper)	Warp Agent#85	894
+thor_camp, 240, 111,3	duplicate(f_warper)	Warp Agent#86	894
+mid_camp, 186, 232,3	duplicate(f_warper)	Warp Agent#87	894
+mid_camp, 36, 150,3	duplicate(f_warper)	Warp Agent#88	894
+mid_camp, 327, 154,3	duplicate(f_warper)	Warp Agent#89	894
+manuk, 294, 232,3	duplicate(f_warper)	Warp Agent#90	894
+manuk, 279, 135,3	duplicate(f_warper)	Warp Agent#91	894
+manuk, 93, 251,3	duplicate(f_warper)	Warp Agent#92	894
+splendide, 203, 147,3	duplicate(f_warper)	Warp Agent#93	894
+splendide, 199, 25,3	duplicate(f_warper)	Warp Agent#94	894
+splendide, 366, 238,3	duplicate(f_warper)	Warp Agent#95	894
+dicastes01, 202, 188,3	duplicate(f_warper)	Warp Agent#96	894
+dicastes01, 128, 205,3	duplicate(f_warper)	Warp Agent#97	894
+dicastes01, 203, 321,3	duplicate(f_warper)	Warp Agent#98	894

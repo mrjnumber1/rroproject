@@ -1,0 +1,179 @@
+-	script	f_kafra	-1,{
+
+	cutin "kafra_09",2;
+	mes "[Kafra Employee]";
+	mes "Welcome to the Kafra Corporation.";
+	mes "The Kafra services are always on your side.";
+	mes "How may I assist you?";
+	
+	setarray @K_Menu0$[0],"Save","Use Storage","Use Member Storage";
+	
+	if(getcharid(2) != 0)
+		set @K_Menu0$[3], "Use Guild Storage";
+		
+	menu 	@K_Menu0$[0],K_Menu0,@K_Menu0$[1],K_Menu1,@K_Menu0$[2],K_Menu2,
+		@K_Menu0$[3],K_Menu3,@K_Menu0$[4],K_Menu4,@K_Menu0$[5],K_Menu5,
+		@K_Menu0$[6],K_Menu6,@K_Menu0$[7],K_Menu7;
+	K_Menu0:
+		set @num,0;
+		goto K_Menuf;
+	K_Menu1:
+		set @num,1;
+		goto K_Menuf;
+	K_Menu2:
+		set @num,2;
+		goto K_Menuf;
+	K_Menu3:
+		set @num,3;
+		goto K_Menuf;
+	K_Menu4:
+		set @num,4;
+		goto K_Menuf;
+	K_Menu5:
+		set @num,5;
+		goto K_Menuf;
+	K_Menu6:
+		set @num,6;
+		goto K_Menuf;
+	K_Menu7:
+		set @num,7;
+	K_Menuf:
+		if (@K_Menu0$[@num] == "Save")
+		{	
+			next;
+			
+			getmapxy(@mapname$, @mapx, @mapy,0);
+			savepoint @mapname$,@mapx,@mapy;
+			
+			mes "[Kafra Employee]";
+			mes "You are now saved where you are standing.";
+			mes "Enjoy your day!";
+			close2;
+			cutin "",255;
+		}
+		if (@K_Menu0$[@num] == "Use Storage")
+		{
+			close2;
+			cutin "",255;
+			openstorage;
+		}
+		if (@K_Menu0$[@num] == "Use Guild Storage")
+		{
+			close2;
+			if(guildopenstorage() == 1)
+			{
+				mes "[Kafra Employee]";
+				mes "I'm sorry but another guild member is using the guild storage";
+				mes "right now.  Please wait until that person is finished.";
+			}
+			cutin "",255;
+		}
+		if (@K_Menu0$[@num] == "Use Member Storage")
+		{
+			close2;
+			cutin "",255;
+			message strcharinfo(0), "Not implemented yet!";
+		}
+	end;
+}
+
+
+prontera, 155, 181,5	duplicate(f_kafra)	Kafra#0	861
+prontera, 154, 265,5	duplicate(f_kafra)	Kafra#1	861
+prontera, 155, 116,5	duplicate(f_kafra)	Kafra#2	861
+morocc, 156, 91,5	duplicate(f_kafra)	Kafra#3	861
+morocc, 40, 178,5	duplicate(f_kafra)	Kafra#4	861
+morocc, 281, 206,5	duplicate(f_kafra)	Kafra#5	861
+geffen, 119, 101,5	duplicate(f_kafra)	Kafra#6	861
+geffen, 119, 200,5	duplicate(f_kafra)	Kafra#7	861
+geffen, 187, 121,5	duplicate(f_kafra)	Kafra#8	861
+payon, 106, 317,5	duplicate(f_kafra)	Kafra#9	861
+payon, 154, 212,5	duplicate(f_kafra)	Kafra#10	861
+payon, 157, 89,5	duplicate(f_kafra)	Kafra#11	861
+alberta, 187, 139,5	duplicate(f_kafra)	Kafra#12	861
+alberta, 52, 242,5	duplicate(f_kafra)	Kafra#13	861
+alberta, 53, 52,5	duplicate(f_kafra)	Kafra#14	861
+izlude, 126, 108,5	duplicate(f_kafra)	Kafra#15	861
+izlude, 126, 163,5	duplicate(f_kafra)	Kafra#16	861
+izlude, 50, 136,5	duplicate(f_kafra)	Kafra#17	861
+aldebaran, 140, 113,5	duplicate(f_kafra)	Kafra#18	861
+aldebaran, 139, 175,5	duplicate(f_kafra)	Kafra#19	861
+aldebaran, 139, 239,5	duplicate(f_kafra)	Kafra#20	861
+xmas, 147, 134,5	duplicate(f_kafra)	Kafra#21	861
+xmas, 148, 51,5	duplicate(f_kafra)	Kafra#22	861
+xmas, 143, 291,5	duplicate(f_kafra)	Kafra#23	861
+comodo, 189, 151,5	duplicate(f_kafra)	Kafra#24	861
+comodo, 205, 296,5	duplicate(f_kafra)	Kafra#25	861
+comodo, 261, 197,5	duplicate(f_kafra)	Kafra#26	861
+yuno, 157, 80,5	duplicate(f_kafra)	Kafra#27	861
+yuno, 157, 294,5	duplicate(f_kafra)	Kafra#28	861
+yuno, 340, 256,5	duplicate(f_kafra)	Kafra#29	861
+amatsu, 199, 144,5	duplicate(f_kafra)	Kafra#30	861
+amatsu, 58, 111,5	duplicate(f_kafra)	Kafra#31	861
+amatsu, 246, 274,5	duplicate(f_kafra)	Kafra#32	861
+gonryun, 158, 117,5	duplicate(f_kafra)	Kafra#33	861
+gonryun, 158, 179,5	duplicate(f_kafra)	Kafra#34	861
+gonryun, 38, 183,5	duplicate(f_kafra)	Kafra#35	861
+umbala, 91, 157,5	duplicate(f_kafra)	Kafra#36	861
+umbala, 119, 133,5	duplicate(f_kafra)	Kafra#37	861
+umbala, 142, 158,5	duplicate(f_kafra)	Kafra#38	861
+niflheim, 192, 187,5	duplicate(f_kafra)	Kafra#39	861
+niflheim, 128, 144,5	duplicate(f_kafra)	Kafra#40	861
+niflheim, 197, 45,5	duplicate(f_kafra)	Kafra#41	861
+louyang, 217, 60,5	duplicate(f_kafra)	Kafra#42	861
+louyang, 216, 107,5	duplicate(f_kafra)	Kafra#43	861
+louyang, 217, 208,5	duplicate(f_kafra)	Kafra#44	861
+prt_monk, 181, 243,5	duplicate(f_kafra)	Kafra#45	861
+prt_monk, 140, 248,5	duplicate(f_kafra)	Kafra#46	861
+prt_monk, 227, 93,5	duplicate(f_kafra)	Kafra#47	861
+brasilis, 195, 182,5	duplicate(f_kafra)	Kafra#48	861
+brasilis, 204, 79,5	duplicate(f_kafra)	Kafra#49	861
+brasilis, 195, 319,5	duplicate(f_kafra)	Kafra#50	861
+jawaii, 231, 106,5	duplicate(f_kafra)	Kafra#51	861
+jawaii, 220, 225,5	duplicate(f_kafra)	Kafra#52	861
+jawaii, 112, 189,5	duplicate(f_kafra)	Kafra#53	861
+ayothaya, 148, 114,5	duplicate(f_kafra)	Kafra#54	861
+ayothaya, 149, 165,5	duplicate(f_kafra)	Kafra#55	861
+ayothaya, 205, 259,5	duplicate(f_kafra)	Kafra#56	861
+einbroch, 63, 196,5	duplicate(f_kafra)	Kafra#57	861
+einbroch, 137, 50,5	duplicate(f_kafra)	Kafra#58	861
+einbroch, 157, 304,5	duplicate(f_kafra)	Kafra#59	861
+lighthalzen, 157, 95,5	duplicate(f_kafra)	Kafra#60	861
+lighthalzen, 102, 237,5	duplicate(f_kafra)	Kafra#61	861
+lighthalzen, 335, 286,5	duplicate(f_kafra)	Kafra#62	861
+einbech, 41, 207,5	duplicate(f_kafra)	Kafra#63	861
+einbech, 169, 126,5	duplicate(f_kafra)	Kafra#64	861
+einbech, 70, 102,5	duplicate(f_kafra)	Kafra#65	861
+hugel, 94, 143,5	duplicate(f_kafra)	Kafra#66	861
+hugel, 98, 226,5	duplicate(f_kafra)	Kafra#67	861
+hugel, 174, 105,5	duplicate(f_kafra)	Kafra#68	861
+rachel, 129, 111,5	duplicate(f_kafra)	Kafra#69	861
+rachel, 256, 129,5	duplicate(f_kafra)	Kafra#70	861
+rachel, 62, 240,5	duplicate(f_kafra)	Kafra#71	861
+veins, 215, 130,5	duplicate(f_kafra)	Kafra#72	861
+veins, 195, 229,5	duplicate(f_kafra)	Kafra#73	861
+veins, 285, 201,5	duplicate(f_kafra)	Kafra#74	861
+moscovia, 222, 191,5	duplicate(f_kafra)	Kafra#75	861
+moscovia, 219, 224,5	duplicate(f_kafra)	Kafra#76	861
+moscovia, 154, 131,5	duplicate(f_kafra)	Kafra#77	861
+nameless_i, 228, 214,5	duplicate(f_kafra)	Kafra#78	861
+nameless_i, 103, 175,5	duplicate(f_kafra)	Kafra#79	861
+nameless_i, 85, 102,5	duplicate(f_kafra)	Kafra#80	861
+ra_temple, 87, 187,5	duplicate(f_kafra)	Kafra#81	861
+ra_temple, 119, 41,5	duplicate(f_kafra)	Kafra#82	861
+ra_temple, 62, 141,5	duplicate(f_kafra)	Kafra#83	861
+thor_camp, 110, 223,5	duplicate(f_kafra)	Kafra#84	861
+thor_camp, 45, 74,5	duplicate(f_kafra)	Kafra#85	861
+thor_camp, 234, 112,5	duplicate(f_kafra)	Kafra#86	861
+mid_camp, 180, 233,5	duplicate(f_kafra)	Kafra#87	861
+mid_camp, 30, 151,5	duplicate(f_kafra)	Kafra#88	861
+mid_camp, 321, 155,5	duplicate(f_kafra)	Kafra#89	861
+manuk, 288, 233,5	duplicate(f_kafra)	Kafra#90	861
+manuk, 273, 136,5	duplicate(f_kafra)	Kafra#91	861
+manuk, 87, 252,5	duplicate(f_kafra)	Kafra#92	861
+splendide, 197, 148,5	duplicate(f_kafra)	Kafra#93	861
+splendide, 193, 26,5	duplicate(f_kafra)	Kafra#94	861
+splendide, 360, 239,5	duplicate(f_kafra)	Kafra#95	861
+dicastes01, 196, 189,5	duplicate(f_kafra)	Kafra#96	861
+dicastes01, 122, 206,5	duplicate(f_kafra)	Kafra#97	861
+dicastes01, 197, 322,5	duplicate(f_kafra)	Kafra#98	861
