@@ -1,0 +1,292 @@
+-	script	f_healer	-1,{
+
+	if(islowratechar() == 1)
+		goto OnClick;
+OnTouch:
+	if(islowratechar() == 1)
+		end;
+		
+OnClick:	
+	
+	set .@mustpay, 0;
+
+					
+	set .@rightnow, gettimetick(2);
+	if( .@rightnow - LastUsedHealer < 2)
+		end;
+	set LastUsedHealer, .@rightnow;
+	set .@healed, 0;
+	
+	if(islowratechar() == 1 && BaseLevel > 90)
+		set .@mustpay, 1;
+		
+	if(.@mustpay == 1)
+		if(Zeny < 1000)
+			callsub nocash;
+
+OnDebuffs:
+					
+	setarray .@bad_sc[0], SC_STONE, SC_FREEZE, SC_SLEEP, SC_CURSE, SC_SILENCE, SC_CONFUSION, SC_BLIND, SC_BLEEDING, SC_POISON, SC_HALLUCINATION, 
+	SC_STRIPWEAPON, SC_STRIPARMOR, SC_STRIPHELM, SC_STRIPSHIELD, SC_JOINTBEAT, SC_DONTFORGETME, SC_DECREASEAGI, SC_CHANGEUNDEAD, SC_SLOWCAST, SC_CRITICALWOUND, SC_ORCISH, SC_BERSERK;
+
+	for(set .@i, 0; .@i < getarraysize(.@bad_sc); set .@i, .@i + 1)
+		if(sc_check(.@bad_sc[.@i]) == true)
+		{
+			sc_end .@bad_sc[.@i];	
+			set .@healed, 1;
+		}			
+	
+	if(islowratechar() == 1)
+		goto OnHeals;
+		
+OnBuffs:
+	set .@npcgid, getnpcid(0);
+	set .@chargid, getcharid(3);
+	
+	
+	// the reason we use unitskills and not sc_starts is so that RCX will display the durations overhead
+	
+	unitskilluseid .@npcgid,"AL_BLESSING",10,.@chargid;
+	unitskilluseid .@npcgid,"AL_INCAGI",10,.@chargid;
+	
+	unitskilluseid .@npcgid,"PR_IMPOSITIO",5,.@chargid;
+	unitskilluseid .@npcgid,"PR_SUFFRAGIUM",3,.@chargid;
+	unitskilluseid .@npcgid,"PR_MAGNIFICAT",5,.@chargid;
+	unitskilluseid .@npcgid,"PR_GLORIA",5,.@chargid;
+	
+	
+	unitskilluseid .@npcgid,"PR_KYRIE",10,.@chargid;
+
+	
+	
+	
+	set .@spirit, 0;
+	switch(BaseJob)
+	{
+	case Job_Knight:
+	case Job_Knight2:
+		set .@spirit, 452;
+		break;
+	case Job_Priest:
+		set .@spirit, 454;
+		break;
+	case Job_Wizard:
+		set .@spirit, 453;
+		break;
+	case Job_Blacksmith:
+		set .@spirit, 458;
+		break;
+	case Job_Hunter:
+		set .@spirit, 460;
+		break;
+	case Job_Assassin:
+		set .@spirit, 457;
+		break;
+	case Job_Crusader:
+	case Job_Crusader2:
+		set .@spirit, 450;
+		break;
+	case Job_Monk:
+		set .@spirit, 447;
+		break;
+	case Job_Sage:
+		set .@spirit, 449;
+		break;
+	case Job_Rogue:
+		set .@spirit, 456;
+		break;
+	case Job_Alchemist:
+		set .@spirit, 445;
+		break;
+	case Job_Bard:
+	case Job_Dancer:
+		set .@spirit, 455;
+		break;
+	case Job_SuperNovice:
+		set .@spirit, 451;
+		break;
+	case Job_Soul_Linker:
+		set .@spirit, 461;
+		break;
+	case Job_Star_Gladiator:
+	case Job_Star_Gladiator2:
+		set .@spirit, 448;
+		break;
+
+	}
+	
+	unitskilluseid .@npcgid,.@spirit,5,.@chargid;
+	
+	
+	
+	
+
+
+	
+OnScrollbuffs:
+	//ensure that these indices are consistent!
+	setarray .@items[0],		12219,			 12220,			 14517,			14518,	       14519, 		 14520,	  12351					;
+	setarray .@status[0], SC_WINDWALK,	 SC_ADRENALINE,	  SC_CP_WEAPON,	SC_CP_SHIELD,	 SC_CP_ARMOR, 	SC_CP_HELM, SC_LOUD					;
+	setarray .@skill[0],		  383, 			   111,			   234,			   235,			 236, 		   237,		155					;
+	setarray .@level[0],		   10,				 5,				 5,				 5,			   5,			 5,		  1					;
+	setarray .@onself[0],			0,				 0,			 	 0,			 	 0,		  	   0,		 	 0,	   	  1					;
+
+	for(set .@i, 0; .@i < getarraysize(.@items); set .@i, .@i + 1)
+		if(countitem(.@items[.@i]) > 0 && sc_check(.@status[.@i]) == 0)
+		{
+			if(.@status[.@i] == SC_ADRENALINE) // to ensure that adrenaline scrolls are only consumed with mace/1h/2axes equipped
+			{
+				set .@weapontype, getiteminfo(getequipid(EQI_HAND_R),11);
+				if(.@weapontype < 6 || .@weapontype > 8) 
+					continue;
+			}
+			//dispbottom .@npcgid + " sk: " + .@skill$[.@i] + " lv: " + .@level[.@i] + " cid: " + .@chargid;
+			if( .@onself[.@i] == 0)
+				unitskilluseid .@npcgid, .@skill[.@i], .@level[.@i], .@chargid;
+			else
+				unitskilluseid .@chargid, .@skill[.@i], .@level[.@i];
+
+			delitem .@items[.@i], 1;
+		}
+	
+	//specialeffect2 7;
+	
+	
+OnRepairs:
+	atcommand "@repairall";
+	
+OnHeals:
+        set .@healed, 0;
+        if( (Hp != MaxHp) || (Sp != MaxSp) )
+		set .@healed, 1;
+        if(.@healed && .@mustpay)
+	        set Zeny, Zeny - 1000;
+	
+	percentheal 100,100;
+
+
+	
+	
+	end;
+	
+nocash:
+	message strcharinfo(0), "Low Rate Characters above level 90 need 1k zeny to use the Healer.";
+	end;
+}
+
+prontera, 152, 180,5	duplicate(f_healer)	Healer#0	895,10,10
+prontera, 151, 264,5	duplicate(f_healer)	Healer#1	895,10,10
+prontera, 152, 115,5	duplicate(f_healer)	Healer#2	895,10,10
+morocc, 153, 90,5	duplicate(f_healer)	Healer#3	895,10,10
+morocc, 37, 177,5	duplicate(f_healer)	Healer#4	895,10,10
+morocc, 278, 205,5	duplicate(f_healer)	Healer#5	895,10,10
+geffen, 116, 100,5	duplicate(f_healer)	Healer#6	895,10,10
+geffen, 116, 199,5	duplicate(f_healer)	Healer#7	895,10,10
+geffen, 184, 120,5	duplicate(f_healer)	Healer#8	895,10,10
+payon, 103, 316,5	duplicate(f_healer)	Healer#9	895,10,10
+payon, 151, 211,5	duplicate(f_healer)	Healer#10	895,10,10
+payon, 154, 88,5	duplicate(f_healer)	Healer#11	895,10,10
+alberta, 184, 138,5	duplicate(f_healer)	Healer#12	895,10,10
+alberta, 49, 241,5	duplicate(f_healer)	Healer#13	895,10,10
+alberta, 50, 51,5	duplicate(f_healer)	Healer#14	895,10,10
+izlude, 123, 107,5	duplicate(f_healer)	Healer#15	895,10,10
+izlude, 123, 162,5	duplicate(f_healer)	Healer#16	895,10,10
+izlude, 47, 135,5	duplicate(f_healer)	Healer#17	895,10,10
+aldebaran, 137, 112,5	duplicate(f_healer)	Healer#18	895,10,10
+aldebaran, 136, 174,5	duplicate(f_healer)	Healer#19	895,10,10
+aldebaran, 136, 238,5	duplicate(f_healer)	Healer#20	895,10,10
+xmas, 144, 133,5	duplicate(f_healer)	Healer#21	895,10,10
+xmas, 145, 50,5	duplicate(f_healer)	Healer#22	895,10,10
+xmas, 140, 290,5	duplicate(f_healer)	Healer#23	895,10,10
+comodo, 186, 150,5	duplicate(f_healer)	Healer#24	895,10,10
+comodo, 202, 295,5	duplicate(f_healer)	Healer#25	895,10,10
+comodo, 258, 196,5	duplicate(f_healer)	Healer#26	895,10,10
+yuno, 154, 79,5	duplicate(f_healer)	Healer#27	895,10,10
+yuno, 154, 293,5	duplicate(f_healer)	Healer#28	895,10,10
+yuno, 337, 255,5	duplicate(f_healer)	Healer#29	895,10,10
+amatsu, 196, 143,5	duplicate(f_healer)	Healer#30	895,10,10
+amatsu, 55, 110,5	duplicate(f_healer)	Healer#31	895,10,10
+amatsu, 243, 273,5	duplicate(f_healer)	Healer#32	895,10,10
+gonryun, 155, 116,5	duplicate(f_healer)	Healer#33	895,10,10
+gonryun, 155, 178,5	duplicate(f_healer)	Healer#34	895,10,10
+gonryun, 35, 182,5	duplicate(f_healer)	Healer#35	895,10,10
+umbala, 88, 156,5	duplicate(f_healer)	Healer#36	895,10,10
+umbala, 116, 132,5	duplicate(f_healer)	Healer#37	895,10,10
+umbala, 139, 157,5	duplicate(f_healer)	Healer#38	895,10,10
+niflheim, 189, 186,5	duplicate(f_healer)	Healer#39	895,10,10
+niflheim, 125, 143,5	duplicate(f_healer)	Healer#40	895,10,10
+niflheim, 194, 44,5	duplicate(f_healer)	Healer#41	895,10,10
+louyang, 214, 59,5	duplicate(f_healer)	Healer#42	895,10,10
+louyang, 213, 106,5	duplicate(f_healer)	Healer#43	895,10,10
+louyang, 214, 207,5	duplicate(f_healer)	Healer#44	895,10,10
+prt_monk, 178, 242,5	duplicate(f_healer)	Healer#45	895,10,10
+prt_monk, 137, 247,5	duplicate(f_healer)	Healer#46	895,10,10
+prt_monk, 224, 92,5	duplicate(f_healer)	Healer#47	895,10,10
+brasilis, 192, 181,5	duplicate(f_healer)	Healer#48	895,10,10
+brasilis, 201, 78,5	duplicate(f_healer)	Healer#49	895,10,10
+brasilis, 192, 318,5	duplicate(f_healer)	Healer#50	895,10,10
+jawaii, 228, 105,5	duplicate(f_healer)	Healer#51	895,10,10
+jawaii, 217, 224,5	duplicate(f_healer)	Healer#52	895,10,10
+jawaii, 109, 188,5	duplicate(f_healer)	Healer#53	895,10,10
+ayothaya, 145, 113,5	duplicate(f_healer)	Healer#54	895,10,10
+ayothaya, 146, 164,5	duplicate(f_healer)	Healer#55	895,10,10
+ayothaya, 202, 258,5	duplicate(f_healer)	Healer#56	895,10,10
+einbroch, 60, 195,5	duplicate(f_healer)	Healer#57	895,10,10
+einbroch, 134, 49,5	duplicate(f_healer)	Healer#58	895,10,10
+einbroch, 154, 303,5	duplicate(f_healer)	Healer#59	895,10,10
+lighthalzen, 154, 94,5	duplicate(f_healer)	Healer#60	895,10,10
+lighthalzen, 99, 236,5	duplicate(f_healer)	Healer#61	895,10,10
+lighthalzen, 332, 285,5	duplicate(f_healer)	Healer#62	895,10,10
+einbech, 38, 206,5	duplicate(f_healer)	Healer#63	895,10,10
+einbech, 166, 125,5	duplicate(f_healer)	Healer#64	895,10,10
+einbech, 67, 101,5	duplicate(f_healer)	Healer#65	895,10,10
+hugel, 91, 142,5	duplicate(f_healer)	Healer#66	895,10,10
+hugel, 95, 225,5	duplicate(f_healer)	Healer#67	895,10,10
+hugel, 171, 104,5	duplicate(f_healer)	Healer#68	895,10,10
+rachel, 126, 110,5	duplicate(f_healer)	Healer#69	895,10,10
+rachel, 253, 128,5	duplicate(f_healer)	Healer#70	895,10,10
+rachel, 59, 239,5	duplicate(f_healer)	Healer#71	895,10,10
+veins, 212, 129,5	duplicate(f_healer)	Healer#72	895,10,10
+veins, 192, 228,5	duplicate(f_healer)	Healer#73	895,10,10
+veins, 282, 200,5	duplicate(f_healer)	Healer#74	895,10,10
+moscovia, 219, 190,5	duplicate(f_healer)	Healer#75	895,10,10
+moscovia, 216, 223,5	duplicate(f_healer)	Healer#76	895,10,10
+moscovia, 151, 130,5	duplicate(f_healer)	Healer#77	895,10,10
+nameless_i, 225, 213,5	duplicate(f_healer)	Healer#78	895,10,10
+nameless_i, 100, 174,5	duplicate(f_healer)	Healer#79	895,10,10
+nameless_i, 82, 101,5	duplicate(f_healer)	Healer#80	895,10,10
+ra_temple, 84, 186,5	duplicate(f_healer)	Healer#81	895,10,10
+ra_temple, 116, 40,5	duplicate(f_healer)	Healer#82	895,10,10
+ra_temple, 59, 140,5	duplicate(f_healer)	Healer#83	895,10,10
+thor_camp, 107, 222,5	duplicate(f_healer)	Healer#84	895,10,10
+thor_camp, 42, 73,5	duplicate(f_healer)	Healer#85	895,10,10
+thor_camp, 231, 111,5	duplicate(f_healer)	Healer#86	895,10,10
+mid_camp, 177, 232,5	duplicate(f_healer)	Healer#87	895,10,10
+mid_camp, 27, 150,5	duplicate(f_healer)	Healer#88	895,10,10
+mid_camp, 318, 154,5	duplicate(f_healer)	Healer#89	895,10,10
+manuk, 285, 232,5	duplicate(f_healer)	Healer#90	895,10,10
+manuk, 270, 135,5	duplicate(f_healer)	Healer#91	895,10,10
+manuk, 84, 251,5	duplicate(f_healer)	Healer#92	895,10,10
+splendide, 194, 147,5	duplicate(f_healer)	Healer#93	895,10,10
+splendide, 190, 25,5	duplicate(f_healer)	Healer#94	895,10,10
+splendide, 357, 238,5	duplicate(f_healer)	Healer#95	895,10,10
+dicastes01, 193, 188,5	duplicate(f_healer)	Healer#96	895,10,10
+dicastes01, 119, 205,5	duplicate(f_healer)	Healer#97	895,10,10
+dicastes01, 194, 321,5	duplicate(f_healer)	Healer#98	895,10,10
+
+bat_room, 160, 159,3	duplicate(f_healer)	Healer#broom	895,10,10
+
+schg_cas06, 260, 383,5	duplicate(f_healer)	Healer#cq1h1	895,10,10
+schg_cas06, 299, 383,3	duplicate(f_healer)	Healer#cq1h2	895,10,10
+schg_cas07, 86, 315,5	duplicate(f_healer)	Healer#cq2h1	895,10,10
+schg_cas07, 115, 315,3	duplicate(f_healer)	Healer#cq2h2	895,10,10
+schg_cas08, 27, 55,6	duplicate(f_healer)	Healer#cq3h1	895,10,10
+schg_cas08, 88, 55,4	duplicate(f_healer)	Healer#cq3h2	895,10,10
+
+arug_cas06, 26, 385,5	duplicate(f_healer)	Healer#cq4h1	895,10,10
+arug_cas06, 122, 361,5	duplicate(f_healer)	Healer#cq4h2	895,10,10
+arug_cas07, 304, 342,3	duplicate(f_healer)	Healer#cq5h1	895,10,10
+arug_cas07, 304, 305,1	duplicate(f_healer)	Healer#cq5h2	895,10,10
+arug_cas08, 310, 154,6	duplicate(f_healer)	Healer#cq6h1	895,10,10
+arug_cas08, 333, 154,4	duplicate(f_healer)	Healer#cq6h2	895,10,10
+

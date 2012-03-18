@@ -1,0 +1,913 @@
+-	script	f_tooldealer	-1,{
+
+	mes "[Server]";
+	mes "Select the shop you would like to use.";
+	switch(select("Cancel:Tool Dealer/Seller:Enchanter:Stone Dealer:Ammo Dealer:Weapons:Armors:Cards"))
+	{
+	case 1:
+		close2;
+		break;
+	case 2:
+		close2;
+		callshop "ToolDealerGuy",0;
+		break;
+	case 3:
+		callfunc "EnchantGear";
+		break;
+	case 4:
+		close2;
+		callshop "StoneGuy",1;
+		break;
+	case 5:
+		close2;
+		callshop "AmmoGuy",1;
+		break;
+	case 8:
+		switch(select("Weapon:Armor:Accessory:Shield:Headgear:Shoe:Robe"))
+		{
+		case 1:
+			close2;
+			callshop "CardWeaponStore",1;
+			break;
+		case 2:
+			close2;
+			callshop "CardArmorStore",1;
+			break;
+		case 3:
+			close2;
+			callshop "CardAccessoryStore",1;
+			break;
+		case 4:
+			close2;
+			callshop "CardShieldStore",1;
+			break;
+		case 5:
+			close2;
+			callshop "CardHeadgearStore",1;
+			break;
+		case 6:
+			close2;
+			callshop "CardShoeStore",1;
+			break;
+		case 7:
+			close2;
+			callshop "CardRobeStore",1;
+			break;
+		}
+	default:
+		dispbottom "Not implemented yet.";
+		close;
+		break;
+	}
+	
+	end;
+}
+-	script	f_tooldealer_buy	-1,{
+	callshop "ToolDealerGuy",1;
+}
+-	script	f_tooldealer_sell	-1,{
+	callshop "ToolDealerGuy",2;
+}
+
+-	shop	ToolDealerGuy	910,501:-1,502:1,503:-1,504:-1,505:-1,506:-1,522:-1,525:-1,645:-1,656:-1,657:-1,14509:3200,14510:4500,14511:12000,12016:50000,610:-1,1065:-1,537:-1,910:-1,911:-1,912:-1;
+-	shop	AmmoGuy	910,12004:500,12005:1000,12006:4000,12009:4000,12008:4000,12012:4000,12010:4000,12011:4000,12014:4000,12015:4000,12013:4000,12007:4000,12183:8000,1773:-1,1774:-1,1758:-1,1759:-1,1761:-1,1763:-1,1764:-1,1766:-1,1768:-1,1769:-1,13200:-1,13201:-1,13202:-1,13203:-1,13204:-1,13205:-1,13206:-1,13207:-1,7521:-1,7522:-1,7523:-1,7524:-1,1771:-1;
+-	shop	StoneGuy	910,717:-1,716:1200,715:1800,984:5000,985:5000,990:-1,991:-1,992:-1,993:-1,994:-1,995:-1,996:-1,997:-1,998:-1,1010:-1,1011:-1,1019:600;
+
+
+-	shop	CardWeaponStore	910,4062:-1,4043:-1,4018:-1,4094:-1,4246:-1,4247:-1,4425:-1,4147:-1,4320:-1,4214:-1,4428:-1,4390:-1,4361:-1,4367:-1,4063:-1,4289:-1,4452:-1,4284:-1,4202:-1,4153:-1,4297:-1,4171:-1,4388:-1,4082:-1,4125:-1,4182:-1,4142:-1,4134:-1,4069:-1,4137:-1,4180:-1,4004:-1,4421:-1,4176:-1,4251:-1,4360:-1,4002:-1,4316:-1,4020:-1,4380:-1,4080:-1,4312:-1,4323:-1,4165:-1,4157:-1,4060:-1,4155:-1,4072:-1,4163:-1,4362:-1,4345:-1,4453:-1,4019:-1,4115:-1,4035:-1,4263:-1,4268:-1,4065:-1,4307:-1,4140:-1,4318:-1,4292:-1,4291:-1,4184:-1,4454:-1,4455:-1,4276:-1,4006:-1,4076:-1,4030:-1,4055:-1,4341:-1,4057:-1,4126:-1,4317:-1,4106:-1,4203:-1,4440:-1,4167:-1,4255:-1,4085:-1,4310:-1,4007:-1,4118:-1,4329:-1,4121:-1,4335:-1,4024:-1,4005:-1,4407:-1,4350:-1,4104:-1,4192:-1,4017:-1,4068:-1,4130:-1,4368:-1,4273:-1,4117:-1,4406:-1,4025:-1,4092:-1,4037:-1,4394:-1,4086:-1,4156:-1,4225:-1,4111:-1,4427:-1,4399:-1,4398:-1,4395:-1,4172:-1,4026:-1,4308:-1,4305:-1,4049:-1,4029:-1,4096:-1,4281:-1,4274:-1;
+
+
+
+-	shop	CardRobeStore	910,4402:-1,4129:-1,4359:-1,4285:-1,4373:-1,4015:-1,4133:-1,4174:-1,4179:-1,4178:-1,4056:-1,4266:-1,4088:-1,4325:-1,4081:-1,4328:-1,4116:-1,4109:-1,4287:-1,4431:-1,4351:-1,4432:-1,4113:-1,4095:-1,4197:-1,4108:-1,4159:-1,4334:-1,4375:-1,4071:-1,4313:-1,4422:-1,4429:-1,4306:-1,4183:-1,4211:-1,4210:-1,4303:-1,4102:-1;
+
+
+
+-	shop	CardArmorStore	910,4409:-1,4777:-1,4778:-1,4779:-1,4730:-1,4739:-1,4731:-1,4732:-1,4733:-1,4734:-1,4735:-1,4736:-1,4737:-1,4738:-1,4401:-1,4400:-1,4387:-1,4054:-1,4234:-1,4243:-1,4242:-1,4371:-1,4114:-1,4766:-1,4767:-1,4233:-1,4450:-1,4119:-1,4213:-1,4426:-1,4363:-1,4300:-1,4299:-1,4804:-1,4061:-1,4298:-1,4764:-1,4765:-1,4170:-1,4794:-1,4791:-1,4792:-1,4793:-1,4279:-1,4173:-1,4023:-1,4386:-1,4780:-1,4781:-1,4782:-1,4720:-1,4729:-1,4721:-1,4722:-1,4723:-1,4724:-1,4725:-1,4726:-1,4727:-1,4728:-1,4370:-1,4181:-1,4098:-1,4410:-1,4451:-1,4763:-1,4762:-1,4141:-1,4158:-1,4405:-1,4324:-1,4280:-1,4047:-1,4270:-1,4408:-1,4150:-1,4162:-1,4805:-1,4803:-1,4795:-1,4796:-1,4797:-1,4798:-1,4799:-1,4771:-1,4772:-1,4773:-1,4710:-1,4719:-1,4711:-1,4712:-1,4713:-1,4714:-1,4715:-1,4716:-1,4717:-1,4718:-1,4286:-1,4301:-1,4295:-1,4419:-1,4191:-1,4750:-1,4759:-1,4751:-1,4752:-1,4753:-1,4754:-1,4755:-1,4756:-1,4757:-1,4758:-1,4783:-1,4784:-1,4785:-1,4760:-1,4761:-1,4201:-1,4105:-1,4790:-1,4786:-1,4787:-1,4788:-1,4789:-1,4339:-1,4166:-1,4383:-1,4382:-1,4392:-1,4338:-1,4135:-1,4099:-1,4031:-1,4315:-1,4008:-1,4011:-1,4337:-1,4001:-1,4003:-1,4353:-1,4021:-1,4014:-1,4342:-1,4194:-1,4101:-1,4216:-1,4078:-1,4393:-1,4222:-1,4404:-1,4220:-1,4801:-1,4802:-1,4800:-1,4042:-1,4768:-1,4769:-1,4770:-1,4700:-1,4709:-1,4701:-1,4702:-1,4703:-1,4704:-1,4705:-1,4706:-1,4707:-1,4708:-1,4218:-1,4089:-1,4302:-1,4016:-1,4369:-1,4333:-1,4774:-1,4775:-1,4776:-1,4740:-1,4749:-1,4741:-1,4742:-1,4743:-1,4744:-1,4745:-1,4746:-1,4747:-1,4748:-1,4332:-1,4259:-1,4189:-1,4346:-1;
+
+
+
+-	shop	CardShieldStore	910,4253:-1,4032:-1,4248:-1,4013:-1,4138:-1,4443:-1,4240:-1,4075:-1,4074:-1,4447:-1,4448:-1,4449:-1,4444:-1,4250:-1,4439:-1,4128:-1,4322:-1,4413:-1,4045:-1,4231:-1,4136:-1,4217:-1,4445:-1,4146:-1,4124:-1,4067:-1,4090:-1,4420:-1,4207:-1,4066:-1,4309:-1,4314:-1,4120:-1,4083:-1,4414:-1,4059:-1,4226:-1,4304:-1,4442:-1,4340:-1,4058:-1,4397:-1,4012:-1,4254:-1,4277:-1;
+
+
+
+-	shop	CardShoeStore	910,4378:-1,4244:-1,4236:-1,4245:-1,4249:-1,4160:-1,4352:-1,4290:-1,4009:-1,4235:-1,4168:-1,4123:-1,4070:-1,4267:-1,4441:-1,4381:-1,4319:-1,4151:-1,4164:-1,4417:-1,4239:-1,4376:-1,4097:-1,4200:-1,4199:-1,4204:-1,4208:-1,4131:-1,4186:-1,4221:-1,4100:-1,4396:-1,4050:-1,4107:-1,4257:-1,4038:-1,4275:-1,4435:-1;
+
+
+
+-	shop	CardAccessoryStore	910,4252:-1,4344:-1,4347:-1,4356:-1,4145:-1,4215:-1,4327:-1,4212:-1,4293:-1,4040:-1,4272:-1,4385:-1,4349:-1,4262:-1,4152:-1,4423:-1,4149:-1,4418:-1,4283:-1,4377:-1,4355:-1,4331:-1,4437:-1,4103:-1,4384:-1,4321:-1,4430:-1,4433:-1,4139:-1,4091:-1,4027:-1,4265:-1,4193:-1,4079:-1,4084:-1,4196:-1,4205:-1,4036:-1,4093:-1,4256:-1,4144:-1,4238:-1,4237:-1,4077:-1,4073:-1,4389:-1,4048:-1,4175:-1,4033:-1,4294:-1,4436:-1,4187:-1,4391:-1,4154:-1,4219:-1,4326:-1,4230:-1,4416:-1,4228:-1,4044:-1,4415:-1,4022:-1,4227:-1,4424:-1,4224:-1,4028:-1,4282:-1,4209:-1,4053:-1,4348:-1,4232:-1,4264:-1,4034:-1,4190:-1,4051:-1,4064:-1;
+
+
+
+-	shop	CardHeadgearStore	910,4379:-1,4374:-1,4241:-1,4372:-1,4438:-1,4365:-1,4357:-1,4288:-1,4041:-1,4296:-1,4229:-1,4169:-1,4330:-1,4122:-1,4177:-1,4052:-1,4354:-1,4110:-1,4271:-1,4278:-1,4087:-1,4161:-1,4269:-1,4412:-1,4366:-1,4403:-1,4434:-1,4195:-1,4188:-1,4364:-1,4112:-1,4046:-1,4198:-1,4132:-1,4343:-1,4206:-1,4127:-1,4143:-1,4311:-1,4148:-1,4185:-1,4358:-1,4039:-1,4223:-1,4336:-1,4411:-1,4258:-1,4010:-1,4261:-1,4260:-1;
+
+
+
+
+
+
+
+
+
+prontera, 158, 181,3	duplicate(f_tooldealer)	Tool Dealer#0	893
+prontera, 157, 265,3	duplicate(f_tooldealer)	Tool Dealer#1	893
+prontera, 158, 116,3	duplicate(f_tooldealer)	Tool Dealer#2	893
+morocc, 159, 91,3	duplicate(f_tooldealer)	Tool Dealer#3	893
+morocc, 43, 178,3	duplicate(f_tooldealer)	Tool Dealer#4	893
+morocc, 284, 206,3	duplicate(f_tooldealer)	Tool Dealer#5	893
+geffen, 122, 101,3	duplicate(f_tooldealer)	Tool Dealer#6	893
+geffen, 122, 200,3	duplicate(f_tooldealer)	Tool Dealer#7	893
+geffen, 190, 121,3	duplicate(f_tooldealer)	Tool Dealer#8	893
+payon, 109, 317,3	duplicate(f_tooldealer)	Tool Dealer#9	893
+payon, 157, 212,3	duplicate(f_tooldealer)	Tool Dealer#10	893
+payon, 160, 89,3	duplicate(f_tooldealer)	Tool Dealer#11	893
+alberta, 190, 139,3	duplicate(f_tooldealer)	Tool Dealer#12	893
+alberta, 55, 242,3	duplicate(f_tooldealer)	Tool Dealer#13	893
+alberta, 56, 52,3	duplicate(f_tooldealer)	Tool Dealer#14	893
+izlude, 129, 108,3	duplicate(f_tooldealer)	Tool Dealer#15	893
+izlude, 129, 163,3	duplicate(f_tooldealer)	Tool Dealer#16	893
+izlude, 53, 136,3	duplicate(f_tooldealer)	Tool Dealer#17	893
+aldebaran, 143, 113,3	duplicate(f_tooldealer)	Tool Dealer#18	893
+aldebaran, 142, 175,3	duplicate(f_tooldealer)	Tool Dealer#19	893
+aldebaran, 142, 239,3	duplicate(f_tooldealer)	Tool Dealer#20	893
+xmas, 150, 134,3	duplicate(f_tooldealer)	Tool Dealer#21	893
+xmas, 151, 51,3	duplicate(f_tooldealer)	Tool Dealer#22	893
+xmas, 146, 291,3	duplicate(f_tooldealer)	Tool Dealer#23	893
+comodo, 192, 151,3	duplicate(f_tooldealer)	Tool Dealer#24	893
+comodo, 208, 296,3	duplicate(f_tooldealer)	Tool Dealer#25	893
+comodo, 264, 197,3	duplicate(f_tooldealer)	Tool Dealer#26	893
+yuno, 160, 80,3	duplicate(f_tooldealer)	Tool Dealer#27	893
+yuno, 160, 294,3	duplicate(f_tooldealer)	Tool Dealer#28	893
+yuno, 343, 256,3	duplicate(f_tooldealer)	Tool Dealer#29	893
+amatsu, 202, 144,3	duplicate(f_tooldealer)	Tool Dealer#30	893
+amatsu, 61, 111,3	duplicate(f_tooldealer)	Tool Dealer#31	893
+amatsu, 249, 274,3	duplicate(f_tooldealer)	Tool Dealer#32	893
+gonryun, 161, 117,3	duplicate(f_tooldealer)	Tool Dealer#33	893
+gonryun, 161, 179,3	duplicate(f_tooldealer)	Tool Dealer#34	893
+gonryun, 41, 183,3	duplicate(f_tooldealer)	Tool Dealer#35	893
+umbala, 94, 157,3	duplicate(f_tooldealer)	Tool Dealer#36	893
+umbala, 122, 133,3	duplicate(f_tooldealer)	Tool Dealer#37	893
+umbala, 145, 158,3	duplicate(f_tooldealer)	Tool Dealer#38	893
+niflheim, 195, 187,3	duplicate(f_tooldealer)	Tool Dealer#39	893
+niflheim, 131, 144,3	duplicate(f_tooldealer)	Tool Dealer#40	893
+niflheim, 200, 45,3	duplicate(f_tooldealer)	Tool Dealer#41	893
+louyang, 220, 60,3	duplicate(f_tooldealer)	Tool Dealer#42	893
+louyang, 219, 107,3	duplicate(f_tooldealer)	Tool Dealer#43	893
+louyang, 220, 208,3	duplicate(f_tooldealer)	Tool Dealer#44	893
+prt_monk, 184, 243,3	duplicate(f_tooldealer)	Tool Dealer#45	893
+prt_monk, 143, 248,3	duplicate(f_tooldealer)	Tool Dealer#46	893
+prt_monk, 230, 93,3	duplicate(f_tooldealer)	Tool Dealer#47	893
+brasilis, 198, 182,3	duplicate(f_tooldealer)	Tool Dealer#48	893
+brasilis, 207, 79,3	duplicate(f_tooldealer)	Tool Dealer#49	893
+brasilis, 198, 319,3	duplicate(f_tooldealer)	Tool Dealer#50	893
+jawaii, 234, 106,3	duplicate(f_tooldealer)	Tool Dealer#51	893
+jawaii, 223, 225,3	duplicate(f_tooldealer)	Tool Dealer#52	893
+jawaii, 115, 189,3	duplicate(f_tooldealer)	Tool Dealer#53	893
+ayothaya, 151, 114,3	duplicate(f_tooldealer)	Tool Dealer#54	893
+ayothaya, 152, 165,3	duplicate(f_tooldealer)	Tool Dealer#55	893
+ayothaya, 208, 259,3	duplicate(f_tooldealer)	Tool Dealer#56	893
+einbroch, 66, 196,3	duplicate(f_tooldealer)	Tool Dealer#57	893
+einbroch, 140, 50,3	duplicate(f_tooldealer)	Tool Dealer#58	893
+einbroch, 160, 304,3	duplicate(f_tooldealer)	Tool Dealer#59	893
+lighthalzen, 160, 95,3	duplicate(f_tooldealer)	Tool Dealer#60	893
+lighthalzen, 105, 237,3	duplicate(f_tooldealer)	Tool Dealer#61	893
+lighthalzen, 338, 286,3	duplicate(f_tooldealer)	Tool Dealer#62	893
+einbech, 44, 207,3	duplicate(f_tooldealer)	Tool Dealer#63	893
+einbech, 172, 126,3	duplicate(f_tooldealer)	Tool Dealer#64	893
+einbech, 73, 102,3	duplicate(f_tooldealer)	Tool Dealer#65	893
+hugel, 97, 143,3	duplicate(f_tooldealer)	Tool Dealer#66	893
+hugel, 101, 226,3	duplicate(f_tooldealer)	Tool Dealer#67	893
+hugel, 177, 105,3	duplicate(f_tooldealer)	Tool Dealer#68	893
+rachel, 132, 111,3	duplicate(f_tooldealer)	Tool Dealer#69	893
+rachel, 259, 129,3	duplicate(f_tooldealer)	Tool Dealer#70	893
+rachel, 65, 240,3	duplicate(f_tooldealer)	Tool Dealer#71	893
+veins, 218, 130,3	duplicate(f_tooldealer)	Tool Dealer#72	893
+veins, 198, 229,3	duplicate(f_tooldealer)	Tool Dealer#73	893
+veins, 288, 201,3	duplicate(f_tooldealer)	Tool Dealer#74	893
+moscovia, 225, 191,3	duplicate(f_tooldealer)	Tool Dealer#75	893
+moscovia, 222, 224,3	duplicate(f_tooldealer)	Tool Dealer#76	893
+moscovia, 157, 131,3	duplicate(f_tooldealer)	Tool Dealer#77	893
+nameless_i, 231, 214,3	duplicate(f_tooldealer)	Tool Dealer#78	893
+nameless_i, 106, 175,3	duplicate(f_tooldealer)	Tool Dealer#79	893
+nameless_i, 88, 102,3	duplicate(f_tooldealer)	Tool Dealer#80	893
+ra_temple, 90, 187,3	duplicate(f_tooldealer)	Tool Dealer#81	893
+ra_temple, 122, 41,3	duplicate(f_tooldealer)	Tool Dealer#82	893
+ra_temple, 65, 141,3	duplicate(f_tooldealer)	Tool Dealer#83	893
+thor_camp, 113, 223,3	duplicate(f_tooldealer)	Tool Dealer#84	893
+thor_camp, 48, 74,3	duplicate(f_tooldealer)	Tool Dealer#85	893
+thor_camp, 237, 112,3	duplicate(f_tooldealer)	Tool Dealer#86	893
+mid_camp, 183, 233,3	duplicate(f_tooldealer)	Tool Dealer#87	893
+mid_camp, 33, 151,3	duplicate(f_tooldealer)	Tool Dealer#88	893
+mid_camp, 324, 155,3	duplicate(f_tooldealer)	Tool Dealer#89	893
+manuk, 291, 233,3	duplicate(f_tooldealer)	Tool Dealer#90	893
+manuk, 276, 136,3	duplicate(f_tooldealer)	Tool Dealer#91	893
+manuk, 90, 252,3	duplicate(f_tooldealer)	Tool Dealer#92	893
+splendide, 200, 148,3	duplicate(f_tooldealer)	Tool Dealer#93	893
+splendide, 196, 26,3	duplicate(f_tooldealer)	Tool Dealer#94	893
+splendide, 363, 239,3	duplicate(f_tooldealer)	Tool Dealer#95	893
+dicastes01, 199, 189,3	duplicate(f_tooldealer)	Tool Dealer#96	893
+dicastes01, 125, 206,3	duplicate(f_tooldealer)	Tool Dealer#97	893
+dicastes01, 200, 322,3	duplicate(f_tooldealer)	Tool Dealer#98	893
+
+
+
+// Hidding Slot Enchant NPC
+// Important Note : Item ID 677 Platinum Coin is a special item that allow user to select the Enchant.
+
+function	script	EnchantGear	{
+	next;
+	switch( select( "^4169E1Weapon Enchant^000000:Enchant Armor:^0000FFHeadGear Enchant^000000:^FFA500Garment/Footgear Enchant^000000:^FF0000Shield Enchant^000000:^4169E1Accesory Enchant^000000:Information:Cancel" ) )
+	{
+		case 1:
+			mes "[Mann Co. Engineer]";
+			mes "When you enchant your weapon, your weapon will game 5% attack and magical damage against opponents, depending on what outcome you get. You may repeat the process as much as you want.";
+			mes "However, please be aware the weapon will lose its refines and cards.";
+			mes "Also, you may not enchant weapons with more than 3 slots.";
+			next;
+			mes "[Mann Co. Engineer]";
+			mes "^FFA500To enchant your Weapon^000000:";
+			mes "a) 50 Bravery, 50 Valor and 50 Heroism Badges.";
+			mes "b) 200,000 Zeny";
+			mes "c) 20 Kafra Points";
+			next;
+
+			setarray .@Position$[3], "Left hand","Right hand";
+			set .@Menu$,"";
+			for( set .@i, 3; .@i <= 4; set .@i, .@i + 1 )
+			{
+				if( getequipisequiped(.@i) )
+					set .@Menu$, .@Menu$ + .@Position$[.@i] + "-" + "[" + getequipname(.@i) + "]";
+				set .@Menu$, .@Menu$ + ":";
+			}
+
+			set .@Part,select(.@Menu$ + "Cancel") + 2;
+			if( .@Part >= 5 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "Fair enough.";
+				close;
+			}
+			if( !getequipisequiped(.@Part) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "You're not wearing anything there...";
+				close;
+			}
+			if( getequipweaponlv(.@Part) == 0 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "This enchant only works for Weapons, not Shields...";
+				close;
+			}
+			set .@Slot0, getequipcardid(.@Part,0);
+			if( .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I am sorry, I cannot work on signed items.";
+				close;
+			}
+			set .@Item, getequipid(.@Part);
+			if( getitemslots(.@Item) >= 4 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I am sorry, I cannot work on 4 slotted weapons.";
+				close;
+			}
+
+			mes "[Mann Co. Engineer]";
+			mes "You want to enchant your " + getitemname(.@Item) + "?";
+			mes "The cost of this is ^0000FF50 Bravery, 50 Valor and 50 Heroism Badges as well as 200,000 zeny and 20 Kafra Points^000000.";
+			mes "But before that, I must warn you of the risk.";
+			mes "Once the weapon receives the enchant ^FF0000it will lose refine and cards^000000.";
+			mes "This process cannot destroy your weapon, so you may proceed safely.";
+			next;
+			if( select("^FF0000Elemental^000000:^0000FFRacial^000000:Cancel") == 3 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "Fair enough.";
+				close;
+			}
+
+			set .@Type, @menu; // 1 : Elemental | 2 : Racial
+			if( countitem(7828) < 50 || countitem(7829) < 50 || countitem(7773) < 50 || Zeny < 200000 || #KAFRAPOINTS < 20 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
+				mes "You sure that you have the badges?";
+				close;
+			}
+
+			set .@Slot0, getequipcardid(.@Part,0);
+			if( !getequipisequiped(.@Part) || !getequipweaponlv(.@Part) || .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 || .@Item != getequipid(.@Part) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "This is not the equip we were talking about...";
+				close;
+			}
+
+			if( .@Type == 3 && countitem(677) < 1 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Oh.. ok... and where is the Platinum Coin?";
+				mes "Platinum Coin is the reward for being in the Top 3 Battlegrounds players of the Week.";
+				close;
+			}
+
+			switch( .@Type )
+			{
+			case 1: // Elemental
+				set .@Enchant, 4901 + rand(5);
+				break;
+			case 2: // Racial
+				set .@Enchant, 4906 + rand(10);
+				break;
+			case 3: // Selective
+				set .@Menu$,"";
+				for( set .@i, 4901; .@i <= 4915; set .@i, .@i + 1 )
+					set .@Menu$, .@Menu$ + getitemname(.@i) + ":";
+
+				set .@Enchant, 4900 + select(.@Menu$);
+				delitem 677,1;
+				break;
+			}
+
+			delitem 7828,50;
+			delitem 7829,50;
+			delitem 7773,50;
+			set Zeny, Zeny - 200000;
+			paypoints 20;
+
+			successenchant .@Part,.@Enchant;
+
+			mes "[Mann Co. Engineer]";
+			mes "Great, your weapon received ^0000FF" + getitemname(.@Enchant) + "^000000.";
+			mes "It looks pretty well done.";
+			mes "Come back again if you want something else.";
+			close;
+		case 2:			
+			if( !getequipisequiped(2) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "You're not wearing any armor...";
+				mes "I can't enchant your body!";
+				close;
+			}
+				
+			deletearray .@Armor[0],127;			
+			setarray .@Armor[0],2358,2307,2309,2314,2316,2321,2325,2327,2330,2332,2334,2335,2341,2344,2346,2348,2350,2337,2386,2311,2318,2319,2320,2308,2310,2315,2317,2322,2324,2326,2331,2333,2336,2342,2345,2347,2349,2351,2357,2364,2365,2374,2375,2387,2389,2391,2390,2376,2377,2378,2379,2380,2381,2382,2394;
+
+			set .@Item, getequipid(2);
+			
+			for( set .@i, 0; .@i < getarraysize(.@Armor); set .@i, .@i + 1 )
+			{
+				if( .@Armor[.@i] == .@Item )
+					break;
+			}
+
+			if( .@i >= getarraysize(.@Armor) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I am sorry, but I cannot work on this armor.";
+				mes "If you need information, just ask me...";
+				close;
+			}
+
+			mes "[Mann Co. Engineer]";
+			mes "You want to enchant your " + getitemname(.@Item) + "?";
+			mes "The cost of my work is 200,000 zeny.";
+			mes "^FF0000Your Armor will lose any Refine and Cards^000000.";
+			mes "Also, if the attempt to Enchant fails, the ^FF0000Armor^000000 will be destroyed^000000.";
+			next;
+			if ( select("Do the enchant","Cancel") == 2 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "Okay, I understand.";
+				close;
+			}
+
+			if( getequipisequiped(2) == 0 || getequipid(2) != .@Item || Zeny < 200000 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
+				mes "You sure that you have the equipment and the zeny?";
+				close;
+			}
+
+			mes "[Mann Co. Engineer]";
+			mes "Alright then, let the work begin!";
+			mes "You'd better pray for a successful result.";
+			mes "Let me take your armor...";
+			next;
+			set .@Enchant, 0;
+
+			if( countitem(677) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Wow!! You own a Platinum Coin.";
+				mes "Look, I can let you choose a +3 Safe Enchant from one of my store armors.";
+				mes "If you give me your current armor and that Coin.";
+				next;
+				if( select("Ok... let me choose:No thanks, just continue") == 1 )
+				{
+					set .@Menu$,"";
+					for( set .@i, 0; .@i < 6; set .@i, .@i + 1 )
+						set .@Menu$, .@Menu$ + getitemname(4702 + (.@i * 10)) + ":";
+
+					set .@Enchant, 4702 + ((select(.@Menu$) - 1) * 10);
+					delitem 677,1;
+				}
+			}
+
+			set Zeny, Zeny - 200000;
+
+			if( .@Enchant == 0 )
+			{
+				set .@Rate, rand(100);
+				
+				if( .@Rate >= 85) 		// 15% chance for stat+3
+					set .@Enchant, 4702 + (rand(6) * 10);
+				else if (.@Rate >= 55) 	// 30% chance for stat+2
+					set .@Enchant, 4701 + (rand(6) * 10);
+				else if (.@Rate >= 15) 	// 40% chance for stat+1
+					set .@Enchant, 4700 + (rand(6) * 10);
+				else 					// 15% chance for failure 
+				{
+					failedenchant 2;
+					emotion e_sob;
+					mes "[Mann Co. Engineer]";
+					mes "Wah! ...I am so sorry, it failed.";
+					mes "Better luck next time!";
+					close;
+				}
+			}
+
+
+			successenchant 2,.@Enchant;
+			emotion e_no1;
+
+			mes "[Mann Co. Engineer]";
+			mes "Great, it was a success.";
+			mes "Your armor received ^0000FF" + getitemname(.@Enchant) + "^000000 enchant.";
+			mes "Congratulations!";
+			mes "See you again, buddy!";
+			close;
+		case 3:
+			mes "[Mann Co. Engineer]";
+			mes "^FFA500To enchant your HeadGear^000000:";
+			mes "a) 100 Bravery, 100 Valor and 100 Heroism Badges.";
+			mes "b) 2,000,000 Zeny";
+			mes "c) 100 Kafra Points"; 
+			mes "You will gain +1 to a random stat.";
+			mes "^FF0000Headgear will lose refines and cards^000000.";
+			next;
+			if ( select("Attempt Enchant","Cancel") == 2 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "Okay, I understand.";
+				close;
+			}
+			if( !getequipisequiped(1) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "You're not wearing any headgear...";
+				mes "I can't enchant your dumb brain!";
+				close;
+			}
+			
+			set .@Slot0, getequipcardid(1,0);
+			set .@Slot3, getequipcardid(1,3);
+			set .@NeedCP, 0;
+			
+			if( .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I am sorry, I cannot work on signed items.";
+				close;
+			}
+			
+	//		if( .@Slot3 != 0 )
+	//		{
+	//			set .@NeedCP, 1;
+	//			mes "[Mann Co. Engineer]";
+	//			mes "This headgear is already enchanted. You will need also to pay me 1 ^0000FFTerra's Bronze Coin^000000.";
+	//			next;
+	//		}
+
+			mes "[Mann Co. Engineer]";
+			mes "You want to enchant your " + getitemname(getequipid(1)) + "?";
+			mes "The cost of this work is ^0000FF100 Bravery, 100 Valor, 100 Heroism Badges, 2,000,000 zeny, and 100 Kafra Points^000000.";
+			mes "I must warn you of the risk.";
+			mes "Once the headgear receives the enchant, ^FF0000it will lose refine and cards^000000.";
+			mes "Do you still want to Enchant?";
+			next;
+			if ( select("Let's do it!","Cancel") == 2 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "Okay, I understand.";
+				close;
+			}
+
+			if( countitem(7828) < 100 || countitem(7829) < 100 || countitem(7773) < 100 || Zeny < 2000000 || #KAFRAPOINTS < 100 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
+				mes "You sure that you have the badges, Zeny, and Kafra Points?";
+				close;
+			}
+
+			set .@Slot0, getequipcardid(1,0);
+			set .@Slot3, getequipcardid(1,3);
+
+			if( !getequipisequiped(1) || .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "This is not the headgear we were talking about...";
+				mes "Get out of here!!";
+				close;
+			}
+
+			set .@Enchant, 0;
+
+			if( countitem(677) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Wow! You own a Platinum Coin.";
+				mes "Look, I can let you choose a +1 Safe Enchant from one of my store headgers.";
+				mes "If you give me your current headgear and that Coin.";
+				next;
+				if( select("Ok... let me choose:No thanks, just continue") == 1 )
+				{
+					set .@Menu$,"";
+					for( set .@i, 0; .@i < 6; set .@i, .@i + 1 )
+						set .@Menu$, .@Menu$ + getitemname(4768 + (.@i * 3)) + ":";
+
+					set .@Enchant, 4768 + ((select(.@Menu$) - 1) * 3);
+					delitem 677,1;
+				}
+			}
+
+			delitem 7828,100;
+			delitem 7829,100;
+			delitem 7773,100;
+			set Zeny, Zeny - 200000;
+			paypoints 100;
+			if( .@Enchant == 0 ) set .@Enchant, 4768 + (rand(6) * 3);
+		//	if( .@NeedCP ) delitem 8905,1;
+			successenchant 1,.@Enchant;
+
+			mes "[Mann Co. Engineer]";
+			mes "Great, your headgear received ^0000FF" + getitemname(.@Enchant) + "^000000 enchant.";
+			mes "It looks pretty well done. Congratulations!";
+			mes "See you again, buddy!";
+			close;
+		case 4:
+			mes "[Mann Co. Engineer]";
+			mes "^FFA500To enchant Footgear or Garment.^000000:";
+			mes "a) 30 Bravery, 30 Valor and 30 Heroism Badges.";
+			mes "b) 200,000 Zeny";
+			mes "You will receive an HP or SP bonus";
+			mes "^FF0000Equip will loose refines and cards^000000.";
+			next;
+			if ( select("Enchant my Garment:Enchant my Footgear:Cancel") == 3 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "Okay, I understand.";
+				close;
+			}
+			
+			set .@Equip, 4 + @menu; // Selected option
+			if( !getequipisequiped(.@Equip) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "You're not wearing nothing there...";
+				mes "Your body is not ready!";
+				close;
+			}
+
+			set .@Slot0, getequipcardid(.@Equip,0);
+			if( .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I am sorry, I can't work on signed items.";
+				close;
+			}
+
+			mes "[Mann Co. Engineer]";
+			mes "You want to enchant your " + getitemname(getequipid(.@Equip)) + "?";
+			mes "The cost of this work is ^0000FF30 Bravery, 30 Valor, 30 Heroism Badges, 200,000 zeny, and 5 Kafra Points^000000.";
+			mes "But before that, I must warn you of the risk.";
+			mes "Once the equip receives the enchant ^FF0000it will lose refine and cards^000000.";
+			mes "Do you still want to Enchant?";
+			next;
+			if ( select("^FFFF00Enchant it with HP^000000:^0000FFEnchant it with SP^000000:Cancel") == 3 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "Okay, fine fine...";
+				close;
+			}
+
+			set .@Type, @menu - 1; // 0 : HP | 1 : SP
+			if( countitem(7828) < 30 || countitem(7829) < 30 || countitem(7773) < 30 || Zeny < 200000 || #KAFRAPOINTS < 5 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
+				mes "You sure that you have the badges and Zeny?";
+				close;
+			}
+
+			set .@Slot0, getequipcardid(.@Equip,0);
+			if( !getequipisequiped(.@Equip) || .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "This is not the equip we were talking about...";
+				mes "Get out of here!";
+				close;
+			}
+
+			if( .@Type == 2 && countitem(677) < 1 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Oh.. ok... and where is the Platinum Coin?";
+				close;
+			}
+
+	//		if( .@Type == 2 )
+	//		{
+	//			set .@Menu$,"";
+	//			for( set .@i, 0; .@i < 2; set .@i, .@i + 1 )
+//					set .@Menu$, .@Menu$ + getitemname(4934 + (.@i * 4)) + ":";
+//
+	//			set .@Enchant, 4934 + ((select(.@Menu$) - 1) * 4);
+		//		delitem 677,1;
+		//	}
+		//	else
+		//	{
+			set .@Rate, rand(100);
+			
+			if( .@Rate >= 85 )
+				set .@Enchant, 4934 + (.@Type * 4); // 15% chance of best
+			else if ( .@Rate >= 60 )
+				set .@Enchant, 4933 + (.@Type * 4); // 25% chance of betterer
+			else if ( .@Rate >= 35 )
+				set .@Enchant, 4932 + (.@Type * 4); // 25% chance of better but shit
+			else
+				set .@Enchant, 4931 + (.@Type * 4); // 35% chance of kinda shitty
+				
+	//		}
+
+			delitem 7828,30;
+			delitem 7829,30;
+			delitem 7773,30;
+			set Zeny, Zeny - 200000;
+			paypoints 5;
+
+			successenchant .@Equip,.@Enchant;
+
+			mes "[Mann Co. Engineer]";
+			mes "Great, your equip received ^0000FF" + getitemname(.@Enchant) + "^000000 enchant.";
+			mes "It looks pretty good. Congratulations!";
+			mes "See you again, buddy!";
+			close;
+		case 5:
+			mes "[Mann Co. Engineer]";
+			mes "^FFA500To enchant a Shield you need:^000000:";
+			mes "a) Need 30 Bravery, 30 Valor and 30 Heroism Badges.";
+			mes "b) 200,000 Zeny";
+			mes "c) 10 Kafra Points";
+			mes "You gain 5% Elemental or Racial resistance.";
+			mes "^FF0000Shield will lose refines and cards^000000.";
+			next;
+			if ( select("Attempt enchant:Cancel") == 2 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "That's okay.";
+				close;
+			}
+
+			if( !getequipisequiped(3) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "You're not wearing nothing anything...";
+				mes "I can't fix your hand, but now you've made my pimp hand strong!";
+				close;
+			}
+			
+			if( getequipweaponlv(3) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "This enchant is for Shields, not weapons...";
+				close;
+			}
+
+			set .@Slot0, getequipcardid(3,0);
+			if( .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I am sorry, I can't work on signed items.";
+				close;
+			}
+
+			mes "[Mann Co. Engineer]";
+			mes "You want to enchant your " + getitemname(getequipid(3)) + "?";
+			mes "The cost of this work is ^0000FF30 Bravery, 30 Valor, 30 Heroism Badges, 200,000 zeny, and 10 Kafra Points^000000.";
+			mes "I must warn you of the risk.";
+			mes "Once the equip receives the enchant ^FF0000it will lose refine and cards^000000.";
+			mes "Do you still want to Enchant?";
+			next;
+			if ( select("^FFFF00Enchant it Elemental^000000:^0000FFEnchant it Racial^000000:Cancel") == 3 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "That's fine!";
+				close;
+			}
+
+			set .@Type, @menu; // 1 : Elemental | 2 : Racial
+			if( countitem(7828) < 30 || countitem(7829) < 30 || countitem(7773) < 30 || Zeny < 200000 || #KAFRAPOINTS < 10)
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
+				mes "You sure that you have the badges?";
+				close;
+			}
+
+			set .@Slot0, getequipcardid(3,0);
+			if( !getequipisequiped(3) || getequipweaponlv(3) || .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "This is not the equip we were talking about...";
+				mes "Get out of here!!";
+				close;
+			}
+
+			if( .@Type == 3 && countitem(677) < 1 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Oh.. ok... and where is the Platinum Coin?";
+				mes "Platinum Coin is the reward for being in the Top 3 Battlegrounds players of the Week.";
+				close;
+			}
+
+			switch( .@Type )
+			{
+			case 1: // Elemental
+				set .@Enchant, 4916 + rand(5);
+				break;
+			case 2: // Racial
+				set .@Enchant, 4921 + rand(10);
+				break;
+			case 3: // Selective
+				set .@Menu$,"";
+				for( set .@i, 4916; .@i <= 4930; set .@i, .@i + 1 )
+					set .@Menu$, .@Menu$ + getitemname(.@i) + ":";
+
+				set .@Enchant, 4915 + select(.@Menu$);
+				delitem 677,1;
+				break;
+			}
+
+			delitem 7828,30;
+			delitem 7829,30;
+			delitem 7773,30;
+			set Zeny, Zeny - 200000;
+			paypoints 10;
+
+			successenchant 3,.@Enchant;
+
+			mes "[Mann Co. Engineer]";
+			mes "Great, your equip received ^0000FF" + getitemname(.@Enchant) + "^000000 enchant.";
+			mes "It looks pretty well done. Congratulations!";
+			next;
+			mes "[Mann Co. Engineer]";
+			mes "See you again, buddy!";
+			close;
+		case 6:
+			mes "[Mann Co. Engineer]";
+			mes "^FFA500To enchant your Accesory^000000:";
+			mes "a) 150 Bravery, 150 Valor and 100 Heroism Badges.";
+			mes "b) 1,000,000 Zeny";
+			mes "c) 100 Kafra Points";
+			mes "Enchant Type is a Bonus on Max Weight";
+			mes "^FF0000Accesory will lose cards^000000.";
+			next;
+
+			setarray .@Position$[7], "Accessory 1","Accessory 2";
+			set .@Menu$,"";
+			for( set .@i, 7; .@i <= 8; set .@i, .@i + 1 )
+			{
+				if( getequipisequiped(.@i) )
+					set .@Menu$, .@Menu$ + .@Position$[.@i] + "-" + "[" + getequipname(.@i) + "]";
+				set .@Menu$, .@Menu$ + ":";
+			}
+
+			set .@Part,select(.@Menu$ + "Cancel") + 6;
+			if( .@Part >= 9 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "Alright, I can understand.";
+				mes "Just remember that life's no fun if you're always playing it safe~";
+				close;
+			}
+			if( !getequipisequiped(.@Part) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Your not wearing anything there...";
+				close;
+			}
+
+			set .@Slot0, getequipcardid(.@Part,0);
+			if( .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I am sorry, i cannot work on Signed items.";
+				close;
+			}
+
+			set .@Item, getequipid(.@Part);
+
+			mes "[Mann Co. Engineer]";
+			mes "You want to enchant your " + getitemname(.@Item) + "?";
+			mes "The cost of this work is ^0000FF150 Bravery, 150 Valor, 100 Heroism Badges, 1,000,000 Zeny, and 100 Kafra Points^000000.";
+			mes "I must warn you of the risk.";
+			mes "Once the Accesory receives the enchant ^FF0000it will loose cards^000000.";
+			mes "Do you still want to Enchant?";
+			next;
+			if ( select("^0000FFEnchant it^000000:Cancel") == 2 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Need some time to think about it, huh?";
+				mes "Come back to me soon!";
+				close;
+			}
+
+			if( countitem(7828) < 150 || countitem(7829) < 150 || countitem(7773) < 100 || Zeny < 1000000 || #KAFRAPOINTS < 100 )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
+				mes "You sure that you have the badges?";
+				close;
+			}
+
+			set .@Slot0, getequipcardid(.@Part,0);
+			if( !getequipisequiped(.@Part) || .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 || .@Item != getequipid(.@Part) )
+			{
+				mes "[Mann Co. Engineer]";
+				mes "This is not the equip we were talking about...";
+				mes "Get out of here!!";
+				close;
+			}
+
+			delitem 7828,150;
+			delitem 7829,150;
+			delitem 7773,100;
+			set Zeny, Zeny - 1000000;
+			paypoints 100;
+			successenchant .@Part,4900;
+
+			mes "[Mann Co. Engineer]";
+			mes "Great, your accessory received ^0000FF" + getitemname(4900) + "^000000 enchant.";
+			mes "It looks pretty well good!";
+			mes "See you again, buddy!";
+			close;
+		case 7:
+			mes "[Mann Co. Engineer]";
+			mes "When an armor becomes enchanted, it will show a special hiding slot with a gem on it.";
+			mes "This will grant additional stats to the armor, and with different values.";
+			mes "You should know that the item will lose its refine, cards and previous enchants.";
+			mes "And maybe the armor too, if I fail...";
+			next;
+			mes "[Mann Co. Engineer]";
+			mes "However, only some body armors may be enchanted.";
+			mes "Tell me what list do you want to explore...";
+			next;
+			deletearray .@Armor[0],127;
+			switch( select( "Non Slotted Armors","Slotted Armors","High Class Armors" ) )
+			{
+				case 1: setarray .@Armor[0],2358,2307,2309,2314,2316,2321,2325,2327,2330,2332,2334,2335,2341,2344,2346,2348,2350,2337,2386; break;
+				case 2: setarray .@Armor[0],2311,2318,2319,2320,2308,2310,2315,2317,2322,2324,2326,2331,2333,2336,2342,2345,2347,2349,2351; break;
+				case 3: setarray .@Armor[0],2357,2364,2365,2374,2375,2387,2389,2391,2390,2376,2377,2378,2379,2380,2381,2382,2394; break;
+			}
+			
+			mes "^0000FF** Armor List **^000000";
+			for( set .@i, 0; .@i < getarraysize(.@Armor); set .@i, .@i + 1 )
+				mes "" + getitemname(.@Armor[.@i]) + "";
+			
+			next;
+			mes "[Mann Co. Engineer]";
+			mes "Talk me again if you want to enchant your armor or if you need more information.";
+			close;
+		case 8:
+			mes "[Mann Co. Engineer]";
+			mes "Take it easy, adventurer.";
+			mes "If you ever want to try to enchant your armors, come back and let me know.";
+			close;
+	}
+}

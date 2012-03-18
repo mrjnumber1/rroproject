@@ -1,0 +1,240 @@
+
+
+prontera,153,174,0	script	Okolnir Entrance	406,{
+	.@min_lv, 99;
+	.@min_partysize,3; // having seen okolnir done, most guilds use like 20 people so this is just for lollers and testing :)
+	.@okolquestid, 59999;
+	.@instance_delay, 60*60*24; // 1 day -> i think this belongs in the quest_db, though, if i use that. which is probably better imo <_<
+	.@alive_timeout, 60*60*1; // 1 hour is the official okolnir setting
+	.@idle_timeout, 60*5; // 5 mins 
+	
+	if(BaseLevel < .@min_lv)
+	{
+		mes "you are too weak blahblah";
+		close;
+	}
+	
+	set .@party_id,getcharid(1);
+	set .@ins_mas,getpartyleader(.@party_id,2);
+	set .@p_name$,getpartyname(.@party_id);
+	set .@p_leader$,strcharinfo(0);
+	set .@md_name$,"Fallacious Okolnir";
+	
+	
+	getpartymember(.@party_id);
+	set .@partymembercount,$@partymembercount;
+	copyarray .@partymembername$[0],$@partymembername$[0],.@partymembercount;
+	
+	set .@okol_time,checkquest(.@okolquestid,PLAYTIME);
+	
+	if( (.@party_id > 0) && (.@partymembercount >= .@min_partysize) )
+	{
+		if (.@okol_time == -1) 
+		{
+			if (.@ins_mas == getcharid(0)) 
+			{
+				mes "Party status confirmed. Would you like to book entrance to " + .@md_name$ + "?";
+				next;
+				switch(select("Reserve " + .@md_name$ + ":Enter the Dungeon:Cancel")) 
+				{
+				case 1:
+					set .@instance, instance_create(.@md_name$, .@party_id);
+					if (.@instance < 0) 
+					{
+						mes "Party Name: "+.@p_name$+"";
+						mes "Party Leader: "+.@p_reader$+"";
+						mes "^0000ff"+.@md_name$+" ^000000 - Reservation Failed.";
+						close;
+					}
+					else 
+					{
+						mes "^0000ff"+.@md_name$+"^000000- Attempting to book an entrance";
+						mes "After making a reservation, you have to select 'Enter the Dungeon' from the menu if you wish to enter the " + .@md_name$ + ".";
+
+					
+						if(instance_attachmap(.@i + "@okolnir", .@instance) == "")
+						{
+							instance_destroy(.@instance);
+							close;
+						}
+						
+						instance_attach(.@instance);
+						instance_set_timeout .@alive_timeout, .@idle_timeout, .@instance;
+						instance_init(.@instance);
+						// start event
+						
+						donpcevent instance_npcname("#okolnir_ins", instance_id())+"::OnEnable";
+						close;
+					}
+				case 2:
+					//if (move_md == 3) {
+					//	mes "An unidentified error has occured.";
+					//	close;
+					//}
+					//else if (move_md == 2) {
+					if (has_instance("1@okolnir") == "") {
+						mes "Memorial Dungeon " + .@md_name$ + " does not exist.";
+						mes "The party leader has not reserved entrance to the dungeon yet.";
+						mes "Once the reservation is complete, the dungeon will be generated.";
+						mes "If your dungeon has been destroyed you must wait "+.@instance_delay/(60*60*24)+" day before re-entering.";
+						close;
+					}
+					//else if (move_md == 0) {
+					else if ((has_instance("1@okolnir") != "") && (.@partymembercount < .@min_size)) {
+						mes "Only party members may enter the Memorial Dungeon.";
+						close;
+					}
+					//else if (move_md == 0) {
+					else {
+						mapannounce "prontera", .@p_reader$ + " of the party, " + .@p_name$ + " is entering the " + .@md_name$ + ".",bc_map,"0x00ff99";
+						warp "1@okolnir",179,15;
+						if (checkquest(12059)== -1) setquest 12059;
+						close;
+					}
+				case 3:
+					close;
+				}
+			}
+			else {
+				switch(select(.@md_name$ + " Enter the Memorial Dungeon:Cancel")) {
+				case 1:
+					//if (move_md == 3) {
+					//	mes "An unidentified error has occured.";
+					//	close;
+					//}
+					//else if (move_md == 2) {
+					if (has_instance("1@orcs") == "") {
+						mes "The Memorial Dungeon " + .@md_name$ + " does not exist.";
+						mes "The Memorial Dungeon has been destroyed by the Party Leader or because of the time limit. Please try again after 2 hours.";
+						close;
+					}
+					//else if (move_md == 1) {
+					else if ((has_instance("1@orcs") != "") && (.@partymembercount < 2)) {
+						mes "Only party members may enter the Memorial Dungeon.";
+						close;
+					}
+					//else if (move_md == 0) {
+					else {
+						mapannounce "gef_fild10", .@p_name$ + " Party's member " + .@p_reader$ + " has entered the " + .@md_name$ + ".",bc_map,"0x00ff99";
+						if (checkquest(12059)== -1) setquest 12059;
+						warp "1@orcs",179,15;
+						close;
+					}
+				case 2:
+					close;
+				}
+			}
+		}
+		else if ((.@orctime == 0) || (.@orctime == 1)) {
+			mes "You can enter the Dungeon if it has been generated.";
+			next;
+			switch(select("Enter the Dungeon " + .@md_name$ + ":Cancel")) {
+			case 1:
+				//if (move_md == 3) {
+				//	mes "An unidentified error has occured.";
+				//	close;
+				//}
+				//else if (move_md == 2) {
+				if (has_instance("1@orcs") == "") {
+					mes "The Memorial Dungeon " + .@md_name$ + " does not exist.";
+					mes "The Memorial Dungeon has been destroyed by the Party Leader or because of the time limit. Please try again after 2 hours.";
+					close;
+				}
+				//else if (move_md == 1) {
+				else if ((has_instance("1@orcs") != "") && (.@partymembercount < 2)) {
+					mes "Only party members may enter the Memorial Dungeon.";
+					close;
+				}
+				//else if (move_md == 0) {
+				else {
+					mapannounce "gef_fild10", .@p_name$ + " Party's member " + .@p_reader$ + " has entered the " + .@md_name$ + ".",bc_map,"0x00ff99";
+					if (checkquest(12059)== -1) setquest 12059;
+					warp "1@orcs",179,15;
+					close;
+				}
+			case 2:
+				close;
+			}
+		}
+		else if (.@orctime == 2) 
+		{
+			mes "^0000ffAll records and after-effects related to the Orc's Memory Dungeon are deleted. You can now regenerate or re-enter the dungeon.^000000";
+			erasequest 12059;
+			close;
+		}
+	
+	}
+	else
+	{
+		mes "must be party leader with at least 2 people";
+		close;
+	}
+}
+
+1@okolnir,1,1,0	script	#okolnir_ins	844,{
+
+OnEnable:
+	donpcevent instance_npcname("Gate01#gq_ins", instance_id())+"::OnEnable";
+	donpcevent instance_npcname("#Maze_Manager_ins", instance_id())+"::OnEnable";
+	donpcevent instance_npcname("#event_start01_ins", instance_id())+"::OnEnable";
+	donpcevent instance_npcname("#gd_ins_mobctrl", instance_id())+"::OnEnable";
+	enablenpc instance_npcname("Guard of Shadow#ins_01", instance_id());
+	enablenpc instance_npcname("Guard of Shadow#ins_02", instance_id());
+	enablenpc instance_npcname("Guard of Shadow#ins_03", instance_id());
+	enablenpc instance_npcname("Guard of Shadow#ins_04", instance_id());
+	enablenpc instance_npcname("Bloody Hunter#ins_ac01", instance_id());
+	enablenpc instance_npcname("Bloody Hunter#ins_ac02", instance_id());
+	enablenpc instance_npcname("Bloody Hunter#ins_ac03", instance_id());
+	enablenpc instance_npcname("Bloody Hunter#ins_ac04", instance_id());
+	enablenpc instance_npcname("Temple Keeper#ins_ac01", instance_id());
+	enablenpc instance_npcname("Temple Keeper#ins_ac02", instance_id());
+	initnpctimer;
+	end;
+
+OnDisable:
+	disablenpc instance_npcname("Wish Maiden#gq_ins", instance_id());
+	donpcevent instance_npcname("#gq_miromob2_ins", instance_id())+"::Onreset";
+	disablenpc instance_npcname("Piamette#ins", instance_id());
+	donpcevent instance_npcname("#gdtimer01_ins", instance_id())+"::Onstop";
+	donpcevent instance_npcname("#gdtimer02_ins", instance_id())+"::Onstop";
+	donpcevent instance_npcname("#piamette_ins", instance_id())+"::Onreset";
+	donpcevent instance_npcname("Wish Maiden#ins_boss", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Wish Maiden#ins_gift", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("#gd_ins_mobctrl", instance_id())+"::Onreset";
+	donpcevent instance_npcname("Gate01#gq_ins", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("#Maze_Manager_ins", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("#event_start01_ins", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("#nm_switch_ins", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("#nmsomins_jin01", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("#nmsomins_jin02", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("#nmsomins_jin03", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Guard of Shadow#ins_01", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Guard of Shadow#ins_02", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Guard of Shadow#ins_03", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Guard of Shadow#ins_04", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Bloody Hunter#ins_ac01", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Bloody Hunter#ins_ac02", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Bloody Hunter#ins_ac03", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Bloody Hunter#ins_ac04", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Temple Keeper#ins_ac01", instance_id())+"::OnDisable";
+	donpcevent instance_npcname("Temple Keeper#ins_ac02", instance_id())+"::OnDisable";
+	disablenpc instance_npcname("#to_agit_ins_gate", instance_id());
+	donpcevent instance_npcname("#ins_stone01", instance_id())+"::Onreset";
+	donpcevent instance_npcname("#ins_stone02", instance_id())+"::Onreset";
+	donpcevent instance_npcname("#ins_stone03", instance_id())+"::Onreset";
+	disablenpc instance_npcname("#ins_cage01", instance_id());
+	disablenpc instance_npcname("#ins_cage02", instance_id());
+	disablenpc instance_npcname("#ins_cage03", instance_id());
+	disablenpc instance_npcname("#ins_cage04", instance_id());
+	disablenpc instance_npcname("#ins_cage05", instance_id());
+	disablenpc instance_npcname("#ins_cage06", instance_id());
+	disablenpc instance_npcname("windpath03_ins", instance_id());
+	disablenpc instance_npcname("windpath04_ins", instance_id());
+	stopnpctimer;
+	end;
+	
+Onstop:
+	stopnpctimer;
+	end;
+	
+}
