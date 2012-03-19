@@ -1,0 +1,547 @@
+// Upper headgear loc = 256-----------------------------------------------------------------------------------------------------------------------
+5001 Headset
+5002 Jewel Crown
+5003 Joker Jester
+5007 Grand Circlet
+5008 Puppy Love
+5009 Safety Helmet
+5010 Indian Fillet
+5011 Aerial
+5012 Ph.D Hat
+5013 Lord Kaho''s Horn
+5015 Egg Shell
+5016 Boy''s Cap
+5017 Bone Helm
+5018 Feather Bonnet
+5019 Corsair
+5020 Kafra Band
+5021 Grief for Greed
+5023 Parcel Hat
+5024 Cake Hat
+5025 Helm of Angel
+5026 Chef Hat
+5027 Mage Hat
+5028 Candle
+5029 Spore Hat
+5030 Panda Hat
+5031 Mine Hat
+5032 Sunday Hat
+5033 Raccoon Hat
+5034 Bulb Band
+5035 Poring Hat
+5036 Cross Hat
+5037 Nut Shell
+5038 Deviruchi Hat
+5039 Rainbow Eggshell
+5041 Heart Hairpin
+5042 Bao Bao
+5044 Evil Wing Ears
+5045 Magician Hat
+5047 Fashionable Glasses
+5048 Cresent Hairpin
+5049 Striped Hairband
+5050 Wonder Nutshell
+5052 Blue Hairband
+5055 Novice False Eggshell
+5056 Fruit of Love
+5057 Black Cat Ears
+5058 Drooping Cat
+5059 Teddybear Hat
+5060 Party Hat
+5061 Flower Hairpin
+5062 Straw Hat
+5063 Giant Band Aid
+5064 Smokie Leaf
+5065 Blue Fish
+5066 Succubus Horn
+5067 Sombrero
+5069 Kitsune Mask
+5070 Hot-blooded Headband
+5071 Indian Headband
+5072 Incubus Horn
+5073 Model Training Hat
+5075 Cowboy Hat
+5076 Beanie
+5077 Tulip Hairpin
+5078 Sea-Otter Hat
+5079 X Hairpin
+5080 Crown of Ancient Queen
+5081 Crown of Mistress
+5082 Decorative Mushroom
+5083 Red Ribbon
+5084 Lazy Smokie
+5097 Holiday Hat
+5099 Neko Mimi
+5100 Sales Banner
+5103 Sunflower Hairpin
+5105 2nd Anniversary Hat
+5106 2nd Anniversary Hat
+5108 Renown Detective''s Cap
+5109 Red Bonnet
+5111 Galapago Cap
+5112 Super Novice Hat
+5114 Bucket Hat
+5115 Winter Hat
+5116 Banana Hat
+5117 Mystic Rose
+5118 Puppy Headband
+5119 Super Novice Hat
+5120 Bucket Hat
+5122 Magni''s Cap
+5123 Ulle''s Cap
+5124 Fricca''s Circlet
+5125 Angel''s Kiss
+5126 Morpheus''s Hood
+5127 Morrigane''s Helm
+5128 Goibne''s Helm
+5129 Bird Nest
+5132 Angeling Hat
+5133 Sheep Hat
+5134 Pumpkin-Head
+5136 Antonio''s Santa Hat
+5137 Alice Doll
+5138 Magic Eyes
+5139 Hibiscus
+5140 Charming Ribbon
+5141 Marionette Doll
+5144 Gambler Hat
+5145 Carnival Joker Jester
+5146 Elephant Hat
+5147 Baseball Cap
+5148 Phrygian Cap
+5149 Silver Tiara
+5150 Joker Jester
+5153 Angeling Hairpin
+5157 Orc Helm
+5158 Monk Hat
+5159 Golden Gear
+5160 Majestic Goat
+5161 Spiky Band
+5162 Bone Helm
+5163 Corsair
+5164 Tiara
+5165 Crown
+5170 Feather Beret
+5171 Valkyrie Helm
+5172 Beret
+5173 Magistrate Hat
+5174 Ayam
+5178 Candle
+5179 Golden Tiara
+5180 France Holiday Hat
+5182 Puppy Hat
+5183 Bird Nest Hat
+5184 Captain''s Hat
+5185 Laurel Wreath
+5186 Geographer Band
+5187 Twin Ribbon
+5188 Wandering Minstrel Hat
+5189 Autumn Leaves
+5190 Independence Memorial Hat
+5191 Black Ribbon
+5192 Yellow Ribbon
+5193 Green Ribbon
+5194 Pink Ribbon
+5195 Red Ribbon
+5196 Orange Ribbon
+5197 White Ribbon
+5198 Drooping Bunny
+5199 Baseball Cap
+5200 Coppola
+5201 Party Hat
+5202 Fantastic Pumpkin-Head
+5207 Angel Blessing
+5208 Rideword Hat
+5209 Love Dad Cap
+5210 Flapping Angel Wing
+5211 Dress Hat
+5212 Satellite Hairband
+5213 Sheila Hairnet
+5215 Evolved Angel Wing
+5216 Evolved Evil Wing
+5217 Evolved Majestic Goat
+5218 Evolved Bunny Band
+5219 Evolved Drooping Cat
+5222 Evolved Blue Fish
+5225 Parade Hat
+5226 Mini Propeller
+5227 Red Deviruchi Hat
+5228 Gray Deviruchi Hat
+5229 Brown Deviruchi Hat
+5230 Gray Drooping Cat
+5231 Brown Drooping Cat
+5232 Pink Drooping Cat
+5233 Blue Drooping Cat
+5234 Yellow Drooping Cat
+5235 Brown Beanie
+5236 Blue Beanie
+5237 Pink Beanie
+5238 Red Mage Hat
+5239 Gray Mage Hat
+5240 Brown Mage Hat
+5241 Blue Mage Hat
+5242 Yellow Mage Hat
+5246 Angelic Helm
+5247 Satanic Helm
+5252 Drooping Ninetail
+5253 Lif Doll Hat
+5254 Deviling Hat
+5255 Triple Poring Hat
+5256 Valkyrie Feather Band
+5257 Soul Ring
+5259 Elephant Hat
+5260 Cookie Hat
+5261 Silver Tiara
+5262 Golden Tiara
+5264 Australian Flag Hat
+5265 Apple of Archer
+5266 Bunny Band
+5267 Sakkat
+5268 Grand Circlet
+5269 Flapping Angel Wing
+5270 Autumn Leaves
+5277 Yellow Bandana
+5278 Yellow Ribbon
+5279 Refined Drooping Cat
+5280 Baphomet Horns
+5281 Refined Deviruchi Hat
+5282 Europe Baseball Cap
+5283 Chick Hat
+5284 Water Lily Crown
+5285 Vane Hairpin
+5286 Pecopeco Hairband
+5287 Vacation Hat
+5289 Vanilmirth Hat
+5290 Drooping Bunny
+5291 Kettle Hat
+5292 Dragon Skull
+5293 Ramen Hat
+5296 Drooping Nine Tail
+5297 Soul Wing
+5300 Bullock Helm
+5302 Flower Lily
+5303 Flower Crown
+5318 Poring Party Hat
+5320 Champion Wreath
+5323 Misstrance Crown
+5324 Little Angel Doll
+5330 kRO Drooping Kitty C
+5331 Corsair C
+5333 Radio Antenna
+5334 Flapping Angeling
+5336 Guildsman Recruiter Hat
+5337 Party Recruiter Hat
+5338 Bf Recruiter Hat
+5339 Friend Recruiter Hat
+5340 Defolty Doll Hat
+5341 Glaris Doll Hat
+5342 Sorin Doll Hat
+5343 Telling Doll Hat
+5344 Bennit Doll Hat
+5345 W Doll Hat
+5346 Gf Recruiter Hat
+5347 Ph.D Hat
+5348 Big Ribbon
+5349 Boy''s Cap
+5350 Pirate Bandana
+5351 Sunflower
+5352 Poporing Cap
+5354 Muslim Hat M
+5355 Selendang
+5356 Festival Pumpkin Hat
+5359 Ship Captain Hat
+5360 Hyuke''s Black Cat Ears
+5363 Helm Of Abyss
+5364 Evil Snake Lord Hat
+5365 Magnolia Hat
+5368 White Wing
+5369 Dark Wing
+5372 Koneko Hat
+5374 Gigantic Majestic Goat
+5376 Flying Evil Wing
+5378 Bunny Top Hat
+5379 Tam
+5380 Fish Head Hat
+5381 Santa Poring Hat
+5382 Bell Ribbon
+5383 Hunter''s Cap
+5384 Twin Pompom By JB
+5386 Ayam
+5387 Neko Mimi Kafra
+5395 Striped Hat
+5396 Jasper Crest
+5398 Bone Head
+5399 Mandragora Cap
+5408 Old Bandana
+5409 Purple Cowboy Hat
+5415 Poring Cake Hat
+5431 Chicken Hat
+5435 Red Minstrel Hat
+5436 Bride''s Corolla
+5437 Fairy Flower
+5438 Cute Green Ribbon
+5439 Cute Red Ribbon
+5440 Cute Blue Ribbon
+5441 Cute White Ribbon
+5442 Necktie
+5443 Statue Of Baby Angel
+5444 Hair Brush
+5446 Catfoot Hairpin
+5447 Frog Hat
+5451 RWC 2008 Dragon Helm Gold
+5452 RWC 2008 Dragon Helm Silver
+5453 RWC 2008 Dragon Helm Copper
+5454 Puppy Hat
+5455 Decorative Geographer
+5456 Summer Hat
+5457 Moon Rabbit Hat
+5459 Drooping Bunny
+5479 Shaman''s Hair Decoration
+5480 Bijofnil Wings
+5481 Hermode Cap
+5487 Poring Cake Hat
+5488 Twin Santa Hat
+5492 Student Cap
+5493 Ulle''s Cap
+5495 Power Of Thor
+5503 Magic Rabit Hat
+5508 Shark Hat
+5509 Sting hat
+5518 Gigantic Majestic Goat
+5527 Lunatic Hat
+5533 Emperor Wreath
+5535 Side Cap
+5544 Time Keeper Hat
+5545 Aries Diadem
+5546 Aries Crown
+5549 Taurus Diadem
+5550 Taurus Crown
+5552 Festival Grand Circlet
+5553 Festival Bunny Band
+5554 Octopus Hat
+5555 Leaf Cat Hat
+5559 Piece Of White Cloth
+5560 Bullock Helm
+5561 Magic Rabbit Hat
+5567 Bright Fury
+5569 Gemini Diadem
+5570 Gemini Crown
+5572 Savage Babe Hat
+5573 Dokebi Horn
+5578 Voyage_Hat
+5583 Eden Team Hat
+5584 Majestic Evil Horns
+5586 Mosquito Coil
+5587 Mosquito Coil
+5590 Poring Cake Hat
+5600 Brazil Twin Ribbon
+5653 Darkness Helm
+5654 Holy Marching Hat
+5665 Shaman Hat
+5666 Golden Crown
+5668 Weird Pumpkin Hat
+5681 Green Ribbon
+5682 Triangle Rune Cap
+5683 Baphomet Horns
+5684 Ornate Crown
+5685 Army Cap
+5686 Nice Hat Feather
+5687 Orc Helm
+5690 Red Wing Hat
+5692 Sea Cat Hat
+5738 Snowman Hat
+5741 Eternal Egg Shell
+5742 Rudolph Santa Hat
+5746 Rune Circlet
+5747 Mitra
+5749 Driver Band
+5750 Shadow Handicraft
+5751 Minstrel Song Hat
+5752 Midas Whisper
+5753 Magic Stone Hat
+5754 Blazing Soul
+5756 Wind Whisper
+5758 Dying Swan
+5760 Driver Band
+5771 Family Hat
+5781 Persika
+5792 Fish Pin
+5801 Red Tailed Ribbon
+5802 Upgraded Elephant Hat
+5803 Love Flower Hat
+5805 Victorious Coronet
+5806 Poet Natalie''s Hat
+5807 October Fest Cap
+5809 Boom Boom Hat
+5810 Ph.D Hat V
+5812 Hat Of Expert
+5816 Classic Hat
+5824 Fools Day Hat
+5826 Valkyrie Helmet
+5856 Passion FB Hat
+5857 Cool FB Hat
+5858 Victory FB Hat
+5859 Glory FB Hat
+
+//Middle headgear loc = 512-----------------------------------------------------------------------------------------------------------------------
+5006 Machoman''s Glasses
+5014 Fin Helm
+5040 Blush
+5043 Opera Phantom Mask
+5068 Evil Wing Ears
+5074 Angel Wing Ears
+5085 Small Ribbons
+5101 Takius''s Blindfold
+5102 Blank Eyes
+5104 Dark Blinder
+5135 Cyclop''s Eye
+5154 Father''s Sunglasses
+5175 Censor Bar
+5221 Evolved Pair of Red Ribbon
+5244 Elven Blindfold
+5245 Elven Sunglasses
+5248 Robotic Blindfold
+5249 Human Blindfold
+5250 Robotic Ears
+5251 Round Ears
+5288 Red Glasses
+5315 Observer
+5325 Robo Eye
+5326 Masquerade C
+5328 Evil Wing Ears C
+5329 Dark Blindfold C
+5389 Angel Spirit
+5421 Ears Of Ifrit
+5516 hawk Eyes
+5517 Hawk Eyes
+5592 Sigrun''s Wings
+5664 Filir''s Pinions
+5786 Ancient Elven Ear
+5788 3D Glasses
+5793 Ribbon Of Life
+5794 3D Glasses
+5800 Blush of Groom
+5804 Pirate Eye Bandage
+// Upper + Middle Headgear loc = 768
+5022 Hat of the Sun God
+5091 Decorative Golden Bell
+5092 Coif
+5093 Coif
+5094 Helmet of Orc Hero
+5098 Tiger Mask
+5121 Zealotus Mask
+5130 Lion Mask
+5142 Crescent Helm
+5151 Note Headphones
+5152 Chinese Crown
+5169 Bride Mask
+5177 Mythical Lion Mask
+5181 Helm of Darkness
+5205 Emperor''s Laurel Crown
+5214 Moonlight Flower Hat
+5223 Evolved Big Golden Bell
+5224 Evolved Orc Hero Helm
+5243 Shafka
+5258 Afro Wig
+5271 Phoenix Crown
+5273 Happy Wig
+5274 Shiny Wig
+5275 Marvelous Wig
+5276 Fantastic Wig
+5295 Golden Bandana
+5298 Dokebi''s Wig
+5313 Diadem
+5327 Refined Helmet of Orc Hero
+5353 Hat of the Sun God
+5357 Wings Of Victory
+5371 Judge Hat
+5373 Dark Randgris Helm
+5375 Orc Hero Headdress
+5476 Grand Peco Hairband
+5502 Necromancer''s Hood
+5505 Asara Fairy Hat
+5511 Samambaia
+5520 Rabbit Earplugs
+5529 Satanic Bone Helm
+5568 Rabbit Bonnet
+5579 Wanderer''s Sakkat
+5585 Rune Cloth Circlet
+5593 Rabbit Bonnet
+5667 Skull Hood
+5748 Sniper Goggles
+5757 Dip Schmidt Helm
+5851 Summer Knight
+//Lower headgear loc = 1-----------------------------------------------------------------------------------------------------------------------
+5004 Oxygen Mask
+5051 Pussy Cat Bell
+5054 Assassin Mask
+5096 Assassin Mask
+5107 Crunch Toast
+5110 Baby Pacifier
+5113 Angry Snarl
+5155 Father''s White Moustache
+5156 Father''s Mask
+5204 Rudolph''s Nose
+5206 Romantic White Flower
+5220 Evolved Pipe
+5305 Pirate Dagger
+5361 Gangster Scarf
+5362 Ninja Scroll
+5377 Gentleman''s Pipe
+5391 Toast
+5394 Bubblegum
+5403 Fish In Mouth
+5419 Leaves Of Grass
+5445 Candy Cane In Mouth
+5462 Spiked Scarf
+5463 Rainbow Scarf
+5521 Angry Mouth
+5532 Pirate Dagger
+5536 Spare Card
+5574 Well-Chewed Pencil
+5594 Donut In Mouth
+5596 4Leaf Clover In Mouth
+5597 Bubble Gum In Mouth
+5775 Choco Donut In Mouth
+5796 Cheer Scarf
+5797 Cheer Scarf2
+5798 Cheer Scarf3
+5799 Cheer Scarf4
+5811 Santa''s Beard
+5846 Buzzy Ball Gum
+//Upper + Middle + Lower Headgear loc = 769-----------------------------------------------------------------------------------------------------------------------
+5046 Bongun Hat
+5131 Close Helmet
+5143 Kabuki Mask
+5167 Munak Hat
+5168 Bongun Hat
+5263 Pagdayaw
+5294 Whisper Mask
+5299 Pagdayaw
+5304 Cap Of Blindness
+5420 Mask Of Ifrit
+5428 RWC Anniversary Bread Envelope
+5448 Soloplay Box1
+5449 Soloplay Box2
+5482 Dark Knight Mask
+5556 Seal Hat
+5577 Dark Knight Mask
+5808 Dark Bacilium
+//Upper + Lower Headgear loc = 257-----------------------------------------------------------------------------------------------------------------------
+5053 Sphinx Hat
+5166 Sphinx Hat
+5494 Sphinx Hat
+//Middle + Lower Headgear loc = 513-----------------------------------------------------------------------------------------------------------------------
+5005 Gas Mask
+5086 Alarm Mask
+5087 Poker Face
+5088 Surprised Mask
+5089 Annoyed Mask
+5090 Goblin Leader Mask
+5176 Hahoe Mask
+5203 Smiling Mask
+5272 Tongue Mask
+5314 Hockey Mask
+5332 Loki Mask
+5483 Odin Mask
+5755 Silence Executer
