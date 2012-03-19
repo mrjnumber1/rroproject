@@ -1,0 +1,117 @@
+prontera,170,180,1	script	test	46,{
+	mes "[ Test ]";
+	mes "Test!";
+	next;
+	if (callfunc("F_hats_ingredients","Headgear NPC",531,1000,100,0,7793,7821,512,0,1,5,10,0));
+	close;
+	//apple 512
+	//golden apple 7793
+	//green apple 7821
+}
+//Argument - npcname, targetitem,zenycost, kafrapointscost, itemid1, itemid2, itemid3, itemid4, itemamount1, itemamount2, itemamount3, itemamount4, questID(-2 if quest is not required).
+function	script	F_hats_ingredients	{
+	set .@NPCname$,"[" +getarg(0)+ "]";
+	
+	set .@targetitem, getarg(1);
+	set .@zenyCost, getarg(2);
+	set .@kafraPtCost, getarg(3);
+	
+	setarray .@itemids[0],    getarg(4),
+	getarg(5), getarg(6), getarg(7);
+	setarray .@itemamounts[0],getarg(8), getarg(9),getarg(10),getarg(11);
+	
+	set .@questId, getarg(12);
+	set .@arraysize,getarraysize(.@itemids);
+	
+	mes .@NPCname$;
+	mes "Ah, you've selected "+getitemname(.@targetitem);
+	mes "An excellent choice, "+strcharinfo(0)+"!";
+	next;
+	mes .@NPCname$;
+	mes "INGREDIENTS:";
+	for( set .@i, 0; .@i < .@arraysize; set .@i, .@i +1 ) {
+		if( .@itemids[.@i] != 0 ) {
+			mes .@itemamounts[.@i]+"  "+getitemname(.@itemids[.@i]);
+		}
+	}
+	if (.@zenyCost)
+		mes "^0000FF"+.@zenycost+"^000000 Zeny";
+	if (.@kafraPtCost)
+		mes "^0000FF"+.@kafraPtCost+"^000000 Kafra Points";
+	next;
+	switch(select("Deliver Ingredients:Choose Another:Cancel"))
+	{
+		case 1:
+			mes .@NPCname$;
+			if( .@questId != -2) {
+				if( checkquest(.@questId, HUNTING) != 2)  {
+				mes "Kill more mobs."; //return back to the menu?
+				return 0;
+				}
+			}
+			if(callfunc("deliverIngredients", .@NPCname, .@targetitem,  .@zenyCost, .@kafraPtCost, .@itemids[0], .@itemids[1], .@itemids[2], .@itemids[3],  .@itemamounts[0],  .@itemamounts[1],  .@itemamounts[2],  .@itemamounts[3], .@questId)) {
+				mes "okay";
+				return 1;
+			}
+			else
+				return 0;
+		case 2:
+			return;
+		case 3:
+			close;
+	}
+
+}
+function	script	deliverIngredients	{
+	set .@NPCname$,"[" +getarg(0)+ "]";
+	
+	set .@targetitem, getarg(1);
+	set .@zenyCost, getarg(2);
+	set .@kafraPtCost, getarg(3);
+	
+	setarray .@itemids[0],    getarg(4), getarg(5), getarg(6), getarg(7);
+	setarray .@itemamounts[0],getarg(8), getarg(9),getarg(10),getarg(11);
+	
+	set .@questId, getarg(12);
+	set .@arraysize,getarraysize(.@itemids);
+	
+	//Checking item assume all non zero
+	for( set .@i, 0; .@i < .@arraysize; set .@i, .@i +1 ) {
+		if( (.@itemids[.@i] != 0 ) && ( .@itemamounts[.@i] != 0) ) {
+			if (countitem(.@itemids[.@i]) < .@itemamounts[.@i]) {
+				mes "^FF0000 You don't have enough item. ^000000";
+				return 0;
+			}
+		}
+		else if( (.@itemids[.@i] == 0 ) && ( .@itemamounts[.@i] == 0) ) {
+		}
+		else
+			debugmes "Error!! You can't have .@itemids["+.@i+"] with "+.@itemids[.@i]+ " value and  "+.@itemamounts[.@i]+" amount/s.";
+	}
+	//Check zeny @zeny and kafra points @points
+	if(Zeny<.@zenyCost) {
+		mes "^FF0000 You don't have enough zeny.^000000";
+		return 0;
+	}
+	else 
+		set Zeny,Zeny - .@zenyCost;
+
+	if(#KAFRAPOINTS<.@kafraPtCost) {
+		mes "^FF0000You don't have enough Kafra points.^000000";
+		return 0;
+	}
+	else 
+		set #KAFRAPOINTS, #KAFRAPOINTS - .@kafraPtCost;
+		
+	//Delete item if itemid and itemamount is not 0
+	for( set .@i, 0; .@i < .@arraysize; set .@i, .@i +1 ) {
+		if( (.@itemids[.@i] != 0 ) || ( .@itemamounts[.@i] != 0) ) {
+			delitem .@itemids[.@i],.@itemamounts[.@i];
+		}
+	}
+	dispbottom  "You now have ["+Zeny+"] Zeny left.";
+	dispbottom  "You now have ["+#KAFRAPOINTS+"] Kafra Points left.";
+	//Get item targetitem, amount 1;
+	getitem .@targetitem,1;
+	return 1;
+}
