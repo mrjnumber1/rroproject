@@ -50,7 +50,7 @@ function	script	F_hats_ingredients	{
 				}
 			}
 			if(callfunc("deliverIngredients", .@NPCname, .@targetitem,  .@zenyCost, .@kafraPtCost, .@itemids[0], .@itemids[1], .@itemids[2], .@itemids[3],  .@itemamounts[0],  .@itemamounts[1],  .@itemamounts[2],  .@itemamounts[3], .@questId)) {
-				mes "okay";
+				//mes "okay";
 				return 1;
 			}
 			else
