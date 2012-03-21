@@ -1,10 +1,152 @@
-1-15:
-11-25:
-21-35:
-31-45:
-41-55:
-51-65:
-61-75:
-71-85:
-81-90:
-85-99:
+IDEALLY, each quest takes you to the next set, at least in the early levels. Later levels of course will necessitate doing all sets to keep up with your levels.
+
+Also, the kills from the missions should ONLY apply if party exp share is on. If they're not on, you're not getting the damn kill. This prevents people from doing insane things like killing 100 Majos with a level 64/1 second job guy partied with some wizard guys.
+
+01-19
+	Prt Fild
+		10 poring / 10 lunatic / 5 drops / 5 Rocker
+	Gef Fild
+		10 Fabre / 10 Roda / 10 Chonchon
+	Pay Forest
+		10 Willow 5 Spore
+	Culvert 1
+		5 Thief Bug / 5 Tarou / 5 Familiar
+	Sograt Desert
+		10 Picky / 10 Drops / 10 Baby Desert Wolf
+20-39
+	Culvert 3
+		20 Tarou / 20 F Tbug / 20 M Tbug
+	Frogs
+		20 Thara
+	Santa Factory
+		10 Cookie / 10 Xmas Cookie
+	Amatsu
+		30 Firelocks
+	Mjolnir 
+		10 Mandragora / 4 Flora
+	Pay Cave 2
+		10 Soldier Skel / 10 Archer Skel
+	Sog Desert 3
+		15 Steel Chonchon / 15 Muka / 
+	Pay Fild 3
+		20 Wolf / 20 Smokie / 10 Bigfoot
+40-59
+	Mosco 1
+		30 Les / 5 Wood Goblin
+	Orc 1
+		40 Orc Zombie / 20 Orc Skeleton
+	Sphinx 2
+		30 Zerom / 10 Requiem
+	Toy Factory
+		30 Myst Case / 10 Cruiser
+	Ein field
+		40 Metaling / 10 Geo 
+	Rachel Field
+		30 Muscipular / 5 Drosera
+60-79
+	Lighthalzen Field
+		30 Hill Winds / 10 Roweens
+	Brasilis
+		30 Iara / 30 Piranha
+	Geffen 2
+		40 Jakk / 30 Nightmare
+	Gonryun
+		20 Zipper Bear / 20 Peace Tree / 20 Bloody Butterfly
+	Bio 2
+		10 Ygnizem / 10 Whikebain / 10 Armaia / 10 Erend / 10 Kavac / 10 Rawrel
+	Magma
+		25 Kaho / 25 Lava golem / 30 Blazer
+	Rachel 1
+		40 Vanberk / 30 Isilla
+	Turtle Island
+		30 Solider / 30 Permeter
+	Sphinx 4 
+		40 Anubis
+	Ice Cave
+		100 Siroma
+	Comodo Field
+		60 Gator / 30 Poison Spore / 10 Savage
+	GH Church
+		70 Evil Druid / 20 Ghoul / 20 Wraith
+	Clock Cleaner
+		30 clocks / 20 Alarms / 10 Owl Dukes
+	
+80-99
+
+SOLO
+	Juperos 1
+		50 of Each Venatu
+	Kiel
+		25 Alice / 25 Aliza / 30 Alicel / 30 Aliot
+	Sphinx Depth
+		60 Minorous / 10 Pasana
+	Thor 1
+		50 Kasa
+	Turtle Island 4
+		35 Heater / 35 Assaulter
+	Orc Village
+		100 High Orcs
+	Clock Basement
+		50 Peno / 20 Cramp / 100 Bathory
+	Splendide Field
+		100 Pinguic
+	Comodo Field
+		100 Anolian
+	GH Culvert
+		100 Sting
+	GH Chivalry
+		70 Raydrics / 30 AKs
+		
+PARTY
+	GH Underground
+		100 Majoruros / 200 Minorous 
+	Rachel
+		60 Agav / 40 Echio
+	Juperos Core
+		30 Archdam 30 of Each Dimik, 30 of Each Venatu
+	Ice Cave
+		80 Ice Titan / 50 Snowier
+	Abyss 3
+		40 Gold Acidus / 20 Blue Acidus / 20 Red Ferus / 40 Green Ferus / 3 Hydros
+	Nameless
+		60 Necro / 100 Zombie Slaughter / 30 Flame Skulls / 30 Ragged Zombie / 50 Banshee
+	Odin
+		20 Skogul / 20 Frus / 20 each Skegg Boss
+	Nidhogg
+		40 Ancient Tree / 15 Rhyncho / 15 Phylla
+	Thor 3
+		30 Kasa / 70 Salamander / 10 Bow Master / 10 Sword Master
+	Bio3
+		10 Seyren / 10 Eremes / 10 Harword / 10 Magaleta / 10 Shecil / 10 Katrinn
+		
+		
+LONGTERM 80-99 Party
+	Bio3
+		70 Seyren / 70 Eremes / 70 Howard / 70 Magaleta / 70 Shecil / 70 Katrinn
+	Thor 3
+		300 Kasa / 700 salamander / 100 bow Master / 100 Sword Master
+	Nameless3
+		300 Necro / 500 Zombie Slaughter / 150 Flame Skulls / 150 Ragged Zombie / 250 Banshee
+	GH Underground
+		1000 Majoruros / 2000 Minorous
+
+
+
+		
+
+		
+		
+-will need @submit for missions
+-and @missioninfo 
+
+
+SHOW AS SUCH:
+	Name
+	Desc:  Kill x
+	Status: incomplete/complete/until
+
+	for each mob
+	Require: n mob
+
+	Limits:
+	Time: Daily (generally)
