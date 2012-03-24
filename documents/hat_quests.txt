@@ -1,0 +1,58 @@
+Rideword Hat
+	50 Bookclip in Memory (7015)
+	10 Bloody Pages (7449)
+	1 Book of Billows[3]
+	1 Book of Mother Earth[3]
+	1 Book of the Blazing Sun[3]
+	1 Book of Gust of Wind[3]
+	
+Feather Beret
+	50 Soft Feathers
+	1 Beret
+	50 Kafra Points
+	
+Holy Marcher Hat
+	50 Manacles
+	20 Soft Feathers
+	$200 Kafra Points
+	
+Sunglasses[1]
+	2 Sunglasses
+	10 1carat Diamonds
+	100 Battle Badges (7773)
+	$30 Kafra Points
+	
+Dress Hat[1] (5211)
+	15 Soft Feathers
+	1 Wizard Hat (2252)
+	1 Morpheus's Hood (5126)
+	
+Alice Doll[1]
+	1 Wedding Dress
+	1 KVM Morning Star (1546)
+	1 KVM Spear (1426)
+	1 KVM Bloody Roar (1281)
+	$100 Kafra Points
+	
+Def Bapho Horns
+	1 Attack Bapho Horn
+	1 Feather Beret
+	$100 Kafra Points
+	
+Rainbow Scarf
+	
+Spiked Scarf
+
+Blush of Groom
+
+Gentleman's Pipe
+
+Robo Eyes
+
+Red Glasses
+
+Gangster Scarf
+
+Pirate Dagger
+
+Cyclops Visor
