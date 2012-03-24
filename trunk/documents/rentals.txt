@@ -1,0 +1,163 @@
+ALL applicable gvg necessary non-bg gears such as:
+
+UPPER
+	Holy Marching Hat + S. Golem Card (5225 + 4223)
+	Alice Doll + Incubus Card         (5137 + 4269)
+	Purple Cowboy Hat + Isilla Card   (5409 + 4412)
+	Hat + Incubus Card                (2221 + 4269)
+	Beret                             (5172)
+	Feather Beret                     (5170)
+	Apple O' Archer                   (2285) 
+	I Love China                      (5423)
+	Yellow Bandana                    (5277)
+	(Resistant) Majestic Goat         (5518)
+	(Attack) Majestic Goat            (5374)
+MID
+	Glasses + Stalactic Golem Card (2204 + 4223)
+	Glasses + Leib Olmai Card      (2204 + 4188)
+	Glasses + Incubus Card         (2204 + 4269)
+	Glasses + Nightmare Card       (2204 + 4127)
+	Angel of Ghost                 (5389)
+	Robo Eye                       (5325)
+	Red Glasses                    (5288) 
+	Blush of Groom                 (5800)
+	Cyclops Visor                  (5135)
+	Masquerade                     (2291)
+	
+LOWER
+	Gangster Mask      (2265)
+	Gentleman's Pipe   (5377)
+	Pirate Dagger      (5304)
+	Rainbow Scarf      (5463)
+	Spiked Scarf       (5462)
+	Well Chewed Pencil (5574)
+	
+M+L
+	Hockey Mask (5314)
+	
+U+M+L
+	+5 Dark Bacilium + Stalactic Golem Card (5808 + 4223)
+	
+ARMOR
+	Cotton Shirts + Marc Card        (2302 + 4105)
+	Cotton Shirts + Evil Druid Card  (2302 + 4141)
+	
+	Valkyrie Armor + Marc Card       (2357 + 4105)
+	Valkyrie Armor + Evil Druid Card (2357 + 4141)
+	
+	BGArmor + Marc Card              (2376 + 4105)
+	BGArmor + Marc Card              (2377 + 4105)
+	BGArmor + Marc Card              (2378 + 4105)
+	BGArmor + Marc Card              (2379 + 4105)
+	BGArmor + Marc Card              (2380 + 4105)
+	BGArmor + Marc Card              (2381 + 4105)
+	BGArmor + Marc Card              (2382 + 4105)
+	
+	BGArmor + Evil Druid Card        (2376 + 4141)
+	BGArmor + Evil Druid Card        (2377 + 4141)
+	BGArmor + Evil Druid Card        (2378 + 4141)
+	BGArmor + Evil Druid Card        (2379 + 4141)
+	BGArmor + Evil Druid Card        (2380 + 4141)
+	BGArmor + Evil Druid Card        (2381 + 4141)
+	BGArmor + Evil Druid Card        (2382 + 4141)
+	
+	Glorious Suit                    (2394)
+
+SHIELD
+	Guard + Horn Card                    (2102 + 4045)
+	Guard + Thara Frog Card              (2102 + 4058)
+	Guard + Flame Skull Card             (2102 + 4439)
+	
+	Valkyrja's Shield + Horn Card        (2115 + 4045)
+	Valkyrja's Shield + Thara Frog Card  (2115 + 4058)
+	Valkyrja's Shield + Flame Skull Card (2115 + 4439)
+	
+	Magic Bible Vol1  + Horn Card        (2131 + 4045)
+	Magic Bible Vol1  + Thara Frog Card  (2131 + 4058)
+	Magic Bible Vol1  + Flame Skull Card (2131 + 4439)
+	
+FOOT
+	Sandal + Matyr Card       (2402 + 4097)
+	Sandal + Green Ferus Card (2402 + 4381)
+	
+	BGShoe + Green Ferus Card (2435 + 4381)
+	BGShoe + Green Ferus Card (2436 + 4381)
+	BGShoe + Green Ferus Card (2437 + 4381)
+	
+	BGShoe + Matyr Card       (2435 + 4097)
+	BGShoe + Matyr Card       (2436 + 4097)
+	BGShoe + Matyr Card       (2437 + 4097)
+	
+	Beach Sandal              (2441)
+	
+	Glorious Shoes            (2444)
+	
+ROBE
+	Hood + Raydric Card          (2502 + 4133)
+	Hood + Noxious Card          (2502 + 4334)
+	
+	BGRobe + Noxious Card        (2538 + 4334)
+	BGRobe + Noxious Card        (2539 + 4334)
+	BGRobe + Noxious Card        (2540 + 4334)
+	
+	BGRobe + Raydric Card        (2538 + 4133)
+	BGRobe + Raydric Card        (2539 + 4133)
+	BGRobe + Raydric Card        (2540 + 4133)
+	
+	Wiz BGRobe + Salamander Card (2539 + 4429)
+	
+	Beach Manteau + Jakk Card    (2546 + 4109)
+	Beach Manteau + Noxious Card (2546 + 4334)
+	
+	Glorious Muffler             (2549)
+
+ACCESSORY
+	Clip + Zerom Card     (2607 + 4064)
+	Clip + Mantis Card    (2607 + 4079)
+	Clip + Alligator Card (2607 + 4252)
+	Clip + Smokie Card    (2607 + 4044)
+	Clip + Horong Card    (2607 + 4103)
+	
+	Orlean's Glove + Mantis Card (2701 + 4079)
+	Orlean's Glove + Zerom Card  (2701 + 4064)
+	Orlean's Glove + Smokie Card (2701 + 4044)
+	Orlean's Glove + Horong Card (2701 + 4103)
+	
+	Linen Glove + Alligator Card (2749 + 4252)
+	Linen Glove + Kukre Card     (2749 + 4027)
+	Linen Glove + Smokie Card    (2749 + 4044)
+	
+	Bow Thimble + Zerom Card         (2671 + 4064)
+	Bow Thimble + Ragged Zombie Card (2671 + 4436
+	Bow Thimble + Smokie Card        (2671 + 4044)
+	
+	Spiritual Ring (2677)
+	
+	Ring of Flame Lord (2678)
+	Ring of Resonance (2679)
+	
+	
+WEAPONS
+	Combat Knife (1228)
+	Knife + 4x Drops Card (1202 + 4004*4)
+	
+	Long Mace (1525)
+	
+	Dex Survivor's Rod + Drops Card (1618 + 4004)
+	
+	Berserk + Shecil Card (1816 + 4368)
+	
+	Orcish Axe + 4x Zipper Bear Card (1309 + 
+	
+	Thin Blade + 2x Shecil Card      (13405 + 4368*2)
+	Elemental Sword + 3x Shecil Card (13414 + 4368*3)
+	Elemental Sword + 3x Drops Card  (13414 + 4004*3)
+	
+	Earthen Bow + Hydra Card (1732 + 4035)
+	
+	Cello + Golem Card + 2x Centipede Larva Card (1925 + 4072 + 4452*2)
+	Cello + Golem Card + 2x Fabre Card           (1925 + 4072 + 4002*2)
+	Spirited Guitar (1920)
+	
+	Whip of Unbalance + Golem Card + 2x Female Thief bug Card (1980 + 4072 + 4026*2) 
+	Whip of Unbalance + Golem Card + 2x Fabre Card            (1980 + 4072 + 4002*2) 
