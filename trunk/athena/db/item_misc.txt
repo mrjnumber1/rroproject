@@ -600,32 +600,32 @@
 56,6081,5	// Splendide Coin
 56,6304,5	// Proof Of Sapha's Honor
 56,6380,5	// Mora Village Coin
-56,6418,1	// A Grade Coin
-56,6419,2	// B Grade Coin
-56,6420,1	// C Grade Coin
-56,12636,8	// Malangdo Canned Specialties
+//56,6418,1	// A Grade Coin
+//56,6419,2	// B Grade Coin
+//56,6420,1	// C Grade Coin
+//56,12636,8	// Malangdo Canned Specialties
 // Intermediate Coin Bag
 57,6080,4	// Manuk Coin
 57,6081,4	// Splendide Coin
 57,6304,4	// Proof Of Sapha's Honor
 57,6380,4	// Mora Village Coin
-57,6419,1	// B Grade Coin
-57,6420,2	// C Grade Coin
-57,6421,1	// D Grade Coin
-57,12636,9	// Malangdo Canned Specialties
+//57,6419,1	// B Grade Coin
+//57,6420,2	// C Grade Coin
+//57,6421,1	// D Grade Coin
+//57,12636,9	// Malangdo Canned Specialties
 // Minor Coin Bag
 58,6080,3	// Manuk Coin
 58,6081,3	// Splendide Coin
 58,6304,3	// Proof Of Sapha's Honor
 58,6380,3	// Mora Village Coin
-58,6420,1	// C Grade Coin
-58,6421,2	// D Grade Coin
-58,6422,1	// E Grade Coin
-58,12636,10	// Malangdo Canned Specialties
+//58,6420,1	// C Grade Coin
+//58,6421,2	// D Grade Coin
+//58,6422,1	// E Grade Coin
+//58,12636,10	// Malangdo Canned Specialties
 // A Grade Coin Bag
-59,6418,3	// A Grade Coin
-59,6419,2	// B Grade Coin
-59,6420,1	// C Grade Coin
+//59,6418,3	// A Grade Coin
+//59,6419,2	// B Grade Coin
+//59,6420,1	// C Grade Coin
 // Advanced Weapons Box
 60,1130,1	// Nagan
 60,1131,1	// Ice_Falchon
