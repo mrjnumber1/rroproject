@@ -17570,6 +17570,87 @@ BUILDIN_FUNC(getpartyshare)
 	return 0;
 }
 
+BUILDIN_FUNC(checkweight2)
+{
+	int nameid=-1, amount=-1, nbitems=0, weight=0;
+	int i=0, amount2=0, slots=0;
+	struct item_data* id = NULL;
+	TBL_PC *sd = script_rid2sd(st);
+
+	nullpo_retr(1,sd);
+
+	nbitems = script_lastdata(st);
+	if(nbitems % 2)
+	{
+		ShowError("buildin_checkweight2: Invalid nbitem='%d', must be a multiple of 2.\n", nbitems);
+		script_pushint(st,0);
+		return 1;
+	}
+	
+	slots = pc_inventoryblank(sd);
+	
+	for(i=2; i<nbitems+1; i=i+2)
+	{
+		nameid = script_getnum(st,i);
+		
+		if( (id = itemdb_exists(nameid)) == NULL )
+		{
+			ShowError("buildin_checkweight2: Invalid item '%d'.\n", nameid);
+			script_pushint(st,0);
+			return 1;
+		}
+		
+		amount = script_getnum(st,i+1);
+		
+		if( amount < 1 )
+		{
+			ShowError("buildin_checkweight2: Invalid amount '%d'.\n", amount);
+			script_pushint(st,0);
+			return 1;
+		}
+		
+		weight += itemdb_weight(nameid)*amount;
+		
+		if( weight + sd->weight > sd->max_weight )
+		{// too heavy
+			script_pushint(st,0);
+			return 0;
+		}
+		
+		switch( pc_checkadditem(sd, nameid, amount) )
+		{
+			case ADDITEM_EXIST: // item is already in inventory, but there is still space for the requested amount
+				break;
+			case ADDITEM_NEW:	
+				if( itemdb_isstackable(nameid) )
+				{// stackable
+					amount2++;
+					if( slots < amount2 )
+					{
+						script_pushint(st,0);
+						return 0;
+					}
+				}
+				else
+				{// non-stackable
+					amount2 += amount; //amount of new non stackables   
+					if( slots < amount2 )
+					{ //do we still have enough place in inventory for them
+						script_pushint(st,0);
+						return 0;
+					}
+				}
+				
+				break;
+			case ADDITEM_OVERAMOUNT:
+				script_pushint(st,0);
+				return 0;
+		}      
+	}      
+
+	script_pushint(st,1);
+	return 0;   
+}
 
 
 
@@ -18120,6 +18201,8 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(disablesecurity, ""),
 	
 	BUILDIN_DEF(getpartyshare, ""),
+	
+	BUILDIN_DEF(checkweight2, "*"), // [Lighta] :)
 
 
 	{NULL,NULL,NULL},
