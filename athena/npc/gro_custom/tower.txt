@@ -74,12 +74,7 @@ OnTimer17000:
 OnTimer19000:
 OnTimer21000:
 OnTimer23000:
-	soundeffectall "effect\\ef_angelus.wav",0,"prontera";
-	soundeffectall "effect\\ef_angelus.wav",0,"morocc";
-	soundeffectall "effect\\ef_angelus.wav",0,"payon";
 	soundeffectall "effect\\ef_angelus.wav",0,"aldebaran";
-	soundeffectall "effect\\ef_angelus.wav",0,"geffen";
-	soundeffectall "effect\\ef_angelus.wav",0,"izlude";
 
 	set .Count, .Count + 1;
 	if( .Count >= .NHour )
