@@ -78,7 +78,7 @@ enum e_bg_stats
 	BGS_red_gemstones,
 	BGS_blue_gemstones,
 	BGS_poison_bottles,
-	BGS_acid_demostration,
+	BGS_acid_demonstration,
 	BGS_support_skills_used,
 	BGS_healing_done,
 	BGS_sp_used,

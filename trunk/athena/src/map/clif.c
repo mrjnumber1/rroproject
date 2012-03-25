@@ -4710,16 +4710,16 @@ int clif_skill_damage(struct block_list *src,struct block_list *dst,unsigned int
 		if( damage > 0 )
 		{
 			if( sd->status.guild_id && map_allowed_woe(src->m) )
-				add2limit(sd->status.woe_stats.acid_demostration, 1, UINT_MAX);
+				add2limit(sd->status.woe_stats.acid_demonstration, 1, UINT_MAX);
 			else if( count_bg_stats(src->m) && sd->state.bg_id )
-				add2limit(sd->status.bg_round_stats.acid_demostration, 1, UINT_MAX);
+				add2limit(sd->status.bg_round_stats.acid_demonstration, 1, UINT_MAX);
 		}
 		else
 		{
 			if( sd->status.guild_id && map_allowed_woe(src->m) )
-				add2limit(sd->status.woe_stats.acid_demostration_fail, 1, UINT_MAX);
+				add2limit(sd->status.woe_stats.acid_demonstration_fail, 1, UINT_MAX);
 			else if( count_bg_stats(src->m) && sd->state.bg_id )
-				add2limit(sd->status.bg_round_stats.acid_demostration_fail, 1, UINT_MAX);
+				add2limit(sd->status.bg_round_stats.acid_demonstration_fail, 1, UINT_MAX);
 		}
 	}
 

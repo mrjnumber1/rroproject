@@ -63,6 +63,16 @@ char friend_db[256] = "friends";
 char hotkey_db[256] = "hotkey";
 char quest_db[256] = "quest";
 
+char guild_rank_db[64] = "guild_rank";
+
+char bg_log_db[64] = "bg_log";
+char bg_stats_db[64] = "bg_stats";
+char bg_skillcount_db[64] = "bg_skillcount";
+
+char woe_log_db[64] = "woe_log";
+char woe_stats_db[64] = "woe_stats";
+char woe_skillcount_db[64] = "woe_skillcount";
+
 // show loading/saving messages
 #ifdef TXT_SQL_CONVERT
 int save_log = 0; //Have the logs be off by default when converting
@@ -160,8 +170,8 @@ struct fame_list taekwon_fame_list[MAX_FAME_LIST];
 struct fame_list bgrank_fame_list[MAX_FAME_LIST];
 struct fame_list bg_fame_list[MAX_FAME_LIST];
 
-int bg_regular_rewards[3] = {30003, 30004, 30005 };
-int bg_ranked_rewards[3] = { 30000, 30001, 30002};
+int bg_regular_rewards[3] = {30003, 30004, 30005 }; // 1500 Cash / 1000 Cash /  500 Cash
+int bg_ranked_rewards[3] = { 30000, 30001, 30002};  // 4000 Cash / 3000 Cash / 2000 Cash
 
 // check for exit signal
 // 0 is saving complete
@@ -552,22 +562,23 @@ int mmo_char_tosql(int char_id, struct mmo_charstatus* p)
 
 	if( memcmp(&p->bg_stats, &cp->bg_stats, sizeof(struct s_battleground_stats)) )
 	{
-		if( SQL_ERROR == Sql_Query(sql_handle, "REPLACE INTO `char_bg_stats` ("
+		if( SQL_ERROR == Sql_Query(sql_handle, "REPLACE INTO `%s` ("
 			"`char_id`, "
 			"`top_damage`, `damage_done`, `damage_received`, "
 			"`emperium_damage`, `barricade_damage`, `gstone_damage`, "
 			"`emperium_kill`, `barricade_kill`, `gstone_kill`, `cq_wins`, `cq_lost`, "
 			"`kill_count`, `death_count`, `win`, `lost`, `tie`, `leader_win`, `leader_lost`, `leader_tie`, `deserter`, "
-			"`sp_heal_potions`, `hp_heal_potions`, `yellow_gemstones`, `red_gemstones`, `blue_gemstones`, `poison_bottles`, `acid_demostration`, `acid_demostration_fail`, "
+			"`sp_heal_potions`, `hp_heal_potions`, `yellow_gemstones`, `red_gemstones`, `blue_gemstones`, `poison_bottles`, `acid_demonstration`, `acid_demonstration_fail`, "
 			"`support_skills_used`, `healing_done`, `wrong_support_skills_used`, `wrong_healing_done`, "
 			"`sp_used`, `zeny_used`, `spiritb_used`, `ammo_used`, `points`, `rank_points`, `rank_games`)"
 			" VALUES ('%d','%u','%u','%u','%u','%u','%u','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%u','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d','%d')",
+			bg_stats_db,
 			p->char_id,
 			p->bg_stats.top_damage, p->bg_stats.damage_done, p->bg_stats.damage_received, 
 			p->bg_stats.emperium_damage,p->bg_stats.barricade_damage,p->bg_stats.gstone_damage,
 			p->bg_stats.emperium_kill,p->bg_stats.barricade_kill,p->bg_stats.gstone_kill,p->bg_stats.cq_wins,p->bg_stats.cq_lost,
 			p->bg_stats.kill_count,p->bg_stats.death_count,p->bg_stats.win,p->bg_stats.lost,p->bg_stats.tie,p->bg_stats.leader_win,p->bg_stats.leader_lost, p->bg_stats.leader_tie, p->bg_stats.deserter,
-			p->bg_stats.sp_heal_potions, p->bg_stats.hp_heal_potions, p->bg_stats.yellow_gemstones, p->bg_stats.red_gemstones, p->bg_stats.blue_gemstones, p->bg_stats.poison_bottles, p->bg_stats.acid_demostration, p->bg_stats.acid_demostration_fail,
+			p->bg_stats.sp_heal_potions, p->bg_stats.hp_heal_potions, p->bg_stats.yellow_gemstones, p->bg_stats.red_gemstones, p->bg_stats.blue_gemstones, p->bg_stats.poison_bottles, p->bg_stats.acid_demonstration, p->bg_stats.acid_demonstration_fail,
 			p->bg_stats.support_skills_used, p->bg_stats.healing_done, p->bg_stats.wrong_support_skills_used, p->bg_stats.wrong_healing_done,
 			p->bg_stats.sp_used, p->bg_stats.zeny_used, p->bg_stats.spiritb_used, p->bg_stats.ammo_used, p->bg_stats.points, p->bg_stats.rank_points, p->bg_stats.rank_games) 
 			)
@@ -579,17 +590,18 @@ int mmo_char_tosql(int char_id, struct mmo_charstatus* p)
 	/* WoE Statistics */
 	if( memcmp(&p->woe_stats, &cp->woe_stats, sizeof(struct s_woestats)) )
 	{
-		if( SQL_ERROR == Sql_Query(sql_handle, "REPLACE INTO `char_woe_stats` ("
+		if( SQL_ERROR == Sql_Query(sql_handle, "REPLACE INTO `%s` ("
 			"`char_id`, "
 			"`kill_count`, `death_count`, `top_damage`, `damage_done`, `damage_received`, `emperium_damage`, `guardian_damage`, `barricade_damage`, `gstone_damage`, "
 			"`emperium_kill`, `guardian_kill`, `barricade_kill`, `gstone_kill`, "
-			"`sp_heal_potions`, `hp_heal_potions`, `yellow_gemstones`, `red_gemstones`, `blue_gemstones`, `poison_bottles`, `acid_demostration`, `acid_demostration_fail`, "
+			"`sp_heal_potions`, `hp_heal_potions`, `yellow_gemstones`, `red_gemstones`, `blue_gemstones`, `poison_bottles`, `acid_demonstration`, `acid_demonstration_fail`, "
 			"`support_skills_used`, `healing_done`, `wrong_support_skills_used`, `wrong_healing_done`, "
 			"`sp_used`, `zeny_used`, `spiritb_used`, `ammo_used`) "
 			"VALUES ('%d', '%d', '%d', '%u', '%u', '%u', '%u', '%u', '%u', '%u', '%d', '%d', '%d', '%d', '%u', '%u', '%u', '%u', '%u', '%u', '%u', '%u', '%u', '%u', '%u', '%u', '%u', '%u', '%u', '%u')",
+			woe_stats_db,
 			p->char_id, p->woe_stats.kill_count, p->woe_stats.death_count, p->woe_stats.top_damage, p->woe_stats.damage_done, p->woe_stats.damage_received, p->woe_stats.emperium_damage, p->woe_stats.guardian_damage, p->woe_stats.barricade_damage, p->woe_stats.gstone_damage,
 			p->woe_stats.emperium_kill, p->woe_stats.guardian_kill, p->woe_stats.barricade_kill, p->woe_stats.gstone_kill,
-			p->woe_stats.sp_heal_potions, p->woe_stats.hp_heal_potions, p->woe_stats.yellow_gemstones, p->woe_stats.red_gemstones, p->woe_stats.blue_gemstones, p->woe_stats.poison_bottles, p->woe_stats.acid_demostration, p->woe_stats.acid_demostration_fail,
+			p->woe_stats.sp_heal_potions, p->woe_stats.hp_heal_potions, p->woe_stats.yellow_gemstones, p->woe_stats.red_gemstones, p->woe_stats.blue_gemstones, p->woe_stats.poison_bottles, p->woe_stats.acid_demonstration, p->woe_stats.acid_demonstration_fail,
 			p->woe_stats.support_skills_used, p->woe_stats.healing_done, p->woe_stats.wrong_support_skills_used, p->woe_stats.wrong_healing_done,
 			p->woe_stats.sp_used, p->woe_stats.zeny_used, p->woe_stats.spiritb_used, p->woe_stats.ammo_used) )
 			Sql_ShowDebug(sql_handle);
@@ -600,10 +612,10 @@ int mmo_char_tosql(int char_id, struct mmo_charstatus* p)
 	/* Skill Usage */
 	if( memcmp(&p->woe_skillcount, &cp->woe_skillcount, sizeof(p->woe_skillcount)) )
 	{
-		if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `woe_skillcount` WHERE `char_id` = '%d'", p->char_id) )
+		if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `%s` WHERE `char_id` = '%d'", woe_skillcount_db, p->char_id) )
 			Sql_ShowDebug(sql_handle); // Clear Data
 		StringBuf_Clear(&buf);
-		StringBuf_Printf(&buf, "INSERT INTO `woe_skillcount` (`char_id`,`id`,`count`) VALUES ");
+		StringBuf_Printf(&buf, "INSERT INTO `%s` (`char_id`,`id`,`count`) VALUES ", woe_skillcount_db);
 		//insert here.
 		for( i = 0, count = 0; i < MAX_SKILL_TREE; ++i )
 		{
@@ -627,10 +639,10 @@ int mmo_char_tosql(int char_id, struct mmo_charstatus* p)
 	// BG Skill Usage 
 	if( memcmp(&p->bg_skillcount, &cp->bg_skillcount, sizeof(p->bg_skillcount)) )
 	{
-		if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `bg_skillcount` WHERE `char_id` = '%d'", p->char_id) )
+		if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `%s` WHERE `char_id` = '%d'", bg_skillcount_db, p->char_id) )
 			Sql_ShowDebug(sql_handle); // Clear Data
 		StringBuf_Clear(&buf);
-		StringBuf_Printf(&buf, "INSERT INTO `bg_skillcount` (`char_id`,`id`,`count`) VALUES ");
+		StringBuf_Printf(&buf, "INSERT INTO `%s` (`char_id`,`id`,`count`) VALUES ", bg_skillcount_db);
 		for( i = 0, count = 0; i < MAX_SKILL_TREE; ++i )
 		{
 			if( p->bg_skillcount[i].id && p->bg_skillcount[i].count > 0 )
@@ -1332,7 +1344,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 
 
 	/* Character Battleground Standings */
-	if( SQL_ERROR == SqlStmt_Prepare(stmt, "SELECT `top_damage`, `damage_done`, `damage_received`, `emperium_damage`, `barricade_damage`, `gstone_damage`, `emperium_kill`, `barricade_kill`, `gstone_kill`, `cq_wins`, `cq_lost`, `kill_count`, `death_count`, `win`, `lost`, `tie`, `leader_win`, `leader_lost`, `leader_tie`, `deserter`, `sp_heal_potions`, `hp_heal_potions`, `yellow_gemstones`, `red_gemstones`, `blue_gemstones`, `poison_bottles`, `acid_demostration`, `acid_demostration_fail`, `support_skills_used`, `healing_done`, `wrong_support_skills_used`, `wrong_healing_done`, `sp_used`, `zeny_used`, `spiritb_used`, `ammo_used`, `points`, `rank_points`, `rank_games` FROM `char_bg_stats` WHERE `char_id` = ?")
+	if( SQL_ERROR == SqlStmt_Prepare(stmt, "SELECT `top_damage`, `damage_done`, `damage_received`, `emperium_damage`, `barricade_damage`, `gstone_damage`, `emperium_kill`, `barricade_kill`, `gstone_kill`, `cq_wins`, `cq_lost`, `kill_count`, `death_count`, `win`, `lost`, `tie`, `leader_win`, `leader_lost`, `leader_tie`, `deserter`, `sp_heal_potions`, `hp_heal_potions`, `yellow_gemstones`, `red_gemstones`, `blue_gemstones`, `poison_bottles`, `acid_demonstration`, `acid_demonstration_fail`, `support_skills_used`, `healing_done`, `wrong_support_skills_used`, `wrong_healing_done`, `sp_used`, `zeny_used`, `spiritb_used`, `ammo_used`, `points`, `rank_points`, `rank_games` FROM `%s` WHERE `char_id` = ?", bg_stats_db)
 		|| SQL_ERROR == SqlStmt_BindParam(stmt, 0, SQLDT_INT, &char_id, 0)
 		|| SQL_ERROR == SqlStmt_Execute(stmt)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt,  0, SQLDT_UINT,   &p->bg_stats.top_damage, 0, NULL, NULL)
@@ -1361,8 +1373,8 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 23, SQLDT_UINT,   &p->bg_stats.red_gemstones, 0, NULL, NULL)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 24, SQLDT_UINT,   &p->bg_stats.blue_gemstones, 0, NULL, NULL)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 25, SQLDT_UINT,   &p->bg_stats.poison_bottles, 0, NULL, NULL)
-		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 26, SQLDT_UINT,   &p->bg_stats.acid_demostration, 0, NULL, NULL)
-		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 27, SQLDT_UINT,   &p->bg_stats.acid_demostration_fail, 0, NULL, NULL)
+		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 26, SQLDT_UINT,   &p->bg_stats.acid_demonstration, 0, NULL, NULL)
+		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 27, SQLDT_UINT,   &p->bg_stats.acid_demonstration_fail, 0, NULL, NULL)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 28, SQLDT_UINT,   &p->bg_stats.support_skills_used, 0, NULL, NULL)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 29, SQLDT_UINT,   &p->bg_stats.healing_done, 0, NULL, NULL)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 30, SQLDT_UINT,   &p->bg_stats.wrong_support_skills_used, 0, NULL, NULL)
@@ -1379,7 +1391,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 	strcat(t_msg, " bg_stats");
 
 	/* Character WoE Standings */
-	if( SQL_ERROR == SqlStmt_Prepare(stmt, "SELECT `top_damage`, `damage_done`, `damage_received`, `emperium_damage`, `guardian_damage`, `barricade_damage`, `gstone_damage`, `emperium_kill`, `guardian_kill`, `barricade_kill`, `gstone_kill`, `sp_heal_potions`, `hp_heal_potions`, `yellow_gemstones`, `red_gemstones`, `blue_gemstones`, `poison_bottles`, `acid_demostration`, `acid_demostration_fail`, `support_skills_used`, `healing_done`, `wrong_support_skills_used`, `wrong_healing_done`, `sp_used`, `zeny_used`, `spiritb_used`, `ammo_used`, `kill_count`, `death_count` FROM `char_woe_stats` WHERE `char_id` = ?")
+	if( SQL_ERROR == SqlStmt_Prepare(stmt, "SELECT `top_damage`, `damage_done`, `damage_received`, `emperium_damage`, `guardian_damage`, `barricade_damage`, `gstone_damage`, `emperium_kill`, `guardian_kill`, `barricade_kill`, `gstone_kill`, `sp_heal_potions`, `hp_heal_potions`, `yellow_gemstones`, `red_gemstones`, `blue_gemstones`, `poison_bottles`, `acid_demonstration`, `acid_demonstration_fail`, `support_skills_used`, `healing_done`, `wrong_support_skills_used`, `wrong_healing_done`, `sp_used`, `zeny_used`, `spiritb_used`, `ammo_used`, `kill_count`, `death_count` FROM `%s` WHERE `char_id` = ?", woe_stats_db)
 		|| SQL_ERROR == SqlStmt_BindParam(stmt, 0, SQLDT_INT, &char_id, 0)
 		|| SQL_ERROR == SqlStmt_Execute(stmt)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt,  0, SQLDT_UINT, &p->woe_stats.top_damage, 0, NULL, NULL)
@@ -1399,8 +1411,8 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 14, SQLDT_UINT, &p->woe_stats.red_gemstones, 0, NULL, NULL)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 15, SQLDT_UINT, &p->woe_stats.blue_gemstones, 0, NULL, NULL)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 16, SQLDT_UINT, &p->woe_stats.poison_bottles, 0, NULL, NULL)
-		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 17, SQLDT_UINT, &p->woe_stats.acid_demostration, 0, NULL, NULL)
-		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 18, SQLDT_UINT, &p->woe_stats.acid_demostration_fail, 0, NULL, NULL)
+		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 17, SQLDT_UINT, &p->woe_stats.acid_demonstration, 0, NULL, NULL)
+		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 18, SQLDT_UINT, &p->woe_stats.acid_demonstration_fail, 0, NULL, NULL)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 19, SQLDT_UINT, &p->woe_stats.support_skills_used, 0, NULL, NULL)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 20, SQLDT_UINT, &p->woe_stats.healing_done, 0, NULL, NULL)
 		|| SQL_ERROR == SqlStmt_BindColumn(stmt, 21, SQLDT_UINT, &p->woe_stats.wrong_support_skills_used, 0, NULL, NULL)
@@ -1416,7 +1428,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 	strcat(t_msg, " woe_stats");
 
 	/* Skill Usage */
-	if( SQL_ERROR == SqlStmt_Prepare(stmt, "SELECT `id`, `count` FROM `woe_skillcount` WHERE `char_id` = ? LIMIT %d", MAX_SKILL_TREE)
+	if( SQL_ERROR == SqlStmt_Prepare(stmt, "SELECT `id`, `count` FROM `%s` WHERE `char_id` = ? LIMIT %d", woe_skillcount_db, MAX_SKILL_TREE)
 	||	SQL_ERROR == SqlStmt_BindParam(stmt, 0, SQLDT_INT, &char_id, 0)
 	||	SQL_ERROR == SqlStmt_Execute(stmt)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 0, SQLDT_USHORT, &tmp_skillcount.id, 0, NULL, NULL)
@@ -1427,7 +1439,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 		memcpy(&p->woe_skillcount[i], &tmp_skillcount, sizeof(tmp_skillcount));
 
 	/* BG Skill Usage */
-	if( SQL_ERROR == SqlStmt_Prepare(stmt, "SELECT `id`, `count` FROM `bg_skillcount` WHERE `char_id` = ? LIMIT %d", MAX_SKILL_TREE)
+	if( SQL_ERROR == SqlStmt_Prepare(stmt, "SELECT `id`, `count` FROM `%s` WHERE `char_id` = ? LIMIT %d", bg_skillcount_db, MAX_SKILL_TREE)
 	||	SQL_ERROR == SqlStmt_BindParam(stmt, 0, SQLDT_INT, &char_id, 0)
 	||	SQL_ERROR == SqlStmt_Execute(stmt)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 0, SQLDT_USHORT, &tmp_skillcount.id, 0, NULL, NULL)
@@ -1924,17 +1936,17 @@ int delete_char_sql(int char_id)
 	/* remove mercenary data */ 
 	mercenary_owner_delete(char_id);
 
-	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `char_bg_stats` WHERE `char_id` = '%d'", char_id) )
+	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `%s` WHERE `char_id` = '%d'", bg_stats_db, char_id) )
 		Sql_ShowDebug(sql_handle);
-	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `char_bg_log` WHERE `killer_id` = '%d' OR `killed_id` = '%d'", char_id, char_id) )
+	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `%s` WHERE `killer_id` = '%d' OR `killed_id` = '%d'", bg_log_db, char_id, char_id) )
 		Sql_ShowDebug(sql_handle);
-	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `bg_skillcount` WHERE `char_id` = '%d'", char_id) )
+	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `%s` WHERE `char_id` = '%d'", bg_skillcount_db, char_id) )
 		Sql_ShowDebug(sql_handle);
-	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `char_woe_stats` WHERE `char_id` = '%d'", char_id) )
+	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `%s` WHERE `char_id` = '%d'", woe_stats_db, char_id) )
 		Sql_ShowDebug(sql_handle);
-	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `char_woe_log` WHERE `killer_id` = '%d' OR `killed_id` = '%d'", char_id, char_id) )
+	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `%s` WHERE `killer_id` = '%d' OR `killed_id` = '%d'", woe_log_db, char_id, char_id) )
 		Sql_ShowDebug(sql_handle);
-	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `woe_skillcount` WHERE `char_id` = '%d'", char_id) )
+	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `%s` WHERE `char_id` = '%d'", woe_skillcount_db, char_id) )
 		Sql_ShowDebug(sql_handle);
 
 	/* delete char's friends list */
@@ -2876,21 +2888,21 @@ int char_ranking_reset(int type)
 	switch( type )
 	{
 	case 0:
-		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `char_woe_stats`") )
+		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `%s`", woe_stats_db) )
 			Sql_ShowDebug(sql_handle);
-		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `char_woe_log`") )
+		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `%s`", woe_log_db) )
 			Sql_ShowDebug(sql_handle); // Kill log cleanup
-		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `woe_skillcount`") )
+		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `%s`", woe_skillcount_db) )
 			Sql_ShowDebug(sql_handle);
 		break;
 	case 1:
-		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `char_bg_stats`") )
+		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `%s`", bg_stats_db) )
 			Sql_ShowDebug(sql_handle); // Data Cleanup
 		else
 		{ // Trophy Updates
 			struct item it;
 			const char* position[] = { "1st", "2nd", "3rd" };
-			const char* medal[] = { "bg_gold", "bg_silver", "bg_bronze" };
+			//const char* medal[] = { "bg_gold", "bg_silver", "bg_bronze" };
 			char title[40], body[200];
 			int i;
 
@@ -2923,7 +2935,7 @@ int char_ranking_reset(int type)
 				//	Sql_ShowDebug(sql_handle);
 			}
 
-			if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `char_bg_log`") )
+			if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `%s`", bg_log_db) )
 				Sql_ShowDebug(sql_handle); // Kill log cleanup
 
 			memset(bgrank_fame_list, 0, sizeof(bgrank_fame_list)); // Reset BG Ranked
@@ -2936,9 +2948,9 @@ int char_ranking_reset(int type)
 		break;
 
 
-		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `char_bg_log`") )
+		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `%s`", bg_log_db) )
 			Sql_ShowDebug(sql_handle); // Kill log cleanup
-		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `bg_skillcount`") )
+		if( SQL_ERROR == Sql_Query(sql_handle, "TRUNCATE TABLE `%s`", bg_skillcount_db) )
 			Sql_ShowDebug(sql_handle);
 		
 		break;

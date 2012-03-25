@@ -6179,94 +6179,6 @@ BUILDIN_FUNC(rentitem)
 	return 0;
 }
 
-BUILDIN_FUNC(rentitem2)
-{
-	struct map_session_data *sd;
-	struct script_data *data;
-	struct item_data *itd;
-	struct item it;
-	int seconds;
-	int nameid = 0, iden, ref, attr, c1, c2, c3, c4, flag;
-	
-	data = script_getdata(st,2);
-	get_val(st,data);
-
-	if( (sd = script_rid2sd(st)) == NULL )
-		return 0;
-
-	if( data_isstring(data) )
-	{
-		const char *name = conv_str(st,data);
-		itd = itemdb_searchname(name);
-		if( itd == NULL )
-		{
-			ShowError("buildin_rentitem2: Nonexistant item %s requested.\n", name);
-			return 1;
-		}
-		nameid = itd->nameid;
-	}
-	else if( data_isint(data) )
-	{
-		nameid = conv_num(st,data);
-		if( nameid <= 0 || (itd = itemdb_exists(nameid)) == NULL )
-		{
-			ShowError("buildin_rentitem2: Nonexistant item %d requested.\n", nameid);
-			return 1;
-		}
-	}
-	else
-	{
-		ShowError("buildin_rentitem2: invalid data type for argument #1 (%d).\n", data->type);
-		return 1;
-	}
-
-	iden = script_getnum(st,3);
-	ref = script_getnum(st,4);
-	attr = script_getnum(st,5);
-	c1 = (short)script_getnum(st,6);
-	c2 = (short)script_getnum(st,7);
-	c3 = (short)script_getnum(st,8);
-	c4 = (short)script_getnum(st,9);
-	seconds = script_getnum(st,10);
-
-	memset(&it, 0, sizeof(it));
-	it.nameid = nameid;
-	if( itd->type == IT_WEAPON || itd->type == IT_ARMOR )
-		ref = cap_value(ref,0,MAX_REFINE);
-	else if( itd->type == IT_PETEGG )
-	{
-		ShowError("buildin_rentitem2: invalid item type. Pet Egg cannot be set as rental items.\n");
-		return 1;
-	}
-	else
-	{
-		iden = 1;
-		ref = attr = 0;
-	}
-
-	it.identify = iden;
-	it.refine=ref;
-	it.attribute=attr;
-	it.card[0]=(short)c1;
-	it.card[1]=(short)c2;
-	it.card[2]=(short)c3;
-	it.card[3]=(short)c4;
-	it.expire_time = (unsigned int)(time(NULL) + seconds);
-
-	if( (flag = pc_additem(sd, &it, 1)) )
-	{
-		clif_additem(sd, 0, 0, flag);
-		return 1;
-	}
-
-	clif_rental_time(sd->fd, nameid, seconds);
-	pc_inventory_rental_add(sd, seconds);
-
-	log_pick_pc(sd, LOG_TYPE_SCRIPT, nameid, 1, NULL, it.serial);
-
-	return 0;
-}
-
 
 /*==========================================
  * gets an item with someone's name inscribed [Skotlex]
@@ -17683,6 +17595,8 @@ BUILDIN_FUNC(checkweight2)
 BUILDIN_FUNC(checkweights)
 {
 	//TODO: checkweight with array of item ids and then array of item counts., rr
+	script_pushint(st, -1);
+	return 0;
 }
 
 BUILDIN_FUNC(rentitem2)
@@ -17706,7 +17620,7 @@ BUILDIN_FUNC(rentitem2)
 		struct item_data *itd = itemdb_searchname(name);
 		if( itd == NULL )
 		{
-			ShowError("buildin_rentitem: Nonexistant item %s requested.\n", name);
+			ShowError("buildin_rentitem2: Nonexistant item %s requested.\n", name);
 			return 1;
 		}
 		nameid = itd->nameid;
@@ -17716,13 +17630,13 @@ BUILDIN_FUNC(rentitem2)
 		nameid = conv_num(st,data);
 		if( nameid <= 0 || !itemdb_exists(nameid) )
 		{
-			ShowError("buildin_rentitem: Nonexistant item %d requested.\n", nameid);
+			ShowError("buildin_rentitem2: Nonexistant item %d requested.\n", nameid);
 			return 1;
 		}
 	}
 	else
 	{
-		ShowError("buildin_rentitem: invalid data type for argument #1 (%d).\n", data->type);
+		ShowError("buildin_rentitem2: invalid data type for argument #1 (%d).\n", data->type);
 		return 1;
 	}
 
@@ -17755,8 +17669,7 @@ BUILDIN_FUNC(rentitem2)
 	clif_rental_time(sd->fd, nameid, seconds);
 	pc_inventory_rental_add(sd, seconds);
 
-	if( log_config.enable_logs&LOG_SCRIPT_TRANSACTIONS )
-		log_pick_pc(sd, "N", nameid, 1, NULL);
+	log_pick_pc(sd, LOG_TYPE_SCRIPT, nameid, 1, NULL, it.serial);
 	
 	return 0;
 }

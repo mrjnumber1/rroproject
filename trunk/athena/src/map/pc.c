@@ -7728,31 +7728,31 @@ int pc_setregstr(struct map_session_data* sd, int reg, const char* str)
 int pc_setmemreg(struct map_session_data *sd, const char *reg, int val)
 {
 #ifndef TXT_ONLY
-	int result = -1;
-	
-	nullpo_retr(-1,sd);
 	StringBuf buf;
 	SqlStmt* stmt = SqlStmt_Malloc(mmysql_handle);
+
+	
+	nullpo_ret(sd);
 	do
 	{
-	if( SQL_SUCCESS != Sql_Query(mmysql_handle, "DELETE FROM `global_reg_value` WHERE `type`='1' AND `account_id`='%d' AND `str`='%s' ", sd->status.member_id, reg) )
-	{
-		Sql_ShowDebug(mmysql_handle);
-		break;
-	}
-	// insert new account regs
-	StringBuf_Init(&buf);
-	StringBuf_Printf(&buf, "INSERT INTO `global_reg_value` (`type`, `account_id`, `str`, `value`) VALUES ( 1 , '%d' , '%s' , '%d' );", sd->status.member_id, reg, val);
+		if( SQL_SUCCESS != Sql_Query(mmysql_handle, "DELETE FROM `global_reg_value` WHERE `type`='1' AND `account_id`='%d' AND `str`='%s' ", sd->status.member_id, reg) )
+		{
+			Sql_ShowDebug(mmysql_handle);
+			break;
+		}
+		// insert new account regs
+		StringBuf_Init(&buf);
+		StringBuf_Printf(&buf, "INSERT INTO `global_reg_value` (`type`, `account_id`, `str`, `value`) VALUES ( 1 , '%d' , '%s' , '%d' );", sd->status.member_id, reg, val);
 
-	if(SQL_ERROR == Sql_Query(mmysql_handle, StringBuf_Value(&buf)) )
-	{
-		Sql_ShowDebug(mmysql_handle);
-		ShowWarning("Error inserting memreg `%s` for m:%d, c:%d, a:%d \n", reg, sd->status.member_id, sd->status.account_id, sd->status.char_id);
-		clif_displaymessage(sd->fd, "You need to contact a GM immediately about your member ID.");
-		break;
-	}
+		if(SQL_ERROR == Sql_Query(mmysql_handle, StringBuf_Value(&buf)) )
+		{
+			Sql_ShowDebug(mmysql_handle);
+			ShowWarning("Error inserting memreg `%s` for m:%d, c:%d, a:%d \n", reg, sd->status.member_id, sd->status.account_id, sd->status.char_id);
+			clif_displaymessage(sd->fd, "You need to contact a GM immediately about your member ID.");
+			break;
+		}
 
-	return 1;
+		return 1;
 	} while(0);
 #endif
 	return 0;

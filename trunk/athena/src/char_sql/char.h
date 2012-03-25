@@ -74,6 +74,17 @@ extern char mail_db[256];
 extern char auction_db[256];
 extern char quest_db[256];
 
+
+extern char guild_rank_db[64];
+
+extern char bg_log_db[64];
+extern char bg_stats_db[64];
+extern char bg_skillcount_db[64];
+
+extern char woe_log_db[64];
+extern char woe_stats_db[64];
+extern char woe_skillcount_db[64];
+
 extern int db_use_sqldbs; // added for sql item_db read for char server [Valaris]
 
 extern int guild_exp_rate;

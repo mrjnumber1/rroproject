@@ -81,7 +81,7 @@ extern struct Log_Config
 	bool log_chat_woe_disable;
 	int rare_items_log,refine_items_log,price_items_log,amount_items_log; //for filter
 	int branch, mvpdrop, zeny, gm, npc, chat;
-	char log_branch[64], log_pick[64], log_zeny[64], log_mvpdrop[64], log_gm[64], log_npc[64], log_chat[64];
+	char log_branch[64], log_pick[64], log_zeny[64], log_mvpdrop[64], log_gm[64], log_npc[64], log_chat[64], log_bg[64], log_woe[64];
 }
 log_config;
 
