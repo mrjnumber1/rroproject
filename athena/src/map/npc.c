@@ -1547,7 +1547,7 @@ int npc_buylist(struct map_session_data* sd, int n, unsigned short* item_list)
 		if( sd->status.skill[MC_DISCOUNT].flag >= SKILL_FLAG_REPLACED_LV_0 )
 			skill = sd->status.skill[MC_DISCOUNT].flag - SKILL_FLAG_REPLACED_LV_0;
 		 if( sd->status.skill[RG_COMPULSION].flag >= SKILL_FLAG_REPLACED_LV_0 )
-            skill = sd->status.skill[RG_COMPULSION].flag - SKILL_REPLACED_LV_0;
+            skill = sd->status.skill[RG_COMPULSION].flag - SKILL_FLAG_REPLACED_LV_0;
 
 
 		if( skill > 0 )

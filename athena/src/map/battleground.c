@@ -254,11 +254,11 @@ int bg_check_best(int bg_id1, int bg_id2)
 				strncpy(best[BGS_poison_bottles].name, sd1->status.name, NAME_LENGTH);
 			} 
 	        
-			if(sd1 && sd1->status.bg_round_stats.acid_demostration > best[BGS_acid_demostration].amt) 
+			if(sd1 && sd1->status.bg_round_stats.acid_demonstration > best[BGS_acid_demonstration].amt) 
 			{
-				bg_stats_changed |= 1 << BGS_acid_demostration; 
-				best[BGS_acid_demostration].amt = sd1->status.bg_round_stats.acid_demostration; 
-				strncpy(best[BGS_acid_demostration].name, sd1->status.name, NAME_LENGTH);
+				bg_stats_changed |= 1 << BGS_acid_demonstration; 
+				best[BGS_acid_demonstration].amt = sd1->status.bg_round_stats.acid_demonstration; 
+				strncpy(best[BGS_acid_demonstration].name, sd1->status.name, NAME_LENGTH);
 			} 
 	       
 			if(sd1 && sd1->status.bg_round_stats.support_skills_used > best[BGS_support_skills_used].amt) 
@@ -410,11 +410,11 @@ int bg_check_best(int bg_id1, int bg_id2)
 				strncpy(best[BGS_poison_bottles].name, sd2->status.name, NAME_LENGTH);
 			} 
 	        
-			if(sd2 && sd2->status.bg_round_stats.acid_demostration > best[BGS_acid_demostration].amt) 
+			if(sd2 && sd2->status.bg_round_stats.acid_demonstration > best[BGS_acid_demonstration].amt) 
 			{
-				bg_stats_changed |= 1 << BGS_acid_demostration; 
-				best[BGS_acid_demostration].amt = sd2->status.bg_round_stats.acid_demostration; 
-				strncpy(best[BGS_acid_demostration].name, sd2->status.name, NAME_LENGTH);
+				bg_stats_changed |= 1 << BGS_acid_demonstration; 
+				best[BGS_acid_demonstration].amt = sd2->status.bg_round_stats.acid_demonstration; 
+				strncpy(best[BGS_acid_demonstration].name, sd2->status.name, NAME_LENGTH);
 			} 
 	       
 			if(sd2 && sd2->status.bg_round_stats.support_skills_used > best[BGS_support_skills_used].amt) 
@@ -546,7 +546,7 @@ int bg_check_best(int bg_id1, int bg_id2)
 			case BGS_poison_bottles:
 				strncpy(stat,"Poison Bottles Used",50);
 				break;
-			case BGS_acid_demostration:
+			case BGS_acid_demonstration:
 				strncpy(stat,"Acid Demonstrations Used",50);
 				break;
 			case BGS_support_skills_used:
@@ -1375,8 +1375,8 @@ int bg_tally_stats(struct map_session_data *sd)
 	add2limit(sd->status.bg_stats.red_gemstones,sd->status.bg_round_stats.red_gemstones,max);
 	add2limit(sd->status.bg_stats.blue_gemstones,sd->status.bg_round_stats.blue_gemstones,max);
 	add2limit(sd->status.bg_stats.poison_bottles,sd->status.bg_round_stats.poison_bottles,max);
-	add2limit(sd->status.bg_stats.acid_demostration,sd->status.bg_round_stats.acid_demostration,max);
-	add2limit(sd->status.bg_stats.acid_demostration_fail,sd->status.bg_round_stats.acid_demostration_fail,max);
+	add2limit(sd->status.bg_stats.acid_demonstration,sd->status.bg_round_stats.acid_demonstration,max);
+	add2limit(sd->status.bg_stats.acid_demonstration_fail,sd->status.bg_round_stats.acid_demonstration_fail,max);
 	add2limit(sd->status.bg_stats.support_skills_used,sd->status.bg_round_stats.support_skills_used,max);
 	add2limit(sd->status.bg_stats.healing_done,sd->status.bg_round_stats.healing_done,max);
 	add2limit(sd->status.bg_stats.wrong_support_skills_used,sd->status.bg_round_stats.wrong_support_skills_used,max);

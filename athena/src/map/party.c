@@ -922,7 +922,30 @@ int party_send_xy_clear(struct party_data *p)
 // NOTE: party share level is now HARD CONFIGGED to 20. fuck eathena sometimes.
 int party_check_exp_share(struct party_data *p)
 {
-	return (p->party.count < 2 || p->max_lv - p->min_lv <= 20);
+	if (p->party.count < 2)
+		return 1;
+	else
+	{
+		int min_lv = UINT_MAX;
+		int max_lv = 0;
+		int i;
+		int lv=0;
+		
+		for(i=0;i<MAX_PARTY;i++)
+		{
+			if(!p->party.member[i].online )
+				continue;
+
+			lv = p->party.member[i].lv;
+			if (lv < min_lv) min_lv = lv;
+			if (lv > max_lv) max_lv = lv;
+		}
+
+		return ( (max_lv - min_lv) <= 20 );
+
+	}
+
+	return 0; // how did you get here?
 }
 
 int party_exp_share(struct party_data* p, struct block_list* src, unsigned int base_exp, unsigned int job_exp, int zeny)

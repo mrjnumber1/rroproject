@@ -511,7 +511,8 @@ int log_bg_kill(struct map_session_data *ssd, struct map_session_data *tsd, int 
 	Sql_EscapeStringLen(mmysql_handle, esc_sname, ssd->status.name, strnlen(ssd->status.name, NAME_LENGTH));
 	Sql_EscapeStringLen(mmysql_handle, esc_tname, tsd->status.name, strnlen(tsd->status.name, NAME_LENGTH));
 
-	if( SQL_ERROR == Sql_Query(mmysql_handle,"INSERT DELAYED INTO `char_bg_log` (`time`,`killer`,`killer_id`,`killed`,`killed_id`,`map`,`skill`) VALUES (NOW(), '%s', '%d', '%s', '%d', '%s', '%d')", esc_sname, ssd->status.char_id, esc_tname, tsd->status.char_id, map[tsd->bl.m].name, skill) )
+	if( SQL_ERROR == Sql_Query(mmysql_handle,"INSERT DELAYED INTO `bg_log` (`time`,`killer`,`killer_id`,`killed`,`killed_id`,`map`,`skill`) VALUES (NOW(), '%s', '%d', '%s', '%d', '%s', '%d')", 
+		esc_sname, ssd->status.char_id, esc_tname, tsd->status.char_id, map[tsd->bl.m].name, skill) )
 		Sql_ShowDebug(mmysql_handle);
 #endif
 	return 0;
@@ -526,7 +527,8 @@ int log_woe_kill(struct map_session_data *ssd, struct map_session_data *tsd, int
 	Sql_EscapeStringLen(mmysql_handle, esc_sname, ssd->status.name, strnlen(ssd->status.name, NAME_LENGTH));
 	Sql_EscapeStringLen(mmysql_handle, esc_tname, tsd->status.name, strnlen(tsd->status.name, NAME_LENGTH));
 
-	if( SQL_ERROR == Sql_Query(mmysql_handle,"INSERT DELAYED INTO `char_woe_log` (`time`,`killer`,`killer_id`,`killed`,`killed_id`,`map`,`skill`) VALUES (NOW(), '%s', '%d', '%s', '%d', '%s', '%d')", esc_sname, ssd->status.char_id, esc_tname, tsd->status.char_id, map[tsd->bl.m].name, skill) )
+	if( SQL_ERROR == Sql_Query(mmysql_handle,"INSERT DELAYED INTO `woe_log` (`time`,`killer`,`killer_id`,`killed`,`killed_id`,`map`,`skill`) VALUES (NOW(), '%s', '%d', '%s', '%d', '%s', '%d')", 
+		esc_sname, ssd->status.char_id, esc_tname, tsd->status.char_id, map[tsd->bl.m].name, skill) )
 		Sql_ShowDebug(mmysql_handle);
 #endif
 	return 0;
