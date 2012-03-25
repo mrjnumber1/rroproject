@@ -1,11 +1,6 @@
 
--- --------------------------------------------------------
-
---
--- Table structure for table `item_db`
---
-
-CREATE TABLE IF NOT EXISTS `item_db` (
+DROP TABLE IF EXISTS `item_db`;
+CREATE TABLE `item_db` (
   `id` smallint(5) unsigned NOT NULL default '0',
   `name_english` varchar(50) NOT NULL default '',
   `name_japanese` varchar(50) NOT NULL default '',
@@ -30,10 +25,6 @@ CREATE TABLE IF NOT EXISTS `item_db` (
   `unequip_script` text,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `item_db`
---
 
 INSERT INTO `item_db` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
 (501, 'Red_Potion', 'Red Potion', 0, 50, NULL, 70, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemheal rand(45,65),0;', NULL, NULL),
@@ -6306,11 +6297,8 @@ INSERT INTO `item_db` (`id`, `name_english`, `name_japanese`, `type`, `price_buy
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `item_db2`
---
-
-CREATE TABLE IF NOT EXISTS `item_db2` (
+DROP TABLE IF EXISTS `item_db2`;
+CREATE TABLE `item_db2` (
   `id` smallint(5) unsigned NOT NULL default '0',
   `name_english` varchar(50) NOT NULL default '',
   `name_japanese` varchar(50) NOT NULL default '',
@@ -6802,4 +6790,4 @@ INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_bu
 (8909, 'Sorin_Doll_Hat', 'Sorin Doll Hat', 5, 0, NULL, 500, NULL, 0, NULL, 1, 4294967295, 7, 2, 256, NULL, 60, 0, 356, ' bonus2 bSubRace,RC_DemiHuman,5; bonus bDex,2; ', NULL, NULL),
 (8910, 'Tayelin_Doll_Hat', 'Tailring Doll Hat', 5, 0, NULL, 500, NULL, 0, NULL, 1, 4294967295, 7, 2, 256, NULL, 60, 0, 357, ' bonus2 bSubRace,RC_DemiHuman,5; bonus bAgi,2; ', NULL, NULL),
 (8911, 'Binit_Doll_Hat', 'Vinit Doll Hat', 5, 0, NULL, 500, NULL, 0, NULL, 1, 4294967295, 7, 2, 256, NULL, 60, 0, 358, ' bonus2 bSubRace,RC_DemiHuman,5; bonus bVit,2; ', NULL, NULL),
-(8912, 'Debril_Doll_Hat', 'W Doll Hat', 5, 0, NULL, 500, NULL, 0, NULL, 1, 4294967295, 7, 2, 256, NULL, 60, 0, 359, ' bonus2 bSubRace,RC_DemiHuman,5; bonus bLuk,2; ', NULL, NULL),
+(8912, 'Debril_Doll_Hat', 'W Doll Hat', 5, 0, NULL, 500, NULL, 0, NULL, 1, 4294967295, 7, 2, 256, NULL, 60, 0, 359, ' bonus2 bSubRace,RC_DemiHuman,5; bonus bLuk,2; ', NULL, NULL);
