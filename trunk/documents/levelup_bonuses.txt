@@ -3,7 +3,10 @@ First Job
 	1x Job Manual 25% (14606)
 	
 Second Job (if job change level is 50)
-	1x Job Manual 25% (14606)
+	1x Field Manual 50% (14592)	
+	
+Second Job (if job change level is not 50)
+	1x Field Manual 25% (14532)
 
 Job 50 Second Class
 	1x Field Manual 200% (12411)
@@ -11,12 +14,16 @@ Job 50 Second Class
 Level 99 Non-Reborn
 	1x Field Manual 300% (14545)
 	
-Advanced Job
+Advanced Job (if job change level is 50)
 	1x Field Manual 50% (12208)
 	1x Job Manual 50% (14592)
 	
+Advanced Job (if job change level is not 50)
+	1x Field Manual 25% (14532)
+	1x Job Manual 25% (14606)
+	
 Level 99 Reborn
-	1x Old Card Album (616)
+	3x Old Card Album (616)
 	 
 Job 70 Reborn
 	3x Old Card Albums (616)
