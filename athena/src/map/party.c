@@ -919,6 +919,12 @@ int party_send_xy_clear(struct party_data *p)
 }
 
 // exp share and added zeny share [Valaris]
+// NOTE: party share level is now HARD CONFIGGED to 20. fuck eathena sometimes.
+int party_check_exp_share(struct party_data *p)
+{
+	return (p->party.count < 2 || p->max_lv - p->min_lv <= 20);
+}
+
 int party_exp_share(struct party_data* p, struct block_list* src, unsigned int base_exp, unsigned int job_exp, int zeny)
 {
 	struct map_session_data* sd[MAX_PARTY];

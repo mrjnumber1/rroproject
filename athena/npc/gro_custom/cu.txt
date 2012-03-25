@@ -117,12 +117,6 @@ Lcmdcfg:
 }
 
 
-
-
-
-
-
-
 function	script	F_cu_renter	{
 
 	if((BaseClass == Job_Merchant && checkcart() == 0 && getskilllv("MC_PUSHCART")>0))
@@ -137,7 +131,12 @@ function	script	F_cu_renter	{
 	close;		
 }
 
-
+function	script	Job_Change_cu	{
+	jobchange getarg(0),Upper; //Jobchange based on Upper
+	doevent "levelupevents::OnPCJobChangeEvent";
+	logmes "CLASS CHANGE: " +strcharinfo(0)+ " become a "+jobname(Class);
+	return;
+}
 
 function	script	F_cu_lr_jobchange	{
 
@@ -213,7 +212,7 @@ function	script	F_cu_lr_jobchange	{
 			}
 			mes "Are you sure you want to change to " + JobName(@target_job) + "?";
 			if(select("No","Yes") == 2){
-				callfunc "Job_Change", @target_job;
+				callfunc "Job_Change_cu", @target_job;
 				if(@target_job == Job_Gunslinger || @target_job == Job_Ninja || @target_job == Job_Taekwon) {
 					callfunc "F_ClearJobVar";
 				} else {
@@ -280,7 +279,7 @@ function	script	F_cu_lr_jobchange	{
 				}
 				mes "Are you sure you want to change to " + JobName(@target_job) + "?";
 				if(select("No","Yes")==2){
-					callfunc "Job_Change", @target_job;
+					callfunc "Job_Change_cu", @target_job;
 					if(@target_job == Job_Star_Gladiator || @target_job == Job_Soul_Linker) {
 						callfunc "F_ClearJobVar";
 					} else {

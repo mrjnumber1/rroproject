@@ -92,4 +92,7 @@ void party_booking_update(struct map_session_data *sd, short* job);
 void party_booking_search(struct map_session_data *sd, short level, short mapid, short job, unsigned long lastindex, short resultcount);
 bool party_booking_delete(struct map_session_data *sd);
 
+
+int party_check_exp_share(struct party_data *p);
+
 #endif /* _PARTY_H_ */

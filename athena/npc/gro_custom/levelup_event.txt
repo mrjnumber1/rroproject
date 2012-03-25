@@ -1,16 +1,127 @@
--	script	eventbonuses	-1,{
+
+
+prontera,0,0,0	script	levelupevents	-1,{
+// First Job
+	// 1x Field Manual 25% (14532)
+	// 1x Job Manual 25% (14606)
+	
+// Second Job (if job change level is 50)
+	// 1x Field Manual 50% (14592)	
+	
+// Second Job (if job change level is not 50)
+	// 1x Field Manual 25% (14532)
+
+// Job 50 Second Class
+	// 1x Field Manual 200% (12411)
+	
+// Level 99 Non-Reborn
+	// 1x Field Manual 300% (14545)
+	
+// Advanced Job (if job change level is 50)
+	// 1x Field Manual 50% (12208)
+	// 1x Job Manual 50% (14592)
+	
+// Advanced Job (if job change level is not 50)
+	// 1x Field Manual 25% (14532)
+	// 1x Job Manual 25% (14606)
+	
+// Level 99 Reborn
+	// 3x Old Card Album (616)
+	 
+// Job 70 Reborn
+	// 3x Old Card Albums (616)
+	
+end;
 
 OnPCBaseLvUpEvent:
 
-	if( islowratechar() == 1 && )
+	if ( islowratechar() == 0)
+		end;
+		
+	if (BaseLevel == 99)
 	{
-		announce strcharinfo(0) + " reached Level 99! Congratulations!!";
+		announce strcharinfo(0) + " has reached level 99! Congratulations!",bc_blue|bc_all;
 		
-		
-		
+		if (Upper == 1 || Class == Job_Gunslinger || Class == Job_Ninja || Class == Job_SuperNovice || BaseJob == Job_Taekwon)
+		{
+			message strcharinfo(0), "Congratulations on reaching your max base level!";
+			getitem 616,3; // Old Card Album
+		}
+		else
+		{
+			message strcharinfo(0), "Congratulations on reaching Level 99! Take this to make it back on rebirth and get another reward!";
+			getitem 14545,1; // 300% Field Manual
+		}
 	}
+	
+	end;
+OnPCJobLvUpEvent:
+	if ( islowratechar() == 0)
+		end;
 
-ONPCJobLvUpEvent:
+	if (JobLevel == 50 && Upper == 0 && Class != Job_Gunslinger && Class != Job_Ninja && Class != Job_SuperNovice)
+	{
+		message strcharinfo(0), "Congratulations on reaching Job Level 50! Now get to 99!";
+		getitem 12411, 1 // 1 field Manual 200%
+	} 
+	else if (JobLevel == 70 && (Class == Job_Gunslinger || Class == Job_Ninja || Upper == 1) )
+	{
+		message strcharinfo(0), "Congratulations on reaching Job Level 70! Have some cards!";
+		getitem 616,3; // Old Card Album
+	}
+	else if (JobLevel == 99 && Class == Job_SuperNovice)
+	{
+		message strcharinfo(0), "Congratulations on reaching Job Level 99! Have some cards!";
+		getitem 616,3; // Old Card Album
+	}
+	
+	end;
+OnPCJobChangeEvent:
+	if ( islowratechar() == 0)
+		end;
 
-
+	if ( (Class > Job_Novice && Class < Job_Knight) || Class == Job_Taekwon || Class == Job_Ninja || Class == Job_Gunslinger) // if we are changing from novice
+	{
+		message strcharinfo(0), "Use these items and you can receive 25% bonus EXP!";
+		getitem 14532, 1; // Field Manual 25%
+		getitem 14606, 1; // Job Manual 25%
+	}
+	else if (jobchange_level == 50) // if we are changing from first job to second job at job 50 (yay!)
+	{
+		if (Upper == 0) // non-reborn
+		{
+			message strcharinfo(0), "Great job on going to the *real* final job level.";
+			message strcharinfo(0), "Now get to 99/50!";
+			getitem 14592; // Job Manual 50%;
+		}
+		else if(Upper == 1) // reborn
+		{
+			message strcharinfo(0), "Great job on going to the *real* final job level.";
+			message strcharinfo(0), "Now get to 99/70!";
+			getitem 12208, 1; // Field Manual 50%
+			getitem 14592, 1; // Job Manual 50%
+		}
+	}
+	else if (jobchange_level && jobchange_level < 50) // if we are changing from first job to second job before job 50 (boo!)
+	{
+		if (Upper == 0)
+		{
+			message strcharinfo(0), "Now get to 99/50!";
+			getitem 14532,1; // Field Manual 25%
+		}
+		else if(Upper == 1)
+		{
+			message strcharinfo(0), "Now get to 99/70!";
+			getitem 14532,1; // Field Manual 25%
+			getitem 14606,1; // Job Manual 25%
+		}
+	}
+	else
+	{
+		message strcharinfo(0), "Hey tell a GM what class you are, thanks!";
+		getitem 14532,1; // Field Manual 25%
+	}
+	
+	
+	end;
 }

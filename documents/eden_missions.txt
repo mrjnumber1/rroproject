@@ -138,15 +138,3 @@ LONGTERM 80-99 Party
 		
 -will need @submit for missions
 -and @missioninfo 
-
-
-SHOW AS SUCH:
-	Name
-	Desc:  Kill x
-	Status: incomplete/complete/until
-
-	for each mob
-	Require: n mob
-
-	Limits:
-	Time: Daily (generally)

@@ -17570,6 +17570,34 @@ BUILDIN_FUNC(getpartyshare)
 	return 0;
 }
 
+BUILDIN_FUNC(getpartycanshare)
+{
+	TBL_PC* sd;
+	struct party_data *p;
+	int party_id;
+	
+	
+	if( script_hasdata(st, 2) )
+		party_id = script_getnum(st, 2);
+	else
+	{
+		sd = script_rid2sd(st);
+		
+		nullpo_ret(sd);
+		
+		party_id = sd->status.party_id;
+	}
+	
+	
+	if( ( p = party_search(party_id) ) != NULL )
+		script_pushint(st, party_check_exp_share(p));
+	else 
+		script_pushint(st, -1);
+		
+	return 0;
+}
+
+
 BUILDIN_FUNC(checkweight2)
 {
 	int nameid=-1, amount=-1, nbitems=0, weight=0;
@@ -17650,6 +17678,91 @@ BUILDIN_FUNC(checkweight2)
 
 	script_pushint(st,1);
 	return 0;   
+}
+
+BUILDIN_FUNC(checkweights)
+{
+
+	int nameid, amount, slots;
+	unsigned int weight;
+	struct item_data* id = NULL;
+	struct map_session_data* sd;
+	struct script_data* data;
+
+	if( ( sd = script_rid2sd(st) ) == NULL )
+	{
+		return 0;
+	}
+
+	data = script_getdata(st,2);
+	get_val(st, data);  // convert into value in case of a variable
+
+	if( data_isstring(data) )
+	{// item name
+		id = itemdb_searchname(conv_str(st, data));
+	}
+	else
+	{// item id
+		id = itemdb_exists(conv_num(st, data));
+	}
+
+	if( id == NULL )
+	{
+		ShowError("buildin_checkweight: Invalid item '%s'.\n", script_getstr(st,2));  // returns string, regardless of what it was
+		script_pushint(st,0);
+		return 1;
+	}
+
+	nameid = id->nameid;
+	amount = script_getnum(st,3);
+
+	if( amount < 1 )
+	{
+		ShowError("buildin_checkweight: Invalid amount '%d'.\n", amount);
+		script_pushint(st,0);
+		return 1;
+	}
+
+	weight = itemdb_weight(nameid)*amount;
+
+	if( weight + sd->weight > sd->max_weight )
+	{// too heavy
+		script_pushint(st,0);
+		return 0;
+	}
+
+	switch( pc_checkadditem(sd, nameid, amount) )
+	{
+		case ADDITEM_EXIST:
+			// item is already in inventory, but there is still space for the requested amount
+			break;
+		case ADDITEM_NEW:
+			slots = pc_inventoryblank(sd);
+
+			if( itemdb_isstackable(nameid) )
+			{// stackable
+				if( slots < 1 )
+				{
+					script_pushint(st,0);
+					return 0;
+				}
+			}
+			else
+			{// non-stackable
+				if( slots < amount )
+				{
+					script_pushint(st,0);
+					return 0;
+				}
+			}
+			break;
+		case ADDITEM_OVERAMOUNT:
+			script_pushint(st,0);
+			return 0;
+	}
+
+	script_pushint(st,1);
+	return 0;
 }
 
 
@@ -18200,7 +18313,8 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(enablesecurity, ""),
 	BUILDIN_DEF(disablesecurity, ""),
 	
-	BUILDIN_DEF(getpartyshare, ""),
+	BUILDIN_DEF(getpartyshare, "?"),
+	BUILDIN_DEF(getpartycanshare, "?"
 	
 	BUILDIN_DEF(checkweight2, "*"), // [Lighta] :)
 
