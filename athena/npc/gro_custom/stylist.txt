@@ -1,0 +1,131 @@
+//===== eAthena Script ======================================= 
+//= Stylist
+//===== By: ================================================== 
+//= Saithis
+//===== Credits: =============================================
+//= eAthena Dev team (some of the text)
+//===== Current Version: ===================================== 
+//= 1.2
+//===== Compatible With: ===================================== 
+//= eAthena SVN 
+//===== Description: ========================================= 
+//= Revised dye NPC
+//===== TODO: ================================================
+// - Implement price for look change
+//===== Additional Comments: =================================
+//= v1.0 - First release [Saithis]
+//= v1.1 - The NPC remebers now the direction (keep going - go back) [Saithis]
+//= v1.2 - Use getbattleflag to get max values [Saithis]
+//============================================================ 
+
+prontera,183,213,3	script	Stylist	122,{
+	set .@myhair, getlook(1);
+	set .@myhaircolor, getlook(6);
+	set .@myclothescolor, getlook(7);
+	
+	mes "[^FF8000Stylist^000000]";
+	mes "I'm the greatest stylist in all of Rune-Midgard~~!";
+	mes "I can change your hair style or color!";
+	mes "What do you wish to change?";
+	next;
+	switch(select("Hair style:Hair color:Cloth color:Nothing")){
+	case 1:
+		set .@what,1;
+		set .@min,getbattleflag("min_hair_style");
+		set .@max,getbattleflag("max_hair_style");
+		set .@what$,"hairstyle";
+		break;
+	case 2:
+		set .@what,6;
+		set .@min,getbattleflag("min_hair_color");
+		set .@max,getbattleflag("max_hair_color");
+		set .@what$,"haircolor";
+		break;
+	case 3:
+		set .@what,7;
+		set .@min,getbattleflag("min_cloth_color");
+		set .@max,getbattleflag("max_cloth_color");
+		set .@what$,"cloth color";
+		break;
+	default:
+		mes "[^FF8000Stylist^000000]";
+		mes "Well come again.";
+		close;
+	}
+	mes "[^FF8000Stylist^000000]";
+	mes "Do you want to browse through the choices, or do you know what you want?";
+	next;
+	if(select("Browse:I know what I want") == 2){
+		mes "[^FF8000Stylist^000000]";
+		mes "Great!  Now just pick a "+.@what$+" and I'll get started!";
+		next;
+		mes "[^FF8000Stylist^000000]";
+		mes "Please pick a "+.@what$+" number ^0000FFbetween "+.@min+" and "+.@max+"^000000.";
+		mes "Number "+.@min+", by the way, is the default "+.@what$+" for your character.";
+		next;
+		while(1){
+			input .@set,.@min,.@max;
+			setlook .@what,.@set;
+			mes "[^FF8000Stylist^000000]";
+			mes "Is this good, or do you want a different "+.@what$+"?";
+			next;
+			if(select("This is good:Different "+.@what$+", please") == 1) break;
+		}
+	} else {
+		mes "[^FF8000Stylist^000000]";
+		mes "Okay, here we go~! Just stop me when you see something you like, okay?";
+		set .@look,.@min;
+		while(1)
+		{
+			next;
+			mes "[^FF8000Stylist^000000]";
+			setlook .@what,.@look;
+			mes "This is "+.@what$+" Number^FF9009 "+.@look+" ^000000!"; 
+			if(.@look == .@min) 
+				select("Keep going::I like this one");
+			else if(.@look == .@max) 
+				select(":Go back:I like this one");
+			else if(.@direction) 
+				select("Go back:Keep going:I like this one");
+			else 
+				select("Keep going:Go back:I like this one");
+			if(.@direction && !(.@look == .@max || .@look == .@min)) {
+				if(@menu == 1) {
+					set .@look,.@look-1;
+					set .@direction,1;
+				} else if(@menu == 2) {
+					set .@look,.@look+1;
+					set .@direction,0;
+				} else 
+					break;
+			} else {
+				if(@menu == 1) {
+					set .@look,.@look+1;
+					set .@direction,0;
+				} else if(@menu == 2) {
+					set .@look,.@look-1;
+					set .@direction,1;
+				} else 
+					break;
+			}
+		}
+	}
+	next;
+	mes "[^FF8000Stylist^000000]";
+	mes "So is this what you want for sure?"
+	next;
+	if ( select("Keep it!:No, change me back!") == 2)
+	{
+		set .@myhair, getlook(1);
+		set .@myhaircolor, getlook(6);
+		set .@myclothescolor, getlook(7);
+		
+		setlook 1, .@myhair;
+		setlook 6, .@myhaircolor;
+		setlook 7, .@myclothescolor;
+	}
+	mes "[^FF8000Stylist^000000]";
+	mes "You look great~!  I love it~! ^__^;;";
+	close;
+}
+
