@@ -6467,8 +6467,8 @@ INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_bu
 (8958, 'Barricade_Pack', 'Barricade Pack', 2, NULL, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, ' getitem 8916,8; getitem 8925,3; getitem 8953,3; getitem 8954,1; getitem 8955,2; getitem 8931,2; ', NULL, NULL),
 (8959, 'Gems_n''_Webs_Pack', 'Gems n'' Webs Pack,', 2, NULL, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, ' getitem 8916,8; getitem 8928,3; getitem 8925,3; getitem 8927,2; getitem 8956,2; getitem 8957,2; ', NULL, NULL),
 (8960, 'Alcohol_WP', 'Alcohol WP', 2, NULL, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, ' getitem 970,100; ', NULL, NULL),
-(8961, 'Blue_Gemstone_WP', 'Blue Gemstone WP', 2, NULL, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, ' getitem2 717,100,1,0,0,254,0,getbattleflag("woe_reserved_char_id")&0xffff,(getbattleflag("woe_reserved_char_id")>>16)&0xffff; ', NULL, NULL),
-(8962, 'Red_Gemstone_WP', 'Red Gemstone WP', 2, NULL, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, ' getitem2 716,100,1,0,0,254,0,getbattleflag("woe_reserved_char_id")&0xffff,(getbattleflag("woe_reserved_char_id")>>16)&0xffff', NULL, NULL);
+(8961, 'Blue_Gemstone_WP2', 'Blue Gemstone WP', 2, NULL, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, ' getitem2 717,100,1,0,0,254,0,getbattleflag("woe_reserved_char_id")&0xffff,(getbattleflag("woe_reserved_char_id")>>16)&0xffff; ', NULL, NULL),
+(8962, 'Red_Gemstone_WP2', 'Red Gemstone WP', 2, NULL, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, ' getitem2 716,100,1,0,0,254,0,getbattleflag("woe_reserved_char_id")&0xffff,(getbattleflag("woe_reserved_char_id")>>16)&0xffff;', NULL, NULL);
 
 
 
