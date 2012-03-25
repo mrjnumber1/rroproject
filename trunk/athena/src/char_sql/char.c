@@ -2760,7 +2760,8 @@ void char_read_fame_list(void)
 	}
 
 		// Build BG Rank ranking list [Zephyrus]
-	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `char_bg_stats`.`char_id`, `char_bg_stats`.`rank_points`, `%s`.`name` FROM `char_bg_stats` LEFT JOIN `%s` ON `%s`.`char_id` = `char_bg_stats`.`char_id` WHERE `char_bg_stats`.`rank_points` > '0' ORDER BY `char_bg_stats`.`rank_points` DESC LIMIT 0,%d", char_db, char_db, char_db, fame_list_size_bgrank) )
+	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `%s`.`char_id`, `%s`.`rank_points`, `%s`.`name` FROM `%s` LEFT JOIN `%s` ON `%s`.`char_id` = `%s`.`char_id` WHERE `%s`.`rank_points` > '0' ORDER BY `%s`.`rank_points` DESC LIMIT 0,%d", 
+		bg_stats_db, bg_stats_db, char_db, bg_stats_db, char_db, char_db, bg_stats_db, bg_stats_db, bg_stats_db, fame_list_size_bgrank) )
 		Sql_ShowDebug(sql_handle);
 	for( i = 0; i < fame_list_size_bgrank && SQL_SUCCESS == Sql_NextRow(sql_handle); ++i )
 	{
@@ -2771,7 +2772,8 @@ void char_read_fame_list(void)
 	Sql_FreeResult(sql_handle);
 
 	// Build BG Normal ranking list [Zephyrus]
-	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `char_bg_stats`.`char_id`, `char_bg_stats`.`points`, `%s`.`name` FROM `char_bg_stats` LEFT JOIN `%s` ON `%s`.`char_id` = `char_bg_stats`.`char_id` WHERE `char_bg_stats`.`points` > '0' ORDER BY `char_bg_stats`.`points` DESC LIMIT 0,%d", char_db, char_db, char_db, fame_list_size_bg) )
+	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `%s`.`char_id`, `%s`.`points`, `%s`.`name` FROM `%s` LEFT JOIN `%s` ON `%s`.`char_id` = `%s`.`char_id` WHERE `%s`.`points` > '0' ORDER BY `%s`.`points` DESC LIMIT 0,%d", 
+		bg_stats_db, bg_stats_db, char_db, bg_stats_db, char_db, char_db, bg_stats_db, bg_stats_db, bg_stats_db, fame_list_size_bg) )
 		Sql_ShowDebug(sql_handle);
 	for( i = 0; i < fame_list_size_bg && SQL_SUCCESS == Sql_NextRow(sql_handle); ++i )
 	{
