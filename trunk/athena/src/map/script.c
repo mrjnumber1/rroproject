@@ -17682,86 +17682,82 @@ BUILDIN_FUNC(checkweight2)
 
 BUILDIN_FUNC(checkweights)
 {
+	//TODO: checkweight with array of item ids and then array of item counts., rr
+}
 
-	int nameid, amount, slots;
-	unsigned int weight;
-	struct item_data* id = NULL;
-	struct map_session_data* sd;
-	struct script_data* data;
-
-	if( ( sd = script_rid2sd(st) ) == NULL )
-	{
-		return 0;
-	}
+BUILDIN_FUNC(rentitem2)
+{
+	struct map_session_data *sd;
+	struct script_data *data;
+	struct item it;
+	int seconds;
+	int nameid = 0, flag;
+	int iden,ref,attr,c1,c2,c3,c4;
 
 	data = script_getdata(st,2);
-	get_val(st, data);  // convert into value in case of a variable
+	get_val(st,data);
+
+	if( (sd = script_rid2sd(st)) == NULL )
+		return 0;
 
 	if( data_isstring(data) )
-	{// item name
-		id = itemdb_searchname(conv_str(st, data));
+	{
+		const char *name = conv_str(st,data);
+		struct item_data *itd = itemdb_searchname(name);
+		if( itd == NULL )
+		{
+			ShowError("buildin_rentitem: Nonexistant item %s requested.\n", name);
+			return 1;
+		}
+		nameid = itd->nameid;
+	}
+	else if( data_isint(data) )
+	{
+		nameid = conv_num(st,data);
+		if( nameid <= 0 || !itemdb_exists(nameid) )
+		{
+			ShowError("buildin_rentitem: Nonexistant item %d requested.\n", nameid);
+			return 1;
+		}
 	}
 	else
-	{// item id
-		id = itemdb_exists(conv_num(st, data));
-	}
-
-	if( id == NULL )
 	{
-		ShowError("buildin_checkweight: Invalid item '%s'.\n", script_getstr(st,2));  // returns string, regardless of what it was
-		script_pushint(st,0);
+		ShowError("buildin_rentitem: invalid data type for argument #1 (%d).\n", data->type);
 		return 1;
 	}
 
-	nameid = id->nameid;
-	amount = script_getnum(st,3);
+	seconds = script_getnum(st,3);
+	iden=script_getnum(st,4);
+	ref=script_getnum(st,5);
+	attr=script_getnum(st,6);
+	c1=(short)script_getnum(st,7);
+	c2=(short)script_getnum(st,8);
+	c3=(short)script_getnum(st,9);
+	c4=(short)script_getnum(st,10);
+	
+	memset(&it, 0, sizeof(it));
+	it.nameid = nameid;
+	it.identify = iden;
+	it.refine=ref;
+	it.attribute=attr;
+	it.card[0]=(short)c1;
+	it.card[1]=(short)c2;
+	it.card[2]=(short)c3;
+	it.card[3]=(short)c4;
+	it.expire_time = (unsigned int)(time(NULL) + seconds);
 
-	if( amount < 1 )
+	if( (flag = pc_additem(sd, &it, 1)) )
 	{
-		ShowError("buildin_checkweight: Invalid amount '%d'.\n", amount);
-		script_pushint(st,0);
+		clif_additem(sd, 0, 0, flag);
 		return 1;
 	}
 
-	weight = itemdb_weight(nameid)*amount;
+	clif_rental_time(sd->fd, nameid, seconds);
+	pc_inventory_rental_add(sd, seconds);
 
-	if( weight + sd->weight > sd->max_weight )
-	{// too heavy
-		script_pushint(st,0);
-		return 0;
-	}
-
-	switch( pc_checkadditem(sd, nameid, amount) )
-	{
-		case ADDITEM_EXIST:
-			// item is already in inventory, but there is still space for the requested amount
-			break;
-		case ADDITEM_NEW:
-			slots = pc_inventoryblank(sd);
-
-			if( itemdb_isstackable(nameid) )
-			{// stackable
-				if( slots < 1 )
-				{
-					script_pushint(st,0);
-					return 0;
-				}
-			}
-			else
-			{// non-stackable
-				if( slots < amount )
-				{
-					script_pushint(st,0);
-					return 0;
-				}
-			}
-			break;
-		case ADDITEM_OVERAMOUNT:
-			script_pushint(st,0);
-			return 0;
-	}
-
-	script_pushint(st,1);
+	if( log_config.enable_logs&LOG_SCRIPT_TRANSACTIONS )
+		log_pick_pc(sd, "N", nameid, 1, NULL);
+	
 	return 0;
 }
 
@@ -18314,9 +18310,12 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(disablesecurity, ""),
 	
 	BUILDIN_DEF(getpartyshare, "?"),
-	BUILDIN_DEF(getpartycanshare, "?"
+	BUILDIN_DEF(getpartycanshare, "?"),
+	
+	BUILDIN_DEF(rentitem2,"viiiiiiii"), // [BrianL]
 	
 	BUILDIN_DEF(checkweight2, "*"), // [Lighta] :)
+	BUILDIN_DEF(checkweights, "rr"),
 
 
 	{NULL,NULL,NULL},
