@@ -1243,7 +1243,7 @@ REPLACE INTO `mob_db` VALUES (2082,'G_PIRANHA','Piranha','Piranha',75,4522,0,0,0
 # REPLACE INTO `mob_db` VALUES (2124,'EL_TERA_M','Tera','Tera',1,50,0,0,0,1,7,10,0,5,1,1,1,1,6,30,10,12,1,3,21,0x120,400,1872,672,480,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 # REPLACE INTO `mob_db` VALUES (2125,'EL_TERA_L','Tera','Tera',1,50,0,0,0,1,7,10,0,5,1,1,1,1,6,30,10,12,1,3,21,0x120,400,1872,672,480,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 
-DROP TABLE IF EXISTS `mob_db2`
+DROP TABLE IF EXISTS `mob_db2`;
 CREATE TABLE `mob_db2` (
   `ID` mediumint(9) unsigned NOT NULL default '0',
   `Sprite` text NOT NULL,
