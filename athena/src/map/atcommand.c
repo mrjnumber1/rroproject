@@ -9288,7 +9288,7 @@ ACMD_FUNC(shopsearch)
 						{
 							memset(&atcmd_output2, '\0', CHAT_SIZE_MAX);
 
-							if( (item_data->type == IT_WEAPON || item_data->type == IT_ARMOR) && (it->card[0] || it->card[4]))
+							if( (item_data->type == IT_WEAPON || item_data->type == IT_ARMOR) && (it->card[0] || it->card[1] || it->card[2] || it->card[3]) )
 							{
 								strcpy(atcmd_output2, "    Cards: ");
 
