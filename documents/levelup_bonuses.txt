@@ -1,11 +1,25 @@
-Level 99 (all instancs)
-	OCA
-Job 50 First Class
-	OCA
+First Job
+	1x Field Manual 25% (14532)
+	1x Job Manual 25% (14606)
+	
+Second Job (if job change level is 50)
+	1x Job Manual 25% (14606)
+
 Job 50 Second Class
-	OCA
+	1x Field Manual 200% (12411)
+	
+Level 99 Non-Reborn
+	1x Field Manual 300% (14545)
+	
+Advanced Job
+	1x Field Manual 50% (12208)
+	1x Job Manual 50% (14592)
+	
+Level 99 Reborn
+	1x Old Card Album (616)
+	 
 Job 70 Reborn
-	2 OCAs
+	3x Old Card Albums (616)
 	
 	
 Giving out OCAs is cool, because it means we get a bunch of cards into the economy yay!!!!
