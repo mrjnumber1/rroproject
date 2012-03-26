@@ -7412,7 +7412,7 @@ ACMD_FUNC(mobinfo)
 	unsigned char mrace[12][11] = {"Formless", "Undead", "Beast", "Plant", "Insect", "Fish", "Demon", "Demi-Human", "Angel", "Dragon", "Boss", "Non-Boss"};
 	unsigned char melement[10][8] = {"Neutral", "Water", "Earth", "Fire", "Wind", "Poison", "Holy", "Dark", "Ghost", "Undead"};
 	char mmode[15][35] =  {"Can Move", "Looter", "Aggressive", "Assist", "Cast Sensor (Idle)", "Boss-Type", "Plant-Type", "Can-Attack", 
-		"Detector", "Cast Sensor (Chase)", "Change Chase", "Aggressive", "Change Target (Melee)", "Change Target(Chase)", "Ignores targets above level %d"};
+		"Detector", "Cast Sensor (Chase)", "Change Chase", "Aggressive", "Change Target (Melee)", "Change Target (Chase)", "Ignores targets above level %d"};
 	char atcmd_output2[CHAT_SIZE_MAX];
 	struct item_data *item_data;
 	struct mob_db *mob, *mob_array[MAX_SEARCH];
@@ -7450,7 +7450,7 @@ ACMD_FUNC(mobinfo)
 		mob = mob_array[k];
 
 		// stats
-		sprintf(atcmd_output, "     RESULT %d:", k+1);
+		sprintf(atcmd_output, "      @@@@@   RESULT %d @@@@@", k+1);
 		clif_displaymessage(fd, atcmd_output);
 
 		if (mob->mexp)
