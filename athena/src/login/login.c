@@ -1294,6 +1294,10 @@ int parse_login(int fd)
 	uint32 ipl = session[fd]->client_addr;
 	ip2str(ipl, ip);
 
+	// MD5 salt modification START [Valaris for KarmaRO]
+	char md5buf1[32], md5buf2[64+1]; 
+	// MD5 salt modification END [Valaris for KarmaRO]
+
 	if( session[fd]->flag.eof )
 	{
 		ShowInfo("Closed connection from '"CL_WHITE"%s"CL_RESET"'.\n", ip);
@@ -1391,8 +1395,16 @@ int parse_login(int fd)
 			{
 				ShowStatus("Request for connection of %s (ip: %s).\n", sd->userid, ip);
 				safestrncpy(sd->passwd, password, NAME_LENGTH);
-				if( login_config.use_md5_passwds )
-					MD5_String(sd->passwd, sd->passwd);
+				// MD5 salt modification START [Valaris for KarmaRO]
+				if( login_config.use_md5_passwds ) {
+					if ( login_config.use_md5_salt ) {
+						MD5_String(sd->passwd, md5buf1);
+						snprintf(md5buf2, sizeof(md5buf2), "%s%s", md5buf1, login_config.md5_salt);
+						MD5_String(md5buf2, sd->passwd);
+					} else
+						MD5_String(sd->passwd, sd->passwd);
+				}
+				// MD5 salt modification END [Valaris for KarmaRO]
 				sd->passwdenc = 0;
 			}
 			else
@@ -1456,8 +1468,16 @@ int parse_login(int fd)
 
 			safestrncpy(sd->userid, (char*)RFIFOP(fd,2), NAME_LENGTH);
 			safestrncpy(sd->passwd, (char*)RFIFOP(fd,26), NAME_LENGTH);
-			if( login_config.use_md5_passwds )
-				MD5_String(sd->passwd, sd->passwd);
+			// MD5 salt modification START [Valaris for KarmaRO]
+			if( login_config.use_md5_passwds ) {
+				if ( login_config.use_md5_salt ) {
+					MD5_String(sd->passwd, md5buf1);
+					snprintf(md5buf2, sizeof(md5buf2), "%s%s", md5buf1, login_config.md5_salt);
+					MD5_String(md5buf2, sd->passwd);
+				} else
+					MD5_String(sd->passwd, sd->passwd);
+			}
+			// MD5 salt modification END [Valaris for KarmaRO]
 			sd->passwdenc = 0;
 			sd->version = login_config.client_version_to_connect; // hack to skip version check
 			server_ip = ntohl(RFIFOL(fd,54));
@@ -1531,6 +1551,10 @@ void login_set_defaults()
 	login_config.new_account_flag = true;
 	login_config.new_acc_length_limit = true;
 	login_config.use_md5_passwds = false;
+	// MD5 salt modification START [Valaris for KarmaRO]
+	login_config.use_md5_salt = false;
+	safestrncpy(login_config.md5_salt, "", sizeof(login_config.md5_salt));
+	// MD5 salt modification END [Valaris for KarmaRO]
 	login_config.min_level_to_connect = 0;
 	login_config.check_client_version = false;
 	login_config.client_version_to_connect = 20;
@@ -1598,6 +1622,12 @@ int login_config_read(const char* cfgName)
 			login_config.client_version_to_connect = strtoul(w2, NULL, 10);
 		else if(!strcmpi(w1, "use_MD5_passwords"))
 			login_config.use_md5_passwds = (bool)config_switch(w2);
+		// MD5 salt modification START [Valaris for KarmaRO]
+		else if(!strcmpi(w1, "use_MD5_salt"))
+			login_config.use_md5_salt = (bool)config_switch(w2);
+		else if(!strcmpi(w1, "MD5_salt") && login_config.use_md5_salt)
+			MD5_String(w2, login_config.md5_salt);
+		// MD5 salt modification END [Valaris for KarmaRO]
 		else if(!strcmpi(w1, "min_level_to_connect"))
 			login_config.min_level_to_connect = atoi(w2);
 		else if(!strcmpi(w1, "date_format"))
