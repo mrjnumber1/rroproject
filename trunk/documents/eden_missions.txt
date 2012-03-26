@@ -4,52 +4,52 @@ Also, the kills from the missions should ONLY apply if party exp share is on. If
 
 01-19
 	Prt Fild
-		10 poring / 10 lunatic / 5 drops / 5 Rocker
+		10 poring (1002) / 10 lunatic (1063) / 5 drops (1113) / 5 Rocker (1052)
 	Gef Fild
-		10 Fabre / 10 Roda / 10 Chonchon
+		10 Fabre (1007) / 10 Roda (1012) / 10 Chonchon (1011)
 	Pay Forest
-		10 Willow 5 Spore
+		10 Willow (1010) / 5 Spore (1014)
 	Culvert 1
-		5 Thief Bug / 5 Tarou / 5 Familiar
+		5 Thief Bug (1051) / 5 Tarou (1175) / 5 Familiar (1005)
 	Sograt Desert
-		10 Picky / 10 Drops / 10 Baby Desert Wolf
+		10 Picky (1049) / 10 Drops (1113) / 10 Baby Desert Wolf (1107)
 20-39
 	Culvert 3
-		20 Tarou / 20 F Tbug / 20 M Tbug
+		20 Tarou (1175) / 20 F Tbug (1053) / 20 M Tbug (1054)
 	Frogs
-		20 Thara
+		20 Thara (1034)
 	Santa Factory
-		10 Cookie / 10 Xmas Cookie
+		10 Cookie (1265) / 10 Xmas Cookie (1246)
 	Amatsu
-		30 Firelocks
+		30 Firelocks (1403)
 	Mjolnir 
-		10 Mandragora / 4 Flora
+		10 Mandragora (1020) / 4 Flora (1118)
 	Pay Cave 2
-		10 Soldier Skel / 10 Archer Skel
+		10 Soldier Skel (1028)/ 10 Archer Skel (1016)
 	Sog Desert 3
-		15 Steel Chonchon / 15 Muka / 
+		15 Steel Chonchon (1042) / 15 Muka (1055) / 
 	Pay Fild 3
-		20 Wolf / 20 Smokie / 10 Bigfoot
+		20 Wolf (1013) / 20 Smokie (1056) / 10 Bigfoot (1060)
 40-59
 	Mosco 1
-		30 Les / 5 Wood Goblin
+		30 Les (1881) / 5 Wood Goblin (1880)
 	Orc 1
-		40 Orc Zombie / 20 Orc Skeleton
+		40 Orc Zombie (1153) / 20 Orc Skeleton (1152)
 	Sphinx 2
-		30 Zerom / 10 Requiem
+		30 Zerom (1178) / 10 Requiem (1164)
 	Toy Factory
-		30 Myst Case / 10 Cruiser
+		30 Myst Case (1249) / 10 Cruiser (1248) 
 	Ein field
-		40 Metaling / 10 Geo 
+		40 Metaling (1613) / 10 Geo (1368)
 	Rachel Field
-		30 Muscipular / 5 Drosera
+		30 Muscipular (1780) / 5 Drosera (1781)
 60-79
 	Lighthalzen Field
-		30 Hill Winds / 10 Roweens
+		30 Hill Winds (1680) / 10 Roweens (1782)
 	Brasilis
-		30 Iara / 30 Piranha
+		30 Iara (2069) / 30 Piranha (2070)
 	Geffen 2
-		40 Jakk / 30 Nightmare
+		40 Jakk (1130) / 30 Nightmare (1061)
 	Gonryun
 		20 Zipper Bear / 20 Peace Tree / 20 Bloody Butterfly
 	Bio 2
