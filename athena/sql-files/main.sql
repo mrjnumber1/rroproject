@@ -315,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `interlog` (
   `log` varchar(255) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `invetory`;
+DROP TABLE IF EXISTS `inventory`;
 CREATE TABLE IF NOT EXISTS `inventory` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `char_id` int(11) unsigned NOT NULL default '0',
