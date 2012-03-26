@@ -131,7 +131,121 @@ LONGTERM 80-99 Party
 		1000 Majoruros / 2000 Minorous
 
 
+40-69
 
+Metaling (1613) / Porcellio (1619)
+
+60-79
+
+Hill Wind (1680)
+Desert Wolf (1106)
+
+Kobold Archer (1282)
+
+Axe Kobold (1133) / Hammer Kobold (1134) / Mace Kobold (1135)
+
+Arclouze (1194) / Gargoyle (1253)
+
+Mineral (1614) / Obsidian (1615)
+
+Baba Yaga (1882)
+
+Dragon Tail (1321) / Spring Rabbit (1322)
+
+Venomous (1621) / Pitman (1616)
+
+
+70-89
+
+Dullahan (1504) / Loli Ruri (1505)
+
+Raydric (1163) / Wanderer (1208)
+
+Teddy Bear (1622) / Waste Stove (1617)
+
+Violy (1390)
+
+Lude (1509) / Heirozoist (1510)
+
+Knocker (1838) / Imp (1837)
+
+Stem Worm (1215) / Rafflesia (1162)
+
+Anopheles (1627) / Roween (1782)
+
+Injustice (1257) / Ry bio (1201)
+
+Marionette (1143) / Deviruchi (1109)
+
+
+Dark Pinguicula (2015)
+
+Party-
+Pest (1256) / Medusa (1148)
+
+Party-
+Arclouse (1194) / Ancient Mummy (1297)
+
+
+
+80-99:
+
+Dark Priest (1198)
+
+Aliot (1736)
+Aliza (1737)
+
+Hodremlin (1773)
+Seeker (1774)
+
+Hillslion (1989)
+Nepenthes  (1988)
+Tatacho (1986)
+
+Ancient Mimic (1699)
+Death Word (1698)
+
+Agav (1769)
+Echio (1770)
+
+Ground Deleter (1385) / Sky Deleter (1384)
+
+Red Ferus (1714) / Green Ferus (1717)
+
+Gold Acidus (1713) / Blue Acidus (1870)
+
+
+Archdams (1668)
+
+Ice Titan (1772)
+
+Bradium Golem (2024)
+
+90-99:
+
+Ancient Tree (2019)
+Phylla (2021)
+
+Bifrost Field 1/2-
+Angra mantis (2133)
+Pom Spider (2132)
+
+Miming (2137)
+Little Fatum (2136)
+
+Kamidal:
+Centipede (1987)
+Dolomedes (2092)
+
+Scaraba Hole-
+Antler Scaraba (2085)
+Rake Horn Scaraba (2086)
+Uni-horn Scaraba (2083)
+Horn Scaraba (2084)
+
+Splendide Field
+Naga (1993)
+Cornus (1992)
 		
 
 		
