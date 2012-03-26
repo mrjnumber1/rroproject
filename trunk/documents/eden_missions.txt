@@ -46,6 +46,12 @@ Also, the kills from the missions should ONLY apply if party exp share is on. If
 60-79
 	Lighthalzen Field
 		30 Hill Winds (1680) / 10 Roweens (1782)
+  Rachel Field
+    30 Hill Winds (1680) / 30 Desert Wolf (1106)
+  Geffen Field
+    20 Kobold Archer (1282) / 50 Wild Rose (1261)
+  Kobold village
+    10 Axe Kobold (1133) / 10 Hammer Kobold (1134) / 10 Mace Kobold (1135)
 	Brasilis
 		30 Iara (2069) / 30 Piranha (2070)
 	Geffen 2
@@ -71,6 +77,16 @@ Also, the kills from the missions should ONLY apply if party exp share is on. If
 		70 Evil Druid (1117) / 20 Ghoul (1036) / 20 Wraith (1192)
 	Clock Cleaner
 		30 clocks (1269) / 20 Alarms (1193) / 10 Owl Dukes (1320)
+  GH Sewers
+    40 Gargoyle (1253) / 10 Arclouse (1194)
+  Mosc Field 2
+    40 Baba Yaga (1882)
+  Turtle Island Surface
+    20 Spring Rabbits (1322) / 20 Dragon Tail (1321)
+  Einbech Mines 1
+    20 Venomous (1621) / 20 Pitman (1616)
+  Einbech Mines 2
+    40 Mineral (1614) / 40 Obsidian (1615)
 	
 80-99
 
@@ -119,12 +135,12 @@ PARTY
 	Thor 3
 		30 Kasa (1835) / 70 Salamander (1831) / 10 Bow Master (1830) / 10 Sword Master (1829)
 	Bio3
-		10 Seyren / 10 Eremes / 10 Harword / 10 Magaleta / 10 Shecil / 10 Katrinn
+		10 Seyren (1634) / 10 Eremes (1635)  / 10 Harword (1636) / 10 Magaleta (1637) / 10 Shecil (1638) / 10 Katrinn (1639)
 		
 		
 LONGTERM 80-99 Party
 	Bio3
-		70 Seyren / 70 Eremes / 70 Howard / 70 Magaleta / 70 Shecil / 70 Katrinn
+		70 Seyren (1634) / 70 Eremes (1635) / 70 Howard (1636) / 70 Magaleta (1637) / 70 Shecil (1638) / 70 Katrinn (1639)
 	Thor 3
 		300 Kasa (1835) / 700 salamander (1831) / 100 bow Master (1830) / 100 Sword Master (1829)
 	Nameless3
@@ -133,124 +149,6 @@ LONGTERM 80-99 Party
 		1000 Majoruros (1310) / 2000 Minorous (1149)
 
 
-40-69
-
-Metaling (1613) / Porcellio (1619)
-
-60-79
-
-Hill Wind (1680)
-Desert Wolf (1106)
-
-Kobold Archer (1282)
-
-Axe Kobold (1133) / Hammer Kobold (1134) / Mace Kobold (1135)
-
-Arclouze (1194) / Gargoyle (1253)
-
-Mineral (1614) / Obsidian (1615)
-
-Baba Yaga (1882)
-
-Dragon Tail (1321) / Spring Rabbit (1322)
-
-Venomous (1621) / Pitman (1616)
-
-
-70-89
-
-Dullahan (1504) / Loli Ruri (1505)
-
-Raydric (1163) / Wanderer (1208)
-
-Teddy Bear (1622) / Waste Stove (1617)
-
-Violy (1390)
-
-Lude (1509) / Heirozoist (1510)
-
-Knocker (1838) / Imp (1837)
-
-Stem Worm (1215) / Rafflesia (1162)
-
-Anopheles (1627) / Roween (1782)
-
-Injustice (1257) / Ry bio (1201)
-
-Marionette (1143) / Deviruchi (1109)
-
-
-Dark Pinguicula (2015)
-
-Party-
-Pest (1256) / Medusa (1148)
-
-Party-
-Arclouse (1194) / Ancient Mummy (1297)
-
-
-
-80-99:
-
-Dark Priest (1198)
-
-Aliot (1736)
-Aliza (1737)
-
-Hodremlin (1773)
-Seeker (1774)
-
-Hillslion (1989)
-Nepenthes  (1988)
-Tatacho (1986)
-
-Ancient Mimic (1699)
-Death Word (1698)
-
-Agav (1769)
-Echio (1770)
-
-Ground Deleter (1385) / Sky Deleter (1384)
-
-Red Ferus (1714) / Green Ferus (1717)
-
-Gold Acidus (1713) / Blue Acidus (1716)
-
-
-Archdams (1668)
-
-Ice Titan (1772)
-
-Bradium Golem (2024)
-
-90-99:
-
-Ancient Tree (2019)
-Phylla (2021)
-
-Bifrost Field 1/2-
-Angra mantis (2133)
-Pom Spider (2132)
-
-Miming (2137)
-Little Fatum (2136)
-
-Kamidal:
-Centipede (1987)
-Dolomedes (2092)
-
-Scaraba Hole-
-Antler Scaraba (2085)
-Rake Horn Scaraba (2086)
-Uni-horn Scaraba (2083)
-Horn Scaraba (2084)
-
-Splendide Field
-Naga (1993)
-Cornus (1992)
-		
-
-		
 		
 -will need @submit for missions
 -and @missioninfo 
