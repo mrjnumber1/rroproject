@@ -87,6 +87,24 @@ Also, the kills from the missions should ONLY apply if party exp share is on. If
     20 Venomous (1621) / 20 Pitman (1616)
   Einbech Mines 2
     40 Mineral (1614) / 40 Obsidian (1615)
+  Niff Field 1
+    70 Lude (1509) / 30 Heirozoist (1510)
+  Thor 2
+    70 Knocker (1838) / 30 Imp (1837)
+  Lighthalzen Field
+    70 Stem Worms (1215) / 30 Rafflesia (1162)
+  Lighthalzen Field
+    Anopheles (1627) / Roween (1782)
+  GH Prison
+    70 Injustice (1257) / 15 Rybio (1201)
+  Geffen Dungeon 3
+    40 Marionette (1143) / Deviruchi (1109)
+  Nidhogg 1
+    70 Dark Pinguicula (2015)
+  Comodo Caves
+    70 Medusa (1148) / 30 Pest (1256)
+  Pyramids Basement 2
+    40 Ancient Mummy (1297) / 15 Arclouse (1194)
 	
 80-99
 
@@ -113,6 +131,15 @@ SOLO
 		100 Sting (1207)
 	GH Chivalry
 		70 Raydrics (1163) / 30 AKs (1219)
+  Niff Field 2
+    35 Dullahan (1504) / 35 Loli Ruri (1505)
+  GH Castle
+    70 Raydrics (1163) / 15 Wanderer (1208)
+  Ein Mines 2
+    70 Teddy Bear (1622) / 30 Waste Stove (1617)
+  Geffenia
+    100 Violy (1390)
+    
 		
 PARTY
 	GH Underground
