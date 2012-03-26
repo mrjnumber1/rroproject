@@ -76,47 +76,48 @@ Also, the kills from the missions should ONLY apply if party exp share is on. If
 
 SOLO
 	Juperos 1
-		50 of Each Venatu
+		50 of Each Venatu (1675 + 1678 + 1676 + 1679 + 1677)
 	Kiel
-		25 Alice / 25 Aliza / 30 Alicel / 30 Aliot
+		25 Alice (1275) / 25 Aliza (1737) / 30 Alicel (1735) / 30 Aliot (1736)
 	Sphinx Depth
-		60 Minorous / 10 Pasana
+		60 Minorous (1149) / 10 Pasana (1154)
 	Thor 1
-		50 Kasa
+		50 Kasa (1835)
 	Turtle Island 4
-		35 Heater / 35 Assaulter
+		35 Heater (1318) / 35 Assaulter (1315)
 	Orc Village
-		100 High Orcs
+		100 High Orcs (1213)
 	Clock Basement
-		50 Peno / 20 Cramp / 100 Bathory
+		50 Peno (1216) / 20 Cramp (1209) / 100 Bathory (1102)
 	Splendide Field
-		100 Pinguic
+		100 Pinguicula (2015)
 	Comodo Field
-		100 Anolian
+		100 Anolian (1206)
 	GH Culvert
-		100 Sting
+		100 Sting (1207)
 	GH Chivalry
-		70 Raydrics / 30 AKs
+		70 Raydrics (1163) / 30 AKs (1219)
 		
 PARTY
 	GH Underground
-		100 Majoruros / 200 Minorous 
+		100 Majoruros (1310) / 200 Minorous (1149)
 	Rachel
-		60 Agav / 40 Echio
+		60 Agav (1769) / 40 Echio  (1770)
 	Juperos Core
-		30 Archdam 30 of Each Dimik, 30 of Each Venatu
+		30 Archdam (1668) 30 of Each Dimik (1669 + 1670 + 1671 + 1672 + 1673)
+      30 of Each Venatu (1675 + 1678 + 1676 + 1679 + 1677)
 	Ice Cave
-		80 Ice Titan / 50 Snowier
+		80 Ice Titan (1777) / 50 Snowier (1775)
 	Abyss 3
-		40 Gold Acidus / 20 Blue Acidus / 20 Red Ferus / 40 Green Ferus / 3 Hydros
+		40 Gold Acidus (1713) / 20 Blue Acidus (1716) / 20 Red Ferus (1714) / 40 Green Ferus (1717) / 3 Hydros (1720)
 	Nameless
-		60 Necro / 100 Zombie Slaughter / 30 Flame Skulls / 30 Ragged Zombie / 50 Banshee
+		60 Necro (1870) / 100 Zombie Slaughter (1864) / 30 Flame Skulls (1869) / 30 Ragged Zombie (1865) / 50 Banshee (1867)
 	Odin
-		20 Skogul / 20 Frus / 20 each Skegg Boss
+		20 Skogul (1752) / 20 Frus (1753) / 20 each Skegg Boss (1754 + 1755)
 	Nidhogg
-		40 Ancient Tree / 15 Rhyncho / 15 Phylla
+		40 Ancient Tree (2019) / 15 Rhyncho (2020) / 15 Phylla (2021)
 	Thor 3
-		30 Kasa / 70 Salamander / 10 Bow Master / 10 Sword Master
+		30 Kasa (1835) / 70 Salamander (1831) / 10 Bow Master (1830) / 10 Sword Master (1829)
 	Bio3
 		10 Seyren / 10 Eremes / 10 Harword / 10 Magaleta / 10 Shecil / 10 Katrinn
 		
@@ -125,11 +126,11 @@ LONGTERM 80-99 Party
 	Bio3
 		70 Seyren / 70 Eremes / 70 Howard / 70 Magaleta / 70 Shecil / 70 Katrinn
 	Thor 3
-		300 Kasa / 700 salamander / 100 bow Master / 100 Sword Master
+		300 Kasa (1835) / 700 salamander (1831) / 100 bow Master (1830) / 100 Sword Master (1829)
 	Nameless3
-		300 Necro / 500 Zombie Slaughter / 150 Flame Skulls / 150 Ragged Zombie / 250 Banshee
+		300 Necro (1870) / 500 Zombie Slaughter (1864 / 150 Flame Skulls (1869) / 150 Ragged Zombie (1865) / 250 Banshee (1867)
 	GH Underground
-		1000 Majoruros / 2000 Minorous
+		1000 Majoruros (1310) / 2000 Minorous (1149)
 
 
 40-69
@@ -213,7 +214,7 @@ Ground Deleter (1385) / Sky Deleter (1384)
 
 Red Ferus (1714) / Green Ferus (1717)
 
-Gold Acidus (1713) / Blue Acidus (1870)
+Gold Acidus (1713) / Blue Acidus (1716)
 
 
 Archdams (1668)
