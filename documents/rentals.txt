@@ -17,6 +17,7 @@ MID
 	Glasses + Leib Olmai Card      (2204 + 4188)
 	Glasses + Incubus Card         (2204 + 4269)
 	Glasses + Nightmare Card       (2204 + 4127)
+  Glasses + Gemini-S58 Card      (2204 + 4354)
 	Angel of Ghost                 (5389)
 	Robo Eye                       (5325)
 	Red Glasses                    (5288) 
@@ -108,8 +109,11 @@ ROBE
 	
 	Beach Manteau + Jakk Card    (2546 + 4109)
 	Beach Manteau + Noxious Card (2546 + 4334)
+  Beach Manteau + Salamander Card (2546 + 4429)
 	
 	Glorious Muffler             (2549)
+   
+   +5 Proxy Skin + Salamander Card (2554 + 4429)
 
 ACCESSORY
 	Clip + Zerom Card     (2607 + 4064)
@@ -135,6 +139,9 @@ ACCESSORY
 	
 	Ring of Flame Lord (2678)
 	Ring of Resonance (2679)
+   
+  Bloodied Shackle Ball (2655) + Shackles (2408) // Atk + 50 w/ Shackles footgear, should be rented as unit
+  Bloody Shackle Ball (2710) // Atk + 30 w/o combo acc. RMS
 	
 	
 WEAPONS
@@ -161,3 +168,9 @@ WEAPONS
 	
 	Whip of Unbalance + Golem Card + 2x Female Thief bug Card (1980 + 4072 + 4026*2) 
 	Whip of Unbalance + Golem Card + 2x Fabre Card            (1980 + 4072 + 4002*2) 
+   
+  Infiltrator + Skeleton Worker Card (1266 + 4092)
+  Katar of Raging Blaze + 2x Hydra Card + Skeleton Worker card (1277 + 4035*2 + 4092)
+  Katar of Piercing Wind + 2x Hydra Card + Skeleton Worker Card (1278 + 4035*2 + 4092)
+  Katar of Quaking + 2x Hydra Card + Skeleton Worker Card (1276 + 4035*2 + 4092)
+  Katar of Frozen Icicle + 2x Hydra Card + Skeleton Worker Card (1275 + 4035*2 + 4092)
