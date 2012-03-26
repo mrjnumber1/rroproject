@@ -193,16 +193,7 @@ PARTY
      
   Dimension Gorge
      50 of each Morocc Shadow (1918 / 1921 / 1919 / 1920)
-		
-LONGTERM 80-99 Party
-	Bio3
-		70 Seyren (1634) / 70 Eremes (1635) / 70 Howard (1636) / 70 Magaleta (1637) / 70 Shecil (1638) / 70 Katrinn (1639)
-	Thor 3
-		300 Kasa (1835) / 700 salamander (1831) / 100 bow Master (1830) / 100 Sword Master (1829)
-	Nameless3
-		300 Necro (1870) / 500 Zombie Slaughter (1864 / 150 Flame Skulls (1869) / 150 Ragged Zombie (1865) / 250 Banshee (1867)
-	GH Underground
-		1000 Majoruros (1310) / 2000 Minorous (1149)
+
 
 
 		
