@@ -2,200 +2,294 @@ IDEALLY, each quest takes you to the next set, at least in the early levels. Lat
 
 Also, the kills from the missions should ONLY apply if party exp share is on. If they're not on, you're not getting the damn kill. This prevents people from doing insane things like killing 100 Majos with a level 64/1 second job guy partied with some wizard guys.
 
+
+Names:
+
+//0
+	"Starting in Prontera Fields" 
+	"Surrounding Geffen Fields"
+	"Looking in Payon Forests"
+	"Entering Culvert"
+	"Danger in Sograt Deserts"
+//5
+	"Deeper into Culvert"
+	"Frog Hunting"
+	"Santa's Toy Factory"
+	"Amatsu Shrine's Gunmen"
+	"Insects in Mjolnir Mountains"
+//10	
+	"Payon Cave's Undead Monsters"
+	"Secluded in Sograt Desert"
+	"Deeper into Payon Forest"
+	"Moscovia Les Forest Clearing"
+	"Undead Orc Dungeon"
+//15
+	"Beginning of Sphinx"
+	"Treasures of Toy Factory"
+	"Rusty Einbroch Fields"
+	"Plants by Ice Cave"
+	"Beasts of Rachel Fields"
+//20
+	"Insects and Plants in Manuk Fields"
+	"Poison and Death in Coal Mine"
+	"Assault on Kobold Village"
+	"Ugly Monsters of Brasilis Dungeon"
+	"Deep inside Geffen Tower"
+//25
+	"Come and Get Gonryun Shrine Beasts!"
+	"Experiments in Bio-Laboratory"
+	"Travelling Magma Nogg Road"
+	"Occultists of Rachel Sanctuary"
+	"Inside Turtle Island"
+//30
+	"Conquering Sphinx's Undead"
+	"Annihilate all the Siromas!"
+	"Beasts in Papuchicha Forest"
+	"Unholy Glast Heim Church-dwellers"
+	"Clean the Clock Tower"
+//35
+	"Glast Heim Culvert, Harder than Prontera's"
+	"Moscovia Dremuci Forest Clearing"
+	"Surface of Turtle Island"
+	"Exploring Einbech Mines"
+	"Skellington's Little Ghosts"
+//40
+	"Miners in Thor Volcano"
+	"Farming Fish in Byalan"
+	"Byalan's Flora and Fauna"
+	"Danger in Glast Heim Underprison"
+	"Deep Below Geffen Tower"
+//45
+	"Exploring Comodo Beach Dungeon"
+	"Little Monsters of Splendide"
+	"Guardians of Juperos Ruins"
+	"Kiel Robot Factory's Robo-People"
+	"Deeper into Sphinx"
+//50
+	"Thor Volcano's Firebirds"
+	"Conquer Turtle Palace"
+	"Genocide in Orc Villages"
+	"Clock Tower Basement Beasts"
+	"Beasts in the Zenhai Marsh"
+//55	
+	"Reach Knowledge Inside Glast Heim" 
+	"Glast Heim Chivalry is Dead"
+	"Valley of Gyoll's Demons"
+	"Demon Glast Heim Castle Dracula"
+	"Einbech Mine Dungeon Intruders"
+//60 
+	"Real Demons in Gefenia"
+	"Morocc Pyramid Basement's Evils"
+	"Trick Monsters in Lower Thanatos Floors"
+	"Delete All of Magma Nogg Road"
+	"Charge to Glast Heim Underground"
+//65
+	"Deep into Rachel Sanctuary's Occult"
+	"Defenders of Juperos Core Ruins"
+	"Make Big Guys Hate This Ice Cave"
+	"Rock the Dragons in Abyss Lake Caves"
+	"Demons of the Abbey, Cursed Monastery"
+//70
+	"Protecters of Odin's Shrine"
+	"Guardians of Nidhoggur's Nest"
+	"Sleep Beneath Thor Volcano's Ashes, Red-Greys!"
+	"Deadly Experiments from Lighthalzen Bio-Labs"
+	"Magnificient Monsters of Manuk"
+//75
+	"Splendide Splatterplunk of Splendide" 
+	"Shadows of Dimensional Gorge"
+	"Beasts in Suei Long Gon"
+	"Gatekeepers of Thanatos Tower"
+	"Beyond the Gates of Thanatos Tower"
+	
+	
 01-19
-	Prt Fild
+	0 Prt Fild
 		10 poring (1002) / 10 lunatic (1063) / 5 drops (1113) / 5 Rocker (1052)
-	Gef Fild
+	1 Gef Fild
 		10 Fabre (1007) / 10 Roda (1012) / 10 Chonchon (1011)
-	Pay Forest
+	2 Pay Forest
 		10 Willow (1010) / 5 Spore (1014)
-	Culvert 1
+	3 Culvert 1
 		5 Thief Bug (1051) / 5 Tarou (1175) / 5 Familiar (1005)
-	Sograt Desert
+	4 Sograt Desert
 		10 Picky (1049) / 10 Drops (1113) / 10 Baby Desert Wolf (1107)
 20-39
-	Culvert 3
+	5 Culvert 3
 		20 Tarou (1175) / 20 F Tbug (1053) / 20 M Tbug (1054)
-	Frogs
+	6 Frogs
 		20 Thara (1034)
-	Santa Factory
+	7 Santa Factory
 		10 Cookie (1265) / 10 Xmas Cookie (1246)
-	Amatsu
+	8 Amatsu
 		30 Firelocks (1403)
-	Mjolnir 
-		10 Mandragora (1020) / 4 Flora (1118)
-	Pay Cave 2
-		10 Soldier Skel (1028)/ 10 Archer Skel (1016)
-	Sog Desert 3
-		15 Steel Chonchon (1042) / 15 Muka (1055) / 
-	Pay Fild 3
+	9 Mjolnir 
+		40 Horn (1128) / 10 Hornet (1004) / 10 Mandragora (1020) / 5 Flora (1118)
+	10 Pay Cave 
+		10 Zombie (1015) / 10 Skeleton (1076) / 10 Soldier Skel (1028)/ 10 Archer Skel (1016)
+	11 Sog Desert 3
+		15 Steel Chonchon (1042) / 15 Muka (1055) 
+	12 Pay Fild 3
 		20 Wolf (1013) / 20 Smokie (1056) / 10 Bigfoot (1060)
+	42 Early Byalan
+		100 Hydra (1068) / 50 Marina (1141) / 50 Vadon (1066) / 20 Kukre (1070)
 40-59
-	Mosco 1
+	13 Mosco 1
 		30 Les (1881) / 5 Wood Goblin (1880)
-	Orc 1
+	14 Orc 1
 		40 Orc Zombie (1153) / 20 Orc Skeleton (1152)
-	Sphinx 2
-		30 Zerom (1178) / 10 Requiem (1164)
-	Toy Factory
+	15 Sphinx 
+		50 Zerom (1178) / 5 Requiem (1164)
+	16 Toy Factory
 		30 Myst Case (1249) / 10 Cruiser (1248) 
-	Ein field
-		40 Metaling (1613) / 10 Geo (1368)
-	Rachel Field
+	17 Ein field
+		40 Metaling (1613) / 5 Geo (1368)
+	18 Rachel Field
 		30 Muscipular (1780) / 5 Drosera (1781)
 60-79
-	Lighthalzen Field
-		30 Hill Winds (1680) / 10 Roweens (1782)
-  Rachel Field
-    30 Hill Winds (1680) / 30 Desert Wolf (1106)
-  Geffen Field
-    20 Kobold Archer (1282) / 50 Wild Rose (1261)
-  Kobold village
-    10 Axe Kobold (1133) / 10 Hammer Kobold (1134) / 10 Mace Kobold (1135)
-	Brasilis
+	19 Lighthalzen Field
+		50 Hill Winds (1680) / 20 Roweens (1782) / 30 Desert Wolf (1106)
+	21 Coal Mines
+		140 Skeleton Worker (1169) / 30 Myst (1151) 
+	22 Kobold village
+		10 Axe Kobold (1133) / 10 Hammer Kobold (1134) / 10 Mace Kobold (1135)
+	23 Brasilis
 		30 Iara (2069) / 30 Piranha (2070)
-	Geffen 2
-		40 Jakk (1130) / 30 Nightmare (1061)
-	Gonryun
-		20 Zipper Bear / 20 Peace Tree / 20 Bloody Butterfly
-	Bio 2
-		10 Ygnizem (1652) / 10 Whikebain (1653) / 10 Armaia (1654)
-    10 Erend (1655) / 10 Kavac (1656) / 10 Rawrel (1657)
-	Magma
-		25 Kaho (1072) / 25 Lava golem (1366) / 30 Blazer (1367)
-	Rachel 1
+	24 Geffen 2
+		80 Jakk (1130) / 80 Nightmare (1061)
+	25 Gonryun
+		20 Zipper Bear (1417) / 20 Peach Tree (1410) / 20 Bloody Butterfly (1408)
+	26 Bio 2
+		10 Ygnizem (1652) / 10 Whikebain (1653) / 10 Armaia (1654) / 10 Erend (1655) / 10 Kavac (1656) / 10 Rawrel (1657)
+	27 Magma
+		25 Kaho (1072) / 15 Lava golem (1366) / 30 Blazer (1367)
+	28 Rachel 1
 		40 Vanberk (1771) / 30 Isilla (1772)
-	Turtle Island
+	29 Turtle Island
 		30 Solider (1316) / 30 Permeter (1314)
-	Sphinx 4 
+	30 Sphinx 4 
 		40 Anubis (1098)
-	Ice Cave
+	31 Ice Cave
 		100 Siroma (1776)
-	Comodo Field
-		60 Gator (1271) / 30 Poison Spore (1077) / 10 Savage (1840)
-	GH Church
+	32 Comodo Field
+		60 Gator (1271) / 20 Poison Spore (1077) / 10 Savage (1840)
+	33 GH Church
 		70 Evil Druid (1117) / 20 Ghoul (1036) / 20 Wraith (1192)
-	Clock Cleaner
-		30 clocks (1269) / 20 Alarms (1193) / 10 Owl Dukes (1320)
-  GH Sewers
-    40 Gargoyle (1253) / 10 Arclouse (1194)
-  Mosc Field 2
-    40 Baba Yaga (1882)
-  Turtle Island Surface
-    20 Spring Rabbits (1322) / 20 Dragon Tail (1321)
-  Einbech Mines 1
-    20 Venomous (1621) / 20 Pitman (1616)
-  Einbech Mines 2
-    40 Mineral (1614) / 40 Obsidian (1615)
-  Niff Field 1
-    70 Lude (1509) / 30 Heirozoist (1510)
-  Thor 2
-    70 Knocker (1838) / 30 Imp (1837)
-  Lighthalzen Field
-    70 Stem Worms (1215) / 30 Rafflesia (1162)
-  Lighthalzen Field
-    Anopheles (1627) / Roween (1782)
-  GH Prison
-    70 Injustice (1257) / 15 Rybio (1201)
-  Geffen Dungeon 3
-    40 Marionette (1143) / Deviruchi (1109)
-  Comodo Caves
-    70 Medusa (1148) / 30 Pest (1256)
-  Splendide Field
-		100 Pinguicula (2015)
+	34 Clock Cleaner
+		30 clocks (1269) / 20 Alarms (1193) 
+	35 GH Sewers
+		100 Sting (1207) / 40 Gargoyle (1253) / 10 Arclouse (1194)
+	36 Mosc Dun 3
+		20 Baba Yaga (1882) / 10 Mavka (1884) / 20 Uzhas (1883)
+	37 Turtle Island Surface
+		10 Thara Frog (1034) / 10 Spring Rabbits (1322) / 40 Dragon Tail (1321)
+	38 Einbech Mines 1
+		30 Noxious (1620) / 20 Venomous (1621) / 20 Pitman (1616)
+	39 Niff Field 
+		30 Disguise (1506) / 30 Lude (1509) / 30 Quve (1508) / 30 Heirozoist (1510)
+	40 Thor 2
+		70 Knocker (1838) / 10 Imp (1837)
+	41 Fish Farming
+		70 Marc (1045) / 30 Swordfish (1069) / 20 Marine Sphere (1142) / 50 Phen (1158)
+	43 GH Prison
+		10 Skel Prisoner (1196) / 20 Zombie Prisoner (1197) / 30 Injustice (1257) / 10 Rybio (1201) / 5 Phendark (1202)
+	44 Geffen Dungeon 3
+		30 Marionette (1143) / 30 Deviruchi (1109) / 20 Whisper (1179)
+	45 Comodo Caves
+		20 Medusa (1148) / 30 Tri-Joint (1279) / 70 Stalactic Golems (1278)
+	46 Splendide Field
+		50 Pinguicula (2015)
+	52 Orc Village
+		50 High Orcs (1213) / 20 Orc Lady (1273) / 15 Orc Warrior (1023)
+	77 Louyang Royal Tomb
+		1 Chung E (1631) / 20 Dancing Dragon (1514) / 10 Civil Servant (1513) / Hyegun (1512)
 
 	
 80-99
 
 SOLO
-	Juperos 1
-		50 of Each Venatu (1675 + 1678 + 1676 + 1679 + 1677)
-	Kiel
+	47 Juperos 1
+		50 of Each Venatu (1678 + 1676 + 1679 + 1677)
+	48 Kiel
 		25 Alice (1275) / 25 Aliza (1737) / 30 Alicel (1735) / 30 Aliot (1736)
-	Sphinx Depth
-		60 Minorous (1149) / 10 Pasana (1154)
-	Thor 1
-		50 Kasa (1835)
-	Turtle Island 4
+	49 Sphinx Depth
+		20 Minorous (1149) / 60 Pasana (1154) / 10 Matyr (1146)
+	50 Thor 1
+		20 Kasa (1835)
+	51 Turtle Island 4
 		35 Heater (1318) / 35 Assaulter (1315)
-	Orc Village
-		100 High Orcs (1213)
-	Clock Basement
-		50 Peno (1216) / 20 Cramp (1209) / 100 Bathory (1102)
+	53 Clock Basement
+		50 Peno (1216) / 10 Cramp (1209) / 100 Bathory (1102)
   
-	Comodo Field
-		100 Anolian (1206)
-	GH Culvert
-		100 Sting (1207)
-	GH Chivalry
+	54 Comodo Field
+		50 Anolian (1206) / 10 Pest (1256)
+	55 Inside Glast Heim
+		40 Dark Frame (1260) / 20 Sage Worm (1281)
+	56 GH Chivalry
 		70 Raydrics (1163) / 30 AKs (1219)
-  Niff Field 2
-    35 Dullahan (1504) / 35 Loli Ruri (1505)
-  GH Castle
-    70 Raydrics (1163) / 15 Wanderer (1208)
-  Ein Mines 2
-    70 Teddy Bear (1622) / 30 Waste Stove (1617)
-  Geffenia
-    100 Violy (1390)
-  Pyramids Basement 2
-    40 Ancient Mummy (1297) / 15 Arclouse (1194)    
-  Thanatos
-    40 Ancient Mimic (1699) / 40 Death Word (1698)
-  
+	57 Niff Field 2
+		35 Dullahan (1504) / 35 Loli Ruri (1505)
+	58 GH Castle
+		70 Raydrics (1163) / 15 Wanderer (1208)
+	59 Ein Mines 2
+		30 Teddy Bear (1622) / 20 Waste Stove (1617) / 20 Mineral (1614) / 20 Obsidian (1615)
+	60 Geffenia
+		50 Violy (1390) / 50 False Angel (1371) / 20 Incubus (1374) / 20 Succubus (1370)
+	61 Pyramids Basement 2
+		40 Ancient Mummy (1297) / 15 Arclouse (1194)    
+	62 Thanatos Lower 1
+		40 Ancient Mimic (1699) / 40 Death Word (1698)
+	20 Kamidal
+		70 Centipede Larva (1999) / 20 Nepenthes  (1988)
     
 		
 PARTY
-  Magma Dungeon 2
-    200 Earth Deleter (1385) / 200 Sky Deleter (1384)
-	GH Underground
+	78 Lower Thanatos Floors
+		80 Owl Duke (1320) / 40 Owl Baron (1295) / 30 Elder (1377) / 30 Deathword (1698) / 30 Ancient Mimic (1699)
+	79 Higher Thanatos Floors
+		25 Observation (1700) / 25 Shelter (1701) / 25 Retribution (1702) / 25 Solace (1703)
+	63 Magma Dungeon 2
+		200 Earth Deleter (1385) / 200 Sky Deleter (1384) / 50 Nightmare Terror (1379) / 30 Diabolic (1382)
+	64 GH Underground
 		100 Majoruros (1310) / 200 Minorous (1149)
-	Rachel
-		60 Agav (1769) / 40 Echio  (1770)
-	Juperos Core
-		30 Archdam (1668) 30 of Each Dimik (1669 + 1670 + 1671 + 1672 + 1673)
-      30 of Each Venatu (1675 + 1678 + 1676 + 1679 + 1677)
-	Ice Cave
+	65 Rachel Sanc Depths
+		80 Agav (1769) / 30 Echio (1770) / 10 Seeker (1774)
+	66 Juperos Core
+		40 Archdam (1668) / 40 of Each Dimik (1670 + 1671 + 1672 + 1673)
+	67 Ice Cave
 		80 Ice Titan (1777) / 50 Snowier (1775)
-	Abyss 3
+	68 Abyss 3
 		40 Gold Acidus (1713) / 20 Blue Acidus (1716) / 20 Red Ferus (1714) / 40 Green Ferus (1717) / 3 Hydros (1720)
-	Nameless
+	69 Nameless
 		60 Necro (1870) / 100 Zombie Slaughter (1864) / 30 Flame Skulls (1869) / 30 Ragged Zombie (1865) / 50 Banshee (1867)
-	Odin
+	70 Odin
 		20 Skogul (1752) / 20 Frus (1753) / 20 each Skegg Boss (1754 + 1755)
-	Nidhogg
-		40 Ancient Tree (2019) / 15 Rhyncho (2020) / 15 Phylla (2021)
-	Thor 3
+	71 Nidhogg
+		80 Dark Shadow (2023) / 40 Ancient Tree (2019) / 15 Rhyncho (2020) / 15 Phylla (2021)
+	72 Thor 3
 		30 Kasa (1835) / 70 Salamander (1831) / 10 Bow Master (1830) / 10 Sword Master (1829)
-	Bio3
+	73 Bio3
 		10 Seyren (1634) / 10 Eremes (1635)  / 10 Harword (1636) / 10 Magaleta (1637) / 10 Shecil (1638) / 10 Katrinn (1639)
-  Eye of Hellion
-    200 Dark Priest (1198)
-  Rachel
-    80 Hodremlin (1773) / 40 Seeker (1774)
-  
-	 Kamidal
-    30 Hillslion (1989) / 30 Nepenthes (1988) / 30 Tatacho (1986)
-    
-  Kamidal 
-    50 Bradium Golem (2024)
-    
-  Bifrost 
-    30 Angra Mantis (2133) / 30 Pom Spider (2132) / 30 Miming (2137) / 30 Little Fatum (2136)
-    
-  Kamidal
-    50 Centipede (1987) / 50 Dolomedes (2092)
-    
-  Scaraba Hole
-    50 Antler (2085) / 50 Rake Horn (2086) / 50 Uni-horn (2083) / 50 Horn (2084)
-    
-  Splendide Field
-     50 Naga (1993) / 50 Cornus (1992)
-     
-  Dimension Gorge
-     50 of each Morocc Shadow (1918 / 1921 / 1919 / 1920)
+	74 Manuk Fields
+		50 Bradium Golem (2024) / 30 Hillslion (1989) / 30 Nepenthes (1988) / 30 Tatacho (1986)
+	75 Splendide Field
+		50 Naga (1993) / 50 Cornus (1992)
+	76 Dimension Gorge
+		50 of each Morocc Shadow (1918 / 1921 / 1919 / 1920)
 
 
+		
+	// Will need implemented later!
+	Kamidal
+		50 Centipede (1987) / 50 Dolomedes (2092)
+	
+	Bio4
+		10 Randel (2221) / 10 Flamel (2222) / 10 Celia (2223) / 10 Chen (2224) / 10 Gertie (2225) / 10 Alphoccio (2226) (No Gypsy!!)
+	Bifrost 
+		30 Angra Mantis (2133) / 30 Pom Spider (2132) / 30 Miming (2137) / 30 Little Fatum (2136)
 
+	Scaraba Hole
+		50 Antler (2085) / 50 Rake Horn (2086) / 50 Uni-horn (2083) / 50 Horn (2084)
 		
 -will need @submit for missions
 -and @missioninfo 
