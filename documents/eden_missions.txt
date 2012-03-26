@@ -99,12 +99,11 @@ Also, the kills from the missions should ONLY apply if party exp share is on. If
     70 Injustice (1257) / 15 Rybio (1201)
   Geffen Dungeon 3
     40 Marionette (1143) / Deviruchi (1109)
-  Nidhogg 1
-    70 Dark Pinguicula (2015)
   Comodo Caves
     70 Medusa (1148) / 30 Pest (1256)
-  Pyramids Basement 2
-    40 Ancient Mummy (1297) / 15 Arclouse (1194)
+  Splendide Field
+		100 Pinguicula (2015)
+
 	
 80-99
 
@@ -123,8 +122,7 @@ SOLO
 		100 High Orcs (1213)
 	Clock Basement
 		50 Peno (1216) / 20 Cramp (1209) / 100 Bathory (1102)
-	Splendide Field
-		100 Pinguicula (2015)
+  
 	Comodo Field
 		100 Anolian (1206)
 	GH Culvert
@@ -139,9 +137,16 @@ SOLO
     70 Teddy Bear (1622) / 30 Waste Stove (1617)
   Geffenia
     100 Violy (1390)
+  Pyramids Basement 2
+    40 Ancient Mummy (1297) / 15 Arclouse (1194)    
+  Thanatos
+    40 Ancient Mimic (1699) / 40 Death Word (1698)
+  
     
 		
 PARTY
+  Magma Dungeon 2
+    200 Earth Deleter (1385) / 200 Sky Deleter (1384)
 	GH Underground
 		100 Majoruros (1310) / 200 Minorous (1149)
 	Rachel
@@ -163,7 +168,28 @@ PARTY
 		30 Kasa (1835) / 70 Salamander (1831) / 10 Bow Master (1830) / 10 Sword Master (1829)
 	Bio3
 		10 Seyren (1634) / 10 Eremes (1635)  / 10 Harword (1636) / 10 Magaleta (1637) / 10 Shecil (1638) / 10 Katrinn (1639)
-		
+  Eye of Hellion
+    200 Dark Priest (1198)
+  Rachel
+    80 Hodremlin (1773) / 40 Seeker (1774)
+  
+	 Kamidal
+    30 Hillslion (1989) / 30 Nepenthes (1988) / 30 Tatacho (1986)
+    
+  Kamidal 
+    50 Bradium Golem (2024)
+    
+  Bifrost 
+    30 Angra Mantis (2133) / 30 Pom Spider (2132) / 30 Miming (2137) / 30 Little Fatum (2136)
+    
+  Kamidal
+    50 Centipede (1987) / 50 Dolomedes (2092)
+    
+  Scaraba Hole
+    50 Antler (2085) / 50 Rake Horn (2086) / 50 Uni-horn (2083) / 50 Horn (2084)
+    
+  Splendide Field
+     50 Naga (1993) / 50 Cornus (1992)
 		
 LONGTERM 80-99 Party
 	Bio3
