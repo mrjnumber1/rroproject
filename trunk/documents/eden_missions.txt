@@ -53,23 +53,24 @@ Also, the kills from the missions should ONLY apply if party exp share is on. If
 	Gonryun
 		20 Zipper Bear / 20 Peace Tree / 20 Bloody Butterfly
 	Bio 2
-		10 Ygnizem / 10 Whikebain / 10 Armaia / 10 Erend / 10 Kavac / 10 Rawrel
+		10 Ygnizem (1652) / 10 Whikebain (1653) / 10 Armaia (1654)
+    10 Erend (1655) / 10 Kavac (1656) / 10 Rawrel (1657)
 	Magma
-		25 Kaho / 25 Lava golem / 30 Blazer
+		25 Kaho (1072) / 25 Lava golem (1366) / 30 Blazer (1367)
 	Rachel 1
-		40 Vanberk / 30 Isilla
+		40 Vanberk (1771) / 30 Isilla (1772)
 	Turtle Island
-		30 Solider / 30 Permeter
+		30 Solider (1316) / 30 Permeter (1314)
 	Sphinx 4 
-		40 Anubis
+		40 Anubis (1098)
 	Ice Cave
-		100 Siroma
+		100 Siroma (1776)
 	Comodo Field
-		60 Gator / 30 Poison Spore / 10 Savage
+		60 Gator (1271) / 30 Poison Spore (1077) / 10 Savage (1840)
 	GH Church
-		70 Evil Druid / 20 Ghoul / 20 Wraith
+		70 Evil Druid (1117) / 20 Ghoul (1036) / 20 Wraith (1192)
 	Clock Cleaner
-		30 clocks / 20 Alarms / 10 Owl Dukes
+		30 clocks (1269) / 20 Alarms (1193) / 10 Owl Dukes (1320)
 	
 80-99
 
