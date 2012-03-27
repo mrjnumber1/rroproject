@@ -41,17 +41,17 @@ Names:
 	"Occultists of Rachel Sanctuary" // ran_san01
 	"Inside Turtle Island" // tur_dun02
 //30
-	"Conquering Sphinx's Undead"
-	"Annihilate all the Siromas!"
-	"Beasts in Papuchicha Forest"
-	"Unholy Glast Heim Church-dwellers"
-	"Clean the Clock Tower"
+	"Conquering Sphinx's Undead" // in_sphinx4
+	"Annihilate all the Siromas!" // ice_dun01
+	"Beasts in Papuchicha Forest" // cmd_fild01
+	"Unholy Glast Heim Church-dwellers" // gl_church
+	"Clean the Clock Tower" // c_tower2 -or - c_tower3
 //35
-	"Glast Heim Culvert, Harder than Prontera's"
-	"Moscovia Dremuci Forest Clearing"
-	"Surface of Turtle Island"
-	"Exploring Einbech Mines"
-	"Skellington's Little Ghosts"
+	"Glast Heim Culvert, Harder than Prontera's" // gl_sew03
+	"Moscovia Dremuci Forest Clearing" // mosk_dun02
+	"Surface of Turtle Island" // tur_dun01
+	"Exploring Einbech Mines" // ein_dun01
+	"Skellington's Little Ghosts" // nif_fild01
 //40
 	"Miners in Thor Volcano"
 	"Farming Fish in Byalan"
