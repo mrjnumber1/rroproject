@@ -89,17 +89,17 @@ Names:
 	"Rock the Dragons in Abyss Lake Caves" // abyss_03
 	"Demons of the Abbey, Cursed Monastery" // abbey03
 //70
-	"Protecters of Odin's Shrine"
-	"Guardians of Nidhoggur's Nest"
-	"Sleep Beneath Thor Volcano's Ashes, Red-Greys!"
-	"Deadly Experiments from Lighthalzen Bio-Labs"
-	"Magnificient Monsters of Manuk"
+	"Protecters of Odin's Shrine" // odin_tem03
+	"Guardians of Nidhoggur's Nest" // 1@nyd -or- 2@nyd
+	"Sleep Beneath Thor Volcano's Ashes, Red-Greys!" // thor_v03
+	"Deadly Experiments from Lighthalzen Bio-Labs" // lhz_dun03
+	"Magnificient Monsters of Manuk" // man_fild02
 //75
-	"Splendide Splatterplunk of Splendide" 
-	"Shadows of Dimensional Gorge"
-	"Beasts in Suei Long Gon"
-	"Gatekeepers of Thanatos Tower"
-	"Beyond the Gates of Thanatos Tower"
+	"Splendide Splatterplunk of Splendide" // spl_fild01
+	"Shadows of Dimensional Gorge" // moc_fild21
+	"Beasts in Suei Long Gon" // lou_dun03
+	"Gatekeepers of Thanatos Tower" // tha_t04
+	"Beyond the Gates of Thanatos Tower" // tha_t07
 	
 	
 01-19
