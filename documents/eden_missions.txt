@@ -4,43 +4,42 @@ Also, the kills from the missions should ONLY apply if party exp share is on. If
 
 
 Names:
-
 //0
-	"Starting in Prontera Fields" 
-	"Surrounding Geffen Fields"
-	"Looking in Payon Forests"
-	"Entering Culvert"
-	"Danger in Sograt Deserts"
+	"Starting in Prontera Fields"  // prt_fild08
+	"Surrounding Geffen Fields" // gef_fild04
+	"Looking in Payon Forests" // pay_fild01
+	"Entering Culvert" // prt_sewb1
+	"Danger in Sograt Deserts" // moc_fild01
 //5
-	"Deeper into Culvert"
-	"Frog Hunting"
-	"Santa's Toy Factory"
-	"Amatsu Shrine's Gunmen"
-	"Insects in Mjolnir Mountains"
+	"Deeper into Culvert" // prt_sewb2
+	"Frog Hunting" // beach_dun3
+	"Santa's Toy Factory" // xmas_dun01
+	"Amatsu Shrine's Gunmen" // ama_dun01
+	"Insects in Mjolnir Mountains" // redo
 //10	
-	"Payon Cave's Undead Monsters"
-	"Secluded in Sograt Desert"
-	"Deeper into Payon Forest"
-	"Moscovia Les Forest Clearing"
-	"Undead Orc Dungeon"
+	"Payon Cave's Undead Monsters" // pay_dun00 -or- pay_dun01
+	"Secluded in Sograt Desert" // moc_fild03
+	"Deeper into Payon Forest" // pay_fild03
+	"Moscovia Les Forest Clearing" // mosk_dun01
+	"Undead Orc Dungeon" // orcsdun01
 //15
-	"Beginning of Sphinx"
-	"Treasures of Toy Factory"
-	"Rusty Einbroch Fields"
-	"Plants by Ice Cave"
-	"Beasts of Veins Fields"
+	"Beginning of Sphinx" // in_sphinx1
+	"Treasures of Toy Factory" // xmas_dun02
+	"Rusty Einbroch Fields" // ein_fild08
+	"Plants by Ice Cave" // ra_fild01
+	"Beasts of Veins Fields" // ve_fild04
 //20
-	"Insects and Plants in Manuk Fields"
-	"Poison and Death in Coal Mine"
-	"Assault on Kobold Village"
-	"Ugly Monsters of Brasilis Dungeon"
-	"Deep inside Geffen Tower"
+	"Insects and Plants in Manuk Fields" // man_fild01
+	"Poison and Death in Coal Mine" // mjo_dun03
+	"Battle in Kordt Forest" // gef_fild12 aka Kordt Forest
+	"Ugly Monsters of Brasilis Dungeon" // bra_dun01
+	"Deep inside Geffen Tower" // gef_dun01
 //25
-	"Come and Get Gonryun Shrine Beasts!"
-	"Experiments in Bio-Laboratory"
-	"Travelling Magma Nogg Road"
-	"Occultists of Rachel Sanctuary"
-	"Inside Turtle Island"
+	"Come and Get Gonryun Shrine Beasts!" // gon_dun01
+	"Experiments in Bio-Laboratory" // lhz_dun02
+	"Travelling Magma Nogg Road" // mag_dun01
+	"Occultists of Rachel Sanctuary" // ran_san01
+	"Inside Turtle Island" // tur_dun02
 //30
 	"Conquering Sphinx's Undead"
 	"Annihilate all the Siromas!"
