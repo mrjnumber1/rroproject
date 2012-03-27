@@ -28,7 +28,7 @@ Names:
 	"Treasures of Toy Factory"
 	"Rusty Einbroch Fields"
 	"Plants by Ice Cave"
-	"Beasts of Rachel Fields"
+	"Beasts of Veins Fields"
 //20
 	"Insects and Plants in Manuk Fields"
 	"Poison and Death in Coal Mine"
@@ -147,8 +147,8 @@ Names:
 	18 Rachel Field
 		30 Muscipular (1780) / 5 Drosera (1781)
 60-79
-	19 Lighthalzen Field
-		50 Hill Winds (1680) / 20 Roweens (1782) / 30 Desert Wolf (1106)
+	19 Veins Field
+		60 Desert Wolf (1106) / 20 Roweens (1782)
 	21 Coal Mines
 		140 Skeleton Worker (1169) / 30 Myst (1151) 
 	22 Kobold village
