@@ -185,7 +185,7 @@ Names:
 	38 Einbech Mines 1
 		30 Noxious (1620) / 20 Venomous (1621) / 20 Pitman (1616)
 	39 Niff Field 
-		30 Disguise (1506) / 30 Lude (1509) / 30 Quve (1508) / 30 Heirozoist (1510)
+		30 Disguise (1506) / 30 Quve (1508) / 30 Heirozoist (1510)
 	40 Thor 2
 		70 Knocker (1838) / 10 Imp (1837)
 	41 Fish Farming
