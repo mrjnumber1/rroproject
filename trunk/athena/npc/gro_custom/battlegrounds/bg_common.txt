@@ -1,0 +1,202 @@
+// ==============================================================================
+// BattleGround System - Common NPCs
+// ==============================================================================
+
+// MapFlags
+// *********************************************************************
+
+bat_room	mapflag	nomemo
+//bat_room	mapflag	nowarpto
+bat_room	mapflag	nobranch
+bat_room	mapflag	nopenalty
+bat_room	mapflag	noteleport
+//bat_room	mapflag	nosave	SavePoint
+bat_room	mapflag	allow_bg_items
+
+// BattleGround Warper - Entrance
+// *********************************************************************
+
+
+// Info Board
+// *********************************************************************
+bat_room,163,156,2	script	Battleground Info Board	837,{
+	if( $@Conquest == 1 )
+		mes "^FFA500Conquest^000000 - ^FF0000(" + bg_get_data($@Conquest_id2, 0) + ")^000000 vs ^0000FF(" + bg_get_data($@Conquest_id1, 0) + ")^000000";
+	else
+		mes "^FFA500Conquest^000000 - ^808080idle^000000";
+	close;
+
+
+
+// BattleGround Happy Hour
+OnInit:
+OnClock1600:
+OnClock1800:
+OnClock2000:
+OnClock2200:
+	switch( gettime(4) )
+	{
+	case 1:
+	case 3:
+	case 5:
+		if( gettime(3) >= 20 && gettime(3) < 22 )
+		{
+			announce "-- Battleground Happy Hour has begun --",0,0x00FF00;
+			setbattleflag "bg_reward_rates",getbattleflag "bg_reward_rates" + getbattleflag "bg_ranking_bonus"; 
+			setbattleflag "bg_ranked_mode",1;
+			end;
+		}
+		
+		if( gettime(3) == 22 )
+		{
+			announce "-- Battleground Happy Hour is over --",0,0x00BFFF;
+			setbattleflag "bg_reward_rates",100; // Normal Rates
+			setbattleflag "bg_ranked_mode",0;
+			end;
+		}
+		break;
+	case 2:
+	case 4:
+	case 6:
+		if( gettime(3) >= 16 && gettime(3) < 18 )
+		{
+			announce "-- Battleground Happy Hour has begun --",0,0x00FF00;
+			setbattleflag "bg_reward_rates",120; // +20% Reward Rates
+			setbattleflag "bg_ranked_mode",1;
+			end;
+		}
+		
+		if( gettime(3) == 18 )
+		{
+			announce "-- Battleground Happy Hour is over --",0,0x00BFFF;
+			setbattleflag "bg_reward_rates",100; // Normal Rates
+			setbattleflag "bg_ranked_mode",0;
+			end;
+		}
+		break;
+	}
+	end;
+}
+
+// *********************************************************************
+// Castle Conquest - Join Battle NPC's
+// *********************************************************************
+
+bat_room,159,178,5	script	Blutarch Mann#1	420,{
+	cutin "bat_kiyom2",2;
+	mes "[Blutarch Mann]";
+	mes "Hello " + strcharinfo(0) + ", let's capture the castles of the RED!";
+	next;
+	switch( select("I want to join your team!:About Conquest:End Conversation") )
+	{
+	case 1:
+		mes "[Blutarch Mann]";
+		if( BaseLevel < 98 )
+		{
+			mes "I'm very pleased you want to join our team, but I'm sorry; I can't send a rookie like you to die on the cruel battlefield.";
+			cutin "",255;
+			close;
+			
+		}
+		// Delay Check ============================================================
+		if( checkquest(8506,PLAYTIME) == 2 ) erasequest 8506;
+		if( checkquest(8506,PLAYTIME) != -1 )
+		{
+			mes "You have received an indicator showing that you are a team deserter. I can't let you participate until the indicator goes off.";
+			cutin "",255;
+			close;
+		}
+		if( checkquest(8509,PLAYTIME) == 2 ) erasequest 8509;
+		if( checkquest(8509,PLAYTIME) != -1 )
+		{
+			mes "You have received an indicator showing that you've recently participated in this battle. I can't let you participate until the indicator goes off.";
+			cutin "",255;
+			close;
+		}
+		// ========================================================================
+		mes "Good luck!";
+		//set Bat_Team, 1;
+		close2;
+		cutin "",255;
+		warp "bat_room",169,77;
+		end;
+	case 2:
+		mes "[Blutarch Mann]";
+		mes "We of the BLU must capture the castle held by the RED team!";
+	case 3:
+		cutin "",255;
+		close;
+	}
+}
+
+bat_room,156,178,5	script	Redmond Mann#2	416,{
+
+	cutin "bat_crua1",2;	
+	
+	mes "[Redmond Mann]";
+	mes "Hello " + strcharinfo(0) + ", let's defend ourselves from the BLUs!";
+	next;
+	switch( select("I want to join your team!:About Conquest:End Conversation") )
+	{
+	case 1:
+		mes "[Redmond Mann]";
+		if( BaseLevel < 98 )
+		{
+			mes "I'm very pleased you want to join our team, but I'm sorry; I can't send a rookie like you to die on the cruel battlefield.";
+			cutin "",255;
+			close;
+		}
+		// Delay Check ============================================================
+		if( checkquest(8506,PLAYTIME) == 2 ) erasequest 8506;
+		if( checkquest(8506,PLAYTIME) != -1 )
+		{
+			mes "You have received an indicator showing that you are a deserter. I can't let you participate until the indicator goes off.";
+			cutin "",255;
+			close;
+		}
+		if( checkquest(8509,PLAYTIME) == 2 ) erasequest 8509;
+		if( checkquest(8509,PLAYTIME) != -1 )
+		{
+			mes "You have received an indicator showing that you've recently participated in this battle. I can't let you participate until the indicator goes off.";
+			cutin "",255;
+			close;
+		}
+		// ========================================================================
+		
+		//set Bat_Team, 2;
+		mes "Good luck!";
+		close2;
+		cutin "",255;
+		warp "bat_room",169,94;
+		end;
+	case 2:
+		mes "[Redmond Mann]";
+		mes "We of the RED must defend our castle from BLU's attack.";
+	case 3:
+		cutin "",255;
+		close;
+	}
+}
+
+
+// *********************************************************************
+// Free Slots - Join Battle NPC's
+// *********************************************************************
+// Flags
+// *********************************************************************
+
+//-	script	BLU camp#bat	973,{ end; }
+//-	script	RED camp#bat	974,{ end; }
+
+// Exit from Registration
+// *********************************************************************
+
+// Castle Conquest
+bat_room,169,81,0	warp	bat17	1,1,bat_room,154,149
+bat_room,169,90,0	warp	bat18	1,1,bat_room,154,149
+
+
+
+
+
+

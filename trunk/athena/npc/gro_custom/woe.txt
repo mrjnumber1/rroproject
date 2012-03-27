@@ -26,10 +26,10 @@ prontera,164,174,3	script	WoE Info Board	837,{
 		mes "^0000FF" + getcastlename(.Castles_SE$[$Castles_SE[.@k]]) + "^000000 (" + .Castles_SE$[$Castles_SE[.@k]] + ")";
 
 // Ancient WoE - Uncomment if you use it
-/*	mes "- Opened Castles for Ancient WoE";
-	for( set .@k, 0; $Castles_AE[.@k] != 0; set .@k, .@k + 1 )
-		mes "^0000FF" + getcastlename(.Castles_AE$[$Castles_AE[.@k]]) + "^000000 (" + .Castles_AE$[$Castles_AE[.@k]] + ")";
-*/
+//	mes "- Opened Castles for Ancient WoE";
+//	for( set .@k, 0; $Castles_AE[.@k] != 0; set .@k, .@k + 1 )
+//		mes "^0000FF" + getcastlename(.Castles_AE$[$Castles_AE[.@k]]) + "^000000 (" + .Castles_AE$[$Castles_AE[.@k]] + ")";
+//
 	next;
 	mes "[^FFA500 WoE Info Board ^000000]";
 	mes "- Next Castles for Classic WoE";
@@ -340,6 +340,24 @@ prtg_cas03	mapflag	blocked
 prtg_cas04	mapflag	blocked
 prtg_cas05	mapflag	blocked
 
+//WoE SE
+
+schg_cas01	mapflag	woe_set	2
+schg_cas02	mapflag	woe_set	2
+schg_cas03	mapflag	woe_set	2
+schg_cas04	mapflag	blocked
+schg_cas05	mapflag	blocked
+
+arug_cas01	mapflag	woe_set	2
+arug_cas02	mapflag	woe_set	2
+arug_cas03	mapflag	woe_set	2
+arug_cas04	mapflag	blocked
+arug_cas05	mapflag	blocked
+
+
+
+
+
 // aldeg_cas01	mapflag	woe_set	1
 // aldeg_cas02	mapflag	woe_set	1
 // aldeg_cas03	mapflag	woe_set	1
@@ -364,30 +382,7 @@ prtg_cas05	mapflag	blocked
 // prtg_cas04	mapflag	woe_set	1
 // prtg_cas05	mapflag	woe_set	1
 
-//WoE SE
 
-// schg_cas01	mapflag	woe_set	2
-// schg_cas02	mapflag	woe_set	2
-// schg_cas03	mapflag	woe_set	2
-// schg_cas04	mapflag	woe_set	2
-// schg_cas05	mapflag	woe_set	2
-// arug_cas01	mapflag	woe_set	2
-// arug_cas02	mapflag	woe_set	2
-// arug_cas03	mapflag	woe_set	2
-// arug_cas04	mapflag	woe_set	2
-// arug_cas05	mapflag	woe_set	2
-
-// schg_cas04	mapflag	blocked
-// schg_cas05	mapflag	blocked
-// arug_cas04	mapflag	blocked
-// arug_cas05	mapflag	blocked
-
-//Ancient WoE
-
-// nguild_alde	mapflag	woe_set	4
-// nguild_gef	mapflag	woe_set	4
-// nguild_pay	mapflag	woe_set	4
-// nguild_prt	mapflag	woe_set	4
 
 
 // About MapFlags:

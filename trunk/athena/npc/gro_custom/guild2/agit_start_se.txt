@@ -1,0 +1,25 @@
+//===== eAthena Script =======================================
+//= War of Emperium SE - Auto-Start
+//===== By: ==================================================
+//= L0ne_W0lf
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eAthena SVN; RO Episode 11.3
+//===== Description: =========================================
+//= Auto Start for War of Emperium
+//= To know how to set up WoE times, go to doc\woe_time_explanation.txt
+//=============================================
+//= gettime(3): Gets hour (24 hour time)
+//= gettime(4): Gets day of week 1=Monday, 2=Tuesday,
+//= 3=Wednesday, 4=Thursday, etc.
+//===== Additional Comments: =================================
+//= 1.0 Copy/Paste of the original setter.
+//============================================================
+
+// WoE Start/Stop times
+//============================================================
+-	script	Agit2_Event	-1,{
+	end;
+
+}
