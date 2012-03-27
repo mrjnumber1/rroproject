@@ -71,17 +71,17 @@ Names:
 	"Clock Tower Basement Beasts" // alde_dun03
 	"Beasts in the Zenhai Marsh" // cmd_fild03
 //55	
-	"Reach Knowledge Inside Glast Heim" 
-	"Glast Heim Chivalry is Dead"
-	"Valley of Gyoll's Demons"
-	"Demon Glast Heim Castle Dracula"
-	"Einbech Mine Dungeon Intruders"
+	"Reach Knowledge Inside Glast Heim" // gl_in01
+	"Glast Heim Chivalry is Dead" // gl_knt01
+	"Valley of Gyoll's Demons" // nif_fild02
+	"Demon Glast Heim Castle Dracula" // gl_cas02
+	"Einbech Mine Dungeon Intruders" // ein_dun02
 //60 
-	"Real Demons in Gefenia"
-	"Morocc Pyramid Basement's Evils"
-	"Trick Monsters in Lower Thanatos Floors"
-	"Delete All of Magma Nogg Road"
-	"Charge to Glast Heim Underground"
+	"Real Demons in Gefenia" // geffenia02
+	"Morocc Pyramid Basement's Evils" // moc_pryd05
+	"Trick Monsters in Lower Thanatos Floors" // tha_t02
+	"Delete All of Magma Nogg Road" // mag_dun02
+	"Charge to Glast Heim Underground" // gl_dun02
 //65
 	"Deep into Rachel Sanctuary's Occult"
 	"Defenders of Juperos Core Ruins"
