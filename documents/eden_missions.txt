@@ -53,23 +53,23 @@ Names:
 	"Exploring Einbech Mines" // ein_dun01
 	"Skellington's Little Ghosts" // nif_fild01
 //40
-	"Miners in Thor Volcano"
-	"Farming Fish in Byalan"
-	"Byalan's Flora and Fauna"
-	"Danger in Glast Heim Underprison"
-	"Deep Below Geffen Tower"
+	"Miners in Thor Volcano" // thor_v02
+	"Farming Fish in Byalan" // iz_dun03
+	"Byalan's Flora and Fauna" // iz_dun00
+	"Danger in Glast Heim Underprison" // gl_prison1
+	"Deep Below Geffen Tower" // gef_dun02
 //45
-	"Karu Cave Crusade"
-	"Little Monsters of Splendide"
-	"Guardians of Juperos Ruins"
-	"Kiel Robot Factory's Robo-People"
-	"Deeper into Sphinx"
+	"Karu Cave Crusade" // beach_dun
+	"Little Monsters of Splendide" // spl_fild02
+	"Guardians of Juperos Ruins" // juperos_01
+	"Kiel Robot Factory's Robo-People" // kh_dun01
+	"Deeper into Sphinx" // in_sphinx4
 //50
-	"Thor Volcano's Firebirds"
-	"Conquer Turtle Palace"
-	"Genocide in Orc Villages"
-	"Clock Tower Basement Beasts"
-	"Beasts in the Zenhai Marsh"
+	"Thor Volcano's Firebirds" // thor_v01
+	"Conquer Turtle Palace" // tur_dun04
+	"Genocide in Orc Villages" // gef_fild14
+	"Clock Tower Basement Beasts" // alde_dun03
+	"Beasts in the Zenhai Marsh" // cmd_fild03
 //55	
 	"Reach Knowledge Inside Glast Heim" 
 	"Glast Heim Chivalry is Dead"
