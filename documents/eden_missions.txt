@@ -59,7 +59,7 @@ Names:
 	"Danger in Glast Heim Underprison"
 	"Deep Below Geffen Tower"
 //45
-	"Exploring Comodo Beach Dungeon"
+	"Karu Cave Crusade"
 	"Little Monsters of Splendide"
 	"Guardians of Juperos Ruins"
 	"Kiel Robot Factory's Robo-People"
