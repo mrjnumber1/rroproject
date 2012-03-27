@@ -95,7 +95,7 @@ Names:
 	"Deadly Experiments from Lighthalzen Bio-Labs" // lhz_dun03
 	"Magnificient Monsters of Manuk" // man_fild02
 //75
-	"Splendide Splatterplunk of Splendide" // spl_fild01
+	"Splendid Splatterplunk of Splendide" // spl_fild01
 	"Shadows of Dimensional Gorge" // moc_fild21
 	"Beasts in Suei Long Gon" // lou_dun03
 	"Gatekeepers of Thanatos Tower" // tha_t04
