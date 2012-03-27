@@ -1,0 +1,6 @@
+-	script	f_bg_rentals	-1,{
+
+	function add_armor;
+	function add_weapon;
+
+}

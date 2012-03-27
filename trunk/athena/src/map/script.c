@@ -8267,11 +8267,12 @@ BUILDIN_FUNC(getexp)
 
 	base=script_getnum(st,2);
 	job =script_getnum(st,3);
+	
 	if(base<0 || job<0)
 		return 0;
 
 	if((base+job) > 100000)
-		kafra_pts = (base+job)/100000;
+		kafra_pts = (int) cap_value( (base+job)/100000, 0, 199);
 	
 	// bonus for npc-given exp
 	bonus = battle_config.quest_exp_rate / 100.;
@@ -8280,6 +8281,31 @@ BUILDIN_FUNC(getexp)
 
 	
 	pc_getcash(sd, 0, kafra_pts+1);
+	pc_gainexp(sd, NULL, base, job, true);
+
+	return 0;
+}
+BUILDIN_FUNC(getexp_without_points)
+{
+	TBL_PC* sd;
+	int base=0,job=0;
+	double bonus;
+	sd = script_rid2sd(st);
+	if( sd == NULL )
+		return 0;
+
+	base=script_getnum(st,2);
+	job =script_getnum(st,3);
+	
+	if(base<0 || job<0)
+		return 0;
+
+	
+	// bonus for npc-given exp
+	bonus = battle_config.quest_exp_rate / 100.;
+	base = (int) cap_value(base * bonus, 0, INT_MAX);
+	job = (int) cap_value(job * bonus, 0, INT_MAX);
+
 	pc_gainexp(sd, NULL, base, job, true);
 
 	return 0;
@@ -18224,6 +18250,9 @@ struct script_function buildin_func[] = {
 	
 	BUILDIN_DEF(getpartyshare, "?"),
 	BUILDIN_DEF(getpartycanshare, "?"),
+	
+	
+	BUILDIN_DEF(getexp_without_points,"ii"),
 	
 	BUILDIN_DEF(rentitem2,"viiiiiiii"), // [BrianL]
 	
