@@ -83,11 +83,11 @@ Names:
 	"Delete All of Magma Nogg Road" // mag_dun02
 	"Charge to Glast Heim Underground" // gl_dun02
 //65
-	"Deep into Rachel Sanctuary's Occult"
-	"Defenders of Juperos Core Ruins"
-	"Make Big Guys Hate This Ice Cave"
-	"Rock the Dragons in Abyss Lake Caves"
-	"Demons of the Abbey, Cursed Monastery"
+	"Deep into Rachel Sanctuary's Occult" // ra_san05
+	"Defenders of Juperos Core Ruins" // jupe_core
+	"Make Big Guys Hate This Ice Cave" // ice_dun03
+	"Rock the Dragons in Abyss Lake Caves" // abyss_03
+	"Demons of the Abbey, Cursed Monastery" // abbey03
 //70
 	"Protecters of Odin's Shrine"
 	"Guardians of Nidhoggur's Nest"
