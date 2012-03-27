@@ -143,7 +143,7 @@ Names:
 	16 Toy Factory
 		30 Myst Case (1249) / 10 Cruiser (1248) 
 	17 Ein field
-		40 Metaling (1613) / 5 Geo (1368)
+		40 Metaling (1613) / 5 Porcellio (1619)
 	18 Rachel Field
 		30 Muscipular (1780) / 5 Drosera (1781)
 60-79
