@@ -14,17 +14,21 @@
 		//TODO: add field/dungeon/town/fe in
 		//also, don't fuck these up or it's... fucked up :D
 		add_warp_category("Towns", "town");
+		
 		add_warp_category("Fields", "fld");
+		
 		add_warp_category("Dungeons", "dun");
 			add_warp_subcategory("Prontera Culvert", "dun", 50);
 			add_warp_subcategory("Rachel Sanctuary", "dun", 5000);
 				add_warp("dun", 0, "F1", "ra_san01", 140,  11, 0);
 				add_warp("dun", 0, "F2", "ra_san02",  32,  21, 300); //floor 2 cost becomes 5000 + 300
+				
 		add_warp_category("FE castles", "fe");
 			add_warp_subcategory("Aldebaran", "fe");
 			add_warp_subcategory("Prontera" , "fe");
 			add_warp_subcategory("Geffen"   , "fe");
 			add_warp_subcategory("Payon"    , "fe");
+			
 		add_warp_category("SE Castles", "se");
 			add_warp_subcategory("Arunafelz", "se"); 
 				add_warp("se", 0, "Mardol", "aru_gld", 163, 264);
@@ -63,7 +67,7 @@
 	}
 	
 	set .@choice, select(.@menustr$);
-	if(.@choice == 1)
+	if(.@choice == 1) //last warp just warps you right the hell out
 	{
 		goto LWarpEnd2;	
 	}
@@ -90,9 +94,9 @@
 	// here we pick for example floor 1/2/3/ etc :)
 	for (set .@i, 0; .@i < getarraysize(getd("."+.@loc$+"_name_"+.@chosen_num+"$"); set .@i, .@i + 1)
 	{
-		set .@cost, getd("."+.@loc$+"_cost_"+.@chosen_num+ "["+.@i+"]");
+		set @cost, getd("."+.@loc$+"_cost_"+.@chosen_num+ "["+.@i+"]");
 	
-		if (.@cost > 0)
+		if (@cost > 0)
 			set .@menustr$, .@menustr$ + "(^AAAA00"+getd("."+.@loc$+"_cost_"+.@chosen_num+ "["+.@i+"]") + "^000000z)";
 			
 		set .@menustr$, .@menustr$ + getd("."+.@loc$+"_name_"+.@chosen_num+"$["+.@i+"]")+":";
@@ -103,11 +107,11 @@
 	
 	set .@floor, .@choice - 1;
 	
-	set .@cost, getd("."+.@loc$+"_cost_"+.@chosen_num+ "["+.@floor+"]");
+	set @cost, getd("."+.@loc$+"_cost_"+.@chosen_num+ "["+.@floor+"]");
 	
-	if (.@cost > 0)
+	if (@cost > 0)
 	{
-		set @warp_name$, "(^AAAA00" + .@cost + "^000000z) ";
+		set @warp_name$, "(^AAAA00" + @cost + "^000000z) ";
 	}
 	
 	set @warp_name$, @warp_name$ + "^2200FF" + getd(".warp_subcat_"+.@loc$+"$["+.@chosen_num+"]") + " - " 
@@ -119,7 +123,7 @@
 	set @warp_y    , getd("."+.@loc$+"_x_"  +.@chosen_num+ "["+.@floor+"]");
 	
 LWarpEnd2:
-	if (Zeny < .@cost)
+	if (Zeny < @cost)
 	{
 		mes "[Warper]";
 		mes "Oh, it seems you lack the necessary funds... sorry!";
@@ -127,7 +131,7 @@ LWarpEnd2:
 	}
 	else
 	{
-		set Zeny, Zeny - .@cost;
+		set Zeny, Zeny - @cost;
 		warp  @warp_map$, @warp_x, @mapy
 	}
 	end;
@@ -138,10 +142,11 @@ LWarpEnd2:
 ActuallyImplemented:
 	if(!@warp_x || !@warp_y)
 	{
+		set @warp_cost, 0;
 		set @warp_name$, "Prontera";
 		set @warp_map$, "prontera";
-		set @warp_x, 153;
-		set @warp_y, 174;
+		set @warp_x, 153+rand(5);
+		set @warp_y, 174+rand(5);
 	}
 			
 	mes "[Warp NPC]";

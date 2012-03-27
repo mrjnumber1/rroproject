@@ -21,6 +21,7 @@
 //         The array are usually self-explanatory, these may not be!
 //$MD_type[ID]     0 = Disabled |||| 1 = Mission |||| 2 = Hat Q |||| beyond = ?
 //$MD_cooldown[ID] Cooldown in SECONDS of mission ID
+//$MD_expMult[ID]  100 = each quest completion gives 100% exp from mobs*kills*normalbonusexp/100*md_missionbonusexp/100
 
 	
 //     CHAR REGS
@@ -71,7 +72,7 @@ OnInit:
 	set .@missionsloaded, 1;
 
 	function add_mission {
-		//add_mission(name,recommended_map, cooldown, misspts, minlv, maxlv, mob1, mobc1 ... item1, itemc1, ... , reward1, rewardc1, ... );
+		//add_mission(name, recmap, cooldown in s yes, minlv, maxlv, misspts, expmult, mob1, mobc1 ... item1, itemc1, ... , reward1, rewardc1, ... );
 		set .@i, getarraysize($MD_minLevel$);
 		if (.@i == 0)
 			set .@i, 1;
@@ -82,9 +83,10 @@ OnInit:
 		set $MD_minLevel[.@i],   getarg(3);
 		set $MD_maxLevel[.@i],   getarg(4);
 		set $MD_missionPoints[.@i], getarg(5);
+		set $MD_expMult[.@i],    getarg(6);
 		
 		set .@j, 0;
-		set .@base, 6;
+		set .@base, 7;
 		for (set .@j, 0; .@j < $MD_maxMobs; set .@j, .@j + 1)
 		{
 			setd "$MD_mob"+(.@j+1)+"["+.@i+"]", getarg(.@base+.@j*2)
@@ -150,42 +152,42 @@ OnInit:
 		
 		// divide by quest exp rate because it'll screw thhings up!
 		// divide after multiplying by quest rate so that low exp mobs will not give 0, cause that'd suck shit!
-		set $MD_bExp[.@i], .@bexp *  .@base_exp_rate / .@quest_exp_rate * $MD_missionBonusEXP / 100;
-		set $MD_jExp[.@i], .@jexp *  .@job_exp_rate  / .@quest_exp_rate * $MD_missionBonusEXP / 100;
+		set $MD_bExp[.@i], .@bexp *  .@base_exp_rate / .@quest_exp_rate * $MD_expMult[.@i] / 100 *$MD_missionBonusEXP / 100;
+		set $MD_jExp[.@i], .@jexp *  .@job_exp_rate  / .@quest_exp_rate * $MD_expMult[.@i] / 100 *$MD_missionBonusEXP / 100;
 	}
 }
 
 
-// -	script	MissionMapAnnounce	-1,{
-	// end;
+-	script	MissionMapAnnounce	-1,{
+	end;
 	
-// OnInit:
+OnInit:
 		
-	// for( set .@i,0; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
-		// setmapflag .missionMaps$[.@i], mf_loadevent;
-	// end;
+	for( set .@i,0; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
+		setmapflag .missionMaps$[.@i], mf_loadevent;
+	end;
 
-// OnPCLoadMapEvent:
-// OnPCBaseLvUpEvent:
-	// for( set .@i,0; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
-	// {
-		// if( strcharinfo(3) == $MD_map$[.i] && BaseLevel > $MD_minLevel && BaseLevel < $MD_maxLevel)
-		// {
-			// for ( set .@j, 0; .@j < getarraysize($MD_slots); set .@jm .@j + 1 )
-			// {
-				// if( 
-					   // ( getd("MD_Slot"+.@j+"_ID") == .@i ) 
-					// || ( (gettimetick() - getd("MD_mission_"+.@j+"_time"))  > $MD_cooldown[.@i] ) 
-				  // )
-					// continue;
-			// }
-			// announce "The quest '"+$MD_name$+"' is available on this map.",bc_self;
-		// }
-	// }
+OnPCLoadMapEvent:
+OnPCBaseLvUpEvent:
+	for( set .@i,0; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
+	{
+		if( strcharinfo(3) == $MD_map$[.i] && BaseLevel > $MD_minLevel[.@i] && BaseLevel < $MD_maxLevel[.@i])
+		{
+			for ( set .@j, 0; .@j < getarraysize($MD_slots); set .@jm .@j + 1 )
+			{
+				if( 
+					   ( getd("MD_Slot"+.@j+"_ID") == .@i ) 
+					|| ( (gettimetick() - getd("MD_mission_"+.@j+"_time"))  > $MD_cooldown[.@i] ) 
+				  )
+					continue;
+			}
+			announce "The mission ["+$MD_name$+"] is recommended for this map.",bc_self;
+		}
+	}
 			
-	// end;
+	end;
 
-// }
+}
 
 
 

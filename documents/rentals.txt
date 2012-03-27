@@ -1,10 +1,12 @@
 ALL applicable gvg necessary non-bg gears such as:
 
 UPPER
-	Holy Marching Hat + S. Golem Card (5225 + 4223)
-	Alice Doll + Incubus Card         (5137 + 4269)
-	Purple Cowboy Hat + Isilla Card   (5409 + 4412)
-	Hat + Incubus Card                (2221 + 4269)
+	Holy Marching Hat + S. Golem Card (5225 + 4223) // Stun-Proof
+	Alice Doll + Incubus Card         (5137 + 4269) // Fatasm
+	Purple Cowboy Hat + Isilla Card   (5409 + 4412) // Aria
+	Hat + Incubus Card                (2221 + 4269) 
+	Jasper Crest + Nightmare Card     (5396 + 4127)
+	Poo Poo Hat                       (2289)
 	Beret                             (5172)
 	Feather Beret                     (5170)
 	Apple O' Archer                   (2285) 
@@ -14,10 +16,10 @@ UPPER
 	(Attack) Majestic Goat            (5374)
 MID
 	Glasses + Stalactic Golem Card (2204 + 4223)
-	Glasses + Leib Olmai Card      (2204 + 4188)
-	Glasses + Incubus Card         (2204 + 4269)
-	Glasses + Nightmare Card       (2204 + 4127)
-  Glasses + Gemini-S58 Card      (2204 + 4354)
+	Glasses + Leib Olmai Card      (2204 + 4188) // red stone
+	Glasses + Incubus Card         (2204 + 4269) 
+	Glasses + Nightmare Card       (2204 + 4127) // Insomniac
+	Glasses + Gemini-S58 Card      (2204 + 4354) // of Stability
 	Angel of Ghost                 (5389)
 	Robo Eye                       (5325)
 	Red Glasses                    (5288) 
@@ -40,8 +42,8 @@ U+M+L
 	+5 Dark Bacilium + Stalactic Golem Card (5808 + 4223)
 	
 ARMOR
-	Cotton Shirts + Marc Card        (2302 + 4105)
-	Cotton Shirts + Evil Druid Card  (2302 + 4141)
+	Cotton Shirts + Marc Card        (2302 + 4105) // unfrozen
+	Cotton Shirts + Evil Druid Card  (2302 + 4141) // Deadly
 	
 	Valkyrie Armor + Marc Card       (2357 + 4105)
 	Valkyrie Armor + Evil Druid Card (2357 + 4141)
@@ -65,21 +67,21 @@ ARMOR
 	Glorious Suit                    (2394)
 
 SHIELD
-	Guard + Horn Card                    (2102 + 4045)
-	Guard + Thara Frog Card              (2102 + 4058)
-	Guard + Flame Skull Card             (2102 + 4439)
+	Guard + Horn Card                    (2102 + 4045) // Heavy
+	Guard + Thara Frog Card              (2102 + 4058) // Cranial
+	Guard + Flame Skull Card             (2102 + 4439) // Of anathema
 	
 	Valkyrja's Shield + Horn Card        (2115 + 4045)
 	Valkyrja's Shield + Thara Frog Card  (2115 + 4058)
-	Valkyrja's Shield + Flame Skull Card (2115 + 4439)
+	Valkyrja's Shield + Flame Skull Card (2115 + 4439) 
 	
 	Magic Bible Vol1  + Horn Card        (2131 + 4045)
 	Magic Bible Vol1  + Thara Frog Card  (2131 + 4058)
 	Magic Bible Vol1  + Flame Skull Card (2131 + 4439)
 	
 FOOT
-	Sandal + Matyr Card       (2402 + 4097)
-	Sandal + Green Ferus Card (2402 + 4381)
+	Sandal + Matyr Card       (2402 + 4097) // Green
+	Sandal + Green Ferus Card (2402 + 4381) // of Wanderer
 	
 	BGShoe + Green Ferus Card (2435 + 4381)
 	BGShoe + Green Ferus Card (2436 + 4381)
@@ -92,11 +94,12 @@ FOOT
 	Beach Sandal              (2441)
 	
 	Glorious Shoes            (2444)
+	Shackles                  (2408)
 	
 ROBE
-	Hood + Raydric Card          (2502 + 4133)
-	Hood + Noxious Card          (2502 + 4334)
-	
+	Hood + Raydric Card          (2502 + 4133) // Neutral
+	Hood + Noxious Card          (2502 + 4334) // Anti-Sniping
+	51
 	BGRobe + Noxious Card        (2538 + 4334)
 	BGRobe + Noxious Card        (2539 + 4334)
 	BGRobe + Noxious Card        (2540 + 4334)
@@ -105,72 +108,81 @@ ROBE
 	BGRobe + Raydric Card        (2539 + 4133)
 	BGRobe + Raydric Card        (2540 + 4133)
 	
-	Wiz BGRobe + Salamander Card (2539 + 4429)
+	Wiz BGRobe + Salamander Card (2539 + 4429) // Nessus
 	
 	Beach Manteau + Jakk Card    (2546 + 4109)
 	Beach Manteau + Noxious Card (2546 + 4334)
-  Beach Manteau + Salamander Card (2546 + 4429)
+	Beach Manteau + Salamander Card (2546 + 4429)
+	marse carD! 4095 // genie's
+   
+	Proxy Skin + Salamander Card (2554 + 4429)
+	Frilldora Card (4088)
+	
 	
 	Glorious Muffler             (2549)
-   
-   +5 Proxy Skin + Salamander Card (2554 + 4429)
 
 ACCESSORY
-	Clip + Zerom Card     (2607 + 4064)
-	Clip + Mantis Card    (2607 + 4079)
-	Clip + Alligator Card (2607 + 4252)
-	Clip + Smokie Card    (2607 + 4044)
-	Clip + Horong Card    (2607 + 4103)
+	Clip + Zerom Card         (2607 + 4064) // Nimble
+	Clip + Mantis Card        (2607 + 4079) // Of Muscle
+	Clip + Alligator Card     (2607 + 4252) // Four Leaf Clover
+	Clip + Smokie Card        (2607 + 4044) // hiding
+	Clip + Horong Card        (2607 + 4103) // Clairvoyant
+	Clip + Marine Sphere Card (2607 + 4084) // Blast
 	
-	Orlean's Glove + Mantis Card (2701 + 4079)
-	Orlean's Glove + Zerom Card  (2701 + 4064)
-	Orlean's Glove + Smokie Card (2701 + 4044)
-	Orlean's Glove + Horong Card (2701 + 4103)
+	//Orlean's Glove + Mantis Card        (2701 + 4079)
+	Orlean's Glove + Zerom Card         (2701 + 4064)
+	Orlean's Glove + Smokie Card        (2701 + 4044)
+	Orlean's Glove + Horong Card        (2701 + 4103)
+	Orlean's Glove + Marine Sphere Card (2701 + 4084)
 	
 	Linen Glove + Alligator Card (2749 + 4252)
 	Linen Glove + Kukre Card     (2749 + 4027)
 	Linen Glove + Smokie Card    (2749 + 4044)
 	
 	Bow Thimble + Zerom Card         (2671 + 4064)
-	Bow Thimble + Ragged Zombie Card (2671 + 4436
-	Bow Thimble + Smokie Card        (2671 + 4044)
+	Bow Thimble + Ragged Zombie Card (2671 + 4436) // Lunatic
+	Bow Thimble + Smokie Card        (2671 + 4044) 
 	
 	Spiritual Ring (2677)
 	
 	Ring of Flame Lord (2678)
 	Ring of Resonance (2679)
    
-  Bloodied Shackle Ball (2655) + Shackles (2408) // Atk + 50 w/ Shackles footgear, should be rented as unit
-  Bloody Shackle Ball (2710) // Atk + 30 w/o combo acc. RMS
+	MEDALS! of everyoner;
+	KVM ring
+	KVM pub ring
+	Bloodied Shackle Ball (2655) // Atk + 50 w/ Shackles footgear, should be rented as unit
+	Bloody Shackle Ball (2710) // Atk + 30 w/o combo acc. RMS
 	
 	
 WEAPONS
 	Combat Knife (1228)
-	Knife + 4x Drops Card (1202 + 4004*4)
-	
+	Knife + 4x Drops Card  (1202 + 4004*4) // Dexterous
+	Knife + 4x Shecil Card (1202+ 4368*4)
 	Long Mace (1525)
+	Lunakaligo + 2x bloody boned (1544 + 4035*2 + 4092
 	
 	Dex Survivor's Rod + Drops Card (1618 + 4004)
 	
-	Berserk + Shecil Card (1816 + 4368)
+	Berserk + Shecil Card (1816 + 4368) // Rapid
 	
-	Orcish Axe + 4x Zipper Bear Card (1309 + 
-	
+	Orcish Axe + 4x Zipper Bear Card (1309 + 4281*4) // Diligent
+	12
 	Thin Blade + 2x Shecil Card      (13405 + 4368*2)
 	Elemental Sword + 3x Shecil Card (13414 + 4368*3)
 	Elemental Sword + 3x Drops Card  (13414 + 4004*3)
 	
 	Earthen Bow + Hydra Card (1732 + 4035)
 	
-	Cello + Golem Card + 2x Centipede Larva Card (1925 + 4072 + 4452*2)
-	Cello + Golem Card + 2x Fabre Card           (1925 + 4072 + 4002*2)
+	Cello + Golem Card + 2x Centipede Larva Card (1925 + 4072 + 4452*2)  // Solid / Magical
+	Cello + Golem Card + 2x Fabre Card           (1925 + 4072 + 4002*2) //        / Vital
 	Spirited Guitar (1920)
 	
-	Whip of Unbalance + Golem Card + 2x Female Thief bug Card (1980 + 4072 + 4026*2) 
+	Whip of Unbalance + Golem Card + 2x Female Thief bug Card (1980 + 4072 + 4026*2) // / Shrewed
 	Whip of Unbalance + Golem Card + 2x Fabre Card            (1980 + 4072 + 4002*2) 
-   
-  Infiltrator + Skeleton Worker Card (1266 + 4092)
-  Katar of Raging Blaze + 2x Hydra Card + Skeleton Worker card (1277 + 4035*2 + 4092)
-  Katar of Piercing Wind + 2x Hydra Card + Skeleton Worker Card (1278 + 4035*2 + 4092)
-  Katar of Quaking + 2x Hydra Card + Skeleton Worker Card (1276 + 4035*2 + 4092)
-  Katar of Frozen Icicle + 2x Hydra Card + Skeleton Worker Card (1275 + 4035*2 + 4092)
+	
+	Infiltrator + Skeleton Worker Card (1266 + 4092) // Boned
+	Katar of Raging Blaze + 2x Hydra Card + Skeleton Worker card (1277 + 4035*2 + 4092) // Bloody
+	Katar of Piercing Wind + 2x Hydra Card + Skeleton Worker Card (1278 + 4035*2 + 4092)
+	Katar of Quaking + 2x Hydra Card + Skeleton Worker Card (1276 + 4035*2 + 4092)
+	Katar of Frozen Icicle + 2x Hydra Card + Skeleton Worker Card (1275 + 4035*2 + 4092)
