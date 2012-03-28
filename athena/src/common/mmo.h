@@ -92,7 +92,7 @@
 #define MAX_SKILL 2536
 #define MAX_SKILL_TREE 60
 #define GLOBAL_REG_NUM 256
-#define ACCOUNT_REG_NUM 64
+#define ACCOUNT_REG_NUM 112 //expanded to make room for individual mvp map instances
 #define ACCOUNT_REG2_NUM 16
 //Should hold the max of GLOBAL/ACCOUNT/ACCOUNT2 (needed for some arrays that hold all three)
 #define MAX_REG_NUM 256
