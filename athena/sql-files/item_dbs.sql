@@ -6791,3 +6791,12 @@ INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_bu
 (8910, 'Tayelin_Doll_Hat', 'Tailring Doll Hat', 5, 0, NULL, 500, NULL, 0, NULL, 1, 4294967295, 7, 2, 256, NULL, 60, 0, 357, ' bonus2 bSubRace,RC_DemiHuman,5; bonus bAgi,2; ', NULL, NULL),
 (8911, 'Binit_Doll_Hat', 'Vinit Doll Hat', 5, 0, NULL, 500, NULL, 0, NULL, 1, 4294967295, 7, 2, 256, NULL, 60, 0, 358, ' bonus2 bSubRace,RC_DemiHuman,5; bonus bVit,2; ', NULL, NULL),
 (8912, 'Debril_Doll_Hat', 'W Doll Hat', 5, 0, NULL, 500, NULL, 0, NULL, 1, 4294967295, 7, 2, 256, NULL, 60, 0, 359, ' bonus2 bSubRace,RC_DemiHuman,5; bonus bLuk,2; ', NULL, NULL);
+
+
+
+INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
+(2609, 'Skul_Ring', 'Skull Ring', 3, 10000, NULL, 100, NULL, 0, NULL, 0, 4294967295, 7, 2, 136, NULL, 0, 0, 0, NULL, NULL, NULL),
+(2610, 'Gold_Ring', 'Gold Ring', 3, 30000, NULL, 100, NULL, 0, NULL, 0, 4294967295, 7, 2, 136, NULL, 0, 0, 0, NULL, NULL, NULL),
+(2611, 'Silver_Ring', 'Silver Ring', 3, 20000, NULL, 100, NULL, 0, NULL, 0, 4294967295, 7, 2, 136, NULL, 0, 0, 0, NULL, NULL, NULL),
+(2612, 'Flower_Ring', 'Flower Ring', 3, 1500, NULL, 100, NULL, 0, NULL, 0, 4294967295, 7, 2, 136, NULL, 0, 0, 0, NULL, NULL, NULL),
+(2613, 'Diamond_Ring', 'Diamond Ring', 3, 45000, NULL, 100, NULL, 0, NULL, 0, 4294967295, 7, 2, 136, NULL, 0, 0, 0, NULL, NULL, NULL);
