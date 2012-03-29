@@ -37,4 +37,9 @@ add_mission("Deep inside Geffen Tower",		gef_dun01,null,60,79,666,100,	1130,80,1
 
 // 25
 add_mission("Come and Get Gonryun Shrine",	gon_dun01,null,60,79,666,100,	1417,20,1414,20,1408,20,0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,	0,0,0,0,0,0,0,0,0,0,);
+add_mission("Experiments in Bio-Laboratory",	lhz_dun02,null,60,79,666,100,	1652,10,1653,10,1654,10,1655,10,1656,10,1657,10,0,0,0,0,0,0,0,0,0,0,0,0,	0,0,0,0,0,0,0,0,0,0,);
+add_mission("Travelling Magma Nogg Road",	mag_dun01,null,60,79,666,100,	1072,25,1366,15,1367,30,0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,	0,0,0,0,0,0,0,0,0,0,);
+add_mission("Occultists of Rachel Sanctuary",	ran_san01,null,60,79,666,100,	1771,40,1772,30,0,0,0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,	0,0,0,0,0,0,0,0,0,0,);
+add_mission("Inside Turtle Island",		tur_dun02,null,60,79,666,100,	1316,30,1314,30,0,0,0,0,0,0,0,0,		0,0,0,0,0,0,0,0,0,0,0,0,	0,0,0,0,0,0,0,0,0,0,);
 
+// 30
