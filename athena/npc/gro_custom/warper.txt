@@ -78,7 +78,7 @@
 	set .@menustr$, "";
 	
 	// here we pick for example pront culvert or payon cave
-	for (set .@i, 0; .@i < getarraysize(getd(".warp_subcat_"+.@loc$+"$"); set .@i, .@i + 1)
+	for (set .@i, 0; .@i < getarraysize(getd(".warp_subcat_"+.@loc$+"$")); set .@i, .@i + 1)
 	{
 		set .@menustr$, .@menustr$+getd(".warp_subcat_"+.@loc$+"$["+.@i+"]")+":"; 
 	}
@@ -92,7 +92,7 @@
 	set .@menustr$, "";
 	
 	// here we pick for example floor 1/2/3/ etc :)
-	for (set .@i, 0; .@i < getarraysize(getd("."+.@loc$+"_name_"+.@chosen_num+"$"); set .@i, .@i + 1)
+	for (set .@i, 0; .@i < getarraysize( getd("."+.@loc$+"_name_"+.@chosen_num+"$") ); set .@i, .@i + 1)
 	{
 		set @cost, getd("."+.@loc$+"_cost_"+.@chosen_num+ "["+.@i+"]");
 	
@@ -132,7 +132,7 @@ LWarpEnd2:
 	else
 	{
 		set Zeny, Zeny - @cost;
-		warp  @warp_map$, @warp_x, @mapy
+		warp  @warp_map$, @warp_x, @mapy;
 	}
 	end;
 	
@@ -246,7 +246,7 @@ ActuallyImplemented:
 		"Byalan Tunnel",byalan,
 		"Clock Tower",clock,
 		"Comodo Caves",beach,
-		"Dimensonal Gorge",dimen;
+		"Dimensonal Gorge",dimen,
 		"Einbech Mine",weindun,
 		"Gefenia",gefenia,
 		"Geffen Dungeon",geffen,
@@ -3788,7 +3788,6 @@ ActuallyImplemented:
 		setd "."+.@loc$+"_cost_"+.@cat+ "["+getarraysize( getd("."+.@loc$+"_cost_"+.@cat    ) )+"]", getd(".warp_subcat_"+.@loc$+"_cost["+.@cat+"]") + .@cost_delta;
 	}			
 	function add_warp_category {
-	{
 		if (.maps_loaded)
 			return;
 		
@@ -3797,7 +3796,6 @@ ActuallyImplemented:
 		
 	}
 	function add_warp_subcategory {
-	{
 		if (.maps_loaded)
 			return;
 			

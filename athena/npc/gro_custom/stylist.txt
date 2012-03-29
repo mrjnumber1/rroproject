@@ -18,7 +18,7 @@
 //= v1.2 - Use getbattleflag to get max values [Saithis]
 //============================================================ 
 
-prontera,183,213,3	script	Stylist	122,{
+-	script	F_stylist	-1,{
 	set .@myhair, getlook(1);
 	set .@myhaircolor, getlook(6);
 	set .@myclothescolor, getlook(7);
@@ -112,7 +112,7 @@ prontera,183,213,3	script	Stylist	122,{
 	}
 	next;
 	mes "[^FF8000Stylist^000000]";
-	mes "So is this what you want for sure?"
+	mes "So is this what you want for sure?";
 	next;
 	if ( select("Keep it!:No, change me back!") == 2)
 	{

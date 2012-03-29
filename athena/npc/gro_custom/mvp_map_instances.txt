@@ -1,0 +1,34 @@
+-	script	F_mvp_instance_load	-1,{
+end;
+
+OnInit:
+
+
+	function add_map;
+
+	//setarray .MVPI_maxp[0],
+		
+	
+	function add_map {
+		//set .@
+	}
+	
+	end;
+	
+	
+	for( set .@i,0; .@i < getarraysize( .townMaps$ ); set .@i,.@i + 2 )
+	setmapflag .townMaps$[.@i], mf_loadevent;
+
+OnPCLoadMapEvent:
+for( set .@i,0; .@i < getarraysize( .townMaps$ ); set .@i,.@i + 2 )
+	if( strcharinfo(3) == .townMaps$[.@i] )
+		announce "Welcome to "+.townMaps$[.@i+1]+" .",bc_self;
+	
+end;
+OnPCLoginEvent:
+
+	for (set .@i, 0; .@i < .MVPI_MAX;set .@i, .@i + 1)
+	{
+		
+	}
+}

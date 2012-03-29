@@ -62,7 +62,7 @@ OnPCJobLvUpEvent:
 	if (JobLevel == 50 && Upper == 0 && Class != Job_Gunslinger && Class != Job_Ninja && Class != Job_SuperNovice)
 	{
 		message strcharinfo(0), "Congratulations on reaching Job Level 50! Now get to 99!";
-		getitem 12411, 1 // 1 field Manual 200%
+		getitem 12411, 1; // 1 field Manual 200%
 	} 
 	else if (JobLevel == 70 && (Class == Job_Gunslinger || Class == Job_Ninja || Upper == 1) )
 	{
@@ -92,7 +92,7 @@ OnPCJobChangeEvent:
 		{
 			message strcharinfo(0), "Great job on going to the *real* final job level.";
 			message strcharinfo(0), "Now get to 99/50!";
-			getitem 14592; // Job Manual 50%;
+			getitem 14592, 1; // Job Manual 50%;
 		}
 		else if(Upper == 1) // reborn
 		{

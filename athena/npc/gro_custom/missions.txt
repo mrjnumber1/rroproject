@@ -89,21 +89,21 @@ OnInit:
 		set .@base, 7;
 		for (set .@j, 0; .@j < $MD_maxMobs; set .@j, .@j + 1)
 		{
-			setd "$MD_mob"+(.@j+1)+"["+.@i+"]", getarg(.@base+.@j*2)
+			setd "$MD_mob"+(.@j+1)+"["+.@i+"]", getarg(.@base+.@j*2);
 			setd "$MD_mCount"+(.@j+1)+"["+.@i+"]" , getarg(.@base+.@j*2+1);
 		}
 		set .@base, .@base + (.@j*2) + 1 + 1;
 		set .@j, 0; // yes, i'm paranoid :)
 		for (set .@j, 0; .@j < $MD_maxItems; set .@j, .@j + 1)
 		{
-			setd "$MD_item"+(.@j+1)+"["+.@i+"]", getarg(.@base+.@j*2)
+			setd "$MD_item"+(.@j+1)+"["+.@i+"]", getarg(.@base+.@j*2);
 			setd "$MD_iCount"+(.@j+1)+"["+.@i+"]" , getarg(.@base+.@j*2+1);
 		}
 		set .@base, .@base + (.@j*2)+1 + 1;
 		set .@j, 0;
 		for (set .@j, 0; .@j < $MD_maxRewards; set .@j, .@j + 1)
 		{
-			setd "$MD_reward"+(.@j+1)+"["+.@i+"]", getarg(.@base+.@j*2)
+			setd "$MD_reward"+(.@j+1)+"["+.@i+"]", getarg(.@base+.@j*2);
 			setd "$MD_rCount"+(.@j+1)+"["+.@i+"]" , getarg(.@base+.@j*2+1);
 		}
 		set .@base, .@base + (.@j*2)+1 + 1;
@@ -146,7 +146,6 @@ OnInit:
 					else
 						set .@jexp, .@jexp + ( ( .@mob_bexp * $MD_normalBonusEXP / 100 ) * .@mob_count );
 				}
-				}
 			}
 		}
 		
@@ -155,6 +154,8 @@ OnInit:
 		set $MD_bExp[.@i], .@bexp *  .@base_exp_rate / .@quest_exp_rate * $MD_expMult[.@i] / 100 *$MD_missionBonusEXP / 100;
 		set $MD_jExp[.@i], .@jexp *  .@job_exp_rate  / .@quest_exp_rate * $MD_expMult[.@i] / 100 *$MD_missionBonusEXP / 100;
 	}
+	
+	
 }
 
 
@@ -165,19 +166,24 @@ OnInit:
 		
 	for( set .@i,0; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
 		setmapflag .missionMaps$[.@i], mf_loadevent;
+	
+	
 	end;
 
 OnPCLoadMapEvent:
 OnPCBaseLvUpEvent:
+	if(@last_map$ == strcharinfo(3))
+		end;
+		
 	for( set .@i,0; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
 	{
 		if( strcharinfo(3) == $MD_map$[.i] && BaseLevel > $MD_minLevel[.@i] && BaseLevel < $MD_maxLevel[.@i])
 		{
-			for ( set .@j, 0; .@j < getarraysize($MD_slots); set .@jm .@j + 1 )
+			for ( set .@j, 0; .@j < getarraysize($MD_slots); set .@j, .@j + 1 )
 			{
 				if( 
 					   ( getd("MD_Slot"+.@j+"_ID") == .@i ) 
-					|| ( (gettimetick() - getd("MD_mission_"+.@j+"_time"))  > $MD_cooldown[.@i] ) 
+					|| ( (gettimetick(2) - getd("MD_mission_"+.@j+"_time"))  > $MD_cooldown[.@i] ) 
 				  )
 					continue;
 			}
@@ -218,7 +224,7 @@ function	script	F_completeMission	{
 	{
 		if ( getelementofarray(getd( "$MD_mob"+.@i+1), .@mission) )
 		{
-			if ( getd(.@str$+"_mCount".@i+1) < getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission) )
+			if ( getd(.@str$+"_mCount"+(.@i+1)) < getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission) )
 				return 1;
 		}
 	}
@@ -241,10 +247,10 @@ function	script	F_completeMission	{
 	set .@rewardcounts[0], 0;
 	for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
 	{
-		set .@rewards[.@i], getelementofarray(getd("$MD_reward"+(.@i+1)), .@mission);
-		set .@rewardcounts[.@i], getelementofarray(getd("$MD_rCount"+(.@i+1)));
+		set .@rewards[.@i], getelementofarray( getd("$MD_reward"+(.@i+1) ), .@mission);
+		set .@rewardcounts[.@i], getelementofarray( getd("$MD_rCount"+(.@i+1) ), .@mission);
 	}
-	if ( !checkweights(.@rewards. .@rewardcounts) )
+	if ( !checkweights(.@rewards, .@rewardcounts) )
 		return 3;
 	
 	
@@ -263,8 +269,8 @@ function	script	F_completeMission	{
 	// give reward items
 	for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
 	{
-		set .@rewardid, getelementofarray(getd("$MD_reward"+(.@i+1)), .@mission);
-		set .@rewardcount, getelementofarray(getd("$MD_rCount"+(.@i+1)));
+		set .@rewardid, getelementofarray( getd("$MD_reward"+(.@i+1) ), .@mission);
+		set .@rewardcount, getelementofarray( getd("$MD_rCount"+(.@i+1) ), .@mission);
 		
 		if ( .@rewardid && .@rewardcount)
 		{
@@ -283,7 +289,7 @@ function	script	F_completeMission	{
 	else if (.@points < 3)
 		set .@points, 3;
 		
-	getpoints .@points;
+	givepoints .@points;
 	
 	set MD_mission_points, MD_mission_points + $MD_missionPoints[.@mission];
 	
@@ -302,7 +308,7 @@ function	script	F_endMission	{
 	set .@str$, "MD_slot"+.@slot;
 	
 	setd .@str$+"_ID", -1; 
-	setd "MD_mission"+.@mission+"_time", gettimetick();
+	setd "MD_mission"+.@mission+"_time", gettimetick(2);
 	
 	for(set .@i, 0; .@i < $MD_slots; set .@i, .@i + 1)
 		setd .@str$+"_mCount"+.@i, 0;
@@ -314,7 +320,7 @@ function	script	F_endMission	{
 // 0 = user has not taken it
 // arg0 = mission id
 function	script	F_isMissionTaken	{
-	.@mission, getarg(0);
+	set .@mission, getarg(0);
 	
 	for (set .@i, 0; .@i < $MD_slots; set .@i, .@i+1)
 	{
@@ -332,7 +338,7 @@ function	script	F_isMissionTaken	{
 function	script	F_getFreeSlot	{
 	for (set .@i, 0; .@i < $MD_slots; set .@i, .@i + 1)
 	{
-		if( getd("MD_Slot"+.@i+"_ID" == 0)
+		if( getd("MD_Slot"+.@i+"_ID") == 0)
 		{
 			return .@i;
 		}
@@ -356,8 +362,8 @@ function	script	F_messageMissionProgress	{
 	// display header if relevant
 	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
 	{
-		set .@mobid, getelementofarray(getd( "$MD_mob"+.@i+1), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1), .@mission );
+		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i+1) ), .@mission);
+		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
 		
 		if (.@mobid && .@mobcount)
 		{
@@ -368,12 +374,12 @@ function	script	F_messageMissionProgress	{
 	
 	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
 	{
-		set .@mobid, getelementofarray(getd( "$MD_mob"+.@i+1), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1), .@mission );
+		set .@mobid, getelementofarray( getd("$MD_mob"+(.@i+1) ), .@mission);
+		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
 		
 		set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
 		
-		set .@killedcount, getd(.@str$+"_mCount".@i+1);
+		set .@killedcount, getd(.@str$+"_mCount"+(.@i+1));
 		
 		if (.@mobid && .@mobcount)
 		{
@@ -403,7 +409,7 @@ function	script	F_messageMissionProgress	{
 	
 	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
 	{
-		set .@itemid, getelementofarray(getd( "$MD_item"+(.@i+1)), .@mission);
+		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
 		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
 		
 		set .@itemname, getitemname(.@itemid);
@@ -423,29 +429,6 @@ function	script	F_messageMissionProgress	{
 		}
 	}
 	
-	
-	
-	// if ($MD_bExp[.@mission] || $MD_jExp[.@mission])
-	// {
-		// message strcharinfo(0), "   Rewards:";
-		
-		// if($MD_bExp[.@mission])
-			// message strcharinfo(0), "    Base EXP: " + $MD_bExp[.@mission];
-		// if($MD_jExp[.@mission])
-			// message strcharinfo(0), "    Job EXP: " + $MD_jExp[.@mission];
-	// }
-
-	// for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
-	// {
-		// set .@rewardid, getelementofarray(getd("$MD_reward"+(.@i+1)), .@mission);
-		// set .@rewardcount, getelementofarray(getd("$MD_rCount"+(.@i+1)), .@mission);
-		
-		// if ( .@rewardid && .@rewardcount)
-		// {
-			// message strcharinfo(0), "    Item: " + getitemname(.@rewardid) + " (" + .@rewardcount + " ea)";
-		// }
-	// }
-	
 }
 
 function	script	F_mesMissionInfo	{
@@ -461,24 +444,24 @@ function	script	F_mesMissionInfo	{
 	// display relevant header if it's... relevant
 	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
 	{
-		set .@mobid, getelementofarray(getd( "$MD_mob"+.@i+1), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1), .@mission );
+		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i+1) ), .@mission);
+		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
 		
 		if (.@mobid && .@mobcount)
 		{
-			mes "Mobs: "
+			mes "Mobs: ";
 			break;
 		}
 	}
 	
 	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
 	{
-		set .@mobid, getelementofarray(getd( "$MD_mob"+.@i+1), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1), .@mission );
+		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i+1) ), .@mission);
+		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
 		
 		set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
 		
-		set .@killedcount, getd(.@str$+"_mCount".@i+1);
+		set .@killedcount, getd(.@str$+"_mCount"+(.@i+1));
 		
 		if (.@mobid && .@mobcount)
 		{
@@ -496,18 +479,18 @@ function	script	F_mesMissionInfo	{
 	// display relevant header if it's... relevant
 	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
 	{
-		set .@itemid, getelementofarray(getd( "$MD_item"+(.@i+1)), .@mission);
+		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
 		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
 		
 		if(.@itemid && .@itemcount)
 		{
-			mes "Items: "
+			mes "Items: ";
 			break;
 		}
 	}
 	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
 	{
-		set .@itemid, getelementofarray(getd( "$MD_item"+(.@i+1)), .@mission);
+		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
 		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
 		
 		set .@itemname, getitemname(.@itemid);
@@ -533,7 +516,7 @@ function	script	F_mesMissionInfo	{
 // displays mission info in the NPC
 function	script	F_showMissionInfo	{
 
-	set .@mission, getarg(0)
+	set .@mission, getarg(0);
 
 	mes $MD_name$[.@mission];
 	
@@ -541,20 +524,20 @@ function	script	F_showMissionInfo	{
 	// display relevant header if it's... relevant
 	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
 	{
-		set .@mobid, getelementofarray(getd( "$MD_mob"+.@i+1), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1), .@mission );
+		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i+1) ), .@mission);
+		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
 		
 		if (.@mobid && .@mobcount)
 		{
-			mes "Mobs: "
+			mes "Mobs: ";
 			break;
 		}
 	}
 	
 	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
 	{
-		set .@mobid, getelementofarray(getd( "$MD_mob"+.@i+1), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1), .@mission );
+		set .@mobid, getelementofarray( getd("$MD_mob"+(.@i+1) ), .@mission);
+		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ) , .@mission );
 		
 		set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
 		
@@ -568,19 +551,19 @@ function	script	F_showMissionInfo	{
 	// display relevant header if it's... relevant
 	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
 	{
-		set .@itemid, getelementofarray(getd( "$MD_item"+(.@i+1)), .@mission);
+		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
 		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
 		
 		if(.@itemid && .@itemcount)
 		{
-			mes "Items: "
+			mes "Items: ";
 			break;
 		}
 	}
 	
 	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
 	{
-		set .@itemid, getelementofarray(getd( "$MD_item"+(.@i+1)), .@mission);
+		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
 		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
 		
 		set .@itemname, getitemname(.@itemid);
@@ -598,16 +581,10 @@ function	script	F_showMissionInfo	{
 	// display relevant header if it's... relevant
 	for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
 	{
-		set .@rewardid, getelementofarray(getd("$MD_reward"+(.@i+1)), .@mission);
-		set .@rewardcount, getelementofarray(getd("$MD_rCount"+(.@i+1)));
+		set .@rewardid, getelementofarray( getd("$MD_reward"+(.@i+1) ), .@mission);
+		set .@rewardcount, getelementofarray( getd("$MD_rCount"+(.@i+1) ), .@mission);
 		
-		if (.@rewardid && .@rewardcount)
-		{
-			mes "Rewards: ";
-			break;
-		}
-		
-		if($MD_bExp[.@mission] || $MD_jExp[.@mission])
+		if ((.@rewardid && .@rewardcount) || $MD_bExp[.@mission] || $MD_jExp[.@mission])
 		{
 			mes "Rewards: ";
 			break;
@@ -626,12 +603,12 @@ function	script	F_showMissionInfo	{
 
 	for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
 	{
-		set .@rewardid, getelementofarray(getd("$MD_reward"+(.@i+1)), .@mission);
-		set .@rewardcount, getelementofarray(getd("$MD_rCount"+(.@i+1)));
+		set .@rewardid, getelementofarray( getd("$MD_reward"+(.@i+1) ), .@mission);
+		set .@rewardcount, getelementofarray( getd("$MD_rCount"+(.@i+1) ), .@mission);
 		
 		if ( .@rewardid && .@rewardcount)
 		{
-			mes  "^0000FF" + .@rewardcount + + " ^00FF00" +getitemname(.@rewardid) + "^000000 (" +  + " ea)";
+			mes  "^0000FF" + .@rewardcount + " ^00FF00" +getitemname(.@rewardid) + "^000000";
 		}
 	}
 	
@@ -672,8 +649,8 @@ ONNPCKillEvent:
 			
 			for (set .@j, 0; .@j < $MD_maxMobs; set .@j, .@j + 1)
 			{
-				.@mobid = getelementofarray(getd("$MD_mob"+(.@j+1)), .@mission);
-				.@mobcount = getelementofarray(getd("$MD_mCount"+(.@j+1)), .@mission);
+				set .@mobid, getelementofarray( getd("$MD_mob"+(.@j+1) ), .@mission);
+				set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@j+1) ), .@mission);
 				
 				if (killedrid == .@mobid)
 				{
@@ -687,7 +664,7 @@ ONNPCKillEvent:
 					}
 					else if (.@mobsKilled == .@mobcount)
 					{
-						announce "["+$MD_name$[.@mission]+"] "+ "finished hunting "+getmonsterinfo(.@mobid, MOB_NAME) +"!!!";
+						announce "["+$MD_name$[.@mission]+"] "+ "finished hunting "+getmonsterinfo(.@mobid, MOB_NAME) +"!!!",bc_self,0xF000A0;
 					}
 				}
 			}
@@ -776,7 +753,7 @@ L_missionMenu:
 		
 		for (set .@i, 0; .@i < @menusize; set .@i, .@i+1)
 		{		
-			set .@menustr$, .@menustr$+":".@MDlist$[.@i];
+			set .@menustr$, .@menustr$+":"+.@MDlist$[.@i];
 		}
 		
 		set .@choice, select(.@menustr$) - 1; // -1 to set cancel to 0
@@ -784,7 +761,7 @@ L_missionMenu:
 		if(.@choice == 1)
 		{
 			// We selected cancel so close!
-			mes "Mission selection cancelled..."
+			mes "Mission selection cancelled...";
 			close;
 		}
 		
@@ -917,7 +894,7 @@ L_submitMission:
 		if(.@mission)
 		{
 			mes "Slot "+(.@i+1)+": "+$MD_name$[.@mission];
-			set .@menustr$, + "Slot " +(.@i+1)+":";
+			set .@menustr$, .@menustr$ + "Slot " +(.@i+1)+":";
 			set .@MDreference[.@j], .@mission;
 			set .@j, .@j+1;
 		}
@@ -943,7 +920,7 @@ L_submitMission:
 	next;
 	mes .@name$;
 	mes "Do you want to submit this mission?";
-	if (select("Yes:No" == 2)
+	if (select("Yes:No") == 2)
 		goto L_mainMenu;
 		
 	switch ( callfunc("F_submitMission", .@MDreference[.@choice-1]) )
