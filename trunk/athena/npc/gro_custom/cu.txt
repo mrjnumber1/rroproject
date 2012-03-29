@@ -1,7 +1,7 @@
 -	script	F_cu_main	-1,{
 setlowratechar();
 ConfigStart:
-	set .@menuopts$, "Cancel:Security:Autolog Commands";
+	set .@menuopts$, "Cancel:Security:Autolog Commands:Stylist";
 
 	if( Class < Job_Lord_Knight && !(Class >= Job_Wedding || Class <= Job_Xmas ) )
 		set .@menuopts$, .@menuopts$ + ":Change Class";
@@ -20,6 +20,7 @@ ConfigStart:
 			break;
 		case 2:
 			callfunc "F_cu_security";
+			break;
 		case 3:
 			callsub F_cu_alogcmds;
 			break;
@@ -27,6 +28,9 @@ ConfigStart:
 		//	callfunc "F_cu_buffcfg";
 		//	break;
 		case 4:
+			callsub "F_stylist";
+			break;
+		case 5:
 			if(Class < Job_Lord_Knight && !(Class >= Job_Wedding || Class <= Job_Xmas ) )
 				callfunc "F_cu_jobchange";
 			else
@@ -35,17 +39,19 @@ ConfigStart:
 	
 	close;
 	end;
+OnInit:                   //1           //2         //4        //8         //0x1        //0x4           	//0x8
+	setarray .cmds$[0], "Cancel", "autoloot", "showdelay", "showzeny", "showexp", "dropinfo",   "showcasttime", "showcastdelay";
+	end;
 	
-OnPCLoginEvent:                    //1           //2         //4        //8         //0x1        //0x4           	//0x8
-	setarray @cmds$[0], "Cancel", "autoloot", "showdelay", "showzeny", "showexp", "dropinfo",   "showcasttime", "showcastdelay";
+OnPCLoginEvent: 
 
 alogcmdstart:
 	if(Autolog_Commands)
 	{
 		message strcharinfo(0),"Initiating @control Autolog Commands";
-		for( set .@i, 1; .@i < getarraysize(@cmds$); set .@i, .@i +1)
+		for( set .@i, 1; .@i < getarraysize(.cmds$); set .@i, .@i +1)
 			if(Autolog_Commands & (1<<.@i-1))
-				atcommand "@"+@cmds$[.@i]; 
+				atcommand "@"+.cmds$[.@i]; 
 	}
 	else
 	{
@@ -88,16 +94,16 @@ alogcmdstart:
 F_cu_alogcmds:	
 	next;
 	
-	set .@menustr$, @cmds$[0];
-	for( set .@i, 1; .@i < getarraysize(@cmds$); set .@i, .@i +1 )
-		set .@menustr$, .@menustr$ + ":" + @cmds$[.@i];
+	set .@menustr$, .cmds$[0];
+	for( set .@i, 1; .@i < getarraysize(.cmds$); set .@i, .@i +1 )
+		set .@menustr$, .@menustr$ + ":" + .cmds$[.@i];
 
-	// NOTE: NEW COMMANDS MUST BE ADDED AT THE END of @cmds$!
+	// NOTE: NEW COMMANDS MUST BE ADDED AT THE END of .cmds$!
 
 
 Lcmdcfg:
-	for( set .@i, 1; .@i < getarraysize(@cmds$); set .@i, .@i + 1 )
-		mes @cmds$[.@i] + " " + ((Autolog_Commands & (1<<(.@i-1)))?"^00FF00Enabled^000000":"^FF0000Disabled^000000");	
+	for( set .@i, 1; .@i < getarraysize(.cmds$); set .@i, .@i + 1 )
+		mes .cmds$[.@i] + " " + ((Autolog_Commands & (1<<(.@i-1)))?"^00FF00Enabled^000000":"^FF0000Disabled^000000");	
 
 
 

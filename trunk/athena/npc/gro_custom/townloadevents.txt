@@ -1,48 +1,61 @@
 -	script	townloadevents	-1,{
 OnInit:
-setarray .townMaps$, // <mapname>,<Map Nick>,
-	"alberta", 		"Alberta",
-	"aldebaran", 	"Aldebaran",
-	"amatsu", 		"Amatsu, the Land of Destiny",
-	"ayothaya", 	"Ayothaya",
-	"brasilis", 	"Brasilis",
-	"comodo", 		"Comodo, the Beach Town",
-	"dicastes01",	"El Dicastes, the Sapha Capital",
-	"dicastes02", 	"Brumbeld Jorhi Forest",
-	"einbech", 		"Einbech, the Mining Village",
-	"einbroch", 	"Einbroch, the City of Steel",
-	"geffen", 		"Geffen",
-	"gonryun", 		"Gonryun, the Hermit Land",
-	"hugel", 		"Hugel, the Power Source City",
-	"izlude", 		"Izlude Town, Satellite of Prontera",
-	"jawaii", 		"Jawaii, the Honeymoon Island",
-	"lighthalzen", 	"Lighthalzen, the City-State of Prosperity",
-	"louyang", 		"Louyang, the Highland",
-	"xmas", 		"Lutie, the Snow Village",	
-	"manuk", 		"Manuk",
-	"mid_camp", 	"Midgard Expedition Camp",
-	"morocc", 		"Morroc Accident Site",
-	"moscovia", 	"Moscovia",
-	"nameless_i", 	"Nameless Island",
-	"niflheim", 	"Niflheim, Realm of the Dead",
-	"payon", 		"Payon Town",
-	"prontera", 	"Prontera City, Capital of Rune-Midgard",
-	"rachel", 		"Rachel, Capital of Arunafelz, the Study Nation", // wtf is a "study nation"? gravity is weirds
-	"splendide", 	"Splendide",
-	"prt_monk", 	"The St. Capitolina Abbey",
-	"thor_camp", 	"Thor Camp",
-	"veins", 		"Veins, the Desert Village",
-	"yuno", 		"Yuno, Capital of Schwarzwald Republic",
-	"umbala",		"The Wootan Tribe's Village, Umbala";
+	setarray .townMaps$, // <mapname>,<Map Nick>,
+		"alberta",      "Alberta",
+		"aldebaran",    "Aldebaran",
+		"amatsu",       "Amatsu, the Land of Destiny",
+		"ayothaya",     "Ayothaya",
+		"bat_room",     "The Battlegrounds Lobby",
+		"brasilis",     "Brasilis",
+		"comodo",       "Comodo, the Beach Town",
+		"dicastes01",   "El Dicastes, the Sapha Capital",
+		"dicastes02",   "Brumbeld Jorhi Forest",
+		"einbech",      "Einbech, the Mining Village",
+		"einbroch",     "Einbroch, the City of Steel",
+		"geffen",       "Geffen",
+		"gonryun",      "Gonryun, the Hermit Land",
+		"hugel",        "Hugel, the Power Source City",
+		"izlude",       "Izlude Town, Satellite of Prontera",
+		"jawaii",       "Jawaii, the Honeymoon Island",
+		"lighthalzen",  "Lighthalzen, the City-State of Prosperity",
+		"louyang",      "Louyang, the Highland",
+		"xmas",         "Lutie, the Snow Village",	
+		"manuk",        "Manuk",
+		"mid_camp",     "Midgard Expedition Camp",
+		"morocc",       "Morroc Accident Site",
+		"moscovia",     "Moscovia",
+		"nameless_i",   "Nameless Island",
+		"niflheim",     "Niflheim, Realm of the Dead",
+		"payon",        "Payon Town",
+		"prontera",     "Prontera City, Capital of Rune-Midgard",
+		"rachel",       "Rachel, Capital of Arunafelz, the Study Nation", 
+		"splendide",    "Splendide",
+		"prt_monk",     "The St. Capitolina Abbey",
+		"thor_camp",    "Thor Camp",
+		"veins",        "Veins, the Desert Village",
+		"yuno",         "Yuno, Capital of Schwarzwald Republic",
+		"umbala",       "The Wootan Tribe's Village, Umbala";
 
-for( set .@i,0; .@i < getarraysize( .townMaps$ ); set .@i,.@i + 2 )
-	setmapflag .townMaps$[.@i], mf_loadevent;
-end;
+	for( set .@i,0; .@i < getarraysize( .townMaps$ ); set .@i,.@i + 2 )
+		setmapflag .townMaps$[.@i], mf_loadevent;
+	
+	
+	end;
 
 OnPCLoadMapEvent:
-for( set .@i,0; .@i < getarraysize( .townMaps$ ); set .@i,.@i + 2 )
-	if( strcharinfo(3) == .townMaps$[.@i] )
-		announce "Welcome to "+.townMaps$[.@i+1]+" .",bc_self;
-		
-end;
+	
+	if( strcharinfo(3) == @last_map$ )
+		end;
+	
+	for( set .@i,0; .@i < getarraysize( .townMaps$ ); set .@i,.@i + 2 )
+	{
+		if( strcharinfo(3) == .townMaps$[.@i] )
+		{
+			announce "Welcome to "+.townMaps$[.@i+1]+"!",bc_self,0x99CCFF;
+			set @last_map$, strcharinfo(3);
+		}
+	}
+
+	
+	end;
 }

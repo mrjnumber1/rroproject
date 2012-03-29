@@ -42,7 +42,7 @@ OnClock2200:
 		if( gettime(3) >= 20 && gettime(3) < 22 )
 		{
 			announce "-- Battleground Happy Hour has begun --",0,0x00FF00;
-			setbattleflag "bg_reward_rates",getbattleflag "bg_reward_rates" + getbattleflag "bg_ranking_bonus"; 
+			setbattleflag "bg_reward_rates", (getbattleflag("bg_reward_rates") + getbattleflag("bg_ranking_bonus") ); 
 			setbattleflag "bg_ranked_mode",1;
 			end;
 		}
