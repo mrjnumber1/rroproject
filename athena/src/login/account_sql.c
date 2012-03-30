@@ -91,7 +91,7 @@ AccountDB* account_db_sql(void)
 	safestrncpy(db->global_db_hostname, "127.0.0.1", sizeof(db->global_db_hostname));
 	db->global_db_port = 3306;
 	safestrncpy(db->global_db_username, "ragnarok", sizeof(db->global_db_username));
-	safestrncpy(db->global_db_password, "ragnarok", sizeof(db->global_db_password));
+	safestrncpy(db->global_db_password, "", sizeof(db->global_db_password));
 	safestrncpy(db->global_db_database, "ragnarok", sizeof(db->global_db_database));
 	safestrncpy(db->global_codepage, "", sizeof(db->global_codepage));
 	// local sql settings

@@ -1,39 +1,202 @@
 // Badges Exchange
 // *********************************************************************
 
-bat_room,1,1,3,7773	itemshop	BraveryExchanger	111,13036:100,13411:100,1425:100,1632:100,1634:100,1543:100,1924:100,1978:100,1574:100,1824:100,1183:100,1380:100,13305:100,1279:100,1739:100,13108:100,13172:100,2538:50,2539:50,2540:50,2435:50,2436:50,2437:50,2376:80,2377:80,2378:80,2379:80,2380:80,2381:80,2382:80,2720:500,2721:500,2722:500,2723:500,2724:500,2725:500,2733:500
-bat_room,1,1,3,7773	itemshop	ValorExchanger	111,13037:100,13410:100,1633:100,1635:100,1542:100,1923:100,1977:100,1575:100,1823:100,1184:100,1482:100,1379:100,13306:100,1280:100,1738:100,13171:100,13173:100,13174:100,2538:50,2539:50,2540:50,2435:50,2436:50,2437:50,2376:80,2377:80,2378:80,2379:80,2380:80,2381:80,2382:80,2720:500,2721:500,2722:500,2723:500,2724:500,2725:500,2733:500
-bat_room,1,1,3,7773	itemshop	HeroismExchanger	111,1187:400,1281:400,1282:400,1310:400,1382:400,1426:400,1486:400,1546:400,1576:400,1577:400,1640:400,1641:400,1743:400,1826:400,1827:400,1927:400,1981:400,2002:400,13042:400,13110:400,13176:400,13177:400,13178:400,13179:400,13307:400,13416:400,13417:400,13418:400,2394:840,2395:170,2396:25,2444:580,2445:70,2446:15,2549:630,2772:1200,2773:280,2774:40
+bat_room,160,156,3	script	BG Rental Tops	109,{
+	vending_open();
+}
+bat_room,160,154,3	script	BG Rental Mids	109,{
+	vending_open();
+}
+bat_room,160,152,3	script	BG Rental Lower	109,{
+	vending_open();
+}
+bat_room,160,150,3	script	BG Rental Armors	109,{
+	vending_open();
+}
+bat_room,160,148,3	script	BG Rental Shields	109,{
+	vending_open();
+}
+bat_room,160,146,3	script	BG Rental Shoes	109,{
+	vending_open();
+}
+bat_room,160,144,3	script	BG Rental Garments	109,{
+	vending_open();
+}
+bat_room,160,142,3	script	BG Rental Accessories	109,{
+	vending_open();
+}
+bat_room,160,140,3	script	BG Rental Weapons	109,{
+	vending_open();
+}
+
+bat_room,148,148,7	script	Tierra BG Items	109,{
+	vending_open();
+}
+bat_room,148,146,7	script	Flavius BG Items	109,{
+	vending_open();
+}
+bat_room,148,144,7	script	KvM BG Items	109,{
+	vending_open();
+}
+
+-	script	f_bg_offical_items	-1,{
+end;
+OnInit:
+	function add_bg_item;
+	
+	set .bg_items_loaded, 0;
+
+	
+	set .@npc, 0;	
+		set .cost, 100;
+			add_bg_item(.@npc, 13036);
+			add_bg_item(.@npc, 13411);
+			add_bg_item(.@npc,  1425);
+			add_bg_item(.@npc,  1632);
+			add_bg_item(.@npc,  1634);
+			add_bg_item(.@npc,  1543);
+			add_bg_item(.@npc,  1924);
+			add_bg_item(.@npc,  1978);
+			add_bg_item(.@npc,  1574);
+			add_bg_item(.@npc,  1824);
+			add_bg_item(.@npc,  1183);
+			add_bg_item(.@npc,  1380);
+			add_bg_item(.@npc, 13305);
+			add_bg_item(.@npc,  1279);
+			add_bg_item(.@npc,  1739);
+			add_bg_item(.@npc, 13108);
+			add_bg_item(.@npc, 13172);
+		
+	set .@npc, 1;
+		set .cost, 100;
+			add_bg_item(.@npc, 13037);
+			add_bg_item(.@npc, 13410);
+			add_bg_item(.@npc,  1633);
+			add_bg_item(.@npc,  1635);
+			add_bg_item(.@npc,  1542);
+			add_bg_item(.@npc,  1923);
+			add_bg_item(.@npc,  1977);
+			add_bg_item(.@npc,  1575);
+			add_bg_item(.@npc,  1823);
+			add_bg_item(.@npc,  1184);
+			add_bg_item(.@npc,  1482);
+			add_bg_item(.@npc,  1379);
+			add_bg_item(.@npc, 13306);
+			add_bg_item(.@npc,  1280);
+			add_bg_item(.@npc,  1738);
+			add_bg_item(.@npc, 13171);
+			add_bg_item(.@npc, 13173);
+			add_bg_item(.@npc, 13174);
+	
+	
+	// these all belong in flavius and tierra
+	set .@npc, 0;
+	set .cost, 500;
+	for(set .@i, 0; .@i < 2; set .@i, .@i + 1)
+	{	
+		set .cost, 50;
+			add_bg_item(.@npc+.@i,  2538);
+			add_bg_item(.@npc+.@i,  2539);
+			add_bg_item(.@npc+.@i,  2540);
+			add_bg_item(.@npc+.@i,  2435);
+			add_bg_item(.@npc+.@i,  2436);
+			add_bg_item(.@npc+.@i,  2437);
+		set .cost, 80;
+			add_bg_item(.@npc+.@i,  2376);
+			add_bg_item(.@npc+.@i,  2377);
+			add_bg_item(.@npc+.@i,  2378);
+			add_bg_item(.@npc+.@i,  2379);
+			add_bg_item(.@npc+.@i,  2380);
+			add_bg_item(.@npc+.@i,  2381);
+			add_bg_item(.@npc+.@i,  2382);
+		set .cost, 500;
+			add_bg_item(.@npc+.@i,  2720);
+			add_bg_item(.@npc+.@i,  2721);
+			add_bg_item(.@npc+.@i,  2722);
+			add_bg_item(.@npc+.@i,  2723);
+			add_bg_item(.@npc+.@i,  2724);
+			add_bg_item(.@npc+.@i,  2725);
+			add_bg_item(.@npc+.@i,  2733);
+	}
 
 
-bat_room,160,150,3	script	Erundek	109,{
-	mes "[Erundek]";
-	mes "What do you need?";
-	next;
-	switch( select("Buy Tierra Items","Buy Flavius Items","Buy KVM Items","Hmm, nothing I guess.") )
-	{
-		case 4:
-			close;
-		case 1: 
-			mes "[Erundek]";
-			mes "Close this window to open the shop.";
-			close2;
-			callshop "BraveryExchanger",1;
-			end;
-		case 2: 
-			mes "[Erundek]";
-			mes "Close this window to open the shop.";
-			close2;
-			callshop "ValorExchanger",1;
-			end;
-		case 3:
-			mes "[Erundek]";
-			mes "Close this window to open shop.";
-			close2;
-			callshop "HeroismExchanger",1;
-			end;
+
+ 
+	set .@npc, 2;
+		set .cost, 500;
+			add_bg_item(.@npc, 1187);
+			add_bg_item(.@npc, 1281);
+			add_bg_item(.@npc, 1282);
+			add_bg_item(.@npc, 1310);
+			add_bg_item(.@npc, 1282);
+			add_bg_item(.@npc, 1426);
+			add_bg_item(.@npc, 1486);
+			add_bg_item(.@npc, 1546);
+			add_bg_item(.@npc, 1576);
+			add_bg_item(.@npc, 1577);
+			add_bg_item(.@npc, 1640);
+			add_bg_item(.@npc, 1641);
+			add_bg_item(.@npc, 1743);
+			add_bg_item(.@npc, 1826);
+			add_bg_item(.@npc, 1827);
+			add_bg_item(.@npc, 1927);
+			add_bg_item(.@npc, 1981);
+			add_bg_item(.@npc, 2002);
+			add_bg_item(.@npc, 13042);
+			add_bg_item(.@npc, 13110);
+			add_bg_item(.@npc, 13176);
+			add_bg_item(.@npc, 13177);
+			add_bg_item(.@npc, 13178);
+			add_bg_item(.@npc, 13179);
+			add_bg_item(.@npc, 13307);
+			add_bg_item(.@npc, 13416);
+			add_bg_item(.@npc, 13417);
+			add_bg_item(.@npc, 13418);
+
+		add_bg_item(.@npc, 2394, 840);
+		add_bg_item(.@npc, 2395, 170);
+		add_bg_item(.@npc, 2396,  25);
+		add_bg_item(.@npc, 2444, 580);
+		add_bg_item(.@npc, 2445,  70);
+		add_bg_item(.@npc, 2446,  15);
+		add_bg_item(.@npc, 2549, 630);
+		add_bg_item(.@npc, 2772,1200);
+		add_bg_item(.@npc, 2773, 280);
+		add_bg_item(.@npc, 2774,  40);
+	
+	
+	set .bg_items_loaded, 1;
+	set .cost, 0;
+	function add_bg_item {
+		if (.bg_items_loaded != 0)
+			return;
+			
+		set .@exchanger, getarg(0);
+		set .@id, getarg(1);
+		set .@cost, getarg(2, .cost);
+		
+		set .@name$, "";
+		
+		switch (.@exchanger)
+		{
+			case 0:
+				set .@name$, "Tierra BG Items";
+				break;
+			case 1:
+				set .@name$, "Flavius BG Items";
+				break;
+			case 2:
+				set .@name$, "KvM BG Items";
+				break;
+			default:
+				debugmes "Invalid exchanger id given! ID: "+.@exchanger;
+				return;
+		}
+		
+		vending_add(.@id, .@cost, 7773, 0, 0, 0, 0, 0, 0, 0, .@name$);
 	}
 }
+
 
 bat_room,163,146,2	script	Saxton Hale	731,{
 	mes "[Saxton Hale]";

@@ -17760,6 +17760,226 @@ BUILDIN_FUNC(freeloop) {
 
 	return 0;
 }
+
+// Epoque vending list
+
+/*==================================================*
+ * vending_add <item id>, <price>, {<var or itemid or type>, <rental time>, <refine>{, <attribute>{, <card1>, <card2>, <card3>, <card4>{, "<name>"}}}};
+ *--------------------------------------------------*/
+// type corresponds with the e_vend_types
+BUILDIN_FUNC(vending_add)
+{
+	int i;
+	struct npc_data* nd;
+	struct npc_item_vend* vend;
+	struct script_data *data;
+	const char* var;
+	int type;
+
+	nd = script_hasdata(st, 10+1+1) ? npc_name2id(script_getstr(st, 10+1+1)) : map_id2nd(st->oid);
+
+	if( nd == NULL )
+	{
+		ShowWarning("script:vending_add: no script attached\n");
+		return 0;
+	}
+
+	ARR_FIND( 0, MAX_VENDING, i, nd->vending[i].nameid == 0 );
+
+	if( i == MAX_VENDING )
+	{
+		ShowWarning("script:vending_add: reached maximum vending capacity (%d)\n", MAX_VENDING);
+		return 0;
+	}
+
+	vend = &nd->vending[i];
+
+	if( itemdb_exists(script_getnum(st, 2)) == NULL )
+	{
+		ShowWarning("script:vending_add: unknown item id %d\n", script_getnum(st, 2));
+		return 0;
+	}
+
+	memset( vend, 0, sizeof (struct npc_item_vend) );
+
+	vend->nameid = script_getnum(st, 2);
+	vend->value = script_getnum(st, 3);
+
+	data = script_getdata(st, 4);
+	get_val(st, data);
+
+	if( data_isstring(data) )
+	{
+		var = conv_str(st, data);
+
+		if (var == NULL)
+		{
+			ShowError("buildin_vending_add: Bad var requsted.\n");
+			script_pushint(st, -1);
+			return 1;
+		}
+		else
+		{
+			strncpy(nd->vend_type.reg, var, 32);
+
+			nd->vend_type.currency = VEND_CURRENCY_REG;
+			nd->vend_type.itemid = 0;
+
+			switch (var[0])
+			{
+				case '#':
+					nd->vend_type.reg_type = ( (var[1] == '#')?(1):(2) );
+					break;
+				default:
+					nd->vend_type.reg_type = 3;
+					break;
+			}
+
+		}
+	}
+	else if ( data_isint(data) )
+	{
+		type = conv_num(st, data);
+		switch (type)
+		{
+			case VEND_CURRENCY_ZENY:
+				nd->vend_type.currency = VEND_CURRENCY_ZENY;
+				memset(nd->vend_type.reg, 0, 32);
+				nd->vend_type.reg_type = 0;
+				nd->vend_type.itemid = 0;
+				break;
+			case VEND_CURRENCY_KAFRA:
+				nd->vend_type.currency = VEND_CURRENCY_KAFRA;
+				strncpy(nd->vend_type.reg, "##KAFRAPOINTS", 32);
+				nd->vend_type.reg_type = 1;
+				nd->vend_type.itemid = 0;
+				break;
+			case VEND_CURRENCY_ITEM:
+				ShowError("buildin_vending_add: Claimed type ITEM, however we should have passed the item ID, not the type ITEM!\n");
+				script_pushint(st, -1);
+				return -1;
+			case VEND_CURRENCY_REG:
+				ShowError("buildin_vending_add: Claimed type REG, however we should have passed REG, not the type REG!\n");
+				script_pushint(st, -1);
+				return -1;
+			default: // actually handles whether or not it's a valid item id.... yes, this means item names don't work and it expects regs. sorry.
+				if( type < 0 || !itemdb_exists(type) )
+				{
+					ShowError("buildin_vending_add: Nonexistant item %d requested.\n", type);
+					return 1;
+				}
+				else //finally, set the item id and currency as we know it is a valid item id!
+				{
+					nd->vend_type.currency = VEND_CURRENCY_ITEM;
+					memset(nd->vend_type.reg, 0, 32);
+					nd->vend_type.reg_type = 0;
+					nd->vend_type.itemid = type;
+				}
+		}
+	}
+	else
+	{
+		ShowError("buildin_vending_add: Invalid data for argument 3\n");
+		script_pushint(st, -1);
+		return -1;
+	}
+	FETCH(5,     vend->rent_time);
+	FETCH(4+1+1, vend->refine);
+	FETCH(5+1+1, vend->attribute);
+
+	for( i = 0; MAX_SLOTS > i; i++ )
+		FETCH(6 + i+1+1, vend->card[i]);
+
+	script_pushint(st, i + 1+1+1);
+
+	return 0;
+}
+
+/*==================================================*
+ * vending_remove <item id>{, "<name>"};
+ *--------------------------------------------------*/
+BUILDIN_FUNC(vending_remove)
+{
+	int i;
+	struct npc_data* nd;
+
+	nd = script_hasdata(st, 3) ? npc_name2id(script_getstr(st, 3)) : map_id2nd(st->oid);
+
+	if( nd == NULL )
+	{
+		ShowWarning("script:vending_remove: no script attached\n");
+		return 0;
+	}
+
+	i = script_getnum(st, 2);
+
+	if( i > 0 && i <= MAX_VENDING*5 )
+		i--;
+	else
+	{
+		ARR_FIND( 0, MAX_VENDING*5, i, nd->vending[i].nameid == script_getnum(st, 2) );
+
+		if( i == MAX_VENDING*5 )
+		{
+			ShowWarning("script:vending_remove: couldn't find item %d to remove\n", script_getnum(st, 2));
+			return 0;
+		}
+	}
+
+	memset( &nd->vending[i], 0, sizeof (struct npc_item_vend) );
+
+	return 0;
+}
+
+/*==================================================*
+ * vending_open {"<name>"};
+ *--------------------------------------------------*/
+BUILDIN_FUNC(vending_open)
+{
+	struct npc_data* nd;
+	struct map_session_data* sd = script_rid2sd(st);
+
+	nullpo_retr(0, sd);
+	
+	nd = script_hasdata(st, 2) ? npc_name2id(script_getstr(st, 2)) : map_id2nd(st->oid);
+
+	if( nd == NULL )
+	{
+		ShowWarning("script:vending_open: no script attached\n");
+		return 0;
+	}
+	
+	nd->rent_time = 0;
+
+	clif_vending_script(sd, nd);
+
+	return 0;
+}
+
+/*==================================================*
+ * vending_reset {"<name>"};
+ *--------------------------------------------------*/
+BUILDIN_FUNC(vending_reset)
+{
+	struct npc_data* nd;
+	struct map_session_data* sd = script_rid2sd(st);
+
+	nullpo_retr(0, sd);
+	
+	nd = script_hasdata(st, 2) ? npc_name2id(script_getstr(st, 2)) : map_id2nd(st->oid);
+
+	if( nd == NULL )
+	{
+		ShowWarning("script:vending_reset: no script attached\n");
+		return 0;
+	}
+	
+	memset( nd->vending, 0, sizeof (nd->vending) );
+
+	return 0;
+}
+
+
 // declarations that were supposed to be exported from npc_chat.c
 #ifdef PCRE_SUPPORT
 BUILDIN_FUNC(defpattern);
@@ -18258,6 +18478,11 @@ struct script_function buildin_func[] = {
 	
 	BUILDIN_DEF(checkweight2, "*"), // [Lighta] :)
 	BUILDIN_DEF(checkweights, "rr"),
+
+	BUILDIN_DEF(vending_add, "ii*"), //epoque then mrj
+	BUILDIN_DEF(vending_remove, "i*"),
+	BUILDIN_DEF(vending_open, "*"),
+	BUILDIN_DEF(vending_reset, "*"),
 
 
 	{NULL,NULL,NULL},

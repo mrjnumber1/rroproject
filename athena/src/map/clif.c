@@ -5886,6 +5886,7 @@ void clif_vendinglist(struct map_session_data* sd, int id, struct s_vending* ven
 
 	nullpo_retv(sd);
 	nullpo_retv(vending);
+
 	nullpo_retv(vsd=map_id2sd(id));
 
 	fd = sd->fd;
@@ -5923,16 +5924,20 @@ void clif_vendinglist(struct map_session_data* sd, int id, struct s_vending* ven
 			{
 				int amount = 0;
 				i = pc_search_inventory(sd,vsd->vend_type.itemid);
-				if( i > 0)
+				if( i >= 0)
 					amount = sd->status.inventory[i].amount;
 
-				snprintf(out, CHAT_SIZE_MAX, "This shop uses %s for currency. You have %d ea.", itemdb_jname((vsd->vend_type.itemid)), sd->status.inventory[i].amount);
+				snprintf(out, CHAT_SIZE_MAX, "This shop uses `%s` for currency. You have %d ea.", itemdb_jname((vsd->vend_type.itemid)), sd->status.inventory[i].amount);
 				clif_displaymessage(sd->fd, out );
 			}
 			break;
-		case VEND_CURRENCY_CASH:
-			snprintf(out, CHAT_SIZE_MAX, "This shop uses Cash Points for currency. You have %d Cash Points", pc_readaccountreg2(sd, "##CASHPOINTS"));
-			clif_displaymessage(sd->fd, out);
+		case VEND_CURRENCY_REG:
+			{
+				char var[32];
+				strncpy(var, vsd->vend_type.reg, 32);
+				snprintf(out, CHAT_SIZE_MAX, "This shop uses `%s` for currency. You have %d.", var, pc_readregistry(sd, var, vsd->vend_type.reg_type));
+				clif_displaymessage(sd->fd, out);
+			}
 			break;
 		case VEND_CURRENCY_KAFRA:
 			snprintf(out, CHAT_SIZE_MAX, "This shop uses Kafra Points for currency. You have %d Kafra Points.", pc_readaccountreg2(sd, "##KAFRAPOINTS"));
@@ -5940,6 +5945,109 @@ void clif_vendinglist(struct map_session_data* sd, int id, struct s_vending* ven
 			break;
 	}
 }
+
+int clif_vending_script(struct map_session_data* sd, struct npc_data* nd)
+{
+	int i, j, fd, len;
+	char out[CHAT_SIZE_MAX];
+#if PACKETVER < 20100105
+	const int cmd = 0x133;
+	const int offset = 8;
+#else
+	const int cmd = 0x800;
+	const int offset = 12;
+#endif
+
+	nullpo_retr(0, sd);
+	nullpo_retr(0, nd);
+
+	ARR_FIND( 0, MAX_VENDING, i, nd->vending[i].nameid > 0 );
+
+	if( i == MAX_VENDING )
+		return 0;
+
+	fd = sd->fd;
+	len = offset;
+
+	WFIFOHEAD(fd, offset+MAX_VENDING*22);
+	WFIFOW(fd,0) = cmd;
+	WFIFOL(fd,4) = sd->bl.id;
+#if PACKETVER >= 20100105
+	WFIFOL(fd,8) = nd->bl.id;
+#endif
+
+	for( i = 0; MAX_VENDING > i; i++ )
+	{
+		int k;
+		struct item_data* data;
+		struct npc_item_vend* v;
+
+		if( nd->vending[i].nameid == 0 )
+			continue;
+
+		v = &nd->vending[i];
+		
+		data = itemdb_search(v->nameid);
+
+		WFIFOL(fd,offset+ 0+i*22) = v->value;
+		WFIFOW(fd,offset+ 4+i*22) = 1;
+		WFIFOW(fd,offset+ 6+i*22) = i + 2;
+		WFIFOB(fd,offset+ 8+i*22) = itemtype(data->type);
+		WFIFOW(fd,offset+ 9+i*22) = ( data->view_id > 0 ) ? data->view_id : data->nameid;
+		WFIFOB(fd,offset+11+i*22) = 1;
+		WFIFOB(fd,offset+12+i*22) = v->attribute;
+		WFIFOB(fd,offset+13+i*22) = v->refine;
+
+		for( j = 0; MAX_SLOTS > j; j++ )
+		{
+			if( v->card[j] > 0 && ( k = itemdb_viewid(v->card[j]) ) > 0 )
+				WFIFOW(fd,offset+14+(j*2)+i*22) = k;
+			else
+				WFIFOW(fd,offset+14+(j*2)+i*22) = v->card[j];
+		}
+
+		len += 22;
+	}
+
+	WFIFOW(fd,2) = len;
+	WFIFOSET(fd,WFIFOW(fd,2));
+
+	sd->state.npc_vending = nd->bl.id;
+
+	switch(nd->vend_type.currency)
+	{
+		case VEND_CURRENCY_ZENY:
+			break;
+		case VEND_CURRENCY_ITEM:
+			{
+				int amount = 0;
+				i = pc_search_inventory(sd,nd->vend_type.itemid);
+				if( i >= 0)
+					amount = sd->status.inventory[i].amount;
+
+				snprintf(out, CHAT_SIZE_MAX, "This shop uses `%s` for currency. You have %d ea.", itemdb_jname((nd->vend_type.itemid)), sd->status.inventory[i].amount);
+				clif_displaymessage(sd->fd, out );
+			}
+			break;
+		case VEND_CURRENCY_REG:
+			{
+				char var[32];
+				strncpy(var, nd->vend_type.reg, 32);
+				snprintf(out, CHAT_SIZE_MAX, "This shop uses `%s` for currency. You have %d.", var, pc_readregistry(sd, var, nd->vend_type.reg_type));
+				clif_displaymessage(sd->fd, out);
+			}
+			break;
+		case VEND_CURRENCY_KAFRA:
+			snprintf(out, CHAT_SIZE_MAX, "This shop uses Kafra Points for currency. You have %d Kafra Points.", pc_readaccountreg2(sd, "##KAFRAPOINTS"));
+			clif_displaymessage(sd->fd, out);
+			break;
+	}
+
+
+	return 0;
+}
+
+
 
 /*==========================================
  * Shop purchase failure (ZC_PC_PURCHASE_RESULT_FROMMC)
@@ -11295,6 +11403,7 @@ void clif_parse_PurchaseReq(int fd, struct map_session_data* sd)
  *------------------------------------------*/
 void clif_parse_PurchaseReq2(int fd, struct map_session_data* sd)
 {
+
 	int len = (int)RFIFOW(fd,2) - 12;
 	int aid = (int)RFIFOL(fd,4);
 	int uid = (int)RFIFOL(fd,8);

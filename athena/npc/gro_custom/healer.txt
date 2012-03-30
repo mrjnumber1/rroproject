@@ -1,9 +1,11 @@
 -	script	f_healer	-1,{
 
-	if(islowratechar() == 1)
+	set .@isbg, ( substr(strcharinfo(3), 3, 7) == "g_cas");
+	if(islowratechar() == 1 && !.isbg )
 		goto OnClick;
 OnTouch:
-	if(islowratechar() == 1)
+	set .@isbg, ( substr(strcharinfo(3), 3, 7) == "g_cas");
+	if(islowratechar() == 1 && !.isbg )
 		end;
 		
 OnClick:	
@@ -17,7 +19,7 @@ OnClick:
 	set LastUsedHealer, .@rightnow;
 	set .@healed, 0;
 	
-	if(islowratechar() == 1 && BaseLevel > 90)
+	if(islowratechar() == 1 && BaseLevel > 90 && !.@isbg)
 		set .@mustpay, 1;
 		
 	if(.@mustpay == 1)
@@ -36,7 +38,7 @@ OnDebuffs:
 			set .@healed, 1;
 		}			
 	
-	if(islowratechar() == 1)
+	if(islowratechar() == 1 && !.@isbg)
 		goto OnHeals;
 		
 OnBuffs:
@@ -49,13 +51,13 @@ OnBuffs:
 	unitskilluseid .@npcgid,"AL_BLESSING",10,.@chargid;
 	unitskilluseid .@npcgid,"AL_INCAGI",10,.@chargid;
 	
-	unitskilluseid .@npcgid,"PR_IMPOSITIO",5,.@chargid;
-	unitskilluseid .@npcgid,"PR_SUFFRAGIUM",3,.@chargid;
-	unitskilluseid .@npcgid,"PR_MAGNIFICAT",5,.@chargid;
-	unitskilluseid .@npcgid,"PR_GLORIA",5,.@chargid;
+	//unitskilluseid .@npcgid,"PR_IMPOSITIO",5,.@chargid;
+	//unitskilluseid .@npcgid,"PR_SUFFRAGIUM",3,.@chargid;
+	//unitskilluseid .@npcgid,"PR_MAGNIFICAT",5,.@chargid;
+	//unitskilluseid .@npcgid,"PR_GLORIA",5,.@chargid;
 	
 	
-	unitskilluseid .@npcgid,"PR_KYRIE",10,.@chargid;
+	//unitskilluseid .@npcgid,"PR_KYRIE",10,.@chargid;
 
 	
 	
@@ -170,7 +172,7 @@ OnHeals:
 	end;
 	
 nocash:
-	message strcharinfo(0), "Low Rate Characters above level 90 need 1k zeny to use the Healer.";
+	message strcharinfo(0), "Low Rate Characters above level 90 need 1k zeny to use the Healer outside of BG! Go kill some porings. :)";
 	end;
 }
 

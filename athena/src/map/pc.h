@@ -136,6 +136,7 @@ struct map_session_data {
 		unsigned int dropinfo : 1;
 		unsigned int noks : 3; // [Zeph Kill Steal Protection]
 		unsigned int changemap : 1;
+		unsigned int npc_vending;
 		unsigned int callshop : 1;
 		short pmap; // Previous map on Map Change
 		unsigned short autoloot;

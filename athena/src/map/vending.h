@@ -14,7 +14,7 @@ enum e_vend_currency
 {
 	VEND_CURRENCY_ZENY,
 	VEND_CURRENCY_ITEM,
-	VEND_CURRENCY_CASH,
+	VEND_CURRENCY_REG,
 	VEND_CURRENCY_KAFRA,
 
 	VEND_CURRENCY_MAX
@@ -37,6 +37,8 @@ struct s_vending {
 };
 struct s_vend_type {
 	enum e_vend_currency currency;
+	char reg[32];
+	short reg_type; // 1 = ##, 2 = #, 3 = char
 	int itemid;
 };
 
@@ -46,6 +48,8 @@ void vending_vendinglistreq(struct map_session_data* sd, int id);
 void vending_purchasereq(struct map_session_data* sd, int aid, int uid, const uint8* data, int count);
 bool vending_search(struct map_session_data* sd, unsigned short nameid);
 bool vending_searchall(struct map_session_data* sd, const struct s_search_store_search* s);
+
+void vending_purchasereq_script(struct map_session_data* sd, struct npc_data* nd, int uid, const uint8* data, int count); // misterj
 
 void do_init_vending();
 
