@@ -497,6 +497,7 @@ void clif_openvendingreq(struct map_session_data* sd, int num);
 void clif_showvendingboard(struct block_list* bl, const char* message, int fd);
 void clif_closevendingboard(struct block_list* bl,int fd);
 void clif_vendinglist(struct map_session_data* sd,int id, struct s_vending* vending);
+int clif_vending_script(struct map_session_data* sd, struct npc_data* nd); // Epoque
 void clif_buyvending(struct map_session_data* sd, int index, int amount, int fail);
 void clif_openvending(struct map_session_data* sd, int id, struct s_vending* vending);
 void clif_vendingreport(struct map_session_data* sd, int index, int amount);

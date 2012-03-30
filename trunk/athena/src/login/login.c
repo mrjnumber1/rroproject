@@ -1289,13 +1289,13 @@ int parse_login(int fd)
 {
 	struct login_session_data* sd = (struct login_session_data*)session[fd]->session_data;
 	int result;
-
 	char ip[16];
 	uint32 ipl = session[fd]->client_addr;
+	char md5buf1[32], md5buf2[64+1]; 
+
 	ip2str(ipl, ip);
 
 	// MD5 salt modification START [Valaris for KarmaRO]
-	char md5buf1[32], md5buf2[64+1]; 
 	// MD5 salt modification END [Valaris for KarmaRO]
 
 	if( session[fd]->flag.eof )

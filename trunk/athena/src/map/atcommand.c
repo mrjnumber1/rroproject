@@ -9231,11 +9231,11 @@ ACMD_FUNC(shopsearch)
 						case VEND_CURRENCY_ZENY:
 							strcat(atcmd_output, "Zeny");
 							break;
-						case VEND_CURRENCY_CASH:
-							strcat(atcmd_output, "Cash pts");
+						case VEND_CURRENCY_REG:
+							strcat(atcmd_output, pl_sd->vend_type.reg);
 							break;
 						case VEND_CURRENCY_KAFRA:
-							strcat(atcmd_output, "Kafra pts");
+							strcat(atcmd_output, "Kafra Pts");
 							break;
 						case VEND_CURRENCY_ITEM:
 							strcat(atcmd_output, itemdb_jname(pl_sd->vend_type.itemid));
@@ -9781,7 +9781,10 @@ ACMD_FUNC(cashshop)
 
 	if(status > 0) //note: status should match vend skill level :)
 	{
-		sd->vend_type.currency = VEND_CURRENCY_CASH;
+		sd->vend_type.currency = VEND_CURRENCY_REG;
+		strncpy(sd->vend_type.reg, "##CASHPOINTS", 32);
+		sd->vend_type.reg_type = 1;
+
 		sd->state.prevend = 1;
 		clif_openvendingreq(sd,2+status);
 	}
@@ -9799,6 +9802,8 @@ ACMD_FUNC(kafrashop)
 	if(status > 0)
 	{
 		sd->vend_type.currency = VEND_CURRENCY_KAFRA;
+		//strncpy(sd->vend_type.reg, "##KAFRAPOINTS", 32);
+		//sd->vend_type.reg_type = 1;
 		
 		sd->state.prevend = 1;
 		clif_openvendingreq(sd,2+status);

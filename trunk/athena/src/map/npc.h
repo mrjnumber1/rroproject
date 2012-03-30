@@ -7,6 +7,7 @@
 #include "map.h" // struct block_list
 #include "status.h" // struct status_change
 #include "unit.h" // struct unit_data
+#include "vending.h" // struct s_vend_type
 struct block_list;
 struct npc_data;
 struct view_data;
@@ -22,6 +23,15 @@ struct npc_label_list {
 struct npc_item_list {
 	unsigned int nameid,value;
 };
+struct npc_item_vend {
+	short nameid;
+	char refine;
+	char attribute;
+	unsigned int rent_time;
+	short card[MAX_SLOTS];
+	unsigned int value;
+};
+
 
 struct npc_data {
 	struct block_list bl;
@@ -37,9 +47,16 @@ struct npc_data {
 	int touching_id;
 	unsigned int next_walktime;
 
-	unsigned short cashitem; // these are for special shops :)
+	// these are for special shops :)
+	unsigned short cashitem; 
 	char *cash_var;
 	short cash_vartype; // 1 = ##, 2 = #, 3 = char
+
+	// for vend shops only
+	struct s_vend_type vend_type;
+	struct npc_item_vend vending[MAX_VENDING];
+	int rent_time;
+
 
 	unsigned size : 2;
 

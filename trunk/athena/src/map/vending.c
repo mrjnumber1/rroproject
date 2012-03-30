@@ -16,6 +16,7 @@
 #include "skill.h"
 #include "battle.h"
 #include "log.h"
+#include "npc.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -110,8 +111,22 @@ void vending_purchasereq(struct map_session_data* sd, int aid, int uid, const ui
 	struct map_session_data* vsd = map_id2sd(aid);
 
 	nullpo_retv(sd);
+
+	
+	if (sd->state.npc_vending == uid)
+	{ //script vend
+		struct npc_data *nd = map_id2nd(uid);
+
+		if (!nd)
+			return;
+
+		vending_purchasereq_script(sd, nd, uid, data, count);
+		return;
+	}
+
 	if( vsd == NULL || !vsd->state.vending || vsd->bl.id == sd->bl.id )
 		return; // invalid shop
+
 
 	if( vsd->vender_id != uid )
 	{// shop has changed
@@ -162,9 +177,16 @@ void vending_purchasereq(struct map_session_data* sd, int aid, int uid, const ui
 			buyer_currency = sd->status.zeny;
 			seller_currency = vsd->status.zeny;
 			break;
-		case VEND_CURRENCY_CASH:
-			buyer_currency = pc_readaccountreg2(sd, "##CASHPOINTS");
-			seller_currency = pc_readaccountreg2(vsd, "##CASHPOINTS");
+		case VEND_CURRENCY_REG:
+			{
+				char var[32];
+				int type = vsd->vend_type.reg_type;
+
+				strncpy(var, vsd->vend_type.reg, 32);
+
+				buyer_currency = pc_readregistry(sd, var, type);
+				seller_currency = pc_readregistry(vsd, var, type);
+			}
 			break;
 		case VEND_CURRENCY_KAFRA:
 			buyer_currency = pc_readaccountreg2(sd, "##KAFRAPOINTS");
@@ -173,13 +195,13 @@ void vending_purchasereq(struct map_session_data* sd, int aid, int uid, const ui
 		case VEND_CURRENCY_ITEM:
 			k = pc_search_inventory(sd,vsd->vend_type.itemid);
 
-			if(k > 0)
+			if(k >= 0)
 				buyer_currency = sd->status.inventory[k].amount;
 			else 
 				buyer_currency = 0;
 
 			k = pc_search_inventory(vsd,vsd->vend_type.itemid);
-			if(k > 0)
+			if(k >= 0)
 				seller_currency = vsd->status.inventory[k].amount;
 			else 
 				seller_currency = 0;
@@ -251,7 +273,7 @@ void vending_purchasereq(struct map_session_data* sd, int aid, int uid, const ui
 			k = pc_search_inventory(sd, vsd->vend_type.itemid);
 			it.nameid = vsd->vend_type.itemid;
 
-			if(k)
+			if(k>=0)
 				pc_delitem(sd,k,(int)z,0,0);
 			else
 				return;
@@ -273,10 +295,16 @@ void vending_purchasereq(struct map_session_data* sd, int aid, int uid, const ui
 			log_pick_pc( sd, LOG_TYPE_VENDING, vsd->vend_type.itemid, -(int)z, &it, it.serial);
 
 			break;
-		case VEND_CURRENCY_CASH:
-			pc_paycash(sd, (int)z, 0);
-			pc_getcash(vsd, (int)z, 0);
+		case VEND_CURRENCY_REG:
+			{
+				char var[32];
+				int type = vsd->vend_type.reg_type;
 
+				strncpy(var, vsd->vend_type.reg, 32);
+
+				pc_setregistry( sd, var, pc_readregistry( sd, var, type) - (int)z, type);
+				pc_setregistry(vsd, var, pc_readregistry(vsd, var, type) + (int)z, type);
+			}
 			break;
 		case VEND_CURRENCY_KAFRA:
 			pc_paycash(sd, (int)z, (int)z);
@@ -359,6 +387,230 @@ void vending_purchasereq(struct map_session_data* sd, int aid, int uid, const ui
 		}
 	}
 }
+
+
+
+
+void vending_purchasereq_script(struct map_session_data* sd, struct npc_data* nd, int uid, const uint8* data, int count)
+{
+	int i, k;
+	int add;
+	int blank;
+	int weight;
+	double zeny;
+	int buyer_currency, seller_currency;
+	int limit = MAX_ZENY;
+
+	nullpo_retv(sd);
+	nullpo_retv(nd);
+	
+	if( sd->state.npc_vending != nd->bl.id || uid != nd->bl.id )
+	{
+		clif_buyvending(sd, 0, 0, 6);
+		return;
+	}
+
+	if( count < 1 || count > MAX_VENDING )
+		return;
+
+	blank = pc_inventoryblank(sd);
+
+	add = 0;
+	zeny = 0;
+	weight = 0;
+
+	for( i = 0; count > i; i++ )
+	{
+		short amount = *(uint16*)(data + 4*i + 0);
+		short index  = *(uint16*)(data + 4*i + 2);
+		struct item_data* data;
+
+		if( amount <= 0 )
+			continue;
+
+		index -= 2;
+
+		if( index < 0 || index >= MAX_VENDING || nd->vending[index].nameid == 0 )
+			continue;
+		
+		data = itemdb_exists(nd->vending[index].nameid);
+
+		if( data == NULL )
+			continue;
+
+		zeny += (double)( nd->vending[index].value * amount );
+
+		switch(nd->vend_type.currency)
+		{
+			case VEND_CURRENCY_ZENY:
+				buyer_currency = sd->status.zeny;
+				seller_currency = 0;
+				break;
+			case VEND_CURRENCY_REG:
+				{
+					char var[32];
+					int type = nd->vend_type.reg_type;
+
+					strncpy(var, nd->vend_type.reg, 32);
+
+					buyer_currency = pc_readregistry(sd, var, type);
+					seller_currency = 0;
+				}
+				break;
+			case VEND_CURRENCY_KAFRA:
+				buyer_currency = pc_readaccountreg2(sd, "##KAFRAPOINTS");
+				seller_currency = 0;
+				break;
+			case VEND_CURRENCY_ITEM:
+				k = pc_search_inventory(sd,nd->vend_type.itemid);
+
+				if(k >= 0)
+					buyer_currency = sd->status.inventory[k].amount;
+				else 
+					buyer_currency = 0;
+
+				seller_currency = 0;
+
+				limit = MAX_AMOUNT;
+				break;
+			default:
+				ShowError("vending_vendcurrency_script: vend_type.currency was impossible to find! (buyer cid: %d | seller uid: %d)", sd->status.char_id, nd->bl.id);
+				buyer_currency = sd->status.zeny;
+				seller_currency = 0;
+				break;
+		}
+
+		if( zeny > (double)buyer_currency || zeny < 0.0 || zeny > (double)limit )
+		{
+			clif_buyvending(sd, index, amount, 1);
+			return;
+		}
+
+		weight += data->weight * amount;
+		if ( buyer_currency && (nd->vend_type.currency = VEND_CURRENCY_ITEM) )
+		{
+			k = pc_search_inventory(sd, nd->vend_type.itemid);
+
+			if (k > 0)
+			{
+				weight -= itemdb_weight(sd->status.inventory[k].nameid) * amount;
+			}
+
+		}
+
+		if( weight + sd->weight > sd->max_weight )
+		{
+			clif_buyvending(sd, index, amount, 2);
+			return;
+		}
+
+		switch( pc_checkadditem(sd, nd->vending[index].nameid, amount) )
+		{
+			case ADDITEM_OVERAMOUNT:
+				return;
+			case ADDITEM_NEW:
+				add++;
+		}
+	}
+
+	if( add > blank )
+		return;
+
+	if (nd->vend_type.currency != VEND_CURRENCY_ZENY)
+	{
+		struct item it;
+		memset(&it, 0, sizeof(it));
+
+		switch(nd->vend_type.currency)
+		{
+		case VEND_CURRENCY_ITEM:
+			k = pc_search_inventory(sd, nd->vend_type.itemid);
+			it.nameid = nd->vend_type.itemid;
+
+			if(k>=0)
+				pc_delitem(sd,k,(int)zeny,0,0);
+			else
+				return;
+
+
+			//log_pick_pc(vsd, LOG_TYPE_VENDING, vsd->vend_type.itemid, (int)z, &it, it.serial);
+			log_pick_pc( sd, LOG_TYPE_SCRIPT, nd->vend_type.itemid, -(int)zeny, &it, it.serial);
+
+			break;
+		case VEND_CURRENCY_REG:
+			{
+				char var[32];
+				int type = nd->vend_type.reg_type;
+
+				strncpy(var, nd->vend_type.reg, 32);
+
+				pc_setregistry( sd, var, pc_readregistry( sd, var, type) - (int)zeny, type);
+				//pc_setregistry(vsd, var, pc_readregistry(vsd, var, type) + (int)z, type);
+			}
+			break;
+		case VEND_CURRENCY_KAFRA:
+			pc_paycash(sd, (int)zeny, (int)zeny);
+			//pc_getcash(vsd, 0, (int)z);
+
+			break;
+
+		}
+	}
+	else
+	{
+		pc_payzeny(sd, (int)zeny);
+
+		// TODO: um, how do we log this?
+
+		//log_zeny(sd, LOG_TYPE_SCRIPT, NULL, (int)-z);
+		//log_pick_pc(sd, LOG_TYPE_NPC, nameid, amount, NULL, item_tmp.serial);
+
+		pc_payzeny(sd, (int)zeny);
+	}
+	for( i = 0; count > i; i++ )
+	{
+		short amount = *(uint16*)(data + 4*i + 0);
+		short index  = *(uint16*)(data + 4*i + 2);
+		int flag = 0;
+		struct item add_item;
+		
+		index -= 2;
+
+		memset( &add_item, 0, sizeof(struct item) );
+
+		add_item.nameid = nd->vending[index].nameid;
+		add_item.refine = nd->vending[index].refine;
+		add_item.identify = 1;
+		add_item.attribute = nd->vending[index].attribute;
+		
+		memcpy( add_item.card, nd->vending[index].card, sizeof(nd->vending[index].card) );
+
+		if(nd->vending[index].rent_time)
+		{
+			add_item.expire_time = (unsigned int)(time(NULL) + nd->vending[index].rent_time);
+		}
+		
+		if( (flag = pc_additem(sd, &add_item, 1)) )
+		{
+			clif_additem(sd, 0, 0, flag);
+			return;
+		}
+
+		if(nd->vending[index].rent_time)
+		{
+			//clif_rental_time(sd->fd, add_item.nameid, add_item.expire_time);
+			pc_inventory_rental_add(sd, add_item.expire_time);
+		}
+
+		log_pick_pc(sd, LOG_TYPE_SCRIPT, add_item.nameid, 1, &add_item, add_item.serial);
+		
+	}
+
+	if( save_settings&2 )
+		chrif_save(sd, 0);
+}
+
+
 
 /*==========================================
  * Open shop

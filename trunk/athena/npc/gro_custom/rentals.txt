@@ -8,68 +8,79 @@ OnInit:
 	if (.bgrentalsloaded != 0) 
 		end;
 	
+	
+	freeloop(1);
 	set .@day, 60*60*24;
 	set .@week, .@day * 7;
 	
 	// Keep our columns lined up, or see cock removed from body
+	// UPPER+MEDIUM+LOWER
+	add_bg_rental(EQP_HEAD_LOW|EQP_HEAD_MID|EQP_HEAD_TOP
+							  ,5808,   100, 5, 4223); //+5 stun-resist d bash
+							  
 	// UPPER ONLY
-	add_bg_rental(EQP_HEAD_TOP, 5225,  200,   .@week, 4, 4223); // sgolem marcher hat
-	add_bg_rental(EQP_HEAD_TOP, 5137,  200,   .@week, 0, 4269); // incu alice doll
-	add_bg_rental(EQP_HEAD_TOP, 5409,  200,   .@week, 4, 4412); // aria cowboyhat
-	add_bg_rental(EQP_HEAD_TOP, 2221,   10,  3*.@day, 4, 4269); // incubus hat
-	add_bg_rental(EQP_HEAD_TOP, 5396,  200,   .@week, 4, 4127); // nightmare jaspercrest
+	add_bg_rental(EQP_HEAD_TOP, 5409,  200, 4, 4412); // aria cowboyhat
+	
+	add_bg_rental(EQP_HEAD_TOP, 5374,  500, 4); //  bapho horn (atk)
+	
+	add_bg_rental(EQP_HEAD_TOP, 2221,   10, 4, 4269); // fatasm hat
+	add_bg_rental(EQP_HEAD_TOP, 5170,  100, 4); // feather beret 
+	add_bg_rental(EQP_HEAD_TOP, 5396,  200, 4, 4127); // insomniac jaspercrest
+	add_bg_rental(EQP_HEAD_TOP, 5518,  500, 4); // large bapho horn (def)
+	add_bg_rental(EQP_HEAD_TOP, 5225,  200, 4, 4223); // stun-resist marcher hat
+	add_bg_rental(EQP_HEAD_TOP, 5277,  150, 4); // yellow bandana
+	add_bg_rental(EQP_HEAD_TOP, 5278,  150, 4); // yellow ribbon
 	
 	
-	add_bg_rental(EQP_HEAD_TOP, 2289,    5,  3*.@day   ); // poopoo hat
-	add_bg_rental(EQP_HEAD_TOP, 5172,   10,  3*.@day   ); // beret
-	add_bg_rental(EQP_HEAD_TOP, 5170,  100,   .@week, 4); // f beret
-	add_bg_rental(EQP_HEAD_TOP, 5518,  500,   .@week, 4); // def bapho horn
-	add_bg_rental(EQP_HEAD_TOP, 5277,  150,   .@week, 4); // yellow bandana
-	add_bg_rental(EQP_HEAD_TOP, 5278,  150,   .@week, 4); // yellow ribbon
-	add_bg_rental(EQP_HEAD_TOP, 2285,   10,  3*.@day   ); // aoa
-	add_bg_rental(EQP_HEAD_TOP, 5423,  500             ); // i love china
-	add_bg_rental(EQP_HEAD_TOP, 5374,  500,   .@week, 4);
+	add_bg_rental(EQP_HEAD_TOP, 2285,   10); // aoa
 	
+	add_bg_rental(EQP_HEAD_TOP, 5172,   10); // beret
+	
+	add_bg_rental(EQP_HEAD_TOP, 5137,  200, 0, 4269); // fatasm alice doll
+	add_bg_rental(EQP_HEAD_TOP, 5423,  500); // i love china
+	add_bg_rental(EQP_HEAD_TOP, 2289,    5); // poopoo hat
+	
+		
 	// MID ONLY
 	
-	add_bg_rental(EQP_HEAD_MID, 2204,  100,   .@week, 0, 4223); // sgolem glasses
-	add_bg_rental(EQP_HEAD_MID, 2204,  350,   .@week, 0, 4188); // l.olmai glasses
-	add_bg_rental(EQP_HEAD_MID, 2204,  200,   .@week, 0, 4269); // incubus glasses
-	add_bg_rental(EQP_HEAD_MID, 2204,  100,   .@week, 0, 4127); // nightmare glasses
-	add_bg_rental(EQP_HEAD_MID, 2204,   50,   .@week, 0, 4354); // gemini glasses
 	
 	add_bg_rental(EQP_HEAD_MID, 5389,  100); // angel of ghost
-	add_bg_rental(EQP_HEAD_MID, 5325,  500); // robo eyes
-	add_bg_rental(EQP_HEAD_MID, 5288,   50,  3*.@day); // red glasses
-	
 	add_bg_rental(EQP_HEAD_MID, 5800,  500); // blush of groom
 	add_bg_rental(EQP_HEAD_MID, 5135,   75); // cyclops visor
+	
+	add_bg_rental(EQP_HEAD_MID, 2204,  200, 0, 4269); // fatasm glasses
+	add_bg_rental(EQP_HEAD_MID, 2204,   50, 0, 4354); // glasses of stability
+	
+	// MEDIUM+LOWER
+	add_bg_rental(EQP_HEAD_LOW|EQP_HEAD_MID
+							  ,5314,   50); // hockey mask
+	// BACK TO MID ONLY
+	add_bg_rental(EQP_HEAD_MID, 2204,  100, 0, 4127); // insomniac glasses
 	add_bg_rental(EQP_HEAD_MID, 2291,   50); // masquerade
+	add_bg_rental(EQP_HEAD_MID, 5288,   50); // red glasses
+	add_bg_rental(EQP_HEAD_MID, 2204,  350, 0, 4188); // red stone glasses
+	add_bg_rental(EQP_HEAD_MID, 5325,  500); // robo eyes
+	add_bg_rental(EQP_HEAD_MID, 2204,  100, 0, 4223); // stun-resist glasses
+	
 	
 	// LOWER ONLY
 	
 	add_bg_rental(EQP_HEAD_LOW, 2265,    5); // Gangster Mask
-	add_bg_rental(EQP_HEAD_LOW,5377,  150); // Gentleman's Pipe
-	add_bg_rental(EQP_HEAD_LOW, 5304,  100); // Pirate Dagger
+	add_bg_rental(EQP_HEAD_LOW, 5377,  150); // Gentleman's Pipe
+	add_bg_rental(EQP_HEAD_LOW, 5305,  100); // Pirate Dagger
 	add_bg_rental(EQP_HEAD_LOW, 5463,  100); // Rainbow Scarf
 	add_bg_rental(EQP_HEAD_LOW, 5462,   50); // Spiked Scarf
 	add_bg_rental(EQP_HEAD_LOW, 5574,  200); // Well-Chewed Pencil
 	
-	// MEDIUM+LOWER
+
 	
-	add_bg_rental(EQP_HEAD_LOW|EQP_HEAD_MID
-							  ,5314,   50); // hockey mask
-	
-	// UPPER+MEDIUM+LOWER
-	
-	add_bg_rental(EQP_HEAD_LOW|EQP_HEAD_MID|EQP_HEAD_TOP
-							  ,5808,  100,   .@week, 5, 4223); //+5 sgolem d bash
+
 	
 	// ARMOR
 	
 	//unfrozens = 4105
 	//evil druid = 4141
-	setarray .@bg_armors[0], 2302, 2357, 2376, 2377, 2378, 2379, 2380, 2381, 2382;
+	setarray .@bg_armors[0], 2302, 2376, 2377, 2378, 2379, 2380, 2381, 2382, 2357;
 	setarray .@armor_cards, 4105, 4141;
 	set .@cost, 50;
 	for (set .@i, 0; .@i < getarraysize(.@bg_armors); set .@i, .@i + 1)
@@ -77,28 +88,26 @@ OnInit:
 		for (set .@j, 0; .@j < getarraysize(.@armor_cards); set .@j, .@j + 1)
 		{
 			set .@thiscost, .@cost;
-			set .@thistime, .@week;
 			switch (.@bg_armors[.@i])
 			{
 				case 2302: // cotton shirts
 					set .@thiscost, 5;
-					set .@thistime, 3*.@day;
 					break;
 				case 2357: // valk armor;
-					set .@thiscost, 50;
+					set .@thiscost, 100;
 					break;
 			}
-			add_bg_rental(EQP_ARMOR, .@bg_armors[.@i], .@thiscost, .@thistime, 4, .@armor_cards[.@j]);
+			add_bg_rental(EQP_ARMOR, .@bg_armors[.@i], .@thiscost, 4, .@armor_cards[.@j]);
 		}
 	}
 	
-	add_bg_rental(EQP_ARMOR, 2394,   60,   .@week, 4); // Glorious Suit
+	add_bg_rental(EQP_ARMOR, 2394,  60, 4); // Glorious Suit
 	
 	
 	// SHIELDS
 	
 	setarray .@bg_shields[0], 2102, 2115, 2131;
-	setarray .@shield_cards[0], 4045, 4058, 4439;
+	setarray .@shield_cards[0], 4058, 4045, 4439;
 	
 	set .@cost,   25;
 	for (set .@i, 0; .@i < getarraysize(.@bg_shields); set .@i, .@i + 1)
@@ -106,14 +115,16 @@ OnInit:
 		for ( set .@j, 0; .@j < getarraysize(.@shield_cards); set .@j, .@j + 1)
 		{
 			set .@thiscost, .@cost;
-			set .@thistime, .@week;
 			if (.@bg_shields[.@i] == 2102)
 			{
 				set .@thiscost, 5;
-				set .@thistime, 3*.@day;
+			}
+			if (.@bg_shields[.@i] == 2115)
+			{
+				set .@thiscost, .@thiscost + 30;
 			}
 			
-			add_bg_rental(EQP_SHIELD, .@bg_shields[.@i], .@thiscost, .@thistime, 4, .@shield_cards[.@j]);
+			add_bg_rental(EQP_SHIELD, .@bg_shields[.@i], .@thiscost, 4, .@shield_cards[.@j]);
 		}
 	}
 
@@ -121,28 +132,26 @@ OnInit:
 		// matyr = 4097
 		// gferus = 4381
 	setarray .@bg_shoes[0], 2402, 2435, 2436, 2437;
-	setarray .@shoe_cards[0], 4097, 4381, 4100;
+	setarray .@shoe_cards[0], 4097, 4100, 4381;
 	set .@cost, 20;
 	for (set .@i, 0; .@i < getarraysize(.@bg_shoes); set .@i, .@i + 1)
 	{
 		for (set .@j, 0; .@j < getarraysize(.@shoe_cards); set .@j, .@j + 1)
 		{
 			set .@thiscost, .@cost;
-			set .@thistime, .@week;
 			if (.bg_shoes[.@i] == 2402) // sandals
 			{
 				set .@thiscost, 5;
-				set .@thistime, 3*.@day;
 			}
 			
-			add_bg_rental(EQP_SHOES, .@bg_shoes[.@i], .@thiscost, .@thistime, 4, .@shoe_cards[.@j]);
+			add_bg_rental(EQP_SHOES, .@bg_shoes[.@i], .@thiscost, 4, .@shoe_cards[.@j]);
 		}
 	}
 	
-	add_bg_rental(EQP_SHOES, 2423,  50,   .@week, 4); // variant shoes
-	add_bg_rental(EQP_SHOES, 2441,  50,   .@week, 4); // beach sandals
-	add_bg_rental(EQP_SHOES, 2444,  35,  3*.@day, 4); // Glorious Shoes
-	add_bg_rental(EQP_SHOES, 2408,   5,  3*.@day, 4); // shackles
+	add_bg_rental(EQP_SHOES, 2441, 100, 4); // beach sandals
+	add_bg_rental(EQP_SHOES, 2444,  35, 4); // Glorious Shoes
+	add_bg_rental(EQP_SHOES, 2408,   5, 4); // shackles
+	add_bg_rental(EQP_SHOES, 2423,  50, 0); // variant shoes
 	
 
 	// ROBES
@@ -153,23 +162,25 @@ OnInit:
 		// sally = 4429
 		// frill = 4088
 	setarray .@bg_robes[0], 2502, 2538, 2539, 2546, 2540, 2554;
-	setarray .@robe_cards[0], 4334, 4133, 4109, 4095, 4088, 4429;
+	setarray .@robe_cards[0], 4334, 4109, 4095, 4088, 4133, 4429;
 	set .@cost, 20;
 	for (set .@i, 0; .@i < getarraysize(.@bg_robes); set .@i, .@i + 1)
 	{
 		for ( set .@j, 0; .@j < getarraysize(.@robe_cards); set .@j, .@j + 1)
 		{
 			set .@thiscost, .@cost;
-			set .@thistime, .@week;
 			
 			if (.@bg_robes[.@i] == 2502) // lower cost & duration on hood
 			{
 				set .@thiscost, 5;
-				set .@thistime, 3*.@day;
+			}
+			else if (.@bg_robes[.@i] == 2546) // raise price on beach mant
+			{
+				set .@thiscost, .@cost + 80;
 			}
 			else if (.@bg_robes[.@i] == 2554) // raise price on proxy
 			{
-				set .@thiscost, .@cost + 80;
+				set .@thiscost, .@cost + 130;
 			}
 			
 			if (.@robe_cards[.@j] == 4088) // raise price on frilldora carded
@@ -183,20 +194,20 @@ OnInit:
 					continue;
 				}
 					
-				set .@thiscost, .@thiscost + 200;
+				set .@thiscost, .@thiscost + 500;
 			}
 			
 			
-			add_bg_rental(EQP_GARMENT, .@bg_robes[.@i], .@thiscost, .@thistime, 4, .@robe_cards[.@j]);
+			add_bg_rental(EQP_GARMENT, .@bg_robes[.@i], .@thiscost, 4, .@robe_cards[.@j]);
 		}
 	}
 	
-	add_bg_rental(EQP_GARMENT, 2549,  40,  3*.@day, 4); // glorious muffler 
+	add_bg_rental(EQP_GARMENT, 2549,  40, 4); // glorious muffler 
 
 	
 	// ACCESSORIES
 	
-	setarray .@bg_accs[0], 2607, 2647, 2729, 2701, 2621, 2749, 2671, 2730, 2731;
+	setarray .@bg_accs[0], 2607, 2729, 2701, 2621, 2749, 2671, 2730;
 	setarray .@acc_cards[0], 4044, 4064, 4084, 4103, 4252, 4436; 
 	
 	set .@cost, 25;
@@ -206,82 +217,96 @@ OnInit:
 		{
 			set .@thistime, .@week;
 			
-			if (.@bg_accs[.@i] == 2607 || .@bg_accs[.@i] == 2647) // lower cost on clip
+			if (.@bg_accs[.@i] == 2607) // lower cost on clip
 			{
 				set .@thiscost, 5;
-				set .@thistime, 3*.@day;
 			}
 			else if (.@bg_accs[.@i] == 2701 || .@bg_accs[.@i] == 2729) // extra cost on dring/oglove
 			{
 				set .@thiscost, .@cost + (10*(.@i-1)) + 5;
 			}
 			
-			add_bg_rental(EQP_ACC, .@bg_accs[.@i], .@thiscost, .@thistime, 0, .@acc_cards[.@j]);
+			add_bg_rental(EQP_ACC, .@bg_accs[.@i], .@thiscost, 0, .@acc_cards[.@j]);
 		}
 	}
 	
 	
-	add_bg_rental(EQP_ACC, 2677,   10,  3*.@day); // Spirit Ring
+	
+	
+	add_bg_rental(EQP_ACC, 2655,   15); // BSB ATK+50 w/ combo
+	
+	add_bg_rental(EQP_ACC, 2774,    5); // glorious ring (stats+1)
+	add_bg_rental(EQP_ACC, 2773,   20); // glorious ring (stats+2)
+	add_bg_rental(EQP_ACC, 2772,   50); // glorious ring
+	
+	add_bg_rental(EQP_ACC, 2720,   50); // Medal Swordman
+	add_bg_rental(EQP_ACC, 2721,   50); // Medal Thief
+	add_bg_rental(EQP_ACC, 2722,   50); // Medal Acolyte
+	add_bg_rental(EQP_ACC, 2723,   50); // Medal Mage
+	add_bg_rental(EQP_ACC, 2724,   50); // Medal Archer
+	add_bg_rental(EQP_ACC, 2725,   50); // Medal Merchant
+	add_bg_rental(EQP_ACC, 2733,   50); // Sheriff Badge do not move; belongs with the medals!
+	
+	
+	add_bg_rental(EQP_ACC, 2710,   10); // refined BSB ATK+30 w/o combo
 	
 	add_bg_rental(EQP_ACC, 2678,   15); // Ring of Flame Lord
 	add_bg_rental(EQP_ACC, 2679,   15); // Ring of Resonance
 	
-	add_bg_rental(EQP_ACC, 2655,   15); // BSB ATK+50 w/ combo
-	add_bg_rental(EQP_ACC, 2710,   10); // BSB ATK+30 w/o combo
-	
-	add_bg_rental(EQP_ACC, 2772,   50,  3*.@day); // KVM ring
-	add_bg_rental(EQP_ACC, 2773,   20,  3*.@day); // KVM ring (stats+2)
-	
-	add_bg_rental(EQP_ACC, 2720,   50,  3*.@day); // Medal Swordman
-	add_bg_rental(EQP_ACC, 2721,   50,  3*.@day); // Medal Thief
-	add_bg_rental(EQP_ACC, 2722,   50,  3*.@day); // Medal Acolyte
-	add_bg_rental(EQP_ACC, 2723,   50,  3*.@day); // Medal Mage
-	add_bg_rental(EQP_ACC, 2724,   50,  3*.@day); // Medal Archer
-	add_bg_rental(EQP_ACC, 2725,   50,  3*.@day); // Medal Merchant
+	add_bg_rental(EQP_ACC, 2677,   10); // Spirit Ring
 	
 	
 	// WEAPONS
+
+	add_bg_rental(EQP_WEAPON, 1732,   50, 5, 4035); // +5 bloody earthen bow
 	
-	add_bg_rental(EQP_WEAPON, 1202,   30,   .@week, 0, 4004, 4004, 4004, 4004); //4x drops knife
-	add_bg_rental(EQP_WEAPON, 1202,  100,   .@week, 0, 4368, 4368, 4368, 4368); //4x shecil knife
-	add_bg_rental(EQP_WEAPON, 1228,  100,   .@week, 4); // combat knife
+	add_bg_rental(EQP_WEAPON, 1276,   50, 5, 4035, 4035, 4092); // +5 DBB Katar (EARTH)
+	add_bg_rental(EQP_WEAPON, 1277,   50, 5, 4035, 4035, 4092); // +5 DBB Katar (FIRE)
+	add_bg_rental(EQP_WEAPON, 1278,   50, 5, 4035, 4035, 4092); // +5 DBB Katar (WIND)
+	add_bg_rental(EQP_WEAPON, 1275,   50, 5, 4035, 4035, 4092); // +5 DBB Katar (WATER)
+	//                                                                           HEART
+	add_bg_rental(EQP_WEAPON, 1544,   10, 5, 4035, 4035, 4092); // +5 DBB lunakaligo
 	
-	add_bg_rental(EQP_WEAPON, 13405,  50,   .@week, 0, 4368, 4368); //2x shecil thin blade
-	add_bg_rental(EQP_WEAPON, 13414, 100,   .@week, 0, 4368, 4368, 4368); //3x Rapid Ele Sword
-	add_bg_rental(EQP_WEAPON, 13414,  50,   .@week, 0, 4004, 4004, 4004); //3x Drops Ele Sword
+	add_bg_rental(EQP_WEAPON, 1309,   20, 5, 4281, 4281, 4281, 4281); //+5 quad diligent orcish axe
 	
-	add_bg_rental(EQP_WEAPON, 1525,   30,   .@week, 4); // long mace
-	add_bg_rental(EQP_WEAPON, 1544,   10,   .@week, 5, 4035, 4035, 4092); // DBB lunakaligo
+	add_bg_rental(EQP_WEAPON, 1266,   50, 4, 4092); // +4 boned infil
+	add_bg_rental(EQP_WEAPON, 1228,  100, 4); // +4 combat knife
+	
+	add_bg_rental(EQP_WEAPON, 1525,   30, 4); // +4 long mace
+	
+	add_bg_rental(EQP_WEAPON, 13405,  50, 0, 4368, 4368); //double rapid thin blade
 	
 	
-	add_bg_rental(EQP_WEAPON, 1309,   20,   .@week, 5, 4281, 4281, 4281, 4281); // 4x zipperbear orcish axe
 	
-	add_bg_rental(EQP_WEAPON, 1816,  100,   .@week, 0, 4368); // rapid berserk fist 
 	
-	add_bg_rental(EQP_WEAPON,  1732,   50,   .@week, 5, 4035); // bloody earthen bow
+	add_bg_rental(EQP_WEAPON, 1925,   50, 0, 4072, 4452, 4452); // Solid double Magical Cello
+	add_bg_rental(EQP_WEAPON, 1925,   50, 0, 4072, 4002, 4002); // Solid double Vital Cello
 	
-	add_bg_rental(EQP_WEAPON, 1925,   50,   .@week, 0, 4072, 4452, 4452); // Solid double Magical Cello
-	add_bg_rental(EQP_WEAPON, 1925,   50,   .@week, 0, 4072, 4002, 4002); // Solid double Vital Cello
+	add_bg_rental(EQP_WEAPON, 1980,   50, 0, 4072, 4026, 4026); // Solid double shrewd whip of unbalance
+	add_bg_rental(EQP_WEAPON, 1980,   50, 0, 4072, 4002, 4002); // Solid double Vital whip of unbalance
+	
 	add_bg_rental(EQP_WEAPON, 1920,   20); // spirit guitar
 	
-	add_bg_rental(EQP_WEAPON, 1980,   50,   .@week, 0, 4072, 4026, 4026); // Solid double shrewd whip of unbalance
-	add_bg_rental(EQP_WEAPON, 1980,   50,   .@week, 0, 4072, 4002, 4002); // Solid double Vital whip of unbalance
-	
-	add_bg_rental(EQP_WEAPON, 1266,   50,   .@week, 4, 4092); // boned infil
-	
-	add_bg_rental(EQP_WEAPON, 1276,   50,   .@week, 5, 4035, 4035, 4092); // DBB Katar (EARTH)
-	add_bg_rental(EQP_WEAPON, 1277,   50,   .@week, 5, 4035, 4035, 4092); // DBB Katar (FIRE)
-	add_bg_rental(EQP_WEAPON, 1278,   50,   .@week, 5, 4035, 4035, 4092); // DBB Katar (WIND)
-	add_bg_rental(EQP_WEAPON, 1275,   50,   .@week, 5, 4035, 4035, 4092); // DBB Katar (WATER)
-															  //            HEART
+	add_bg_rental(EQP_WEAPON, 13414, 100, 0, 4368, 4368, 4368); //triple Rapid Ele Sword
+	add_bg_rental(EQP_WEAPON, 13414,  50, 0, 4004, 4004, 4004); //triple dexterous Ele Sword
 	
 	
 	
+
+
 	
+	add_bg_rental(EQP_WEAPON, 1202,   30, 0, 4004, 4004, 4004, 4004); //quad dexterous knife
+	add_bg_rental(EQP_WEAPON, 1202,  100, 0, 4368, 4368, 4368, 4368); //quad rapid knife
+	
+	
+	
+	add_bg_rental(EQP_WEAPON, 1816,  100, 0, 4368); // rapid berserk
+	
+	freeloop(0);
 	set .bgrentalsloaded, 1;
 	
 	end;
-	//add_bg_rental(id, cost, duration, [refine, card0, card1, card2, card3]);
+	//add_bg_rental(location, id, cost, duration, [refine, card0, card1, card2, card3]);
 	// cost, of course, is in War Badges :)
 	function add_bg_rental {
 		if (.bgrentalsloaded != 0) 
@@ -289,88 +314,48 @@ OnInit:
 			
 		
 		set .@loc, getarg(0);
-		set .@arr$, ".bg_rental_slot"+.@loc;
-		set .@i, getarraysize(getd(.@arr$+"_id"));
 		
+		set .@id, getarg(1);
+		set .@cost, getarg(2);
+		set .@refine, getarg(3, 0);
 		
-		setd(.@arr$+"_id["+.@i+"]"  , getarg(1) );
-		setd(.@arr$+"_cost["+.@i+"]"  , getarg(2) );
-		setd(.@arr$+"_duration["+.@i+"]"  , getarg(3, 60*60*24*7) );
+		set .@card0, getarg(4, 0);
+		set .@card1, getarg(5, 0);
+		set .@card2, getarg(6, 0);
+		set .@card3, getarg(7, 0);
 		
-		setd(.@arr$+"_refine["+.@i+"]"  , getarg(4, 0) );
-		// optional params
-		set .@base, 5;
+		set .@name$, "BG Rental ";
+		set .@spot$, "";
 		
-		set .@arr$, .@arr$+"_card";
+		// needs to be this way or our U+M+L or M+L hats don't work!
+		// unless you want to do case T|M|L and case T|M and case M|L and so on...
+		if      (.@loc & EQP_HEAD_TOP)
+			set .@spot$, "Tops";
+		else if (.@loc & EQP_HEAD_MID)
+			set .@spot$, "Mids";
+		else if (.@loc & EQP_HEAD_LOW)
+			set .@spot$, "Lower";
+		else if (.@loc & EQP_ARMOR)
+			set .@spot$, "Armors";
+		else if (.@loc & EQP_SHIELD)
+			set .@spot$, "Shields";
+		else if (.@loc & EQP_SHOES)
+			set .@spot$, "Shoes";
+		else if (.@loc & EQP_GARMENT)
+			set .@spot$, "Garments";
+		else if (.@loc & EQP_ACC)
+			set .@spot$, "Accessories";
+		else if (.@loc & EQP_WEAPON)
+			set .@spot$, "Weapons";
+		else
+		{
+			debugmes "Bad location! Loc: "+getarg(0);
+			return -1;
+		}
 		
-		//for(set .@j, 0; .@j < 4; set .@j, .@j + 1)
-		//{
-		// LEAVE THIS OUT OF A LOOP! eascript does not like this and will
-		// cry infinite loop otherwise.
-		setd(.@arr$+"0["+.@i+"]", getarg(.@base+0, 0) ); 
-		setd(.@arr$+"1["+.@i+"]", getarg(.@base+1, 0) ); 
-		setd(.@arr$+"2["+.@i+"]", getarg(.@base+2, 0) ); 
-		setd(.@arr$+"3["+.@i+"]", getarg(.@base+3, 0) ); 
-		//}
-		
-		
+		set .@duration, 60*60*24*7;
+		vending_add(.@id, .@cost, 7773, .@duration, .@refine, 0, .@card0, .@card1, .@card2, .@card3, (.@name$ + .@spot$) ); // 7773 = war badge
 	}
-
-	// function get_card_prefix {
-	
-		// switch (getarg(0)) // arg 0 = card id
-		// {
-			// case 4035:
-				// return "Bloody";
-			// case 4045:
-				// return "Heavy";
-			// case 4058:
-				// return "Cranial";
-			// case 4092:
-				// return "Boned";
-			// case 4095:
-				// return "Genie's";
-			// case 4097:
-				// return "Green";
-			// case 4100:
-				// return "Soul-Enchanted";
-			// case 4105:
-				// return "Unfrozen";
-			// case 4109:
-				// return "Flameguard";
-			// case 4133:
-				// return "Neutral";
-			// case 4141:
-				// return "Deadly";
-			// case 4127:
-				// return "Insomniac";
-			// case 4188:
-				// return "Red Stone";
-			// case 4223:
-				// return "Stun-Proof";
-			// case 4269:
-				// return "Fatasm";
-			// case 4334:
-				// return "Anti-Sniping";
-			// case 4354:
-				// return "of Stability";
-			// case 4368:
-				// return ""
-			// case 4381:
-				// return "of Wanderer";
-			// case 4412:
-				// return "Aria";
-			// case 4429:
-				// return "Nessus";
-			// case 4439:
-				// return "of Anathema";
-		// }
-	// }
-	
-	// function is_card_postfix {
-		// set .@name$, get_card_prefix(getarg(0)); // arg0 = card id 
-		
-		// return ( (charat(.@name$, 0) == "o" && charat(.name$, 1) == "f") || charat(.@name$, 1) == "[");
-	// }
-	
 }
+
+
