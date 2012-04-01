@@ -5927,7 +5927,7 @@ void clif_vendinglist(struct map_session_data* sd, int id, struct s_vending* ven
 				if( i >= 0)
 					amount = sd->status.inventory[i].amount;
 
-				snprintf(out, CHAT_SIZE_MAX, "This shop uses `%s` for currency. You have %d ea.", itemdb_jname((vsd->vend_type.itemid)), sd->status.inventory[i].amount);
+				snprintf(out, CHAT_SIZE_MAX, "This shop uses `%s` for currency. You have %d ea.", itemdb_jname((vsd->vend_type.itemid)), amount);
 				clif_displaymessage(sd->fd, out );
 			}
 			break;
@@ -6025,7 +6025,7 @@ int clif_vending_script(struct map_session_data* sd, struct npc_data* nd)
 				if( i >= 0)
 					amount = sd->status.inventory[i].amount;
 
-				snprintf(out, CHAT_SIZE_MAX, "This shop uses `%s` for currency. You have %d ea.", itemdb_jname((nd->vend_type.itemid)), sd->status.inventory[i].amount);
+				snprintf(out, CHAT_SIZE_MAX, "This shop uses `%s` for currency. You have %d ea.", itemdb_jname((nd->vend_type.itemid)), amount);
 				clif_displaymessage(sd->fd, out );
 			}
 			break;
