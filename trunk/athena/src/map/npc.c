@@ -3033,7 +3033,11 @@ static const char* npc_parse_mob(char* w1, char* w2, char* w3, char* w4, const c
 	mob.xs = (signed short)xs;
 	mob.ys = (signed short)ys;
 
-	if (mob.num > 1 && battle_config.mob_count_rate != 100) {
+
+	if (mob.num > 1 && map[m].flag.mob_count_rate) { // Added mob_count_rate map flag [Valaris for KharmaRO]
+		if ((mob.num = mob.num * map[m].flag.mob_count_rate) < 1)
+			mob.num = 1;
+	} else if (mob.num > 1 && battle_config.mob_count_rate != 100) {
 		if ((mob.num = mob.num * battle_config.mob_count_rate / 100) < 1)
 			mob.num = 1;
 	}
@@ -3423,7 +3427,15 @@ static const char* npc_parse_mapflag(char* w1, char* w2, char* w3, char* w4, con
 		map[m].flag.guildlock=state;
 	else if (!strcmpi(w3,"reset"))
 		map[m].flag.reset=state;
+	else if (!strcmpi(w3,"mob_count_rate")) // Added mob_count_rate map flag [Valaris for KharmaRO]
+	{
+		if(atoi(w4) > 10)
+			map[m].flag.mob_count_rate = 10;
+		else
+			map[m].flag.mob_count_rate = (state) ? atoi(w4) : 0;
+	}
 	else
+
 		ShowError("npc_parse_mapflag: unrecognized mapflag '%s' (file '%s', line '%d').\n", w3, filepath, strline(buffer,start-buffer));
 
 	return strchr(start,'\n');// continue
