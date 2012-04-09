@@ -9240,6 +9240,11 @@ void clif_parse_QuitGame(int fd, struct map_session_data *sd)
 	if( !sd->sc.data[SC_CLOAKING] && !sd->sc.data[SC_HIDING] && !sd->sc.data[SC_CHASEWALK] &&
 		(!battle_config.prevent_logout || DIFF_TICK(gettick(), sd->canlog_tick) > battle_config.prevent_logout) )
 	{
+		if(sd->vender_id) { // Exiting while vending will enable autotrade [Valaris for KarmaRO]
+			sd->state.autotrade = 1;
+			clif_authfail_fd(fd, 15);
+			return;
+		}		
 		set_eof(fd);
 		WFIFOW(fd,2)=0;
 	} else {

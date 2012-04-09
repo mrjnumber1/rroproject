@@ -13422,7 +13422,7 @@ BUILDIN_FUNC(explode)
 BUILDIN_FUNC(implode)
 {
 	struct script_data* data = script_getdata(st, 2);
-	const char *glue, *name, *temp;
+	const char *glue = NULL, *name, *temp;
 	int32 glue_len = 0, array_size, id;
 	size_t len = 0;
 	int i, k = 0;
