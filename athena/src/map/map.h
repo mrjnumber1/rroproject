@@ -523,6 +523,7 @@ struct map_data {
 		unsigned woe_set :1;
 		unsigned bg_active :1;
 		unsigned nonlr_accessible :1;
+		unsigned mob_count_rate : 10; // Added mob_count_rate map flag [Valaris for KharmaRO]
 	} flag;
 	struct point save;
 	struct npc_data *npc[MAX_NPC_PER_MAP];
