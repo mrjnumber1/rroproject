@@ -23,6 +23,7 @@
 #include "homunculus.h"
 #include "mercenary.h"
 #include "guild.h"
+#include "irc.h"
 #include "itemdb.h"
 #include "skill.h"
 #include "battle.h"
@@ -297,7 +298,7 @@ bool mob_ksprotected (struct block_list *src, struct block_list *target)
 		return false; // KS Protection Disabled
 
 	if( !(md = BL_CAST(BL_MOB,target)) )
-		return false; // Tarjet is not MOB
+		return false; // Target is not MOB
 
 	if( (s_bl = battle_get_master(src)) == NULL )
 		s_bl = src;
@@ -875,6 +876,7 @@ int mob_spawn (struct mob_data *md)
 	md->state.skillstate = MSS_IDLE;
 	md->next_walktime = tick+rand()%5000+1000;
 	md->last_linktime = tick;
+	md->dmgtick = tick - 5000;
 	md->last_pcneartime = 0;
 
 	for (i = 0, c = tick-MOB_MAX_DELAY; i < MAX_MOBSKILL; i++)
@@ -891,7 +893,8 @@ int mob_spawn (struct mob_data *md)
 		md->sc.option = md->db->option;
 
 	map_addblock(&md->bl);
-	clif_spawn(&md->bl);
+	if( map[md->bl.m].users ) 
+		clif_spawn(&md->bl);
 	skill_unit_move(&md->bl,tick,1);
 	mobskill_use(md, tick, MSC_SPAWN);
 	return 0;
@@ -1743,34 +1746,27 @@ static void mob_item_drop(struct mob_data *md, struct item_drop_list *dlist, str
 	dlist->item = ditem;
 }
 
-int mob_process_aloot(struct map_session_data* sd, int nameid)
+bool mob_process_aloot(struct map_session_data* sd, int nameid)
 {
 	int i;
-	if(sd->state.autolootactive != 0)
-	{
-		for(i=0; i < MAX_ALOOTITEM; ++i)
-		{
-			if(nameid == sd->state.autolootid[i])
-				return 1;
-		}
-	}
 
-	return 0;
+	if(!sd->state.autolootactive)
+		return false;
+	ARR_FIND(0, MAX_ALOOTITEM, i, sd->state.autolootid[i] == nameid);
+	
+	return (i != MAX_ALOOTITEM);
 }
 
-int mob_process_noloot(struct map_session_data* sd, int nameid)
+bool mob_process_noloot(struct map_session_data* sd, int nameid)
 {
 	int i;
-	if(sd->state.nolootactive != 0)
-	{
-		for(i=0; i < MAX_ALOOTITEM; ++i)
-		{
-			if(nameid == sd->state.nolootid[i])
-				return 0;
-		}
-	}
 
-	return 1;
+	if(!sd->state.nolootactive)
+		return false;
+
+	ARR_FIND(0, MAX_ALOOTITEM, i, sd->state.nolootid[i] == nameid);
+	
+	return (i != MAX_ALOOTITEM);
 }
 
 int mob_timer_delete(int tid, unsigned int tick, int id, intptr_t data)
@@ -1955,6 +1951,7 @@ void mob_damage(struct mob_data *md, struct block_list *src, int damage)
 		}
 		//Log damage
 		if (src) mob_log_damage(md, src, damage);
+		md->dmgtick = gettick();
 	}
 
 	clif_mobnameack(NULL, md, 1);
@@ -2048,10 +2045,18 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 			pc_setglobalreg(sd,"TK_MISSION_COUNT", sd->mission_count);
 		}
 		if( sd->status.party_id )
+		{
 			map_foreachinrange(quest_update_objective_sub,&md->bl,AREA_SIZE,BL_PC,sd->status.party_id,md->class_);
+			map_foreachinrange(mission_update_sub,&md->bl, AREA_SIZE, BL_PC, sd->status.party_id, md->class_);
+		}
 		else
-		if( sd->avail_quests )
-			quest_update_objective(sd, md->class_);
+		{
+			if( sd->avail_quests )
+				quest_update_objective(sd, md->class_);
+
+			mission_update(sd, md->class_);
+		}
+
 	}
 
 	// filter out entries not eligible for exp distribution
@@ -2385,6 +2390,9 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 		}
 		
 		mexp = (unsigned int)cap_value(exp, 1, UINT_MAX);
+		
+		if(irc.enabled && irc.mvp_flag)
+			irc_announce_mvp(mvp_sd, md);
 
 		clif_mvp_effect(mvp_sd);
 		clif_mvp_exp(mvp_sd,mexp);
@@ -2480,23 +2488,23 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 		if( sd && sd->md && src && src->type != BL_HOM && mob_db(md->class_)->lv > sd->status.base_level/2 )
 			mercenary_kills(sd->md);
 
-		if( sd)
+		if(sd)
 		{
 			pc_record_mobkills(sd, md);
-			// 1% chance for 10 kafra points
-			// .1% chance for 100 kafra points
-			// .01% chance for 1000 kafra points
+			// 1% chance for 5 kafra points
+			// .1% chance for 50 kafra points
+			// .01% chance for 500 kafra points
 			if ( rand_val == 1 )
 			{
-				pc_getcash(sd, 0, 1000);
+				pc_getcash(sd, 0, 500);
 			}
 			else if ( rand_val <= 10)
 			{
-				pc_getcash(sd, 0, 100);
+				pc_getcash(sd, 0, 50);
 			}
 			else if ( rand_val <= 100)
 			{
-				pc_getcash(sd, 0, 10);
+				pc_getcash(sd, 0, 5);
 			}
 		}
 
@@ -4555,55 +4563,6 @@ void mob_clear_spawninfo()
 	for (i = 0; i < MAX_MOB_DB; i++)
 		if (mob_db_data[i])
 			memset(&mob_db_data[i]->spawn,0,sizeof(mob_db_data[i]->spawn));
-}
-/*
-struct s_mission_data {
-	short mob_id;
-	int count;
-	int goal;
-	unsigned int expire_time;
-};
-*/
-void mission_update(TBL_PC* sd, int class_)
-{
-	int i;
-	char out[CHAT_SIZE_MAX];
-
-	for(i = 0; i < MAX_MISSION; ++i)
-	{
-		if(sd->mission[i].mob_id != class_)
-			continue;
-		else
-		{
-			sd->mission[i].count += 1;
-
-			if(sd->mission[i].count >= sd->mission[i].goal)
-			{
-				int tick, day, hour, minute, second;
-
-				memset(out, '\0', sizeof(out));
-				tick = sd->mission[i].expire_time - (int)time(NULL);
-				convert_time(tick, &day, &hour, &minute, &second);
-
-				clif_displaymessage(sd->fd, "Mission Complete !!");
-
-				sprintf(out, "  Target: '%s' (ID: %d)", mob_db(sd->mission[i].mob_id)->jname, sd->mission[i].mob_id );
-				clif_displaymessage(sd->fd, out);
-				sprintf(out, "  Kills Required: %d", sd->mission[i].goal);
-				clif_displaymessage(sd->fd, out);
-				sprintf(out, "  Time Elapsed: %02d:%02d:%02d", hour, minute, second);
-
-			}
-
-			if(sd->state.mission_info)
-			{
-				memset(out, '\0', sizeof(out));
-				sprintf(out, "Target:'%s' (ID : %d) | %d kills remaining", mob_db(sd->mission[i].mob_id)->jname, sd->mission[i].mob_id, sd->mission[i].goal - sd->mission[i].count);
-				clif_displaymessage(sd->fd, out);
-			}
-			
-		}
-	}
 }
 
 /*==========================================

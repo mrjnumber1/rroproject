@@ -127,8 +127,8 @@ OnBuffs:
 	
 OnScrollbuffs:
 	//ensure that these indices are consistent!
-	setarray .@items[0],		12219,			 12220,			 14517,			14518,	       14519, 		 14520,	  12351					;
-	setarray .@status[0], SC_WINDWALK,	 SC_ADRENALINE,	  SC_CP_WEAPON,	SC_CP_SHIELD,	 SC_CP_ARMOR, 	SC_CP_HELM, SC_LOUD					;
+	setarray .@items[0],		12219,			 12220,			 14520,			14518,	       14519, 		 14517,	  12351					;
+	setarray .@status[0], SC_WINDWALK,	 SC_ADRENALINE,	  SC_CP_WEAPON,	 SC_CP_SHIELD,	 SC_CP_ARMOR, 	SC_CP_HELM, SC_LOUD					;
 	setarray .@skill[0],		  383, 			   111,			   234,			   235,			 236, 		   237,		155					;
 	setarray .@level[0],		   10,				 5,				 5,				 5,			   5,			 5,		  1					;
 	setarray .@onself[0],			0,				 0,			 	 0,			 	 0,		  	   0,		 	 0,	   	  1					;

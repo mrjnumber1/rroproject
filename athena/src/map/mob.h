@@ -37,7 +37,7 @@
 //Used to determine default enemy type of mobs (for use in eachinrange calls)
 #define DEFAULT_ENEMY_TYPE(md) (md->special_state.ai?BL_CHAR:BL_PC|BL_HOM|BL_MER)
 
-#define MAX_MISSION 5
+
 
 //Externals for the status effects. [Epoque]
 extern const int mob_manuk[8];
@@ -157,7 +157,7 @@ struct mob_data {
 	int target_id,attacked_id;
 	int areanpc_id; //Required in OnTouchNPC (to avoid multiple area touchs)
 
-	unsigned int next_walktime,last_thinktime,last_linktime,last_pcneartime;
+	unsigned int next_walktime,last_thinktime,last_linktime,last_pcneartime,dmgtick;
 	short move_fail_count;
 	short lootitem_count;
 	short min_chase;
@@ -213,14 +213,6 @@ enum {
 	MSC_SPAWN,
 };
 
-struct s_mission_data {
-	short mob_id;
-	int count;
-	int goal;
-	unsigned int begin_time;
-	unsigned int expire_time;
-};
-
 // The data structures for storing delayed item drops
 struct item_drop {
 	struct item item_data;
@@ -263,8 +255,8 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type);
 void mob_revive(struct mob_data *md, unsigned int hp);
 void mob_heal(struct mob_data *md,unsigned int heal);
 
-int mob_process_aloot(struct map_session_data * sd, int nameid);
-int mob_process_noloot(struct map_session_data * sd, int nameid);
+bool mob_process_aloot(struct map_session_data * sd, int nameid);
+bool mob_process_noloot(struct map_session_data * sd, int nameid);
 
 #define mob_stop_walking(md, type) unit_stop_walking(&(md)->bl, type)
 #define mob_stop_attack(md) unit_stop_attack(&(md)->bl)

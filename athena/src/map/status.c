@@ -29,6 +29,7 @@
 #include "homunculus.h"
 #include "mercenary.h"
 #include "vending.h"
+#include "party.h"
 
 #include <time.h>
 #include <stdio.h>
@@ -4153,7 +4154,6 @@ static unsigned short status_calc_mode(struct block_list *bl, struct status_chan
 	}
 	return cap_value(mode,0,USHRT_MAX);
 }
-
 const char* status_get_name(struct block_list *bl)
 {
 	nullpo_ret(bl);
@@ -4166,6 +4166,7 @@ const char* status_get_name(struct block_list *bl)
 	}
 	return "Unknown";
 }
+
 
 /*==========================================
  * ‘ÎÛ‚ÌClass‚ð•Ô‚·(”Ä—p)
@@ -4573,6 +4574,19 @@ void status_change_init(struct block_list *bl)
 	struct status_change *sc = status_get_sc(bl);
 	nullpo_retv(sc);
 	memset(sc, 0, sizeof (struct status_change));
+}
+
+int send_buff_data(struct block_list* bl ,va_list ap)
+{
+	struct map_session_data *sd;
+	
+	sd=va_arg(ap,struct map_session_data*);
+	
+	nullpo_ret(bl);
+	nullpo_ret(sd);
+	
+	clif_charnameack( (struct map_session_data*)bl, &sd->bl);
+	return 1;
 }
 
 //Applies SC defense to a given status change.
@@ -6378,31 +6392,35 @@ int status_change_start(struct block_list* bl,enum sc_type type,int rate,int val
 					break;
 			}
 			break;
-
-		case SC_INTRAVISION:
-			if( sd && battle_config.anti_mayapurple_hack )
-				map_foreachinrange(clif_insight_bl2tbl,bl,AREA_SIZE,BL_PC,bl);
-			break;
-
-		case SC_HIDING:
-		case SC_CLOAKING:
-		case SC_CHASEWALK:
-			if(sd)
-			{
-				if( !pc_islowratechar(sd) )
-				{
-					clif_clearunit_area(bl, CLR_OUTSIGHT);
-					map_foreachinrange(clif_insight_tbl2bl,bl,AREA_SIZE,BL_PC,bl); // Return it Visible only for intravision users
-				}
-				else if( battle_config.anti_mayapurple_hack )
-					clif_clearunit_invisible(&sd->bl); // Dissapear the user from others without intravision
-			}
-			break;
 	}
 
 	if( opt_flag&2 && sd && sd->touching_id )
 		npc_touchnext_areanpc(sd,false); // run OnTouch_ on next char in range
 
+	if(type && sd && sd->status.party_id)
+	{
+		switch(type)
+		{
+			case SC_BLESSING:
+			case SC_INCREASEAGI:
+			case SC_SPIRIT:
+			case SC_CP_WEAPON:
+			case SC_CP_ARMOR:
+			case SC_CP_SHIELD:
+			case SC_CP_HELM:
+			case SC_DEVOTION:
+			{
+				struct party_data *p;
+				if ( (p=party_search(sd->status.party_id)) != NULL )
+				{
+					//clif_party_info(p, NULL);
+					//party_foreachsamemap(send_buff_data,sd,AREA_SIZE,sd);
+				}
+			}
+			break;
+		}
+	}
+	
 	return 1;
 }
 /*==========================================
@@ -6886,20 +6904,14 @@ int status_change_end_(struct block_list* bl, enum sc_type type, int tid, const 
 	case SC_HIDING:
 		sc->option &= ~OPTION_HIDE;
 		opt_flag|= 2|4; //Check for warp trigger + AoE trigger
-		if( sd && battle_config.anti_mayapurple_hack )
-			map_foreachinrange(clif_insight_tbl2bl,bl,AREA_SIZE,BL_PC,bl);
 		break;
 	case SC_CLOAKING:
 		sc->option &= ~OPTION_CLOAK;
 		opt_flag|= 2;
-		if( sd && battle_config.anti_mayapurple_hack )
-			map_foreachinrange(clif_insight_tbl2bl,bl,AREA_SIZE,BL_PC,bl);
 		break;
 	case SC_CHASEWALK:
 		sc->option &= ~(OPTION_CHASEWALK|OPTION_CLOAK);
 		opt_flag|= 2;
-		if( sd && battle_config.anti_mayapurple_hack )
-			map_foreachinrange(clif_insight_tbl2bl,bl,AREA_SIZE,BL_PC,bl);
 		break;
 	case SC_SIGHT:
 		sc->option &= ~OPTION_SIGHT;
@@ -7031,12 +7043,34 @@ int status_change_end_(struct block_list* bl, enum sc_type type, int tid, const 
 	if(opt_flag)
 		clif_changeoption(bl);
 
-	if( sd && (sd->status.base_level == 99) && (!pc_islowratechar(sd)) && battle_config.anti_mayapurple_hack && (type == SC_HIDING || type == SC_CLOAKING || type == SC_CHASEWALK) )
-		clif_sendbgaura(sd, AREA_WOS);
-
 	if (calc_flag)
 		status_calc_bl(bl,calc_flag);
 
+		
+	if(type && sd && sd->status.party_id)
+	{
+		switch(type)
+		{
+			case SC_BLESSING:
+			case SC_INCREASEAGI:
+			case SC_SPIRIT:
+			case SC_CP_WEAPON:
+			case SC_CP_ARMOR:
+			case SC_CP_SHIELD:
+			case SC_CP_HELM:
+			case SC_DEVOTION:
+			{
+				struct party_data *p;
+				if ( (p=party_search(sd->status.party_id)) != NULL )
+				{
+					//clif_party_info(p, NULL);
+					//party_foreachsamemap(send_buff_data,sd,AREA_SIZE,sd);
+				}
+			}
+			break;
+		}
+	}
+	
 	if(opt_flag&4) //Out of hiding, invoke on place.
 		skill_unit_move(bl,gettick(),1);
 
@@ -7502,6 +7536,7 @@ int status_change_timer_sub(struct block_list* bl, va_list ap)
 		}
 		break;
 	}
+
 	return 0;
 }
 

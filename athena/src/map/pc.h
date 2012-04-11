@@ -17,6 +17,7 @@
 #include "unit.h" // unit_stop_attack(), unit_stop_walking()
 #include "vending.h" // struct s_vending
 #include "mob.h"
+#include "quest.h" // mission info
 
 #define MAX_PC_BONUS 10
 #define MAX_PC_SKILL_REQUIRE 5
@@ -85,6 +86,21 @@ struct s_autobonus {
 	unsigned short pos;
 };
 
+#define MAX_MISSION_SLOTS 4
+
+struct s_mission_data {
+	int mission_id;
+	struct
+	{
+		int id;
+		unsigned short killed, goal;
+	} mob[MISSION_MAX_MOBS];
+	struct
+	{
+		int id;
+		unsigned short goal;
+	} item[MISSION_MAX_ITEMS];
+};
 
 struct map_session_data {
 	struct block_list bl;
@@ -113,6 +129,7 @@ struct map_session_data {
 		unsigned int reg_dirty : 3; //By Skotlex (marks whether registry variables have been saved or not yet)
 		unsigned int showdelay :1;
 		unsigned int showexp :1;
+		unsigned int showexpinfo :1; // Differs from Showexp in that it shows exp/min and such
 		unsigned int showzeny :1;
 		unsigned int mainchat :1; //[LuzZza]
 		unsigned int noask :1; // [LuzZza]
@@ -158,7 +175,7 @@ struct map_session_data {
 		unsigned int showgain : 1;
 		unsigned bg_winner : 1;
 		unsigned bg_loser : 1;
-		unsigned evade_antiwpefilter : 1;
+		//unsigned evade_antiwpefilter : 1;
 		unsigned lowratechar : 1;
 	} state;
 	struct {
@@ -462,9 +479,10 @@ struct map_session_data {
 	const char* delunit_prevfile;
 	int delunit_prevline;
 
-	struct queue_data *qd;
+	//struct queue_data *qd;
 	int friend_req;
-	struct s_mission_data mission[MAX_MISSION];
+
+	struct s_mission_data mission[MAX_MISSION_SLOTS];
 
 };
 
@@ -605,7 +623,7 @@ enum equip_index {
 )
 
 int pc_class2idx(int class_);
-int pc_isGM(struct map_session_data *sd);
+inline int pc_isGM(struct map_session_data *sd);
 
 #define pc_islowratechar(sd)  ( (sd)->state.lowratechar )
 int pc_getrefinebonus(int lv,int type);

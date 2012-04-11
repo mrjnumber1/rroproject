@@ -133,8 +133,9 @@ int pc_class2idx(int class_) {
 	return class_;
 }
 
-int pc_isGM(struct map_session_data* sd)
+inline int pc_isGM(struct map_session_data* sd)
 {
+	nullpo_ret(sd);
 	return sd->gmlevel;
 }
 
@@ -680,6 +681,12 @@ static int pc_isAllowedCardOn(struct map_session_data *sd,int s,int eqindex,int 
 	//Crafted/made/hatched items.
 	if (itemdb_isspecial(item->card[0]))
 		return 1;
+
+	// check enchants, too!
+	// (not that we'll ever need this - most likely?)
+	if( item->card[MAX_SLOTS - 1] && s < MAX_SLOTS - 1 )
+		s = MAX_SLOTS - 1;
+
 	
 	ARR_FIND( 0, s, i, item->card[i] && (data = itemdb_exists(item->card[i])) != NULL && data->flag.no_equip&flag );
 	return( i < s ) ? 0 : 1;
@@ -1174,6 +1181,29 @@ int pc_reg_received(struct map_session_data *sd)
 				sd->status.skill[sd->cloneskill_id].lv = i;
 			sd->status.skill[sd->cloneskill_id].flag = SKILL_FLAG_PLAGIARIZED;
 		}
+	}
+
+	// load mission data
+	for (i=0; i < MAX_MISSION_SLOTS; ++i)
+	{
+		char reg[NAME_LENGTH];
+
+		snprintf(reg, NAME_LENGTH, "MD_slot%d_ID", i);
+		sd->mission[i].mission_id = pc_readglobalreg(sd, reg);
+
+		for (j=0; j < MISSION_MAX_MOBS; ++j)
+		{
+			snprintf(reg, NAME_LENGTH, "MD_slot%d_mCount%d", i, j);
+			sd->mission[i].mob[j].killed = pc_readglobalreg(sd, reg);
+			sd->mission[i].mob[j].id = mission_db[sd->mission[i].mission_id].mob[j].id;
+			sd->mission[i].mob[j].goal = mission_db[sd->mission[i].mission_id].mob[j].count;
+		}
+		for (j=0; j < MISSION_MAX_ITEMS; ++j)
+		{
+			sd->mission[i].item[j].id = mission_db[sd->mission[i].mission_id].item[j].id;
+			sd->mission[i].item[j].goal = mission_db[sd->mission[i].mission_id].item[j].count;
+		}
+
 	}
 
 	//Weird... maybe registries were reloaded?
@@ -2435,7 +2465,6 @@ int pc_bonus(struct map_session_data *sd,int type,int val)
 		if(sd->state.lr_flag != 2) {
 			sd->special_state.intravision = 1;
 			clif_status_load(&sd->bl, SI_INTRAVISION, 1);
-			if( battle_config.anti_mayapurple_hack ) map_foreachinrange(clif_insight_bl2tbl, &sd->bl, AREA_SIZE, BL_PC, &sd->bl);
 		}
 		break;
 	case SP_NO_KNOCKBACK:
@@ -5391,13 +5420,21 @@ int pc_gainexp(struct map_session_data *sd, struct block_list *src, unsigned int
 
 #if PACKETVER >= 20091027
 	if(base_exp)
+	{
 		clif_displayexp(sd, base_exp, SP_BASEEXP, quest);
+		if(!quest)
+			sd->expinfo.base_exp += base_exp;
+	}
 	if(job_exp)
+	{
 		clif_displayexp(sd, job_exp,  SP_JOBEXP, quest);
+		if(!quest)
+			sd->expinfo.job_exp += job_exp;
+	}
 #endif
 
-	sd->expinfo.base_exp += base_exp;
-	sd->expinfo.job_exp += job_exp;
+	
+	
 
 	if(sd->state.showexp) 
 	{
@@ -5414,42 +5451,44 @@ int pc_gainexp(struct map_session_data *sd, struct block_list *src, unsigned int
 
 		nextb = pc_nextbaseexp(sd);
 		nextj = pc_nextjobexp(sd);
-
-		if(nextb)
+		if(sd->state.showexpinfo)
 		{
-			if( (bexp_ps = sd->expinfo.base_exp / start_time) < 1 )
-				sprintf(output, msg_txt(869), bexp_ps);
-			else if( (nextbt = (nextb - sd->status.base_exp) / bexp_ps) < (24*60*60*7))
+			if(nextb)
 			{
-				convert_time(nextbt, &day, &hour, &minute, &second);
-				if(day)
-					sprintf(output, msg_txt(870), bexp_ps, day, hour, minute, second);
+				if( (bexp_ps = sd->expinfo.base_exp / start_time) < 1 )
+					sprintf(output, msg_txt(869), bexp_ps);
+				else if( (nextbt = (nextb - sd->status.base_exp) / bexp_ps) < (24*60*60*7))
+				{
+					convert_time(nextbt, &day, &hour, &minute, &second);
+					if(day)
+						sprintf(output, msg_txt(870), bexp_ps, day, hour, minute, second);
+					else
+						sprintf(output, msg_txt(871), bexp_ps, hour, minute, second);
+				}
 				else
-					sprintf(output, msg_txt(871), bexp_ps, hour, minute, second);
-			}
-			else
-				sprintf(output, msg_txt(869), bexp_ps);
+					sprintf(output, msg_txt(869), bexp_ps);
 
-			clif_disp_onlyself(sd, output, strlen(output));
-		}
-		
-		
-		if(nextj)
-		{
-			if( (jexp_ps = sd->expinfo.job_exp / start_time) < 1 )
-				sprintf(output, msg_txt(872), jexp_ps);
-			else if( (nextjt = (nextj - sd->status.job_exp) / jexp_ps) < (24*60*60*7))
+				clif_disp_onlyself(sd, output, strlen(output));
+			}
+			
+			
+			if(nextj)
 			{
-				convert_time(nextjt, &day, &hour, &minute, &second);
-				if(day)
-					sprintf(output, msg_txt(873), jexp_ps, day, hour, minute, second);
+				if( (jexp_ps = sd->expinfo.job_exp / start_time) < 1 )
+					sprintf(output, msg_txt(872), jexp_ps);
+				else if( (nextjt = (nextj - sd->status.job_exp) / jexp_ps) < (24*60*60*7))
+				{
+					convert_time(nextjt, &day, &hour, &minute, &second);
+					if(day)
+						sprintf(output, msg_txt(873), jexp_ps, day, hour, minute, second);
+					else
+						sprintf(output, msg_txt(874), jexp_ps, hour, minute, second);
+				}
 				else
-					sprintf(output, msg_txt(874), jexp_ps, hour, minute, second);
-			}
-			else
-				sprintf(output, msg_txt(872), jexp_ps);
+					sprintf(output, msg_txt(872), jexp_ps);
 
-			clif_disp_onlyself(sd, output, strlen(output));
+				clif_disp_onlyself(sd, output, strlen(output));
+			}
 		}
 
 	}

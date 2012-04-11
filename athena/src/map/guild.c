@@ -375,7 +375,7 @@ int guild_create(struct map_session_data *sd, const char *name)
 		clif_guild_created(sd,1);
 		return 0;
 	}
-	if( battle_config.guild_emperium_check && pc_search_inventory(sd,714) == -1 )
+	if( battle_config.guild_emperium_check && pc_search_inventory(sd,ITEMID_EMPERIUM) == -1 )
 	{// item required
 		clif_guild_created(sd,3);
 		return 0;
@@ -395,14 +395,14 @@ int guild_created(int account_id,int guild_id)
 	if(sd==NULL)
 		return 0;
 	if(!guild_id) {
-		clif_guild_created(sd,2);	// 作成失敗（同名ギルド存在）
+		clif_guild_created(sd,2);	
 		return 0;
 	}
 	//struct guild *g;
 	sd->status.guild_id=guild_id;
 	clif_guild_created(sd,0);
 	if(battle_config.guild_emperium_check)
-		pc_delitem(sd,pc_search_inventory(sd,714),1,0,0);	// エンペリウム消耗
+		pc_delitem(sd,pc_search_inventory(sd,ITEMID_EMPERIUM),1,0,0);	
 	return 0;
 }
 

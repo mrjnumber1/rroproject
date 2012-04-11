@@ -248,6 +248,8 @@ mf_battleground	51
 mf_woe_set	52
 mf_blocked	53
 mf_bg_active	54
+mf_nonlr_accessible	55
+mf_mob_count_rate	56
 
 cell_walkable	0
 cell_shootable	1

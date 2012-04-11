@@ -88,7 +88,7 @@ OnInit:
 	
 	//unfrozens = 4105
 	//evil druid = 4141
-	setarray .@bg_armors[0], 2302, 2376, 2377, 2378, 2379, 2380, 2381, 2382, 2357;
+	setarray .@bg_armors[0], 2302, 2376, 2377, 2378, 2379, 2380, 2381, 2382, 2374, 2375, 2357;
 	setarray .@armor_cards, 4105, 4141;
 	set .@cost, 50;
 	for (set .@i, 0; .@i < getarraysize(.@bg_armors); set .@i, .@i + 1)
@@ -100,6 +100,10 @@ OnInit:
 			{
 				case 2302: // cotton shirts
 					set .@thiscost, 5;
+					break;
+				case 2374: // d armor / robe
+				case 2375:
+					set .@thiscost, 75;
 					break;
 				case 2357: // valk armor;
 					set .@thiscost, 100;
@@ -179,7 +183,7 @@ OnInit:
 		{
 			set .@thiscost, .@cost;
 			
-			if (.@robe_cards[.@j] == 4402 && .@bg_robes[.@i] != 2538 ) //only offer an aliot in paladin's robe
+			if (.@robe_cards[.@j] == 4402 && (.@bg_robes[.@i] != 2538 || .@bg_robes[.@i] != 2538 || .@bg_robes[.@i] != 2554 ) ) //only offer an aliot in bg robes or proxy (clown/pally/champ)
 			{
 				continue;
 			}
@@ -221,8 +225,8 @@ OnInit:
 	
 	// ACCESSORIES
 	
-	setarray .@bg_accs[0], 2607, 2729, 2701, 2749, 2671, 2787, 2730;
-	setarray .@acc_cards[0], 4044, 4064, 4084, 4103, 4252, 4436; 
+	setarray .@bg_accs[0], 2607, 2729, 2701, 2749, 2671, 2624, 2787, 2730;
+	setarray .@acc_cards[0], 4044, 4064, 4084, 4103, 4252, 4436, 4079; 
 	
 	set .@cost, 25;
 	for (set .@i, 0; .@i < getarraysize(.@bg_accs); set .@i, .@i + 1)
@@ -286,21 +290,23 @@ OnInit:
 	add_bg_rental(EQP_WEAPON, 1309,   20, 5, 4281, 4281, 4281, 4281); //+5 quad diligent orcish axe
 	
 	add_bg_rental(EQP_WEAPON, 1266,   50, 4, 4092); // +4 boned infil
+	
 	add_bg_rental(EQP_WEAPON, 1228,  100, 4); // +4 combat knife
 	
 	add_bg_rental(EQP_WEAPON, 1525,   30, 4); // +4 long mace
 	
-	add_bg_rental(EQP_WEAPON, 13405,  50, 0, 4368, 4368); //double rapid thin blade
 	
+	add_bg_rental(EQP_WEAPON,13405,   50, 0, 4368, 4368); //double rapid thin blade
 	
+	add_bg_rental(EQP_WEAPON, 1618,   50, 0, 4004); // dexterous drops rod
 	add_bg_rental(EQP_WEAPON, 1925,   50, 0, 4072, 4452, 4452); // Solid double Magical Cello
 	add_bg_rental(EQP_WEAPON, 1925,   50, 0, 4072, 4002, 4002); // Solid double Vital Cello
 	
-	add_bg_rental(EQP_WEAPON, 1926,   50, 0, 4072, 4452); // solid magical harp of nepenthes
-	add_bg_rental(EQP_WEAPON, 1926,   50, 0, 4072, 4002); // solid vital harp of nepenthes
-	
 	add_bg_rental(EQP_WEAPON, 1980,   50, 0, 4072, 4026, 4026); // Solid double shrewd whip of unbalance
 	add_bg_rental(EQP_WEAPON, 1980,   50, 0, 4072, 4002, 4002); // Solid double Vital whip of unbalance
+	
+	add_bg_rental(EQP_WEAPON, 1926,   50, 0, 4072, 4452); // solid magical harp of nepenthes
+	add_bg_rental(EQP_WEAPON, 1926,   50, 0, 4072, 4002); // solid vital harp of nepenthes
 	
 	add_bg_rental(EQP_WEAPON, 1920,   20); // spirit guitar
 	
@@ -310,6 +316,7 @@ OnInit:
 	
 	add_bg_rental(EQP_WEAPON, 1202,   30, 0, 4004, 4004, 4004, 4004); //quad dexterous knife
 	add_bg_rental(EQP_WEAPON, 1202,  100, 0, 4368, 4368, 4368, 4368); //quad rapid knife
+	add_bg_rental(EQP_WEAPON, 1202,   30, 0, 4002, 4002, 4002, 4002); //quad vital knife
 	
 	
 	

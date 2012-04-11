@@ -20,6 +20,7 @@
 #include "date.h"
 #include "duel.h"
 #include "intif.h"
+#include "irc.h"
 #include "itemdb.h"
 #include "log.h"
 #include "map.h"
@@ -4849,7 +4850,7 @@ ACMD_FUNC(repairall)
 	}/* else {
 		clif_displaymessage(fd, msg_txt(108)); // No item need to be repaired.
 		return -1;
-	}/**/
+	}*/
 
 	return 0;
 }
@@ -7305,9 +7306,9 @@ ACMD_FUNC(refresh)
 	if(ud->skilltimer != INVALID_TIMER)
 		return -1;
 
-	if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000)) 
+	if( DIFF_TICK(gettick(),sd->refresh_tick) < (4*100)) 
 	{
-		sprintf(atcmd_output, "%d ms until next refresh...", 3000-DIFF_TICK(gettick(),sd->refresh_tick));
+		sprintf(atcmd_output, "%d ms until next refresh...", 400-DIFF_TICK(gettick(),sd->refresh_tick));
 		clif_displaymessage(fd,atcmd_output);
 		return -1;
 	}
@@ -9578,14 +9579,14 @@ ACMD_FUNC(expinfo)
 	}
 	else if( !strcmpi(message, "off") )
 	{
-		sd->state.showexp = 0;
+		sd->state.showexpinfo = 0;
 		clif_displaymessage(fd, msg_txt(864));
 
 		return 0;
 	}
 	else if( !strcmpi(message, "on") )
 	{
-		sd->state.showexp = 1;
+		sd->state.showexpinfo = 1;
 		clif_displaymessage(fd, msg_txt(865));
 
 		return 0;
@@ -9605,7 +9606,7 @@ ACMD_FUNC(expinfo)
 	nextb = pc_nextbaseexp(sd);
 	nextj = pc_nextjobexp(sd);
 
-	sprintf(atcmd_output, msg_txt(868), sd->expinfo.base_exp, sd->expinfo.job_exp);
+	sprintf(atcmd_output, msg_txt(868), sd->expinfo.base_exp, sd->expinfo.job_exp, sd->expinfo.kills, sd->expinfo.deaths);
 	clif_disp_onlyself(sd, atcmd_output, strlen(atcmd_output));
 
 	if( nextb )
@@ -9685,9 +9686,9 @@ ACMD_FUNC(gmc)
 
 
 	if(*(command+1) != 'n' && *(command+1) != 'N')
-		snprintf(atcmd_output2, CHAT_SIZE_MAX, "%s: %s", sd->status.name, atcmd_output);
+		snprintf(atcmd_output2, CHAT_SIZE_MAX, "(gmchat): %s: %s", sd->status.name, atcmd_output);
 	else
-		snprintf(atcmd_output2, CHAT_SIZE_MAX, "%s", atcmd_output);
+		snprintf(atcmd_output2, CHAT_SIZE_MAX, "(gmchat): %s", atcmd_output);
 	
 	iter = mapit_geteachpc();
 	for( pl_sd = (struct map_session_data*)mapit_first(iter); mapit_exists(iter); pl_sd = (struct map_session_data*)mapit_next(iter) )
@@ -10622,8 +10623,8 @@ ACMD_FUNC(reportafk)
 
 	nullpo_retr(-1,sd);
 	
-	if( !sd->state.bmaster_flag )
-		clif_displaymessage(fd, "This command is reserved for Team Leaders Only.");
+	//if( !sd->state.bmaster_flag )
+	//	clif_displaymessage(fd, "This command is reserved for Team Leaders Only.");
 
 	for(i=0; i < MAX_BG_MEMBERS; ++i)
 	{
@@ -10748,44 +10749,6 @@ ACMD_FUNC(bump)
 	return 0;
 }
 
-ACMD_FUNC(ice)
-{
-	struct map_session_data *pl_sd;
-	
-	nullpo_retr(-1, sd);
-	
-	memset(atcmd_player_name, '\0', sizeof(atcmd_player_name));
-	
-	if(!message || !*message || sscanf(message, "%23[^\n]", atcmd_player_name) < 1)
-	{
-		clif_displaymessage(fd, "Please enter a target (usage: @un/ice  <char_name>");
-		return -1;
-	}
-	
-	if ((pl_sd = map_nick2sd(atcmd_player_name)) == NULL) {
-		clif_displaymessage(fd, msg_txt(3)); // Character not found.
-		return -1;
-	}
-
-	if (pc_isGM(sd) < pc_isGM(pl_sd))
-  	{ // you can jail only lower or same GM
-		clif_displaymessage(fd, msg_txt(81)); // Your GM level don't authorise you to do this action on this player.
-		return -1;
-	}
-
-	if(*(command+1) != 'u' && *(command+1) != 'U')
-	{
-		pl_sd->sc.opt1 = 2;
-		clif_displaymessage(pl_sd->fd, "A GM has frozen you");
-	}
-	else if(pl_sd->sc.opt1 == 2)
-	{
-		pl_sd->sc.opt1 = 0;
-		clif_displaymessage(pl_sd->fd, "A GM has defrosted you.");
-	}
-        
-        return 0;
-}
 
 
 ACMD_FUNC(sell);
@@ -10796,20 +10759,20 @@ ACMD_FUNC(buysell)
 	
 	nullpo_retr(-1, sd);
 	
+	nd = npc_name2id("ToolDealerGuy");
+
 	if( *(command+1) != 's' && *(command+1) != 'S')
-		nd = npc_name2id("f_tooldealer_buy");
+		flag = 0; //@buy call 
 	else
-		nd = npc_name2id("f_tooldealer_sell");
+		flag = 1; //@sell call
 	
-	if( !nd || nd->bl.type != BL_NPC || (nd->subtype != SHOP && nd->subtype != CASHSHOP && nd->subtype != ITEMSHOP && nd->subtype != VARSHOP) )
+	if( nd && nd->bl.type == BL_NPC && nd->subtype == SHOP)
 	{
-		clif_displaymessage(fd, "Shop failed to open! Sorry!");
-		return 1;
+		sd->state.callshop = 1;
+		return npc_buysellsel(sd,nd->bl.id,flag); 
 	}
 	
-	run_script(nd->u.scr.script, 0, sd->bl.id, fake_nd->bl.id);
-	
-	return 0;
+	return -1;
 }
 
 ACMD_FUNC(sell)
@@ -10822,10 +10785,11 @@ ACMD_FUNC(sell)
 
 /*==========================================
  * atcommand_info[] structure definition
+**/
 
 /**
  * Fills the reference of available commands in atcommand DBMap
- **/
+**/
 void atcommand_basecommands(void) {
 	/**
 	 * Command reference list, place the base of your commands here
@@ -11115,11 +11079,9 @@ void atcommand_basecommands(void) {
 
 		{ "expinfo",			0,60,	  atcommand_expinfo, false },
 
-		{ "mstorage",			0,60,	  atcommand_memberstorage, true },
+		{ "mstorage",			0,60,	  atcommand_memberstorage, false },
 		
 		{ "bump",              99,99,     atcommand_bump, false },
-		{ "ice",               99,99,     atcommand_ice, false},
-		{ "unice",               99,99,     atcommand_ice, false},
 		
 	};
 	AtCommandInfo* atcommand;

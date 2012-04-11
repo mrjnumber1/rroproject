@@ -12,11 +12,13 @@
 #include "path.h"
 #include "chrif.h"
 #include "vending.h"
+#include "irc.h"
 #include "pc.h"
 #include "skill.h"
 #include "battle.h"
 #include "log.h"
 #include "npc.h"
+#include "intif.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -71,6 +73,9 @@ void vending_closevending(struct map_session_data* sd)
 
 		sd->state.vending = false;
 		clif_closevendingboard(&sd->bl, 0);
+
+		if(irc.enabled && irc.shop_flag)
+			irc_announce_shop(sd, 0);
 	}
 }
 
@@ -338,6 +343,47 @@ void vending_purchasereq(struct map_session_data* sd, int aid, int uid, const ui
 		// vending item
 		pc_additem(sd, &vsd->status.cart[idx], amount);
 		vsd->vending[vend_list[i]].amount -= amount;
+
+		//send notice to autotrader's other online chars (in same member id) or mail the autotrader details if no one received the message
+		if(vsd->state.autotrade) 
+		{
+			struct s_mapiterator* iter;
+			struct map_session_data* pl_sd;
+			int messaged = 0;
+			char body[MAIL_BODY_LENGTH];
+
+			snprintf(body, MAIL_BODY_LENGTH, "%s bought %s (%d ea)", sd->status.name, itemdb_jname(vsd->status.cart[idx].nameid), amount);
+
+			iter = mapit_geteachpc();
+			for( pl_sd = (struct map_session_data*)mapit_first(iter); mapit_exists(iter); pl_sd = (struct map_session_data*)mapit_next(iter) )
+				if( pl_sd != sd && pl_sd->status.member_id == vsd->status.member_id)
+				{
+					messaged = 1;
+					clif_disp_onlyself(vsd, body, strlen(body));
+				}
+			mapit_free(iter);
+
+			if (!messaged)
+			{
+				struct mail_message *msg = NULL;
+
+				msg->id = 0;
+				msg->send_id = 0;
+				safestrncpy(msg->send_name, "Server", NAME_LENGTH);
+				msg->dest_id = vsd->status.char_id;
+				safestrncpy(msg->dest_name, vsd->status.name, NAME_LENGTH);
+				safestrncpy(msg->title, "Autotrade System", MAIL_TITLE_LENGTH);
+				safestrncpy(msg->body, body, MAIL_BODY_LENGTH);
+				msg->status = MAIL_NEW;
+				msg->zeny = 0;
+				msg->timestamp = time(NULL);
+				memset(&msg->item, 0, sizeof(struct item));
+				
+				intif_Mail_send(0, msg);
+			}
+
+		}
+
 		pc_cart_delitem(vsd, idx, amount, 0);
 		clif_vendingreport(vsd, idx, amount);
 
@@ -696,6 +742,9 @@ void vending_openvending(struct map_session_data* sd, const char* message, bool 
 	clif_openvending(sd,sd->bl.id,sd->vending);
 	clif_showvendingboard(&sd->bl,message,0);
 	clif_vend_emblem(sd,sd->vend_type.currency);
+
+	if(irc.enabled && irc.shop_flag)
+		irc_announce_shop(sd, 1);
 }
 
 

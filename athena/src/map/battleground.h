@@ -51,7 +51,7 @@ struct battleground_data {
 	// Score Board
 	int team_score;
 };
-
+/*
 struct queue_member {
 	int position;
 	struct map_session_data *sd;
@@ -63,7 +63,7 @@ struct queue_data {
 	struct queue_member *first, *last;
 	char queue_name[50], join_event[EVENT_NAME_LENGTH];
 };
-
+*/
 enum e_bg_stats
 {
 	BGS_top_damage=0,

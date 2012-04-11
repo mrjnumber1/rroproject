@@ -918,11 +918,12 @@ int party_send_xy_clear(struct party_data *p)
 	return 0;
 }
 
-// exp share and added zeny share [Valaris]
 // NOTE: party share level is now HARD CONFIGGED to 20. fuck eathena sometimes.
 int party_check_exp_share(struct party_data *p)
 {
-	if (p->party.count < 2)
+	if (p->party.exp)
+		return 1;
+	else if (p->party.count < 2)
 		return 1;
 	else
 	{
@@ -944,6 +945,8 @@ int party_check_exp_share(struct party_data *p)
 		return ( (max_lv - min_lv) <= 20 );
 
 	}
+
+	ShowError("party_check_exp_share: Undefined case reached (P: %d)\n", p->party.party_id);
 
 	return 0; // how did you get here?
 }

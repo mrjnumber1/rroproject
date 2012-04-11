@@ -293,7 +293,7 @@ int battle_calc_damage(struct block_list *src,struct block_list *bl,struct Damag
 
 	if( !damage )
 		return 0;
-	if( mob_ksprotected(src, bl) )
+	if( battle_config.ksprotection && mob_ksprotected(src, bl) )
 		return 0;
 
 	if (bl->type == BL_PC) {
@@ -495,7 +495,7 @@ int battle_calc_damage(struct block_list *src,struct block_list *bl,struct Damag
 			damage = damage*50/100;
 
 			if( battle_config.reflect_damage_fix )
-				rejected = min(damage,status_get_hp(bl)); // Fix : But we cannot reflect more than current hp.
+				rejected = min(damage, status_get_hp(bl)); // Fix : But we cannot reflect more than current hp.
 			else
 				rejected = damage;
 
@@ -1803,7 +1803,7 @@ static struct Damage battle_calc_weapon_attack(struct block_list *src,struct blo
 			case AS_SONICBLOW:
 				if (sc && sc->data[SC_SPIRIT] &&
 					sc->data[SC_SPIRIT]->val2 == SL_ASSASIN)
-					ATK_ADDRATE(map_flag_gvg(src->m)?25:100); //+25% dmg on woe/+100% dmg on nonwoe
+					ATK_ADDRATE( (map_flag_gvg(src->m)||map[src->m].flag.battleground)?25:100); //+25% dmg on woe/bg /+100% dmg on nonwoe
 
 				if(sd && pc_checkskill(sd,AS_SONICACCEL)>0)
 					ATK_ADDRATE(10);
@@ -2969,15 +2969,15 @@ struct Damage battle_calc_attack(int attack_type,struct block_list *bl,struct bl
 }
 
 //Calculates BF_WEAPON returned damage.
-int battle_calc_return_damage(struct block_list* bl, int damage, int flag)
+int battle_calc_return_damage(struct block_list *src, struct block_list* bl, int damage, int flag)
 {
 	struct map_session_data* sd = NULL;
+	struct mob_data* smd = NULL;
 	int rdamage = 0, max_damage;
 
-	sd = BL_CAST(BL_PC, bl);
-
-	if( battle_config.reflect_damage_fix )
-		max_damage = status_get_max_hp(bl);
+	smd = BL_CAST(BL_MOB, bl);
+	if( smd && battle_config.reflect_damage_fix )
+		max_damage = status_get_max_hp(src);
 	else
 		max_damage = INT_MAX; // No limit
 
@@ -3201,7 +3201,7 @@ enum damage_lv battle_weapon_attack(struct block_list* src, struct block_list* t
 	damage = wd.damage + wd.damage2;
 	if( damage > 0 && src != target )
 	{
-		rdamage = battle_calc_return_damage(target, damage, wd.flag);
+		rdamage = battle_calc_return_damage(src, target, damage, wd.flag);
 		if( rdamage > 0 )
 		{
 			rdelay = clif_damage(src, src, tick, wd.amotion, sstatus->dmotion, rdamage, 1, 4, 0);
@@ -4086,8 +4086,15 @@ static const struct _battle_data {
 	{ "action_dual_limit",                  &battle_config.action_dual_limit,               0,      0,      1000,           },
 	{ "reflect_damage_fix",					&battle_config.reflect_damage_fix,				1,		0,		1,				},
 	{ "guild_skills_separate_delay",        &battle_config.guild_skills_separate_delay,     0,      0,      1,              },
-	{ "anti_mayapurple_hack",				&battle_config.anti_mayapurple_hack,			1,		0,		1,				},
-};
+	{ "mission_bonus_exp",                  &battle_config.mission_bonus_exp,               200,    100,    500,            },
+	{ "mission_normal_mob_bonus_exp",       &battle_config.mission_normal_mob_bonus_exp,    110,    100,    500,            },
+	{ "mission_boss_mob_bonus_exp",         &battle_config.mission_boss_mob_bonus_exp,      150,    100,    500,            },
+	// kind of fucked up: the purpose of these is just to have a way to synchronize with scripts
+	{ "mission_max_mobs",                   &battle_config.mission_max_mobs,   MISSION_MAX_MOBS, MISSION_MAX_MOBS, MISSION_MAX_MOBS, },   
+	{ "mission_max_items",                  &battle_config.mission_max_items,  MISSION_MAX_ITEMS, MISSION_MAX_ITEMS, MISSION_MAX_ITEMS, },   
+	{ "mission_max_rewards",                &battle_config.mission_max_rewards,MISSION_MAX_REWARDS, MISSION_MAX_REWARDS, MISSION_MAX_REWARDS, },   
+	{ "mission_slots",                      &battle_config.mission_slots,      MAX_MISSION_SLOTS,MAX_MISSION_SLOTS, MAX_MISSION_SLOTS, },  
+}; 
 
 
 int battle_set_value(const char* w1, const char* w2)
