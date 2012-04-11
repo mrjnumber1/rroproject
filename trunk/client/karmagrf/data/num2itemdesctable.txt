@@ -3587,7 +3587,7 @@ Applicable Job :^777777 Swordman Class, Mage Class, Archer Class, Merchant Class
 1231#
 A formal dress dagger, engraved with luxurious emblems, that's usually worn on special occasions.
 INT + 5
-MATK + 105
+MATK + 10%
 Class :^777777 Dagger^000000
 Attack :^777777 70^000000
 Weight :^777777 50^000000
@@ -5415,7 +5415,7 @@ Applicable Job :^777777 Swordman Class^000000
 #
 1472#
 A high quality, two-handed staff that amplifies psychic power.
-INT + 5, AGI + 2, MATK + 200
+INT + 5, AGI + 2, MATK + 15%
 [^000088Soul Staff & Spiritual Ring Equip Set^000000]
 Class :^777777 Two-handed Staff^000000
 Attack :^777777 25^000000
@@ -5426,7 +5426,7 @@ Applicable Job :^777777 Mage Class, Soul Linker^000000
 #
 1473#
 Rumored to have been crafted by an ancient wizard, this staff contains awesome energies.
-INT + 6, DEX + 2, MATK + 200
+INT + 6, DEX + 2, MATK + 15%
 [^000088Wizardry Staff & Spiritual Ring Equip Set^000000]
 Class :^777777 Two-handed Staff^000000
 Attack :^777777 120^000000
@@ -6252,7 +6252,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 #
 1560#
 A book made by the wise sage, who wrote his findings and knowledge in the form of a diary.
-MATK + 160
+MATK + 15%
 [^008800Base Strength >= 50^000000]
 Increases Attack Speed by 5%.
 [^008800Base Intelligence >= 70^000000]
@@ -6290,7 +6290,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 1563#
 ^000088Rental Items^000000
 A book made by the wise sage, who wrote his findings and knowledge in the form of a diary.
-MATK + 140, increases Attack Speed by 5%.
+MATK + 20%, increases Attack Speed by 5%.
 Impossible to refine this item.
 Class :^777777 Book^000000
 Attack :^777777 135^000000
@@ -6301,7 +6301,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 #
 1564#
 A gigantic encyclopedia produced by X company in Prontera, known mostly for its sharp and hard edges. It is so hard to the point that people who got hit by the edges of this book often ask "Did you guys install 3 carat Diamond on this?".
-MATK + 100, INT + 3, DEX + 2, Critical Rate + 20.
+MATK + 15%, INT + 3, DEX + 2, Critical Rate + 20.
 Critical Rate bonus is further increased by +1 per 5 base LUK.
 Class :^777777 Book^000000
 Attack :^777777 110^000000
@@ -6340,7 +6340,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 1567#
 ^000088Rental Items^000000
 A thick and heavy hardcover book that could really do some hurt if swung around.
-STR + 5, DEX + 2, MATK + 100
+STR + 5, DEX + 2, MATK + 20%
 Impossible to refine this item.
 Class :^777777 Book^000000
 Attack :^777777 168^000000
@@ -6392,7 +6392,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 1572#
 This helps students study and build a stroung foundation of using magic. 
 If you're having trouble with using... - Author : Sage Shawn.
-MATK + 160, INT + 3, SP Recovery + 5%
+MATK + 20%, INT + 3, SP Recovery + 5%
 Class :^777777 Book^000000
 Attack :^777777 60^000000
 Weight :^777777 30^000000
@@ -6404,7 +6404,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 1573#
 A book with a Very impressive phrase,'There is no royal road to learning,' on its cover. 
 "Practice makes perfect. If you keep trying, you'll be an expert before you know it."
-MATK + 140
+MATK + 15%
 [^000088+ Mage Coat^000000]
 MDEF + 8, Maximum SP + 10%, INT + 4
 Class :^777777 Book^000000
@@ -6417,7 +6417,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 #
 1574#
 A battle field book written by the ancient strategist who is from a far east country. It is still being studied by many militarists.
-STR + 2, INT + 1, MATK + 125
+STR + 2, INT + 1, MATK + 15%
 Increases physical attack against Demi human monster by 75%.
 Adds 20% defense to the Demi human monster.
 Indestructible (except in upgrade attempts).
@@ -6430,7 +6430,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 #
 1575#
 A battle field book written by the ancient strategist who is from a far east country. It is still being studied by many militarists.
-STR + 1, INT + 2, MATK + 125
+STR + 1, INT + 2, MATK + 15%
 Increases physical attack against Demi human monster by 75%.
 Adds 25% defense to the Demi human monster.
 Indestructible (except in upgrade attempts).
@@ -6442,7 +6442,7 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 #
 1576#
-MATK + 155
+MATK + 15%
 Increases physical attack against DemiHuman monster by 80%.
 Adds 25% defense bypassing on Demi-human monster.
 Indestructible (except in upgrade attempts).
@@ -6459,7 +6459,7 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 #
 1577#
-MATK + 155
+MATK + 15%
 Increases physical attack against DemiHuman monster by 80%.
 Adds 25% defense bypassing on Demi-human monster.
 Indestructible (except in upgrade attempts).
@@ -6506,7 +6506,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 ^000088Rental Items^000000
 A gigantic encyclopedia produced by X company in Prontera, known mostly for its sharp and hard edges.
 It is so hard to the point that people who got hit by the edges of this book often ask "Did you guys install 3 carat Diamond on this?".
-MATK + 100, INT + 3, DEX + 2, Critical Rate + 20.
+MATK + 15%, INT + 3, DEX + 2, Critical Rate + 20.
 CRI bonus increases according to the wearer's LUK.
 Increases damage against small, medium, large size monsters by 40%.
 Class :^777777 Book^000000
@@ -6519,7 +6519,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 
 1583#
 ...
-MATK + 110
+MATK + 15%
 Impossible to refine this item.
 Class :^777777 Book^000000
 Attack : ^777777 135^000000
@@ -6535,7 +6535,7 @@ Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 
 1601#
 A simple magic wand.
-MATK + 30
+MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 15^000000
 Weight :^777777 40^000000
@@ -6544,7 +6544,7 @@ Applicable Job :^777777 Novice, Mage Class, Acolyte Class, Soul Linker^000000
 #
 1602#
 A simple magic wand.
-MATK + 30
+MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 15^000000
 Weight :^777777 40^000000
@@ -6553,7 +6553,7 @@ Applicable Job :^777777 Novice, Mage Class, Acolyte Class, Soul Linker^000000
 #
 1603#
 A simple magic wand.
-MATK + 30
+MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 15^000000
 Weight :^777777 40^000000
@@ -6562,7 +6562,7 @@ Applicable Job :^777777 Novice, Mage Class, Acolyte Class, Soul Linker^000000
 #
 1604#
 A rough-hewn wand that's effective enough for the casting of magic spells.
-INT + 1, MATK + 45
+INT + 1, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 25^000000
 Weight :^777777 40^000000
@@ -6572,7 +6572,7 @@ Applicable Job :^777777 Novice, Mage Class, Acolyte Class, Soul Linker^000000
 #
 1605#
 A rough-hewn wand that's effective enough for the casting of magic spells.
-INT + 1, MATK + 45
+INT + 1, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 25^000000
 Weight :^777777 40^000000
@@ -6582,7 +6582,7 @@ Applicable Job :^777777 Novice, Mage Class, Acolyte Class, Soul Linker^000000
 #
 1606#
 A rough-hewn wand that's effective enough for the casting of magic spells.
-INT + 1, MATK + 45
+INT + 1, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 25^000000
 Weight :^777777 40^000000
@@ -6592,7 +6592,7 @@ Applicable Job :^777777 Novice, Mage Class, Acolyte Class, Soul Linker^000000
 #
 1607#
 A wooden staff adorned with an enchanted jewel.
-INT + 2, MATK + 70
+INT + 2, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 40^000000
 Weight :^777777 40^000000
@@ -6602,7 +6602,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1608#
 A wooden staff adorned with an enchanted jewel.
-INT + 2, MATK + 70
+INT + 2, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 40^000000
 Weight :^777777 40^000000
@@ -6612,7 +6612,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1609#
 A wooden staff adorned with an enchanted jewel.
-INT + 2, MATK + 70
+INT + 2, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 40^000000
 Weight :^777777 40^000000
@@ -6622,7 +6622,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1610#
 An ornate, elegantly crafted wand that grants powerful magical energy.
-INT + 3, MATK + 95
+INT + 3, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 60^000000
 Weight :^777777 40^000000
@@ -6632,7 +6632,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1611#
 An ornate, elegantly crafted wand that grants powerful magical energy.
-INT + 3, MATK + 95
+INT + 3, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 60^000000
 Weight :^777777 40^000000
@@ -6642,7 +6642,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1612#
 An ornate, elegantly crafted wand that grants powerful magical energy.
-INT + 3, MATK + 95
+INT + 3, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 60^000000
 Weight :^777777 40^000000
@@ -6653,7 +6653,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 1613#
 A rare staff that can convert psychic energy into brute strength.
 Consumes 2 SP with each Physical attack.
-STR + 10, MATK + 100
+STR + 10, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 130^000000
 Weight :^777777 70^000000
@@ -6663,7 +6663,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1614#
 A shamanic wand topped with a goat's skull that enhances magic attack power.
-INT + 3, MATK + 105
+INT + 3, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 75^000000
 Weight :^777777 70^000000
@@ -6673,7 +6673,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1615#
 Since evil spirits possess this wand of human bone, its suffocatingly accursed aura can be sensed by those who wield it.
-INT + 4, MATK + 110
+INT + 4, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 40^000000
 Weight :^777777 70^000000
@@ -6684,7 +6684,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1616#
 A staff containing a wind fairy that grants its user the essence of speed.
-MATK + 115
+MATK + 15%
 Reduce Casting Time by 5%.
 [^000088Eagle Wing & Wing Staff Equip Set^000000]
 Class :^777777 Rod^000000
@@ -6698,7 +6698,7 @@ Applicable Job :^777777 Mage Class, Soul Linker^000000
 1617#
 A staff created as an united effort of the Mage Guild and the Prontera Church, that is intended to support their trainees for undergoing hardship.
 There are two types of this staff.
-DEX + 2, MATK + 120, Maximum HP + 300
+DEX + 2, MATK + 15%, Maximum HP + 300
 Class :^777777 Rod^000000
 Attack :^777777 50^000000
 Weight :^777777 100^000000
@@ -6710,7 +6710,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 1618#
 A staff created as an united effort of the Mage Guild and the Prontera Church, that is intended to support their trainees for undergoing hardship.
 There are two types of this staff.
-DEX + 3, MATK + 120, Maximum HP + 400
+DEX + 3, MATK + 15%, Maximum HP + 400
 [^000088Survivor Manteau & slotted Survivor's Rod Equip Set^000000]
 Class :^777777 Rod^000000
 Attack :^777777 50^000000
@@ -6723,7 +6723,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 1619#
 A staff created as an united effort of the Mage Guild and the Prontera Church, that is intended to support their trainees for undergoing hardship.
 There are two types of this staff.
-INT + 2, MATK + 120, Maximum HP + 300
+INT + 2, MATK + 15%, Maximum HP + 300
 Class :^777777 Rod^000000
 Attack :^777777 50^000000
 Weight :^777777 100^000000
@@ -6735,7 +6735,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 1620#
 A staff created as an united effort of the Mage Guild and the Prontera Church, that is intended to support their trainees for undergoing hardship.
 There are two types of this staff.
-INT + 3, MATK + 120, Maximum HP + 400
+INT + 3, MATK + 15%, Maximum HP + 400
 [^000088Survivor Manteau & slotted Survivor's Rod Equip Set^000000]
 Class :^777777 Rod^000000
 Attack :^777777 50^000000
@@ -6747,7 +6747,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1621#
 A staff that hypnotizes the Novice and makes him feel like he is a great Wizard.
-INT + 1, MATK + 120
+INT + 1, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 70^000000
 Weight :^777777 50^000000
@@ -6758,7 +6758,7 @@ Applicable Job :^777777 Novice^000000
 #
 1622#
 A staff that hypnotizes the Novice and makes him feel like he is a great Wizard.
-INT + 1, MATK + 120
+INT + 1, MATK + 15%
 Class :^777777 Rod^000000
 Attack :^777777 70^000000
 Weight :^777777 50^000000
@@ -6771,7 +6771,7 @@ Applicable Job :^777777 Novice^000000
 ^000088Rental Items^000000
 A rare staff that can convert psychic energy into brute strength.
 Consumes 1 SP with each Physical attack.
-STR + 10, INT + 4, MATK + 100
+STR + 10, INT + 4, MATK + 15%
 Impossible to refine this item.
 Class :^777777 Rod^000000
 Attack :^777777 165^000000
@@ -6782,7 +6782,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1624#
 A staff created with a skull of a powerful Lich. The curse eminating from this staff will threaten to all those who dare to threaten the wielder of this staff.
-MATK + 170, INT + 1, DEX + 1
+MATK + 20%, INT + 1, DEX + 1
 Whenever you take a Physical Damage, small chance to cause ^880000Curse^000000 status ailment to every enemies in the screen. This chance is increased depending on the refinement rate of this weapon.
 [^333399Refine Rate 9~10^000000]
 You will receive bonus MATK + 3%, Maximum SP + 300.
@@ -6796,7 +6796,7 @@ Applicable Job :^777777 Trans Mage Class, Trans Acolyte Class^000000
 #
 1625#
 A staff made with a branch from the tree Yggdrasil, created with the sole purpose to heal. The staff has something inscribed in ancient language, saying "Mubeungjangsugiwon", or "Forever free of disease, and have a long life".
-MATK + 105
+MATK + 15%
 Amount recovered by ^008800Heal and Sanctuary^000000 skill will increase depending on the refinement level of this weapon.
 Class :^777777 Rod^000000
 Attack :^777777 10^000000
@@ -6808,7 +6808,7 @@ Applicable Job :^777777 Acolyte Class^000000
 #
 1626#
 A staff with a jewel in it that causes shockwave every once in a while. The shockwave sometimes nullifies enemy's magic defense.
-MATK + 145, INT + 4
+MATK + 15%, INT + 4
 When you attack using magical ability, it will ignore 10% of their MDEF and deals damage accordingly. The amount ignored will increase depending on the refinement rate of this weapon.
 Class :^777777 Rod^000000
 Attack :^777777 80^000000
@@ -6820,7 +6820,7 @@ Applicable Job :^777777 Trans Mage Class, Trans Acolyte Class^000000
 #
 1627#
 The adventurers who are brave the item which is provided from the hazard adventurer guild.
-INT + 4, MATK + 120
+INT + 4, MATK + 15%
 Impossible to refine this item.
 Class :^777777 Rod^000000
 Attack :^777777 40^000000
@@ -6833,7 +6833,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 ^000088Rental Items^000000
 A staff created as an united effort of the Mage Guild and the Prontera Church, that is intended to support their trainees for undergoing hardship.
 There are two types of this staff.
-DEX + 4, MATK + 145, Maximum HP + 500
+DEX + 4, MATK + 15%, Maximum HP + 500
 Impossible to refine this item.
 [^000088Survivor Manteau & slotted Survivor's Rod Equip Set^000000]
 Class :^777777 Rod^000000
@@ -6847,7 +6847,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 1629#
 A staff once used by a very gentle man somewhere a long ago.
 A very narrow sword is hidden inside the staff.
-MATK + 125, DEX + 1
+MATK + 15%, DEX + 1
 [^000088+ Magician Hat^000000]
 DEX + 2, INT + 2, SP Recovery + 5%. Each refine increases MATK by 1%.
 Class :^777777 Rod^000000
@@ -6861,7 +6861,7 @@ Applicable Job :^777777 Mage, Acolyte, Soul Linker Class^000000
 1630#
 A staff made of Crystal. It shines beautifully by the light. 
 This staff also can help the holder recover from damage.
-MATK + 125, INT + 3
+MATK + 15%, INT + 3
 Increased recovery skill effect + 5%.
 When performing a Magical attack, there's a small chance recover SP and HP.
 Class :^777777 Rod^000000
@@ -6874,7 +6874,7 @@ Applicable Job :^777777 Mage Class^000000
 #
 1631#
 A holy stick which is made of Rune of Odin, speciallized for exorcism.
-MATK + 140, Reduce Casting Time of ^008800Holy Light, Turn Undead, and Magnus Exorcismus^000000 by 25%.
+MATK + 15%, Reduce Casting Time of ^008800Holy Light, Turn Undead, and Magnus Exorcismus^000000 by 25%.
 [^000088Sacred Scripture & Holy Stick Equip Set^000000]
 Class :^777777 Rod^000000
 Attack :^777777 50^000000
@@ -6887,7 +6887,7 @@ Applicable Job :^777777 Priest, Monk^000000
 1632#
 A Rod that has been modified for brave magicians who against the enemies in the battle field.
 Especially it designed for battles against humanoids.
-MATK + 125, INT + 4, Dex + 3
+MATK + 15%, INT + 4, Dex + 3
 Adds 25% magic defense to the Demi-human monster.
 Adds a 5% chance to ^880000Stun^000000 opponents with your magic.
 Indestructible (except in upgrade attempts).
@@ -6901,7 +6901,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 1633#
 A Rod that has been modified for brave magicians who against the enemies in the battle field.
 Especially it designed for battles against humanoids.
-MATK + 125, INT + 3, Dex + 3
+MATK + 15%, INT + 3, Dex + 3
 Increases magic damage against demi human monster by 15%.
 Adds a 5% chance to ^880000Stun^000000 opponents with your magic.
 Indestructible (except in upgrade attempts).
@@ -6915,7 +6915,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 1634#
 A Rod that is intended to heal people in the battle.
 It gives special treatment for serious wound.
-MATK + 125
+MATK + 15%
 Increases Heal and Sanctuary skill effectiveness by 14%.
 Recover 5SP every 10 seconds.
 Indestructible (except in upgrade attempts).
@@ -6929,7 +6929,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 1635#
 A Rod that is intended to heal people in the battle.
 It has been optimized to heal more rapidly.
-MATK + 125, INT + 3, Dex + 2
+MATK + 15%, INT + 3, Dex + 2
 Decreases delay aftercast on all skills by 15%.
 Recover 5SP every 10 seconds.
 Indestructible (except in upgrade attempts).
@@ -6942,7 +6942,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1636#
 A strong magical staff covered by sharp thorned vines.
-MATK + 160, INT + 3, Dex + 3
+MATK + 20%, INT + 3, Dex + 3
 Each refine adds magic defense bypassing to your magic attacks.
 Each refine reduces the aftercast delay of your skills.
 Class :^777777 Two-handed Staff^000000
@@ -6954,7 +6954,7 @@ Applicable Job :^777777 Trans Mage, Acolyte^000000
 #
 1637#
 A magical rod that enables you to keep draining the enemies mentality. 
-MATK + 170, INT + 3, DEX + 2
+MATK + 20%, INT + 3, DEX + 2
 Recovery SP + 8%
 There is a small chance while magically attacking, on a radius 11 * 11 of your cell and drain every enemies SP by 20%.
 If Refine rate is 10, the area becomes 19 * 19 and you drain every enemies SP by 60%.
@@ -6967,8 +6967,8 @@ Applicable Job :^777777 Trans Mage Class, Trans Acolyte Class^000000
 #
 1638#
 A staff made with a branch from the tree Yggdrasil, created with the sole purpose to heal. The staff has something inscribed in ancient language, saying "Mubeungjangsugiwon", or "Forever free of disease, and have a long life".
-MATK + 125
-Increases 15% chance to yourself by ^008800Heal and Sanctuary^000000 skill.
+MATK + 15%
+Increases the effectiveness of your Heal and Sanctuary skills by 15%.
 Class :^777777 Rod^000000
 Attack :^777777 10^000000
 Weight :^777777 0^000000
@@ -6978,7 +6978,7 @@ Applicable Job :^777777 Acolyte Class^000000
 #
 1639#
 A simple magic wand.
-MATK + 32
+MATK + 16%
 Impossible to refine this item.
 Class :^777777 Rod^000000
 Attack :^777777 15^000000
@@ -6987,7 +6987,7 @@ Weapon Level :^777777 1^000000
 Applicable Job :^777777 Novice, Mage Class, Acolyte Class, Soul Linker^000000
 #
 1640#
-MATK+ 135
+MATK+ 15%
 Increases magical attack against DemiHuman monster by 15%.
 Adds 25% magical defense bypassing on Demi-human monster.
 Indestructible (except in upgrade attempts).
@@ -7006,7 +7006,7 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1641#
-MATK + 135
+MATK + 15%
 Increases the effectiveness of your Heal and Sanctuary skills by 14%.
 Skill Aftercast Delay - 10%.
 Indestructible (except in upgrade attempts).
@@ -7086,7 +7086,7 @@ Applicable Job :^777777 Trans Mage Class, Trans Acolyte Class^000000
 1646#
 Decorated with animal tails, it symbolizes a staff frequently used by a great magician.
 Strengthens the ice element magic, Storm Gust.
-MATK + 180, INT + 4
+MATK + 15%, INT + 4
 Each refine increases MDEF + 1 and damage with ^008800Storm Gust^000000 by 1%.
 If refined to + 10, reduce ^008800Storm Gust^000000 cast time by 8%.
 Class :^777777 Rod^000000
@@ -7099,8 +7099,8 @@ Applicable Job :^777777 Trans Mage Class^000000
 1647#
 A staff topped with the red symbol of the Prontera cathedral.
 Used by high-ranking members of the clergy.
-MATK + 175, INT + 4
-A chance of auto casting ^008800Blessing^000000 if ^008800Heal^000000 is learned.
+MATK + 15%, INT + 4
+Adds a chance of auto casting ^008800Blessing^000000 when using ^008800Heal^000000.
 Class :^777777 Rod^000000
 Attack :^777777 30^000000
 Weight :^777777 50^000000
@@ -7111,8 +7111,8 @@ Applicable Job :^777777 Trans Acolyte Class^000000
 #
 1648#
 A short conductor's baton encrusted with a stabilizing gemstone.
-MATK + 175, INT + 2, DEX + 1
-If character has learned ^008800Dragonology^000000, SP Cost is reduced by 1%, INT + 3.
+MATK + 15%, INT + 2, DEX + 1
+If character has learned ^008800Dragonology^000000, SP Cost is reduced by 15%, INT + 3.
 Class :^777777 Rod^000000
 Attack :^777777 30^000000
 Weight :^777777 50^000000
@@ -8984,7 +8984,7 @@ Applicable Job :^777777 Dancer^000000
 
 2000#
 Two handed staff that seems to be possesing a tremendous power. The owner of the staff has to have a strong spiritual strength to use this staff properly.
-MATK + 280, INT + 3, AGI + 10
+MATK + 25%, INT + 3, AGI + 10
 Reduces casting time of Amplify Magic by 50%.
 Refinement in multiples of 2 (+2, +4, +6, +8, +10) increases MATK by 1%.
 SP taken by all skills will increase depending on the refinement rate of this weapon.
@@ -8999,7 +8999,7 @@ Applicable Job :^777777 High Wizard^000000
 #
 2001#
 This staff can be separated in two parts. It gives a holy strength when these two parts are intersected to make a cross.
-MATK + 210, DEX + 4
+MATK + 15%, DEX + 4
 Reduces damage received from Undead and Demon type monsters by 15%.
 [^000088+ Spiritual Ring^000000]
 MATK + 10%, DEX + 2, and further reduces the damage received from Undead and Demon type monsters by 10%, for total of 25% reduction.
@@ -9012,7 +9012,7 @@ Required Level :^777777 70^000000
 Applicable Job :^777777 Priest, Monk^000000
 #
 2002#
-MATK+ 210
+MATK+ 15%
 Increases magical attack against DemiHuman monster by 15%.
 Adds 25% magical defense bypassing on Demi-human monster.
 Indestructible (except in upgrade attempts).
@@ -9031,7 +9031,7 @@ Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 2003#
 Two handed staff that seems to be possesing a tremendous power. The owner of the staff has to have a strong spiritual strength to use this staff properly.
-MATK + 280, INT + 3, AGI + 10
+MATK + 25%, INT + 3, AGI + 10
 Reduces casting time of Amplify Magic by 50%.
 Refinement in multiples of 2 (+2, +4, +6, +8, +10) increases MATK by 1%.
 SP taken by all skills will increase depending on the refinement rate of this weapon.
@@ -9048,7 +9048,7 @@ Applicable Job :^777777 High Wizard^000000
 A figure of the golden dragon that controls time and space sits atop this staff. 
 Magical energy is focused and condensed into the crystal sphere.
 Although impressive in appearance, this staff can be quite heavy to wield.
-MATK + 240. INT + 3, MaxHP + 300.
+MATK + 20%. INT + 3, MaxHP + 300.
 INT + 1, MaxHP 50 every two upgrades on the weapon.
 A chance to active MATK + 12%, SP Cost + 20% after using magical attack for 5 seconds.
 Class :^777777 Two-handed Staff^000000
@@ -9060,7 +9060,7 @@ Applicable Job :^777777 Mage Class, Soul Linker^000000
 #
 2005#
 Carved with the figure of Thea, Goddess of the Divine Light.
-MATK + 220, INT + 6, VIT + 2
+MATK + 15%, INT + 6, VIT + 2
 A chance to recover 200 SP after using ^008800Heal^000000.
 Increase MATK by 1% for every upgrade past + 2.
 Class :^777777 Two-handed Staff^000000
@@ -9153,42 +9153,42 @@ Applicable Job :^777777 Warlock^000000
 2101#
 A square shield that is small, yet effective in combat.
 Class :^777777 Shield^000000
-Defense :^777777 20^000000
+Defense :^777777 3^000000
 Weight :^777777 30^000000
 Applicable Job :^777777 Every Job^000000
 #
 2102#
 A square shield that is small, yet effective in combat.
 Class :^777777 Shield^000000
-Defense :^777777 20^000000
+Defense :^777777 3^000000
 Weight :^777777 30^000000
 Applicable Job :^777777 Every Job^000000
 #
 2103#
 A rounded shield that readily absorbs impact from attacks.
 Class :^777777 Shield^000000
-Defense :^777777 40^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Swordman Class, Acolyte Class, Merchant Class, Thief Class, Bard, Dancer^000000
 #
 2104#
 A rounded shield that readily absorbs impact from attacks.
 Class :^777777 Shield^000000
-Defense :^777777 40^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Swordman Class, Acolyte Class, Merchant Class, Thief Class, Bard, Dancer^000000
 #
 2105#
 A well crafted shield which most kinds of attack can not penetrate.
 Class :^777777 Shield^000000
-Defense :^777777 60^000000
+Defense :^777777 6^000000
 Weight :^777777 130^000000
 Applicable Job :^777777 Swordman Class^000000
 #
 2106#
 A well crafted shield which most kinds of attack can not penetrate.
 Class :^777777 Shield^000000
-Defense :^777777 60^000000
+Defense :^777777 6^000000
 Weight :^777777 130^000000
 Applicable Job :^777777 Swordman Class^000000
 #
@@ -9196,7 +9196,7 @@ Applicable Job :^777777 Swordman Class^000000
 A shield with a surface constructed of mirror that might reflect harmful magic.
 MDEF + 5
 Class :^777777 Shield^000000
-Defense :^777777 45^000000
+Defense :^777777 4^000000
 Weight :^777777 100^000000
 Applicable Job :^777777 Swordman Class, Star Gladiator^000000
 #
@@ -9204,7 +9204,7 @@ Applicable Job :^777777 Swordman Class, Star Gladiator^000000
 A shield with a surface constructed of mirror that might reflect harmful magic.
 MDEF + 5
 Class :^777777 Shield^000000
-Defense :^777777 45^000000
+Defense :^777777 4^000000
 Weight :^777777 100^000000
 Applicable Job :^777777 Swordman Class, Star Gladiator^000000
 #
@@ -9213,7 +9213,7 @@ A magic book filled with long, impractical spells that is so large, it can actua
 INT + 1, MDEF + 2
 [^000088Pocket Watch & Eye Patch & Memory Book Equip Set^000000]
 Class :^777777 Shield^000000
-Defense :^777777 25^000000
+Defense :^777777 3^000000
 Weight :^777777 100^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
 #
@@ -9222,7 +9222,7 @@ A blessed guard with God's symbol engraved on it.
 VIT + 2, MDEF + 2
 Impossible to refine this item.
 Class :^777777 Shield^000000
-Defense :^777777 110^000000
+Defense :^777777 5^000000
 Weight :^777777 140^000000
 Required Level :^777777 68^000000
 Applicable Job :^777777 Crusader^000000
@@ -9232,7 +9232,7 @@ A symbolic shield, rumored to have been given from God to his messenger.
 INT + 2, VIT + 3, MDEF + 3
 Indestructible (except in upgrade attempts).
 Class :^777777 Shield^000000
-Defense :^777777 120^000000
+Defense :^777777 5^000000
 Weight :^777777 160^000000
 Required Level :^777777 83^000000
 Applicable Job :^777777 Crusader^000000
@@ -9241,7 +9241,7 @@ Applicable Job :^777777 Crusader^000000
 An exclusive shield for new adventurers.
 Impossible to refine this item.
 Class :^777777 Shield^000000
-Defense :^777777 20^000000
+Defense :^777777 3^000000
 Weight :^777777 0.1^000000
 Applicable Job :^777777 Novice^000000
 #
@@ -9249,7 +9249,7 @@ Applicable Job :^777777 Novice^000000
 A cute shield made out of a special metal for Novices.
 Add a 20% resistance against property attacks (All except ^777777Neutral^000000).
 Class :^777777 Shield^000000
-Defense :^777777 20^000000
+Defense :^777777 3^000000
 Weight :^777777 100^000000
 Required Level :^777777 40^000000
 Applicable Job :^777777 Novice^000000
@@ -9263,7 +9263,7 @@ STR + 2, DEF + 5, MDEF + 5
 [^008800Swordman Class^000000]
 Additional DEF + 6
 Class :^777777 Shield^000000
-Defense :^777777 45^000000
+Defense :^777777 3^000000
 Weight :^777777 150^000000
 Required Level :^777777 65^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -9278,7 +9278,7 @@ Additional DEF decrease by Frigg's Circlet and Valkyrja's Shield refine rate.
 Additional MDEF increase by Frigg's Circlet and Valkyrja's Shield refine rate.
 [^000088Long Horn, Valkyrja's Shield Equip Set^000000]
 Class :^777777 Shield^000000
-Defense :^777777 80^000000
+Defense :^777777 3^000000
 Weight :^777777 50^000000
 Required Level :^777777 65^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -9288,7 +9288,7 @@ Super Novice Guardian Angel's shield which contains holy power that can nullify 
 Reduce 5% damage from Demon monster.
 [^000088Angelic Protection, Angel's Reincarnation, Angelic Guard, Angelic Cardigan & Angel's Kiss Equip Set^000000]
 Class :^777777 Shield^000000
-Defense :^777777 30^000000
+Defense :^777777 3^000000
 Weight :^777777 40^000000
 Required Level :^777777 20^000000
 Applicable Job :^777777 Novice Types^000000
@@ -9296,7 +9296,7 @@ Applicable Job :^777777 Novice Types^000000
 2117#
 A wrist protector, designed exclusively for the Ninja class, that is padded with a steel plate for increased defense and durability.
 Class :^777777 Shield^000000
-Defense :^777777 50^000000
+Defense :^777777 5^000000
 Weight :^777777 15^000000
 Required Level :^777777 20^000000
 Applicable Job :^777777 Ninja^000000
@@ -9304,7 +9304,7 @@ Applicable Job :^777777 Ninja^000000
 2118#
 A wrist protector, designed exclusively for the Ninja class, that is padded with a steel plate for increased defense and durability.
 Class :^777777 Shield^000000
-Defense :^777777 50^000000
+Defense :^777777 5^000000
 Weight :^777777 15^000000
 Required Level :^777777 20^000000
 Applicable Job :^777777 Ninja^000000
@@ -9313,7 +9313,7 @@ Applicable Job :^777777 Ninja^000000
 A wrist protector, designed exclusively for the Ninja class, that has been enhanced with high Magic Defense by a gifted artisan.
 MDEF + 5
 Class :^777777 Shield^000000
-Defense :^777777 45^000000
+Defense :^777777 4^000000
 Weight :^777777 15^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Ninja^000000
@@ -9322,7 +9322,7 @@ Applicable Job :^777777 Ninja^000000
 A wrist protector, designed exclusively for the Ninja class, that has been enhanced with high Magic Defense by a gifted artisan.
 MDEF + 5
 Class :^777777 Shield^000000
-Defense :^777777 45^000000
+Defense :^777777 4^000000
 Weight :^777777 15^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Ninja^000000
@@ -9332,7 +9332,7 @@ A magic book filled with long, impractical spells that is so large, it can actua
 INT + 1, MDEF + 2
 [^000088Pocket Watch & Eye Patch & Memory Book Equip Set^000000]
 Class :^777777 Shield^000000
-Defense :^777777 25^000000
+Defense :^777777 3^000000
 Weight :^777777 100^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
 #
@@ -9343,7 +9343,7 @@ Reduces damage taken from Undead type monsters by 10%. This effect stacks if the
 Whenever you receive a Magical Damage there is small chance to reflect all offensive magic against you at 40% chance for 2 seconds.
 MDEF + 5
 Class :^777777 Shield^000000
-Defense :^777777 95^000000
+Defense :^777777 5^000000
 Weight :^777777 120^000000
 Required Level :^777777 68^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -9355,7 +9355,7 @@ MDEF + 2
 [^000088+ Orlean's Gloves^000000]
 Reduces casting time by 10%.
 Class :^777777 Shield^000000
-Defense :^777777 75^000000
+Defense :^777777 5^000000
 Weight :^777777 100^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -9366,7 +9366,7 @@ MDEF + 2
 [^000088+ Horn of the Buffalo^000000]
 Attack Speed is increased by 10%, Reflect 5% of all Physical Damage back to the enemy which inflicted it.
 Class :^777777 Shield^000000
-Defense :^777777 85^000000
+Defense :^777777 4^000000
 Weight :^777777 100^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -9376,7 +9376,7 @@ A massive shield that firmly withstands any kind of attack.
 However, the owner receives extra damage since the shield lacks in absorbing the shock.
 Can never be knocked back. Receives 20% additional damage from all physical and magical sources.
 Class :^777777 Shield^000000
-Defense :^777777 90^000000
+Defense :^777777 4^000000
 Weight :^777777 250^000000
 Required Level :^777777 75^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -9405,7 +9405,7 @@ A symbolic shield, rumored to have been given from God to his messenger.
 INT + 2, VIT + 3, MDEF + 3
 Indestructible (except in upgrade attempts).
 Class :^777777 Shield^000000
-Defense :^777777 120^000000
+Defense :^777777 5^000000
 Weight :^777777 140^000000
 Required Level :^777777 83^000000
 Applicable Job :^777777 Crusader^000000
@@ -9417,7 +9417,7 @@ HP, SP Recovery + 3%, INT + 1
 Inflict 20% more damage with ^008800Magnus Exorcismus^000000.
 Add a chance of auto casting ^008800Level 1 Turn Undead^000000 on an enemy when the user receives Physical Damage.
 Class :^777777 Shield^000000
-Defense :^777777 80^000000
+Defense :^777777 5^000000
 Weight :^777777 60^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Priest, Monk^000000
@@ -9426,7 +9426,7 @@ Applicable Job :^777777 Priest, Monk^000000
 A big and thick cross-shaped shield. STR + 1
 Increases damage of ^008800Rapid Smiting, and Shield Boomerang^000000 by 30%, Increase SP Consumption of skills by 10%.
 Class :^777777 Shield^000000
-Defense :^777777 130^000000
+Defense :^777777 6^000000
 Weight :^777777 200^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Crusader^000000
@@ -9435,7 +9435,7 @@ Applicable Job :^777777 Crusader^000000
 A thick book which is full of unknown letters. It seems published in series.
 MDEF + 3, INT + 2, Add a chance of auto casting ^880000Stun^000000 on an enemy when the user receives Physical Damage.
 Class :^777777 Shield^000000
-Defense :^777777 18^000000
+Defense :^777777 2^000000
 Weight :^777777 100^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
@@ -9446,7 +9446,7 @@ A Magical Shield that has a strong resistance against every attack that an oppon
 Reduced 20% damage from the monster.
 Reflects 1% of Physical Attack
 Class :^777777 Shield^000000
-Defense :^777777 140^000000
+Defense :^777777 9^000000
 Weight :^777777 0^000000
 Applicable Job :^777777 Every Job^000000
 #
@@ -9459,7 +9459,7 @@ DEF + 2, ATK + 4%.
 [^008800Lord Knight Class^000000]
 Attack Speed -5%.
 Class :^777777 Shield^000000
-Defense :^777777 105^000000
+Defense :^777777 5^000000
 Weight :^777777 100^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Trans Swordman Class^000000
@@ -9472,7 +9472,7 @@ When receiving physical damage there's low chance physical damage will be reflec
 The chance for the reflect rate is around 3% for each refine.
 The reflect damage increases only up to +10. When refined above +11, every further two refine increase the duration of reflect by 1 second.
 Class :^777777 Shield^000000
-Defense :^777777 35^000000
+Defense :^777777 3^000000
 Weight :^777777 50^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Trans 2nd Class^000000
@@ -9483,7 +9483,7 @@ A small shield which is wearable with black arms.
 Add a high chance inflict ^880000Blind^000000 on the enemy When dealing physical damage.
 Adds FLEE + 20 for 10 sec when dealing physical damage. 
 Class :^777777 Shield^000000
-Defense :^777777 52^000000
+Defense :^777777 4^000000
 Weight :^777777 80^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Stalker^000000
@@ -9505,7 +9505,7 @@ Add a 30% resistance against DemiHuman monster.
 MaxHP + 5%
 Add a 20% resistance against ^FF0000Fire^000000 and ^0000FFWater^000000 Property attacks.
 Class :^777777 Shield^000000
-Defense :^777777 80^000000
+Defense :^777777 5^000000
 Weight :^777777 0^000000
 Required Level :^777777 95^000000
 Applicable Job :^777777 Every Jobs except Novice^000000
@@ -9515,7 +9515,7 @@ A solid shield crafted from Bradium.
 Increases ATK of Shield Boomerang by 60%.
 AGI - 1, MaxHP + 500
 Class :^777777 Shield^000000
-Defense :^777777 98^000000
+Defense :^777777 5^000000
 Weight :^777777 180^000000
 Required Level :^777777 65^000000
 Applicable Job :^777777 Rebirth 2nd Class or above^000000
@@ -9532,7 +9532,7 @@ Applicable Job :^777777 Mechanic^000000
 ...
 MaxSP + 2%.
 Class :^777777 Shield^000000
-Defense :^777777 70^000000
+Defense :^777777 6^000000
 Weight :^777777 0^000000
 Required Level :^777777 0^000000
 Applicable Job :^777777 Swordman Class^000000
@@ -9612,7 +9612,7 @@ Applicable Job :^777777 Every Trans Job^000000
 2148#
 A strong shield crafted from a unique metal found in the other world, layered in such a way that that it looks like a blooming flower.
 Class :^777777 Shield^000000
-Defense :^777777 130^000000
+Defense :^777777 3^000000
 Weight :^777777 130^000000
 Required Level :^777777 100^000000
 Applicable Job :^777777 3rd Swordman Class^000000
@@ -10529,7 +10529,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 Large insect antennae that humans can wear.
 Impossible to refine this item.
 Class :^777777 Headgear^000000
-Defense :^777777 3^000000
+Defense :^777777 2^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Every Job^000000
@@ -10537,7 +10537,7 @@ Applicable Job :^777777 Every Job^000000
 2299#
 A hardy helmet that was crafted by the most expert of Orcish smiths.
 Class :^777777 Headgear^000000
-Defense :^777777 9^000000
+Defense :^777777 5^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 50^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class^000000
@@ -10546,77 +10546,77 @@ Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class^000000
 2301#
 A simple, sturdily made shirt of cotton.
 Class :^777777 Armor^000000
-Defense :^777777 10^000000
+Defense :^777777 1^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Every Job^000000
 #
 2302#
 A simple, sturdily made shirt of cotton.
 Class :^777777 Armor^000000
-Defense :^777777 10^000000
+Defense :^777777 1^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Every Job^000000
 #
 2303#
 A jacket made out of mediocre leather.
 Class :^777777 Armor^000000
-Defense :^777777 15^000000
+Defense :^777777 2^000000
 Weight :^777777 20^000000
 Applicable Job :^777777 Every Job^000000
 #
 2304#
 A jacket made out of mediocre leather.
 Class :^777777 Armor^000000
-Defense :^777777 15^000000
+Defense :^777777 2^000000
 Weight :^777777 20^000000
 Applicable Job :^777777 Every Job^000000
 #
 2305#
 A light, comfortable suit made just for young adventurers.
 Class :^777777 Armor^000000
-Defense :^777777 20^000000
+Defense :^777777 2^000000
 Weight :^777777 30^000000
 Applicable Job :^777777 Every Job^000000
 #
 2306#
 A light, comfortable suit made just for young adventurers.
 Class :^777777 Armor^000000
-Defense :^777777 20^000000
+Defense :^777777 2^000000
 Weight :^777777 30^000000
 Applicable Job :^777777 Every Job^000000
 #
 2307#
 A cloak that is simple, yet elegant.
 Class :^777777 Armor^000000
-Defense :^777777 37^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2308#
 A cloak that is simple, yet elegant.
 Class :^777777 Armor^000000
-Defense :^777777 37^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2309#
 A long coat that provides remarkable warmth in cold weather.
 Class :^777777 Armor^000000
-Defense :^777777 42^000000
+Defense :^777777 5^000000
 Weight :^777777 120^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2310#
 A long coat that provides remarkable warmth in cold weather.
 Class :^777777 Armor^000000
-Defense :^777777 42^000000
+Defense :^777777 5^000000
 Weight :^777777 120^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2311#
 A fur coat that is actually made using hides from Lunatics.
 Class :^777777 Armor^000000
-Defense :^777777 30^000000
+Defense :^777777 6^000000
 Weight :^777777 230^000000
 Required Level :^777777 30^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -10625,7 +10625,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 Armor constructed of solid metal plates that have been padded on the inside for comfort.
 [^000088Padded Armor & Armor Charm Equip Set^000000]
 Class :^777777 Armor^000000
-Defense :^777777 35^000000
+Defense :^777777 7^000000
 Weight :^777777 280^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class^000000
 #
@@ -10633,28 +10633,28 @@ Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class^000000
 Armor constructed of solid metal plates that have been padded on the inside for comfort.
 [^000088Padded Armor & Armor Charm Equip Set^000000]
 Class :^777777 Armor^000000
-Defense :^777777 35^000000
+Defense :^777777 7^000000
 Weight :^777777 280^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class^000000
 #
 2314#
 Heavy mail made entirely of polished, metal chain links.
 Class :^777777 Armor^000000
-Defense :^777777 55^000000
+Defense :^777777 8^000000
 Weight :^777777 330^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class^000000
 #
 2315#
 Heavy mail made entirely of polished, metal chain links.
 Class :^777777 Armor^000000
-Defense :^777777 55^000000
+Defense :^777777 8^000000
 Weight :^777777 330^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class^000000
 #
 2316#
 Heavy, solid armor made of durable plates of impenetrable metal.
 Class :^777777 Armor^000000
-Defense :^777777 70^000000
+Defense :^777777 10^000000
 Weight :^777777 450^000000
 Required Level :^777777 40^000000
 Applicable Job :^777777 Swordman Class^000000
@@ -10662,7 +10662,7 @@ Applicable Job :^777777 Swordman Class^000000
 2317#
 Heavy, solid armor made of durable plates of impenetrable metal.
 Class :^777777 Armor^000000
-Defense :^777777 70^000000
+Defense :^777777 10^000000
 Weight :^777777 450^000000
 Required Level :^777777 40^000000
 Applicable Job :^777777 Swordman Class^000000
@@ -10671,7 +10671,7 @@ Applicable Job :^777777 Swordman Class^000000
 Formal clothing made in a Renaissance style that evokes thoughts of romance and elegance.
 INT + 1, MDEF + 5
 Class :^777777 Armor^000000
-Defense :^777777 59^000000
+Defense :^777777 8^000000
 Weight :^777777 250^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Merchant Class^000000
@@ -10681,7 +10681,7 @@ A jacket covered in fake, yet glamorous, rhinestones that is favored by hipsters
 Add a 3% chance of auto casting ^880000Blind^000000 status to enemies with each attack.
 MDEF + 5
 Class :^777777 Armor^000000
-Defense :^777777 58^000000
+Defense :^777777 7^000000
 Weight :^777777 250^000000
 Required Level :^777777 60^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -10689,7 +10689,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 2320#
 A formal suit for males.
 Class :^777777 Armor^000000
-Defense :^777777 40^000000
+Defense :^777777 5^000000
 Weight :^777777 30^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
@@ -10697,7 +10697,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 A finely woven, silk robe that has been enchanted with magic.
 MDEF + 10
 Class :^777777 Armor^000000
-Defense :^777777 20^000000
+Defense :^777777 3^000000
 Weight :^777777 40^000000
 Applicable Job :^777777 Swordman Class, Mage Class, Acolyte Class, Merchant Class, Soul Linker^000000
 #
@@ -10705,21 +10705,21 @@ Applicable Job :^777777 Swordman Class, Mage Class, Acolyte Class, Merchant Clas
 A finely woven, silk robe that has been enchanted with magic.
 MDEF + 10
 Class :^777777 Armor^000000
-Defense :^777777 20^000000
+Defense :^777777 3^000000
 Weight :^777777 40^000000
 Applicable Job :^777777 Swordman Class, Mage Class, Acolyte Class, Merchant Class, Soul Linker^000000
 #
 2323#
 A blessed outer garment worn by clerics for religious ceremonies.
 Class :^777777 Armor^000000
-Defense :^777777 24^000000
+Defense :^777777 4^000000
 Weight :^777777 40^000000
 Applicable Job :^777777 Acolyte Class^000000
 #
 2324#
 A blessed outer garment worn by clerics for religious ceremonies.
 Class :^777777 Armor^000000
-Defense :^777777 24^000000
+Defense :^777777 4^000000
 Weight :^777777 40^000000
 Applicable Job :^777777 Acolyte Class^000000
 #
@@ -10727,7 +10727,7 @@ Applicable Job :^777777 Acolyte Class^000000
 A robe that has been baptized with saintly power.
 MDEF + 5
 Class :^777777 Armor^000000
-Defense :^777777 50^000000
+Defense :^777777 6^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Acolyte Class, Merchant Class^000000
 #
@@ -10735,7 +10735,7 @@ Applicable Job :^777777 Acolyte Class, Merchant Class^000000
 A robe that has been baptized with saintly power.
 MDEF + 5
 Class :^777777 Armor^000000
-Defense :^777777 50^000000
+Defense :^777777 6^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Acolyte Class, Merchant Class^000000
 #
@@ -10745,7 +10745,7 @@ Increases resistance to Demon monster by 15%.
 And resistance against ^777777Shadow^000000 Property by 10%.
 MDEF + 5
 Class :^777777 Armor^000000
-Defense :^777777 57^000000
+Defense :^777777 7^000000
 Weight :^777777 170^000000
 Required Level :^777777 60^000000
 Applicable Job :^777777 Acolyte Class^000000
@@ -10753,14 +10753,14 @@ Applicable Job :^777777 Acolyte Class^000000
 2328#
 A simple set of armor carved out of solid wood.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 100^000000
 Applicable Job :^777777 Swordman Class, Merchant Class^000000
 #
 2329#
 A simple set of armor carved out of solid wood.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 100^000000
 Applicable Job :^777777 Swordman Class, Merchant Class^000000
 #
@@ -10768,7 +10768,7 @@ Applicable Job :^777777 Swordman Class, Merchant Class^000000
 Skintight, form fitting clothing that allows easy movement.
 DEX + 1
 Class :^777777 Armor^000000
-Defense :^777777 27^000000
+Defense :^777777 6^000000
 Weight :^777777 50^000000
 Required Level :^777777 45^000000
 Applicable Job :^777777 Archer Class^000000
@@ -10777,7 +10777,7 @@ Applicable Job :^777777 Archer Class^000000
 Skintight, form fitting clothing that allows easy movement.
 DEX + 1
 Class :^777777 Armor^000000
-Defense :^777777 27^000000
+Defense :^777777 6^000000
 Weight :^777777 50^000000
 Required Level :^777777 45^000000
 Applicable Job :^777777 Archer Class^000000
@@ -10785,14 +10785,14 @@ Applicable Job :^777777 Archer Class^000000
 2332#
 A robe knit out of silver thread.
 Class :^777777 Armor^000000
-Defense :^777777 23^000000
+Defense :^777777 4^000000
 Weight :^777777 70^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
 #
 2333#
 A robe knit out of silver thread.
 Class :^777777 Armor^000000
-Defense :^777777 23^000000
+Defense :^777777 4^000000
 Weight :^777777 70^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
 #
@@ -10801,7 +10801,7 @@ An exclusive robe for Mage Class characters that contains magic power.
 MDEF + 5, INT + 1
 [^000088Ancient Sorcery & Mage Coat Equip Set^000000]
 Class :^777777 Armor^000000
-Defense :^777777 40^000000
+Defense :^777777 5^000000
 Weight :^777777 60^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
@@ -10810,7 +10810,7 @@ Applicable Job :^777777 Mage Class, Soul Linker^000000
 Extremely light clothes outfitted with many pockets, making it handy for stashing stolen goods.
 AGI + 1
 Class :^777777 Armor^000000
-Defense :^777777 40^000000
+Defense :^777777 6^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Thief Class, Ninja^000000
 #
@@ -10818,7 +10818,7 @@ Applicable Job :^777777 Thief Class, Ninja^000000
 Extremely light clothes outfitted with many pockets, making it handy for stashing stolen goods.
 AGI + 1
 Class :^777777 Armor^000000
-Defense :^777777 40^000000
+Defense :^777777 6^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Thief Class, Ninja^000000
 #
@@ -10827,7 +10827,7 @@ An ancient Japanese assassin suit. Allows its wearer to move faster and with mor
 AGI + 1, MDEF + 3
 [^000088Ninja Suit & Shinobi Sash Equip Set^000000]
 Class :^777777 Armor^000000
-Defense :^777777 58^000000
+Defense :^777777 7^000000
 Weight :^777777 150^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Thief Class, Ninja^000000
@@ -10836,7 +10836,7 @@ Applicable Job :^777777 Thief Class, Ninja^000000
 A wedding dress that is immaculately white.
 MDEF + 15
 Class :^777777 Armor^000000
-Defense :^777777 10^000000
+Defense :^777777 0^000000
 Weight :^777777 50^000000
 Applicable Job :^777777 Female Only, Every Job Except Novice^000000
 #
@@ -10844,14 +10844,14 @@ Applicable Job :^777777 Female Only, Every Job Except Novice^000000
 A risky undergarment that is comfortable to wear, but offers very little in the way of defense.
 [^000088Undershirt & Pantie Equip Set^000000]
 Class :^777777 Armor^000000
-Defense :^777777 22^000000
+Defense :^777777 4^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Every Job^000000
 #
 2340#
 A piece of armor that covers the chest of a Novice.
 Class :^777777 Armor^000000
-Defense :^777777 32^000000
+Defense :^777777 4^000000
 Weight :^777777 50^000000
 Required Level :^777777 10^000000
 Applicable Job :^777777 Novice^000000
@@ -10859,7 +10859,7 @@ Applicable Job :^777777 Novice^000000
 2341#
 An extremely heavy piece of armor worn by members of the Legion.
 Class :^777777 Armor^000000
-Defense :^777777 79^000000
+Defense :^777777 11^000000
 Weight :^777777 550^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Crusader^000000
@@ -10867,7 +10867,7 @@ Applicable Job :^777777 Crusader^000000
 2342#
 An extremely heavy piece of armor worn by members of the Legion.
 Class :^777777 Armor^000000
-Defense :^777777 79^000000
+Defense :^777777 11^000000
 Weight :^777777 550^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Crusader^000000
@@ -10876,7 +10876,7 @@ Applicable Job :^777777 Crusader^000000
 A robe which aids its wearer in reducing magic casting time.
 Reduce Casting Time by 3%. MDEF + 5
 Class :^777777 Armor^000000
-Defense :^777777 40^000000
+Defense :^777777 5^000000
 Weight :^777777 110^000000
 Required Level :^777777 75^000000
 Applicable Job :^777777 Wizard, Sage, Soul Linker^000000
@@ -10884,7 +10884,7 @@ Applicable Job :^777777 Wizard, Sage, Soul Linker^000000
 2344#
 An armor that is enchanted with the ^FF0000Fire^000000 Property.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 220^000000
 Property :^FF0000 Fire^000000
 Required Level :^777777 45^000000
@@ -10893,7 +10893,7 @@ Applicable Job :^777777 Swordman Class, Merchant Class^000000
 2345#
 An armor that is enchanted with the ^FF0000Fire^000000 Property.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 220^000000
 Property :^FF0000 Fire^000000
 Required Level :^777777 45^000000
@@ -10902,7 +10902,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 2346#
 An armor that is enchanted with the ^0000FFWater^000000 Property.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 220^000000
 Property :^0000FF Water^000000
 Required Level :^777777 45^000000
@@ -10911,7 +10911,7 @@ Applicable Job :^777777 Swordman Class, Merchant Class^000000
 2347#
 An armor that is enchanted with the ^0000FFWater^000000 Property.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 220^000000
 Property :^0000FF Water^000000
 Required Level :^777777 45^000000
@@ -10920,7 +10920,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 2348#
 An armor that is enchanted with the ^009900Wind^000000 Property.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 220^000000
 Property :^009900 Wind^000000
 Required Level :^777777 45^000000
@@ -10929,7 +10929,7 @@ Applicable Job :^777777 Swordman Class, Merchant Class^000000
 2349#
 An armor that is enchanted with the ^009900Wind^000000 Property.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 220^000000
 Property :^009900 Wind^000000
 Required Level :^777777 45^000000
@@ -10938,7 +10938,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 2350#
 An armor that is enchanted with the ^996600Earth^000000 Property.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 220^000000
 Property :^996600 Earth^000000
 Required Level :^777777 45^000000
@@ -10947,7 +10947,7 @@ Applicable Job :^777777 Swordman Class, Merchant Class^000000
 2351#
 An armor that is enchanted with the ^996600Earth^000000 Property.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 220^000000
 Property :^996600 Earth^000000
 Required Level :^777777 45^000000
@@ -10957,7 +10957,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 An exclusive armor for new adventurers.
 Impossible to refine this item.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 0.1^000000
 Applicable Job :^777777 Novice^000000
 #
@@ -10969,7 +10969,7 @@ The main component of the Hermod Armor set.
 [^000088Odin's Blessing, Vidar's Boots & Vali's Manteau Equip Set^000000]
 [^000088Odin's Blessing & Ulle's Cap Equip Set^000000]
 Class :^777777 Armor^000000
-Defense :^777777 53^000000
+Defense :^777777 6^000000
 Weight :^777777 250^000000
 Required Level :^777777 65^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -10979,7 +10979,7 @@ An armor that was accidentally enchanted by Goibne the blacksmith when he spille
 VIT + 2, Maximum HP + 10%
 [^000088Goibne's Helm, Goibne's Armor, Goibne's Greaves & Goibne's Spaulders Equip Set^000000]
 Class :^777777 Armor^000000
-Defense :^777777 58^000000
+Defense :^777777 7^000000
 Weight :^777777 350^000000
 Required Level :^777777 54^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -10991,7 +10991,7 @@ MDEF + 20
 Maximum HP + 900, Maximum SP + 100
 Add a 3% chance of auto casting ^008800Level 1 Assumptio^000000 on the user when the user receives Physical Damage.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Required Level :^777777 40^000000
 Applicable Job :^777777 Novice Types^000000
@@ -11001,7 +11001,7 @@ A blessed holy robe that protects its wearer from being tainted by evil.
 Add a 80% resistance against ^880000Blind^000000.
 MDEF + 5
 Class :^777777 Armor^000000
-Defense :^777777 45^000000
+Defense :^777777 5^000000
 Weight :^777777 250^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Priest, Monk^000000
@@ -11016,7 +11016,7 @@ Increase resistance to ^880000Silence^000000 status by 50%.
 Increase resistance to ^880000Stun^000000 status by 50%.
 [^000088Valkyrie Helm & Valkyrja's Armor & Valkyrja's Manteau & Valkyrja's Shoes Equip Set^000000]
 Class :^777777 Armor^000000
-Defense :^777777 55^000000
+Defense :^777777 6^000000
 Weight :^777777 280^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
 #
@@ -11038,7 +11038,7 @@ AGI + 1, MDEF + 3
 Maximum HP + 300
 Reduce SP Consumption of skills by 20%.
 Class :^777777 Armor^000000
-Defense :^777777 58^000000
+Defense :^777777 7^000000
 Weight :^777777 150^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Thief Class, Ninja^000000
@@ -11048,7 +11048,7 @@ A robe which aids its wearer in reducing magic casting time.
 Reduce Casting Time by 3%.
 MDEF + 4
 Class :^777777 Armor^000000
-Defense :^777777 40^000000
+Defense :^777777 5^000000
 Weight :^777777 110^000000
 Required Level :^777777 75^000000
 Applicable Job :^777777 Wizard, Sage, Soul Linker^000000
@@ -11084,7 +11084,7 @@ Applicable Job :^777777 Novice^000000
 A plate armor made of a meteoric stone that consists of unkown substances.
 Add a 30% resistance to the ^880000Stun^000000 and ^880000Freeze^000000 status.
 Class :^777777 Armor^000000
-Defense :^777777 85^000000
+Defense :^777777 10^000000
 Weight :^777777 300^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Trans Swordman Class, Trans Merchant Class^000000
@@ -11094,7 +11094,7 @@ An uniform that belonged to a chef that had excessive love of cleanliness.
 Nobody could stop him while he was talking about cuisines.
 Increases magic casting time by 15%. Makes your casting uninteruptable.
 Class :^777777 Armor^000000
-Defense :^777777 15^000000
+Defense :^777777 2^000000
 Weight :^777777 30^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -11103,7 +11103,7 @@ Applicable Job :^777777 Every Rebirth Job except High Novice^000000
 A holy garment that was produced through series of religious rituals.
 Add a 5% resistance to the ^880000Curse, Silence, Stun, Stone Curse, Sleep^000000 status.
 Class :^777777 Armor^000000
-Defense :^777777 50^000000
+Defense :^777777 6^000000
 Weight :^777777 150^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -11114,7 +11114,7 @@ Reduces necessary time to shoot arrows and helps to achieve improved accuracy.
 Critical Rate + 6, Bonus (LUK/10) Critical Rate depending on your LUK rate.
 MDEF + 5, Reduces after-cast skill delay by 23%.
 Class :^777777 Armor^000000
-Defense :^777777 42^000000
+Defense :^777777 5^000000
 Weight :^777777 75^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Sniper^000000
@@ -11156,7 +11156,7 @@ Applicable Job :^777777 Every Job^000000
 A risky undergarment that is comfortable to wear, but offers very little in the way of defense.
 [^000088Undershirt & Pantie Equip Set^000000]
 Class :^777777 Armor^000000
-Defense :^777777 22^000000
+Defense :^777777 4^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Every Job^000000
 #
@@ -11165,7 +11165,7 @@ An exclusive robe for Mage Class characters that contains magic power.
 MDEF + 5, INT + 1
 [^000088Ancient Sorcery & Mage Coat Equip Set^000000]
 Class :^777777 Armor^000000
-Defense :^777777 40^000000
+Defense :^777777 5^000000
 Weight :^777777 60^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
@@ -11176,7 +11176,7 @@ Increases resistance to Demon monster by 15%.
 And resistance against ^777777Shadow^000000 Property by 10%.
 MDEF + 5
 Class :^777777 Armor^000000
-Defense :^777777 57^000000
+Defense :^777777 7^000000
 Weight :^777777 170^000000
 Required Level :^777777 60^000000
 Applicable Job :^777777 Acolyte Class^000000
@@ -11188,7 +11188,7 @@ Reduces skill delay by 10%. Increases heal effectiveness by 6%.
 [^000088+ Diablos Ring^000000]
 ATK + 3%, MATK + 3%
 Class :^777777 Armor^000000
-Defense :^777777 57^000000
+Defense :^777777 6^000000
 Weight :^777777 30^000000
 Required Level :^777777 60^000000
 Applicable Job :^777777 Trans Archer, Trans Mage, Trans Acolyte Class^000000
@@ -11199,7 +11199,7 @@ STR + 2, DEX + 1, Maximum HP + 150, Add a 5% resistance against ^880000Stun, Sto
 [^000088+ Diablos Ring^000000]
 ATK + 3%, MATK + 3%
 Class :^777777 Armor^000000
-Defense :^777777 79^000000
+Defense :^777777 7^000000
 Weight :^777777 60^000000
 Required Level :^777777 60^000000
 Applicable Job :^777777 Trans Swordsman, Trans Merchant, Trans Thief Class^000000
@@ -11213,7 +11213,7 @@ Increases damage recieved from all Non-Demihuman monster by 3 times.
 VIT + 3, Maximum HP + 12%, Increases Heal and Item recovery by 10%. 
 When attacking physically, there is a chance to recover 6000HP over 10 seconds.
 Class :^777777 Armor^000000
-Defense :^777777 57^000000
+Defense :^777777 7^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Taekwon^000000
@@ -11228,7 +11228,7 @@ STR + 3, Maximum HP + 12%, Increases Mammonite damage by 20%.
 Increases the effectiveness of your heal and potion pitcher by 10%.
 Armor can not destroyed.
 Class :^777777 Armor^000000
-Defense :^777777 50^000000
+Defense :^777777 7^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Merchant Class^000000
@@ -11243,7 +11243,7 @@ Increases Attack Speed by 5%.
 When attacking physically, there is a chance to recover 3000HP over per 10 seconds.
 Increases damage recieved from all Non-Demihuman monster by 3 times.
 Class :^777777 Armor^000000
-Defense :^777777 41^000000
+Defense :^777777 7^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Thief Class^000000
@@ -11258,7 +11258,7 @@ Adds a 20% resistance against ^880000Stun^000000.
 When recieving physical damage, there is a chance that for 10 seconds, your armor will become ghost property.
 Increases damage recieved from all Non-Demihuman monster by 3 times.
 Class :^777777 Armor^000000
-Defense :^777777 36^000000
+Defense :^777777 3^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
@@ -11274,7 +11274,7 @@ Increases the effectiveness of your Heal and Sanctuary skills by 10%.
 When recieving physical damage, there is a chance that for 10 seconds, your armor will become ghost property.
 Increases damage recieved from all Non-Demihuman monster by 3 times.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 3^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Acolyte Class^000000
@@ -11289,7 +11289,7 @@ DEX + 3. Maximum HP + 12%, Reduces ranged damage by 10%.
 Decreases cast delay of all skills by 25%.
 Increases damage recieved from all Non-Demihuman monster by 3 times.
 Class :^777777 Armor^000000
-Defense :^777777 35^000000
+Defense :^777777 3^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Archer Class^000000
@@ -11303,7 +11303,7 @@ DEX + 3, Maximum HP + 12%, Reduces ranged damage by 10%.
 Decreases cast delay of all skills by 25%.
 Increases damage recieved from all Non-Demihuman monster by 3 times.
 Class :^777777 Armor^000000
-Defense :^777777 25^000000
+Defense :^777777 3^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Gunslinger^000000
@@ -11316,7 +11316,7 @@ MDEF + 10
 The player wearing this cannot be knocked back.
 Cannot be refined, cannot be destroyed.
 Class :^777777 Armor^000000
-Defense :^777777 120^000000
+Defense :^777777 10^000000
 Required Level :^777777 94^000000
 Weight :^777777 40^000000
 Applicable Job :^777777 Every Job^000000
@@ -11327,7 +11327,7 @@ A Tunic that has been granted additional tolerance against certain properties.
 Decreases 20% damage from ^777777Neutral^000000 and ^777777Water^000000 property.
 MDEF + 5. MHP + 800. Cannot be Frozen.
 Class :^777777 Armor^000000
-Defense :^777777 38^000000
+Defense :^777777 10^000000
 Weight :^777777 0^000000
 Applicable Job :^777777 Every Job^000000
 #
@@ -11338,7 +11338,7 @@ HP, SP Natural Recovery is Disabled.
 When unequipped, you lose 100 SP.
 When a monster is defeated from Physical or Magical Attacks, it recover 60 HP and 6 SP. 
 Class :^777777 Armor^000000
-Defense :^777777 67^000000
+Defense :^777777 12^000000
 Weight :^777777 0^000000
 Applicable Job :^777777 Every Job^000000
 #
@@ -11351,7 +11351,7 @@ DEF + 3
 [^008800Magician, Archer, Acolyte^000000]
 MDEF + 5
 Class :^777777 Armor^000000
-Defense :^777777 55^000000
+Defense :^777777 5^000000
 Weight :^777777 170^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Trans 2nd Class^000000
@@ -11362,7 +11362,7 @@ While it might look like a normal running shirt it has the durability of a piece
 VIT + 1. Recovery HP + 5%.
 Increases the effectiveness of your heal and potion pitcher by 3%.
 Class :^777777 Armor^000000
-Defense :^777777 20^000000
+Defense :^777777 3^000000
 Weight :^777777 100^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Trans 2nd Class^000000
@@ -11372,7 +11372,7 @@ Clothes worn in the middle east to bear the regions climate.
 AGI + 1
 FLEE + 5, ASPD + 2%
 Class :^777777 Armor^000000
-Defense :^777777 36^000000
+Defense :^777777 4^000000
 Weight :^777777 30^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Assassin Cross^000000
@@ -11382,7 +11382,7 @@ An armor created by the scales of the Nagas. On close inspection you can see var
 MDEF + 2
 Adds a chance ATK + 20 for 10 seconds when dealing physical damage. 
 Class :^777777 Armor^000000
-Defense :^777777 45^000000
+Defense :^777777 5^000000
 Weight :^777777 100^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Trans 2nd Class^000000
@@ -11391,7 +11391,7 @@ Applicable Job :^777777 Trans 2nd Class^000000
 Newly developed Tights from the Rekenber Corporation that improves on the design of regular tights.
 MDEF + 2. Perfect Dodge + 3
 Class :^777777 Armor^000000
-Defense :^777777 38^000000
+Defense :^777777 6^000000
 Weight :^777777 40^000000
 Required Level :^777777 75^000000
 Applicable Job :^777777 Trans Archer Class^000000
@@ -11402,7 +11402,7 @@ When wearing this armor you recover from wounds much faster than normal.
 MDEF + 5, VIT + 2. 
 Natural HP Recovery Rate + 50%
 Class :^777777 Armor^000000
-Defense :^777777 75^000000
+Defense :^777777 9^000000
 Weight :^777777 350^000000
 Required Level :^777777 82^000000
 Applicable Job :^777777 Trans Swordman Class^000000
@@ -11421,7 +11421,7 @@ Applicable Job :^777777 Every Job^000000
 A light, comfortable suit made just for young adventurers.
 Impossible to refine this item.
 Class :^777777 Armor^000000
-Defense :^777777 45^000000
+Defense :^777777 8^000000
 Weight :^777777 0^000000
 Applicable Job :^777777 Every Job^000000
 #
@@ -11432,7 +11432,7 @@ Add a 7% resistance against DemiHuman monster.
 ATK, MATK +5%. Can't be frozen.
 Increases Heal, Sanctuary, and Potion Pitcher effectiveness by 3%.
 Class :^777777 Armor^000000
-Defense :^777777 10^000000
+Defense :^777777 0^000000
 Weight :^777777 0^000000
 Required Level :^777777 81^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -11440,7 +11440,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 2395#
 HP + 600, SP Recovery + 10%
 Class :^777777 Armor^000000
-Defense :^777777 10^000000
+Defense :^777777 0^000000
 Weight :^777777 0^000000
 Required Level :^777777 61^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -11448,7 +11448,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 2396#
 HP + 500
 Class :^777777 Armor^000000
-Defense :^777777 10^000000
+Defense :^777777 0^000000
 Weight :^777777 0^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
@@ -11465,7 +11465,7 @@ Reduces necessary time to shoot arrows and helps to achieve improved accuracy.
 Critical Rate + 6, Bonus (LUK/10) Critical Rate depending on your LUK rate.
 MDEF + 5, Reduces after-cast skill delay by 23%.
 Class :^777777 Armor^000000
-Defense :^777777 42^000000
+Defense :^777777 5^000000
 Weight :^777777 75^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Sniper^000000
@@ -11476,7 +11476,7 @@ MDEF + 3
 [^000088+ Dragon Manteau^000000]
 AGI + 5, FLEE + 15
 Class :^777777 Armor^000000
-Defense :^777777 20^000000
+Defense :^777777 3^000000
 Weight :^777777 50^000000
 Required Level :^777777 1^000000
 Applicable Job :^777777 Every Trans Job except Novice^000000
@@ -11485,42 +11485,42 @@ Applicable Job :^777777 Every Trans Job except Novice^000000
 2401#
 Cute, feminine shoes that are a part of the standard schoolgirl's uniform. Fortunately, these are unisex.
 Class :^777777 Footgear^000000
-Defense :^777777 5^000000
+Defense :^777777 1^000000
 Weight :^777777 20^000000
 Applicable Job :^777777 Every Job^000000
 #
 2402#
 Cute, feminine shoes that are a part of the standard schoolgirl's uniform. Fortunately, these are unisex.
 Class :^777777 Footgear^000000
-Defense :^777777 5^000000
+Defense :^777777 1^000000
 Weight :^777777 20^000000
 Applicable Job :^777777 Every Job^000000
 #
 2403#
 A pair of shoes made of supple, high quality leather.
 Class :^777777 Footgear^000000
-Defense :^777777 10^000000
+Defense :^777777 2^000000
 Weight :^777777 40^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2404#
 A pair of shoes made of supple, high quality leather.
 Class :^777777 Footgear^000000
-Defense :^777777 10^000000
+Defense :^777777 2^000000
 Weight :^777777 40^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2405#
 A pair of heavy leather boots, padded with Lunatic fur, that is suited to warriors.
 Class :^777777 Footgear^000000
-Defense :^777777 16^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Swordman Class, Archer Class, Merchant Class, Thief Class, TaeKwon, Star Gladiator, Gunslinger^000000
 #
 2406#
 A pair of heavy leather boots, padded with Lunatic fur, that is suited to warriors.
 Class :^777777 Footgear^000000
-Defense :^777777 16^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Swordman Class, Archer Class, Merchant Class, Thief Class, TaeKwon, Star Gladiator, Gunslinger^000000
 #
@@ -11528,7 +11528,7 @@ Applicable Job :^777777 Swordman Class, Archer Class, Merchant Class, Thief Clas
 A pair of feminine high heeled shoes made of fine crystal. Usually, these are worn only on special occasions.
 LUK + 5, MDEF + 10
 Class :^777777 Footgear^000000
-Defense :^777777 5^000000
+Defense :^777777 0^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Female Only, Every Job Except Novice^000000
 #
@@ -11536,7 +11536,7 @@ Applicable Job :^777777 Female Only, Every Job Except Novice^000000
 These steel shackles were clamped on the ankles to prevent some prisoner from escaping.
 [^000088Shackles & Bloodied Shackle Ball Equip Set^000000]
 Class :^777777 Footgear^000000
-Defense :^777777 18^000000
+Defense :^777777 3^000000
 Weight :^777777 300^000000
 Applicable Job :^777777 Every Job^000000
 #
@@ -11544,7 +11544,7 @@ Applicable Job :^777777 Every Job^000000
 Striped high heeled shoes said to have been worn by a wicked witch since they enhanced her magical powers.
 MDEF + 5
 Class :^777777 Footgear^000000
-Defense :^777777 10^000000
+Defense :^777777 2^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
@@ -11555,7 +11555,7 @@ Maximum HP and SP + 20%
 SP Recovery + 15%, MDEF + 10
 Impossible to refine this item.
 Class :^777777 Footgear^000000
-Defense :^777777 40^000000
+Defense :^777777 5^000000
 Weight :^777777 350^000000
 Required Level :^777777 94^000000
 Applicable Job :^777777 Every Job^000000
@@ -11563,7 +11563,7 @@ Applicable Job :^777777 Every Job^000000
 2411#
 Steel boots which offer dependable foot protection.
 Class :^777777 Footgear^000000
-Defense :^777777 27^000000
+Defense :^777777 5^000000
 Weight :^777777 75^000000
 Required Level :^777777 65^000000
 Applicable Job :^777777 Knight, Crusader^000000
@@ -11571,7 +11571,7 @@ Applicable Job :^777777 Knight, Crusader^000000
 2412#
 Steel boots which offer dependable foot protection.
 Class :^777777 Footgear^000000
-Defense :^777777 27^000000
+Defense :^777777 5^000000
 Weight :^777777 75^000000
 Required Level :^777777 65^000000
 Applicable Job :^777777 Knight, Crusader^000000
@@ -11580,7 +11580,7 @@ Applicable Job :^777777 Knight, Crusader^000000
 Light, sturdy shoes with steel covers to protect its wearer's feet from harm.
 Impossible to refine this item.
 Class :^777777 Footgear^000000
-Defense :^777777 22^000000
+Defense :^777777 6^000000
 Weight :^777777 35^000000
 Required Level :^777777 30^000000
 Applicable Job :^777777 Swordman Class^000000
@@ -11589,7 +11589,7 @@ Applicable Job :^777777 Swordman Class^000000
 Exclusive shoe for new adventurers.
 Impossible to refine this item.
 Class :^777777 Footgear^000000
-Defense :^777777 5^000000
+Defense :^777777 2^000000
 Weight :^777777 0.1^000000
 Applicable Job :^777777 Novice^000000
 #
@@ -11597,7 +11597,7 @@ Applicable Job :^777777 Novice^000000
 A pair of slippers which enhances a girl's cuteness. Secretly worn by pretty boys.
 LUK + 3, MDEF + 3
 Class :^777777 Footgear^000000
-Defense :^777777 9^000000
+Defense :^777777 3^000000
 Weight :^777777 30^000000
 Required Level :^777777 30^000000
 Applicable Job :^777777 Female Only, Every Job Except Novice^000000
@@ -11606,7 +11606,7 @@ Applicable Job :^777777 Female Only, Every Job Except Novice^000000
 A pair of shoes made exclusively for brand new adventurers.
 Maximum HP + 5%
 Class :^777777 Footgear^000000
-Defense :^777777 8^000000
+Defense :^777777 2^000000
 Weight :^777777 50^000000
 Required Level :^777777 40^000000
 Applicable Job :^777777 Novice^000000
@@ -11620,7 +11620,7 @@ Increase value of Red, Orange, Yellow and White Potion by 20%.
 Maximum HP and SP + 5%
 AGI + 3
 Class :^777777 Footgear^000000
-Defense :^777777 12^000000
+Defense :^777777 3^000000
 Weight :^777777 50^000000
 Required Level :^777777 65^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -11633,7 +11633,7 @@ Maximum HP and SP + 9%
 VIT + 5
 HP and SP Recovery + 10%
 Class :^777777 Footgear^000000
-Defense :^777777 13^000000
+Defense :^777777 4^000000
 Weight :^777777 65^000000
 Required Level :^777777 65^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -11643,7 +11643,7 @@ A pair of shoes rumored to be forged by Goibne in response to competition from h
 MDEF + 3, Maximum HP + 5%, Maximum SP + 5%
 [^000088Goibne's Helm, Goibne's Armor, Goibne's Greaves & Goibne's Spaulders Equip Set^000000]
 Class :^777777 Footgear^000000
-Defense :^777777 13^000000
+Defense :^777777 4^000000
 Weight :^777777 70^000000
 Required Level :^777777 54^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -11653,7 +11653,7 @@ Heavenly sandals worn by the Guardian Angel of Super Novices.
 Maximum HP + 100
 [^000088Angelic Protection, Angel's Reincarnation, Angelic Guard, Angelic Cardigan & Angel's Kiss Equip Set^000000]
 Class :^777777 Footgear^000000
-Defense :^777777 8^000000
+Defense :^777777 2^000000
 Weight :^777777 30^000000
 Required Level :^777777 25^000000
 Applicable Job :^777777 Novice Types^000000
@@ -11668,7 +11668,7 @@ Maximum HP + 5 * Base Level
 Maximum SP + 2 * Job Level
 [^000088Valkyrie Helm & Valkyrja's Armor & Valkyrja's Manteau & Valkyrja's Shoes Equip Set^000000]
 Class :^777777 Footgear^000000
-Defense :^777777 13^000000
+Defense :^777777 4^000000
 Weight :^777777 50^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
 #
@@ -11676,7 +11676,7 @@ Applicable Job :^777777 Every Rebirth Job except High Novice^000000
 Jeweled, golden strapped sandals that offer a casual, yet fashionable, comfort
 MDEF + 10
 Class :^777777 Footgear^000000
-Defense :^777777 7^000000
+Defense :^777777 2^000000
 Weight :^777777 20^000000
 Required Level :^777777 40^000000
 Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
@@ -11687,7 +11687,7 @@ Maximum HP / Maximum SP + 20%.
 Maximum HP / Maximum SP reduced by 1% per refine rate.
 Added +1 DEF for every 2 refinement.
 Class :^777777 Footgear^000000
-Defense :^777777 13^000000
+Defense :^777777 3^000000
 Weight :^777777 50^000000
 Required Level :^777777 85^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -11699,7 +11699,7 @@ Increases resistance to ^0000FFWater^000000 Property attacks by 5%.
 HP Recovery + 5%.
 Increase Maximum HP by 10%.
 Class :^777777 Footgear^000000
-Defense :^777777 13^000000
+Defense :^777777 3^000000
 Weight :^777777 30^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -11711,7 +11711,7 @@ AGI + 1
 Bonus AGI + 2
 [^000088Crest of the Rider & Black Leather Boots Equip Set^000000]
 Class :^777777 Footgear^000000
-Defense :^777777 16^000000
+Defense :^777777 4^000000
 Weight :^777777 50^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -11777,7 +11777,7 @@ Applicable Job :^777777 Every Job^000000
 Striped high heeled shoes said to have been worn by a wicked witch since they enhanced her magical powers.
 MDEF + 5
 Class :^777777 Footgear^000000
-Defense :^777777 10^000000
+Defense :^777777 2^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
@@ -11785,7 +11785,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 A mysterious boots that automatically adjusts its size as the wearer's size. It seems alive.
 Increases Maximum HP by 10 times base Level.
 Class :^777777 Footgear^000000
-Defense :^777777 15^000000
+Defense :^777777 4^000000
 Weight :^777777 25^000000
 Applicable Job :^777777 Rebirth 2nd Class or above^000000
 #
@@ -11796,7 +11796,7 @@ AGI + 1
 Bonus AGI + 2
 [^000088Crest of the Rider & Black Leather Boots Equip Set^000000]
 Class :^777777 Footgear^000000
-Defense :^777777 16^000000
+Defense :^777777 4^000000
 Weight :^777777 50^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -11806,7 +11806,7 @@ A Greave that optimized the quality of its ability for the battle.
 Add a 1% resistance against Demihuman monster.
 Max HP + 100. MDEF + 1.
 Class :^777777 Footgear^000000
-Defense :^777777 15^000000
+Defense :^777777 4^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class, Taekwon, Star Gladiator^000000
@@ -11816,7 +11816,7 @@ The shoes that is comfortable and solidly made for battles.
 Add a 1% resistance against Demihuman monster.
 Max HP + 100. MDEF + 1.
 Class :^777777 Footgear^000000
-Defense :^777777 9^000000
+Defense :^777777 3^000000
 Weight :^777777 0^000000
 Required Level:^777777 80^000000 
 Applicable Job :^777777 Mage Class, Acolyte Class, Archer Class, Soul Linker^000000
@@ -11826,7 +11826,7 @@ It doesn't look any different with other boots. But it designed exclusively for 
 Add a 1% resistance against Demihuman monster.
 Max HP + 100. MDEF + 1.
 Class :^777777 Footgear^000000
-Defense :^777777 9^000000
+Defense :^777777 3^000000
 Weight :^777777 0^000000
 Required Level:^777777 80^000000 
 Applicable Job :^777777 Gunslinger^000000
@@ -11847,7 +11847,7 @@ Shoes that were made with complex design and very soft skin to show how fun your
 MHP + 17% , MSP + 8%.
 Every 10 seconds, your HP goes up by 20, SP goes up by 3.
 Class :^777777 Shoes^000000
-Defense :^777777 20^000000
+Defense :^777777 9^000000
 Weight :^777777 0^000000
 Applicable Job :^777777 Every Job^000000
 #
@@ -11859,7 +11859,7 @@ AGI + 1. Recovery HP + 5%
 Max HP and Max SP + 7%.
 Reduces casting time by 3%, Reduces the aftercast delay of your skills by 15%.
 Class :^777777 Footgear^000000
-Defense :^777777 10^000000
+Defense :^777777 2^000000
 Weight :^777777 30^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Trans 2nd Class^000000
@@ -11946,7 +11946,7 @@ Maximum HP / Maximum SP + 20%.
 Maximum HP / Maximum SP reduced by 1% per refine rate.
 Added +1 DEF for every 2 refinement.
 Class :^777777 Footgear^000000
-Defense :^777777 13^000000
+Defense :^777777 3^000000
 Weight :^777777 50^000000
 Required Level :^777777 85^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -11959,7 +11959,7 @@ Recover 30 HP every 10 seconds.
 Increases recovery from the heal skill and recovery items by 5%.
 MDEF + 3, VIT + 2
 Class :^777777 Footgear^000000
-Defense :^777777 16^000000
+Defense :^777777 4^000000
 Weight :^777777 50^000000
 Required Level :^777777 60^000000
 Applicable Job :^777777 All Job except novice^000000
@@ -12198,42 +12198,42 @@ Applicable Job :^777777 Every Job^000000
 2501#
 A simple, soft garment that covers the head and neck.
 Class :^777777 Garment^000000
-Defense :^777777 4^000000
+Defense :^777777 1^000000
 Weight :^777777 20^000000
 Applicable Job :^777777 Every Job^000000
 #
 2502#
 A simple, soft garment that covers the head and neck.
 Class :^777777 Garment^000000
-Defense :^777777 4^000000
+Defense :^777777 1^000000
 Weight :^777777 20^000000
 Applicable Job :^777777 Every Job^000000
 #
 2503#
 A warm scarf that is worn around the neck and shoulders.
 Class :^777777 Garment^000000
-Defense :^777777 8^000000
+Defense :^777777 2^000000
 Weight :^777777 40^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2504#
 A warm scarf that is worn around the neck and shoulders.
 Class :^777777 Garment^000000
-Defense :^777777 8^000000
+Defense :^777777 2^000000
 Weight :^777777 40^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2505#
 A long, loose cape-like garment that protects its wearer from harsh weather.
 Class :^777777 Garment^000000
-Defense :^777777 13^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class, TaeKwon, Star Gladiator^000000
 #
 2506#
 A long, loose cape-like garment that protects its wearer from harsh weather.
 Class :^777777 Garment^000000
-Defense :^777777 13^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class, TaeKwon, Star Gladiator^000000
 #
@@ -12241,7 +12241,7 @@ Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class, TaeKwon, St
 A fancy cape said to have once been worn by marquises long ago.
 AGI + 1
 Class :^777777 Garment^000000
-Defense :^777777 9^000000
+Defense :^777777 2^000000
 Weight :^777777 60^000000
 Required Level :^777777 40^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -12251,7 +12251,7 @@ An old, worn-out cape that can protect its wearer from mystical harm, no matter 
 MDEF + 10
 Indestructible (except in upgrade attempts).
 Class :^777777 Garment^000000
-Defense :^777777 4^000000
+Defense :^777777 1^000000
 Weight :^777777 50^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
@@ -12264,7 +12264,7 @@ MATK - 5%, MATK increase by Survivor's Rod refine rate.
 Increase resistance from ^777777Neutral^000000 Property attacks by refine rate * 3.
 However, the MATK bonus and neutral resistance increases only to +10.
 Class :^777777 Garment^000000
-Defense :^777777 10^000000
+Defense :^777777 0^000000
 Weight :^777777 55^000000
 Required Level :^777777 75^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
@@ -12274,7 +12274,7 @@ An exclusive garment for new adventurers.
 Increase resistance to ^777777Neutral^000000 Property attacks by 20%.
 Impossible to refine this item.
 Class :^777777 Garment^000000
-Defense :^777777 4^000000
+Defense :^777777 2^000000
 Weight :^777777 0.1^000000
 Applicable Job :^777777 Novice^000000
 #
@@ -12283,7 +12283,7 @@ A manteau which is worn by soldier skeletons.
 STR + 2, DEX + 2, LUK + 2
 INT - 3, VIT - 3, AGI - 4
 Class :^777777 Garment^000000
-Defense :^777777 13^000000
+Defense :^777777 1^000000
 Weight :^777777 70^000000
 Required Level :^777777 75^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -12292,7 +12292,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 A cute, durable and lightweight manteau for beginning adventurers.
 Reduce 10% of ^777777Neutral^000000 Property damage.
 Class :^777777 Garment^000000
-Defense :^777777 7^000000
+Defense :^777777 2^000000
 Weight :^777777 50^000000
 Required Level :^777777 40^000000
 Applicable Job :^777777 Novice^000000
@@ -12300,7 +12300,7 @@ Applicable Job :^777777 Novice^000000
 2513#
 A faint, transparent robe decorated with a beautiful pattern worn by celestial maidens when they fly through the heavens.
 Class :^777777 Garment^000000
-Defense :^777777 18^000000
+Defense :^777777 3^000000
 Weight :^777777 50^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -12308,7 +12308,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 2514#
 A pair of heavy shoulder coverings that provide effective protection in combat.
 Class :^777777 Garment^000000
-Defense :^777777 25^000000
+Defense :^777777 5^000000
 Weight :^777777 80^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class^000000
@@ -12318,7 +12318,7 @@ A robe which once helped the god Odin in escaping from a fatal threat.
 [^000088+ Wing Staff^000000]
 Increase Movement Speed by 25%.
 Class :^777777 Garment^000000
-Defense :^777777 12^000000
+Defense :^777777 1^000000
 Weight :^777777 30^000000
 Required Level :^777777 85^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
@@ -12329,7 +12329,7 @@ Wearing it makes its wearer as nimble as a falcon in flight.
 Flee Rate + 15, Perfect Dodge + 5
 [^000088Odin's Blessing, Falcon Muffler & Fricco's Shoes Equip Set^000000]
 Class :^777777 Garment^000000
-Defense :^777777 8^000000
+Defense :^777777 3^000000
 Weight :^777777 40^000000
 Required Level :^777777 65^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -12339,7 +12339,7 @@ A manteau once owned by Vali, son of Odin. It represents Vali's fighting spirit 
 Reduce 15% of ^777777Neutral^000000 Property damage.
 [^000088Odin's Blessing, Vidar's Boots & Vali's Manteau Equip Set^000000]
 Class :^777777 Garment^000000
-Defense :^777777 13^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Required Level :^777777 65^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -12349,7 +12349,7 @@ A shawl marked with ancient conjuration patterns, that is one of the three keys 
 Maximum SP + 10%, MDEF + 3
 [^000088Morpheus's Hood, Morpheus's Shawl, Morpheus's Ring & Morpheus's Bracelet Equip Set^000000]
 Class :^777777 Garment^000000
-Defense :^777777 8^000000
+Defense :^777777 3^000000
 Weight :^777777 60^000000
 Required Level :^777777 33^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -12359,7 +12359,7 @@ A manteau made from gray crow feathers that were enchanted through the power of 
 LUK + 2, Perfect Dodge + 8
 [^000088Morrigane's Helm, Morrigane's Manteau, Morrigane's Belt & Morrigane's Pendant Equip Set^000000]
 Class :^777777 Garment^000000
-Defense :^777777 9^000000
+Defense :^777777 3^000000
 Weight :^777777 60^000000
 Required Level :^777777 61^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -12370,7 +12370,7 @@ Reduce 10% of Long Range Physical attack.
 VIT + 1, MDEF + 2
 [^000088Goibne's Helm, Goibne's Armor, Goibne's Greaves & Goibne's Spaulders Equip Set^000000]
 Class :^777777 Garment^000000
-Defense :^777777 11^000000
+Defense :^777777 3^000000
 Weight :^777777 70^000000
 Required Level :^777777 54^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -12380,7 +12380,7 @@ Super Novice Guardian Angel's warm and comfortable cardigan.
 HP Recovery + 5%
 [^000088Angelic Protection, Angel's Reincarnation, Angelic Guard, Angelic Cardigan & Angel's Kiss Equip Set^000000]
 Class :^777777 Garment^000000
-Defense :^777777 6^000000
+Defense :^777777 2^000000
 Weight :^777777 40^000000
 Required Level :^777777 20^000000
 Applicable Job :^777777 Novice^000000
@@ -12391,7 +12391,7 @@ MDEF + 1
 [^000088+ Pantie^000000]
 AGI + 5, Flee Rate + 10
 Class :^777777 Garment^000000
-Defense :^777777 5^000000
+Defense :^777777 2^000000
 Weight :^777777 15^000000
 Applicable Job :^777777 Every Job^000000
 #
@@ -12401,7 +12401,7 @@ MDEF + 1
 [^000088+ Pantie^000000]
 AGI + 5, Flee Rate + 10
 Class :^777777 Garment^000000
-Defense :^777777 5^000000
+Defense :^777777 2^000000
 Weight :^777777 15^000000
 Applicable Job :^777777 Every Job^000000
 #
@@ -12417,7 +12417,7 @@ Additional Reflect Damage can be earned by Refining, and is equal to the Refine 
 However, the perfect dodge or damage reflect will only increase up to + 10 refine.
 [^000088Valkyrie Helm & Valkyrja's Armor & Valkyrja's Manteau & Valkyrja's Shoes Equip Set^000000]
 Class :^777777 Garment^000000
-Defense :^777777 10^000000
+Defense :^777777 3^000000
 Weight :^777777 50^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
 #
@@ -12425,7 +12425,7 @@ Applicable Job :^777777 Every Rebirth Job except High Novice^000000
 A fancy cape said to have once been worn by marquises long ago.
 AGI + 1
 Class :^777777 Garment^000000
-Defense :^777777 9^000000
+Defense :^777777 2^000000
 Weight :^777777 60^000000
 Required Level :^777777 40^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -12433,7 +12433,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 2526#
 ...
 Class :^777777 Garment^000000
-Defense :^777777 14^000000
+Defense :^777777 4^000000
 Weight :^777777 1^000000
 Required Level :^777777 50^000000
 Applicable Job :^777777 Every Job^000000
@@ -12444,7 +12444,7 @@ Reduces damage received from Dragon type monsters by 15%.
 [^000088+ Dragon Slayer or Dragon Killer or Gae Bolg^000000]
 Increases damage on Dragon monster by 5%.
 Class :^777777 Garment^000000
-Defense :^777777 16^000000
+Defense :^777777 4^000000
 Weight :^777777 60^000000
 Required Level :^777777 48^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -12454,7 +12454,7 @@ A scarf made of best quality wool. Cozy and comfortable when tried.
 MDEF + 4
 [^000088Tidal Shoes & Wool Scarf Equip Set^000000]
 Class :^777777 Garment^000000
-Defense :^777777 11^000000
+Defense :^777777 3^000000
 Weight :^777777 50^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -12465,7 +12465,7 @@ AGI + 2
 [^000088+ Black Leather Boots^000000]
 Increases Flee Rate + 10.
 Class :^777777 Garment^000000
-Defense :^777777 13^000000
+Defense :^777777 4^000000
 Weight :^777777 50^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -12476,7 +12476,7 @@ AGI + 2
 [^000088+ Black Leather Boots^000000]
 Increases Flee Rate + 10.
 Class :^777777 Garment^000000
-Defense :^777777 13^000000
+Defense :^777777 4^000000
 Weight :^777777 50^000000
 Required Level :^777777 55^000000
 Applicable Job :^777777 Every Rebirth Job except High Novice^000000
@@ -12485,7 +12485,7 @@ Applicable Job :^777777 Every Rebirth Job except High Novice^000000
 A mysterious cape with protective spell. Converts the wearer's magic tolerance to DEF.
 Whenever you receive a Physical Damage, there is a small chance to reduce all incoming Physical Damage by 20% for 2 seconds, but also reduces your MDEF by 20% during that 2 seconds.
 Class :^777777 Garment^000000
-Defense :^777777 13^000000
+Defense :^777777 3^000000
 Weight :^777777 70^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Trans Swordman Class, Trans Merchant Class, Trans Thief Class^000000
@@ -12495,7 +12495,7 @@ A mysterious cape with protective spell. Converts the wearer's DEF to MDEF.
 MDEF + 3
 Whenever you receive a Magical Damage, there is a small chance to reduce all incoming Magical Damage by 20% for 2 seconds, but also reduces your DEF by 20% during that 2 seconds.
 Class :^777777 Garment^000000
-Defense :^777777 8^000000
+Defense :^777777 3^000000
 Weight :^777777 40^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Trans Mage Class, Trans Archer Class, Trans Acolyte Class^000000
@@ -12532,7 +12532,7 @@ Impossible to refine this item.
 [^000088+ slotted Survivor's Rod^000000]
 MATK + 5%, Increase resistance from ^777777Neutral^000000 Property attacks by 25%.
 Class :^777777 Garment^000000
-Defense :^777777 17^000000
+Defense :^777777 5^000000
 Weight :^777777 0^000000
 Required Level :^777777 1^000000
 Applicable Job :^777777 Mage Class, Soul Linker^000000
@@ -12553,7 +12553,7 @@ Increases Physical Damage when facing Satan Morroc by 10%.
 [^000088+ Diablos Boots^000000]
 Maximum HP + 6%
 Class :^777777 Garment^000000
-Defense :^777777 15^000000
+Defense :^777777 2^000000
 Weight :^777777 25^000000
 Applicable Job :^777777 Rebirth 2nd Class or above^000000
 #
@@ -12562,7 +12562,7 @@ A dignified, splendid Manteau that is provided to warrior who brought great hono
 Add a 1% resistance against Demihuman monster.
 Max HP + 50. MDEF + 1.
 Class :^777777 Garment^000000
-Defense :^777777 28^000000
+Defense :^777777 4^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class, Taekwon, Star Gladiator^000000
@@ -12572,7 +12572,7 @@ A Manteau that is provided to superior commander who has a outstanding ability o
 Add a 1% resistance against Demihuman monster.
 Max HP + 50. MDEF + 1.
 Class :^777777 Garment^000000
-Defense :^777777 20^000000
+Defense :^777777 3^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Mage Class, Acolyte Class, Archer Class, Soul Linker^000000
@@ -12582,7 +12582,7 @@ A Manteau imbued with tension and mystery spirit of the desolate wilderness.
 Add a 1% resistance against Demihuman monster.
 Max HP + 50. MDEF + 1.
 Class :^777777 Garment^000000
-Defense :^777777 20^000000
+Defense :^777777 3^000000
 Weight :^777777 0^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Gunslinger^000000
@@ -12594,7 +12594,7 @@ FLEE + 30, MDEF + 5.
 Enables use of ^008800Level 1 Teleport^000000.
 Cannot be refined, cannot be destroyed.
 Class :^777777 Garment^000000
-Defense :^777777 40^000000
+Defense :^777777 5^000000
 Required Level :^777777 94^000000
 Weight :^777777 40^000000
 Applicable Job :^777777 Every Job^000000
@@ -12604,7 +12604,7 @@ A flaming manteau that burns in both red and blue colors, but does not harm its 
 Maximum HP + 5%. MDEF + 2
 MATK + 1%. Increases damage against ^FF0000Fire^000000 Property monsters by 2%. 
 Class :^777777 Garment^000000
-Defense :^777777 16^000000
+Defense :^777777 4^000000
 Weight :^777777 70^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Every Jobs except Novice^000000
@@ -12616,7 +12616,7 @@ It is said to allow the wearer to be protected from danger.
 FLEE + 13, Reduce 13% of ^777777Neutral^000000 Property damage.
 Perfect Dodge + 1
 Class :^777777 Garment^000000
-Defense :^777777 33^000000
+Defense :^777777 9^000000
 Weight :^777777 0^000000
 Applicable Job :^777777 Every Job^000000
 #
@@ -12625,7 +12625,7 @@ The skin of a Tendrillion which has various plants growing on it.
 Increases 5% resistance from the monster to ^0000FFWater^000000 and ^996600Earth^000000 property attacks.
 Increases 5% resistance from Plant and Brute monster.
 Class :^777777 Garment^000000
-Defense :^777777 14^000000
+Defense :^777777 3^000000
 Weight :^777777 50^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 Trans 2nd Class^000000
@@ -12636,7 +12636,7 @@ MDEF + 3
 Add a chance of auto casting ^008800Level 1 Heal^000000 on yourself when the user receiving physical damage.
 If you know a higher level of heal, you will cast that level instead.
 Class :^777777 Garment^000000
-Defense :^777777 10^000000
+Defense :^777777 2^000000
 Weight :^777777 50^000000
 Required Level :^777777 70^000000
 Applicable Job :^777777 High Priest^000000
@@ -12681,7 +12681,7 @@ Add a 5% resistance against DemiHuman monster.
 ATK, MATK +5%. Can't be frozen.
 Increases Heal, Sanctuary, and Potion Pitcher effectiveness by 3%.
 Class :^777777 Garment^000000
-Defense :^777777 3^000000
+Defense :^777777 0^000000
 Weight :^777777 0^000000
 Required Level :^777777 81^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -12719,7 +12719,7 @@ Applicable Job :^777777 Trans Mage Class, Trans Archer Class, Trans Acolyte Clas
 A manteau crafted from the mane of a dragon.
 AGI + 1, MDEF + 5
 Class :^777777 Garment^000000
-Defense :^777777 14^000000
+Defense :^777777 5^000000
 Weight :^777777 100^000000
 Required Level :^777777 1^000000
 Applicable Job :^777777 Every Trans Job except Novice^000000
@@ -12732,7 +12732,7 @@ Increases SP by Level/3 + (Refine Rate * 10).
 When dealing physical damage there's a 1% chance that you'll recover 1% of your damage as SP.
 MDEF + 3
 Class :^777777 Garment^000000
-Defense :^777777 25^000000
+Defense :^777777 5^000000
 Weight :^777777 40^000000
 Required Level :^777777 90^000000
 Applicable Job :^777777 Every Jobs except Novice^000000
@@ -19071,7 +19071,7 @@ CRIT + 15, HIT + 6
 A strange device that was invented by an old craftsman, but has just recently been completed by his grandson.
 Increases resistance to ^880000Curse^000000 status by 10%.
 Class :^777777 Headgear^000000
-Defense :^777777 6^000000
+Defense :^777777 3^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 20^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -19080,7 +19080,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 This crown, adorned with precious gems, is generally worn by monarchs as a symbol of their rule.
 INT + 2, LUK + 1, MDEF + 3
 Class :^777777 Headgear^000000
-Defense :^777777 9^000000
+Defense :^777777 4^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 60^000000
 Required Level :^777777 60^000000
@@ -19090,7 +19090,7 @@ Applicable Job :^777777 Swordman Class, Merchant Class, Thief Class^000000
 A comical hat worn by clowns and jesters that is rumored to protect its wearer from magic.
 LUK + 2, MDEF + 5
 Class :^777777 Headgear^000000
-Defense :^777777 3^000000
+Defense :^777777 1^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -19126,7 +19126,7 @@ An exquisitely made circlet, typically worn by rulers or gentry.
 STR + 1, INT + 1
 LUK + 1, MDEF + 4
 Class :^777777 Headgear^000000
-Defense :^777777 7^000000
+Defense :^777777 3^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 20^000000
 Required Level :^777777 55^000000
@@ -19146,7 +19146,7 @@ A durable safety helmet created to offer some protection from accidents.
 MDEF + 3
 Indestructible (except in upgrade attempts).
 Class :^777777 Headgear^000000
-Defense :^777777 7^000000
+Defense :^777777 3^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 50^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -19154,7 +19154,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 5010#
 A traditional headdress worn by native people.
 Class :^777777 Headgear^000000
-Defense :^777777 5^000000
+Defense :^777777 3^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Every Job^000000
@@ -19162,7 +19162,7 @@ Applicable Job :^777777 Every Job^000000
 5011#
 A mysterious object, possibly a device, that was discovered in the depths of the ocean. Nobody knows what it is.
 Class :^777777 Headgear^000000
-Defense :^777777 5^000000
+Defense :^777777 3^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Every Job^000000
@@ -19189,7 +19189,7 @@ Applicable Job :^777777 Every Job^000000
 5014#
 Helmet accessories that look just like fins.
 Class :^777777 Headgear^000000
-Defense :^777777 5^000000
+Defense :^777777 2^000000
 Equipped on :^777777 Mid^000000
 Weight :^777777 30^000000
 Required Level :^777777 65^000000
@@ -19198,7 +19198,7 @@ Applicable Job :^777777 Swordman Class^000000
 5015#
 A peculiar hat that makes it wearer look freshly hatched.
 Class :^777777 Headgear^000000
-Defense :^777777 6^000000
+Defense :^777777 3^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 20^000000
 Applicable Job :^777777 Every Job^000000
@@ -19206,7 +19206,7 @@ Applicable Job :^777777 Every Job^000000
 5016#
 A black cap that is usually worn by boys attending schools that require uniforms.
 Class :^777777 Headgear^000000
-Defense :^777777 3^000000
+Defense :^777777 2^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 10^000000
 Applicable Job :^777777 Every Job Except Novice^000000
@@ -19215,7 +19215,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 An incredibly heavy, yet almost impenetrable helmet constructed of bone.
 Increases damage received from ^777777Shadow^000000 Property attacks by 15%.
 Class :^777777 Headgear^000000
-Defense :^777777 15^000000
+Defense :^777777 7^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 80^000000
 Required Level :^777777 70^000000
@@ -19225,7 +19225,7 @@ Applicable Job :^777777 Swordman Class, Merchant Class^000000
 A fabulous, feathered hat that turns men into womanizers and women into manizers.
 AGI + 1
 Class :^777777 Headgear^000000
-Defense :^777777 8^000000
+Defense :^777777 4^000000
 Equipped on :^777777 Upper^000000
 Weight :^777777 30^000000
 Applicable Job :^777777 Archer Class^000000
@@ -52045,4 +52045,525 @@ Congratulations on your BG Ranking!
 You won Third Place for the week's Regular Battleground Matches.
 Gives the user ^0000FF500^000000 Cash Points for trade.
 You are the last winner... Try to be the best!
+#
+
+
+30126#
+Black Feather Beret
+A high class hat with an amazingly stylish look. When the feathers are added, it simply adds to its splendor.
+MDEF + 1
+Reduce 10% damage taken from DemiHuman monster.
+Class :^777777 Headgear^000000
+Defense :^777777 1^000000
+Equipped On :^777777 Upper^000000
+Weight :^777777 20^000000
+Applicable Job :^777777 Every Job^000000
+#
+30128#
+Red Feather Beret
+A high class hat with an amazingly stylish look. When the feathers are added, it simply adds to its splendor.
+MDEF + 1
+Reduce 10% damage taken from DemiHuman monster.
+Class :^777777 Headgear^000000
+Defense :^777777 1^000000
+Equipped On :^777777 Upper^000000
+Weight :^777777 20^000000
+Applicable Job :^777777 Every Job^000000
+#
+30220#
+White Feather Beret
+A high class hat with an amazingly stylish look. When the feathers are added, it simply adds to its splendor.
+MDEF + 1
+Reduce 10% damage taken from DemiHuman monster.
+Class :^777777 Headgear^000000
+Defense :^777777 1^000000
+Equipped On :^777777 Upper^000000
+Weight :^777777 20^000000
+Applicable Job :^777777 Every Job^000000
+#
+30221#
+Orange Feather Beret
+A high class hat with an amazingly stylish look. When the feathers are added, it simply adds to its splendor.
+MDEF + 1
+Reduce 10% damage taken from DemiHuman monster.
+Class :^777777 Headgear^000000
+Defense :^777777 1^000000
+Equipped On :^777777 Upper^000000
+Weight :^777777 20^000000
+Applicable Job :^777777 Every Job^000000
+#
+30222#
+Pink Feather Beret
+A high class hat with an amazingly stylish look. When the feathers are added, it simply adds to its splendor.
+MDEF + 1
+Reduce 10% damage taken from DemiHuman monster.
+Class :^777777 Headgear^000000
+Defense :^777777 1^000000
+Equipped On :^777777 Upper^000000
+Weight :^777777 20^000000
+Applicable Job :^777777 Every Job^000000
+#
+30223#
+Yellow Feather Beret
+A high class hat with an amazingly stylish look. When the feathers are added, it simply adds to its splendor.
+MDEF + 1
+Reduce 10% damage taken from DemiHuman monster.
+Class :^777777 Headgear^000000
+Defense :^777777 1^000000
+Equipped On :^777777 Upper^000000
+Weight :^777777 20^000000
+Applicable Job :^777777 Every Job^000000
+#
+
+8907#
+So hot! A headgear with the figure of Kafra Defolty! Numerous users are using Kafra storage more than 20 times a day, fascinated by her smiling face.
+Reduces damage from Demihuman monster by 5%. STR + 2
+Impossible to refine this item.
+Class :^777777 Headgear^000000
+Defense :^777777 0^000000
+Equipped on :^777777 Upper^000000
+Weight :^777777 50^000000
+Required Level :^777777 60^000000
+Applicable Job :^777777 Every Job^000000
+#
+8908#
+So hot! A headgear with the figure of Kafra Glaris! Fascinated by her mature appearance, her advocates call her a teacher.
+Reduces damage from Demihuman monster by 5%. INT + 2
+Impossible to refine this item.
+Class :^777777 Headgear^000000
+Defense :^777777 0^000000
+Equipped on :^777777 Upper^000000
+Weight :^777777 50^000000
+Required Level :^777777 60^000000
+Applicable Job :^777777 Every Job^000000
+#
+8909#
+So hot! A headgear with the figure of Kafra Sorin! Her cute appearance made the price of this hat rise at the auction place.
+Reduces damage from Demihuman monster by 5%. DEX + 2
+Impossible to refine this item.
+Class :^777777 Headgear^000000
+Defense :^777777 0^000000
+Equipped on :^777777 Upper^000000
+Weight :^777777 50^000000
+Required Level :^777777 60^000000
+Applicable Job :^777777 Every Job^000000
+#
+8910#
+So hot! A headgear with the figure of Kafra Telling! She is such an active and hard-working lady. So she became the most favorite Kafra among users.
+Reduces damage from Demihuman monster by 5%. AGI + 2
+Impossible to refine this item.
+Class :^777777 Headgear^000000
+Defense :^777777 0^000000
+Equipped on :^777777 Upper^000000
+Weight :^777777 50^000000
+Required Level :^777777 60^000000
+Applicable Job :^777777 Every Job^000000
+#
+8911#
+So hot! A headgear with the figure of Kafra Bennit! She has a boyish look, but her hobby is knitting and reading romance novels. She is fully supported by male users who like the short-cut style.
+Reduces damage from Demihuman monster by 5%. VIT + 2
+Impossible to refine this item.
+Class :^777777 Headgear^000000
+Defense :^777777 0^000000
+Equipped on :^777777 Upper^000000
+Weight :^777777 50^000000
+Required Level :^777777 60^000000
+Applicable Job :^777777 Every Job^000000
+#
+8912#
+So hot! A headgear with the figure of Kafra W! There is a rumor that an assassin association wants to scout her, because there are so many guys who become frightened and faint when she calls them.
+Reduces damage from Demihuman monster by 5%. LUK + 2
+Impossible to refine this item.
+Class :^777777 Headgear^000000
+Defense :^777777 0^000000
+Equipped on :^777777 Upper^000000
+Weight :^777777 50^000000
+Required Level :^777777 60^000000
+Applicable Job :^777777 Every Job^000000
+#
+
+
+8916#
+A box containing 100 Ranked Condensed White Potions.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8917#
+A box containing 50 Ranked White Potions.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8918#
+A box containing 250 Immortal Hearts.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8960#
+A box containing 100 Alcohol.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8961#
+A box containing 100 Blue Gemstones.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8962#
+A box containing 100 Red Gemstones.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8919#
+A box containing 250 Fabrics.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8920#
+A box containing 5 Dragon Breath Cocktails.
+Usables only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8921#
+A box containing 5 Hwergelmir's Tonics.
+Usables only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8922#
+A box containing 5 Immortal Stews.
+Usables only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8923#
+A box containing 5 Steamed Tongues.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8924#
+A box containing 50 Ranked Blue Potions.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8925#
+A box containing 5 Speed Potions.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8926#
+A box containing 25 Glistening Coats.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8927#
+A box containing 100 Yellow Gemstones.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8928#
+A box containing 100 Cobwebs.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8929#
+A box containing 10 Poison Bottles.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8930#
+A box containing 50 Crystal Fragments.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8931#
+A box containing 50 Steels.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8932#
+A quiver which contains 500 Cursed Arrows.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8933#
+A quiver which contains 500 Sleep Arrows.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8934#
+A box containing 100 Acid Bottles.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8935#
+A box containing 100 Fire Bottles.
+Usable only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8936#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 250 Immortal Hearts^000000
+^777777 - 250 Fabrics^000000
+^777777 - 5 Dragon Breath Cocktails^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8937#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 100 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 50 Glistening Coats^000000
+^777777 - 5 Hwergelmir's Tonics^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8938#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 250 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 5 Immortal Stews^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8939#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 250 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 5 Steamed Tongues^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8940#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 100 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 250 Ranked White Potions^000000
+^777777 - 5 Immortal Stews^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8941#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 100 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 200 Yellow Gemstones^000000
+^777777 - 5 Hwergelmir's Tonics^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8942#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 100 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 100 Cobwebs^000000
+^777777 - 5 Hwergelmir's Tonics^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8943#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 100 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 20 Poison Bottles^000000
+^777777 - 5 Steamed Tongues^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8944#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 100 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 50 Crystal Fragments^000000
+^777777 - 5 Dragon Breath Cocktails^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8945#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 100 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 50 Steels^000000
+^777777 - 5 Hwergelmir's Tonics^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8946#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 100 Ranked Blue Potions^000000
+^777777 - 35 Speed Potions^000000
+^777777 - 5 Immortal Stews^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8947#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 100 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 500 Cursed Arrows^000000
+^777777 - 5 Hwergelmir's Tonics^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8948#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 500 Ranked White Condensed Potions^000000
+^777777 - 100 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 500 Sleep Arrows^000000
+^777777 - 5 Hwergelmir's Tonics^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+
+8949#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 800 Ranked White Condensed Potions^000000
+^777777 - 300 Acid Bottle^000000
+^777777 - 300 Fire Bottle^000000
+^777777 - 20 Glistening Coats^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8950#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 1000 Ranked White Condensed Potions^000000
+^777777 - 700 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8951#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 800 Ranked White Condensed Potions^000000
+^777777 - 200 Ranked Blue Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 40 Poison Bottles^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8952#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 1000 Ranked White Condensed Potions^000000
+^777777 - 200 Ranked Blue Potions^000000
+^777777 - 80 Speed Potions^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8953#
+A box containing 100 Trunks.
+Usables only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8954#
+A box containing 50 Oridecons.
+Usables only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8955#
+A box containing 50 Emveretarcons.
+Usables only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8956#
+A box containing 100 Red Gemstones.
+Usables only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8957#
+A box containing 100 Blue Gemstones.
+Usables only on War of Emperium castles and GvG Maps.
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8958#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 800 Ranked White Condensed Potions^000000
+^777777 - 300 Trunks^000000
+^777777 - 50 Oridecons^000000
+^777777 - 100 Emveretarcons^000000
+^777777 - 100 Steels^000000
+^777777 - 15 Speed Potions^000000
+^ffffff_^000000
+Weight :^777777 1^000000
+#
+8959#
+Special box with some resources for War of Emperium and GvG Maps.
+This Box Contains:
+^ffffff_^000000
+^777777 - 800 Ranked White Condensed Potions^000000
+^777777 - 15 Speed Potions^000000
+^777777 - 300 Cobwebs^000000
+^777777 - 200 Blue Gemstones^000000
+^777777 - 200 Red Gemstones^000000
+^777777 - 200 Yellow Gemstones^000000
+^ffffff_^000000
+Weight :^777777 1^000000
 #

@@ -1,4 +1,16 @@
 //사크라이서버 10.11.10
+schg_cas06.rsw#BG Conquest - Himinn#
+schg_cas07.rsw#BG Conquest - Andlangr#
+schg_cas08.rsw#BG Conquest - Vidblainn#
+schg_cas09.rsw#BG Conquest LR- Himinn#
+schg_cas10.rsw#BG Conquest LR- Andlangr#
+schg_cas11.rsw#BG Conquest LR- Vidblainn#
+arug_cas06.rsw#BG Conquest - Mardol#
+arug_cas07.rsw#BG Conquest - Cyr#
+arug_cas08.rsw#BG Conquest - Horn#
+arug_cas09.rsw#BG Conquest LR- Mardol#
+arug_cas10.rsw#BG Conquest LR- Cyr#
+arug_cas11.rsw#BG Conquest LR- Horn#
 iz_dun05.rsw#Undersea Tunnel F6#
 malangdo.rsw#Malangdo Island#
 mal_in01.rsw#Inside Malangdo Island#
