@@ -13,21 +13,40 @@
 
 #define MAX_SEARCH	5  //Designed for search functions, species max number of matches to display.
 
-#define ITEMID_EMPERIUM 714
-#define ITEMID_YELLOW_GEMSTONE 715
-#define ITEMID_RED_GEMSTONE 716
-#define ITEMID_BLUE_GEMSTONE 717
-#define ITEMID_POISONBOTTLE 678
-#define ITEMID_HOLY_WATER 523
-#define ITEMID_CRYSTAL_FRAGMENT 7321
+enum item_itemid 
+{
+	ITEMID_HOLY_WATER = 523,
+	ITEMID_POISON_BOTTLE = 678,
+	ITEMID_EMPERIUM = 714,
+	ITEMID_YELLOW_GEMSTONE = 715,
+	ITEMID_RED_GEMSTONE = 716,
+	ITEMID_BLUE_GEMSTONE = 717,
+	ITEMID_ROUGH_ORIDECON = 756,
+	ITEMID_ORIDECON = 984,
+	ITEMID_ELUNIUM,
+	ITEMID_ANVIL,
+	ITEMID_ORIDECON_ANVIL,
+	ITEMID_GOLDEN_ANVIL,
+	ITEMID_EMPERIUM_ANVIL,
+	ITEMID_IRON = 998,
+	ITEMID_STEEL,
+	ITEMID_IRON_ORE = 1002,
+	ITEMID_PHRACON = 1010,
+	ITEMID_EMVERATARCON = 1011,
+	ITEMID_TRAP = 1065,
+	ITEMID_STONE = 7049,
+	ITEMID_CRYSTAL_FRAGMENT= 7321,
+	ITEMID_SKULL_ = 7420,
+	ITEMID_TOKEN_OF_SIEGFRIED = 7621,
+	ITEMID_WAR_BADGE = 7773,
+	ITEMID_BRAVERY_BADGE = 7828,
+	ITEMID_VALOR_BADGE = 7829,
+	
+};
+
+#define itemid_isslimpotion(id) ( (id) >= 545 && (id) <= 547 )
 #define itemid_isgemstone(id) ( (id) >= ITEMID_YELLOW_GEMSTONE && (id) <= ITEMID_BLUE_GEMSTONE )
-#define ITEMID_TRAP 1065
-#define ITEMID_STONE 7049
-#define ITEMID_SKULL_ 7420
 #define itemdb_iscashfood(id) ( (id) >= 12202 && (id) <= 12207 )
-#define ITEMID_BRAVERYBADGE 7828
-#define ITEMID_VALORBADGE 7829
-#define ITEMID_WARBADGE 7773
 
 //The only item group required by the code to be known. See const.txt for the full list.
 #define IG_FINDINGORE 6
@@ -89,7 +108,7 @@ struct item_data {
 		short no_equip;
 		unsigned no_refine : 1;	// [celest]
 		unsigned delay_consume : 1;	// Signifies items that are not consumed immediately upon double-click [Skotlex]
-		unsigned trade_restriction : 7;	//Item restrictions mask [Skotlex]
+		unsigned trade_restriction : 8;	//Item restrictions mask upped to 8 by mrj!
 		unsigned autoequip: 1;
 		unsigned buyingstore : 1;
 	} flag;

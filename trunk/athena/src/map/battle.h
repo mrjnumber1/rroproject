@@ -35,7 +35,7 @@ struct block_list;
 
 struct Damage battle_calc_attack(int attack_type,struct block_list *bl,struct block_list *target,int skill_num,int skill_lv,int count);
 
-int battle_calc_return_damage(struct block_list *bl, int damage, int flag);
+int battle_calc_return_damage(struct block_list *src, struct block_list* bl, int damage, int flag);
 
 void battle_drain(struct map_session_data *sd, struct block_list *tbl, int rdamage, int ldamage, int race, int boss);
 
@@ -533,7 +533,15 @@ extern struct Battle_Config
 	int reflect_damage_fix;
 	int guild_skills_separate_delay;
 
-	int anti_mayapurple_hack;
+	//int anti_mayapurple_hack;
+
+	int mission_bonus_exp;
+	int mission_normal_mob_bonus_exp;
+	int mission_boss_mob_bonus_exp;
+	int mission_max_mobs;
+	int mission_max_items;
+	int mission_max_rewards;
+	int mission_slots;
 
 
 } battle_config;

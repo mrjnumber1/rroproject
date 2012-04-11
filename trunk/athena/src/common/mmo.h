@@ -168,7 +168,7 @@
 #define MAX_MERCENARY_CLASS 44
 
 //Custom
-#define MAX_ALOOTITEM 10
+#define MAX_ALOOTITEM 5
 #define MAX_PARTY 16
 #define DEFAULT_GUILD_MEMBERS 16
 #define MEMBERS_PER_GUILD_EXTENSION 3
@@ -564,7 +564,7 @@ struct mmo_charstatus
 	struct point last_point,save_point,memo_point[MAX_MEMOPOINTS];
 	struct item inventory[MAX_INVENTORY],cart[MAX_CART];
 	struct storage_data storage;
-	struct member_storage_data mem_storage;
+//	struct member_storage_data mem_storage;
 	struct s_skill skill[MAX_SKILL];
 
 	struct s_friend friends[MAX_FRIENDS]; //New friend system [Skotlex]

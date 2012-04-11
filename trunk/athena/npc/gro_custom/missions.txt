@@ -1,28 +1,7 @@
 //==============================
 //Hunting/Gathering Mission boards
-//by Derceto \o   <------- and then shit all over by mrjnumber1 :)
+//by Derceto \o   <------- and then shit all over by misterj :)
 //==============================
-
-//    MAP REGS
-//
-//$MD_slots              Max Missions per char
-//$MD_maxMobs            Max Mobs per mission
-//$MD_maxItems           Max Items per Mission
-//$MD_maxRewards         Max Reward Items per mission
-//
-//
-//$MD_missionBonusEXP    Bonus EXP per kill
-// 
-//        NOTE that these stack with $MD_missionBonusEXP!
-//$MD_bossBonusEXP       Bonus EXP per kill of boss mob
-//$MD_normalBonusEXP     Bonus EXP per kill of normal mob
-//
-//
-//         The array are usually self-explanatory, these may not be!
-//$MD_type[ID]     0 = Disabled |||| 1 = Mission |||| 2 = Hat Q |||| beyond = ?
-//$MD_cooldown[ID] Cooldown in SECONDS of mission ID
-//$MD_expMult[ID]  100 = each quest completion gives 100% exp from mobs*kills*normalbonusexp/100*md_missionbonusexp/100
-
 	
 //     CHAR REGS
 //
@@ -32,162 +11,40 @@
 //MD_mission_points    // mission points received
 
 
--	script	loadMissions	-1,{
-end;
-OnInit:
-	function add_mission;
-	
-	set $MD_slots, 4; // max missions per character
-	
-	set $MD_maxMobs, 6; // as this changes, the other things need modded as well :) and :(
-	set $MD_maxItems, 6;
-	set $MD_maxRewards, 5;
-	
-	set $MD_missionBonusEXP, 150; 	// @ 100, this would mean they give equal exp as normal kills
-	 
-	set $MD_bossBonusEXP, 150; 
-	set $MD_normalBonusEXP, 120;	
-	
-	set $MD_minLevel$[0], 100; // this is set so that missions are loaded starting from index 1;
-	
-//note: NEVER EVER CHANGE THIS ORDERING OR I WILL END YOU
-	// type 0 = disabled
-	// type 1 = mission quest
-	// type 2 = hat quest
-	setarray $MD_type[0],0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1; 
-// 1-80 are enabled as of this revision! If you update this you better update this comment or else pain will be coming!
 
-// use ^90000 for any mob names
-// use ^117700 for any field names
-// use ^442200 for any dungeon names
-	set .missionsloaded, 0;
-	
-	if (.missionsloaded != 1)
-	{
-	//add missions here
-	
-	//end missions functions
-	}
-	
-	set .@missionsloaded, 1;
-
-	function add_mission {
-		//add_mission(name, recmap, cooldown in s yes, minlv, maxlv, misspts, expmult, mob1, mobc1 ... item1, itemc1, ... , reward1, rewardc1, ... );
-		set .@i, getarraysize($MD_minLevel$);
-		if (.@i == 0)
-			set .@i, 1;
-		
-		set $MD_name$[.@i]   ,   getarg(0);
-		set $MD_map$[.@i]    ,   getarg(1);
-		set $MD_cooldown[.@i],   getarg(2);
-		set $MD_minLevel[.@i],   getarg(3);
-		set $MD_maxLevel[.@i],   getarg(4);
-		set $MD_missionPoints[.@i], getarg(5);
-		set $MD_expMult[.@i],    getarg(6);
-		
-		set .@j, 0;
-		set .@base, 7;
-		for (set .@j, 0; .@j < $MD_maxMobs; set .@j, .@j + 1)
-		{
-			setd "$MD_mob"+(.@j+1)+"["+.@i+"]", getarg(.@base+.@j*2);
-			setd "$MD_mCount"+(.@j+1)+"["+.@i+"]" , getarg(.@base+.@j*2+1);
-		}
-		set .@base, .@base + (.@j*2) + 1 + 1;
-		set .@j, 0; // yes, i'm paranoid :)
-		for (set .@j, 0; .@j < $MD_maxItems; set .@j, .@j + 1)
-		{
-			setd "$MD_item"+(.@j+1)+"["+.@i+"]", getarg(.@base+.@j*2);
-			setd "$MD_iCount"+(.@j+1)+"["+.@i+"]" , getarg(.@base+.@j*2+1);
-		}
-		set .@base, .@base + (.@j*2)+1 + 1;
-		set .@j, 0;
-		for (set .@j, 0; .@j < $MD_maxRewards; set .@j, .@j + 1)
-		{
-			setd "$MD_reward"+(.@j+1)+"["+.@i+"]", getarg(.@base+.@j*2);
-			setd "$MD_rCount"+(.@j+1)+"["+.@i+"]" , getarg(.@base+.@j*2+1);
-		}
-		set .@base, .@base + (.@j*2)+1 + 1;
-		
-		
-		
-		
-		// done reading from args, calculate EXP value here.
-	
-		set .@bexp, 0;
-		set .@jexp, 0;
-		
-		set .@quest_exp_rate,getbattleflag("quest_exp_rate")/ 100 ;
-		set .@base_exp_rate, getbattleflag("base_exp_rate") / 100;
-		set .@job_exp_rate,  getbattleflag("job_exp_rate")  / 100;
-
-		
-		for (set .@j, 0; .@j < $MD_maxMobs; set .@j, .@j + 1)
-		{
-			set .@mob_id, getd("$MD_mob"+.@j+"["+.@i+"]");
-			set .@mob_count, getd("$MD_mCount"+.@j+"["+.@i+"]");
-			
-			if ( getmonsterinfo(.@mob_id, MOB_MAXHP) >= 1  && .@mob_count > 0) // that is to say, does it exist?
-			{
-				set .@mob_bexp, getmonsterinfo(.@mob_id, MOB_BASEEXP);
-				set .@mob_jexp, getmonsterinfo(.@mob_id, MOB_JOBEXP);
-				set .@is_boss, getmonsterinfo(.@mob_id, MOB_MODE) & 32;
-				
-				if (.@mob_bexp > 0 )
-				{
-					if(.@is_boss)
-						set .@bexp, .@bexp + ( ( .@mob_bexp * $MD_bossBonusEXP / 100 ) * .@mob_count );
-					else
-						set .@bexp, .@bexp + ( ( .@mob_bexp * $MD_normalBonusEXP / 100 ) * .@mob_count );
-				}
-				if (.@mob_jexp > 0 )
-				{
-					if(.@is_boss)
-						set .@jexp, .@jexp + ( ( .@mob_jexp * $MD_bossBonusEXP / 100 ) * .@mob_count );
-					else
-						set .@jexp, .@jexp + ( ( .@mob_bexp * $MD_normalBonusEXP / 100 ) * .@mob_count );
-				}
-			}
-		}
-		
-		// divide by quest exp rate because it'll screw thhings up!
-		// divide after multiplying by quest rate so that low exp mobs will not give 0, cause that'd suck shit!
-		set $MD_bExp[.@i], .@bexp *  .@base_exp_rate / .@quest_exp_rate * $MD_expMult[.@i] / 100 *$MD_missionBonusEXP / 100;
-		set $MD_jExp[.@i], .@jexp *  .@job_exp_rate  / .@quest_exp_rate * $MD_expMult[.@i] / 100 *$MD_missionBonusEXP / 100;
-	}
-	
-	
-}
-
-
+//TODO: handle this all in the src!
 -	script	MissionMapAnnounce	-1,{
 	end;
 	
 OnInit:
 		
-	for( set .@i,0; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
-		setmapflag .missionMaps$[.@i], mf_loadevent;
-	
+	for( set .@i,1; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
+	{
+		setmapflag  $MD_map$[.@i], mf_loadevent;
+	}
 	
 	end;
 
+	
 OnPCLoadMapEvent:
 OnPCBaseLvUpEvent:
 	if(@last_map$ == strcharinfo(3))
 		end;
 		
-	for( set .@i,0; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
+	for (set .@i,1; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
 	{
-		if( strcharinfo(3) == $MD_map$[.i] && BaseLevel > $MD_minLevel[.@i] && BaseLevel < $MD_maxLevel[.@i])
+		if ( (strcharinfo(3) == $MD_map$[.i]) && (BaseLevel > $MD_minLevel[.@i]) && (BaseLevel < $MD_maxLevel[.@i]) )
 		{
-			for ( set .@j, 0; .@j < getarraysize($MD_slots); set .@j, .@j + 1 )
+			for (set .@j, 0; .@j < getarraysize($MD_slots); set .@j, .@j + 1 )
 			{
-				if( 
+				if ( 
 					   ( getd("MD_Slot"+.@j+"_ID") == .@i ) 
 					|| ( (gettimetick(2) - getd("MD_mission_"+.@j+"_time"))  > $MD_cooldown[.@i] ) 
 				  )
 					continue;
 			}
 			announce "The mission ["+$MD_name$+"] is recommended for this map.",bc_self;
+			set @last_map$, strcharinfo(3);
 		}
 	}
 			
@@ -219,28 +76,7 @@ function	script	F_completeMission	{
 	set .@str$, "MD_slot"+.@slot;
 	set .@mission, getd(.@str$+"_ID");
 	
-	// check that all mobs are killed by the player
-	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
-	{
-		if ( getelementofarray(getd( "$MD_mob"+.@i+1), .@mission) )
-		{
-			if ( getd(.@str$+"_mCount"+(.@i+1)) < getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission) )
-				return 1;
-		}
-	}
-	
-	// check that the player has every item
-	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
-	{
-		set .@itemid, getelementofarray(getd( "$MD_item"+(.@i+1)), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
-		
-		if ( .@itemid )
-		{
-			if( countitem(.@itemid) < .@itemcount )
-				return 2;
-		}
-	}
+	// mob and item checking are finished in src (but also untested!)
 	
 	// ensure the player can old every reward
 	set .@rewards[0], 0;
@@ -377,12 +213,15 @@ function	script	F_messageMissionProgress	{
 		set .@mobid, getelementofarray( getd("$MD_mob"+(.@i+1) ), .@mission);
 		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
 		
-		set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
 		
-		set .@killedcount, getd(.@str$+"_mCount"+(.@i+1));
+
 		
 		if (.@mobid && .@mobcount)
 		{
+			set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
+		
+			set .@killedcount, getd(.@str$+"_mCount"+(.@i+1));
+		
 			if(.@mobcount > .@killedcount)
 			{
 				message strcharinfo(0), "    " + .@mobname +": "+ .@killedcount +"/"+ .@mobcount;
@@ -412,12 +251,14 @@ function	script	F_messageMissionProgress	{
 		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
 		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
 		
-		set .@itemname, getitemname(.@itemid);
-		
-		set .@retrievedcount, countitem(.@itemid);
+
 		
 		if ( .@itemid && .@itemcount)
 		{
+			set .@itemname, getitemname(.@itemid);
+		
+			set .@retrievedcount, countitem(.@itemid);
+			
 			if( .@itemcount > .@retrievedcount)
 			{
 				message strcharinfo(0), "    " + .@itemname +": "+ .@retrievedcount +"/"+ .@itemcount;
@@ -444,8 +285,8 @@ function	script	F_mesMissionInfo	{
 	// display relevant header if it's... relevant
 	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
 	{
-		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i+1) ), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
+		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i) ), .@mission);
+		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i) ), .@mission );
 		
 		if (.@mobid && .@mobcount)
 		{
@@ -456,15 +297,16 @@ function	script	F_mesMissionInfo	{
 	
 	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
 	{
-		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i+1) ), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
+		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i) ), .@mission);
+		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i) ), .@mission );
 		
-		set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
-		
-		set .@killedcount, getd(.@str$+"_mCount"+(.@i+1));
+
 		
 		if (.@mobid && .@mobcount)
 		{
+			set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
+		
+			set .@killedcount, getd(.@str$+"_mCount"+(.@i));
 			if(.@mobcount > .@killedcount)
 			{
 				mes "  " + .@mobname +": ^FF0000"+ .@killedcount +"/"+ .@mobcount + "^000000";
@@ -479,8 +321,8 @@ function	script	F_mesMissionInfo	{
 	// display relevant header if it's... relevant
 	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
 	{
-		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
+		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i) ), .@mission);
+		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i) ), .@mission);
 		
 		if(.@itemid && .@itemcount)
 		{
@@ -490,15 +332,17 @@ function	script	F_mesMissionInfo	{
 	}
 	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
 	{
-		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
+		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i) ), .@mission);
+		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i) ), .@mission);
 		
-		set .@itemname, getitemname(.@itemid);
-		
-		set .@retrievedcount, countitem(.@itemid);
+	
 		
 		if ( .@itemid && .@itemcount)
 		{
+			set .@itemname, getitemname(.@itemid);
+		
+			set .@retrievedcount, countitem(.@itemid);
+			
 			if( .@itemcount > .@retrievedcount)
 			{
 				mes "  " + .@itemname +": ^0000FF"+ .@retrievedcount +"/"+ .@itemcount + "^000000";
@@ -524,8 +368,8 @@ function	script	F_showMissionInfo	{
 	// display relevant header if it's... relevant
 	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
 	{
-		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i+1) ), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
+		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i) ), .@mission);
+		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i) ), .@mission );
 		
 		if (.@mobid && .@mobcount)
 		{
@@ -536,13 +380,14 @@ function	script	F_showMissionInfo	{
 	
 	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
 	{
-		set .@mobid, getelementofarray( getd("$MD_mob"+(.@i+1) ), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ) , .@mission );
+		set .@mobid, getelementofarray( getd("$MD_mob"+(.@i) ), .@mission);
+		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i) ) , .@mission );
 		
-		set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
+		
 		
 		if (.@mobid && .@mobcount)
 		{
+			set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
 			mes  "Kill ^0000FF" + .@mobcount + " ^FF0000" + .@mobname + "^000000(s)";
 		}
 	}
@@ -551,8 +396,8 @@ function	script	F_showMissionInfo	{
 	// display relevant header if it's... relevant
 	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
 	{
-		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
+		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i) ), .@mission);
+		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i) ), .@mission);
 		
 		if(.@itemid && .@itemcount)
 		{
@@ -563,14 +408,15 @@ function	script	F_showMissionInfo	{
 	
 	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
 	{
-		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
+		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i) ), .@mission);
+		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i) ), .@mission);
 		
-		set .@itemname, getitemname(.@itemid);
+		
 		
 		
 		if (.@itemid && .@itemcount)
 		{
+			set .@itemname, getitemname(.@itemid);
 			mes  "Collect ^0000FF" + .@itemcount + " ^FF0000" + .@itemname + "^000000(s)";
 		}
 	}
@@ -581,8 +427,8 @@ function	script	F_showMissionInfo	{
 	// display relevant header if it's... relevant
 	for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
 	{
-		set .@rewardid, getelementofarray( getd("$MD_reward"+(.@i+1) ), .@mission);
-		set .@rewardcount, getelementofarray( getd("$MD_rCount"+(.@i+1) ), .@mission);
+		set .@rewardid, getelementofarray( getd("$MD_reward"+(.@i) ), .@mission);
+		set .@rewardcount, getelementofarray( getd("$MD_rCount"+(.@i) ), .@mission);
 		
 		if ((.@rewardid && .@rewardcount) || $MD_bExp[.@mission] || $MD_jExp[.@mission])
 		{
@@ -603,8 +449,8 @@ function	script	F_showMissionInfo	{
 
 	for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
 	{
-		set .@rewardid, getelementofarray( getd("$MD_reward"+(.@i+1) ), .@mission);
-		set .@rewardcount, getelementofarray( getd("$MD_rCount"+(.@i+1) ), .@mission);
+		set .@rewardid, getelementofarray( getd("$MD_reward"+(.@i) ), .@mission);
+		set .@rewardcount, getelementofarray( getd("$MD_rCount"+(.@i) ), .@mission);
 		
 		if ( .@rewardid && .@rewardcount)
 		{
@@ -616,7 +462,7 @@ function	script	F_showMissionInfo	{
 	
 	if ($MD_cooldown[.@mission])
 	{
-		mes "Cooldown: ^FF0000"+($MD_cooldown[.@mission] / 3600)+"^000000 Hours";
+		mes "Cooldown: ^FF0000"+($MD_cooldown[.@mission] / 3600)+"^000000 Hour(s)";
 	}
 	
 	if ($MD_missionPoints[.@mission])
@@ -626,53 +472,7 @@ function	script	F_showMissionInfo	{
 }
 
 
--	script	MD_killEvent	-1,{
-end;
-
-// TODO: move this to the src because it *sucks* being here, honestly. seriously. it'll be better in the src. ok?
-ONNPCKillEvent:
-
-	for (set .@i, 0; .@i < $MD_Slots; set .@i, .@i + 1) 
-	{
-		if (getd("MD_slot"+.@i+"_ID") > 0 ) 
-		{
-			
-			if( getcharid(1) > 0 && getpartycanshare() == 0 )
-			{
-				break;
-			}
-			
-			set .@str$, "MD_slot"+.@i;
-			set .@mission, getd(.@str$+"_ID");
-			
-			// don't share kills if party share is unavailable!
-			
-			for (set .@j, 0; .@j < $MD_maxMobs; set .@j, .@j + 1)
-			{
-				set .@mobid, getelementofarray( getd("$MD_mob"+(.@j+1) ), .@mission);
-				set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@j+1) ), .@mission);
-				
-				if (killedrid == .@mobid)
-				{
-					set .@mobsKilledStr$, getd(.@str$+"_mCount")+.@j;
-					set .@mobsKilled, getd(.@mobsKilledStr$);
-					
-					setd .@mobsKilledStr$, .@mobsKilled + 1;
-					if (.@mobsKilled < .@mobcount)
-					{
-						announce "["+$MD_name$[.@mission]+"] "+getmonsterinfo(.@mobid, MOB_NAME) +" hunted: "+(.@mobsKilled + 1)+"/"+.@mobcount,bc_self,0xF000A0;
-					}
-					else if (.@mobsKilled == .@mobcount)
-					{
-						announce "["+$MD_name$[.@mission]+"] "+ "finished hunting "+getmonsterinfo(.@mobid, MOB_NAME) +"!!!",bc_self,0xF000A0;
-					}
-				}
-			}
-		}
-	}
-
-}
-
+//removed MD_killevent script, as it is pointless to have it here
 
 function	script	MD_mission_board	{
 	set .@name$, "["+getarg(0)+"]";

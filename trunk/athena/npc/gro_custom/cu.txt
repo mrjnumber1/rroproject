@@ -39,8 +39,10 @@ ConfigStart:
 	
 	close;
 	end;
-OnInit:                   //1           //2         //4        //8         //0x1        //0x4           	//0x8
-	setarray .cmds$[0], "Cancel", "autoloot", "showdelay", "showzeny", "showexp", "dropinfo",   "showcasttime", "showcastdelay";
+	
+				//NOTE: new ones must be set AFTER the current list. or else.
+OnInit:                            //1         //2          //4         //8        //0x10        //0x40           //0x80          //0x100
+	setarray .cmds$[0], "Cancel", "autoloot", "showdelay", "showzeny", "showexp", "dropinfo",   "showcasttime", "showcastdelay", "expinfo on";
 	end;
 	
 OnPCLoginEvent: 
@@ -56,8 +58,8 @@ alogcmdstart:
 	else
 	{
 		message strcharinfo(0),"No Autolog Commands found, use @control/!control to configure.";
-		message strcharinfo(0),"Automatically setting @autoloot, @showdelay, @showexp, and @showzeny.";
-		set Autolog_Commands, 8|4|2|1;
+		message strcharinfo(0),"Automatically setting @autoloot, @showdelay, @showexp, @expinfo on, and @showzeny.";
+		set Autolog_Commands, 256|8|4|2|1;
 		goto alogcmdstart;
 	}
 		

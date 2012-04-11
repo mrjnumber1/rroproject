@@ -34,15 +34,17 @@ struct guild bg_guild[13]; // Temporary fake guild information
 struct s_best_battleground_stats best[BGS_MAX];
 static const unsigned int bg_colors[13] = { 0x0000FF, 0xFF0000, 0x00FF00, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF };
 
-static unsigned int queue_counter = 0; // Next q_id
-static DBMap* queue_db;
+//static unsigned int queue_counter = 0; // Next q_id
+//static DBMap* queue_db;
 
 #define BLUE_SKULL 8965
 #define RED_SKULL 8966
 #define GREEN_SKULL 8967
 
+
 int bg_member_removeskulls(struct map_session_data *sd)
 {
+#if 0
 	int n;
 	nullpo_ret(sd);
 	if( (n = pc_search_inventory(sd,BLUE_SKULL)) >= 0 )
@@ -51,7 +53,7 @@ int bg_member_removeskulls(struct map_session_data *sd)
 		pc_delitem(sd,n,sd->status.inventory[n].amount,0,2);
 	if( (n = pc_search_inventory(sd,GREEN_SKULL)) >= 0 )
 		pc_delitem(sd,n,sd->status.inventory[n].amount,0,2);
-
+#endif
 	return 1;
 }
 
@@ -65,7 +67,8 @@ int battleground_countlogin(struct map_session_data *sd, bool check_bat_room)
 	iter = mapit_getallusers();
 	for( pl_sd = (TBL_PC*)mapit_first(iter); mapit_exists(iter); pl_sd = (TBL_PC*)mapit_next(iter) )
 	{
-		if( !(pl_sd->qd || map[pl_sd->bl.m].flag.battleground || (check_bat_room && pl_sd->bl.m == m)) )
+		if( (//!pl_sd->qd || 
+			map[pl_sd->bl.m].flag.battleground || (check_bat_room && pl_sd->bl.m == m)) )
 			continue;
 
 		if( session[sd->fd]->client_addr == session[pl_sd->fd]->client_addr )
@@ -614,7 +617,7 @@ int bg_team_clean(int bg_id, bool remove)
 			sd->state.bg_loser = 0;
 			status_change_end(&sd->bl,SC_BGLOSER,-1);
 		}
-		bg_member_removeskulls(sd);
+		//bg_member_removeskulls(sd);
 
 
 		if( sd->status.guild_id && (g = guild_search(sd->status.guild_id)) != NULL )
@@ -785,7 +788,7 @@ int bg_team_leave(struct map_session_data *sd, int flag)
 
 	sd->state.bg_afk = 0;
 	sd->state.bmaster_flag = NULL;
-	bg_member_removeskulls(sd);
+	//bg_member_removeskulls(sd);
 
 	if( sd->status.guild_id && (g = guild_search(sd->status.guild_id)) != NULL )
 	{ // Refresh Guild Information
@@ -1149,7 +1152,7 @@ void bg_team_getitem(int bg_id, int nameid, int amount)
 
 	if( amount < 1 || (bg = bg_team_search(bg_id)) == NULL || (id = itemdb_exists(nameid)) == NULL )
 		return;
-	if( nameid != ITEMID_BRAVERYBADGE && nameid != ITEMID_VALORBADGE && nameid != ITEMID_WARBADGE )
+	if( nameid != ITEMID_BRAVERY_BADGE && nameid != ITEMID_VALOR_BADGE && nameid != ITEMID_WAR_BADGE )
 		return;
 	if( battle_config.bg_reward_rates != 100 )
 		amount = amount * battle_config.bg_reward_rates / 100;
@@ -1251,7 +1254,7 @@ void bg_team_rewards(int bg_id, int nameid, int amount, int kafrapoints, int que
 	bg_result = cap_value(bg_result,0,2);
 	memset(&it,0,sizeof(it));
 
-	if( nameid == ITEMID_BRAVERYBADGE || nameid == ITEMID_VALORBADGE || nameid == ITEMID_WARBADGE )
+	if( nameid == ITEMID_BRAVERY_BADGE || nameid == ITEMID_VALOR_BADGE || nameid == ITEMID_WAR_BADGE )
 	{
 		it.nameid = nameid;
 		it.identify = 1;
@@ -1395,7 +1398,7 @@ int bg_tally_stats(struct map_session_data *sd)
 
 	return 0;
 }
-
+/*
 struct queue_data* queue_search(int q_id)
 { // Search a Queue using q_id
 	if( !q_id ) return NULL;
@@ -1640,6 +1643,13 @@ void queue_leaveall(struct map_session_data *sd)
 	}
 }
 
+static int queue_db_final(DBKey key, void *data, va_list ap)
+{
+	struct queue_data *qd = (struct queue_data *)data;
+	queue_members_clean(qd); // Unlink all queue members
+	return 0;
+}
+*/
 static int bg_team_db_reset(DBKey key, void *data, va_list ap)
 {
 	struct battleground_data *bg = (struct battleground_data *)data;
@@ -1647,17 +1657,11 @@ static int bg_team_db_reset(DBKey key, void *data, va_list ap)
 	return 0;
 }
 
-static int queue_db_final(DBKey key, void *data, va_list ap)
-{
-	struct queue_data *qd = (struct queue_data *)data;
-	queue_members_clean(qd); // Unlink all queue members
-	return 0;
-}
 
 void do_init_battleground(void)
 {
 	bg_team_db = idb_alloc(DB_OPT_RELEASE_DATA);
-	queue_db = idb_alloc(DB_OPT_RELEASE_DATA);
+	//queue_db = idb_alloc(DB_OPT_RELEASE_DATA);
 
 	add_timer_func_list(bg_send_xy_timer, "bg_send_xy_timer");
 	add_timer_interval(gettick() + battle_config.bg_update_interval, bg_send_xy_timer, 0, 0, battle_config.bg_update_interval);
@@ -1668,5 +1672,5 @@ void do_init_battleground(void)
 void do_final_battleground(void)
 {
 	bg_team_db->destroy(bg_team_db, NULL);
-	queue_db->destroy(queue_db, queue_db_final);
+	//queue_db->destroy(queue_db, queue_db_final);
 }

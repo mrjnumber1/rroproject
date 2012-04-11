@@ -8,9 +8,34 @@ OnInit:
 		day;
 	else
 		night;
+	callsub sub_tower_getday;
+
 	end;
+sub_tower_getday:
+
+	set .@type, 0;
+	
+	if ( gettime(5) % 2 == 1 ) // odd day = moon, else sun
+		set .@type, 1;
+	if ( gettime(5) % 2 == 0 ) // on 5s, it is star day as well
+		set .@type, .@type | 2;
+	
+	
+	.daytype$, "";
+	if (.@type & 1 == 0)
+		set .daytype$, "Sun";
+	else
+		set .daytype$, "Moon";
+		
+	if (.@type & 2 == 1)
+		set .daytype$, " and Stars";
+		
+	return;
 
 OnClock0000:
+	callsub sub_tower_getday;
+	
+		
 OnClock0100:
 OnClock0200:
 OnClock0300:
@@ -58,22 +83,22 @@ L_RingBells:
 	else 
 		set .dispHour, .Hour;
 	
-	announce "[Aldebaran Clock Tower - " + .dispHour + " " + .suffix$ + "]",0,0x33CCFF;
+	announce "[ Aldebaran Clock Tower - " + .dispHour + " " + .suffix$ + " (Day of " + .daytype$ ") ]",0,0x33CCFF;
 	initnpctimer;
 	end;
 
 OnTimer1000:
-OnTimer3000:
-OnTimer5000:
+OnTimer4000:
 OnTimer7000:
-OnTimer9000:
-OnTimer11000:
+OnTimer10000:
 OnTimer13000:
-OnTimer15000:
-OnTimer17000:
+OnTimer16000:
 OnTimer19000:
-OnTimer21000:
-OnTimer23000:
+OnTimer22000:
+OnTimer25000:
+OnTimer28000:
+OnTimer31000:
+OnTimer34000:
 	soundeffectall "effect\\ef_angelus.wav",0,"aldebaran";
 
 	set .Count, .Count + 1;

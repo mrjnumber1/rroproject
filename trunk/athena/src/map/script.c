@@ -32,6 +32,7 @@
 #include "mapreg.h"
 #include "homunculus.h"
 #include "instance.h"
+#include "irc.h"
 #include "mercenary.h"
 #include "intif.h"
 #include "skill.h"
@@ -361,6 +362,8 @@ enum {
 	MF_WOE_SET,
 	MF_BLOCKED,
 	MF_BG_ACTIVE,
+	MF_NONLR_ACCESSIBLE,
+	MF_MOB_COUNT_RATE,
 	MF_RESET
 };
 
@@ -4848,6 +4851,8 @@ BUILDIN_FUNC(jobchange)
 			return 0;
 
 		pc_jobchange(sd, job, upper);
+		if(irc.enabled && irc.job_change_flag)
+			irc_announce_jobchange(sd);
 	}
 
 	return 0;
@@ -7087,6 +7092,34 @@ BUILDIN_FUNC(repair)
 					break;
 				}
 		}
+	}
+
+	return 0;
+}
+
+BUILDIN_FUNC(repairall)
+{
+	int i, repaircounter = 0;
+	TBL_PC *sd;
+
+	sd = script_rid2sd(st);
+	if( sd == NULL )
+		return 0;
+
+	for( i = 0; i < MAX_INVENTORY; i++ )
+	{
+		if( sd->status.inventory[i].nameid && sd->status.inventory[i].attribute )
+		{
+			sd->status.inventory[i].attribute = 0;
+			clif_produceeffect(sd,0,sd->status.inventory[i].nameid);
+			repaircounter++;
+		}
+	}
+
+	if( repaircounter )
+	{
+		clif_misceffect(&sd->bl, 3);
+		clif_equiplist(sd);
 	}
 
 	return 0;
@@ -10112,6 +10145,8 @@ BUILDIN_FUNC(getmapflag)
 			case MF_WOE_SET:			script_pushint(st,map[m].flag.woe_set); break;
 			case MF_BLOCKED:			script_pushint(st,map[m].flag.blocked); break;
 			case MF_BG_ACTIVE:			script_pushint(st,map[m].flag.bg_active); break;
+			case MF_NONLR_ACCESSIBLE:	script_pushint(st,map[m].flag.nonlr_accessible); break;
+			case MF_MOB_COUNT_RATE:     script_pushint(st,map[m].flag.mob_count_rate); break;
 			case MF_RESET:				script_pushint(st,map[m].flag.reset); break;
 		}
 	}
@@ -10191,6 +10226,8 @@ BUILDIN_FUNC(setmapflag)
 			case MF_WOE_SET:			if( val && atoi(val) > 0 ) map[m].flag.woe_set |= atoi(val); break;
 			case MF_BLOCKED:			map[m].flag.blocked=1; break;
 			case MF_BG_ACTIVE:			map[m].flag.bg_active=1; break;
+			case MF_NONLR_ACCESSIBLE:	map[m].flag.nonlr_accessible=1; break;
+			case MF_MOB_COUNT_RATE:		ShowError("buildin_setmapflag: cannot set mob_count_rate flag with this function\n"); break; 
 			case MF_RESET:				map[m].flag.reset=1; break;
 		}
 	}
@@ -10273,6 +10310,8 @@ BUILDIN_FUNC(removemapflag)
 			case MF_WOE_SET:			map[m].flag.woe_set=0; break;
 			case MF_BLOCKED:			map[m].flag.blocked=0; break;
 			case MF_BG_ACTIVE:			map[m].flag.bg_active=0; break;
+			case MF_NONLR_ACCESSIBLE:	map[m].flag.nonlr_accessible=0; break;
+			case MF_MOB_COUNT_RATE:	    ShowError("buildin_removemapflag: cannot remove mob_count_rate flag with this function\n"); break;
 			case MF_RESET:				map[m].flag.reset=0; break;
 		}
 	}
@@ -15654,6 +15693,7 @@ BUILDIN_FUNC(showevent)
  * BattleGround System
  *------------------------------------------*/
 
+/*
 // Creates a Queue
 // bg_queue_create "Queue Name","On Join Event",min_level;
 
@@ -16090,7 +16130,7 @@ BUILDIN_FUNC(bg_balance_teams)
 	return 0;
 }
 
-
+*/
 
 BUILDIN_FUNC(bg_logincount)
 {
@@ -16139,7 +16179,7 @@ BUILDIN_FUNC(bg_check_best)
 
 	if( (bg1 = bg_team_search(bg_id1)) == NULL)
 	{
-		ShowError("script:bg_balance_teams: Non existant team id received %d.\n", bg_id1);
+		ShowError("script:bg_check_best: Non existant team id received %d.\n", bg_id1);
 		script_pushint(st,0);
 		return 0;
 	}
@@ -18059,6 +18099,7 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(getequipname,"i"),
 	BUILDIN_DEF(getbrokenid,"i"), // [Valaris]
 	BUILDIN_DEF(repair,"i"), // [Valaris]
+	BUILDIN_DEF(repairall,""),
 	BUILDIN_DEF(getequipisequiped,"i"),
 	BUILDIN_DEF(getequipisenableref,"i"),
 	BUILDIN_DEF(getequipisidentify,"i"),
@@ -18375,7 +18416,7 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(waitingroom2bg,"siiiss"),
 	BUILDIN_DEF(waitingroom2bg_single,"isiis"),
 
-	BUILDIN_DEF(bg_queue_create,"ss?"),
+/*	BUILDIN_DEF(bg_queue_create,"ss?"),
 	BUILDIN_DEF(bg_queue_event,"is"),
 	BUILDIN_DEF(bg_queue_join,"i"),
 	BUILDIN_DEF(bg_queue_partyjoin,"ii"),
@@ -18384,7 +18425,7 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(bg_queue2team,"iisiiiss"),
 	BUILDIN_DEF(bg_queue2team_single,"iisii"),
 	BUILDIN_DEF(bg_queue2teams,"iiiii*"),
-	BUILDIN_DEF(bg_balance_teams,"iiii*"),
+	BUILDIN_DEF(bg_balance_teams,"iiii*"),*/
 
 	BUILDIN_DEF(bg_team_setxy,"iii"),
 	BUILDIN_DEF(bg_team_reveal,"i"),

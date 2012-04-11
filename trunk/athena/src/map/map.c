@@ -25,6 +25,7 @@
 #include "mob.h"
 #include "npc.h" // npc_setcells(), npc_unsetcells()
 #include "chat.h"
+#include "irc.h"
 #include "itemdb.h"
 #include "storage.h"
 #include "skill.h"
@@ -1617,8 +1618,8 @@ int map_quit(struct map_session_data *sd)
 		sd->status.bg_stats.deserter++;
 		bg_team_leave(sd,1);
 	}
-	if( sd->qd ) 
-		queue_leaveall(sd);
+	//if( sd->qd ) 
+	//	queue_leaveall(sd);
 	npc_script_event(sd, NPCE_LOGOUT);
 
 	//Unit_free handles clearing the player related data, 
@@ -3516,7 +3517,9 @@ void do_final(void)
 	do_final_unit();
 	do_final_battleground();
 	do_final_duel();
-	
+	do_final_quest();
+	do_final_irc();
+
 	map_db->destroy(map_db, map_db_final);
 	
 	for (i=0; i<map_num; i++) {
@@ -3765,6 +3768,7 @@ int do_init(int argc, char *argv[])
 	}
 
 	map_config_read(MAP_CONF_NAME);
+	irc_read_conf(IRC_CONF);
 	chrif_checkdefaultlogin();
 
 	if (!map_ip_set || !char_ip_set) {
@@ -3823,6 +3827,9 @@ int do_init(int argc, char *argv[])
 	add_timer_func_list(map_clearflooritem_timer, "map_clearflooritem_timer");
 	add_timer_func_list(map_removemobs_timer, "map_removemobs_timer");
 	add_timer_interval(gettick()+1000, map_freeblock_timer, 0, 0, 60*1000);
+
+	if(irc.enabled)
+		do_init_irc();
 
 	do_init_atcommand();
 	do_init_battle();

@@ -244,7 +244,7 @@ static int unit_walktoxy_timer(int tid, unsigned int tick, int id, intptr_t data
 	if(i > 0)
 	{
 		ud->walktimer = add_timer(tick+i,unit_walktoxy_timer,id,i);
-		if(md)
+		if(md && DIFF_TICK(tick,md->dmgtick) < 3000 ) //if it hasn't been damaged lately, then don't send this
 			clif_move(ud);
 	}
 	else if(ud->state.running)
@@ -1150,7 +1150,7 @@ int unit_skilluse_id2(struct block_list *src, int target_id, short skill_num, sh
 		}
 	break;	
 	case GD_EMERGENCYCALL: //Emergency Call double cast when the user has learned Leap [Daegaladh]
-		if( sd && pc_checkskill(sd,TK_HIGHJUMP) )
+		if( sd && pc_checkskill(sd,TK_HIGHJUMP) && !map[src->m].flag.battleground ) // BG check exists as highjump is not usable in bg modes
 			casttime *= 2;
 		break;
 	}

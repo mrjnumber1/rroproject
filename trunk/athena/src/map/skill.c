@@ -1794,7 +1794,7 @@ int skill_attack (int attack_type, struct block_list* src, struct block_list *ds
 
 	if( damage > 0 && dmg.flag&BF_WEAPON && src != bl && ( src == dsrc || ( dsrc->type == BL_SKILL && ( skillid == SG_SUN_WARM || skillid == SG_MOON_WARM || skillid == SG_STAR_WARM ) ) )
 		&& skillid != WS_CARTTERMINATION )
-		rdamage = battle_calc_return_damage(bl, damage, dmg.flag);
+		rdamage = battle_calc_return_damage(src, bl, damage, dmg.flag);
 
 	//Skill hit type
 	type=(skillid==0)?5:skill_get_hit(skillid);
@@ -1919,26 +1919,12 @@ int skill_attack (int attack_type, struct block_list* src, struct block_list *ds
 			dmg.dmotion = clif_skill_damage(dsrc,bl,tick, dmg.amotion, dmg.dmotion, damage, dmg.div_, skillid, -1, 5); // needs -1 as skill level
 		else // the central target doesn't display an animation
 			dmg.dmotion = clif_skill_damage(dsrc,bl,tick, dmg.amotion, dmg.dmotion, damage, dmg.div_, skillid, -2, 5); // needs -2(!) as skill level
-		break;
-
-	case AS_GRIMTOOTH:
-		if( battle_config.anti_mayapurple_hack && sd )
-		{ // Show the user position (Anti WPE Filter)
-			sd->state.evade_antiwpefilter = 1;
-			map_foreachinrange(clif_insight_tbl2bl, src, AREA_SIZE, BL_PC, src);
-		}
 
 		break;
 	default:
 		if( flag&SD_ANIMATION && dmg.div_ < 2 ) //Disabling skill animation doesn't works on multi-hit.
 			type = 5;
 		dmg.dmotion = clif_skill_damage(dsrc,bl,tick, dmg.amotion, dmg.dmotion, damage, dmg.div_, skillid, flag&SD_LEVEL?-1:skilllv, type);
-		if( battle_config.anti_mayapurple_hack && sd && skillid == AS_GRIMTOOTH )
-		{ // Hide the user again (Anti WPE Filter)
-			sd->state.evade_antiwpefilter = 0;
-			if( sd->sc.option&(OPTION_HIDE|OPTION_CLOAK) )
-				clif_clearunit_invisible(src);
-		}
 		break;
 	}
 
@@ -3712,7 +3698,9 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, in
 		break;
 
 	case ITEM_ENCHANTARMS:
-	/*	switch(skill_get_ele(skillid,skilllv)) 
+	/*		TODO: FIX THIS, should show the SI for endows on enchantarms
+	
+		switch(skill_get_ele(skillid,skilllv)) 
 		{
 			case ELE_EARTH : type = SC_EARTHWEAPON;  break;
 			case ELE_WIND  : type = SC_WINDWEAPON;   break;
@@ -3724,12 +3712,12 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, in
 		}
 		clif_skill_nodamage(src,bl,skillid,skilllv,
 			sc_start(bl,type,100,skilllv,skill_get_time(skillid,skilllv)));
-			/**/
+			*/
 		
 		clif_skill_nodamage(src,bl,skillid,skilllv,
 			sc_start2(bl,type,100,skilllv,
 				skill_get_ele(skillid,skilllv), skill_get_time(skillid,skilllv)));
-		/**/
+		
 		break;
 
 	case TK_SEVENWIND:
@@ -9242,7 +9230,9 @@ int skill_consume_requirement( struct map_session_data *sd, short skill, short l
 				req.zeny = 0; //Zeny is reduced on skill_attack.
 			if( sd->status.zeny < req.zeny )
 				req.zeny = sd->status.zeny;
-			pc_payzeny(sd,req.zeny);
+
+			if (!area)
+				pc_payzeny(sd,req.zeny);
 
 			if(area == 1) //woe
 				add2limit(sd->status.woe_stats.zeny_used, req.zeny, UINT_MAX);
@@ -9272,7 +9262,7 @@ int skill_consume_requirement( struct map_session_data *sd, short skill, short l
 			if( area )
 				switch( req.itemid[i] )
 				{
-				case ITEMID_POISONBOTTLE:
+				case ITEMID_POISON_BOTTLE:
 					if( area == 1 )
 						add2limit(sd->status.woe_stats.poison_bottles, req.amount[i], UINT_MAX);
 					else
@@ -9556,6 +9546,56 @@ int skill_castfix_sc (struct block_list *bl, int time)
 /*==========================================
  * Does delay reductions based on dex/agi, sc data, item bonuses, ...
  *------------------------------------------*/
+
+// this is for server-side skill delays to prevent no-delay shit
+static int skill_min_delay(int skill_id)
+{
+	int min = battle_config.min_skill_delay_limit?battle_config.min_skill_delay_limit:111;
+	switch(skill_id)
+	{
+		case MG_FIREBOLT:
+		case MG_COLDBOLT:
+		case MG_LIGHTNINGBOLT:
+		case WZ_EARTHSPIKE: 
+		case AS_GRIMTOOTH:
+		case SN_FALCONASSAULT:
+		case WS_CARTTERMINATION:
+			min = 192;
+			break;
+		case AC_DOUBLE:
+		case SN_SHARPSHOOTING:
+			min = 224;
+			break;
+		case PA_PRESSURE:
+			min = 248;
+			break;
+		case CR_DEVOTION:
+			min = 312;
+			break;
+		case HW_GANBANTEIN:
+			min = 480;
+			break;
+		case WZ_HEAVENDRIVE:
+			min = 512;
+			break;
+		case AL_BLESSING:
+		case AL_HEAL:
+		case PR_STRECOVERY:
+		case PR_LEXAETERNA:
+		case HT_DETECTING:
+		case SA_LANDPROTECTOR:
+		case SL_KAUPE:
+		case SL_KAITE:
+			min = 544;
+			break;
+		case AC_SHOWER:
+			min = 768;
+			break;
+	}
+
+	return min;
+}
+
 int skill_delayfix (struct block_list *bl, int skill_id, int skill_lv)
 {
 	int delaynodex = skill_get_delaynodex(skill_id, skill_lv);
@@ -9639,7 +9679,8 @@ int skill_delayfix (struct block_list *bl, int skill_id, int skill_lv)
 	if (time < status_get_amotion(bl))
 		time = status_get_amotion(bl); // Delay can never be below amotion [Playtester]
 
-	time = max(time, battle_config.min_skill_delay_limit);
+
+	time = max(time, skill_min_delay(skill_id));
 
 	if(sd && sd->state.showcastdelay)
 	{
@@ -9843,7 +9884,7 @@ void skill_brandishspear(struct block_list* src, struct block_list* bl, int skil
 void skill_repairweapon (struct map_session_data *sd, int idx)
 {
 	int material;
-	int materials[4] = { 1002, 998, 999, 756 };
+	int materials[4] = { ITEMID_IRON_ORE, ITEMID_IRON, ITEMID_STEEL, ITEMID_ROUGH_ORIDECON };
 	struct item *item;
 	struct map_session_data *target_sd;
 
@@ -9906,7 +9947,7 @@ void skill_identify (struct map_session_data *sd, int idx)
 void skill_weaponrefine (struct map_session_data *sd, int idx)
 {
 	int i = 0, ep = 0, per;
-	int material[5] = { 0, 1010, 1011, 984, 984 };
+	int material[5] = { 0, ITEMID_PHRACON, ITEMID_EMVERATARCON, ITEMID_ORIDECON, ITEMID_ORIDECON };
 	struct item *item;
 
 	nullpo_retv(sd);
@@ -11528,10 +11569,10 @@ int skill_produce_mix (struct map_session_data *sd, int skill_id, int nameid, in
 		make_per += pc_checkskill(sd,skill_id)*500; // Smithing skills bonus: +5/+10/+15
 		make_per += pc_checkskill(sd,BS_WEAPONRESEARCH)*100 +((wlv >= 3)? pc_checkskill(sd,BS_ORIDEOCON)*100:0); // Weaponry Research bonus: +1/+2/+3/+4/+5/+6/+7/+8/+9/+10, Oridecon Research bonus (custom): +1/+2/+3/+4/+5
 		make_per -= (ele?2000:0) + sc*1500 + (wlv>1?wlv*1000:0); // Element Stone: -20%, Star Crumb: -15% each, Weapon level malus: -0/-20/-30
-		if(pc_search_inventory(sd,989) > 0) make_per+= 1000; // Emperium Anvil: +10
-		else if(pc_search_inventory(sd,988) > 0) make_per+= 500; // Golden Anvil: +5
-		else if(pc_search_inventory(sd,987) > 0) make_per+= 300; // Oridecon Anvil: +3
-		else if(pc_search_inventory(sd,986) > 0) make_per+= 0; // Anvil: +0?
+		if(pc_search_inventory(sd, ITEMID_EMPERIUM_ANVIL) > 0) make_per+= 1000; // Emperium Anvil: +10
+		else if(pc_search_inventory(sd, ITEMID_GOLDEN_ANVIL) > 0) make_per+= 500; // Golden Anvil: +5
+		else if(pc_search_inventory(sd, ITEMID_ORIDECON_ANVIL) > 0) make_per+= 300; // Oridecon Anvil: +3
+		else if(pc_search_inventory(sd, ITEMID_ANVIL) > 0) make_per+= 0; // Anvil: +0?
 		if(battle_config.wp_rate != 100)
 			make_per = make_per * battle_config.wp_rate / 100;
 	}
@@ -11606,7 +11647,7 @@ int skill_produce_mix (struct map_session_data *sd, int skill_id, int nameid, in
 				if (rand()%10000 < make_per || qty == 1)
 				{ //Success
 					tmp_item.amount++;
-					if(nameid < 545 || nameid > 547)
+					if(!itemid_isslimpotion(nameid))
 						continue;
 					if(skill_id != AM_PHARMACY &&
 						skill_id != AM_TWILIGHT1 &&
