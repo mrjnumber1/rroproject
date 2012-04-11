@@ -53,7 +53,7 @@ You cannot overlap items on a window.#
 You cannot carry more items because you are overweight.#
 You cannot get the item.#
 The deal has successfully completed.#
-You do not have enough zeny.#
+You do not have enough money.#
 You are over your Weight Limit.#
 The deal has failed.#
 You've blocked whispers from everyone.#
@@ -229,7 +229,7 @@ Merchant Shop#
 Buying Items#
 %s Purchase Failed %s#
 Out of Stock#
-%s %d sold.#
+%s (%d ea) sold.#
 Available Items for Vending#
 Skill has failed because you do not have enough zeny.#
 Select a Target.#
@@ -1088,7 +1088,7 @@ End the Auction#
 Place another Bid#
 You have placed a bid.#
 You have failed to place a bid.#
-You do not have enough zeny.#
+You do not have enough money.#
 Armor#
 Card#
 Misc.#

@@ -5,14 +5,7 @@
 30221#Orange_Feather_Beret#
 30222#Pink_Feather_Beret#
 30223#Yellow_Feather_Beret#
-//exro customs
-30900#Guild_Diabolus_Pack#
-30901#Guild_Valkyrie_Box#
-30902#Guild_BeelzeHog_Box#
-30903#Guild_Card_Box#
-30904#Guild_FunSet_Box#
-30905#Guild_Badge_Box#
-30906#Guild_Bonus_Box#
+
 
 // --------------- Gaia-Ro -----------------
 
@@ -22,21 +15,6 @@
 8910#Tailring_Doll_Hat_(Jro)#
 8911#Vinit_Doll_Hat_(Jro)#
 8912#W_Doll_Hat_(Jro)#
-
-8899#Baphomet_Horns_Box_1w#
-8900#Large_Baphomet_Horns_Box_1w#
-8901#Baphomet_Horns_Box_2w#
-8902#Large_Baphomet_Horns_Box_2w#
-
-8906#Support_Crystal_Summoner#
-8996#Mission_Medal#
-8997#Trofeo Master Emperium#
-8998#Trofeo Master Warrior#
-// Custom Pets
-9996#Mime_Monkey_Egg#
-8913#GVG_First_Place_Hat#
-8914#GVG_Second_Place_Hat#
-8915#GVG_Third_Place_Hat#
 
 8916#Condensed_White_Potion_WP#
 8917#White_Potion_WP#
