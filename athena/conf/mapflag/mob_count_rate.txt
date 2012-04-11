@@ -1,0 +1,46 @@
+//===== eAthena Script =======================================
+//= Map Flags for maps where the mob count rate should be different from the battle config mob rate
+//===== By: ==================================================
+//= misterj/Valaris
+//===== Current Version: =====================================
+//= 1.0 [misterj]
+//===== Description: =========================================
+//= 'mob_count_rate<tab>num' specifies the rate the map should use in place of the battle config rate
+//= A num of 2 for example, means to use 2x spawn rates
+//= The limit for num is 10!
+//============================================================
+
+// maps requiring increases in mobs
+mapflag	gef_fild00	5
+mapflag	gef_fild04	5
+mapflag	gef_fild07	5
+mapflag	gl_dun02	5
+mapflag	gld_dun01	5
+mapflag	gld_dun02	5
+mapflag	gld_dun03	5
+mapflag	gld_dun04	5
+mapflag	lou_dun03	10
+mapflag	pay_fild01	5	
+mapflag	pay_fild03	5
+mapflag	pay_fild08	5
+mapflag	prt_fild01	5
+mapflag	prt_fild05	5
+mapflag	prt_fild06	5
+mapflag	prt_fild08	5
+
+// maps requiring reductions
+mapflag	ama_dun01	2
+mapflag	ama_dun03	2
+mapflag	lhz_dun02	2
+mapflag	lhz_dun03	1
+mapflag	odin_tem01	2
+mapflag	odin_tem02	1
+mapflag	odin_tem03	1
+mapflag	pay_dun01	2
+mapflag	prt_sewb3	2
+mapflag	prt_sewb4	2
+mapflag	thor_v03	2
+mapflag	tur_dun03	2
+mapflag	tur_dun04	2
+
+
