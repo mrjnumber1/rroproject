@@ -82,4 +82,4 @@ int get_access(char *nick); // [Zido]
 int irc_rmnames(void); // [Zido]
 int irc_read_conf(char *file); // [Zido]
 
-#endif /* _IRC_H_ */h
+#endif /* _IRC_H_ */

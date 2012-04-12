@@ -589,3 +589,4 @@ void do_init_irc(void)
 void do_final_irc(void)
 {
 }
+

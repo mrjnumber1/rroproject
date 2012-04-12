@@ -3751,7 +3751,16 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, in
 		clif_skill_nodamage (src,src,skillid,skilllv,1);
 		//Initiate 10% of your damage becomes fire element.
 		sc_start4(src,SC_WATK_ELEMENT,100,3,20,0,0,skill_get_time2(skillid, skilllv));
-		if (sd) skill_blockpc_start (sd, skillid, skill_get_time(skillid, skilllv));
+
+		if (sd) 
+		{
+			int time = skill_get_time(skillid, skilllv);
+
+			if ( (sd->sc.count)  && sd->sc.data[SC_POEMBRAGI])
+				time -= time*sd->sc.data[SC_POEMBRAGI]->val3/100;
+
+			skill_blockpc_start(sd, skillid, skill_get_time(skillid, skilllv));
+		}
 		break;
 
 	case AL_INCAGI:

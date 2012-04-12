@@ -17953,13 +17953,13 @@ BUILDIN_FUNC(vending_remove)
 
 	i = script_getnum(st, 2);
 
-	if( i > 0 && i <= MAX_VENDING*5 )
+	if( i > 0 && i <= MAX_VENDING )
 		i--;
 	else
 	{
-		ARR_FIND( 0, MAX_VENDING*5, i, nd->vending[i].nameid == script_getnum(st, 2) );
+		ARR_FIND( 0, MAX_VENDING, i, nd->vending[i].nameid == script_getnum(st, 2) );
 
-		if( i == MAX_VENDING*5 )
+		if( i == MAX_VENDING )
 		{
 			ShowWarning("script:vending_remove: couldn't find item %d to remove\n", script_getnum(st, 2));
 			return 0;

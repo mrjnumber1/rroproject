@@ -11,36 +11,36 @@
 //============================================================
 
 // maps requiring increases in mobs
-mapflag	gef_fild00	5
-mapflag	gef_fild04	5
-mapflag	gef_fild07	5
-mapflag	gl_dun02	5
-mapflag	gld_dun01	5
-mapflag	gld_dun02	5
-mapflag	gld_dun03	5
-mapflag	gld_dun04	5
-mapflag	lou_dun03	10
-mapflag	pay_fild01	5	
-mapflag	pay_fild03	5
-mapflag	pay_fild08	5
-mapflag	prt_fild01	5
-mapflag	prt_fild05	5
-mapflag	prt_fild06	5
-mapflag	prt_fild08	5
+gef_fild00	mapflag	mob_count_rate	5
+gef_fild04	mapflag	mob_count_rate	5
+gef_fild07	mapflag	mob_count_rate	5
+gl_dun02	mapflag	mob_count_rate	5
+gld_dun01	mapflag	mob_count_rate	5
+gld_dun02	mapflag	mob_count_rate	5
+gld_dun03	mapflag	mob_count_rate	5
+gld_dun04	mapflag	mob_count_rate	5
+lou_dun03	mapflag	mob_count_rate	10
+pay_fild01	mapflag	mob_count_rate	5	
+pay_fild03	mapflag	mob_count_rate	5
+pay_fild08	mapflag	mob_count_rate	5
+prt_fild01	mapflag	mob_count_rate	5
+prt_fild05	mapflag	mob_count_rate	5
+prt_fild06	mapflag	mob_count_rate	5
+prt_fild08	mapflag	mob_count_rate	5
 
 // maps requiring reductions
-mapflag	ama_dun01	2
-mapflag	ama_dun03	2
-mapflag	lhz_dun02	2
-mapflag	lhz_dun03	1
-mapflag	odin_tem01	2
-mapflag	odin_tem02	1
-mapflag	odin_tem03	1
-mapflag	pay_dun01	2
-mapflag	prt_sewb3	2
-mapflag	prt_sewb4	2
-mapflag	thor_v03	2
-mapflag	tur_dun03	2
-mapflag	tur_dun04	2
+ama_dun01	mapflag	mob_count_rate	2
+ama_dun03	mapflag	mob_count_rate	2
+lhz_dun02	mapflag	mob_count_rate	2
+lhz_dun03	mapflag	mob_count_rate	1
+odin_tem01	mapflag	mob_count_rate	2
+odin_tem02	mapflag	mob_count_rate	1
+odin_tem03	mapflag	mob_count_rate	1
+pay_dun01	mapflag	mob_count_rate	2
+prt_sewb3	mapflag	mob_count_rate	2
+prt_sewb4	mapflag	mob_count_rate	2
+thor_v03	mapflag	mob_count_rate	2
+tur_dun03	mapflag	mob_count_rate	2
+tur_dun04	mapflag	mob_count_rate	2
 
 
