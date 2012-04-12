@@ -21,7 +21,7 @@ sub_tower_getday:
 		set .@type, .@type | 2;
 	
 	
-	.daytype$, "";
+	set .daytype$, "";
 	if (.@type & 1 == 0)
 		set .daytype$, "Sun";
 	else
@@ -83,7 +83,7 @@ L_RingBells:
 	else 
 		set .dispHour, .Hour;
 	
-	announce "[ Aldebaran Clock Tower - " + .dispHour + " " + .suffix$ + " (Day of " + .daytype$ ") ]",0,0x33CCFF;
+	announce "[ Aldebaran Clock Tower - " + .dispHour + " " + .suffix$ + " (Day of " + .daytype$ + ") ]",0,0x33CCFF;
 	initnpctimer;
 	end;
 
