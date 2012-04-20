@@ -10,6 +10,18 @@ extern char **arg_v;
 /// @see E_CORE_ST
 extern int runflag;
 extern char *SERVER_NAME;
+
+
+enum
+{
+	ATHENA_SERVER_NONE,
+	ATHENA_SERVER_LOGIN,
+	ATHENA_SERVER_CHAR,
+	ATHENA_SERVER_INTER = 4,
+	ATHENA_SERVER_MAP = 8,
+};
+
+
 extern char SERVER_TYPE;
 
 extern int parse_console(const char* buf);

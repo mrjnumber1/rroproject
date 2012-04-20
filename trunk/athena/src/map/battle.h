@@ -35,7 +35,7 @@ struct block_list;
 
 struct Damage battle_calc_attack(int attack_type,struct block_list *bl,struct block_list *target,int skill_num,int skill_lv,int count);
 
-int battle_calc_return_damage(struct block_list *src, struct block_list* bl, int damage, int flag);
+int battle_calc_return_damage(struct block_list *src, struct block_list* bl, int damage, int flag, int skillid);
 
 void battle_drain(struct map_session_data *sd, struct block_list *tbl, int rdamage, int ldamage, int race, int boss);
 
@@ -275,7 +275,6 @@ extern struct Battle_Config
 	int mob_changetarget_byskill;
 	int attack_direction_change;
 	int land_skill_limit;
-	int party_skill_penalty;
 	int monster_class_change_recover;
 	int produce_item_name_input;
 	int display_skill_fail;
@@ -409,7 +408,6 @@ extern struct Battle_Config
 	int show_hp_sp_drain, show_hp_sp_gain;	//[Skotlex]
 
 	int mob_npc_event_type; //Determines on who the npc_event is executed. [Skotlex]
-	int mob_clear_delay; // [Valaris]
 
 	int character_size; // if riders have size=2, and baby class riders size=1 [Lupus]
 	int mob_max_skilllvl; // Max possible skill level [Lupus]

@@ -51,14 +51,13 @@ static int guild_save_timer(int tid, unsigned int tick, int id, intptr_t data)
 {
 	static int last_id = 0; //To know in which guild we were.
 	int state = 0; //0: Have not reached last guild. 1: Reached last guild, ready for save. 2: Some guild saved, don't do further saving.
-	DBIterator* iter;
+	DBIterator *iter = db_iterator(guild_db_);
 	DBKey key;
 	struct guild* g;
 
 	if( last_id == 0 ) //Save the first guild in the list.
 		state = 1;
 
-	iter = guild_db_->iterator(guild_db_);
 	for( g = (struct guild*)iter->first(iter,&key); iter->exists(iter); g = (struct guild*)iter->next(iter,&key) )
 	{
 		if( state == 0 && g->guild_id == last_id )
@@ -81,7 +80,7 @@ static int guild_save_timer(int tid, unsigned int tick, int id, intptr_t data)
 			db_remove(guild_db_, key);
 		}
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 
 	if( state != 2 ) //Reached the end of the guild db without saving.
 		last_id = 0; //Reset guild saved, return to beginning.
@@ -1961,16 +1960,11 @@ int mapif_parse_GuildCastleDataLoad(int fd,int castle_id,int index)
 	case 7: return mapif_guild_castle_dataload(gc.castle_id,index,gc.payTime); break;
 	case 8: return mapif_guild_castle_dataload(gc.castle_id,index,gc.createTime); break;
 	case 9: return mapif_guild_castle_dataload(gc.castle_id,index,gc.visibleC); break;
-	case 10:
-	case 11:
-	case 12:
-	case 13:
-	case 14:
-	case 15:
-	case 16:
-	case 17:
-		return mapif_guild_castle_dataload(gc.castle_id,index,gc.guardian[index-10].visible); break;
 	default:
+		if (index > 9 && index <= 9+MAX_GUARDIANS)	
+			return mapif_guild_castle_dataload(gc.castle_id,index,gc.guardian[index-10].visible);
+		
+
 		ShowError("mapif_parse_GuildCastleDataLoad ERROR!! (Not found index=%d)\n", index);
 		return 0;
 	}

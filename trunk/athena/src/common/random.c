@@ -2,6 +2,7 @@
 // For more information, see LICENCE in the main folder
 
 #include "../common/timer.h" // gettick
+#include "../common/showmsg.h"
 #include "random.h"
 #if defined(WIN32)
 	#define WIN32_LEAN_AND_MEAN
@@ -30,6 +31,7 @@ void rnd_init(void)
 	seed += (uint32)gettid();
 #endif // HAVE_GETTID
 #endif
+	ShowInfo("Initializing random number generator.\n");
 	init_genrand(seed);
 }
 
@@ -42,9 +44,9 @@ void rnd_seed(uint32 seed)
 
 
 /// Generates a random number in the interval [0, UINT32_MAX]
-uint32 rnd(void)
+int32 rnd(void)
 {
-	return (uint32)genrand_int32();
+	return (int32)(genrand_int32()>>1);
 }
 
 

@@ -425,6 +425,7 @@ static void mapif_parse_Mail_send(int fd)
 		msg.id = mail_savemessage(&msg);
 
 	mapif_Mail_send(fd, &msg);
+	mapif_Mail_new(&msg);
 }
 
 void mail_sendmail(int send_id, const char* send_name, int dest_id, const char* dest_name, const char* title, const char* body, int zeny, struct item *item)

@@ -52,8 +52,7 @@ int mail_removeitem(struct map_session_data *sd, short flag)
 int mail_removezeny(struct map_session_data *sd, short flag)
 {
 	nullpo_ret(sd);
-	if( ( sd->status.zeny + sd->mail.zeny ) > MAX_ZENY )
-		return 1;
+
 	if (flag && sd->mail.zeny > 0)
 	{  //Zeny send
 		log_zeny(sd, LOG_TYPE_MAIL, sd, -sd->mail.zeny);
@@ -92,7 +91,7 @@ unsigned char mail_setitem(struct map_session_data *sd, int idx, int amount)
 			return 1;
 		if( amount < 0 || amount > sd->status.inventory[idx].amount )
 			return 1;
-		if( !pc_candrop(sd, &sd->status.inventory[idx]) )
+		if( !pc_candrop(sd, &sd->status.inventory[idx]) || !itemdb_canmail(&sd->status.inventory[idx], pc_isGM(sd)) )
 			return 1;
 
 		sd->mail.index = idx;

@@ -150,7 +150,7 @@ static void script_save_mapreg(void)
 	void* data;
 	DBKey key;
 
-	iter = mapreg_db->iterator(mapreg_db);
+	iter = db_iterator(mapreg_db);
 	for( data = iter->first(iter,&key); iter->exists(iter); data = iter->next(iter,&key) )
 	{
 		int num = (key.i & 0x00ffffff);
@@ -163,9 +163,9 @@ static void script_save_mapreg(void)
 		if( SQL_ERROR == Sql_Query(mmysql_handle, "UPDATE `%s` SET `value`='%d' WHERE `varname`='%s' AND `index`='%d'", mapreg_table, (int)data, name, i) )
 			Sql_ShowDebug(mmysql_handle);
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 
-	iter = mapregstr_db->iterator(mapregstr_db);
+	iter = db_iterator(mapregstr_db);
 	for( data = iter->first(iter,&key); iter->exists(iter); data = iter->next(iter,&key) )
 	{
 		int num = (key.i & 0x00ffffff);
@@ -180,7 +180,7 @@ static void script_save_mapreg(void)
 		if( SQL_ERROR == Sql_Query(mmysql_handle, "UPDATE `%s` SET `value`='%s' WHERE `varname`='%s' AND `index`='%d'", mapreg_table, tmp_str2, name, i) )
 			Sql_ShowDebug(mmysql_handle);
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 
 	mapreg_dirty = false;
 }

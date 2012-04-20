@@ -6,6 +6,7 @@
 #include "../common/nullpo.h"
 #include "../common/db.h"
 #include "../common/malloc.h"
+#include "../common/random.h"
 #include "unit.h"
 #include "map.h"
 #include "path.h"
@@ -191,7 +192,7 @@ static int unit_walktoxy_timer(int tid, unsigned int tick, int id, intptr_t data
 			if ((skill = guild_checkskill(g, GD_LEADERSHIP)) > 0) strvit |= (skill&0xFFFF)<<16;
 			if ((skill = guild_checkskill(g, GD_GLORYWOUNDS)) > 0) strvit |= (skill&0xFFFF);
 			if ((skill = guild_checkskill(g, GD_SOULCOLD)) > 0) agidex |= (skill&0xFFFF)<<16;
-			if ((skill = guild_checkskill(g, GD_HAWKEYES)) > 0) agidex |= skill&0xFFFF;
+			if ((skill = guild_checkskill(g, GD_HAWKEYES)) > 0) agidex |= (skill&0xFFFF);
 			if (strvit || agidex)
 			{// replaced redundant foreachinrange call with smaller and much more efficient iteration
 				for( i = 0; g->max_member > i; i++ )
@@ -1553,7 +1554,7 @@ int	unit_calc_pos(struct block_list *bl, int tx, int ty, int dir)
 		{
 			for( i = 0; i < 12; i++ )
 			{
-				k = rand()%8; // Pick a Random Dir
+				k = rnd()%8; // Pick a Random Dir
 				dx = -dirx[k] * 2;
 				dy = -diry[k] * 2;
 				x = tx + dx;
@@ -1700,6 +1701,11 @@ static int unit_attack_timer_sub(struct block_list* src, int tid, unsigned int t
 		if(sd && sd->status.pet_id > 0 && sd->pd && battle_config.pet_attack_support)
 			pet_target_check(sd,target,0);
 		map_freeblock_unlock();
+
+		//when unable to attack (or out of ammo) it should stop
+		// otherwise we get YOU ARE OUT OF AMMO ad nauseum
+		if (ud->attacktarget_lv == ATK_NONE)
+			return 1;
 
 		ud->attackabletime = tick + sstatus->adelay;
 //		You can't move if you can't attack neither.

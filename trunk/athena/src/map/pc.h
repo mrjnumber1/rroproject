@@ -164,7 +164,7 @@ struct map_session_data {
 		unsigned int showcastdelay : 1;
 		unsigned int showcasttime : 1;
 		unsigned short autobonus; //flag to indicate if an autobonus is activated. [Inkfish]
-		unsigned int battle_info : 1;
+		unsigned int battle_info : 2;
 		unsigned int mission_info : 1;
 		struct guild *gmaster_flag;
 		unsigned int prevend : 1;
@@ -634,7 +634,7 @@ int pc_setrestartvalue(struct map_session_data *sd,int type);
 int pc_makesavestatus(struct map_session_data *);
 void pc_respawn(struct map_session_data* sd, clr_type clrtype);
 int pc_setnewpc(struct map_session_data*,int,int,int,unsigned int,int,int);
-bool pc_authok(struct map_session_data* sd, int, time_t, int gmlevel, struct mmo_charstatus* status);
+bool pc_authok(struct map_session_data* sd, int, time_t, int gmlevel, struct mmo_charstatus* status, bool changing_mapservers);
 void pc_authfail(struct map_session_data *);
 int pc_reg_received(struct map_session_data *sd);
 
@@ -865,7 +865,7 @@ int pc_read_motd(void); // [Valaris]
 int pc_disguise(struct map_session_data *sd, int class_);
 
 void pc_ranking_reset(int type, bool char_server);
-
+bool pc_can_add_items(struct map_session_data *sd, int* items, int* counts);
 void pc_fix_items_sub(struct item *it, struct item_data *inventory_data, struct mail_message *msg);
 void pc_fix_items(struct map_session_data *sd);
 int pc_update_last_action(struct map_session_data *sd, int type);

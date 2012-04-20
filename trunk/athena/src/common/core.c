@@ -2,7 +2,6 @@
 // For more information, see LICENCE in the main folder
 
 #include "../common/mmo.h"
-#include "../common/version.h"
 #include "../common/showmsg.h"
 #include "../common/malloc.h"
 #include "core.h"
@@ -66,6 +65,30 @@ sigfunc *compat_signal(int signo, sigfunc *func)
 }
 #endif
 
+#ifdef _WIN32
+static BOOL WINAPI console_handler(DWORD c_event)
+{
+	switch (c_event)
+	{
+	case CTRL_CLOSE_EVENT:
+	case CTRL_LOGOFF_EVENT:
+	case CTRL_SHUTDOWN_EVENT:
+		if(shutdown_callback != NULL)
+			shutdown_callback();
+		else
+			runflag = CORE_ST_STOP; //autoshutdown
+		break;
+	default:
+		break;
+	}
+	return TRUE;
+}
+static void cevents_init()
+{
+	if ( SetConsoleCtrlHandler(console_handler, TRUE) == FALSE )
+		ShowWarning("Unable to set the console handler!\n");
+}
+#endif
 /*======================================
  *	CORE : Signal Sub Function
  *--------------------------------------*/
@@ -211,13 +234,13 @@ static void display_title(void)
 	ShowInfo("SVN Revision: '"CL_WHITE"%s"CL_RESET"'.\n", get_svn_revision());
 }
 
-// Warning if logged in as superuser (root)
+// Warning if executed as superuser (root)
 void usercheck(void)
 {
 #ifndef _WIN32
-    if ((getuid() == 0) && (getgid() == 0)) {
-	ShowWarning ("You are running eAthena with root privileges, it is not necessary.\n");
-    }
+    if (geteuid() == 0) 
+		ShowWarning ("You are running eAthena with root privileges, it is not necessary.\n");
+    
 #endif
 }
 
@@ -252,7 +275,9 @@ int main (int argc, char **argv)
 
 	db_init();
 	signals_init();
-
+#ifdef _WIN32
+	cevents_init();
+#endif
 	timer_init();
 	socket_init();
 	plugins_init();

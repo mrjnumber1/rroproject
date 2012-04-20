@@ -99,10 +99,12 @@ int irc_read_conf(char *file)
 			irc.mvp_flag = (unsigned char)config_switch(w2);
 		else if(strcmpi(w1,"irc.shop_flag")==0)
 			irc.shop_flag = (unsigned char)config_switch(w2);
+		else if(strcmpi(w1,"import")==0)
+			irc_read_conf(w2);
 	}
 
-	ShowInfo("IRC configuration has been read successfully.\n");
 	fclose(fp);
+	ShowInfo("Done reading IRC configuration.\n");
 	return 1;
 }
 
@@ -268,6 +270,8 @@ void irc_send(char *buf)
 	WFIFOHEAD(fd, len);
 	sprintf((char*)WFIFOP(fd,0), "%s\n", buf);
 	WFIFOSET(fd, len);
+
+	ShowStatus("[IRC] TO: %s\n", buf);
 }
 
 //======================================================
@@ -279,7 +283,7 @@ void irc_parse_sub(int fd, char *incoming_string)
 	char command[256];
 	char target[256];
 	char message[1024];
-	char send_string[1024];
+	char send_string[512];
 	char ping_message[256];
 	char ssource[256];
 	char *source_nick=NULL;

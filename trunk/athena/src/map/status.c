@@ -772,6 +772,10 @@ int status_damage(struct block_list *src,struct block_list *target,int hp, int s
 
 	pc_record_damage(src, target, hp);
 
+	// stop walking when attacked in disguise to prevent walk-delay bug
+	if (target->type == BL_PC && ((TBL_PC*)target)->disguise && src)
+		unit_stop_walking(target, 1);
+
 	if( status->hp || (flag&8) )
   	{	//Still lives or has been dead before this damage.
 		if (walkdelay)
@@ -1494,7 +1498,7 @@ int status_calc_mob_(struct mob_data* md, bool first)
 		status->max_sp += diff*status->int_;
 		status->hp = status->max_hp;
 		status->sp = status->max_sp;
-		status->speed -= diff;
+		status->speed -= cap_value(diff, 0, status->speed - 10);
 	}
 
 
@@ -2925,6 +2929,9 @@ void status_calc_bl_main(struct block_list *bl, /*enum scb_flag*/int flag)
 			status->cri = status_calc_critical(bl, sc, b_status->cri);
 		else
 			status->cri = status_calc_critical(bl, sc, b_status->cri + 3*(status->luk - b_status->luk));
+
+		if(bl->type == BL_PC && ((TBL_PC*)bl)->status.weapon == W_KATAR)
+			status->cri <<= 1;
 	}
 
 	if(flag&SCB_FLEE2 && b_status->flee2) {
@@ -3021,11 +3028,6 @@ void status_calc_bl_main(struct block_list *bl, /*enum scb_flag*/int flag)
 			
 		status->matk_min = status_calc_matk(bl, sc, status->matk_min);
 		status->matk_max = status_calc_matk(bl, sc, status->matk_max);
-
-		if(sc->data[SC_MAGICPOWER]) { //Store current matk values
-			sc->mp_matk_min = status->matk_min;
-			sc->mp_matk_max = status->matk_max;
-		}
 
 		if( bl->type&BL_HOM && battle_config.hom_setting&0x20 ) //Hom Min Matk is always the same as Max Matk
 			status->matk_min = status->matk_max;
@@ -3245,7 +3247,9 @@ static unsigned short status_calc_str(struct block_list *bl, struct status_chang
 {
 	if(!sc || !sc->count)
 		return cap_value(str,0,USHRT_MAX);
-
+	
+	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && str < 50)
+		return 50;
 	if(sc->data[SC_INCALLSTATUS])
 		str += sc->data[SC_INCALLSTATUS]->val1;
 	if(sc->data[SC_INCSTR])
@@ -3276,8 +3280,6 @@ static unsigned short status_calc_str(struct block_list *bl, struct status_chang
 		str -= ((sc->data[SC_MARIONETTE]->val3)>>16)&0xFF;
 	if(sc->data[SC_MARIONETTE2])
 		str += ((sc->data[SC_MARIONETTE2]->val3)>>16)&0xFF;
-	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && str < 50)
-		str = 50;
 
 	return (unsigned short)cap_value(str,0,USHRT_MAX);
 }
@@ -3287,6 +3289,9 @@ static unsigned short status_calc_agi(struct block_list *bl, struct status_chang
 	if(!sc || !sc->count)
 		return cap_value(agi,0,USHRT_MAX);
 
+	
+	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && agi < 50)
+		return 50;
 	if(sc->data[SC_CONCENTRATE] && !sc->data[SC_QUAGMIRE])
 		agi += (agi-sc->data[SC_CONCENTRATE]->val3)*sc->data[SC_CONCENTRATE]->val2/100;
 	if(sc->data[SC_INCALLSTATUS])
@@ -3315,8 +3320,6 @@ static unsigned short status_calc_agi(struct block_list *bl, struct status_chang
 		agi -= ((sc->data[SC_MARIONETTE]->val3)>>8)&0xFF;
 	if(sc->data[SC_MARIONETTE2])
 		agi += ((sc->data[SC_MARIONETTE2]->val3)>>8)&0xFF;
-	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && agi < 50)
-		agi = 50;
 
 	return (unsigned short)cap_value(agi,0,USHRT_MAX);
 }
@@ -3325,7 +3328,9 @@ static unsigned short status_calc_vit(struct block_list *bl, struct status_chang
 {
 	if(!sc || !sc->count)
 		return cap_value(vit,0,USHRT_MAX);
-
+	
+	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && vit < 50)
+		return 50;
 	if(sc->data[SC_INCALLSTATUS])
 		vit += sc->data[SC_INCALLSTATUS]->val1;
 	if(sc->data[SC_INCVIT])
@@ -3346,8 +3351,6 @@ static unsigned short status_calc_vit(struct block_list *bl, struct status_chang
 		vit -= sc->data[SC_MARIONETTE]->val3&0xFF;
 	if(sc->data[SC_MARIONETTE2])
 		vit += sc->data[SC_MARIONETTE2]->val3&0xFF;
-	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && vit < 50)
-		vit = 50;
 
 	return (unsigned short)cap_value(vit,0,USHRT_MAX);
 }
@@ -3356,7 +3359,9 @@ static unsigned short status_calc_int(struct block_list *bl, struct status_chang
 {
 	if(!sc || !sc->count)
 		return cap_value(int_,0,USHRT_MAX);
-
+	
+	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && int_ < 50)
+		return 50;
 	if(sc->data[SC_INCALLSTATUS])
 		int_ += sc->data[SC_INCALLSTATUS]->val1;
 	if(sc->data[SC_INCINT])
@@ -3385,8 +3390,6 @@ static unsigned short status_calc_int(struct block_list *bl, struct status_chang
 		int_ -= ((sc->data[SC_MARIONETTE]->val4)>>16)&0xFF;
 	if(sc->data[SC_MARIONETTE2])
 		int_ += ((sc->data[SC_MARIONETTE2]->val4)>>16)&0xFF;
-	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && int_ < 50)
-		int_ = 50;
 
 	return (unsigned short)cap_value(int_,0,USHRT_MAX);
 }
@@ -3396,9 +3399,11 @@ static unsigned short status_calc_dex(struct block_list *bl, struct status_chang
 	if(!sc || !sc->count)
 		return cap_value(dex,0,USHRT_MAX);
 
+	
+	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && dex < 50)
+		return 50;
 	if(sc->data[SC_CONCENTRATE] && !sc->data[SC_QUAGMIRE])
 		dex += (dex-sc->data[SC_CONCENTRATE]->val4)*sc->data[SC_CONCENTRATE]->val2/100;
-
 	if(sc->data[SC_INCALLSTATUS])
 		dex += sc->data[SC_INCALLSTATUS]->val1;
 	if(sc->data[SC_INCDEX])
@@ -3427,8 +3432,6 @@ static unsigned short status_calc_dex(struct block_list *bl, struct status_chang
 		dex -= ((sc->data[SC_MARIONETTE]->val4)>>8)&0xFF;
 	if(sc->data[SC_MARIONETTE2])
 		dex += ((sc->data[SC_MARIONETTE2]->val4)>>8)&0xFF;
-	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && dex < 50)
-		dex  = 50;
 
 	return (unsigned short)cap_value(dex,0,USHRT_MAX);
 }
@@ -3438,8 +3441,11 @@ static unsigned short status_calc_luk(struct block_list *bl, struct status_chang
 	if(!sc || !sc->count)
 		return cap_value(luk,0,USHRT_MAX);
 
+
 	if(sc->data[SC_CURSE])
 		return 0;
+	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && luk < 50)
+		return 50;
 	if(sc->data[SC_INCALLSTATUS])
 		luk += sc->data[SC_INCALLSTATUS]->val1;
 	if(sc->data[SC_INCLUK])
@@ -3456,8 +3462,6 @@ static unsigned short status_calc_luk(struct block_list *bl, struct status_chang
 		luk -= sc->data[SC_MARIONETTE]->val4&0xFF;
 	if(sc->data[SC_MARIONETTE2])
 		luk += sc->data[SC_MARIONETTE2]->val4&0xFF;
-	if(sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_HIGH && luk < 50)
-		luk = 50;
 
 	return (unsigned short)cap_value(luk,0,USHRT_MAX);
 }
@@ -3551,7 +3555,7 @@ static unsigned short status_calc_matk(struct block_list *bl, struct status_chan
 		matk += sc->data[SC_MATKPOTION]->val1;
 	if(sc->data[SC_MATKFOOD])
 		matk += sc->data[SC_MATKFOOD]->val1;
-	if(sc->data[SC_MAGICPOWER])
+	if(sc->data[SC_MAGICPOWER] && sc->data[SC_MAGICPOWER]->val4)
 		matk += matk * sc->data[SC_MAGICPOWER]->val3/100;
 	if(sc->data[SC_MINDBREAKER])
 		matk += matk * sc->data[SC_MINDBREAKER]->val2/100;
@@ -3576,8 +3580,7 @@ static signed short status_calc_critical(struct block_list *bl, struct status_ch
 		critical += sc->data[SC_TRUESIGHT]->val2;
 	if(sc->data[SC_CLOAKING])
 		critical += critical;
-	if( bl->type == BL_PC && ((TBL_PC*)bl)->status.weapon == W_KATAR )
-		critical <<= 1;
+
 	return (short)cap_value(critical,10,SHRT_MAX);
 }
 
@@ -4482,9 +4485,9 @@ void status_set_viewdata(struct block_list *bl, int class_)
 				sd->vd.head_top = sd->status.head_top;
 				sd->vd.head_mid = sd->status.head_mid;
 				sd->vd.head_bottom = sd->status.head_bottom;
-				sd->vd.hair_style = sd->status.hair;
-				sd->vd.hair_color = sd->status.hair_color;
-				sd->vd.cloth_color = sd->status.clothes_color;
+				sd->vd.hair_style = cap_value(sd->status.hair,0,battle_config.max_hair_style);
+				sd->vd.hair_color = cap_value(sd->status.hair_color,0,battle_config.max_hair_color); 
+				sd->vd.cloth_color = cap_value(sd->status.clothes_color,0,battle_config.max_cloth_color);
 				sd->vd.sex = sd->status.sex;
 			} else if (vd)
 				memcpy(&sd->vd, vd, sizeof(struct view_data));
@@ -5329,6 +5332,7 @@ int status_change_start(struct block_list* bl,enum sc_type type,int rate,int val
 			//val1: Skill lv
 			val2 = 1; //Lasts 1 invocation
 			val3 = 5*val1; //Matk% increase
+			val4 = 0; //0 = ready; 1 = activated
 			break;
 		case SC_SACRIFICE:
 			val2 = 5; //Lasts 5 hits
@@ -5776,6 +5780,12 @@ int status_change_start(struct block_list* bl,enum sc_type type,int rate,int val
 		}
 
 		case SC_COMA: //Coma. Sends a char to 1HP. If val2, do not zap sp
+			if (val3 && bl->type == BL_MOB)
+			{
+				struct block_list* src = map_id2bl(val3);
+				if (src)
+					mob_log_damage((TBL_MOB*)bl, src, status->hp - 1);
+			}
 			status_zap(bl, status->hp-1, val2?0:status->sp);
 			return 1;
 			break;

@@ -289,7 +289,7 @@ static void* create_memberstorage(DBKey key, va_list args)
 {
 	struct member_storage_data *ms = NULL;
 
-	ms = (struct member_storage_data*) aCallocA(sizeof(struct member_storage_data),1);
+	ms = (struct member_storage_data*) aCalloc(sizeof(struct member_storage_data),1);
 	ms->member_id=key.i;
 
 	return ms;
@@ -298,7 +298,7 @@ static void* create_guildstorage(DBKey key, va_list args)
 {
 	struct guild_storage *gs = NULL;
 
-	gs = (struct guild_storage *) aCallocA(sizeof(struct guild_storage), 1);
+	gs = (struct guild_storage *) aCalloc(sizeof(struct guild_storage), 1);
 	gs->guild_id=key.i;
 
 	return gs;

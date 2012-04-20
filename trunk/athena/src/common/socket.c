@@ -192,6 +192,11 @@ int sSocket(int af, int type, int protocol)
 
 /////////////////////////////////////////////////////////////////////
 #endif
+
+#ifndef MSG_NOSIGNAL
+	#define MSG_NOSIGNAL 0
+#endif
+
 /////////////////////////////////////////////////////////////////////
 
 fd_set readfds;
@@ -204,7 +209,7 @@ int naddr_ = 0;   // # of ip addresses
 
 // Maximum packet size in bytes, which the client is able to handle.
 // Larger packets cause a buffer overflow and stack corruption.
-static size_t socket_max_client_packet = 20480;
+size_t socket_max_client_packet = 24576;
 
 // initial recv buffer size (this will also be the max. size)
 // biggest known packet: S 0153 <len>.w <emblem data>.?B -> 24x24 256 color .bmp (0153 + len.w + 1618/1654/1756 bytes)
@@ -340,7 +345,7 @@ int send_from_fifo(int fd)
 	if( session[fd]->wdata_size == 0 )
 		return 0; // nothing to send
 
-	len = sSend(fd, (const char *) session[fd]->wdata, (int)session[fd]->wdata_size, 0);
+	len = sSend(fd, (const char *) session[fd]->wdata, (int)session[fd]->wdata_size, MSG_NOSIGNAL);
 
 	if( len == SOCKET_ERROR )
 	{//An exception has occured
@@ -1262,7 +1267,7 @@ void socket_init(void)
 				err = setrlimit(RLIMIT_NOFILE, &rlp);
 				if( err != 0 )
 				{// failed
-					const char* errmsg = "unknown";
+					const char* errmsg = "unknown error";
 					int rlim_ori;
 					// set to maximum allowed
 					getrlimit(RLIMIT_NOFILE, &rlp);
@@ -1271,8 +1276,9 @@ void socket_init(void)
 					setrlimit(RLIMIT_NOFILE, &rlp);
 					// report limit
 					getrlimit(RLIMIT_NOFILE, &rlp);
-					if( err == EPERM )
+					if (err == EPERM)
 						errmsg = "permission denied";
+
 					ShowWarning("socket_init: failed to set socket limit to %d, setting to maximum allowed (original limit=%d, current limit=%d, maximum allowed=%d, error=%s).\n", FD_SETSIZE, rlim_ori, (int)rlp.rlim_cur, (int)rlp.rlim_max, errmsg);
 					rlim_cur = rlp.rlim_cur;
 				}

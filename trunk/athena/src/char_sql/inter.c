@@ -71,7 +71,7 @@ static int wis_dellist[WISDELLIST_MAX], wis_delnum;
 int inter_accreg_tosql(int account_id, int char_id, struct accreg* reg, int type)
 {
 	struct global_reg* r;
-	SqlStmt* stmt;
+	StringBuf buf;
 	int i;
 
 	if( account_id <= 0 )
@@ -103,24 +103,34 @@ int inter_accreg_tosql(int account_id, int char_id, struct accreg* reg, int type
 	if( reg->reg_num <= 0 )
 		return 0;
 
-	stmt = SqlStmt_Malloc(sql_handle);
-	if( SQL_ERROR == SqlStmt_Prepare(stmt, "INSERT INTO `%s` (`type`, `account_id`, `char_id`, `str`, `value`) VALUES ('%d','%d','%d',?,?)", reg_db, type, account_id, char_id) )
-		SqlStmt_ShowDebug(stmt);
-	for( i = 0; i < reg->reg_num; ++i )
+		
+	StringBuf_Init(&buf);
+	StringBuf_Printf(&buf, "INSERT INTO `%s` (`type`,`account_id`,`char_id`,`str`,`value`) VALUES ", reg_db);
+	
+	for (i=0; i < reg->reg_num; ++i)
 	{
 		r = &reg->reg[i];
-		if( r->str[0] != '\0' && r->value != '\0' )
+		
+		if (r->str[0] != '\0' && r->value[0] != '\0')
 		{
-			// str
-			SqlStmt_BindParam(stmt, 0, SQLDT_STRING, r->str, strnlen(r->str, sizeof(r->str)));
-			// value
-			SqlStmt_BindParam(stmt, 1, SQLDT_STRING, r->value, strnlen(r->value, sizeof(r->value)));
-
-			if( SQL_ERROR == SqlStmt_Execute(stmt) )
-				SqlStmt_ShowDebug(stmt);
+			char str[32];
+			char val[256];
+			
+			if (i > 0)
+				StringBuf_AppendStr(&buf, ",");
+				
+			Sql_EscapeString(sql_handle, str, r->str);
+			Sql_EscapeString(sql_handle, val, r->value);
+			
+			StringBuf_Printf(&buf,  "('%d','%d','%d','%s','%s')", type, account_id, char_id, str, val);
 		}
 	}
-	SqlStmt_Free(stmt);
+	
+	if ( SQL_ERROR == Sql_QueryStr(sql_handle, StringBuf_Value(&buf)) )
+		Sql_ShowDebug(sql_handle);
+		
+	StringBuf_Destroy(&buf);
+	
 	return 1;
 }
 #ifndef TXT_SQL_CONVERT
@@ -339,7 +349,7 @@ int inter_mapif_init(int fd)
 // broadcast sending
 int mapif_broadcast(unsigned char *mes, int len, unsigned long fontColor, short fontType, short fontSize, short fontAlign, short fontY, int sfd)
 {
-	unsigned char *buf = (unsigned char*)aMallocA((len)*sizeof(unsigned char));
+	unsigned char *buf = (unsigned char*)aMalloc((len)*sizeof(unsigned char));
 
 	WBUFW(buf,0) = 0x3800;
 	WBUFW(buf,2) = len;
