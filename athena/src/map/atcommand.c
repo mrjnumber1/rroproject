@@ -6,6 +6,7 @@
 #include "../common/timer.h"
 #include "../common/nullpo.h"
 #include "../common/core.h"
+#include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/malloc.h"
 #include "../common/socket.h"
@@ -59,10 +60,11 @@ char* lang_msg_table[LANG_MAX][MAX_MSG_LANG];
 #define ACMD_FUNC(x) int atcommand_ ## x (const int fd, struct map_session_data* sd, const char* command, const char* message)
 
 DBMap* atcommand_db = NULL;//name -> AtCommandInfo
+#define ATCOMMAND_LENGTH 50
 
 typedef struct AtCommandInfo
 {
-	const char* command;
+	char command[ATCOMMAND_LENGTH];
 	int level;
 	int level2;
 	AtCommandFunc func;
@@ -1380,13 +1382,11 @@ ACMD_FUNC(hide)
 			status_set_viewdata(&sd->bl, sd->status.class_);
 		clif_displaymessage(fd, msg_txt(10)); // Invisible: Off
 
-		if( map[sd->bl.m].flag.pvp )
-		{// increment the number of pvp players on the map
-			map[sd->bl.m].users_pvp++;
-			if( !map[sd->bl.m].flag.pvp_nocalcrank )
-			{// register the player for ranking calculations
-				sd->pvp_timer = add_timer( gettick() + 200, pc_calc_pvprank_timer, sd->bl.id, 0 );
-			}
+		//increment the number of pvp players on the map
+		map[sd->bl.m].users_pvp++;
+		if ( map[sd->bl.m].flag.pvp && !map[sd->bl.m].flag.pvp_nocalcrank )
+		{
+			sd->pvp_timer = add_timer( gettick()+200, pc_calc_pvprank_timer, sd->bl.id, 0);
 		}
 		//bugreport:2266
 		map_foreachinmovearea(clif_insight, &sd->bl, AREA_SIZE, sd->bl.x, sd->bl.y, BL_ALL, &sd->bl);
@@ -1395,15 +1395,12 @@ ACMD_FUNC(hide)
 		sd->vd.class_ = INVISIBLE_CLASS;
 		clif_displaymessage(fd, msg_txt(11)); // Invisible: On
 
-		if( map[sd->bl.m].flag.pvp )
-		{// decrement the number of pvp players on the map
-			map[sd->bl.m].users_pvp--;
-
-			if( !map[sd->bl.m].flag.pvp_nocalcrank && sd->pvp_timer != INVALID_TIMER )
-			{// unregister the player for ranking
-				delete_timer( sd->pvp_timer, pc_calc_pvprank_timer );
-				sd->pvp_timer = INVALID_TIMER;
-			}
+		// decrement the number of pvp players on the map
+		map[sd->bl.m].users_pvp--;
+		if (map[sd->bl.m].flag.pvp && !map[sd->bl.m].flag.pvp_nocalcrank && sd->pvp_timer != INVALID_TIMER)
+		{ //unregister the player!
+			delete_timer(sd->pvp_timer, pc_calc_pvprank_timer);
+			sd->pvp_timer = INVALID_TIMER;
 		}
 	}
 	clif_changeoption(&sd->bl);
@@ -2539,7 +2536,7 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000))
 			clif_displaymessage(fd, "Sorry but no more than 3 users from the same IP may join. ");
 			clif_displaymessage(fd, "Please contact a GM about giving yourself an exception.");
 		}
-		if (pc_setpos(sd, mapindex_name2id(data[town].map), data[town].x[spot] + rand()%5, data[town].y[spot] + rand()%5, CLR_TELEPORT) == 0) {
+		if (pc_setpos(sd, mapindex_name2id(data[town].map), data[town].x[spot] + rnd()%5, data[town].y[spot] + rnd()%5, CLR_TELEPORT) == 0) {
 			clif_displaymessage(fd, msg_txt(0)); // Warped.
 		} else {
 			clif_displaymessage(fd, msg_txt(1)); // Map not found.
@@ -2700,11 +2697,11 @@ ACMD_FUNC(monstersmall)
 	for (i = 0; i < number; i++) {
 		int mx, my;
 		if (x <= 0)
-			mx = sd->bl.x + (rand() % 11 - 5);
+			mx = sd->bl.x + (rnd() % 11 - 5);
 		else
 			mx = x;
 		if (y <= 0)
-			my = sd->bl.y + (rand() % 11 - 5);
+			my = sd->bl.y + (rnd() % 11 - 5);
 		else
 			my = y;
 		count += (mob_once_spawn(sd, sd->bl.m, mx, my, name, mob_id, 1, "2") != 0) ? 1 : 0;
@@ -2776,11 +2773,11 @@ ACMD_FUNC(monsterbig)
 	for (i = 0; i < number; i++) {
 		int mx, my;
 		if (x <= 0)
-			mx = sd->bl.x + (rand() % 11 - 5);
+			mx = sd->bl.x + (rnd() % 11 - 5);
 		else
 			mx = x;
 		if (y <= 0)
-			my = sd->bl.y + (rand() % 11 - 5);
+			my = sd->bl.y + (rnd() % 11 - 5);
 		else
 			my = y;
 		count += (mob_once_spawn(sd, sd->bl.m, mx, my, name, mob_id, 1, "4") != 0) ? 1 : 0;
@@ -5205,7 +5202,7 @@ ACMD_FUNC(jail)
 		return -1;
 	}
 
-	switch(rand() % 2) { //Jail Locations
+	switch(rnd() % 2) { //Jail Locations
 	case 0:
 		m_index = mapindex_name2id(MAP_JAIL);
 		x = 24;
@@ -5359,7 +5356,7 @@ ACMD_FUNC(jailfor)
 	}
 
 	//Jail locations, add more as you wish.
-	switch(rand()%2)
+	switch(rnd()%2)
 	{
 		case 1: //Jail #1
 			m_index = mapindex_name2id(MAP_JAIL);
@@ -7455,37 +7452,40 @@ ACMD_FUNC(mobinfo)
 		clif_displaymessage(fd, atcmd_output);
 
 		if (mob->mexp)
-			sprintf(atcmd_output, "MVP Monster: '%s'/'%s'/'%s' (%d)", mob->name, mob->jname, mob->sprite, mob->vd.class_);
+			sprintf(atcmd_output, "MVP : '%s'/'%s'/'%s' (%d)", mob->name, mob->jname, mob->sprite, mob->vd.class_);
+		else if (mob->status.mode&MD_BOSS)
+			sprintf(atcmd_output, "Boss: '%s'/'%s'/'%s' (%d)", mob->name, mob->jname, mob->sprite, mob->vd.class_);
 		else
-			sprintf(atcmd_output, "Monster: '%s'/'%s'/'%s' (%d)", mob->name, mob->jname, mob->sprite, mob->vd.class_);
+			sprintf(atcmd_output, "Mob : '%s'/'%s'/'%s' (%d)", mob->name, mob->jname, mob->sprite, mob->vd.class_);
 
 		clif_displaymessage(fd, atcmd_output);
 
-		sprintf(atcmd_output, "  HP:%d Base EXP:%u  Job EXP:%u", mob->status.max_hp, mob->base_exp, mob->job_exp);
+		sprintf(atcmd_output, "  Lv: %d | HP:%d | Base EXP: %u | Job EXP: %u", mob->lv, mob->status.max_hp, mob->base_exp, mob->job_exp);
 		clif_displaymessage(fd, atcmd_output);
+		
 		
 		if(mob->mexp)
 		{
-			sprintf(atcmd_output,"  MVP Bonus EXP:  %u  (%02.02f%% chance)", mob->mexp, (float)mob->mexpper / 100);
+			sprintf(atcmd_output,"  MVP EXP:  %u  (%02.02f%%)", mob->mexp, (float)mob->mexpper / 100);
 			clif_displaymessage(fd, atcmd_output);
 		}
 
-		sprintf(atcmd_output, "  ATK:%d~%d  DEF:%d  MDEF:%d ",
+		sprintf(atcmd_output, "  ATK: %d~%d | MATK: %d~%d | DEF: %d+%d | MDEF: %d+%d | ASPD: %3.1f",
 			mob->status.rhw.atk, mob->status.rhw.atk2,
-			mob->status.def, mob->status.mdef);
+			mob->status.int_+(mob->status.int_/7)*(mob->status.int_/7), mob->status.int_+(mob->status.int_/5)*(mob->status.int_/5),
+			mob->status.def, mob->status.luk, mob->status.mdef, mob->status.int_+mob->status.vit/2, 200.-(double)mob->status.adelay/20.);
 		clif_displaymessage(fd, atcmd_output);
 		
-		sprintf(atcmd_output, "  STR:%d  AGI:%d  VIT:%d  INT:%d  DEX:%d  LUK:%d",
-			mob->status.str, mob->status.agi, mob->status.vit, 
-			mob->status.int_, mob->status.dex, mob->status.luk);
+		
+		sprintf(atcmd_output, "  100%% Hit: %d | 95%% Flee: %d | Critshield: %.2f%%", mob->status.agi+mob->lv+20,mob->status.dex+mob->lv+80-5, (double)mob->status.luk/5.);
 		clif_displaymessage(fd, atcmd_output);
-
-		sprintf(atcmd_output, "  Size:%s  Race: %s  Element: %s (Lv:%d)",
+		
+		sprintf(atcmd_output, "  Size: %s | Race: %s | Element: %s (Lv:%d)",
 			 msize[mob->status.size],
 			mrace[mob->status.race], melement[mob->status.def_ele], mob->status.ele_lv);
 		clif_displaymessage(fd, atcmd_output);
 
-		sprintf(atcmd_output, "  Range - Attack: %d  View: %d  Chase: %d", mob->status.rhw.range, mob->range2, mob->range3);
+		sprintf(atcmd_output, "  Range: (Attack: %d  View: %d  Chase: %d)", mob->status.rhw.range, mob->range2, mob->range3);
 		clif_displaymessage(fd, atcmd_output);
 		
 		
@@ -7503,7 +7503,7 @@ ACMD_FUNC(mobinfo)
 						continue;
 				}
 				else // ignoring MD_TARGETWEAK crap for now, since it only affects Luciola Vespa, oddly
-					sprintf(atcmd_output2, "  - %s    ", mmode[i]);
+					sprintf(atcmd_output2, "  - %s", mmode[i]);
 			}
 			else
 				continue;
@@ -7516,7 +7516,7 @@ ACMD_FUNC(mobinfo)
 			}
 		}
 		if (j == 0)
-			clif_displaymessage(fd, "This monster has no modes set.");
+			clif_displaymessage(fd, "None");
 		else if (j % 4 != 0)
 			clif_displaymessage(fd, atcmd_output);
 		
@@ -7528,9 +7528,9 @@ ACMD_FUNC(mobinfo)
 			if (mob->dropitem[i].nameid <= 0 || mob->dropitem[i].p < 1 || (item_data = itemdb_exists(mob->dropitem[i].nameid)) == NULL)
 				continue;
 			if (item_data->slot)
-				sprintf(atcmd_output2, "  - %d: (%s[%d])  %02.02f%%", item_data->nameid, item_data->jname, item_data->slot, (float)mob->dropitem[i].p / 100);
+				sprintf(atcmd_output2, "  -%d:(%s[%d]) %02.02f%%", item_data->nameid, item_data->jname, item_data->slot, (float)mob->dropitem[i].p / 100);
 			else
-				sprintf(atcmd_output2, "  - %d: (%s)  %02.02f%%", item_data->nameid, item_data->jname, (float)mob->dropitem[i].p / 100);
+				sprintf(atcmd_output2, "  -%d:(%s) %02.02f%%", item_data->nameid, item_data->jname, (float)mob->dropitem[i].p / 100);
 			strcat(atcmd_output, atcmd_output2);
 			if (++j % 3 == 0) {
 				clif_displaymessage(fd, atcmd_output);
@@ -7538,7 +7538,7 @@ ACMD_FUNC(mobinfo)
 			}
 		}
 		if (j == 0)
-			clif_displaymessage(fd, "This monster has no drops.");
+			clif_displaymessage(fd, "None.");
 		else if (j % 3 != 0)
 			clif_displaymessage(fd, atcmd_output);
 		// mvp
@@ -7558,7 +7558,7 @@ ACMD_FUNC(mobinfo)
 				}
 			}
 			if (j == 0)
-				clif_displaymessage(fd, "This monster has no MVP prizes.");
+				clif_displaymessage(fd, "None.");
 			else
 				clif_displaymessage(fd, atcmd_output);
 		}
@@ -8608,8 +8608,8 @@ ACMD_FUNC(clone)
 	}
 
 	do {
-		x = sd->bl.x + (rand() % 10 - 5);
-		y = sd->bl.y + (rand() % 10 - 5);
+		x = sd->bl.x + (rnd() % 10 - 5);
+		y = sd->bl.y + (rnd() % 10 - 5);
 	} while (map_getcell(sd->bl.m,x,y,CELL_CHKNOPASS) && i++ < 10);
 
 	if (i >= 10) {
@@ -9912,16 +9912,24 @@ ACMD_FUNC(gpoints)
 
 ACMD_FUNC(battleinfo)
 {
-	if( sd->state.battle_info )
+	char w1[16], w2[16];
+	
+	nullpo_retr(-1, sd);
+
+	if (!message || !*message || sscanf(message, "%5s %5s", w1, w2) < 2)
 	{
-		clif_displaymessage(fd, "- Battle Information Display OFF - Kill/Death -");
-		sd->state.battle_info = 0;
+		clif_displaymessage(fd, "Command usage: @battleinfo <kills/deaths: yes/no> <damage: yes/no>");
+		return -1;
 	}
-	else
-	{
-		clif_displaymessage(fd, "- Battle Information Display ON - Kill/Death -");
-		sd->state.battle_info = 1;
-	}
+
+	sd->state.battle_info = (config_switch(w1)?1:0)|(config_switch(w2)?2:0);
+
+	sprintf(atcmd_output, "Battle Info Display: Kills/Deaths (%s) | Damage (%s)", 
+		(sd->state.battle_info&1)?("ON"):("OFF"), (sd->state.battle_info&2)?("ON"):("OFF"));
+		
+	clif_displaymessage(fd, atcmd_output);
+	
+
 	return 0;
 }
 
@@ -10557,7 +10565,7 @@ ACMD_FUNC(order)
 	nullpo_retr(-1,sd);
 	if( !message || !*message )
 	{
-		clif_displaymessage(fd, "Please, enter a message (usage: @order <message>).");
+		clif_displaymessage(fd, "Please enter a message (usage: @order <message>).");
 		return -1;
 	}
 
@@ -10610,6 +10618,37 @@ ACMD_FUNC(leader)
 
 		clif_charnameupdate(sd);
 		clif_charnameupdate(pl_sd);
+		return 0;
+	}
+	return -1;
+}
+
+ACMD_FUNC(bgkick)
+{
+	struct map_session_data *pl_sd;
+	
+	nullpo_retr(-1,sd);
+	
+	if( !sd->state.bmaster_flag )
+		clif_displaymessage(fd, "This command is reserved for Team Leaders Only.");
+	else if( !message || !*message )
+		clif_displaymessage(fd, "Please, enter the character name (usage: @bgkick <name>).");
+	else if( (pl_sd = map_nick2sd((char *)message)) == NULL )
+		clif_displaymessage(fd, msg_txt(3)); // Character not found.
+	else if( sd->state.bg_id != pl_sd->state.bg_id )
+		clif_displaymessage(fd, "That Player is not in your team!");
+	else if( sd == pl_sd )
+		clif_displaymessage(fd, "You cannot kick yourself!");
+	else
+	{ // Everytest OK!
+		bg_team_leave(pl_sd,2);
+		
+		sprintf(atcmd_output, "You have been kicked from BG by the Team Leader, %s!", sd->status.name); 
+		clif_displaymessage(pl_sd->fd, atcmd_output);
+		pc_setpos(pl_sd,pl_sd->status.save_point.map,pl_sd->status.save_point.x,pl_sd->status.save_point.y,3);
+
+		sprintf(atcmd_output, "- [%s] Kicked by Team Leader -", pl_sd->status.name);
+		clif_broadcast2(&sd->bl, atcmd_output, (int)strlen(atcmd_output)+1, sd->state.bmaster_flag->color, 0x190, 20, 0, 0, BG);
 		return 0;
 	}
 	return -1;
@@ -10778,6 +10817,66 @@ ACMD_FUNC(buysell)
 ACMD_FUNC(sell)
 {
 	return atcommand_buysell(fd, sd, "@sell", message);
+}
+
+ACMD_FUNC(missioninfo)
+{
+	int i, j, slot=0;
+
+	nullpo_retr(-1, sd);
+
+	if ( atoi(message) > 0 )
+		slot = atoi(message);
+
+	if(slot)
+		i=slot-1;
+	else
+		i=0;
+
+	for (; i < MAX_MISSION_SLOTS; ++i)
+	{
+		if (sd->mission[i].mission_id < 1)
+		{
+			continue;
+		}
+		snprintf(atcmd_output, sizeof(atcmd_output), "Slot %d: %s", i+1, mission_db[sd->mission[i].mission_id-1].name);
+		clif_displaymessage(fd, atcmd_output);
+
+
+
+		clif_displaymessage(fd, " Mobs: ");
+
+		for (j=0; j < MISSION_MAX_MOBS; ++j)
+		{
+			if (sd->mission[i].mob[j].id == 0)
+				continue;
+
+			if (sd->mission[i].mob[j].killed < sd->mission[i].mob[j].goal)
+				snprintf(atcmd_output, sizeof(atcmd_output), "  [%s]: %d/%d", 
+					mob_db(sd->mission[i].mob[j].id)->jname, sd->mission[i].mob[j].killed, sd->mission[i].mob[j].goal);
+			else
+				snprintf(atcmd_output, sizeof(atcmd_output), "  [%s]: COMPLETE!", mob_db(sd->mission[i].mob[j].id)->jname);
+
+			clif_displaymessage(fd, atcmd_output);
+		}
+
+		clif_displaymessage(fd, " Items: ");
+
+		for (j=0; j < MISSION_MAX_ITEMS; ++j)
+		{
+			if (sd->mission[i].item[j].id == 0)
+				continue;
+
+			snprintf(atcmd_output, sizeof(atcmd_output), "  [%s]: %d ea", itemdb_jname(sd->mission[i].item[j].id), sd->mission[i].item[j].goal);
+
+			clif_displaymessage(fd, atcmd_output);
+		}
+
+		if (slot)
+			break;
+	}
+
+	return 0;
 }
 
 
@@ -11061,7 +11160,8 @@ void atcommand_basecommands(void) {
 
 		{ "order",              0,60,     atcommand_order, false },
 		{ "leader",             0,60,     atcommand_leader, false },
-		{ "reportafk",          0,2,      atcommand_reportafk, false },
+		{ "reportafk",         99,99,     atcommand_reportafk, false },
+		{ "bgkick",             0,2,      atcommand_bgkick, false },
 		{ "battleinfo",		 	0,2,	  atcommand_battleinfo, false },
 		{ "guildskill",			0,2,	  atcommand_guildskill, false },
 
@@ -11082,6 +11182,8 @@ void atcommand_basecommands(void) {
 		{ "mstorage",			0,60,	  atcommand_memberstorage, false },
 		
 		{ "bump",              99,99,     atcommand_bump, false },
+
+		{ "missioninfo",        0,60,     atcommand_missioninfo, false },
 		
 	};
 	AtCommandInfo* atcommand;
@@ -11091,7 +11193,7 @@ void atcommand_basecommands(void) {
 
 		CREATE(atcommand, AtCommandInfo, 1);
 
-		atcommand->command = atcommand_base[i].command;
+		safestrncpy(atcommand->command, atcommand_base[i].command, sizeof(atcommand->command));
 		atcommand->level = atcommand_base[i].level;
 		atcommand->level2 = atcommand_base[i].level2;
 		atcommand->func = atcommand_base[i].func;
@@ -11326,7 +11428,7 @@ void atcommand_parse_aliases(char aliases[1024], AtCommandInfo* base)
 
 		CREATE(atcommand, AtCommandInfo, 1);
 
-		atcommand->command = str[i];
+		safestrncpy(atcommand->command,str[i],sizeof(atcommand->command));
 		atcommand->level = base->level;
 		atcommand->level2 = base->level2;
 		atcommand->func = base->func;
@@ -11344,6 +11446,7 @@ int atcommand_config_read(const char* cfgName)
 	char line[1024], w1[1024], w2[1024], w3[1024], w4[1024];
 	AtCommandInfo* p;
 	FILE* fp;
+	int i;
 
 	if( (fp = fopen(cfgName, "r")) == NULL ) {
 		ShowError("AtCommand configuration file not found: %s\n", cfgName);
@@ -11354,7 +11457,7 @@ int atcommand_config_read(const char* cfgName)
 		if( line[0] == '/' && line[1] == '/' )
 			continue;
 
-		if( ( sscanf(line,"%1023[^:]:%1023[^,],%1023[^[][%1023[^]]",w1,w2,w3,w4) ) == 4 ) {
+		if( ( i = sscanf(line,"%1023[^:]:%1023[^,],%1023[^[][%1023[^]]",w1,w2,w3,w4) ) >= 3 ) {
 			if( ( p = (AtCommandInfo*)strdb_get(atcommand_db, w1) ) != NULL ) {
 				
 				p->level = atoi(w2);//update @level
@@ -11363,12 +11466,20 @@ int atcommand_config_read(const char* cfgName)
 				/**
 				 * Parse the alises
 				 **/
-				atcommand_parse_aliases(w4,p);
+				if (i==4)
+					atcommand_parse_aliases(w4,p);
 
 				continue;//we're done move on
 			}
-		} else if( strcmpi(w1, "import") != 0 && strcmpi(w1, "command_symbol") != 0 && strcmpi(w1, "char_symbol") != 0 )
+		} 
+		else if( strcmpi(w1, "import") != 0 && strcmpi(w1, "command_symbol") != 0 && strcmpi(w1, "command_symbol2") != 0 && strcmpi(w1, "char_symbol") != 0 )
+		{
+			if (i > 1)
+				ShowWarning("Unknown setting '%s' in file %s\n", w1, cfgName);
 			continue;
+		}
+
+		normalize_name(w2, " "); //trim!
 
 		if( strcmpi(w1, "import") == 0 )
 			atcommand_config_read(w2);
@@ -11399,9 +11510,6 @@ int atcommand_config_read(const char* cfgName)
 			w2[0] != '@' 
 			)
 			atcommand_symbol2 = w2[0];
-
-		else
-			ShowWarning("Unknown setting '%s' in file %s\n", w1, cfgName);
 	}
 	fclose(fp);
 
@@ -11464,14 +11572,15 @@ ACMD_FUNC(commands)
 	int gm_lvl = pc_isGM(sd), count = 0;
 	char* cur = line_buff;
 	AtCommandInfo* cmd;
-	DBIterator* iter = atcommand_db->iterator(atcommand_db);
+	DBIterator *iter = db_iterator(atcommand_db);
 
 	memset(line_buff,' ',CHATBOX_SIZE);
 	line_buff[CHATBOX_SIZE-1] = 0;
 
 	clif_displaymessage(fd, msg_txt(273)); // "Commands available:"
 
-	for( cmd = (AtCommandInfo*)iter->first(iter,NULL); iter->exists(iter); cmd = (AtCommandInfo*)iter->next(iter,NULL) ) {
+	for (cmd = (AtCommandInfo*)dbi_first(iter); dbi_exists(iter); cmd = (AtCommandInfo*)dbi_next(iter))
+	{
 		unsigned int slen;
 
 		if( gm_lvl < cmd->level && stristr(command,"commands") )
@@ -11479,8 +11588,8 @@ ACMD_FUNC(commands)
 		if( gm_lvl < cmd->level2 && stristr(command,"charcommands") )
 			continue;
 
-		if( ( cmd->bg_only && pc_islowratechar(sd) ) )
-			continue;
+		//if( ( cmd->bg_only && pc_islowratechar(sd) ) )
+		//	continue;
 
 		slen = strlen(cmd->command);
 
@@ -11498,7 +11607,7 @@ ACMD_FUNC(commands)
 
 		count++;
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 	clif_displaymessage(fd,line_buff);
 
 	sprintf(atcmd_output, msg_txt(274), count); // "%d commands found."

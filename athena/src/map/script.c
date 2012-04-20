@@ -12,6 +12,7 @@
 #include "../common/md5calc.h"
 #include "../common/lock.h"
 #include "../common/nullpo.h"
+#include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
 #include "../common/strlib.h"
@@ -1405,9 +1406,9 @@ const char* parse_syntax(const char* p)
 					set_label(l,script_pos,p);
 				}
 				// check duplication of case label [Rayce]
-				if(linkdb_search(&syntax.curly[pos].case_label, (void*)v) != NULL)
+				if(linkdb_search(&syntax.curly[pos].case_label, (void*)__64BPTRSIZE(v)) != NULL)
 					disp_error_message("parse_syntax: dup 'case'",p);
-				linkdb_insert(&syntax.curly[pos].case_label, (void*)v, (void*)1);
+				linkdb_insert(&syntax.curly[pos].case_label, (void*)__64BPTRSIZE(v), (void*)1);
 
 				sprintf(label,"set $@__SW%x_VAL,0;",syntax.curly[pos].index);
 				syntax.curly[syntax.curly_count++].type = TYPE_NULL;
@@ -2099,7 +2100,7 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 
 	// who called parse_script is responsible for clearing the database after using it, but just in case... lets clear it here
 	if( options&SCRIPT_USE_LABEL_DB )
-		scriptlabel_db->clear(scriptlabel_db, NULL);
+		db_clear(scriptlabel_db);
 	parse_options = options;
 
 	if( setjmp( error_jump ) != 0 ) {
@@ -2340,7 +2341,7 @@ void get_val(struct script_state* st, struct script_data* data)
 					data->ref      ? data->ref:
 					name[1] == '@' ? st->stack->var_function:// instance/scope variable
 					                 &st->script->script_vars;// npc variable
-				data->u.str = (char*)linkdb_search(n, (void*)reference_getuid(data));
+				data->u.str = (char*)linkdb_search(n, (void*)__64BPTRSIZE(reference_getuid(data)));
 			}
 			break;
 		case '\'':
@@ -2350,7 +2351,7 @@ void get_val(struct script_state* st, struct script_data* data)
 					n = &instance[st->instance_id].svar;
 				else
 					ShowWarning("script:get_val: cannot access instance variable '%s', defaulting to 0\n", name);
-				data->u.str = (char*)linkdb_search(n, (void*)reference_getuid(data));
+				data->u.str = (char*)linkdb_search(n, (void*)__64BPTRSIZE(reference_getuid(data)));
 			}
 			break;
 		default:
@@ -2404,7 +2405,7 @@ void get_val(struct script_state* st, struct script_data* data)
 					data->ref      ? data->ref:
 					name[1] == '@' ? st->stack->var_function:// instance/scope variable
 					                 &st->script->script_vars;// npc variable
-				data->u.num = (int)linkdb_search(n, (void*)reference_getuid(data));
+				data->u.num = (int)linkdb_search(n, (void*)__64BPTRSIZE(reference_getuid(data)));
 			}
 			break;
 		case '\'':
@@ -2412,7 +2413,7 @@ void get_val(struct script_state* st, struct script_data* data)
 				struct linkdb_node** n = NULL;
 				if( st->instance_id )
 					n = &instance[st->instance_id].ivar;
-				data->u.num = (int)linkdb_search(n, (void*)reference_getuid(data));
+				data->u.num = (int)linkdb_search(n, (void*)__64BPTRSIZE(reference_getuid(data)));
 			}
 			break;
 		default:
@@ -2435,7 +2436,7 @@ void* get_val2(struct script_state* st, int uid, struct linkdb_node** ref)
 	push_val2(st->stack, C_NAME, uid, ref);
 	data = script_getdatatop(st, -1);
 	get_val(st, data);
-	return (data->type == C_INT ? (void*)data->u.num : (void*)data->u.str);
+	return (data->type == C_INT ? (void*)__64BPTRSIZE(data->u.num) : (void*)__64BPTRSIZE(data->u.str));
 }
 
 /*==========================================
@@ -2462,9 +2463,9 @@ static int set_reg(struct script_state* st, TBL_PC* sd, int num, const char* nam
 			char* p;
 			struct linkdb_node** n;
 			n = (ref) ? ref : (name[1] == '@') ? st->stack->var_function : &st->script->script_vars;
-			p = (char*)linkdb_erase(n, (void*)num);
+			p = (char*)linkdb_erase(n, (void*)__64BPTRSIZE(num));
 			if (p) aFree(p);
-			if (str[0]) linkdb_insert(n, (void*)num, aStrdup(str));
+			if (str[0]) linkdb_insert(n, (void*)__64BPTRSIZE(num), aStrdup(str));
 			}
 			return 1;
 		case '\'': {
@@ -2473,9 +2474,9 @@ static int set_reg(struct script_state* st, TBL_PC* sd, int num, const char* nam
 			if( st->instance_id )
 				n = &instance[st->instance_id].svar;
 
-			p = (char*)linkdb_erase(n, (void*)num);
+			p = (char*)linkdb_erase(n, (void*)__64BPTRSIZE(num));
 			if (p) aFree(p);
-			if( str[0] ) linkdb_insert(n, (void*)num, aStrdup(str));
+			if( str[0] ) linkdb_insert(n, (void*)__64BPTRSIZE(num), aStrdup(str));
 			}
 			return 1;
 		default:
@@ -2484,7 +2485,7 @@ static int set_reg(struct script_state* st, TBL_PC* sd, int num, const char* nam
 	}
 	else
 	{// integer variable
-		int val = (int)value;
+		int val = (int)__64BPTRSIZE(value);
 		if(str_data[num&0x00ffffff].type == C_PARAM)
 		{
 			if( pc_setparam(sd, str_data[num&0x00ffffff].val, val) == 0 )
@@ -2513,9 +2514,9 @@ static int set_reg(struct script_state* st, TBL_PC* sd, int num, const char* nam
 			struct linkdb_node** n;
 			n = (ref) ? ref : (name[1] == '@') ? st->stack->var_function : &st->script->script_vars;
 			if (val == 0)
-				linkdb_erase(n, (void*)num);
+				linkdb_erase(n, (void*)__64BPTRSIZE(num));
 			else 
-				linkdb_replace(n, (void*)num, (void*)val);
+				linkdb_replace(n, (void*)__64BPTRSIZE(num), (void*)val);
 			}
 			return 1;
 		case '\'':
@@ -2525,9 +2526,9 @@ static int set_reg(struct script_state* st, TBL_PC* sd, int num, const char* nam
 					n = &instance[st->instance_id].ivar;
 
 				if( val == 0 )
-					linkdb_erase(n, (void*)num);
+					linkdb_erase(n, (void*)__64BPTRSIZE(num));
 				else
-					linkdb_replace(n, (void*)num, (void*)val);
+					linkdb_replace(n, (void*)__64BPTRSIZE(num), (void*)val);
 				return 1;
 			}
 		default:
@@ -2776,7 +2777,7 @@ void script_free_vars(struct linkdb_node **node)
 	struct linkdb_node* n = *node;
 	while( n != NULL)
 	{
-		const char* name = get_str((int)(n->key)&0x00ffffff);
+		const char* name = get_str((int)__64BPTRSIZE((n->key)&0x00ffffff));
 		if( is_string_variable(name) )
 			aFree(n->data); // 文字型変数なので、データ削除
 		n = n->next;
@@ -2937,7 +2938,7 @@ void op_2str(struct script_state* st, int op, const char* s1, const char* s2)
 	case C_LE: a = (strcmp(s1,s2) <= 0); break;
 	case C_ADD:
 		{
-			char* buf = (char *)aMallocA((strlen(s1)+strlen(s2)+1)*sizeof(char));
+			char* buf = (char *)aMalloc((strlen(s1)+strlen(s2)+1)*sizeof(char));
 			strcpy(buf, s1);
 			strcat(buf, s2);
 			script_pushstr(st, buf);
@@ -3349,7 +3350,7 @@ int run_script_timer(int tid, unsigned int tick, int id, intptr_t data)
 		st->state = END;
 	}
 	while( node && st->sleep.timer != INVALID_TIMER ) {
-		if( (int)node->key == st->oid && ((struct script_state *)node->data)->sleep.timer == st->sleep.timer ) {
+		if( (int)__64BPTRSIZE(node->key) == st->oid && ((struct script_state *)node->data)->sleep.timer == st->sleep.timer ) {
 			script_erase_sleepdb(node);
 			st->sleep.timer = INVALID_TIMER;
 			break;
@@ -3535,7 +3536,7 @@ void run_script_main(struct script_state *st)
 		st->sleep.charid = sd?sd->status.char_id:0;
 		st->sleep.timer  = add_timer(gettick()+st->sleep.tick,
 			run_script_timer, st->sleep.charid, (intptr_t)st);
-		linkdb_insert(&sleep_db, (void*)st->oid, st);
+		linkdb_insert(&sleep_db, (void*)__64BPTRSIZE(st->oid), st);
 	}
 	else if(st->state != END && st->rid){
 		//Resume later (st is already attached to player).
@@ -3617,23 +3618,10 @@ int script_config_read(char *cfgName)
 	return 0;
 }
 
-static int do_final_userfunc_sub (DBKey key,void *data,va_list ap)
+static int db_script_free_code_sub(DBKey key, void *data, va_list ap)
 {
-	struct script_code *code = (struct script_code *)data;
-	if(code){
-		script_free_vars( &code->script_vars );
-		aFree( code->script_buf );
-		aFree( code );
-	}
-	return 0;
-}
-
-static int do_final_autobonus_sub (DBKey key,void *data,va_list ap)
-{
-	struct script_code *script = (struct script_code *)data;
-
-	if( script )
-		script_free_code(script);
+	if(data)
+		script_free_code((struct script_code*)data);
 
 	return 0;
 }
@@ -3686,7 +3674,7 @@ void script_cleararray_pc(struct map_session_data* sd, const char* varname, void
 	{
 		for( idx = 0; idx < SCRIPT_MAX_ARRAYSIZE; idx++ )
 		{
-			pc_setreg(sd, reference_uid(key, idx), (int)value);
+			pc_setreg(sd, reference_uid(key, idx), (int)__64BPTRSIZE(value));
 		}
 	}
 }
@@ -3790,9 +3778,9 @@ int do_final_script()
 
 	mapreg_final();
 
-	scriptlabel_db->destroy(scriptlabel_db,NULL);
-	userfunc_db->destroy(userfunc_db,do_final_userfunc_sub);
-	autobonus_db->destroy(autobonus_db, do_final_autobonus_sub);
+	db_destroy(scriptlabel_db);
+	userfunc_db->destroy(userfunc_db, db_script_free_code_sub); 
+ 	autobonus_db->destroy(autobonus_db, db_script_free_code_sub); 
 	if(sleep_db) {
 		struct linkdb_node *n = (struct linkdb_node *)sleep_db;
 		while(n) {
@@ -3826,8 +3814,8 @@ int do_init_script()
 
 int script_reload()
 {
-	userfunc_db->clear(userfunc_db,do_final_userfunc_sub);
-	scriptlabel_db->clear(scriptlabel_db, NULL);
+	userfunc_db->clear(userfunc_db,db_script_free_code_sub);
+	db_clear(scriptlabel_db);
 
 	if(sleep_db) {
 		struct linkdb_node *n = (struct linkdb_node *)sleep_db;
@@ -4431,13 +4419,8 @@ BUILDIN_FUNC(rand)
 	}
 	if( range <= 1 )
 		script_pushint(st, min);
-	else if( range > SHRT_MAX )
-	{
-		int step1 = rand()%(range&0xffff), step2 = rand()%(range>>16);
-		script_pushint(st, step1+(step2<<16) + min);
-	}
 	else
-		script_pushint(st, rand()%range + min);
+		script_pushint(st, rnd()%range + min);
 
 	return 0;
 }
@@ -4496,8 +4479,8 @@ static int buildin_areawarp_sub(struct block_list *bl,va_list ap)
 			max = 1000;
 		do 
 		{
-			tx = rand()%(ax-x+1)+x;
-			ty = rand()%(ay-y+1)+y;
+			tx = rnd()%(ax-x+1)+x;
+			ty = rnd()%(ay-y+1)+y;
 			++j;
 		} while(map_getcell(map,tx,ty,CELL_CHKNOPASS) && j < max);
 		pc_setpos((TBL_PC*)bl,map,x,y,CLR_OUTSIGHT);
@@ -4921,7 +4904,7 @@ BUILDIN_FUNC(input)
 		else
 		{
 			int amount = sd->npc_amount;
-			set_reg(st, sd, uid, name, (void*)cap_value(amount,min,max), script_getref(st,2));
+			set_reg(st, sd, uid, name, (void*)__64BPTRSIZE(cap_value(amount,min,max)), script_getref(st,2));
 			script_pushint(st, (amount > max ? 1 : amount < min ? -1 : 0));
 		}
 		st->state = RUN;
@@ -4967,7 +4950,7 @@ BUILDIN_FUNC(set)
 	if( is_string_variable(name) )
 		set_reg(st,sd,num,name,(void*)script_getstr(st,3),script_getref(st,2));
 	else
-		set_reg(st,sd,num,name,(void*)script_getnum(st,3),script_getref(st,2));
+		set_reg(st,sd,num,name,(void*)__64BPTRSIZE(script_getnum(st,3)),script_getref(st,2));
 
 	// return a copy of the variable reference
 	script_pushcopy(st,2);
@@ -4998,7 +4981,7 @@ static int32 getarraysize(struct script_state* st, int32 id, int32 idx, int isst
 	{
 		for( ; idx < SCRIPT_MAX_ARRAYSIZE; ++idx )
 		{
-			int32 num = (int32)get_val2(st, reference_uid(id, idx), ref);
+			int32 num = (int32)__64BPTRSIZE(get_val2(st, reference_uid(id, idx), ref));
 			if( num )
 				ret = idx + 1;
 			script_removetop(st, -1, 0);
@@ -5060,7 +5043,7 @@ BUILDIN_FUNC(setarray)
 	else
 	{// int array
 		for( i = 3; start < end; ++start, ++i )
-			set_reg(st, sd, reference_uid(id, start), name, (void*)script_getnum(st,i), reference_getref(data));
+			set_reg(st, sd, reference_uid(id, start), name, (void*)__64BPTRSIZE(script_getnum(st,i)), reference_getref(data));
 	}
 	return 0;
 }
@@ -5109,7 +5092,7 @@ BUILDIN_FUNC(cleararray)
 	if( is_string_variable(name) )
 		v = (void*)script_getstr(st, 3);
 	else
-		v = (void*)script_getnum(st, 3);
+		v = (void*)__64BPTRSIZE(script_getnum(st, 3));
 
 	end = start + script_getnum(st, 4);
 	if( end > SCRIPT_MAX_ARRAYSIZE )
@@ -8152,7 +8135,7 @@ BUILDIN_FUNC(gettimestr)
 	fmtstr=script_getstr(st,2);
 	maxlen=script_getnum(st,3);
 
-	tmpstr=(char *)aMallocA((maxlen+1)*sizeof(char));
+	tmpstr=(char *)aMalloc((maxlen+1)*sizeof(char));
 	strftime(tmpstr,maxlen,fmtstr,localtime(&now));
 	tmpstr[maxlen]='\0';
 
@@ -8294,12 +8277,16 @@ BUILDIN_FUNC(getexp)
 	int base=0,job=0;
 	double bonus;
 	int kafra_pts=0;
+	int multiply=1;
 	sd = script_rid2sd(st);
 	if( sd == NULL )
 		return 0;
 
 	base=script_getnum(st,2);
 	job =script_getnum(st,3);
+
+	if (script_hasdata(st, 4)) //this determines whether or not we multiply by the quest exp rate
+		multiply = script_getnum(st,4);
 	
 	if(base<0 || job<0)
 		return 0;
@@ -8308,7 +8295,7 @@ BUILDIN_FUNC(getexp)
 		kafra_pts = (int) cap_value( (base+job)/100000, 0, 199);
 	
 	// bonus for npc-given exp
-	bonus = battle_config.quest_exp_rate / 100.;
+	bonus = (multiply)?(battle_config.quest_exp_rate / 100.):(1);
 	base = (int) cap_value(base * bonus, 0, INT_MAX);
 	job = (int) cap_value(job * bonus, 0, INT_MAX);
 
@@ -10586,7 +10573,7 @@ BUILDIN_FUNC(getcastledata)
 	if(script_hasdata(st,4) && index==0 && gc) {
 		const char* event = script_getstr(st,4);
 		check_event(st, event);
-		guild_addcastleinfoevent(gc->castle_id,17,event);
+		guild_addcastleinfoevent(gc->castle_id, 9+MAX_GUARDIANS,event);
 	}
 
 	if(gc){
@@ -10614,16 +10601,11 @@ BUILDIN_FUNC(getcastledata)
 				script_pushint(st,gc->createTime); break;
 			case 9:
 				script_pushint(st,gc->visibleC); break;
-			case 10:
-			case 11:
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			case 16:
-			case 17:
-				script_pushint(st,gc->guardian[index-10].visible); break;
 			default:
+				if (index >9  && index <= 9+MAX_GUARDIANS)
+				{
+					script_pushint(st,gc->guardian[index-10].visible); break;
+				}
 				script_pushint(st,0); break;
 		}
 		return 0;
@@ -10713,16 +10695,11 @@ BUILDIN_FUNC(setcastledata)
 				gc->createTime = value; break;
 			case 9:
 				gc->visibleC = value; break;
-			case 10:
-			case 11:
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			case 16:
-			case 17:
-				gc->guardian[index-10].visible = value; break;
 			default:
+				if (index > 9 && index <= 9+MAX_GUARDIANS)
+				{
+					gc->guardian[index-10].visible = value; break;
+				}
 				return 0;
 		}
 		guild_castledatasave(gc->castle_id,index,value);
@@ -11371,7 +11348,7 @@ BUILDIN_FUNC(getitemname)
 		script_pushconststr(st,"null");
 		return 0;
 	}
-	item_name=(char *)aMallocA(ITEM_NAME_LENGTH*sizeof(char));
+	item_name=(char *)aMalloc(ITEM_NAME_LENGTH*sizeof(char));
 
 	memcpy(item_name, i_data->jname, ITEM_NAME_LENGTH);
 	script_pushstr(st,item_name);
@@ -11600,6 +11577,7 @@ BUILDIN_FUNC(getinventorylist)
 			pc_setreg(sd,reference_uid(add_str("@inventorylist_refine"), j),sd->status.inventory[i].refine);
 			pc_setreg(sd,reference_uid(add_str("@inventorylist_identify"), j),sd->status.inventory[i].identify);
 			pc_setreg(sd,reference_uid(add_str("@inventorylist_attribute"), j),sd->status.inventory[i].attribute);
+			pc_setreg(sd,reference_uid(add_str("@inventorylist_serial"), j),sd->status.inventory[i].serial);
 			for (k = 0; k < MAX_SLOTS; k++)
 			{
 				sprintf(card_var, "@inventorylist_card%d",k+1);
@@ -12784,7 +12762,7 @@ BUILDIN_FUNC(getmapxy)
 		sd=script_rid2sd(st);
 	else
 		sd=NULL;
-	set_reg(st,sd,num,name,(void*)x,script_getref(st,3));
+	set_reg(st,sd,num,name,(void*)__64BPTRSIZE(x),script_getref(st,3));
 
 	//Set MapY
 	num=st->stack->stack_data[st->start+4].u.num;
@@ -12795,7 +12773,7 @@ BUILDIN_FUNC(getmapxy)
 		sd=script_rid2sd(st);
 	else
 		sd=NULL;
-	set_reg(st,sd,num,name,(void*)y,script_getref(st,4));
+	set_reg(st,sd,num,name,(void*)__64BPTRSIZE(y),script_getref(st,4));
 
 	//Return Success value
 	script_pushint(st,0);
@@ -13229,7 +13207,7 @@ BUILDIN_FUNC(charat)
 	int pos = script_getnum(st,3);
 	char *output;
 
-	output = (char*)aMallocA(2*sizeof(char));
+	output = (char*)aMalloc(2*sizeof(char));
 	output[0] = '\0';
 
 	if(str && pos >= 0 && (unsigned int)pos < strlen(str))
@@ -13247,15 +13225,10 @@ BUILDIN_FUNC(setchar)
 	const char *str = script_getstr(st,2);
 	const char *c = script_getstr(st,3);
 	int index = script_getnum(st,4);
-	char *output;
-	size_t len = strlen(str);
+	char *output = aStrdup(str);
 
-	output = (char*)aMallocA(len + 1);
-	memcpy(output, str, len);
-	output[len] = '\0';
-
-	if(index >= 0 && index < len)
-		output[index] = c[0];
+	if ( index >= 0 && index < strlen(output) )
+		output[index] = *c;
 
 	script_pushstr(st, output);
 	return 0;
@@ -13277,7 +13250,7 @@ BUILDIN_FUNC(insertchar)
 	else if(index > len)
 		index = len;
 
-	output = (char*)aMallocA(len + 2);
+	output = (char*)aMalloc(len + 2);
 
 	memcpy(output, str, index);
 	output[index] = c[0];
@@ -13300,14 +13273,12 @@ BUILDIN_FUNC(delchar)
 
 	if(index < 0 || index > len) {
 		//return original
-		++len;
-		output = (char*)aMallocA(len);
-		memcpy(output, str, len);
+		output = aStrdup(str);
 		script_pushstr(st, output);
 		return 0;
 	}
 
-	output = (char*)aMallocA(len);
+	output = (char*)aMalloc(len);
 
 	memcpy(output, str, index);
 	memcpy(&output[index], &str[index+1], len - index);
@@ -13322,14 +13293,14 @@ BUILDIN_FUNC(delchar)
 BUILDIN_FUNC(strtoupper)
 {
 	const char *str = script_getstr(st,2);
-	char *output;
-	int i = 0;
-	
-	output = (char*)aMallocA(strlen(str) + 1);
+	char *output = aStrdup(str);
+	char *cursor = output;
 
-	while(str[i] != '\0')
-		output[i++] = TOUPPER(str[i]);
-	output[i] = '\0';
+	while(*cursor != '\0')
+	{
+		*cursor = TOUPPER(*cursor);
+		cursor++;
+	}
 
 	script_pushstr(st, output);
 	return 0;
@@ -13341,14 +13312,14 @@ BUILDIN_FUNC(strtoupper)
 BUILDIN_FUNC(strtolower)
 {
 	const char *str = script_getstr(st,2);
-	char *output;
-	int i = 0;
-	
-	output = (char*)aMallocA(strlen(str) + 1);
+	char *output = aStrdup(str);
+	char *cursor = output;
 
-	while(str[i] != '\0')
-		output[i++] = TOLOWER(str[i]);
-	output[i] = '\0';
+	while(*cursor != '\0')
+	{
+		*cursor = TOLOWER(*cursor);
+		cursor++;
+	}
 
 	script_pushstr(st, output);
 	return 0;
@@ -13368,10 +13339,10 @@ BUILDIN_FUNC(substr)
 
 	if(start >= 0 && end < strlen(str) && start <= end) {
 		len = end - start + 1;
-		output = (char*)aMallocA(len + 1);
+		output = (char*)aMalloc(len + 1);
 		memcpy(output, &str[start], len);
 	} else 
-		output = (char*)aMallocA(1);
+		output = (char*)aMalloc(1);
 
 	output[len] = '\0';
 
@@ -13399,7 +13370,7 @@ BUILDIN_FUNC(explode)
 
 	TBL_PC* sd = NULL;
 
-	temp = (char*)aMallocA(len + 1);
+	temp = (char*)aMalloc(len + 1);
 
 	if( !data_isreference(data) )
 	{
@@ -13510,7 +13481,7 @@ BUILDIN_FUNC(implode)
 	if(array_size == -1) //empty array check (AmsTaff)
     {
         ShowWarning("script:implode: array length = 0\n");
-        output = (char*)aMallocA(sizeof(char)*5);
+        output = (char*)aMalloc(sizeof(char)*5);
         sprintf(output,"%s","NULL");
 	} else {
 		for(i = 0; i <= array_size; ++i) {
@@ -13525,7 +13496,7 @@ BUILDIN_FUNC(implode)
 			glue_len = strlen(glue);
 			len += glue_len * (array_size);
 		}
-		output = (char*)aMallocA(len + 1);
+		output = (char*)aMalloc(len + 1);
 
 		//build output
 		for(i = 0; i < array_size; ++i) {
@@ -13768,7 +13739,7 @@ BUILDIN_FUNC(sscanf){
             if(sscanf(str, buf, &ref_int)==0){
                 break;
             }
-            set_reg(st, sd, add_str(buf_p), buf_p, (void *)(ref_int), reference_getref(data));
+            set_reg(st, sd, add_str(buf_p), buf_p, (void *)__64BPTRSIZE((ref_int)), reference_getref(data));
         }
         arg++;
 
@@ -14101,7 +14072,7 @@ BUILDIN_FUNC(md5)
 	char *md5str;
 
 	tmpstr = script_getstr(st,2);
-	md5str = (char *)aMallocA((32+1)*sizeof(char));
+	md5str = (char *)aMalloc((32+1)*sizeof(char));
 	MD5_String(tmpstr, md5str);
 	script_pushstr(st, md5str);
 	return 0;
@@ -14133,7 +14104,7 @@ BUILDIN_FUNC(setd)
 	if( is_string_variable(varname) ) {
 		setd_sub(st, sd, varname, elem, (void *)script_getstr(st, 3), NULL);
 	} else {
-		setd_sub(st, sd, varname, elem, (void *)script_getnum(st, 3), NULL);
+		setd_sub(st, sd, varname, elem, (void *)__64BPTRSIZE(script_getnum(st, 3)), NULL);
 	}
 	
 	return 0;
@@ -14279,7 +14250,7 @@ BUILDIN_FUNC(escape_sql)
 
 	str = script_getstr(st,2);
 	len = strlen(str);
-	esc_str = (char*)aMallocA(len*2+1);
+	esc_str = (char*)aMalloc(len*2+1);
 #if defined(TXT_ONLY)
 	jstrescapecpy(esc_str, str);
 #else
@@ -14713,7 +14684,7 @@ BUILDIN_FUNC(searchitem)
 
 	for( i = 0; i < count; ++start, ++i )
 	{// Set array
-		void* v = (void*)items[i]->nameid;
+		void* v = (void*)__64BPTRSIZE(items[i]->nameid);
 		set_reg(st, sd, reference_uid(id, start), name, v, reference_getref(data));
 	}
 
@@ -15191,7 +15162,7 @@ BUILDIN_FUNC(awake)
 
 	while( node )
 	{
-		if( (int)node->key == nd->bl.id )
+		if( (int)__64BPTRSIZE(node->key) == nd->bl.id )
 		{// sleep timer for the npc
 			struct script_state* tst = (struct script_state*)node->data;
 			TBL_PC* sd = map_id2sd(tst->rid);
@@ -15995,7 +15966,7 @@ BUILDIN_FUNC(bg_queue2teams)
 					if( ++j >= c ) j = 0;
 				}
 
-				pos = 1 + rand() % (limit - i);
+				pos = 1 + rnd() % (limit - i);
 				if( (qm = queue_member_get(qd,pos)) == NULL || (sd = qm->sd) == NULL )
 					break;
 
@@ -17658,13 +17629,6 @@ BUILDIN_FUNC(checkweight2)
 	return 0;   
 }
 
-BUILDIN_FUNC(checkweights)
-{
-	//TODO: checkweight with array of item ids and then array of item counts., rr
-	script_pushint(st, -1);
-	return 0;
-}
-
 BUILDIN_FUNC(rentitem2)
 {
 	struct map_session_data *sd;
@@ -18018,6 +17982,302 @@ BUILDIN_FUNC(vending_reset)
 
 	return 0;
 }
+
+
+// Mission functions!
+//
+//
+
+// submit_mission slot_number;
+// returns bool
+BUILDIN_FUNC(remove_mission)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	int i = script_getnum(st, 2);
+
+	nullpo_ret(sd);
+
+	mission_remove(sd, i);
+	script_pushint(st, 0);
+
+	return 0;
+}
+BUILDIN_FUNC(submit_mission)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	int status, i = script_getnum(st, 2);
+
+	nullpo_ret(sd);
+
+	status = (int)mission_submit(sd, i);
+
+	script_pushint(st, status);
+
+	return 0;
+}
+// assign_mission mission_id, slot_number;
+// assigns the mission to the slot 
+// returns MISSION_NOT_FOUND if it is an invalid mission id
+// returns MISSION_UNAVAILABLE_SLOT if the slot is taken
+// returns MISSION_INCOMPLETE if it succeeds... might look a bit silly! sorry
+BUILDIN_FUNC(assign_mission)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	int status, id = script_getnum(st, 2), i = script_getnum(st, 3);
+	
+	nullpo_ret(sd);
+
+	status = mission_assign(sd, id, i);
+
+	script_pushint(st, status);
+
+	return 0;
+}
+// getmymissionlist 
+// populates  @mission_id/name$[0-MAX_MISSION_SLOTS] with information
+// blue slots are free slots
+// green slots are complete missions
+// dark red slots are incomplete missions
+BUILDIN_FUNC(getmymissionlist)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	int i, j=0;
+	char str[CHAT_SIZE_MAX];
+
+	nullpo_ret(sd);
+
+	for (i=0; i < MAX_MISSION_SLOTS; ++i)
+	{
+		if( sd->mission[i].mission_id < 1)
+		{
+			pc_setreg(sd, reference_uid(add_str("@my_mission_id"), i), 0);
+			pc_setreg(sd, reference_uid(add_str("@my_mission_complete"), i), -1);
+			pc_setregstr(sd, reference_uid(add_str("@my_mission_name$"), i), "^0000FF[FREE SLOT]^000000");
+			continue;
+		}
+
+		pc_setreg(sd, reference_uid(add_str("@my_mission_id"), i), sd->mission[i].mission_id);
+
+		if(mission_check_status(sd, i) == MISSION_COMPLETE)
+		{
+			pc_setreg(sd, reference_uid(add_str("@my_mission_complete"), i), 1);
+			snprintf(str, sizeof(str), "^00FF00[COMPLETE] %s^000000", mission_db[sd->mission[i].mission_id-1].name);
+		}
+		else
+		{
+			pc_setreg(sd, reference_uid(add_str("@my_mission_complete"), i), 0);
+			snprintf(str, sizeof(str), "^9F0000[INCOMPLETE] %s^000000", mission_db[sd->mission[i].mission_id-1].name);
+		}
+
+		pc_setregstr(sd, reference_uid(add_str("@my_mission_name$"), i), str);
+
+	}
+
+	script_pushint(st, 0);
+
+	return 0;
+}
+
+// getmymissioninfo slot_number
+// populates many variables related to the current mission in slot_number
+// @mission_mob(0-MISSION_MAX_MOBS) and such are the most notable.
+BUILDIN_FUNC(getmymissioninfo)
+{
+
+	TBL_PC *sd = script_rid2sd(st);
+	int i, j, k, slot = script_getnum(st, 2);
+	char reg[NAME_LENGTH];
+
+	nullpo_ret(sd);
+
+	if ( sd->mission[slot].mission_id < 1)
+	{
+		script_pushint(st, false);
+		return -1;
+	}
+
+	ARR_FIND(0, MAX_MISSION_DB, i, (sd->mission[slot].mission_id-1) == mission_db[i].id);
+
+	if (i == MAX_MISSION_DB)
+	{
+		script_pushint(st, false);
+		return -1;
+	}
+
+	pc_setreg(sd, add_str("@my_s_mission_id"), sd->mission[i].mission_id-1);
+		
+	pc_setreg(sd, add_str("@my_s_mission_cooldown"), mission_db[i].cooldown);
+	pc_setreg(sd, add_str("@my_s_mission_base_exp"), mission_db[i].base_exp);
+	pc_setreg(sd, add_str("@my_s_mission_job_exp"), mission_db[i].job_exp);
+	pc_setreg(sd, add_str("@my_s_mission_points"), mission_db[i].points);
+
+	pc_setregstr(sd, add_str("@my_s_mission_name$"), mission_db[i].name);
+	pc_setregstr(sd, add_str("@my_s_mission_map$"), mapindex_id2name(mission_db[i].mapindex));
+
+	for (k=0; k < MISSION_MAX_MOBS; ++k)
+	{
+		if (!mission_db[i].mob[k].id)
+			break;
+
+		snprintf(reg, NAME_LENGTH, "@my_s_mission_mob%d", k);
+		pc_setreg(sd,add_str(reg), sd->mission[slot].mob[k].id);
+		snprintf(reg, NAME_LENGTH, "@my_s_mission_mGoal%d", k);
+		pc_setreg(sd, add_str(reg), sd->mission[slot].mob[k].goal);
+		snprintf(reg, NAME_LENGTH, "@my_s_mission_mCount%d", k);
+		pc_setreg(sd, add_str(reg), sd->mission[slot].mob[k].killed);
+	}
+	
+	pc_setreg(sd, add_str("@my_s_mission_mobs"), k);
+
+	for (k=0; k < MISSION_MAX_ITEMS; ++k)
+	{
+		if (!mission_db[i].item[k].id)
+			break;
+			
+		snprintf(reg, NAME_LENGTH, "@my_s_mission_item%d", k);
+		pc_setreg(sd, add_str(reg), sd->mission[slot].item[k].id);
+		snprintf(reg, NAME_LENGTH, "@my_s_mission_iGoal%d", k);
+		pc_setreg(sd, add_str(reg), sd->mission[slot].item[k].goal);
+
+		snprintf(reg, NAME_LENGTH, "@my_s_mission_iCount%d", k);
+		
+		ARR_FIND(0, MAX_INVENTORY, j, sd->status.inventory[j].nameid == mission_db[i].item[k].id);
+		if ( j < 0 || j == MAX_INVENTORY)
+			pc_setreg(sd, add_str(reg), 0);
+		else
+			pc_setreg(sd, add_str(reg), sd->status.inventory[j].amount);
+	}
+	pc_setreg(sd, add_str("@my_s_mission_items"), k);
+
+	for (k=0; k < MISSION_MAX_REWARDS; ++k)
+	{
+		if (!mission_db[i].reward[k].id)
+			break;
+		
+		snprintf(reg, NAME_LENGTH, "@my_s_mission_reward%d", k);
+		pc_setreg(sd, add_str(reg), mission_db[i].reward[k].id);
+		snprintf(reg, NAME_LENGTH, "@my_s_mission_rCount%d", k);
+		pc_setreg(sd, add_str(reg), mission_db[i].reward[k].count);
+	}
+	pc_setreg(sd, add_str("@my_s_mission_rewards"), k);
+
+	script_pushint(st, true);
+
+	return 0;
+}
+
+// getmissioninfo mission_id
+// populates @mission_id, @mission_name$.... etc with variables about the mission listed
+BUILDIN_FUNC(getmissioninfo)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	int i,k, id = script_getnum(st, 2);
+	char reg[NAME_LENGTH];
+
+	nullpo_ret(sd);
+
+	//TODO: dbmap implementation? i'm not too worried about people searching very often
+	ARR_FIND(0, MAX_MISSION_DB, i, mission_db[i].id == id);
+
+	if (i == MAX_MISSION_DB)
+	{
+		ShowError("buildin_getmissioninfo: (c:%d) Invalid ID '%d' passed!\n", sd->status.char_id, id);
+		script_pushint(st, false);
+		return -1;
+	}
+
+	pc_setreg(sd, add_str("@s_mission_id"), id);
+		
+	pc_setreg(sd, add_str("@s_mission_min_level"), mission_db[i].min_level);
+	pc_setreg(sd, add_str("@s_mission_max_level"), mission_db[i].max_level);
+	pc_setreg(sd, add_str("@s_mission_cooldown"), mission_db[i].cooldown);
+	pc_setreg(sd, add_str("@s_mission_base_exp"), mission_db[i].base_exp);
+	pc_setreg(sd, add_str("@s_mission_job_exp"), mission_db[i].job_exp);
+	pc_setreg(sd, add_str("@s_mission_points"), mission_db[i].points);
+
+	pc_setregstr(sd, add_str("@s_mission_name$"), mission_db[i].name);
+	pc_setregstr(sd, add_str("@s_mission_map$"), map[mission_db[i].mapindex].name);
+
+	for (k=0; k < MISSION_MAX_MOBS; ++k)
+	{
+		if (!mission_db[i].mob[k].id)
+			break;
+
+		snprintf(reg, NAME_LENGTH, "@s_mission_mob%d", k);
+		pc_setreg(sd,add_str(reg), mission_db[i].mob[k].id);
+		snprintf(reg, NAME_LENGTH, "@s_mission_mCount%d", k);
+		pc_setreg(sd, add_str(reg), mission_db[i].mob[k].count);
+	}
+
+	pc_setreg(sd, add_str("@s_mission_mobs"), k);
+		
+	for (k=0; k < MISSION_MAX_ITEMS; ++k)
+	{
+		if (!mission_db[i].item[k].id)
+			break;
+			
+		snprintf(reg, NAME_LENGTH, "@s_mission_item%d", k);
+		pc_setreg(sd, add_str(reg), mission_db[i].item[k].id);
+		snprintf(reg, NAME_LENGTH, "@s_mission_iCount%d", k);
+		pc_setreg(sd, add_str(reg), mission_db[i].item[k].count);
+	}
+	pc_setreg(sd, add_str("@s_mission_items"), k);
+
+	for (k=0; k < MISSION_MAX_REWARDS; ++k)
+	{
+		if (!mission_db[i].reward[k].id)
+			break;
+			
+		snprintf(reg, NAME_LENGTH, "@s_mission_reward%d", k);
+		pc_setreg(sd, add_str(reg), mission_db[i].reward[k].id);
+		snprintf(reg, NAME_LENGTH, "@s_mission_rCount%d", k);
+		pc_setreg(sd, add_str(reg), mission_db[i].reward[k].count);
+	}
+	pc_setreg(sd, add_str("@s_mission_rewards"), k);
+	
+	script_pushint(st, true);
+	return 0;
+}
+BUILDIN_FUNC(getmissionlist)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	int i, j=0, k=0, in_range_only = 1;
+	char reg[NAME_LENGTH];
+
+	nullpo_ret(sd);
+
+	if ( script_hasdata(st, 2) )
+		in_range_only = script_getnum(st, 2);
+
+	for (i=0; i < MAX_MISSION_DB; ++i)
+	{
+		if (mission_db[i].id < 1)
+			continue;
+
+		// do not add to list if you are not in the level range
+		if (in_range_only)
+			if ( (sd->status.base_level > mission_db[i].max_level || sd->status.base_level < mission_db[i].min_level) )
+				continue;
+
+		// if the mission is already taken, do not list it!
+		ARR_FIND(0, MAX_MISSION_SLOTS, k, sd->mission[k].mission_id == mission_db[i].id);
+		if ( k != MAX_MISSION_SLOTS)
+			continue;
+
+		snprintf(reg, sizeof(reg), "MD_%d_time", mission_db[i].id);
+		if ( ((int)time(NULL) - pc_readregistry(sd, reg)) < mission_db[i].cooldown) 
+			continue;
+		
+		pc_setreg(sd, reference_uid(add_str("@mission_id"), j), mission_db[i].id);
+		pc_setregstr(sd, reference_uid(add_str("@mission_name$"), j), mission_db[i].name);
+
+		++j;
+	}
+	// likely unnecessary as we can just use getarraysize(@mission_id), but the size becomes stale upon multiple calls
+	pc_setreg(sd,add_str("@mission_count"), j);
+	return 0;
+}
+// end missions
 
 
 // declarations that were supposed to be exported from npc_chat.c
@@ -18518,12 +18778,20 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(rentitem2,"viiiiiiii"), // [BrianL]
 	
 	BUILDIN_DEF(checkweight2, "*"), // [Lighta] :)
-	BUILDIN_DEF(checkweights, "rr"),
 
-	BUILDIN_DEF(vending_add, "ii*"), //epoque then mrj
+	BUILDIN_DEF(vending_add, "ii*"), //epoque, mrj
 	BUILDIN_DEF(vending_remove, "i*"),
 	BUILDIN_DEF(vending_open, "*"),
 	BUILDIN_DEF(vending_reset, "*"),
+
+	// mission system [mrj]
+	BUILDIN_DEF(remove_mission, "i"),
+	BUILDIN_DEF(getmissionlist, "*"),
+	BUILDIN_DEF(getmissioninfo, "i"),
+	BUILDIN_DEF(getmymissionlist, ""),
+	BUILDIN_DEF(getmymissioninfo, "i"),
+	BUILDIN_DEF(assign_mission, "ii"),
+	BUILDIN_DEF(submit_mission, "i"),
 
 
 	{NULL,NULL,NULL},

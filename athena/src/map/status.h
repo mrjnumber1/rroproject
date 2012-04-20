@@ -1179,7 +1179,7 @@ struct regen_data {
 struct status_change_entry {
 	int timer;
 	int val1,val2,val3,val4;
-	int src;
+	//int src; //TODO: addme! this should add a src id for every status effect, useful for adding things like assist kill trackers
 };
 
 struct status_change {
@@ -1190,7 +1190,6 @@ struct status_change {
 	unsigned char count;
 	//TODO: See if it is possible to implement the following SC's without requiring extra parameters while the SC is inactive.
 	unsigned char jb_flag; //Joint Beat type flag
-	unsigned short mp_matk_min, mp_matk_max; //Previous matk min/max for ground spells (Amplify magic power)
 	int sg_id; //ID of the previous Storm gust that hit you
 	unsigned char sg_counter; //Storm gust counter (previous hits from storm gust)
 	struct status_change_entry *data[SC_MAX];

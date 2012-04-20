@@ -12,7 +12,6 @@
 #include "../common/strlib.h"
 #include "../common/timer.h"
 #include "../common/utils.h"
-#include "../common/version.h"
 #include "inter.h"
 #include "int_guild.h"
 #include "int_homun.h"
@@ -197,6 +196,7 @@ struct auth_node {
 	int sex;
 	time_t expiration_time; // # of seconds 1/1/1970 (timestamp): Validity limit of the account (0 = unlimited)
 	int gmlevel;
+	unsigned changing_mapservers : 1;
 };
 
 static DBMap* auth_db; // int account_id -> struct auth_node*
@@ -892,7 +892,7 @@ int memitemdata_to_sql(const struct item items[], int max, int id, int tableswit
 		SqlStmt_BindColumn(stmt, 9+j, SQLDT_SHORT, &item.card[j], 0, NULL, NULL);
 
 	// bit array indicating which inventory items have already been matched
-	flag = (bool*) aCallocA(max, sizeof(bool));
+	flag = (bool*) aCalloc(max, sizeof(bool));
 
 	while( SQL_SUCCESS == SqlStmt_NextRow(stmt) )
 	{
@@ -3111,12 +3111,12 @@ int parse_frommap(int fd)
 			// Transmitting the maps of the other map-servers to the new map-server
 			for(x = 0; x < ARRAYLENGTH(server); x++) {
 				if (server[x].fd > 0 && x != id) {
-					WFIFOHEAD(fd,10 +4*ARRAYLENGTH(server));
+					WFIFOHEAD(fd,10 +4*ARRAYLENGTH(server[x].map));
 					WFIFOW(fd,0) = 0x2b04;
 					WFIFOL(fd,4) = htonl(server[x].ip);
 					WFIFOW(fd,8) = htons(server[x].port);
 					j = 0;
-					for(i = 0; i < ARRAYLENGTH(server); i++)
+					for(i = 0; i < ARRAYLENGTH(server[x].map); i++)
 						if (server[x].map[i])
 							WFIFOW(fd,10+(j++)*4) = server[x].map[i];
 					if (j > 0) {
@@ -3306,7 +3306,7 @@ int parse_frommap(int fd)
 		break;
 
 		case 0x2b05: // request "change map server"
-			if (RFIFOREST(fd) < 35)
+			if (RFIFOREST(fd) < 39)
 				return 0;
 		{
 			int map_id, map_fd = -1;
@@ -3344,8 +3344,10 @@ int parse_frommap(int fd)
 				node->login_id1 = RFIFOL(fd,6);
 				node->login_id2 = RFIFOL(fd,10);
 				node->sex = RFIFOB(fd,30);
-				node->expiration_time = 0; // FIXME
+				node->expiration_time = 0; // FIXME (or maybe PURGEME? [mrj]
 				node->ip = ntohl(RFIFOL(fd,31));
+				node->gmlevel = RFIFOL(fd,35);
+				node->changing_mapservers = 1;
 				idb_put(auth_db, RFIFOL(fd,2), node);
 
 				data = (struct online_char_data*)idb_ensure(online_char_db, RFIFOL(fd,2), create_online_char_data);
@@ -3364,7 +3366,7 @@ int parse_frommap(int fd)
 				WFIFOL(fd,6) = 0; //Set login1 to 0.
 				WFIFOSET(fd,30);
 			}
-			RFIFOSKIP(fd,35);
+			RFIFOSKIP(fd,39);
 		}
 		break;
 
@@ -3727,15 +3729,16 @@ int parse_frommap(int fd)
 			{// auth ok
 				cd->sex = sex;
 
-				WFIFOHEAD(fd,24 + sizeof(struct mmo_charstatus));
+				WFIFOHEAD(fd,25 + sizeof(struct mmo_charstatus));
 				WFIFOW(fd,0) = 0x2afd;
-				WFIFOW(fd,2) = 24 + sizeof(struct mmo_charstatus);
+				WFIFOW(fd,2) = 25 + sizeof(struct mmo_charstatus);
 				WFIFOL(fd,4) = account_id;
 				WFIFOL(fd,8) = node->login_id1;
 				WFIFOL(fd,12) = node->login_id2;
 				WFIFOL(fd,16) = (uint32)node->expiration_time; // FIXME: will wrap to negative after "19-Jan-2038, 03:14:07 AM GMT"
 				WFIFOL(fd,20) = node->gmlevel;
-				memcpy(WFIFOP(fd,24), cd, sizeof(struct mmo_charstatus));
+				WFIFOB(fd,24) = node->changing_mapservers;
+				memcpy(WFIFOP(fd,25), cd, sizeof(struct mmo_charstatus));
 				WFIFOSET(fd, WFIFOW(fd,2));
 
 				// only use the auth once and mark user online
@@ -3937,7 +3940,6 @@ static void char_delete2_req(int fd, struct char_session_data* sd)
 		return;
 	}
 */
-
 	// success
 	delete_date = time(NULL)+char_del_delay;
 

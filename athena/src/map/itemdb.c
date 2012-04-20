@@ -3,6 +3,7 @@
 
 #include "../common/nullpo.h"
 #include "../common/malloc.h"
+#include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/strlib.h"
 #include "itemdb.h"
@@ -144,7 +145,7 @@ int itemdb_searchrandomid(int group)
 		return UNKNOWN_ITEM_ID;
 	}
 	if (itemgroup_db[group].qty)
-		return itemgroup_db[group].nameid[rand()%itemgroup_db[group].qty];
+		return itemgroup_db[group].nameid[rnd()%itemgroup_db[group].qty];
 	
 	ShowError("itemdb_searchrandomid: No item entries for group id %d\n", group);
 	return UNKNOWN_ITEM_ID;
@@ -438,6 +439,15 @@ int itemdb_canmemberstore_sub(struct item_data* item, int gmlv, int unused)
 	return (item && (!(item->flag.trade_restriction&128) || gmlv >= item->gm_lv_trade_override));
 }
 
+int itemdb_canmail_sub(struct item_data* item, int gmlv, int unused)
+{
+	return (item && (!(item->flag.trade_restriction&256) || gmlv >= item->gm_lv_trade_override));
+}
+int itemdb_canauction_sub(struct item_data* item, int gmlv, int unused)
+{
+	return (item && (!(item->flag.trade_restriction&512) || gmlv >= item->gm_lv_trade_override));
+}
+
 int itemdb_isrestricted(struct item* item, int gmlv, int gmlv2, int (*func)(struct item_data*, int, int))
 {
 	struct item_data* item_data = itemdb_search(item->nameid);
@@ -621,7 +631,7 @@ static bool itemdb_read_itemtrade(char* str[], int columns, int current)
 	flag = atoi(str[1]);
 	gmlv = atoi(str[2]);
 
-	if( flag < 0 || flag >= 256 )
+	if( flag < 0 || flag >= 1024 )
 	{//Check range
 		ShowWarning("itemdb_read_itemtrade: Invalid trading mask %d for item id %d.\n", flag, nameid);
 		return false;

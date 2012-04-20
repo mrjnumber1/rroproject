@@ -8,7 +8,7 @@
 #include "../common/malloc.h"
 #include "../common/socket.h" // WFIFO*()
 #include "../common/showmsg.h"
-#include "../common/version.h"
+#include "../common/random.h"
 #include "../common/nullpo.h"
 #include "../common/strlib.h"
 #include "../common/utils.h"
@@ -1257,7 +1257,7 @@ int map_searchrandfreecell(int m,int *x,int *y,int stack)
 		for(j=-1;j<=1;j++){
 			if(j+*x<0 || j+*x>=map[m].xs)
 				continue;
-			if(map_getcell(m,j+*x,i+*y,CELL_CHKNOPASS))
+			if(map_getcell(m,j+*x,i+*y,CELL_CHKNOPASS)  && !map_getcell(m,j+*x,i+*y,CELL_CHKICEWALL))
 				continue;
 			//Avoid item stacking to prevent against exploits. [Skotlex]
 			if(stack && map_count_oncell(m,j+*x,i+*y, BL_ITEM) > stack)
@@ -1268,7 +1268,7 @@ int map_searchrandfreecell(int m,int *x,int *y,int stack)
 	}
 	if(free_cell==0)
 		return 0;
-	free_cell = rand()%free_cell;
+	free_cell = rnd()%free_cell;
 	*x = free_cells[free_cell][0];
 	*y = free_cells[free_cell][1];
 	return 1;
@@ -1329,8 +1329,8 @@ int map_search_freecell(struct block_list *src, int m, short *x,short *y, int rx
 	}
 	
 	while(tries--) {
-		*x = (rx >= 0)?(rand()%rx2-rx+bx):(rand()%(map[m].xs-2)+1);
-		*y = (ry >= 0)?(rand()%ry2-ry+by):(rand()%(map[m].ys-2)+1);
+		*x = (rx >= 0)?(rnd()%rx2-rx+bx):(rnd()%(map[m].xs-2)+1);
+		*y = (ry >= 0)?(rnd()%ry2-ry+by):(rnd()%(map[m].ys-2)+1);
 		
 		if (*x == bx && *y == by)
 			continue; //Avoid picking the same target tile.
@@ -1371,7 +1371,7 @@ int map_addflooritem(struct item *item_data,int amount,int m,int x,int y,int fir
 
 	if(!map_searchrandfreecell(m,&x,&y,flags&2?1:0))
 		return 0;
-	r=rand();
+	r=rnd();
 
 	CREATE(fitem, struct flooritem_data, 1);
 	fitem->bl.type=BL_ITEM;
@@ -2362,8 +2362,8 @@ int map_random_dir(struct block_list *bl, short *x, short *y)
 	if (dist < 1) dist =1;
 	
 	do {
-		j = 1 + 2*(rand()%4); //Pick a random diagonal direction
-		segment = 1+(rand()%dist); //Pick a random interval from the whole vector in that direction
+		j = 1 + 2*(rnd()%4); //Pick a random diagonal direction
+		segment = 1+(rnd()%dist); //Pick a random interval from the whole vector in that direction
 		xi = bl->x + segment*dirx[j];
 		segment = (short)sqrt((float)(dist2 - segment*segment)); //The complement of the previously picked segment
 		yi = bl->y + segment*diry[j];
@@ -2459,6 +2459,8 @@ int map_getcellp(struct map_data* m,int x,int y,cell_chk cellchk)
 			return (cell.novending);
 		case CELL_CHKNOCHAT:
 			return (cell.nochat);
+		case CELL_CHKICEWALL:
+			return (cell.icewall);
 
 		// special checks
 		case CELL_CHKPASS:
@@ -2511,6 +2513,7 @@ void map_setcell(int m, int x, int y, cell_t cell, bool flag)
 		case CELL_LANDPROTECTOR: map[m].cell[j].landprotector = flag; break;
 		case CELL_NOVENDING:     map[m].cell[j].novending = flag;     break;
 		case CELL_NOCHAT:        map[m].cell[j].nochat = flag;        break;
+		case CELL_ICEWALL:       map[m].cell[j].icewall = flag;       break;
 		default:
 			ShowWarning("map_setcell: invalid cell type '%d'\n", (int)cell);
 			break;
@@ -2603,15 +2606,14 @@ void map_iwall_get(struct map_session_data *sd)
 {
 	struct iwall_data *iwall;
 	DBIterator* iter;
-	DBKey key;
 	int x1, y1;
 	int i;
 
 	if( map[sd->bl.m].iwall_num < 1 )
 		return;
 
-	iter = iwall_db->iterator(iwall_db);
-	for( iwall = (struct iwall_data *)iter->first(iter,&key); iter->exists(iter); iwall = (struct iwall_data *)iter->next(iter,&key) )
+	iter = db_iterator(iwall_db);
+	for( iwall = (struct iwall_data*)dbi_first(iter); dbi_exists(iter); iwall = (struct iwall_data*)dbi_next(iter) )
 	{
 		if( iwall->m != sd->bl.m )
 			continue;
@@ -3527,6 +3529,8 @@ void do_final(void)
 		if(map[i].block) aFree(map[i].block);
 		if(map[i].block_mob) aFree(map[i].block_mob);
 		if(battle_config.dynamic_mobs) { //Dynamic mobs flag by [random]
+			if(map[i].mob_delete_timer != INVALID_TIMER)
+				delete_timer(map[i].mob_delete_timer, map_removemobs_timer);
 			for (j=0; j<MAX_MOB_LIST_PER_MAP; j++)
 				if (map[i].moblist[j]) aFree(map[i].moblist[j]);
 		}
@@ -3611,12 +3615,10 @@ static void map_helpscreen(bool do_exit)
  *------------------------------------------------------*/
 static void map_versionscreen(bool do_exit)
 {
-	ShowInfo(CL_WHITE"eAthena version %d.%02d.%02d, Athena Mod version %d" CL_RESET"\n", ATHENA_MAJOR_VERSION, ATHENA_MINOR_VERSION, ATHENA_REVISION, ATHENA_MOD_VERSION);
-	ShowInfo(CL_GREEN"Website/Forum:"CL_RESET"\thttp://eathena.ws/\n");
-	ShowInfo(CL_GREEN"IRC Channel:"CL_RESET"\tirc://irc.deltaanime.net/#athena\n");
-	ShowInfo("Open "CL_WHITE"readme.html"CL_RESET" for more information.\n");
-	if(ATHENA_RELEASE_FLAG)
-		ShowNotice("This version is not for release.\n");
+	ShowInfo(CL_WHITE"karmaRO ea version %s"CL_RESET"\n", get_svn_revision());
+	ShowInfo(CL_GREEN"Website/Forum:"CL_RESET"\thttp://karmaro.net/\n");
+	ShowInfo(CL_GREEN"IRC Channel:"CL_RESET"\tirc://irc.darkmyst.org/#karmaro\n");
+
 	if( do_exit )
 		exit(EXIT_SUCCESS);
 }
@@ -3679,7 +3681,7 @@ int do_init(int argc, char *argv[])
 	MSG_CONF_NAME = "conf/msg_athena.conf";
 	GRF_PATH_FILENAME = "conf/grf-files.txt";
 
-	srand(gettick());
+	rnd_init();
 
 	for( i = 1; i < argc ; i++ )
 	{

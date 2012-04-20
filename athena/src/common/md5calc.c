@@ -5,7 +5,7 @@
  * http://www.geocities.co.jp/SiliconValley-Oakland/8878/lab17/lab17.html
  *
  ***********************************************************/
-
+#include "random.h"
 #include "md5calc.h"
 #include <string.h>
 #include <stdio.h>
@@ -234,6 +234,6 @@ void MD5_Salt(unsigned int len, char * output)
 {
 	unsigned int i;
 	for( i = 0; i < len; ++i )
-		output[i] = (char)(1 + rand() % 255);
+		output[i] = (char)(1 + rnd() % 255);
 
 }

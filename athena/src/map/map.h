@@ -402,6 +402,7 @@ typedef enum {
 	CELL_LANDPROTECTOR,
 	CELL_NOVENDING,
 	CELL_NOCHAT,
+	CELL_ICEWALL,
 } cell_t;
 
 // used by map_getcell()
@@ -423,6 +424,7 @@ typedef enum {
 	CELL_CHKLANDPROTECTOR,
 	CELL_CHKNOVENDING,
 	CELL_CHKNOCHAT,
+	CELL_CHKICEWALL,
 } cell_chk;
 
 struct mapcell
@@ -439,7 +441,8 @@ struct mapcell
 		basilica : 1,
 		landprotector : 1,
 		novending : 1,
-		nochat : 1;
+		nochat : 1,
+		icewall : 1;
 
 #ifdef CELL_NOSTACK
 	unsigned char cell_bl; //Holds amount of bls in this cell.
@@ -523,7 +526,7 @@ struct map_data {
 		unsigned woe_set :1;
 		unsigned bg_active :1;
 		unsigned nonlr_accessible :1;
-		unsigned mob_count_rate : 10; // Added mob_count_rate map flag [Valaris for KarmaRO]
+		unsigned mob_count_rate : 5; // Added mob_count_rate map flag [Valaris for KarmaRO]
 	} flag;
 	struct point save;
 	struct npc_data *npc[MAX_NPC_PER_MAP];
@@ -539,6 +542,7 @@ struct map_data {
 	int jexp;	// map experience multiplicator
 	int bexp;	// map experience multiplicator
 	int nocommand; //Blocks @/# commands for non-gms. [Skotlex]
+	int icewall_num;
 	// Instance Variables
 	int instance_id;
 	int instance_src_map;

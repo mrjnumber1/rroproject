@@ -6,7 +6,7 @@
 #include "../common/timer.h"
 #include "../common/grfio.h"
 #include "../common/malloc.h"
-#include "../common/version.h"
+#include "../common/random.h"
 #include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/strlib.h"
@@ -309,7 +309,7 @@ static inline unsigned char clif_bl_type(struct block_list *bl) {
 	case BL_SKILL: return 0x3; //SKILL_TYPE
 	case BL_CHAT:  return 0x4; //UNKNOWN_TYPE
 	case BL_MOB:   return pcdb_checkid(status_get_viewdata(bl)->class_)?0x0:0x5; //NPC_MOB_TYPE
-	case BL_NPC:   return 0x6; //NPC_EVT_TYPE
+	case BL_NPC:   return pcdb_checkid(status_get_viewdata(bl)->class_)?0x0:0x6; //NPC_EVT_TYPE
 	case BL_PET:   return pcdb_checkid(status_get_viewdata(bl)->class_)?0x0:0x7; //NPC_PET_TYPE
 	case BL_HOM:   return 0x8; //NPC_HOM_TYPE
 	case BL_MER:   return 0x9; //NPC_MERSOL_TYPE
@@ -2034,7 +2034,7 @@ static void clif_addcards(unsigned char* buf, struct item* item)
 	}
 	//Client only receives four cards.. so randomly send them a set of cards. [Skotlex]
 	if( MAX_SLOTS > 4 && (j = itemdb_slot(item->nameid)) > 4 )
-		i = rand()%(j-3); //eg: 6 slots, possible i values: 0->3, 1->4, 2->5 => i = rand()%3;
+		i = rnd()%(j-3); //eg: 6 slots, possible i values: 0->3, 1->4, 2->5 => i = rnd()%3;
 
 	//Normal items.
 	if( item->card[i] > 0 && (j=itemdb_viewid(item->card[i])) > 0 )
@@ -2234,8 +2234,8 @@ void clif_inventorylist(struct map_session_data *sd)
 	const int se = 28;
 #endif
 
-	buf = (unsigned char*)aMallocA(MAX_INVENTORY * s + 4);
-	bufe = (unsigned char*)aMallocA(MAX_INVENTORY * se + 4);
+	buf = (unsigned char*)aMalloc(MAX_INVENTORY * s + 4);
+	bufe = (unsigned char*)aMalloc(MAX_INVENTORY * se + 4);
 	
 	for( i = 0, n = 0, ne = 0; i < MAX_INVENTORY; i++ )
 	{
@@ -2374,8 +2374,8 @@ void clif_storagelist(struct map_session_data* sd, struct item* items, int items
 	const int cmd = 28;
 #endif
 
-	buf = (unsigned char*)aMallocA(items_length * s + 4);
-	bufe = (unsigned char*)aMallocA(items_length * cmd + 4);
+	buf = (unsigned char*)aMalloc(items_length * s + 4);
+	bufe = (unsigned char*)aMalloc(items_length * cmd + 4);
 
 	for( i = 0, n = 0, ne = 0; i < items_length; i++ )
 	{
@@ -2454,8 +2454,8 @@ void clif_cartlist(struct map_session_data *sd)
 	const int cmd = 28;
 #endif
 
-	buf = (unsigned char*)aMallocA(MAX_CART * s + 4);
-	bufe = (unsigned char*)aMallocA(MAX_CART * cmd + 4);
+	buf = (unsigned char*)aMalloc(MAX_CART * s + 4);
+	bufe = (unsigned char*)aMalloc(MAX_CART * cmd + 4);
 	
 	for( i = 0, n = 0, ne = 0; i < MAX_CART; i++ )
 	{
@@ -3950,8 +3950,8 @@ int clif_damage(struct block_list* src, struct block_list* dst, unsigned int tic
 	sc = status_get_sc(dst);
 	if(sc && sc->count) {
 		if(sc->data[SC_HALLUCINATION]) {
-			if(damage) damage = damage*(sc->data[SC_HALLUCINATION]->val2) + rand()%100;
-			if(damage2) damage2 = damage2*(sc->data[SC_HALLUCINATION]->val2) + rand()%100;
+			if(damage) damage = damage*(sc->data[SC_HALLUCINATION]->val2) + rnd()%100;
+			if(damage2) damage2 = damage2*(sc->data[SC_HALLUCINATION]->val2) + rnd()%100;
 		}
 	}
 
@@ -4382,6 +4382,8 @@ void clif_skillinfoblock(struct map_session_data *sd)
 	{
 		if( (id = sd->status.skill[i].id) != 0 )
 		{
+			if (len+37 > 8192)
+				break;
 			WFIFOW(fd,len)   = id;
 			WFIFOL(fd,len+2) = skill_get_inf(id);
 			WFIFOW(fd,len+6) = sd->status.skill[i].lv;
@@ -4397,6 +4399,15 @@ void clif_skillinfoblock(struct map_session_data *sd)
 	}
 	WFIFOW(fd,2)=len;
 	WFIFOSET(fd,len);
+
+	for (; i < MAX_SKILL; ++i)
+	{
+		if ( (id = sd->status.skill[i].id) != 0)
+		{
+			clif_addskill(sd, id);
+			clif_skillinfo(sd, id, 0);
+		}
+	}
 }
 
 void clif_addskill(struct map_session_data *sd, int id )
@@ -4643,7 +4654,7 @@ int clif_skill_damage(struct block_list *src,struct block_list *dst,unsigned int
 	sc = status_get_sc(dst);
 	if(sc && sc->count) {
 		if(sc->data[SC_HALLUCINATION] && damage)
-			damage = damage*(sc->data[SC_HALLUCINATION]->val2) + rand()%100;
+			damage = damage*(sc->data[SC_HALLUCINATION]->val2) + rnd()%100;
 	}
 
 	/* Stats */
@@ -4753,7 +4764,7 @@ int clif_skill_damage2(struct block_list *src,struct block_list *dst,unsigned in
 
 	if(sc && sc->count) {
 		if(sc->data[SC_HALLUCINATION] && damage)
-			damage = damage*(sc->data[SC_HALLUCINATION]->val2) + rand()%100;
+			damage = damage*(sc->data[SC_HALLUCINATION]->val2) + rnd()%100;
 	}
 
 	WBUFW(buf,0)=0x115;
@@ -5139,16 +5150,28 @@ void clif_displaymessage(const int fd, const char* mes)
 	//Scrapped, as these are shared by disconnected players =X [Skotlex]
 	if (fd == 0)
 		;
-	else {
-		int len_mes = strlen(mes);
+	else 
+	{
+		char *message, *line;
 
-		if (len_mes > 0) { // don't send a void message (it's not displaying on the client chat). @help can send void line.
-			WFIFOHEAD(fd, 5 + len_mes);
-			WFIFOW(fd,0) = 0x8e;
-			WFIFOW(fd,2) = 5 + len_mes; // 4 + len + NULL teminate
-			memcpy(WFIFOP(fd,4), mes, len_mes + 1);
-			WFIFOSET(fd, 5 + len_mes);
+		message = aStrdup(mes);
+		line = strtok(message, "\n");
+		while (line != NULL)
+		{
+			int len = strlen(line);
+			if (len > 0)
+			{
+				WFIFOHEAD(fd, 5 + len);
+				WFIFOW(fd, 0) = 0x8e;
+				WFIFOW(fd, 2) = 5 + len; // 4 + len + NULL terminate
+				memcpy(WFIFOP(fd, 4), line, len+1);
+				WFIFOSET(fd, 5 + len);
+			}
+			line = strtok(NULL, "\n");
 		}
+
+		aFree(message);
+	
 	}
 }
 
@@ -5160,7 +5183,7 @@ void clif_displaymessage(const int fd, const char* mes)
 void clif_broadcast(struct block_list* bl, const char* mes, int len, int type, enum send_target target)
 {
 	int            lp  = type ? 4 : 0;
-	unsigned char *buf = (unsigned char*)aMallocA((4 + lp + len)*sizeof(unsigned char));
+	unsigned char *buf = (unsigned char*)aMalloc((4 + lp + len)*sizeof(unsigned char));
 
 	WBUFW(buf,0) = 0x9a;
 	WBUFW(buf,2) = 4 + lp + len;
@@ -5232,13 +5255,13 @@ void clif_GlobalMessage(struct block_list* bl, const char* message)
 void clif_MainChatMessage(const char* message)
 {
     uint8 *buf;
-    unsigned long color = 0xD0D0E0; // greyish
+    unsigned long color = 0xEE55FF; // pinkish
     int len;
 
     nullpo_retv(message);
 
     len = 12 + strlen(message) + 1;
-    buf = (uint8*)aMallocA(len*sizeof(uint8));
+    buf = (uint8*)aMalloc(len*sizeof(uint8));
     
     WBUFW(buf,0) = 0x2c1; // HEADER_ZC_NPC_CHAT
     WBUFW(buf,2) = len;
@@ -5253,6 +5276,29 @@ void clif_MainChatMessage(const char* message)
     if (buf)
         aFree(buf);
 }
+//mrj
+void clif_coloredMessage(struct block_list* bl, const char* message, unsigned long color, enum send_target target)
+{
+	unsigned short len = strlen(message) + 1;
+	uint8 buf[CHAT_SIZE_MAX];
+	color = (color & 0x0000FF) << 16 | (color & 0x00FF00) | (color & 0xFF0000) >> 16; // RGB to BGR
+
+	nullpo_retv(bl);
+
+	if( len > sizeof(buf)-12 )
+	{
+		ShowWarning("clif_coloredMessage: Truncating too long message '%s' (len=%u).\n", message, len);
+		len = sizeof(buf)-12;
+	}
+
+	WBUFW(buf,0) = 0x2c1;
+	WBUFW(buf,2) = len + 12;
+	WBUFL(buf,4) = 0;
+	WBUFL(buf,8) = color;
+	memcpy(WBUFP(buf,12), message, len);
+
+	clif_send(buf, WBUFW(buf,2), bl, target);
+}
 
 /*==========================================
  * Send broadcast message with font formatting.
@@ -5260,7 +5306,7 @@ void clif_MainChatMessage(const char* message)
  *------------------------------------------*/
 void clif_broadcast2(struct block_list* bl, const char* mes, int len, unsigned long fontColor, short fontType, short fontSize, short fontAlign, short fontY, enum send_target target)
 {
-	unsigned char *buf = (unsigned char*)aMallocA((16 + len)*sizeof(unsigned char));
+	unsigned char *buf = (unsigned char*)aMalloc((16 + len)*sizeof(unsigned char));
 
 	WBUFW(buf,0)  = 0x1c3;
 	WBUFW(buf,2)  = len + 16;
@@ -9071,6 +9117,12 @@ void clif_parse_LoadEndAck(int fd,struct map_session_data *sd)
 			clif_broadcast(&sd->bl, output, strlen(output) + 1, 0x10, SELF);
 		}
 
+		if(map[sd->bl.m].flag.loadevent) 
+		{// Lance
+			npc_script_event(sd, NPCE_LOADMAP);
+			mission_announce_loadevent(sd, sd->bl.m);
+		}
+
 		map_iwall_get(sd); // Updates Walls Info on this Map to Client
 		sd->state.changemap = false;
 	}
@@ -9079,8 +9131,7 @@ void clif_parse_LoadEndAck(int fd,struct map_session_data *sd)
 	mail_clear(sd);
 #endif
 
-	if(map[sd->bl.m].flag.loadevent) // Lance
-		npc_script_event(sd, NPCE_LOADMAP);
+	
 
 	if (pc_checkskill(sd, SG_DEVIL) && !pc_nextjobexp(sd))
 		clif_status_load(&sd->bl, SI_DEVIL, 1);  //blindness [Komurka]
@@ -9435,7 +9486,7 @@ void clif_parse_Emotion(int fd, struct map_session_data *sd)
 
 		if(battle_config.client_reshuffle_dice && emoticon>=E_DICE1 && emoticon<=E_DICE6)
 		{// re-roll dice
-			emoticon = rand()%6+E_DICE1;
+			emoticon = rnd()%6+E_DICE1;
 		}
 
 		clif_emotion(&sd->bl, emoticon);
@@ -10646,7 +10697,8 @@ void clif_parse_ProduceMix(int fd,struct map_session_data *sd)
 		sd->menuskill_val = sd->menuskill_id = 0;
 		return;
 	}
-	skill_produce_mix(sd,0,RFIFOW(fd,2),RFIFOW(fd,4),RFIFOW(fd,6),RFIFOW(fd,8), 1);
+	if( skill_can_produce_mix(sd,RFIFOW(fd,2),sd->menuskill_val, 1) )
+		skill_produce_mix(sd,0,RFIFOW(fd,2),RFIFOW(fd,4),RFIFOW(fd,6),RFIFOW(fd,8), 1);
 	sd->menuskill_val = sd->menuskill_id = 0;
 }
 /*==========================================
@@ -10668,7 +10720,8 @@ void clif_parse_Cooking(int fd,struct map_session_data *sd)
 		sd->menuskill_val = sd->menuskill_id = 0;
 		return;
 	}
-	skill_produce_mix(sd,0,nameid,0,0,0,1);
+	if( skill_can_produce_mix(sd,nameid,sd->menuskill_val, 1) )
+		skill_produce_mix(sd,0,nameid,0,0,0,1);
 	sd->menuskill_val = sd->menuskill_id = 0;
 }
 /*==========================================
@@ -12525,13 +12578,16 @@ void clif_parse_FriendsListAdd(int fd, struct map_session_data *sd)
 	struct map_session_data *f_sd;
 	int i, f_fd;
 
+	nullpo_retv(sd);
+	
 	f_sd = map_nick2sd((char*)RFIFOP(fd,2));
-
+	
 	// Friend doesn't exist (no player with this name)
-	if (f_sd == NULL) {
+	if (f_sd == NULL) 
+	{
 		clif_displaymessage(fd, msg_txt(3));
 		return;
-	}
+	}	
 
 	if( sd->bl.id == f_sd->bl.id )
 	{// adding oneself as friend
@@ -12539,24 +12595,32 @@ void clif_parse_FriendsListAdd(int fd, struct map_session_data *sd)
 	}
 
 	// @noask [LuzZza]
-	if(f_sd->state.noask) {
+	if(f_sd->state.noask) 
+	{
 		clif_noask_sub(sd, f_sd, 5);
+		return;
+	}
+	
+	
+	ARR_FIND(0, MAX_FRIENDS, i, sd->status.friends[i].char_id == 0);
+	
+	if (i==MAX_FRIENDS)
+	{
+		clif_friendslist_reqack(sd, f_sd, 2);
 		return;
 	}
 
 	// Friend already exists
-	for (i = 0; i < MAX_FRIENDS && sd->status.friends[i].char_id != 0; i++) {
-		if (sd->status.friends[i].char_id == f_sd->status.char_id) {
+	for (i = 0; i < MAX_FRIENDS && sd->status.friends[i].char_id != 0; i++) 
+	{
+		if (sd->status.friends[i].char_id == f_sd->status.char_id) 
+		{
 			clif_displaymessage(fd, "Friend already exists.");
 			return;
 		}
 	}
 
-	if (i == MAX_FRIENDS) {
-		//No space, list full.
-		clif_friendslist_reqack(sd, f_sd, 2);
-		return;
-	}
+	
 	f_sd->friend_req = sd->status.char_id;
 	sd->friend_req   = f_sd->status.char_id;
 
@@ -13325,8 +13389,11 @@ void clif_parse_Mail_getattach(int fd, struct map_session_data *sd)
 	if( sd->mail.inbox.msg[i].zeny < 1 && (sd->mail.inbox.msg[i].item.nameid < 1 || sd->mail.inbox.msg[i].item.amount < 1) )
 		return;
 
-	if( ( sd->mail.inbox.msg[i].zeny + sd->mail.inbox.msg[i].zeny ) > MAX_ZENY )
+	if( sd->mail.inbox.msg[i].zeny + sd->mail.inbox.msg[i].zeny  > MAX_ZENY )
+	{
+		clif_Mail_getattachment(fd, i);
 		return;
+	}
 	
 	if( sd->mail.inbox.msg[i].item.nameid > 0 )
 	{
@@ -13638,7 +13705,8 @@ void clif_parse_Auction_setitem(int fd, struct map_session_data *sd)
 		clif_Auction_setitem(sd->fd, idx, true);
 		return;
 	}
-	if( !pc_candrop(sd, &sd->status.inventory[idx]) || !sd->status.inventory[idx].identify )
+	if( !pc_candrop(sd, &sd->status.inventory[idx]) || !sd->status.inventory[idx].identify
+		|| !itemdb_canauction(&sd->status.inventory[idx],pc_isGM(sd)) )
 	{ // Quest Item or something else
 		clif_Auction_setitem(sd->fd, idx, true);
 		return;
@@ -13803,6 +13871,8 @@ void clif_parse_Auction_bid(int fd, struct map_session_data *sd)
 		clif_Auction_message(fd, 0); // You have failed to bid into the auction
 	else if( bid > sd->status.zeny )
 		clif_Auction_message(fd, 8); // You do not have enough zeny
+	else if (CheckForCharServer() )
+		clif_Auction_message(fd, 0); // you have failed to bid in the auction
 	else
 	{
 		pc_payzeny(sd, bid);
@@ -14009,7 +14079,9 @@ void clif_parse_cashshop_buy(int fd, struct map_session_data *sd)
     int fail = 0;
 	struct npc_data *nd;
 
-	if( (nd = (struct npc_data *)map_id2bl(sd->npc_shopid)) == NULL)
+	nullpo_retv(sd);
+
+	if( (nd = (struct npc_data *)map_id2bl(sd->npc_shopid)) == NULL )
 		return;
 
     if( sd->state.trading || !sd->npc_shopid )
@@ -14354,7 +14426,7 @@ void clif_mercenary_updatestatus(struct map_session_data *sd, int type)
 	{
 		case SP_ATK1:
 			{
-				int atk = rand()%(status->rhw.atk2 - status->rhw.atk + 1) + status->rhw.atk;
+				int atk = rnd()%(status->rhw.atk2 - status->rhw.atk + 1) + status->rhw.atk;
 				WFIFOL(fd,4) = cap_value(atk, 0, INT16_MAX);
 			}
 			break;
@@ -14419,7 +14491,7 @@ void clif_mercenary_info(struct map_session_data *sd)
 	WFIFOL(fd,2) = md->bl.id;
 
 	// Mercenary shows ATK as a random value between ATK ~ ATK2
-	atk = rand()%(status->rhw.atk2 - status->rhw.atk + 1) + status->rhw.atk;
+	atk = rnd()%(status->rhw.atk2 - status->rhw.atk + 1) + status->rhw.atk;
 	WFIFOW(fd,6) = cap_value(atk, 0, INT16_MAX);
 	WFIFOW(fd,8) = cap_value(status->matk_max, 0, INT16_MAX);
 	WFIFOW(fd,10) = status->hit;
@@ -14891,7 +14963,7 @@ void clif_bg_message(struct battleground_data *bg, int src_id, const char *name,
 	if( (sd = bg_getavailablesd(bg)) == NULL )
 		return;
 
-	buf = (unsigned char*)aMallocA((len + NAME_LENGTH + 8)*sizeof(unsigned char));
+	buf = (unsigned char*)aMalloc((len + NAME_LENGTH + 8)*sizeof(unsigned char));
 
 	WBUFW(buf,0) = 0x2dc;
 	WBUFW(buf,2) = len + NAME_LENGTH + 8;

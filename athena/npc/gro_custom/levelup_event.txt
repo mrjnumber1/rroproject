@@ -1,6 +1,6 @@
 
 
-prontera,0,0,0	script	levelupevents	-1,{
+-	script	levelupevents	-1,{
 // First Job
 	// 1x Field Manual 25% (14532)
 	// 1x Job Manual 25% (14606)
@@ -59,7 +59,7 @@ OnPCJobLvUpEvent:
 	if ( islowratechar() == 0)
 		end;
 
-	if (JobLevel == 50 && Upper == 0 && Class != Job_Gunslinger && Class != Job_Ninja && Class != Job_SuperNovice)
+	if (JobLevel == 50 && Upper == 0 && Class >= Job_Knight && Class != Job_Gunslinger && Class != Job_Ninja && Class != Job_SuperNovice)
 	{
 		message strcharinfo(0), "Congratulations on reaching Job Level 50! Now get to 99!";
 		getitem 12411, 1; // 1 field Manual 200%

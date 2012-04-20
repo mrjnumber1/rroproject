@@ -246,10 +246,10 @@ ActuallyImplemented:
 		"Byalan Tunnel",byalan,
 		"Clock Tower",clock,
 		"Comodo Caves",beach,
-		"Dimensonal Gorge",dimen,
+		//"Dimensonal Gorge",dimen,
 		"Einbech Mine",weindun,
 		"Gefenia",gefenia,
-		"Geffen Dungeon",geffen,
+		"Geffen Dungeon",dgeffenw,
 		"Glast Heim",glast,
 		"Gonryun Shrine",gon,
 		"Ice Cave",iced,
@@ -1167,7 +1167,7 @@ ActuallyImplemented:
 			goto LWarpEnd;
 
 	LWarpEnd:
-		warp @warp_map$, @warp_x+rand(3), @warp_y+rand(3);
+		warp @warp_map$, @warp_x, @warp_y;
 		end;
 		
 		
@@ -1613,7 +1613,7 @@ ActuallyImplemented:
 		"Level 3",dculvert3,
 		"Level 4",dculvert4;
 
-	geffen:
+	dgeffenw:
 
 	mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
 	next;

@@ -1,10 +1,10 @@
 -	script	f_healer	-1,{
 
-	set .@isbg, ( substr(strcharinfo(3), 3, 7) == "g_cas");
+	set .@isbg, ( getmapflag(strcharinfo(3), mf_battleground) );
 	if(islowratechar() == 1 && !.isbg )
 		goto OnClick;
 OnTouch:
-	set .@isbg, ( substr(strcharinfo(3), 3, 7) == "g_cas");
+	set .@isbg, ( getmapflag(strcharinfo(3), mf_battleground) );
 	if(islowratechar() == 1 && !.isbg )
 		end;
 		

@@ -406,7 +406,7 @@ void* grfio_reads(const char* fname, int* size)
 			fseek(in,0,SEEK_END);
 			declen = ftell(in);
 			fseek(in,0,SEEK_SET);
-			buf2 = (unsigned char *)aMallocA(declen+1);  // +1 for resnametable zero-termination
+			buf2 = (unsigned char *)aMalloc(declen+1);  // +1 for resnametable zero-termination
 			fread(buf2, 1, declen, in);
 			fclose(in);
 
@@ -430,12 +430,12 @@ void* grfio_reads(const char* fname, int* size)
 		FILE* in = fopen(grfname, "rb");
 		if( in != NULL )
 		{
-			unsigned char *buf = (unsigned char *)aMallocA(entry->srclen_aligned);
+			unsigned char *buf = (unsigned char *)aMalloc(entry->srclen_aligned);
 			fseek(in, entry->srcpos, 0);
 			fread(buf, 1, entry->srclen_aligned, in);
 			fclose(in);
 
-			buf2 = (unsigned char *)aMallocA(entry->declen+1);  // +1 for resnametable zero-termination
+			buf2 = (unsigned char *)aMalloc(entry->declen+1);  // +1 for resnametable zero-termination
 			if( entry->type & FILELIST_TYPE_FILE )
 			{// file
 				uLongf len;
@@ -535,7 +535,7 @@ static int grfio_entryread(const char* grfname, int gentry)
 	if( grf_version == 0x01 )
 	{// ****** Grf version 01xx ******
 		list_size = grf_size - ftell(fp);
-		grf_filelist = (unsigned char *) aMallocA(list_size);
+		grf_filelist = (unsigned char *) aMalloc(list_size);
 		fread(grf_filelist,1,list_size,fp);
 		fclose(fp);
 
@@ -600,8 +600,8 @@ static int grfio_entryread(const char* grfname, int gentry)
 			return 4;
 		}
 
-		rBuf = (unsigned char *)aMallocA(rSize);	// Get a Read Size
-		grf_filelist = (unsigned char *)aMallocA(eSize);	// Get a Extend Size
+		rBuf = (unsigned char *)aMalloc(rSize);	// Get a Read Size
+		grf_filelist = (unsigned char *)aMalloc(eSize);	// Get a Extend Size
 		fread(rBuf,1,rSize,fp);
 		fclose(fp);
 		decode_zip(grf_filelist, &eSize, rBuf, rSize);	// Decode function

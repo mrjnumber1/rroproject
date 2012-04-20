@@ -39,7 +39,7 @@ static DBMap* auth_db; // int id -> struct auth_node*
 
 static const int packet_len_table[0x3d] = { // U - used, F - free
 	60, 3,-1,27,10,-1, 6,-1,	// 2af8-2aff: U->2af8, U->2af9, U->2afa, U->2afb, U->2afc, U->2afd, U->2afe, U->2aff
-	 6,-1,18, 7,-1,35,30, 10,	// 2b00-2b07: U->2b00, U->2b01, U->2b02, U->2b03, U->2b04, U->2b05, U->2b06, U->2b07
+	 6,-1,18, 7,-1,39,30, 10,	// 2b00-2b07: U->2b00, U->2b01, U->2b02, U->2b03, U->2b04, U->2b05, U->2b06, U->2b07
 	 6,30, 0, 0,86, 7,44,34,	// 2b08-2b0f: U->2b08, U->2b09, F->2b0a, F->2b0b, U->2b0c, U->2b0d, U->2b0e, U->2b0f
 	11,10,10, 0,11, 0,266,10,	// 2b10-2b17: U->2b10, U->2b11, U->2b12, F->2b13, U->2b14, F->2b15, U->2b16, U->2b17
 	 2,10, 2,-1,-1,-1, 2, 7,	// 2b18-2b1f: U->2b18, U->2b19, U->2b1a, U->2b1b, U->2b1c, U->2b1d, U->2b1e, U->2b1f
@@ -284,8 +284,7 @@ int chrif_save(struct map_session_data *sd, int flag)
 			ShowError("chrif_save: Failed to set up player %d:%d for proper quitting!\n", sd->status.account_id, sd->status.char_id);
 	}
 
-	if(!chrif_isconnected())
-		return -1; //Character is saved on reconnect.
+	chrif_check(-1); //Character is saved on reconnect.
 
 	//For data sync
 	if (sd->state.storage_flag == 2)
@@ -427,7 +426,8 @@ int chrif_changemapserver(struct map_session_data* sd, uint32 ip, uint16 port)
 	WFIFOW(char_fd,28) = htons(port);
 	WFIFOB(char_fd,30) = sd->status.sex;
 	WFIFOL(char_fd,31) = htonl(session[sd->fd]->client_addr);
-	WFIFOSET(char_fd,35);
+	WFIFOL(char_fd,35) = sd->gmlevel;
+	WFIFOSET(char_fd,39);
 	return 0;
 }
 
@@ -566,7 +566,7 @@ void chrif_authreq(struct map_session_data *sd)
 {
 	struct auth_node *node= chrif_search(sd->bl.id);
 
-	if( node != NULL )
+	if( node != NULL || !chrif_isconnected() )
 	{
 		set_eof(sd->fd);
 		return;
@@ -596,12 +596,13 @@ void chrif_authok(int fd)
 	struct mmo_charstatus* status;
 	int char_id;
 	struct auth_node *node;
+	bool changing_mapservers;
 	TBL_PC* sd;
 
 	//Check if both servers agree on the struct's size
-	if( RFIFOW(fd,2) - 24 != sizeof(struct mmo_charstatus) )
+	if( RFIFOW(fd,2) - 25 != sizeof(struct mmo_charstatus) )
 	{
-		ShowError("chrif_authok: Data size mismatch! %d != %d\n", RFIFOW(fd,2) - 24, sizeof(struct mmo_charstatus));
+		ShowError("chrif_authok: Data size mismatch! %d != %d\n", RFIFOW(fd,2) - 25, sizeof(struct mmo_charstatus));
 		return;
 	}
 
@@ -610,7 +611,8 @@ void chrif_authok(int fd)
 	login_id2 = RFIFOL(fd,12);
 	expiration_time = (time_t)(int32)RFIFOL(fd,16);
 	gmlevel = RFIFOL(fd,20);
-	status = (struct mmo_charstatus*)RFIFOP(fd,24);
+	changing_mapservers = (RFIFOB(fd,24));
+	status = (struct mmo_charstatus*)RFIFOP(fd,25);
 
 	char_id = status->char_id;
 
@@ -642,7 +644,7 @@ void chrif_authok(int fd)
 		node->char_id == char_id &&
 		node->login_id1 == login_id1 )
 	{ //Auth Ok
-		if (pc_authok(sd, login_id2, expiration_time, gmlevel, status))
+		if (pc_authok(sd, login_id2, expiration_time, gmlevel, status, changing_mapservers))
 			return;
 	} else { //Auth Failed
 		pc_authfail(sd);
@@ -708,7 +710,8 @@ int auth_db_cleanup_sub(DBKey key,void *data,va_list ap)
 
 int auth_db_cleanup(int tid, unsigned int tick, int id, intptr_t data)
 {
-	if(!chrif_isconnected()) return 0;
+	chrif_check(0);
+
 	auth_db->foreach(auth_db, auth_db_cleanup_sub);
 	return 0;
 }

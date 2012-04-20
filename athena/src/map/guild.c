@@ -186,7 +186,7 @@ struct guild* guild_searchname(char* str)
 {
 	struct guild* g;
 
-	DBIterator* iter = guild_db->iterator(guild_db);
+	DBIterator *iter = db_iterator(guild_db);
 	for( g = (struct guild*)iter->first(iter,NULL); iter->exists(iter); g = (struct guild*)iter->next(iter,NULL) )
 	{
 		if( strcmpi(g->name, str) == 0 )
@@ -208,13 +208,13 @@ struct guild_castle* guild_mapindex2gc(short mapindex)
 {
 	struct guild_castle* gc;
 
-	DBIterator* iter = castle_db->iterator(castle_db);
+	DBIterator *iter = db_iterator(castle_db);
 	for( gc = (struct guild_castle*)iter->first(iter,NULL); iter->exists(iter); gc = (struct guild_castle*)iter->next(iter,NULL) )
 	{
 		if( gc->mapindex == mapindex )
 			break;
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 
 	return gc;
 }
@@ -1794,16 +1794,13 @@ int guild_castledataloadack(int castle_id,int index,int value)
 	case 7: gc->payTime = value; break;
 	case 8: gc->createTime = value; break;
 	case 9: gc->visibleC = value; break;
-	case 10:
-	case 11:
-	case 12:
-	case 13:
-	case 14:
-	case 15:
-	case 16:
-	case 17:
-		gc->guardian[index-10].visible = value; break;
+		
 	default:
+		if (index > 9 && index <= 9+MAX_GUARDIANS)
+		{
+			gc->guardian[index-10].visible = value; 
+			break;
+		}
 		ShowError("guild_castledataloadack ERROR!! (Not found castle_id=%d index=%d)\n", castle_id, index);
 		return 0;
 	}
@@ -1864,16 +1861,11 @@ int guild_castledatasaveack(int castle_id,int index,int value)
 	case 7: gc->payTime = value; break;
 	case 8: gc->createTime = value; break;
 	case 9: gc->visibleC = value; break;
-	case 10:
-	case 11:
-	case 12:
-	case 13:
-	case 14:
-	case 15:
-	case 16:
-	case 17:
-		gc->guardian[index-10].visible = value; break;
 	default:
+		if (index > 9 && index <= 9+MAX_GUARDIANS)
+		{
+			gc->guardian[index-10].visible = value; break;
+		}
 		ShowError("guild_castledatasaveack ERROR!! (Not found index=%d)\n", index);
 		return 0;
 	}
@@ -2024,9 +2016,16 @@ bool guild_isallied(int guild_id, int guild_id2)
 	return( i < MAX_GUILDALLIANCE && g->alliance[i].opposition == 0 );
 }
 
-static int guild_infoevent_db_final(DBKey key,void *data,va_list ap)
+static int eventlist_db_final(DBKey key, void *data, va_list ap)
 {
-	aFree(data);
+	struct eventlist *next = NULL;
+	struct eventlist *current =(struct eventlist*)data;
+	while (current != NULL)
+	{
+		next = current->next;
+		aFree(current);
+		current = next;
+	}
 	return 0;
 }
 
@@ -2067,10 +2066,10 @@ void do_init_guild(void)
 
 void do_final_guild(void)
 {
-	guild_db->destroy(guild_db,NULL);
+	db_destroy(guild_db);
 	castle_db->destroy(castle_db,guild_castle_db_final);
 	guild_expcache_db->destroy(guild_expcache_db,guild_expcache_db_final);
-	guild_infoevent_db->destroy(guild_infoevent_db,guild_infoevent_db_final);
-	guild_castleinfoevent_db->destroy(guild_castleinfoevent_db,guild_infoevent_db_final);
+	guild_infoevent_db->destroy(guild_infoevent_db,eventlist_db_final);
+	guild_castleinfoevent_db->destroy(guild_castleinfoevent_db,eventlist_db_final);
 	ers_destroy(expcache_ers);
 }

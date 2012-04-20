@@ -9,6 +9,7 @@
 #include "../common/socket.h" // session[]
 #include "../common/strlib.h" // safestrncpy()
 #include "../common/timer.h"
+#include "../common/random.h"
 #include "../common/utils.h"
 #include "../common/mmo.h" //NAME_LENGTH
 
@@ -912,7 +913,7 @@ void pc_setmemberid(struct map_session_data *sd)
 #endif
 }
 
-bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_time, int gmlevel, struct mmo_charstatus *st)
+bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_time, int gmlevel, struct mmo_charstatus *st, bool changing_mapservers)
 {
 	int i;
 	unsigned long tick = gettick();
@@ -1058,18 +1059,21 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 	// Send friends list
 	clif_friendslist_send(sd);
 
-	if (battle_config.display_version == 1){
-		char buf[256];
-		sprintf(buf, "eAthena SVN version: %s", get_svn_revision());
-		clif_displaymessage(sd->fd, buf);
-	}
+	if (!changing_mapservers)
+	{
+		if (battle_config.display_version == 1){
+			char buf[128];
+			snprintf(buf, sizeof(buf), "KarmaRO SVN version: %s", get_svn_revision());
+			clif_displaymessage(sd->fd, buf);
+		}
 
-	// Message of the Day [Valaris]
-	for(i=0; motd_text[i][0] && i < MOTD_LINE_SIZE; i++) {
-		if (battle_config.motd_type)
-			clif_disp_onlyself(sd,motd_text[i],strlen(motd_text[i]));
-		else
-			clif_displaymessage(sd->fd, motd_text[i]);
+		// Message of the Day [Valaris]
+		for(i=0; motd_text[i][0] && i < MOTD_LINE_SIZE; i++) {
+			if (battle_config.motd_type)
+				clif_disp_onlyself(sd,motd_text[i],strlen(motd_text[i]));
+			else
+				clif_displaymessage(sd->fd, motd_text[i]);
+		}
 	}
 
 	// message of the limited time of the account
@@ -1089,7 +1093,8 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 
 	//pc_init_ctz(sd);
 
-	clif_changemap(sd,sd->mapindex,sd->bl.x,sd->bl.y);
+	if (!changing_mapservers)
+		clif_changemap(sd,sd->mapindex,sd->bl.x,sd->bl.y);
 
 #ifndef TXT_ONLY
 	pc_setmemberid(sd);
@@ -1191,17 +1196,20 @@ int pc_reg_received(struct map_session_data *sd)
 		snprintf(reg, NAME_LENGTH, "MD_slot%d_ID", i);
 		sd->mission[i].mission_id = pc_readglobalreg(sd, reg);
 
+		if(!sd->mission[i].mission_id)
+			continue;
+
 		for (j=0; j < MISSION_MAX_MOBS; ++j)
 		{
 			snprintf(reg, NAME_LENGTH, "MD_slot%d_mCount%d", i, j);
 			sd->mission[i].mob[j].killed = pc_readglobalreg(sd, reg);
-			sd->mission[i].mob[j].id = mission_db[sd->mission[i].mission_id].mob[j].id;
-			sd->mission[i].mob[j].goal = mission_db[sd->mission[i].mission_id].mob[j].count;
+			sd->mission[i].mob[j].id = mission_db[sd->mission[i].mission_id-1].mob[j].id;
+			sd->mission[i].mob[j].goal = mission_db[sd->mission[i].mission_id-1].mob[j].count;
 		}
 		for (j=0; j < MISSION_MAX_ITEMS; ++j)
 		{
-			sd->mission[i].item[j].id = mission_db[sd->mission[i].mission_id].item[j].id;
-			sd->mission[i].item[j].goal = mission_db[sd->mission[i].mission_id].item[j].count;
+			sd->mission[i].item[j].id = mission_db[sd->mission[i].mission_id-1].item[j].id;
+			sd->mission[i].item[j].goal = mission_db[sd->mission[i].mission_id-1].item[j].count;
 		}
 
 	}
@@ -1261,9 +1269,60 @@ int pc_reg_received(struct map_session_data *sd)
 	return 1;
 }
 
+// checks the ability to add many items at once
+bool pc_can_add_items(struct map_session_data *sd, int* items, int* counts)
+{
+	int i, nameid=-1, amount=-1, weight=0, amount2=0, slots=0;
+
+	nullpo_ret(sd);
 
 
+	slots = pc_inventoryblank(sd);
 
+	for (i = 0; i < MISSION_MAX_REWARDS; ++i)
+	{
+		if (items[i]==0 || counts[i]==0)
+			continue;
+
+		nameid = items[i];
+		amount = counts[i];
+
+
+		if ( !itemdb_exists(nameid) )
+			return false;
+		
+		if (amount < 0) //likely won't happen!
+			return false;
+
+		// if the player doesn't have enough weight
+		weight += itemdb_weight(nameid)*amount;
+		if( (weight + sd->weight) > sd->max_weight )
+			return false;
+
+		// if the player doesn't have enough inventory slots
+		switch ( pc_checkadditem(sd, nameid, amount) )
+		{
+		case ADDITEM_EXIST:
+			break;
+		case ADDITEM_NEW:
+
+			if ( itemdb_isstackable(nameid) )
+				++amount2;
+			else
+				amount2 += amount;
+
+			if (slots < amount2)
+				return false;
+			break;
+		case ADDITEM_OVERAMOUNT:
+			return false;
+			break;
+		}
+
+	}
+
+	return true;
+}
 
 // Removes invalid Cards on Items on authok
 // Send this Cards via eMail to the user
@@ -1416,7 +1475,7 @@ int pc_calc_skilltree(struct map_session_data *sd)
 
 	for( i = 0; i < MAX_SKILL; i++ )
 	{ 
-		if( sd->status.skill[i].flag != SKILL_FLAG_PLAGIARIZED ) //Don't touch plagiarized skills
+		if( sd->status.skill[i].flag != SKILL_FLAG_PLAGIARIZED && sd->status.skill[i].flag != SKILL_FLAG_PERMANENT) //Don't touch plagiarized skills
 			sd->status.skill[i].id = 0; //First clear skills.
 	}
 
@@ -2472,12 +2531,14 @@ int pc_bonus(struct map_session_data *sd,int type,int val)
 			sd->special_state.no_knockback = 1;
 		break;
 	case SP_SPLASH_RANGE:
-		if(sd->state.lr_flag != 2 && sd->splash_range < val)
+		// commented out to allow splashing on long range moves
+		//if(sd->state.lr_flag != 2 && sd->splash_range < val)
+		if(sd->splash_range < val)
 			sd->splash_range = val;
 		break;
 	case SP_SPLASH_ADD_RANGE:
-		if(sd->state.lr_flag != 2)
-			sd->splash_add_range += val;
+		//if(sd->state.lr_flag != 2)
+		sd->splash_add_range += val;
 		break;
 	case SP_SHORT_WEAPON_DAMAGE_RETURN:
 		if(sd->state.lr_flag != 2)
@@ -3532,6 +3593,13 @@ int pc_payzeny(struct map_session_data *sd,int zeny)
 	sd->status.zeny -= zeny;
 	clif_updatestatus(sd,SP_ZENY);
 
+	if (zeny > 0 && sd->state.showzeny)
+	{
+		char out[128];
+		snprintf(out, sizeof(out), "Removed %dz.", zeny);
+		clif_disp_onlyself(sd, out, strlen(out));
+	}
+
 	return 0;
 }
 /*==========================================
@@ -4433,7 +4501,7 @@ int pc_steal_item(struct map_session_data *sd,struct block_list *bl, int lv)
 	// Try dropping one item, in the order from first to last possible slot.
 	// Droprate is affected by the skill success rate.
 	for( i = 0; i < MAX_STEAL_DROP; i++ )
-		if( md->db->dropitem[i].nameid > 0 && itemdb_exists(md->db->dropitem[i].nameid) && rand() % 10000 < md->db->dropitem[i].p * rate/100. )
+		if( md->db->dropitem[i].nameid > 0 && itemdb_exists(md->db->dropitem[i].nameid) && rnd() % 10000 < md->db->dropitem[i].p * rate/100. )
 			break;
 	if( i == MAX_STEAL_DROP )
 		return 0;
@@ -4491,8 +4559,8 @@ int pc_steal_coin(struct map_session_data *sd,struct block_list *target)
 
 	skill = pc_checkskill(sd,RG_STEALCOIN)*10;
 	rate = skill + (sd->status.base_level - md->level)*3 + sd->battle_status.dex*2 + sd->battle_status.luk*2;
-	if(rand()%1000 < rate) {
-		pc_getzeny(sd,md->level*10 + rand()%100);
+	if(rnd()%1000 < rate) {
+		pc_getzeny(sd,md->level*10 + rnd()%100);
 		md->state.steal_coin_flag = 1;
 		return 1;
 	}
@@ -4612,8 +4680,8 @@ int pc_setpos(struct map_session_data* sd, unsigned short mapindex, int x, int y
 	if( x == 0 && y == 0 )
 	{// pick a random walkable cell
 		do {
-			x=rand()%(map[m].xs-2)+1;
-			y=rand()%(map[m].ys-2)+1;
+			x=rnd()%(map[m].xs-2)+1;
+			y=rnd()%(map[m].ys-2)+1;
 		} while(map_getcell(m,x,y,CELL_CHKNOPASS));
 	}
 
@@ -4679,8 +4747,8 @@ int pc_randomwarp(struct map_session_data *sd, clr_type type)
 		return 0;
 
 	do{
-		x=rand()%(map[m].xs-2)+1;
-		y=rand()%(map[m].ys-2)+1;
+		x=rnd()%(map[m].xs-2)+1;
+		y=rnd()%(map[m].ys-2)+1;
 	}while(map_getcell(m,x,y,CELL_CHKNOPASS) && (i++)<1000 );
 
 	if (i < 1000)
@@ -6275,7 +6343,7 @@ void pc_record_maxdamage(struct block_list *src, struct block_list *dst, int dam
 		
 				//sd->status.bg_stats.top_damage = damage;
 
-				if(sd->state.battle_info)
+				if(sd->state.battle_info&2)
 				{
 					sprintf(out,"New Top Damage! (Old: %d | New: %d)",old,damage);
 					clif_disp_onlyself(sd,out,strlen(out));
@@ -6288,7 +6356,7 @@ void pc_record_maxdamage(struct block_list *src, struct block_list *dst, int dam
 
 			sd->status.woe_stats.top_damage = damage;
 
-			if(sd->state.battle_info)
+			if(sd->state.battle_info&2)
 			{
 				sprintf(out,"New Top Damage! (Old: %d | New: %d)",old,damage);
 				clif_displaymessage(sd->fd,out);
@@ -6377,7 +6445,7 @@ void pc_record_damage(struct block_list *src, struct block_list *dst, int damage
 					add2limit(sd->status.woe_stats.damage_done, damage, UINT_MAX);
 					add2limit(((TBL_PC*)dst)->status.woe_stats.damage_received, damage, UINT_MAX);
 					
-					if(dstsd->state.battle_info)
+					if(dstsd->state.battle_info&2)
 					{
 						char out[CHAT_SIZE_MAX];
 						sprintf(out," %s received %d damage!", dstsd->status.name, damage);
@@ -6572,12 +6640,12 @@ void pc_update_kill_ranking(struct map_session_data *tsd, struct map_session_dat
 	}
 
 	
-	if( ssd->state.battle_info )
+	if( ssd->state.battle_info&1 )
 	{
 		sprintf(output,"( You killed the %s [%s] using <%s> )", job_name(tsd->status.class_), tsd->status.name, ( skill ? skill_get_desc(skill) : "Melee/Reflect/Effect" ));
 		clif_disp_onlyself(ssd,output,strlen(output));
 	}
-	if( tsd->state.battle_info )
+	if( tsd->state.battle_info&1 )
 	{
 		sprintf(output,"( The %s [%s] killed you using <%s> )", job_name(ssd->status.class_), ssd->status.name, ( skill ? skill_get_desc(skill) : "Melee/Reflect/Effect" ));
 		clif_disp_onlyself(tsd,output,strlen(output));
@@ -6891,8 +6959,8 @@ int pc_dead(struct map_session_data *sd,struct block_list *src, int skillid)
 					}
 				}
 				if(eq_num > 0){
-					int n = eq_n[rand()%eq_num];
-					if(rand()%10000 < per){
+					int n = eq_n[rnd()%eq_num];
+					if(rnd()%10000 < per){
 						if(sd->status.inventory[n].equip)
 							pc_unequipitem(sd,n,3);
 						pc_dropitem(sd,n,1);
@@ -6902,7 +6970,7 @@ int pc_dead(struct map_session_data *sd,struct block_list *src, int skillid)
 			else if(id > 0){
 				for(i=0;i<MAX_INVENTORY;i++){
 					if(sd->status.inventory[i].nameid == id
-						&& rand()%10000 < per
+						&& rnd()%10000 < per
 						&& ((type == 1 && !sd->status.inventory[i].equip)
 							|| (type == 2 && sd->status.inventory[i].equip)
 							|| type == 3) ){

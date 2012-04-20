@@ -3,6 +3,7 @@
 
 #include "../common/cbasetypes.h"
 #include "../common/strlib.h" // StringBuf
+
 #include "showmsg.h"
 
 #include <stdio.h>

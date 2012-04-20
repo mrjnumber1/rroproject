@@ -22,12 +22,12 @@ extern struct s_quest_db quest_db[MAX_QUEST_DB];
 struct s_mission_db {
 	int id;
 	unsigned int cooldown;
-	unsigned int base_exp, job_exp;
+	int base_exp, job_exp;
 	unsigned short points;
 	unsigned int mapindex;
 	int min_level, max_level;
 	int exp_multiplier; 
-	char* name;
+	char name[80];
 
 	struct
 	{
@@ -47,6 +47,7 @@ enum mission_status
 	MISSION_COMPLETE,
 	MISSION_INCOMPLETE,
 	MISSION_AVAILABLE_SLOT,
+	MISSION_UNAVAILABLE_SLOT,
 };
 
 typedef enum quest_check_type { HAVEQUEST, PLAYTIME, HUNTING } quest_check_type;
@@ -57,7 +58,10 @@ int quest_add(TBL_PC * sd, int quest_id);
 int quest_delete(TBL_PC * sd, int quest_id);
 int quest_change(TBL_PC * sd, int qid1, int qid2);
 
-
+void mission_announce_loadevent(struct map_session_data *sd, int mapindex);
+bool mission_submit(struct map_session_data *sd, int index);
+void mission_remove(struct map_session_data *sd, int index);
+int mission_assign(struct map_session_data *sd, int id, int index);
 int mission_check_status(struct map_session_data *sd, int i);
 int mission_check_gathering_status(struct map_session_data *sd, int i);
 int mission_check_hunting_status(struct map_session_data *sd, int i);

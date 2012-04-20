@@ -436,7 +436,7 @@ int npc_timerevent_import(char* lname, void* data, va_list ap)
 		int j, i = nd->u.scr.timeramount;
 
 		if( te == NULL )
-			te = (struct npc_timerevent_list*)aMallocA( sizeof(struct npc_timerevent_list) );
+			te = (struct npc_timerevent_list*)aMalloc( sizeof(struct npc_timerevent_list) );
 		else
 			te = (struct npc_timerevent_list*)aRealloc( te, sizeof(struct npc_timerevent_list) * (i+1) );
 
@@ -1126,6 +1126,11 @@ int npc_scriptcont(struct map_session_data* sd, int id)
 			return 1;
 		}
 	}
+	// WPErs can get here with progressbar, so we deny it
+	if (sd->progressbar.npc_id && DIFF_TICK(sd->progressbar.timeout,gettick()) > 0)
+		return 1;
+
+
 	run_script_main(sd->st);
 
 	return 0;
@@ -2313,7 +2318,7 @@ int npc_convertlabel_db(DBKey key, void* data, va_list ap)
 
 	if( *label_list == NULL )
 	{
-		*label_list = (struct npc_label_list *) aCallocA (1, sizeof(struct npc_label_list));
+		*label_list = (struct npc_label_list *) aCalloc (1, sizeof(struct npc_label_list));
 		*label_list_num = 0;
 	} else
 		*label_list = (struct npc_label_list *) aRealloc (*label_list, sizeof(struct npc_label_list)*(*label_list_num+1));
@@ -2525,7 +2530,7 @@ static const char* npc_parse_script(char* w1, char* w2, char* w3, char* w4, cons
 			struct npc_timerevent_list *te = nd->u.scr.timer_event;
 			int j, k = nd->u.scr.timeramount;
 			if (te == NULL)
-				te = (struct npc_timerevent_list *)aMallocA(sizeof(struct npc_timerevent_list));
+				te = (struct npc_timerevent_list *)aMalloc(sizeof(struct npc_timerevent_list));
 			else
 				te = (struct npc_timerevent_list *)aRealloc( te, sizeof(struct npc_timerevent_list) * (k+1) );
 			for (j = 0; j < k; j++){
@@ -2720,7 +2725,7 @@ const char* npc_parse_duplicate(char* w1, char* w2, char* w3, char* w4, const ch
 			struct npc_timerevent_list *te = nd->u.scr.timer_event;
 			int j, k = nd->u.scr.timeramount;
 			if (te == NULL)
-				te = (struct npc_timerevent_list *)aMallocA(sizeof(struct npc_timerevent_list));
+				te = (struct npc_timerevent_list *)aMalloc(sizeof(struct npc_timerevent_list));
 			else
 				te = (struct npc_timerevent_list *)aRealloc( te, sizeof(struct npc_timerevent_list) * (k+1) );
 			for (j = 0; j < k; j++){
@@ -2992,7 +2997,7 @@ void npc_parse_mob2(struct spawn_data* mob)
 
 static const char* npc_parse_mob(char* w1, char* w2, char* w3, char* w4, const char* start, const char* buffer, const char* filepath)
 {
-	int num, class_, mode, m,x,y,xs,ys, i,j;
+	int num, class_, m,x,y,xs,ys, i,j;
 	char mapname[32];
 	struct spawn_data mob, *data;
 	struct mob_db* db;
@@ -3066,26 +3071,6 @@ static const char* npc_parse_mob(char* w1, char* w2, char* w3, char* w4, const c
 	{
 		if( (mob.num = mob.num * db->spawn_rate / 100) < 1 )
 			mob.num = 1;
-	}
-	//Apply the spawn delay fix [Skotlex]
-	mode = db->status.mode;
-	if (mode & MD_BOSS) {	//Bosses
-		if (battle_config.boss_spawn_delay != 100)
-		{	// Divide by 100 first to prevent overflows
-			//(precision loss is minimal as duration is in ms already)
-			mob.delay1 = mob.delay1/100*battle_config.boss_spawn_delay;
-			mob.delay2 = mob.delay2/100*battle_config.boss_spawn_delay;
-		}
-	} else if (mode&MD_PLANT) {	//Plants
-		if (battle_config.plant_spawn_delay != 100)
-		{
-			mob.delay1 = mob.delay1/100*battle_config.plant_spawn_delay;
-			mob.delay2 = mob.delay2/100*battle_config.plant_spawn_delay;
-		}
-	} else if (battle_config.mob_spawn_delay != 100)
-	{	//Normal mobs
-		mob.delay1 = mob.delay1/100*battle_config.mob_spawn_delay;
-		mob.delay2 = mob.delay2/100*battle_config.mob_spawn_delay;
 	}
 
 	if(mob.delay1>0xfffffff || mob.delay2>0xfffffff) {
@@ -3646,7 +3631,7 @@ void npc_read_event_script(void)
 		strncpy(name+2,config[i].event_name,62);
 
 		script_event[i].event_count = 0;
-		iter = ev_db->iterator(ev_db);
+		iter = db_iterator(ev_db);
 		for( data = iter->first(iter,&key); iter->exists(iter); data = iter->next(iter,&key) )
 		{
 			const char* p = key.str;
@@ -3666,7 +3651,7 @@ void npc_read_event_script(void)
 				script_event[i].event_count++;
 			}
 		}
-		iter->destroy(iter);
+		dbi_destroy(iter);
 	}
 
 	if (battle_config.etc_log) {

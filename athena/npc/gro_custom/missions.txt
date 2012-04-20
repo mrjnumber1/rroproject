@@ -1,490 +1,93 @@
 //==============================
 //Hunting/Gathering Mission boards
-//by Derceto \o   <------- and then shit all over by misterj :)
+// adapted from Derceto's idea.. most of his junk has been through out however.
 //==============================
 	
 //     CHAR REGS
 //
-//MD_mission_x_time    // Last time of completion of mission x
+//MD_x_time    // Last time of completion of mission x
 //MD_slotX_ID          // mission ID in slot X; 0 for no mission of course!
 //MD_slotX_mCountY     // mobs of Y killed in slot X
 //MD_mission_points    // mission points received
 
+//removed MD_killevent script, as it is pointless to have it here
 
 
-//TODO: handle this all in the src!
--	script	MissionMapAnnounce	-1,{
-	end;
-	
-OnInit:
-		
-	for( set .@i,1; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
-	{
-		setmapflag  $MD_map$[.@i], mf_loadevent;
-	}
-	
-	end;
-
-	
-OnPCLoadMapEvent:
-OnPCBaseLvUpEvent:
-	if(@last_map$ == strcharinfo(3))
-		end;
-		
-	for (set .@i,1; .@i < getarraysize( $MD_map$ ); set .@i,.@i + 1 )
-	{
-		if ( (strcharinfo(3) == $MD_map$[.i]) && (BaseLevel > $MD_minLevel[.@i]) && (BaseLevel < $MD_maxLevel[.@i]) )
-		{
-			for (set .@j, 0; .@j < getarraysize($MD_slots); set .@j, .@j + 1 )
-			{
-				if ( 
-					   ( getd("MD_Slot"+.@j+"_ID") == .@i ) 
-					|| ( (gettimetick(2) - getd("MD_mission_"+.@j+"_time"))  > $MD_cooldown[.@i] ) 
-				  )
-					continue;
-			}
-			announce "The mission ["+$MD_name$+"] is recommended for this map.",bc_self;
-			set @last_map$, strcharinfo(3);
-		}
-	}
-			
-	end;
-
+amatsu,57,94,4	script	Mission Board#80	857,{
+	callfunc "MD_mission_board","Mission Board";
 }
+function	script	F_mesMissionInfo	{
 
-
-
-function	script	F_acceptMission	{
-	set .@slot, getarg(0);
-	set .@mission, getarg(1);
-
-	set .@str$, "MD_slot"+.@slot;
 	
-	setd .@str$+"_ID", .@mission;
+	getmissioninfo(getarg(0));
 	
-	setd "MD_mission"+.@mission+"_time", 0;
-	for(set .@i, 0; .@i < $MD_slots; set .@i, .@i + 1)
-		setd .@str$+"_mCount"+.@i, 0;
-}
-
-// 1 = needs more mobs
-// 2 = needs more items
-// 3 = need more weight for the items 
-// 0 = all good
-function	script	F_completeMission	{
-	set .@slot, getarg(0);
-	set .@str$, "MD_slot"+.@slot;
-	set .@mission, getd(.@str$+"_ID");
-	
-	// mob and item checking are finished in src (but also untested!)
-	
-	// ensure the player can old every reward
-	set .@rewards[0], 0;
-	set .@rewardcounts[0], 0;
-	for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
-	{
-		set .@rewards[.@i], getelementofarray( getd("$MD_reward"+(.@i+1) ), .@mission);
-		set .@rewardcounts[.@i], getelementofarray( getd("$MD_rCount"+(.@i+1) ), .@mission);
-	}
-	if ( !checkweights(.@rewards, .@rewardcounts) )
-		return 3;
-	
-	
-	// delete required items
-	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
-	{
-		set .@itemid, getelementofarray(getd( "$MD_item"+(.@i+1)), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
+	mes "["+@s_mission_name$+"]";
 		
-		if ( .@itemid && .@itemcount)
-		{
-			delitem .@itemid, .@itemcount;
-		}
+	mes "Recommended Map: ^007F00"+@s_mission_map$+"^000000";
+	
+	if (@s_mission_cooldown)
+		mes "Cooldown: ^FF0000"+(@s_mission_cooldown / 3600)+"^000000 Hours";
+		
+		
+
+	if (@s_mission_mobs)
+			mes "Kill: ";
+	
+	for (set .@i, 0; .@i < @s_mission_mobs; set .@i, .@i + 1)
+	{
+		set .@id, getd("@s_mission_mob"+(.@i));
+		set .@count, getd("@s_mission_mCount"+(.@i));
+		if (.@id && .@count)
+			mes "  ^0000FF" + .@count + "^FF0000 " + getmonsterinfo(.@id, MOB_NAME);
 	}
 	
-	// give reward items
-	for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
-	{
-		set .@rewardid, getelementofarray( getd("$MD_reward"+(.@i+1) ), .@mission);
-		set .@rewardcount, getelementofarray( getd("$MD_rCount"+(.@i+1) ), .@mission);
+	
+	if (@s_mission_items)
+		mes "^000000Collect: ";
 		
-		if ( .@rewardid && .@rewardcount)
-		{
-			getitem .@rewardid, .@rewardcount;
-		}
+	for (set .@i, 0; .@i < @s_mission_items; set .@i, .@i + 1)
+	{
+		set .@id, getd("@s_mission_item"+(.@i));
+		set .@count, getd("@s_mission_iCount"+(.@i));
+		if (.@id && .@count)
+			mes "  ^0000FF" + .@count + "^FF0000 " + getitemname(.@id);
 	}
 	
-	getexp_without_points $MD_bExp[.@mission], $MD_jExp[.@mission];
 	
+	mes "^000000Rewards: ";
 	
-	set .@points, ( $MD_bExp[.@mission] / getbattleflag("base_exp_rate") ) + ($MD_bExp[.@mission] / getbattleflag("job_exp_rate") );
-	set .@points, .@points / 100000;
+	if (@s_mission_points)
+		mes " ^CC6600"+@s_mission_points+"^000000 Points";	
+	if (@s_mission_base_exp || @s_mission_job_exp)
+	{
+		if (@s_mission_base_exp)
+			mes " ^0000FF" + @s_mission_base_exp + "^000000 Base EXP";
+		if (@s_mission_job_exp)
+			mes " ^0000FF" + @s_mission_job_exp + "^000000 Job EXP";
+	}
 	
-	if (.@points > 100)
-		set .@points, 100;
-	else if (.@points < 3)
-		set .@points, 3;
-		
-	givepoints .@points;
-	
-	set MD_mission_points, MD_mission_points + $MD_missionPoints[.@mission];
-	
-	callfunc "F_endMission", .@slot, .@mission;
-	
-	return 0;
-	
-}
-
-// resets player mission variables to default state
-// remember, id -1 is no mission selected
-function	script	F_endMission	{
-	set .@slot, getarg(0);
-	set .@mission, getarg(1);
-
-	set .@str$, "MD_slot"+.@slot;
-	
-	setd .@str$+"_ID", -1; 
-	setd "MD_mission"+.@mission+"_time", gettimetick(2);
-	
-	for(set .@i, 0; .@i < $MD_slots; set .@i, .@i + 1)
-		setd .@str$+"_mCount"+.@i, 0;
+	for (set .@i, 0; .@i < @s_mission_rewards; set .@i, .@i + 1)
+	{
+		set .@id, getd("@s_mission_reward"+(.@i));
+		set .@count, getd("@s_mission_rCount"+(.@i));
+		if (.@id && .@count)
+			mes " ^0000FF" + .@count + "^FF0000 " + getitemname(.@id);
+	}
 	
 	return;
 }
 
-// 1 = user has taken it
-// 0 = user has not taken it
-// arg0 = mission id
-function	script	F_isMissionTaken	{
-	set .@mission, getarg(0);
-	
-	for (set .@i, 0; .@i < $MD_slots; set .@i, .@i+1)
-	{
-		if ( getd("MD_slot"+.@i+"_ID" == .@mission) )
-		{
-			return 1;
-		}
-	}
-	
-	return 0;
-	
-}
 
-// returns free mission slot or -1 if there isn't one
-function	script	F_getFreeSlot	{
-	for (set .@i, 0; .@i < $MD_slots; set .@i, .@i + 1)
-	{
-		if( getd("MD_Slot"+.@i+"_ID") == 0)
-		{
-			return .@i;
-		}
-	}
-	
-	return -1;
-}
-
-
-function	script	F_messageMissionProgress	{
-	set .@slot, getarg(0);
-	set .@str$, "MD_slot"+.@slot;
-	
-	set .@mission, getd(.@str$+"_ID");
-	
-	
-	message strcharinfo(0), "  " + $MD_name$[.@mission];
-	
-	//hunt progress
-	
-	// display header if relevant
-	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
-	{
-		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i+1) ), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
-		
-		if (.@mobid && .@mobcount)
-		{
-			message strcharinfo(0), "   Mobs:";
-			break;
-		}
-	}
-	
-	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
-	{
-		set .@mobid, getelementofarray( getd("$MD_mob"+(.@i+1) ), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i+1) ), .@mission );
-		
-		
-
-		
-		if (.@mobid && .@mobcount)
-		{
-			set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
-		
-			set .@killedcount, getd(.@str$+"_mCount"+(.@i+1));
-		
-			if(.@mobcount > .@killedcount)
-			{
-				message strcharinfo(0), "    " + .@mobname +": "+ .@killedcount +"/"+ .@mobcount;
-			}
-			else
-			{
-				message strcharinfo(0), "    " + .@mobname +": COMPLETE";
-			}
-		}
-	}
-	
-	
-	//display item req header if any are needed to be collected
-	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
-	{
-		set .@itemid, getelementofarray(getd( "$MD_item"+(.@i+1)), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
-		
-		if (.@itemid && .@itemcount)
-		{
-			message strcharinfo(0),"   Items:";
-		}
-	}
-	
-	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
-	{
-		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i+1) ), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i+1) ), .@mission);
-		
-
-		
-		if ( .@itemid && .@itemcount)
-		{
-			set .@itemname, getitemname(.@itemid);
-		
-			set .@retrievedcount, countitem(.@itemid);
-			
-			if( .@itemcount > .@retrievedcount)
-			{
-				message strcharinfo(0), "    " + .@itemname +": "+ .@retrievedcount +"/"+ .@itemcount;
-			}
-			else
-			{
-				message strcharinfo(0), "    " + .@itemname +": COMPLETE";
-			}
-		}
-	}
-	
-}
-
-function	script	F_mesMissionInfo	{
-	set .@slot, getarg(0);
-	set .@str$, "MD_slot"+.@slot;
-	
-	set .@mission, getd(.@str$+"_ID");
-	
-	
-	mes $MD_name$[.@mission];
-	
-	//hunt progress
-	// display relevant header if it's... relevant
-	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
-	{
-		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i) ), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i) ), .@mission );
-		
-		if (.@mobid && .@mobcount)
-		{
-			mes "Mobs: ";
-			break;
-		}
-	}
-	
-	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
-	{
-		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i) ), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i) ), .@mission );
-		
-
-		
-		if (.@mobid && .@mobcount)
-		{
-			set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
-		
-			set .@killedcount, getd(.@str$+"_mCount"+(.@i));
-			if(.@mobcount > .@killedcount)
-			{
-				mes "  " + .@mobname +": ^FF0000"+ .@killedcount +"/"+ .@mobcount + "^000000";
-			}
-			else
-			{
-				mes "  " + .@mobname +": ^00FF00COMPLETE^000000";
-			}
-		}
-	}
-	
-	// display relevant header if it's... relevant
-	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
-	{
-		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i) ), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i) ), .@mission);
-		
-		if(.@itemid && .@itemcount)
-		{
-			mes "Items: ";
-			break;
-		}
-	}
-	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
-	{
-		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i) ), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i) ), .@mission);
-		
-	
-		
-		if ( .@itemid && .@itemcount)
-		{
-			set .@itemname, getitemname(.@itemid);
-		
-			set .@retrievedcount, countitem(.@itemid);
-			
-			if( .@itemcount > .@retrievedcount)
-			{
-				mes "  " + .@itemname +": ^0000FF"+ .@retrievedcount +"/"+ .@itemcount + "^000000";
-			}
-			else
-			{
-				mes "  " + .@itemname +": ^00FF00COMPLETE^000000";
-			}
-		}
-	}
-	
-}
-
-
-// displays mission info in the NPC
-function	script	F_showMissionInfo	{
-
-	set .@mission, getarg(0);
-
-	mes $MD_name$[.@mission];
-	
-	
-	// display relevant header if it's... relevant
-	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
-	{
-		set .@mobid, getelementofarray( getd( "$MD_mob"+(.@i) ), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i) ), .@mission );
-		
-		if (.@mobid && .@mobcount)
-		{
-			mes "Mobs: ";
-			break;
-		}
-	}
-	
-	for (set .@i, 0; .@i < $MD_maxMobs; set .@i, .@i + 1) 
-	{
-		set .@mobid, getelementofarray( getd("$MD_mob"+(.@i) ), .@mission);
-		set .@mobcount, getelementofarray( getd("$MD_mCount"+(.@i) ) , .@mission );
-		
-		
-		
-		if (.@mobid && .@mobcount)
-		{
-			set .@mobname, getmonsterinfo(.@mobid, MOB_NAME);
-			mes  "Kill ^0000FF" + .@mobcount + " ^FF0000" + .@mobname + "^000000(s)";
-		}
-	}
-	
-	
-	// display relevant header if it's... relevant
-	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
-	{
-		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i) ), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i) ), .@mission);
-		
-		if(.@itemid && .@itemcount)
-		{
-			mes "Items: ";
-			break;
-		}
-	}
-	
-	for (set .@i, 0; .@i < $MD_maxItems; set .@i, .@i+1)
-	{
-		set .@itemid, getelementofarray( getd( "$MD_item"+(.@i) ), .@mission);
-		set .@itemcount, getelementofarray( getd("$MD_iCount"+(.@i) ), .@mission);
-		
-		
-		
-		
-		if (.@itemid && .@itemcount)
-		{
-			set .@itemname, getitemname(.@itemid);
-			mes  "Collect ^0000FF" + .@itemcount + " ^FF0000" + .@itemname + "^000000(s)";
-		}
-	}
-	
-
-	
-	
-	// display relevant header if it's... relevant
-	for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
-	{
-		set .@rewardid, getelementofarray( getd("$MD_reward"+(.@i) ), .@mission);
-		set .@rewardcount, getelementofarray( getd("$MD_rCount"+(.@i) ), .@mission);
-		
-		if ((.@rewardid && .@rewardcount) || $MD_bExp[.@mission] || $MD_jExp[.@mission])
-		{
-			mes "Rewards: ";
-			break;
-		}
-	}
-		
-		
-		
-	if ($MD_bExp[.@mission] || $MD_jExp[.@mission])
-	{
-		if($MD_bExp[.@mission])
-			mes  "^0000FF" + $MD_bExp[.@mission] + "^000000 Base EXP";
-		if($MD_jExp[.@mission])
-			mes  "^0000FF" + $MD_jExp[.@mission] + "^000000 Job EXP";
-	}
-
-	for (set .@i, 0; .@i < $MD_maxRewards; set .@i, .@i+1)
-	{
-		set .@rewardid, getelementofarray( getd("$MD_reward"+(.@i) ), .@mission);
-		set .@rewardcount, getelementofarray( getd("$MD_rCount"+(.@i) ), .@mission);
-		
-		if ( .@rewardid && .@rewardcount)
-		{
-			mes  "^0000FF" + .@rewardcount + " ^00FF00" +getitemname(.@rewardid) + "^000000";
-		}
-	}
-	
-	
-	
-	if ($MD_cooldown[.@mission])
-	{
-		mes "Cooldown: ^FF0000"+($MD_cooldown[.@mission] / 3600)+"^000000 Hour(s)";
-	}
-	
-	if ($MD_missionPoints[.@mission])
-	{
-		mes "Mission Points: ^442200"+($MD_missionPoints[.@mission])+"^000000";
-	}
-}
-
-
-//removed MD_killevent script, as it is pointless to have it here
 
 function	script	MD_mission_board	{
 	set .@name$, "["+getarg(0)+"]";
-	set .@minLevel,getarg(1);
-	set .@maxLevel,getarg(2);
 	
-	set .@size, getarraysize($MD_Name$);
+	getmissionlist(1); // 1 = in range only
 	
-	if ( !.@size )
+	if (!@mission_count)
 	{
 		mes .@name$;
-		mes "It appears as though no missions are available to you! Sorry for the inconvenience!";
+		mes "It seems as though this board has no missions available for you, sorry!";
 		close;
 	}
 	
@@ -492,7 +95,6 @@ L_mainMenu:
 	mes .@name$;
 	menu "Accept Mission",L_acceptMission,
 		 "Submit Mission",L_submitMission,
-		 "View Missions" ,L_viewMissions,
 		 "Cancel Mission",L_cancelMission,
 		 "End"           ,L_quit;
 L_quit:
@@ -500,174 +102,131 @@ L_quit:
 	end;
 	
 L_acceptMission:
-	set .@slot, callfunc("F_getFreeSlot");
-	set .@size, getarraysize($MD_Name$);
-	next;
+
 	
+L_missionMenu:	
+	set .@choice, -1;
+	
+	while (.@choice < 0)
+	{
+	
+	
+	
+	set .@slot, -1;
+	deletearray(@my_mission_id);
+	deletearray(@my_mission_complete);
+	deletearray(@my_mission_name$);
+	getmymissionlist();
+	for (set .@i, 0; .@i < getbattleflag("mission_slots"); set .@i, .@i + 1)
+	{
+		mes "Slot "+(.@i+1)+": "+@my_mission_name$[.@i];
+		
+		if (@my_mission_id[.@i] == 0 && .@slot == -1) 
+			set .@slot, .@i;
+	}
 	if (.@slot == -1)
 	{
 		mes .@name$;
-		mes "It appears you don't have any free slots remaining. Go complete or delete submissions to free them.";
+		mes "It appears you don't have any free slots remaining. Go complete or delete missions to free them.";
 		close;
 	}
 	
+	//repopulate list
+	getmissionlist(1); 
 	
-	deletearray .@MDreference; //Cleanup
-	deletearray .@MDlist$;
-	
-	set .@MDlist$[0], 0;
-	set .@MDreference[0], 0;
-	set .@j, 0;
-	// Populate the player's list of missions
-	for (set .@i, 0; .@i < .@size; set .@i, .@i+1)
-	{
-		if($MD_type[.@i] == 1)
-		{
-			if( ($MD_maxLevel[.@i] > .@maxLevel) || ($MD_minLevel[.@i] < .@minLevel) )
-				continue;
-				
-			if( ($MD_maxLevel[.@i] > BaseLevel) || ($MD_minLevel[.@i] < BaseLevel) )
-				continue;
-				
-			set .@MDlist$[.@j], $MD_name$[.@i];
-			set .@MDreference[.@j], .@i;
-			set .@j, .@j+1;
-		}
-	}
-	
-	set .@menusize, getarraysize(.@MDlist$);
-	
-	if(.@menusize)
+	if(!@mission_count)
 	{
 		mes "Ah, it appears you cannot take any of the missions we have. Sorry!";
 		close;
 	}
-	
-L_missionMenu:	
-	set .@choice, -1;
-	while (.@choice < 0)
-	{
-		mes "Please choose a mission:";
 
-		set .@menustr$, "Cancel";
+	set .@menustr$, "Cancel";
+	
+	for (set .@i, 0; .@i < @mission_count; set .@i, .@i+1)
+	{		
+		set .@menustr$, .@menustr$+":"+@mission_name$[.@i];
+	}
+	
+	set .@choice, select(.@menustr$) - 1; // -1 to set cancel to 0
+	
+	if(.@choice == 0)
+	{
+		close;
+	}
+	
+	// mission is now selected!
+	next;
+	
+	
+	// display mission info
+	callfunc "F_mesMissionInfo",@mission_id[.@choice-1];
+
+	next;
+	mes .@name$;
+	mes "Do you accept?";
+	next;
+	if( select("Yes:No") == 2 )
+	{
+		mes "^00FF00> No^000000";
 		
-		for (set .@i, 0; .@i < @menusize; set .@i, .@i+1)
-		{		
-			set .@menustr$, .@menustr$+":"+.@MDlist$[.@i];
-		}
-		
-		set .@choice, select(.@menustr$) - 1; // -1 to set cancel to 0
-		
-		if(.@choice == 1)
+		mes "Would you like to choose another mission?";
+		if( select("Yes:No") == 1)
 		{
-			// We selected cancel so close!
-			mes "Mission selection cancelled...";
+			next;
+			goto L_missionMenu;
+		}
+		else
+		{
 			close;
 		}
-		
-		// mission is now selected!
-		
-		set .@mission, .@MDreference[@choice - 1]; // to match the choice with the MDreference ids;
-		// Make sure that the player can actually *take on* the mission.
-		if ( callfunc("F_isMissionTaken", .@mission) ) // To ensure no duplicate slots in use
-		{
-			mes "Error: Mission is already taken. Submit or cancel it to choose another mission.";
-			next;
-			continue;
-		}
-		else if ( BaseLevel > $MD_maxLevel[.@mission] ) // To ensure the max level is not exceeded
-		{
-			mes "Your base level exceeds the mission's max!";
-			next;
-			continue;
-		}
-		else if ( BaseLevel < $MD_minLevel[.@mission] ) // To ensure the min level is exceeded!
-		{
-			mes "You have not yet reached the base level needed for this mission";
-			next;
-			continue;
-		}
-		
-		// display mission info
-		next;
-		callfunc("F_showMissionInfo", .@mission);
-		next;
-		mes "Do you accept?";
-		
-		if( select("Yes:No") == 2 )
-		{
-			mes "^00FF00> No^000000";
-			mes "Would you like to choose another mission?";
-			if( select("Yes:No") == 1)
-			{
-				next;
-				continue;
-			}
-		}
-		
-		next;
-		mes .@name$;
-		callfunc("F_acceptMission",.@slot, .@mission);
-		mes "Good luck on this mission!";
-		set .@choice, -1;
+	}
+	
+	next;
+	mes .@name$;
+	set .@status, assign_mission(@mission_id[.@choice-1], .@slot);
+	mes "Good luck on this mission!";
+	set .@choice, -1;
+	
 	}
 	close2;
 	end;
-
-L_viewMissions:
-	set .@j, 0;
-	for (set .@i, 0; .@i < $MD_slots; set .@i, .@i + 1)
-	{
-		set .@mission, getd("MD_slot"+.@i+"_ID");
-		
-		if (.@mission)
-		{
-			mes "Slot: "+(.@i+1)+": " +$MD_name[.@mission];
-			callfunc "F_mesMissionInfo", .@mission;
-			set .@j, .@j+1;
-			next;
-		}
-	}
-	if (!.@j)
-	{
-		mes "No missions selected yet.";
-	}
-	next;
-	goto L_mainMenu;
 	
 L_cancelMission:
+
 	set .@menustr$, "";
-	deletearray(.@MDreference);
 	set .@j, 0;
 	
-	for (set .@i, 0; .@i < $MD_slots; set .@i, .@i + 1)
+	setarray .@slotref[0], -1,-1,-1,-1;
+	
+	deletearray(@my_mission_id);
+	deletearray(@my_mission_complete);
+	deletearray(@my_mission_name$);
+	getmymissionlist();
+	
+	for (set .@i, 0; .@i < getbattleflag("mission_slots"); set .@i, .@i + 1)
 	{
-		set .@mission, getd("MD_slot"+.@i+"_ID");
+		set .@mission, @my_mission_id[.@i];
 		
 		if (.@mission)
 		{
-			mes "Slot "+(.@i+1)+": "+$MD_Name$[.@mission];
+			mes "Slot "+(.@i+1)+": "+@my_mission_name$[.@i];
 			set .@menustr$, .@menustr$ + "Slot "+ (.@i+1)+":";
-			set .@MDreference[.@j], .@mission;
+			
+			set .@slotref[.@j], .@i;
 			set .@j, .@j+1;
 		}
 	}
 	if (!.@j)
 	{
-		mes "No missions selected yet.";
+		mes "No missions selected yet!";
 		next;
 		goto L_mainMenu;
 	}
 	
 	set .@menustr$, .@menustr$+"Cancel";
-	next;
-	
 	set .@choice, select(.@menustr$);
-	
 	if(.@choice == .@j+1)
 		goto L_mainMenu;
-	
-	callfunc "F_mesMissionInfo",.@MDreference[.@choice-1];
 	
 	next;
 	
@@ -676,7 +235,7 @@ L_cancelMission:
 	if (select("Yes:No") == 2)
 		goto L_mainMenu;
 	
-	callfunc "F_endMission", .@MDreference[.@choice-1];
+	remove_mission(.@slotref[.@choice-1]);
 	mes "Mission deleted.";
 	next;
 	goto L_mainMenu;
@@ -685,64 +244,55 @@ L_submitMission:
 
 	set .@menustr$, "";
 	
-	deletearray .@MDreference;
-	set .@j, 0;
-	for (set .@i, 0; .@i < $MD_slots; set .@i, .@i + 1)
+	deletearray(@my_mission_id);
+	deletearray(@my_mission_complete);
+	deletearray(@my_mission_name$);
+	getmymissionlist();
+	setarray .@slotref[0], -1,-1,-1,-1;
+	for (set .@i, 0; .@i < getbattleflag("mission_slots"); set .@i, .@i + 1)
 	{
-		set .@mission, getd("MD_slot"+.@i+"_ID");
+		set .@mission, @my_mission_id[.@i];
 		
 		if(.@mission)
 		{
-			mes "Slot "+(.@i+1)+": "+$MD_name$[.@mission];
+			mes "Slot "+(.@i+1)+": "+@my_mission_name$[.@i];
 			set .@menustr$, .@menustr$ + "Slot " +(.@i+1)+":";
-			set .@MDreference[.@j], .@mission;
+			set .@slotref[.@j], .@i;
 			set .@j, .@j+1;
 		}
 	}
 	if (!.@j)
 	{
-		mes "No missions accepted yet..";
+		mes "No missions accepted yet.";
 		next;
 		goto L_mainMenu;
 	}
 
 	set .@menustr$, .@menustr$+"Cancel";
-	
-	
-	next;
 	set .@choice, select(.@menustr$);
 	
 	if(.@choice == .@j+1)
 		goto L_mainMenu;
 
 	next;
-	callfunc("F_mesMissionInfo", .@MDreference[.@choice-1]);
-	next;
 	mes .@name$;
 	mes "Do you want to submit this mission?";
 	if (select("Yes:No") == 2)
 		goto L_mainMenu;
 		
-	switch ( callfunc("F_submitMission", .@MDreference[.@choice-1]) )
+		
+	set .@status, submit_mission(.@slotref[.@choice-1]);
+	next;
+	if (.@status == 1)
 	{
-		// 1 = needs more mobs
-		// 2 = needs more items
-		// 3 = need more weight for the items 
-		// 0 = all good
-		case 1:
-		case 2:
-			mes "You are not done yet!";
-			callfunc "F_messageMissionInfo", .@MDreference[.@choice-1];
-			break;
-		case 3:
-			mes "You cannot hold the rewards right now. Please come back after using Kafra Storage.";
-			close;
-			break;
-		case 0:
-			mes "Mission complete!! Congratulations!";
-			break;
+		mes .@name$;
+		mes "Great work!!";
 	}
-	
+	else
+	{
+		mes .@name$;
+		mes "You are not done yet!";
+	}
 	
 	next;	
 	goto L_mainMenu;
@@ -750,23 +300,4 @@ L_submitMission:
 	
 }
 
-morocc,47,172,4	script	Mission Board#80	857,{
-	callfunc "MD_missionBoard","80-99 Missions",80,99;
-}
-morocc,47,170,4	script	Mission Board#01	857,{
-	callfunc "MD_missionBoard","1-19 Missions",1,19;
-
-}
-morocc,47,168,4	script	Mission Board#60	857,{
-	callfunc "MD_missionBoard","60-79 Missions",60,79;
-
-}
-morocc,47,166,4	script	Mission Board#40	857,{
-	callfunc "MD_missionBoard","40-59 Missions",40,59;
-
-}
-morocc,47,164,4	script	Mission Board#20	857,{
-	callfunc "MD_missionBoard","20-39 Missions",20,39;
-
-}
 

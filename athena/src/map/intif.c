@@ -927,7 +927,7 @@ int mapif_parse_WisToGM(int fd)
 	char *message;
 
 	mes_len =  RFIFOW(fd,2) - 30;
-	message = (char *) (mes_len >= 255 ? (char *) aMallocA(mes_len) : mbuf);
+	message = (char *) (mes_len >= 255 ? (char *) aMalloc(mes_len) : mbuf);
 
 	min_gm_level = (int)RFIFOW(fd,28);
 	safestrncpy(Wisp_name, (char*)RFIFOP(fd,4), NAME_LENGTH);
@@ -1770,17 +1770,6 @@ static void intif_parse_Mail_send(int fd)
 			if( save_settings&16 )
 				chrif_save(sd, 0);
 		}
-	}
-
-	if( fail )
-		return;
-
-	// notify recipient (if online)
-	sd = map_charid2sd(msg.dest_id);
-	if( sd != NULL )
-	{
-		sd->mail.changed = true;
-		clif_Mail_new(sd->fd, msg.id, msg.send_name, msg.title);
 	}
 }
 

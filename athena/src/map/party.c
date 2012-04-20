@@ -6,6 +6,7 @@
 #include "../common/socket.h" // last_tick
 #include "../common/nullpo.h"
 #include "../common/malloc.h"
+#include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/utils.h"
 #include "../common/strlib.h"
@@ -131,13 +132,13 @@ struct party_data* party_searchname(const char* str)
 {
 	struct party_data* p;
 
-	DBIterator* iter = party_db->iterator(party_db);
-	for( p = (struct party_data*)iter->first(iter,NULL); iter->exists(iter); p = (struct party_data*)iter->next(iter,NULL) )
+	DBIterator *iter = db_iterator(party_db);
+	for( p = (struct party_data*)dbi_first(iter); dbi_exists(iter); p = (struct party_data*)dbi_next(iter) )
 	{
 		if( strncmpi(p->party.name,str,NAME_LENGTH) == 0 )
 			break;
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 
 	return p;
 }
@@ -343,6 +344,23 @@ int party_invite(struct map_session_data *sd,struct map_session_data *tsd)
 		return 0;
 	}
 	
+	//Only leader can invite.
+	ARR_FIND(0, MAX_PARTY, i, p->data[i].sd == sd);
+	
+	if (i == MAX_PARTY || !p->party.member[i].leader)
+	{	//TODO: Find the correct reply packet.
+		clif_displaymessage(sd->fd, msg_txt(282));
+		return 0;
+	}
+	
+	//check for an open slot in the party
+	ARR_FIND(0, MAX_PARTY, i, p->party.member[i].account_id == 0);
+	if (i==MAX_PARTY)
+	{
+		clif_party_inviteack(sd, ((tsd)?(tsd->status.name):("")), 3);
+		return 0;
+	}
+	
 	if ( (pc_isGM(sd) >= battle_config.lowest_gm_level && pc_isGM(tsd) < battle_config.lowest_gm_level && !battle_config.gm_can_party && pc_isGM(sd) < battle_config.gm_cant_party_min_lv)
 		|| ( pc_isGM(sd) < battle_config.lowest_gm_level && pc_isGM(tsd) >= battle_config.lowest_gm_level && !battle_config.gm_can_party && pc_isGM(tsd) < battle_config.gm_cant_party_min_lv) )
 	{
@@ -352,13 +370,6 @@ int party_invite(struct map_session_data *sd,struct map_session_data *tsd)
 		return 0;
 	}
 	
-	//Only leader can invite.
-	ARR_FIND(0, MAX_PARTY, i, p->data[i].sd == sd);
-	if (i == MAX_PARTY || !p->party.member[i].leader)
-	{	//TODO: Find the correct reply packet.
-		clif_displaymessage(sd->fd, msg_txt(282));
-		return 0;
-	}
 
 	if(!battle_config.invite_request_check) {
 		if (tsd->guild_invite>0 || tsd->trade_partner || tsd->adopt_invite) {
@@ -375,22 +386,6 @@ int party_invite(struct map_session_data *sd,struct map_session_data *tsd)
 	if( tsd->status.party_id > 0 || tsd->party_invite > 0 )
 	{// already associated with a party
 		clif_party_inviteack(sd,tsd->status.name,0);
-		return 0;
-	}
-	for(i=0;i<MAX_PARTY;i++){
-		if(p->party.member[i].account_id == 0) //Room for a new member.
-			flag = 1;
-	/* By default Aegis BLOCKS more than one char from the same account on a party.
-	 * But eA does support it... so this check is left commented.
-		if(p->party.member[i].account_id==tsd->status.account_id)
-		{
-			clif_party_inviteack(sd,tsd->status.name,4);
-			return 0;
-		}
-	*/
-	}
-	if (!flag) { //Full party.
-		clif_party_inviteack(sd,tsd->status.name,3);
 		return 0;
 	}
 		
@@ -867,9 +862,9 @@ int party_send_xy_timer(int tid, unsigned int tick, int id, intptr_t data)
 {
 	struct party_data* p;
 
-	DBIterator* iter = party_db->iterator(party_db);
+	DBIterator *iter = db_iterator(party_db);
 	// for each existing party,
-	for( p = (struct party_data*)iter->first(iter,NULL); iter->exists(iter); p = (struct party_data*)iter->next(iter,NULL) )
+	for( p = (struct party_data*)dbi_first(iter); dbi_exists(iter); p = (struct party_data*)dbi_next(iter) ) 
 	{
 		int i;
 
@@ -898,7 +893,7 @@ int party_send_xy_timer(int tid, unsigned int tick, int id, intptr_t data)
 			}
 		}
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 
 	return 0;
 }
@@ -1032,7 +1027,7 @@ int party_share_loot(struct party_data* p, struct map_session_data* sd, struct i
 				count++;
 			}
 			while (count > 0) { //Pick a random member.
-				i = rand()%count;
+				i = rnd()%count;
 				if (pc_additem(psd[i],item_data,item_data->amount))
 				{	//Discard this receiver.
 					psd[i] = psd[count-1];
@@ -1221,11 +1216,11 @@ void party_booking_search(struct map_session_data *sd, short level, short mapid,
 	int i, count=0;
 	struct party_booking_ad_info* result_list[PARTY_BOOKING_RESULTS];
 	bool more_result = false;
-	DBIterator* iter = party_booking_db->iterator(party_booking_db);
+	DBIterator* iter = db_iterator(party_booking_db);
 	
 	memset(result_list, 0, sizeof(result_list));
 	
-	for( pb_ad = (struct party_booking_ad_info*)iter->first(iter,NULL);	iter->exists(iter);	pb_ad = (struct party_booking_ad_info*)iter->next(iter,NULL) )
+	for( pb_ad = (struct party_booking_ad_info *)dbi_first(iter); dbi_exists(iter); pb_ad = (struct party_booking_ad_info *)dbi_next(iter) )
 	{
 		if (pb_ad->index < lastindex || (level && (pb_ad->p_detail.level < level-15 || pb_ad->p_detail.level > level)))
 			continue;
@@ -1248,7 +1243,7 @@ void party_booking_search(struct map_session_data *sd, short level, short mapid,
 			count++;
 		}
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 	clif_PartyBookingSearchAck(sd->fd, result_list, count, more_result);
 }
 

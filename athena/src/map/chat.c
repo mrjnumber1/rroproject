@@ -58,6 +58,9 @@ static struct chat_data* chat_createchat(struct block_list* bl, const char* titl
 
 	map_addiddb(&cd->bl);
 
+	if (bl->type != BL_NPC)
+		cd->kick_list = idb_alloc(DB_OPT_BASE);
+
 	return cd;
 }
 
@@ -144,6 +147,12 @@ int chat_joinchat(struct map_session_data* sd, int chatid, const char* pass)
 		return 0;
 	}
 
+	if ( cd->owner->type != BL_NPC && idb_exists(cd->kick_list, sd->status.char_id) )
+	{
+		clif_joinchatfail(sd, 2); //you have been previously kicked out of the room
+		return 0;
+	}
+
 	pc_stop_walking(sd,1);
 	cd->usersd[cd->users] = sd;
 	cd->users++;
@@ -198,6 +207,7 @@ int chat_leavechat(struct map_session_data* sd, bool kicked)
 	if( cd->users == 0 && cd->owner->type == BL_PC )
 	{	// Delete empty chatroom
 		clif_clearchat(cd, 0);
+		db_destroy(cd->kick_list);
 		map_deliddb(&cd->bl);
 		map_delblock(&cd->bl);
 		map_freeblock(&cd->bl);
@@ -312,6 +322,8 @@ int chat_kickchat(struct map_session_data* sd, const char* kickusername)
 
 	if( battle_config.gm_kick_chat && pc_isGM(cd->usersd[i]) >= battle_config.gm_kick_chat )
 		return 0; //gm kick protection [Valaris]
+
+	idb_put(cd->kick_list, cd->usersd[i]->status.char_id, (void*)1);
 
 	chat_leavechat(cd->usersd[i],1);
 	return 0;

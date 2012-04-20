@@ -97,6 +97,7 @@ struct socket_data
 };
 
 
+
 // Data prototype declaration
 
 extern struct socket_data* session[FD_SETSIZE];

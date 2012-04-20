@@ -6,6 +6,7 @@
 #include "../common/db.h"
 #include "../common/nullpo.h"
 #include "../common/malloc.h"
+#include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/ers.h"
 #include "../common/strlib.h"
@@ -94,7 +95,7 @@ int mobdb_searchname(const char *str)
 	struct mob_db* mob;
 	for(i=0;i<=MAX_MOB_DB;i++){
 		mob = mob_db(i);
-		if(mob == mob_dummy) //Skip dummy mobs.
+		if( mob == mob_dummy || mob_is_clone(i) ) //Skip dummy mobs.
 			continue;
 		if(strcmpi(mob->name,str)==0 || strcmpi(mob->jname,str)==0 || strcmpi(mob->sprite,str)==0)
 			return i;
@@ -262,13 +263,13 @@ int mob_get_random_id(int type, int flag, int lv)
 	}
 	do {
 		if (type)
-			class_ = summon[type].class_[rand()%summon[type].qty];
+			class_ = summon[type].class_[rnd()%summon[type].qty];
 		else //Dead branch
-			class_ = rand() % MAX_MOB_DB;
+			class_ = rnd() % MAX_MOB_DB;
 		mob = mob_db(class_);
 	} while ((mob == mob_dummy ||
 		mob_is_clone(class_) ||
-		(flag&1 && mob->summonper[type] <= rand() % 1000000) ||
+		(flag&1 && mob->summonper[type] <= rnd() % 1000000) ||
 		(flag&2 && lv < mob->lv) ||
 		(flag&4 && mob->status.mode&MD_BOSS) ||
 		(flag&8 && mob->spawn[0].qty < 1)
@@ -481,8 +482,8 @@ int mob_once_spawn_area(struct map_session_data* sd,int m,int x0,int y0,int x1,i
 
 		// find a suitable map cell
 		do {
-			x = rand()%(x1-x0+1)+x0;
-			y = rand()%(y1-y0+1)+y0;
+			x = rnd()%(x1-x0+1)+x0;
+			y = rnd()%(y1-y0+1)+y0;
 			j++;
 		} while( map_getcell(m,x,y,CELL_CHKNOPASS) && j < max );
 
@@ -790,14 +791,40 @@ int mob_delayspawn(int tid, unsigned int tick, int id, intptr_t data)
  *------------------------------------------*/
 int mob_setdelayspawn(struct mob_data *md)
 {
-	unsigned int spawntime;
+	unsigned int spawntime, mode;
+	struct mob_db *db;
 
 	if (!md->spawn) //Doesn't has respawn data!
 		return unit_free(&md->bl,CLR_DEAD);
 
 	spawntime = md->spawn->delay1; //Base respawn time
 	if (md->spawn->delay2) //random variance
-		spawntime+= rand()%md->spawn->delay2;
+		spawntime+= rnd()%md->spawn->delay2;
+
+	db = mob_db(md->spawn->class_);
+	mode = db->status.mode;
+
+	//Apply the spawn delay fix [Skotlex]
+	if (mode & MD_BOSS) 
+	{	//Bosses
+		if (battle_config.boss_spawn_delay != 100)
+		{	// Divide by 100 first to prevent overflows
+			//(precision loss is minimal as duration is in ms already)
+			spawntime = spawntime/100*battle_config.boss_spawn_delay; 
+		}
+	} 
+	else if (mode&MD_PLANT) 
+	{	//Plants
+		if (battle_config.plant_spawn_delay != 100)
+		{
+			spawntime = spawntime/100*battle_config.plant_spawn_delay; 
+		}
+	} 
+	else if (battle_config.mob_spawn_delay != 100)
+	{	//Normal mobs
+		spawntime = spawntime/100*battle_config.mob_spawn_delay;
+	}
+	
 
 	if (spawntime < 500) //Min respawn time (is it needed?)
 		spawntime = 500;
@@ -874,7 +901,7 @@ int mob_spawn (struct mob_data *md)
 
 	md->state.aggressive = md->status.mode&MD_ANGRY?1:0;
 	md->state.skillstate = MSS_IDLE;
-	md->next_walktime = tick+rand()%5000+1000;
+	md->next_walktime = tick+rnd()%5000+1000;
 	md->last_linktime = tick;
 	md->dmgtick = tick - 5000;
 	md->last_pcneartime = 0;
@@ -995,8 +1022,15 @@ static int mob_ai_sub_hard_activesearch(struct block_list *bl,va_list ap)
 		dist = distance_bl(&md->bl, bl);
 		if(
 			((*target) == NULL || !check_distance_bl(&md->bl, *target, dist)) &&
-			battle_check_range(&md->bl,bl,md->db->range2)
-		) { //Pick closest target?
+			battle_check_range(&md->bl, bl, md->db->range2)
+		) 
+		{ //Pick closest target?
+			if (map[bl->m].icewall_num &&
+				!path_search_long(NULL, bl->m, md->bl.x, md->bl.y, bl->x, bl->y, CELL_CHKICEWALL) )
+			{
+				if ( !check_distance_bl(&md->bl, bl, status_get_range(&md->bl)) )
+					return 0;
+			}
 			(*target) = bl;
 			md->target_id=bl->id;
 			md->min_chase= dist + md->db->range3;
@@ -1198,14 +1232,14 @@ int mob_unlocktarget(struct mob_data *md, unsigned int tick)
 			DIFF_TICK(md->next_walktime, tick) <= 0 &&
 			!mob_randomwalk(md,tick))
 			//Delay next random walk when this one failed.
-			md->next_walktime=tick+rand()%3000;
+			md->next_walktime=tick+rnd()%3000;
 		break;
 	default:
 		mob_stop_attack(md);
 		if (battle_config.mob_ai&0x8)
 			mob_stop_walking(md,1); //Immediately stop chasing.
 		md->state.skillstate = MSS_IDLE;
-		md->next_walktime=tick+rand()%3000+3000;
+		md->next_walktime=tick+rnd()%3000+3000;
 		break;
 	}
 	if (md->target_id) {
@@ -1233,7 +1267,7 @@ int mob_randomwalk(struct mob_data *md,unsigned int tick)
 	d =12-md->move_fail_count;
 	if(d<5) d=5;
 	for(i=0;i<retrycount;i++){	// Search of a movable place
-		int r=rand();
+		int r=rnd();
 		x=r%(d*2+1)-d;
 		y=r/(d*2+1)%(d*2+1)-d;
 		x+=md->bl.x;
@@ -1261,7 +1295,7 @@ int mob_randomwalk(struct mob_data *md,unsigned int tick)
 	}
 	md->state.skillstate=MSS_WALK;
 	md->move_fail_count=0;
-	md->next_walktime = tick+rand()%3000+3000+c;
+	md->next_walktime = tick+rnd()%3000+3000+c;
 	return 1;
 }
 
@@ -1358,7 +1392,7 @@ static bool mob_ai_sub_hard(struct mob_data *md, unsigned int tick)
 			    )
 			&&  md->state.attacked_count++ >= RUDE_ATTACKED_COUNT
 			&&  !mobskill_use(md, tick, MSC_RUDEATTACKED) // If can't rude Attack
-			&&  can_move && unit_escape(&md->bl, tbl, rand()%10 +1)) // Attempt escape
+			&&  can_move && unit_escape(&md->bl, tbl, rnd()%10 +1)) // Attempt escape
 			{	//Escaped
 				md->attacked_id = 0;
 				return true;
@@ -1381,7 +1415,7 @@ static bool mob_ai_sub_hard(struct mob_data *md, unsigned int tick)
 			{ // Rude attacked
 				if (md->state.attacked_count++ >= RUDE_ATTACKED_COUNT
 				&& !mobskill_use(md, tick, MSC_RUDEATTACKED) && can_move
-				&& !tbl && unit_escape(&md->bl, abl, rand()%10 +1))
+				&& !tbl && unit_escape(&md->bl, abl, rnd()%10 +1))
 				{	//Escaped.
 					//TODO: Maybe it shouldn't attempt to run if it has another, valid target?
 					md->attacked_id = 0;
@@ -1621,15 +1655,15 @@ static int mob_ai_sub_lazy(struct mob_data *md, va_list args)
 	{
 		if( map[md->bl.m].users > 0 )
 		{
-			if( rand()%1000 < MOB_LAZYMOVEPERC(md) )
+			if( rnd()%1000 < MOB_LAZYMOVEPERC(md) )
 				mob_randomwalk(md, tick);
 			else
-			if( rand()%1000 < MOB_LAZYSKILLPERC ) //Chance to do a mob's idle skill.
+			if( rnd()%1000 < MOB_LAZYSKILLPERC ) //Chance to do a mob's idle skill.
 				mobskill_use(md, tick, -1);
 		}
 		else
 		{
-			if( rand()%1000 < MOB_LAZYMOVEPERC(md) )
+			if( rnd()%1000 < MOB_LAZYMOVEPERC(md) )
 				mob_randomwalk(md, tick);
 		}
 	}
@@ -1761,12 +1795,13 @@ bool mob_process_noloot(struct map_session_data* sd, int nameid)
 {
 	int i;
 
-	if(!sd->state.nolootactive)
-		return false;
+	if (sd->state.nolootactive)
+		for (i=0; i<MAX_ALOOTITEM; ++i)
+			if (nameid == sd->state.nolootid[i])
+				return false;
 
-	ARR_FIND(0, MAX_ALOOTITEM, i, sd->state.nolootid[i] == nameid);
-	
-	return (i != MAX_ALOOTITEM);
+	return true;
+
 }
 
 int mob_timer_delete(int tid, unsigned int tick, int id, intptr_t data)
@@ -2047,7 +2082,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 		if( sd->status.party_id )
 		{
 			map_foreachinrange(quest_update_objective_sub,&md->bl,AREA_SIZE,BL_PC,sd->status.party_id,md->class_);
-			map_foreachinrange(mission_update_sub,&md->bl, AREA_SIZE, BL_PC, sd->status.party_id, md->class_);
+			map_foreachinrange(mission_update_sub,&md->bl, AREA_SIZE*5, BL_PC, sd->status.party_id, md->class_);
 		}
 		else
 		{
@@ -2165,9 +2200,9 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 
 		if(battle_config.zeny_from_mobs && md->level) {
 			 // zeny calculation moblv + random moblv [Valaris]
-			zeny=(int) ((md->level+rand()%md->level)*per*bonus/100.);
+			zeny=(int) ((md->level+rnd()%md->level)*per*bonus/100.);
 			if(md->db->mexp > 0)
-				zeny*=rand()%250;
+				zeny*=rnd()%250;
 		}
 
 		if (map[m].flag.nobaseexp || !md->db->base_exp)
@@ -2282,7 +2317,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 				drop_rate = max(drop_rate,cap_value((int)(0.5+drop_rate*(sd->sc.data[SC_ITEMBOOST]->val1)/100.),0,9000));
 
 			// attempt to drop the item
-			if (rand() % 10000 >= drop_rate)
+			if (rnd() % 10000 >= drop_rate)
 					continue;
 
 			if( mvp_sd && it->type == IT_PETEGG ) {
@@ -2305,7 +2340,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 		}
 
 		// Ore Discovery [Celest]
-		if (sd == mvp_sd && pc_checkskill(sd,BS_FINDINGORE)>0 && battle_config.finding_ore_rate/10 >= rand()%10000) {
+		if (sd == mvp_sd && pc_checkskill(sd,BS_FINDINGORE)>0 && battle_config.finding_ore_rate/10 >= rnd()%10000) {
 			ditem = mob_setdropitem(itemdb_searchrandomid(IG_FINDINGORE), 1);
 			mob_item_drop(md, dlist, ditem, 0, battle_config.finding_ore_rate/10, homkillonly);
 		}
@@ -2333,7 +2368,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 						//it's positive, then it goes as it is
 						drop_rate = sd->add_drop[i].rate;
 					
-					if (rand()%10000 >= drop_rate)
+					if (rnd()%10000 >= drop_rate)
 						continue;
 					itemid = (sd->add_drop[i].id > 0) ? sd->add_drop[i].id : itemdb_searchrandomid(sd->add_drop[i].group);
 					mob_item_drop(md, dlist, mob_setdropitem(itemid,1), 0, drop_rate, homkillonly);
@@ -2341,11 +2376,11 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 			}
 			
 			// process script-granted zeny bonus (get_zeny_num) [Skotlex]
-			if(sd->get_zeny_num && rand()%100 < sd->get_zeny_rate)
+			if(sd->get_zeny_num && rnd()%100 < sd->get_zeny_rate)
 			{
 				i = sd->get_zeny_num > 0?sd->get_zeny_num:-md->level*sd->get_zeny_num;
 				if (!i) i = 1;
-				pc_getzeny(sd, 1+rand()%i);
+				pc_getzeny(sd, 1+rnd()%i);
 			}
 		}
 		
@@ -2405,7 +2440,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 			int amt = 0;
 			for(j=0;j<3;j++)
 			{
-				i = rand() % 3;
+				i = rnd() % 3;
 			
 				if(md->db->mvpitem[i].nameid <= 0)
 					continue;
@@ -2415,7 +2450,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 				temp = md->db->mvpitem[i].p;
 				if(temp <= 0 && !battle_config.drop_rate0item)
 					temp = 1;
-				if(temp <= rand()%10000+1) //if ==0, then it doesn't drop
+				if(temp <= rnd()%10000+1) //if ==0, then it doesn't drop
 					continue;
 
 				memset(&item,0,sizeof(item));
@@ -2475,7 +2510,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 	rebirth =  ( md->sc.data[SC_KAIZEL] || (md->sc.data[SC_REBIRTH] && !md->state.rebirth) );
 	if( !rebirth )
 	{ // Only trigger event on final kill
-		int rand_val = rand()%10000;
+		int rand_val = rnd()%10000;
 		md->status.hp = 0; //So that npc_event invoked functions KNOW that mob is dead
 		if( src )
 			switch( src->type )
@@ -2561,7 +2596,7 @@ void mob_revive(struct mob_data *md, unsigned int hp)
 	unsigned int tick = gettick();
 	md->state.skillstate = MSS_IDLE;
 	md->last_thinktime = tick;
-	md->next_walktime = tick+rand()%50+5000;
+	md->next_walktime = tick+rnd()%50+5000;
 	md->last_linktime = tick;
 	md->last_pcneartime = 0;
 	memset(md->dmglog, 0, sizeof(md->dmglog));	// Reset the damage done on the rebirthed monster, otherwise will grant full exp + damage done. [Valaris] 
@@ -2643,7 +2678,7 @@ int mob_random_class (int *value, size_t count)
 			return 0;
 	}
 	//Pick a random value, hoping it exists. [Skotlex]
-	return mobdb_checkid(value[rand()%count]);
+	return mobdb_checkid(value[rnd()%count]);
 }
 
 /*==========================================
@@ -2804,7 +2839,7 @@ int mob_summonslave(struct mob_data *md2,int *value,int amount,int skill_id)
 	while(count < 5 && mobdb_checkid(value[count])) count++;
 	if(count < 1) return 0;
 	if (amount > 0 && amount < count) { //Do not start on 0, pick some random sub subset [Skotlex]
-		k = rand()%count;
+		k = rnd()%count;
 		amount+=k; //Increase final value by same amount to preserve total number to summon.
 	}
 	
@@ -3008,7 +3043,7 @@ int mobskill_use(struct mob_data *md, unsigned int tick, int event)
 		return 0; //Skill act delay only affects non-event skills.
 
 	//Pick a starting position and loop from that.
-	i = battle_config.mob_ai&0x100?rand()%md->db->maxskill:0;
+	i = battle_config.mob_ai&0x100?rnd()%md->db->maxskill:0;
 	for (n = 0; n < md->db->maxskill; i++, n++) {
 		int c2, flag = 0;		
 
@@ -3028,7 +3063,7 @@ int mobskill_use(struct mob_data *md, unsigned int tick, int event)
 			else
 				continue;
 		}
-		if (rand() % 10000 > ms[i].permillage) //Lupus (max value = 10000)
+		if (rnd() % 10000 > ms[i].permillage) //Lupus (max value = 10000)
 			continue;
 
 		if (ms[i].cond1 == event)
@@ -3256,7 +3291,7 @@ int mob_is_clone(int class_)
 int mob_clone_spawn(struct map_session_data *sd, int m, int x, int y, const char *event, int master_id, int mode, int flag, unsigned int duration)
 {
 	int class_;
-	int i,j,inf,skill_id;
+	int i,j,inf,skill_id, fd;
 	struct mob_data *md;
 	struct mob_skill *ms;
 	struct mob_db* db;
@@ -3296,6 +3331,11 @@ int mob_clone_spawn(struct map_session_data *sd, int m, int x, int y, const char
 
 	//Skill copy [Skotlex]
 	ms = &db->skill[0];
+
+	//temporarily set fd of sd to 0 so it doesn't receive mssages from skill_check_condition_castbegin
+	fd = sd->fd;
+	sd->fd = 0;
+
 	//Go Backwards to give better priority to advanced skills.
 	for (i=0,j = MAX_SKILL_TREE-1;j>=0 && i< MAX_MOBSKILL ;j--) {
 		skill_id = skill_tree[pc_class2idx(sd->status.class_)][j].id;
@@ -3310,6 +3350,10 @@ int mob_clone_spawn(struct map_session_data *sd, int m, int x, int y, const char
 		if (!(flag&1) &&
 			skill_get_unit_id(skill_id, 0) &&
 			skill_get_unit_flag(skill_id)&(UF_NOMOB|UF_NOPC))
+			continue;
+
+		// set it so that the clone can only use skills the original player could
+		if ( !skill_check_condition_castbegin(sd, skill_id, sd->status.skill[skill_id].lv) )
 			continue;
 
 		memset (&ms[i], 0, sizeof(struct mob_skill));
@@ -3404,6 +3448,10 @@ int mob_clone_spawn(struct map_session_data *sd, int m, int x, int y, const char
 		
 		db->maxskill = ++i;
 	}
+
+	//restore fd
+	sd->fd = fd;
+
 	//Finally, spawn it.
 	md = mob_once_spawn_sub(&sd->bl, m, x, y, "--en--",class_,event);
 	if (!md) return 0; //Failed?
@@ -3607,8 +3655,10 @@ static bool mob_parse_dbrow(char** str)
 	
 	status->speed = atoi(str[26]);
 	status->aspd_rate = 1000;
-	status->adelay = atoi(str[27]);
-	status->amotion = atoi(str[28]);
+	i = atoi(str[27]);
+	status->adelay = cap_value(i, battle_config.monster_max_aspd*2, 4000);
+	i = atoi(str[28]);
+	status->amotion = cap_value(i, battle_config.monster_max_aspd, 2000);
 	//If the attack animation is longer than the delay, the client crops the attack animation!
 	//On aegis there is no real visible effect of having a recharge-time less than amotion anyway.
 	if (status->adelay < status->amotion)
