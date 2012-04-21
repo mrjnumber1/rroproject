@@ -542,6 +542,7 @@ struct map_data {
 	int jexp;	// map experience multiplicator
 	int bexp;	// map experience multiplicator
 	int nocommand; //Blocks @/# commands for non-gms. [Skotlex]
+	int guild_max, party_max;
 	int icewall_num;
 	// Instance Variables
 	int instance_id;

@@ -4577,7 +4577,9 @@ int pc_steal_coin(struct map_session_data *sd,struct block_list *target)
 int pc_setpos(struct map_session_data* sd, unsigned short mapindex, int x, int y, clr_type clrtype)
 {
 	struct party_data *p;
-	int m;
+	struct guild *g;
+	struct guild_castle *gc;
+	int m, i, c;
 
 	nullpo_ret(sd);
 
@@ -4607,6 +4609,49 @@ int pc_setpos(struct map_session_data* sd, unsigned short mapindex, int x, int y
 		}
 	}
 
+	if( (map[m].flag.blocked && pc_isGM(sd) < battle_config.lowest_gm_level) )
+	{
+		mapindex = sd->status.save_point.map;
+		x = sd->status.save_point.x;
+		y = sd->status.save_point.y;
+		m = map_mapindex2mapid(mapindex);
+	}
+	else if( map_blocked_woe(m) && (gc = guild_mapindex2gc(map[m].index)) != NULL && (gc->guild_id == 0 || sd->status.guild_id != gc->guild_id) )
+	{ // Non Castle Owners on different WoE times
+		mapindex = sd->status.save_point.map;
+		x = sd->status.save_point.x;
+		y = sd->status.save_point.y;
+		m = map_mapindex2mapid(mapindex);
+	}
+	else if( map[m].guild_max && sd->bl.m != m && sd->status.guild_id && (g = guild_search(sd->status.guild_id)) != NULL )
+	{ // Guild Limit
+		for( i = c = 0; i < g->max_member && c < map[m].guild_max; i++ )
+			if( g->member[i].sd && g->member[i].sd->bl.m == m )
+				c++;
+		
+		if( c >= map[m].guild_max )
+		{ // No more guild members on this map
+			mapindex = sd->status.save_point.map;
+			x = sd->status.save_point.x;
+			y = sd->status.save_point.y;
+			m = map_mapindex2mapid(mapindex);
+		}
+	}
+	else if( map[m].party_max && sd->bl.m != m && sd->status.party_id && (p = party_search(sd->status.party_id)) != NULL )
+	{ // Party Limit
+		for( i = c = 0; i < MAX_PARTY && c < map[m].party_max; i++ )
+			if( p->data[i].sd && p->data[i].sd->bl.m == m )
+				c++;
+
+		if( c >= map[m].party_max )
+		{ // No more party members on this map
+			mapindex = sd->status.save_point.map;
+			x = sd->status.save_point.x;
+			y = sd->status.save_point.y;
+			m = map_mapindex2mapid(mapindex);
+		}
+	}
+
 	sd->state.changemap = (sd->mapindex != mapindex);
 	if( sd->state.changemap )
 	{ // Misc map-changing settings
@@ -4616,6 +4661,13 @@ int pc_setpos(struct map_session_data* sd, unsigned short mapindex, int x, int y
 		{ // Cancel some map related stuff.
 			if (sd->sc.data[SC_JAILED])
 				return 1; //You may not get out!
+
+
+			sd->state.bg_winner = 0;
+			sd->state.bg_loser = 0;
+			status_change_end(&sd->bl, SC_BGLOSER, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_BGWINTAUNT, INVALID_TIMER);
+
 			status_change_end(&sd->bl, SC_BOSSMAPINFO, INVALID_TIMER);
 			status_change_end(&sd->bl, SC_WARM, INVALID_TIMER);
 			status_change_end(&sd->bl, SC_SUN_COMFORT, INVALID_TIMER);

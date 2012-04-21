@@ -3312,6 +3312,26 @@ static const char* npc_parse_mapflag(char* w1, char* w2, char* w3, char* w4, con
 		else
 			map[m].flag.woe_set = 0;
 	}
+	else if (!strcmpi(w3, "guild_max"))
+	{
+		if (state && sscanf(w4, "%d", &state) == 1)
+		{
+			map[m].guild_max = state;
+			map[m].flag.guildlock = 1;
+		}
+		else
+			map[m].guild_max = 0;
+	}
+	else if (!strcmpi(w3, "party_max"))
+	{
+		if (state && sscanf(w4, "%d", &state) == 1)
+		{
+			map[m].party_max = state;
+			map[m].flag.partylock = 1;
+		}
+		else
+			map[m].party_max = 0;
+	}
 	else if (!strcmpi(w3,"battleground")) {
 		if( state )
 		{
