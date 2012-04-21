@@ -18265,7 +18265,7 @@ BUILDIN_FUNC(getmissionlist)
 			continue;
 
 		snprintf(reg, sizeof(reg), "MD_%d_time", mission_db[i].id);
-		if ( ((int)time(NULL) - pc_readregistry(sd, reg)) < mission_db[i].cooldown) 
+		if ( ((int)time(NULL) - pc_readglobalreg(sd, reg)) < mission_db[i].cooldown) 
 			continue;
 		
 		pc_setreg(sd, reference_uid(add_str("@mission_id"), j), mission_db[i].id);

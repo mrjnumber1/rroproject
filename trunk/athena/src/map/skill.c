@@ -5753,6 +5753,11 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, in
 					count++;
 				}
 
+				// to prevent guild leaders from ecalling more than the map's guild_max!
+				// technically this is handled by pc_setpos but this makes it so that it never runs it for all those characters
+				if( map[src->m].guild_max && count >= map[src->m].guild_max )
+					count = map[src->m].guild_max - 1;
+
 				guild_block_skill_start(g, skillid, skill_get_time2(skillid,skilllv));
 
 				if( (gc = guild_mapindex2gc(map[src->m].index)) != NULL )
