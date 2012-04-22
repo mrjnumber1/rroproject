@@ -1,0 +1,52 @@
+//===== eAthena Script =======================================
+//= guild_max map flag limits
+//===== Current Version: =====================================
+//= 1.0!
+//===== Description: =========================================
+//= guild_max\tlimit
+//= For now we use 24... later we may have to change it. It will
+//= be up to players
+//===== Additional Comments: =================================
+//= 1.0 First implementation
+//============================================================
+
+
+// FE Castles
+aldeg_cas01	mapflag	guild_max	24
+aldeg_cas02	mapflag	guild_max	24
+aldeg_cas03	mapflag	guild_max	24
+aldeg_cas04	mapflag	guild_max	24
+aldeg_cas05	mapflag	guild_max	24
+
+gefg_cas01	mapflag	guild_max	24
+gefg_cas02	mapflag	guild_max	24
+gefg_cas03	mapflag	guild_max	24
+gefg_cas04	mapflag	guild_max	24
+gefg_cas05	mapflag	guild_max	24
+
+payg_cas01	mapflag	guild_max	24
+payg_cas02	mapflag	guild_max	24
+payg_cas03	mapflag	guild_max	24
+payg_cas04	mapflag	guild_max	24
+payg_cas05	mapflag	guild_max	24
+
+prtg_cas01	mapflag	guild_max	24
+prtg_cas02	mapflag	guild_max	24
+prtg_cas03	mapflag	guild_max	24
+prtg_cas04	mapflag	guild_max	24
+prtg_cas05	mapflag	guild_max	24
+
+
+
+// SE Castles
+schg_cas01	mapflag	guild_max	24
+schg_cas02	mapflag	guild_max	24
+schg_cas03	mapflag	guild_max	24
+schg_cas04	mapflag	guild_max	24
+schg_cas05	mapflag	guild_max	24
+
+arug_cas01	mapflag	guild_max	24
+arug_cas02	mapflag	guild_max	24
+arug_cas03	mapflag	guild_max	24
+arug_cas04	mapflag	guild_max	24
+arug_cas05	mapflag	guild_max	24

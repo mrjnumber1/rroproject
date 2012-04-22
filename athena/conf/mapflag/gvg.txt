@@ -41,7 +41,7 @@ prtg_cas02	mapflag	gvg
 prtg_cas03	mapflag	gvg
 prtg_cas04	mapflag	gvg
 prtg_cas05	mapflag	gvg
-//schg_cas01	mapflag	gvg
+schg_cas01	mapflag	gvg
 schg_cas02	mapflag	gvg
 schg_cas03	mapflag	gvg
 schg_cas04	mapflag	gvg
@@ -73,7 +73,7 @@ prtg_cas02	mapflag	gvg_castle
 prtg_cas03	mapflag	gvg_castle
 prtg_cas04	mapflag	gvg_castle
 prtg_cas05	mapflag	gvg_castle
-//schg_cas01	mapflag	gvg_castle
+schg_cas01	mapflag	gvg_castle
 schg_cas02	mapflag	gvg_castle
 schg_cas03	mapflag	gvg_castle
 schg_cas04	mapflag	gvg_castle
