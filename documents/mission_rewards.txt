@@ -1,3 +1,70 @@
+Eden Book
+1583
+Eden Bow
+1747
+1748
+18106
+Eden Dagger
+13050
+13051
+13066
+Eden Guitar
+1931
+Eden Katar
+1289
+Eden Knuckle
+1831
+Eden Mace
+16004
+16005
+16014	
+Eden Revolver
+13112
+13113
+13114
+Eden Saber
+13423
+13424
+13434
+Eden Slayer
+1192
+1193
+1197
+Eden Spear
+1434
+Eden Staff
+1650
+1651
+1658
+Eden Tail
+1986
+
+
+
+Eden Boots
+2456
+2457
+2458
+2473
+Eden Hat
+5583
+18514
+Eden Manteau
+2560
+2571
+Eden Uniform
+15009
+15010
+15011
+
+Light Awakening Potion Box #13536
+Light Berserk Potion Box #13537
+Light concentration Potion Box #13535
+Light Orange Potion Box #13532
+Light Red Potion Box #13531
+Light White Potion Box #13534
+Light Yellow Potion Box #13533
+
 Neo Valkyrja's Shield #2137
 
 
@@ -57,11 +124,3 @@ Refined Ring #2690 (Str +4)
 Refined Rosary #2694
 Refined Spiritual Ring #2711
 
-
-Light Awakening Potion Box #13536
-Light Berserk Potion Box #13537
-Light concentration Potion Box #13535
-Light Orange Potion Box #13532
-Light Red Potion Box #13531
-Light White Potion Box #13534
-Light Yellow Potion Box #13533
