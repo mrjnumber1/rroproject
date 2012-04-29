@@ -1,5 +1,6 @@
 For LR chars:
-	free tickets for things like the warper and resetter. Account bound.
-
+	Free tickets for things like the warper and resetter. Account bound.
+	In addition, they should receive some #MD_Mission_Points so that they can use them to buy some early items
+	
 For Non-LR chars:
-	~400 Starter Badges. They should only be usable for Account bound items like Rentals.
+	~500 Starter Badges. They should only be usable for Account Bound items like Rentals.
