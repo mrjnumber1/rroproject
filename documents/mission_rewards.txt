@@ -1,0 +1,67 @@
+Neo Valkyrja's Shield #2137
+
+
+Shell of Resistancec #2132
+Spiritual Tunic #2384
+Angel's Dress #2358
+Aebecee's Raging Typhoon Armor #2348
+Claytos's Cracking Earth Armor #2350
+Lucius's Fierce Armor of Volcano #2344
+Saphien's Armor of Ocean #2346
+Recuperative armor #2385
+
+
+
+
+Refresh Shoes #2439
+
+
+
+Neo Muffler #2548
+Sylphid Manteau #2543
+Skeleton Manteau #2511
+
+Book of Prayer #1578
+Bow of Evil #1744
+Excalibur #1137
+Healing of Staff #1653 TODO ADDSCRIPT
+Holy Saber #13419 TODO ADDSCRIPT
+Holy Avenger #1145
+Katar of Speed #1283
+Mace of Madness #1547
+monk knuckle #1828
+Phenomena Whip #1982
+Spear of Excellent #1427
+Staff of Darkness #1642
+
+
+Bloody Ring #2760 (Increase 15% experience from DemiHuman)
+Beholder Ring #2753 (Increases 15% experience from Formless)
+Chemical Ring #2756 (Increase 15% experience from Plant)
+Clamorous Ring #2755 (Increase 15% experience from Brute)
+Decussate Ring #2759 (Increase 15% from Demon)
+Dragoon Ring #2762 (Increase 15% from Dragon)
+Fisher Ring #2758 (Increase 15% from Fish)
+Hallow Ring #2754 ( Increase 15% exp from Undead)
+Insecticide Ring #2757 (Increase 15% Exp from Insect)
+Satanic Ring #2761 (Increase 15% experience from Angel)
+All in One Ring #2741
+Critical Ring #2688 (Crit Rate + 10%)
+Refined Safety Ring #2695
+Neo Skull Ring #2763
+Refined Brooch #2693
+Refined Earring #2689
+Refined Glove #2692 (Dex + 4)
+Refined Necklace #2691 (Vit +4 )
+Refined Ring #2690 (Str +4)
+Refined Rosary #2694
+Refined Spiritual Ring #2711
+
+
+Light Awakening Potion Box #13536
+Light Berserk Potion Box #13537
+Light concentration Potion Box #13535
+Light Orange Potion Box #13532
+Light Red Potion Box #13531
+Light White Potion Box #13534
+Light Yellow Potion Box #13533
