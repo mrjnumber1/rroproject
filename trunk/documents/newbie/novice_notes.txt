@@ -1,0 +1,61 @@
+- Starting Town: Izlude
+
+---- see content in novice_old & novice_new
+
+- Novice npcs to ditch - 
+
+- New player has NPC pop-in (this will be the Shion or Eden NPC we normally encounter in the current novice script, removing the exp bonus from the bitch and gifting bullshit comments, will direct players to go up, server specific welcome to karma ro jizz crap) with dialog directing them to walk north to the castle at the top of Izlude; This will have a portal to open them to the normal Novice Castle (this puts the novice grounds in a realistic area with the option to leave to go to the 'real world' whenever they so choose).
+
+- In front of the 'Novice Castle' in Izlude, two training guards (Guard#nv1, Guard#nv2)
+
+- Player will speak to Receptionist#nv1
+
+-- script to remove, first, if they're in the novice zone, ain't no reason to ask bullshit of driect access... just make
+
+1. What is training? -> ^3355FFTraining Grounds Introduction.^000000
+2. I'm not interested.
+
+At the end of "Training Grounds Introduction" dialog...
+
+1. Apply for training.
+2. I need a moment to think.
+
+
+the alternative is that this training grounds intor dialog is added to all Eden Groups NPC's, and we warp players to the Eden group room, instruct them to basically path upstairs and that's where the the training npcs will be
+
+- When inside, should use regular NPC's (remove EXP gains from those; pointless).
+
+
+proof of registration becomes eden group mark
+
+no items given out by novice shit;
+
+no field combat section;
+
+skill tutor will blend in the giving out and removing of skill books shit;
+
+
+remove hanson npc, the quiz is shit, the handouts not needed, job changer will already give it out
+
+Bruce is useful; keep, add conversion for Taekwon Kid, Ninja, Gunslinger
+
+
+nov_3_swordman == 20;
+ // No finishing of the quest form Hanson (we ain't using it, no problem)
+nov_3_swordman == 40; 
+// Quests finished, point is that supposedly player already made a call, irrelevant
+
+this is why i removed if (nov_3_swordman == 20) {
+
+Extended Classes
+- Super Novice
+- Taekwon Kid
+	- Taekwon Master
+	- Star Gladiator
+	- Soul Linker
+- Gunslinger
+- Ninja
+
+
+ case 7:
+// Not useful, don't tell people to visit official Ragnarok Online website
