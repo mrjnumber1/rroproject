@@ -7909,7 +7909,7 @@ Class :^777777 Arrow^000000
 Attack :^777777 45^000000
 Weight :^777777 0.1^000000
 Property :^777777 Neutral^000000
-Required Level :^777777 100^000000
+Required Level :^777777 90^000000
 #
 1774#
 An arrow crafted specifically with hunting large animals in mind.

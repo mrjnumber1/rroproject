@@ -7909,7 +7909,7 @@ Class :^777777 Arrow^000000
 Attack :^777777 45^000000
 Weight :^777777 0.1^000000
 Property :^777777 Neutral^000000
-Required Level :^777777 100^000000
+Required Level :^777777 90^000000
 #
 1774#
 An arrow crafted specifically with hunting large animals in mind.
@@ -18501,7 +18501,7 @@ Compound on :^777777 Armor^000000
 Weight :^777777 1^000000
 #
 4452#
-INT + 1, MATK + 3.
+INT + 1
 Class :^777777 Card^000000
 Compound on :^777777 Weapon^000000
 Weight :^777777 1^000000
@@ -18514,16 +18514,16 @@ Weight :^777777 1^000000
 #
 4454#
 No effect.
-"This card is nothing more then a piece of paper that gives you no advantages. - Valkyrie," it says.
-Collectible card that traders may buy.
+"This card is nothing more than a piece of paper that gives you no advantages. - Valkyrie," it says.
+Collectable card that traders may buy.
 Class :^777777 Card^000000
 Compound on :^777777 Weapon^000000
 Weight :^777777 1^000000
 #
 4455#
 No effect.
-"This card is nothing more then a piece of paper that gives you no advantages. - Valkyrie," it says.
-Collectible card that traders may buy.
+"This card is nothing more than a piece of paper that gives you no advantages. - Valkyrie," it says.
+Collectable card that traders may buy.
 Class : ^777777Card^000000
 Compound on :^777777 Weapon^000000
 Weight : ^7777771^000000
@@ -40468,7 +40468,7 @@ Applicable Job :^777777 Trans Swordman Class, Merchant Class, Thief Class^000000
 #
 13414#
 A magical sword that has the 4 Great Elements within. Enables you to unleash great effects on enemies that are not Water/Wind/Earth or Fire property.
-STR + 2, INT + 4, DEX + 1, MATK + 95
+STR + 2, INT + 4, DEX + 1, MATK + 5%
 Increases damage inflicted on ^777777Neutral^000000 Property by 10%
 While doing physical or a certain attack, there is a small chance to auto cast bolt spells.
 Class :^777777 Sword^000000
