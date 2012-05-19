@@ -156,7 +156,7 @@ You got %s (%d).#
 [F10]: To toggle Chat Window size; [Alt] + [F10]: Toggle Chat Window On or Off#
 How to Whisper: Enter a Character's Name on the left side of chat window and type your message on the right side. The Tab key helps you move between these boxes.#
 /!,/?,/ho,/lv,/lv2,/swt,/ic,/an,/ag,/$,/во|.,/thx,/wah,/sry,/heh,/swt2,/hmm,/no1,/??,/omg,/oh,/X,/hp,/go,/sob,/gg,/kis,/kis2,/pif,/ok: Emotion icons corresponding to Alt + (1~9) Ctrl + (-=\\)#
-How to Speak to Party: Add % in front of every message#
+How to Speak to Party: Add %% in front of every message#
 You haven't learned enough Basic Skills to Trade.#
 You haven't learned enough Basic Skills to use Emotion icons.#
 You haven't learned enough Basic Skills to Sit.#
@@ -835,18 +835,18 @@ You have been blocked from using chat and skills for %d as an automatic penalty.
 %d minutes remain until release from auto penalty.#
 You have been released from the auto penalty. Please refrain from spamming in-game.#
 %s and %s have divorced from each other.#
-%s has been designated as Gravity %s's Solar Space.#
-%s has been designated as Gravity %s's Luna Space.#
-%s has been designated as Gravity %s's Stellar Space.#
-Gravity %s's Solar Space: %s#
-Gravity %s's Luna Space: %s#
-Gravity %s's Stellar Space: %s#
-%s has been designated as Gravity %s's Solar Monster.#
-%s has been designated as Gravity %s's Luna Monster.#
-%s has been designated as Gravity %s's Stellar Monster.#
-Gravity %s's Solar Monster: %s#
-Gravity %s's Luna Monster: %s#
-Gravity %s's Stellar Monster: %s#
+%s has been designated as %s's Solar Space.#
+%s has been designated as %s's Luna Space.#
+%s has been designated as %s's Stellar Space.#
+%s's Solar Space: %s#
+%s's Luna Space: %s#
+%s's Stellar Space: %s#
+%s has been designated as  %s's Solar Monster.#
+%s has been designated as %s's Luna Monster.#
+%s has been designated as %s's Stellar Monster.#
+%s's Solar Monster: %s#
+%s's Luna Monster: %s#
+%s's Stellar Monster: %s#
 /window: Display windows will snap/dock together. On | Off#
 Display window docking enabled. [/wi ON]#
 Display window docking disabled. [/wi OFF]#
@@ -951,7 +951,7 @@ Please enter Away Message.#
 /desp#
 /dice#
 /pk: Shows top 10 Slayers in the server.#
-[POINT] You have been rewarded with % Slayer rank points. Your point total is %d.#
+[POINT] You have been rewarded with %d Slayer rank points. Your point total is %d.#
 Evolution Available#
 You have decided to delete this Homunculus ^ff0000^ff0000. When deleted, the homunculus and its history will be deleted and they cannot be restored in the future. Would you like to continue?#
 Save Homunculus status as a file.#
@@ -1222,7 +1222,7 @@ Another user is using this character name, so please select another one.#
 The party member was not summoned because you are not the party leader.#
 There is no party member to summon in the current map.#
 You cannot find any trace of a Boss Monster in this area.#
-Boss Monster '%s' will appear in %02d hour(s) and %02d minute(s).#
+Boss Monster '%s' will appear in %2d hour(s) and %2d minute(s).#
 The location of Boss Monster, '%s', will be displayed on your Mini-Map.#
 Do you want to open '%s'? Once opened, the contents cannot be moved to other locations aside from the Kafra Storage. The item effect isn't doubled, even if the same items are used more than once.#
 The Purchase has failed because the NPC does not exist.#
@@ -1313,8 +1313,8 @@ Incorrect or nonexistent ID.#
 Do you really want to purchase the selected items? You will spend %d Regular Cash Points and %d Free Cash Points.#
 %d hour(s) have passed.#
 %d hour(s) and %d minute(s) have passed.#
-Please stop playing the game, and take a break. Exp and other features will be reduced to 50%.#
-Please stop playing the game since you'll need to rest. Exp and other features will be fixed to 0%.#
+Please stop playing the game, and take a break. Exp and other features will be reduced to 50%%.#
+Please stop playing the game since you'll need to rest. Exp and other features will be fixed to 0%%.#
 Quest List#
 RO Shop#
 Instance Dungeon, '%s' booked.#
@@ -1381,10 +1381,10 @@ Nov. 1st#
 This account has been used for illegal program or hacking program.            Block Time : %s#
 The possibility of exposure to illegal program, PC virus infection or Hacking Tool has been detected. Please execute licensed client. Our team is trying to make a best environment for Ro players.#
 You are currently playing in the best game environment.#
-Job Exp points from hunting monsters are increased by 50% for 30 minutes.#
-Exp points from hunting monsters are increased by 25% for 30 minutes.#
-EXP points from hunting monsters are increased by 100% for 30 minutes.#
-EXP points from hunting monsters are increased by 50% for 60 minutes.#
+Job Exp points from hunting monsters are increased by 50%% for 30 minutes.#
+Exp points from hunting monsters are increased by 25%% for 30 minutes.#
+EXP points from hunting monsters are increased by 100%% for 30 minutes.#
+EXP points from hunting monsters are increased by 50%% for 60 minutes.#
 Unable to organize a party in this map.#
 (%s) are currently in restricted map to join a party.#
 Simple Item Shop#
@@ -1793,8 +1793,8 @@ You will not be disconnect from the game.#
 It is available only for 12 hours.#
 Your account is blocked due to illegal use of the game account.#
 Your account is blocked because there may exist a bug with your account.#
-Increases base exp and job exp gained by killing monsters up to 75% for 30 minutes.#
-Increases base exp and job exp gained by killing monsters up to 50% for 30 minutes.#
+Increases base exp and job exp gained by killing monsters up to 75%% for 30 minutes.#
+Increases base exp and job exp gained by killing monsters up to 50%% for 30 minutes.#
 No sales information.#
 Failed to search any further.#
 The selected item does not exist.#
