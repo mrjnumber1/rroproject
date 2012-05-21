@@ -54,6 +54,7 @@ char guild_position_db[256] = "guild_position";
 char guild_skill_db[256] = "guild_skill";
 char guild_storage_db[256] = "guild_storage";
 char member_storage_db[256] = "member_storage";
+char restock_db[64] = "restock";
 char party_db[256] = "party";
 char pet_db[256] = "pet";
 char mail_db[256] = "mail"; // MAIL SYSTEM
@@ -2675,7 +2676,6 @@ void do_final_loginif(void)
 
 int request_accreg2(int account_id, int char_id, int member_id)
 {
-	ShowInfo("doin dis for a:%d c:%d\n", account_id, char_id);
 	if (login_fd > 0) {
 		WFIFOHEAD(login_fd,14);
 		WFIFOW(login_fd,0) = 0x272e;

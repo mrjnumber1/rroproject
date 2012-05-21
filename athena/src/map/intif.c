@@ -36,7 +36,7 @@ static const int packet_len_table[]={
 	 0, 0, 0, 0,  0, 0,-1,11, -1,11, 0, 0,  0, 0,  0, 0, //0x3810
 	39,-1,15,15, 14,19, 7,-1,  0, 0, 0, 0,  0, 0,  0, 0, //0x3820
 	10,-1,15, 0, 79,19, 7,-1,  0,-1,-1,-1, 14,67,186,-1, //0x3830
-	 9, 9,-1,14,  0, 0, 0, 0, -1,74,-1,11, 11,-1,  0, 0, //0x3840
+	 9, 9,-1,14,  8, 7,-1, 0, -1,74,-1,11, 11,-1,  0, 0, //0x3840
 	-1,-1, 7, 7,  7,11, 0, 0,  0, 0, 0, 0,  0, 0,  0, 0, //0x3850  Auctions [Zephyrus]
 	-1, 7, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0,  0, 0,  0, 0, //0x3860  Quests [Kevin] [Inkfish]
 	-1, 3, 3, 0,  0, 0, 0, 0,  0, 0, 0, 0,  0, 0,  0, 0, //0x3870  Mercenaries [Zephyrus]
@@ -131,6 +131,37 @@ int intif_rename(struct map_session_data *sd, int type, char *name)
 	WFIFOB(inter_fd,10) = type;  //Type: 0 - PC, 1 - PET, 2 - HOM
 	memcpy(WFIFOP(inter_fd,11),name, NAME_LENGTH);
 	WFIFOSET(inter_fd,NAME_LENGTH+12);
+	return 0;
+}
+
+int intif_request_restock(int char_id)
+{
+	if(CheckForCharServer())
+		return 1;
+
+	WFIFOHEAD(inter_fd, 6);
+	WFIFOW(inter_fd,0) = 0x3044;
+	WFIFOL(inter_fd,2) = char_id;
+	WFIFOSET(inter_fd,6);
+	return 0;
+}
+int intif_send_restock(struct map_session_data *sd, char index)
+{
+	size_t size = 0;
+	if (CheckForCharServer())
+		return 1;
+
+	size = sizeof(sd->restock[(int)index]);
+
+	WFIFOHEAD(inter_fd, (size+9) );
+	WFIFOW(inter_fd,0) = 0x3043;
+	WFIFOW(inter_fd,2) = (size+9);
+	WFIFOL(inter_fd,4) = sd->status.char_id;
+	WFIFOB(inter_fd,8) = index;
+	memcpy(WFIFOP(inter_fd,9), &(sd->restock[(int)index]), size);
+	WFIFOSET(inter_fd, WFIFOW(inter_fd, 2));
+
+	sd->state.restock_dirty &= (1<<index);
 	return 0;
 }
 
@@ -339,7 +370,6 @@ int intif_request_registry(struct map_session_data *sd, int flag)
 
 	return 0;
 }
-
 int intif_request_member_storage(int account_id, int member_id)
 {
 	if(CheckForCharServer())
@@ -851,6 +881,15 @@ int intif_homunculus_requestdelete(int homun_id)
 //-----------------------------------------------------------------
 // Packets receive from inter server
 
+
+int intif_parse_SaveRestockOk(int fd)
+{	
+	if(RFIFOB(fd,6) == 1)
+		ShowError("restock data save failure\n");
+	return 0;
+
+}
+
 // Wisp/Page reception // rewritten by [Yor]
 int intif_parse_WisMessage(int fd)
 { 
@@ -938,6 +977,27 @@ int mapif_parse_WisToGM(int fd)
 	if (message != mbuf)
 		aFree(message);
 	return 0;
+}
+
+int intif_parse_Restock(int fd)
+{
+	int i=0;
+	int char_id = RFIFOL(fd,4);
+	size_t sz = sizeof (struct restock_data);
+	struct map_session_data *sd = map_charid2sd(char_id);
+	
+	nullpo_ret(sd);
+	
+	if( RFIFOW(fd,2) - 8 != sz*MAX_RESTOCK_SLOTS )
+	{
+		ShowError("intif_parse_Restock: Data size mismatch! %d != %d\n", RFIFOW(fd,2) - 8, sz*MAX_RESTOCK_SLOTS);
+		return -1;
+	}
+
+	for (i=0; i < MAX_RESTOCK_SLOTS; ++i)
+		memcpy(&sd->restock[i], (struct restock_data *)RFIFOP(fd,8+i*sz), sz);
+
+	return 1;
 }
 
 // アカウント変数通知
@@ -2141,6 +2201,8 @@ int intif_parse(int fd)
 	case 0x3842:	intif_parse_GuildCastleAllDataLoad(fd); break;
 	case 0x3843:	intif_parse_GuildMasterChanged(fd); break;
 	case 0x3844:	intif_parse_Guild_score_saved(fd); break;
+	case 0x3845:	intif_parse_SaveRestockOk(fd); break;
+	case 0x3846:	intif_parse_Restock(fd); break;
 
 #ifndef TXT_ONLY
 // Mail System
@@ -2173,6 +2235,7 @@ int intif_parse(int fd)
 	case 0x3881:	intif_parse_RecvPetData(fd); break;
 	case 0x3882:	intif_parse_SavePetOk(fd); break;
 	case 0x3883:	intif_parse_DeletePetOk(fd); break;
+	
 	case 0x3890:	intif_parse_CreateHomunculus(fd); break;
 	case 0x3891:	intif_parse_RecvHomunculusData(fd); break;
 	case 0x3892:	intif_parse_SaveHomunculusOk(fd); break;

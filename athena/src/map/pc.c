@@ -1102,6 +1102,7 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 
 	// Request all registries (auth is considered completed whence they arrive)
 	intif_request_registry(sd,7);
+
 	return true;
 }
 /*==========================================
@@ -1265,6 +1266,8 @@ int pc_reg_received(struct map_session_data *sd)
 
 #ifndef TXT_ONLY
 	pc_inventory_rentals(sd);
+	
+	intif_request_restock(sd->status.char_id);
 #endif
 	return 1;
 }
@@ -4577,9 +4580,8 @@ int pc_steal_coin(struct map_session_data *sd,struct block_list *target)
 int pc_setpos(struct map_session_data* sd, unsigned short mapindex, int x, int y, clr_type clrtype)
 {
 	struct party_data *p;
-	struct guild *g;
 	struct guild_castle *gc;
-	int m, i, c;
+	int m, i, count;
 
 	nullpo_ret(sd);
 
@@ -4623,32 +4625,32 @@ int pc_setpos(struct map_session_data* sd, unsigned short mapindex, int x, int y
 		y = sd->status.save_point.y;
 		m = map_mapindex2mapid(mapindex);
 	}
-	else if( map[m].guild_max && sd->bl.m != m && sd->status.guild_id && (g = guild_search(sd->status.guild_id)) != NULL )
+	else if( map[m].guild_max && sd->bl.m != m && sd->status.guild_id && (count = map_foreachinmap(guild_sub_count, m, BL_PC, sd->status.guild_id ))  )
 	{ // Guild Limit
-		for( i = c = 0; i < g->max_member && c < map[m].guild_max; i++ )
-			if( g->member[i].sd && g->member[i].sd->bl.m == m )
-				c++;
-		
-		if( c >= map[m].guild_max )
+		if( count >= map[m].guild_max )
 		{ // No more guild members on this map
 			mapindex = sd->status.save_point.map;
 			x = sd->status.save_point.x;
 			y = sd->status.save_point.y;
 			m = map_mapindex2mapid(mapindex);
+
+			clif_displaymessage(sd->fd, "You were returned to your spawn point, as no more members of your guild may enter this map.");
 		}
 	}
 	else if( map[m].party_max && sd->bl.m != m && sd->status.party_id && (p = party_search(sd->status.party_id)) != NULL )
 	{ // Party Limit
-		for( i = c = 0; i < MAX_PARTY && c < map[m].party_max; i++ )
+		for( i = count = 0; i < MAX_PARTY && count < map[m].party_max; i++ )
 			if( p->data[i].sd && p->data[i].sd->bl.m == m )
-				c++;
+				count++;
 
-		if( c >= map[m].party_max )
+		if( count >= map[m].party_max )
 		{ // No more party members on this map
 			mapindex = sd->status.save_point.map;
 			x = sd->status.save_point.x;
 			y = sd->status.save_point.y;
 			m = map_mapindex2mapid(mapindex);
+
+			clif_displaymessage(sd->fd, "You were returned to your spawn point, as no more members of your party may enter this map.");
 		}
 	}
 

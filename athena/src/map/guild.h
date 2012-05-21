@@ -107,6 +107,8 @@ int guild_score_saved(int guild_id, int index);
 int guild_agit_start(void);
 int guild_agit_end(void);
 
+int guild_sub_count(struct block_list* bl, va_list ap);
+
 
 void do_final_guild(void);
 

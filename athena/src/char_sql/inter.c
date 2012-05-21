@@ -40,7 +40,7 @@ char default_codepage[32] = ""; //Feature by irmin.
 #ifndef TXT_SQL_CONVERT
 
 static struct accreg *accreg_pt;
-unsigned int party_share_level = 10;
+unsigned int party_share_level = 20;
 char main_chat_nick[16] = "Main";
 
 // recv. packet list
@@ -49,7 +49,7 @@ int inter_recv_packet_length[] = {
 	 6,-1, 0, 0,  0, 0,10,-1, 10,-1, 0, 0,  0, 0,  0, 0,	// 3010-
 	-1,10,-1,14, 14,19, 6,-1, 14,14, 0, 0,  0, 0,  0, 0,	// 3020- Party
 	-1, 6,-1,-1, 55,19, 6,-1, 14,-1,-1,-1, 18,19,186,-1,	// 3030-
-	 5, 9, 0, 0,  0, 0, 0, 0,  7, 6,10,10, 10,-1,  0, 0,	// 3040- [Zephyrus] 0x3042 Guild Rank
+	 5, 9,-1,-1,  6, 0, 0, 0,  7, 6,10,10, 10,-1,  0, 0,	// 3040- [Zephyrus] 
 	-1,-1,10,10,  0,-1, 0, 0,  0, 0, 0, 0,  0, 0,  0, 0,	// 3050-  Auction System [Zephyrus]
 	 6,-1, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0,  0, 0,  0, 0,	// 3060-  Quest system [Kevin] [Inkfish]
 	-1,10, 6,-1,  0, 0, 0, 0,  0, 0, 0, 0,  0, 0,  0, 0,	// 3070-  Mercenary packets [Zephyrus]
@@ -241,7 +241,7 @@ static int inter_config_read(const char* cfgName)
 		}
 #ifndef TXT_SQL_CONVERT
 		else if(!strcmpi(w1,"party_share_level"))
-			party_share_level = atoi(w2);
+			party_share_level = 20;
 		else if(!strcmpi(w1,"log_inter"))
 			log_inter = atoi(w2);
 		else if(!strcmpi(w1,"main_chat_nick"))
@@ -408,7 +408,6 @@ int mapif_account_reg_reply(int fd,int account_id,int char_id, int type)
 	struct accreg *reg=accreg_pt;
 	WFIFOHEAD(fd, 13 + 5000);
 	inter_accreg_fromsql(account_id,char_id,reg,type);
-	ShowInfo("doin dis for %d (a: %d | c: %d | m: %d)\n", type, account_id, char_id);
 	WFIFOW(fd,0)=0x3804;
 	WFIFOL(fd,4)=account_id;
 	WFIFOL(fd,8)=char_id;
@@ -631,7 +630,159 @@ int mapif_parse_Registry(int fd)
 	mapif_account_reg(fd,RFIFOP(fd,0));	// Send updated accounts to other map servers.
 	return 0;
 }
+int inter_restock_tosql(int char_id, char index, struct restock_data *rs)
+{
+	StringBuf buf;
+	struct item* it;
+	int i;
 
+	if (char_id <= 0)
+		return 0;
+	if (index >= MAX_RESTOCK_SLOTS || index < 0)
+		return 0;
+
+	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE from `%s` WHERE (`char_id`='%d' AND `index`='%d') LIMIT %d", restock_db, char_id, index, MAX_RESTOCK_ITEMS) )
+	{
+		Sql_ShowDebug(sql_handle);
+	}
+
+	StringBuf_Init(&buf);
+	StringBuf_Printf(&buf, "INSERT INTO `%s` (`char_id`, `index`, `nameid`, `amount`, `card0`, `card1`, `card2`, `card3`) VALUES ", restock_db);
+
+	for (i=0; i < rs->size; ++i)
+	{
+		it = &rs->items[i];
+
+		if (i > 0)
+			StringBuf_AppendStr(&buf, ",");
+
+		StringBuf_Printf(&buf, "('%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d')", 
+			char_id, index, it->nameid, it->amount, it->card[0], it->card[1], it->card[2], it->card[3]);
+	}
+
+	if ( SQL_ERROR == Sql_QueryStr(sql_handle, StringBuf_Value(&buf)) )
+		Sql_ShowDebug(sql_handle);
+
+	StringBuf_Destroy(&buf);
+
+	return 1;
+}
+int mapif_save_restock_ack(int fd, int char_id, int flag)
+{
+	WFIFOHEAD(fd, 7);
+	WFIFOW(fd, 0) = 0x3845;
+	WFIFOL(fd, 2) = char_id;
+	WFIFOB(fd, 6) = flag;
+	WFIFOSET(fd, 7);
+
+	return 0;
+}
+int mapif_save_restock(int fd, int char_id, char index, struct restock_data *rs)
+{
+	int len=0;
+
+	RFIFOHEAD(fd);
+
+	len= RFIFOW(fd, 2);
+
+	if (sizeof (struct restock_data) != len-9)
+		ShowError("inter restock: restock_data size mismatch! C:%d M:%d\n", sizeof (struct restock_data), len-9);
+	else
+	{
+		inter_restock_tosql(char_id, index, rs);
+		mapif_save_restock_ack(fd, char_id, 0);
+	}
+
+	return 0;
+}
+int mapif_parse_SaveRestock(int fd)
+{
+	RFIFOHEAD(fd);
+	mapif_save_restock(fd, RFIFOL(fd, 4), RFIFOB(fd, 8), (struct restock_data*) RFIFOP(fd, 9));
+	return 0;
+}
+
+int inter_restock_fromsql(int char_id, char index, struct restock_data* rs)
+{
+	struct item* it;
+	StringBuf buf;
+	char* data;
+	int i, j;
+	
+	if (index >= MAX_RESTOCK_SLOTS || index < 0)
+		return 0;
+	if (char_id < 0)
+		return 0;
+
+	memset(rs, 0, sizeof (rs));
+	rs->size = 0;
+	
+	StringBuf_Init(&buf);
+	StringBuf_AppendStr(&buf, "SELECT `id`, `nameid`, `amount`");
+	for (i = 0; i < MAX_SLOTS; ++i)
+		StringBuf_Printf(&buf, ", `card%d`", i);
+	StringBuf_Printf(&buf, " FROM `%s` WHERE `char_id`='%d' AND `index`='%d'", restock_db, char_id, index);
+	
+	if ( SQL_ERROR == Sql_Query(sql_handle, StringBuf_Value(&buf)) )
+		Sql_ShowDebug(sql_handle);
+		
+	StringBuf_Destroy(&buf);
+	
+	for (i=0; i < MAX_RESTOCK_ITEMS && SQL_SUCCESS == Sql_NextRow(sql_handle); ++i)
+	{
+		it = &rs->items[i];
+
+		Sql_GetData(sql_handle, 0, &data, NULL); it->id = atoi(data);
+		Sql_GetData(sql_handle, 1, &data, NULL); it->nameid = atoi(data);
+		Sql_GetData(sql_handle, 2, &data, NULL); it->amount = atoi(data);
+		for (j=0; j < MAX_SLOTS; ++j)
+		{
+			Sql_GetData(sql_handle, 3+j, &data, NULL); it->card[j] = atoi(data);
+		}
+	}
+	rs->size = i;
+
+	Sql_FreeResult(sql_handle);
+
+	//ShowInfo("restock load complete cid: %d idx:%d", char_id, index);
+
+	return 1;
+}
+
+int mapif_restock_reply(int fd, int char_id)
+{
+	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `index` FROM `%s` WHERE `char_id`='%d'", restock_db, char_id) )
+		Sql_ShowDebug(sql_handle);
+	else if( Sql_NumRows(sql_handle) > 0 )
+	{
+		int i=0;
+
+		WFIFOHEAD(fd, 8 + sizeof (struct restock_data) * MAX_RESTOCK_SLOTS);
+		WFIFOW(fd,0) = 0x3846;
+		WFIFOW(fd,2) = 8 + sizeof (struct restock_data) * MAX_RESTOCK_SLOTS;
+		WFIFOL(fd,4) = char_id;
+
+		for (i=0; i < MAX_RESTOCK_SLOTS; ++i)
+			inter_restock_fromsql(char_id, i, (struct restock_data*)WFIFOP(fd,8+i*sizeof (struct restock_data)) );
+		ShowInfo("Restock load complete from DB for %d\n", char_id);
+		WFIFOSET(fd, WFIFOW(fd,2));
+		return 0;
+	}
+	Sql_FreeResult(sql_handle);
+
+	WFIFOHEAD(fd, 8+sizeof (struct restock_data)* MAX_RESTOCK_SLOTS);
+	WFIFOW(fd,0) = 0x3846;
+	WFIFOW(fd,2) = 8+sizeof (struct restock_data)* MAX_RESTOCK_SLOTS;
+	WFIFOL(fd,4) = char_id;
+	memset(WFIFOP(fd, 8), 0, sizeof (struct restock_data)* MAX_RESTOCK_SLOTS);
+	WFIFOSET(fd, 8+sizeof (struct restock_data)* MAX_RESTOCK_SLOTS);
+	return 0;
+}
+int mapif_parse_RestockRequest(int fd)
+{
+	mapif_restock_reply(fd, RFIFOL(fd,2));
+	return 1;
+}
 // Request the value of all registries.
 int mapif_parse_RegistryRequest(int fd)
 {
@@ -732,6 +883,8 @@ int inter_parse_frommap(int fd)
 	case 0x3004: mapif_parse_Registry(fd); break;
 	case 0x3005: mapif_parse_RegistryRequest(fd); break;
 	case 0x3006: mapif_parse_NameChangeRequest(fd); break;
+	case 0x3043: mapif_parse_SaveRestock(fd); break;
+	case 0x3044: mapif_parse_RestockRequest(fd); break;
 	default:
 		if(  inter_party_parse_frommap(fd)
 		  || inter_guild_parse_frommap(fd)

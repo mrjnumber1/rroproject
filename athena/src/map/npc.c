@@ -847,7 +847,7 @@ int npc_touch_areanpc(struct map_session_data* sd, int m, int x, int y)
 {
 	int xs,ys;
 	int f = 1;
-	int i;
+	int i, count = 0;
 
 	nullpo_retr(1, sd);
 
@@ -888,6 +888,17 @@ int npc_touch_areanpc(struct map_session_data* sd, int m, int x, int y)
 		case WARP:
 			if( pc_ishiding(sd) )
 				break; // hidden chars cannot use warps
+			// prevent warp in if guild_max is exceeded on the map unless it takes you to the same map
+			if (    map[m].guild_max && sd->bl.m != m && sd->status.guild_id 
+				&& (count = map_foreachinmap(guild_sub_count, m, BL_PC, sd->status.guild_id) ) 
+				&& (count >= map[m].guild_max) 
+				)
+			{
+				clif_displaymessage(sd->fd, "You were not allowed into the map because it has too many members of your guild online.");
+				break;
+			}
+			//else if (map[m].party_max) //TODO
+
 			pc_setpos(sd,map[m].npc[i]->u.warp.mapindex,map[m].npc[i]->u.warp.x,map[m].npc[i]->u.warp.y,CLR_OUTSIGHT);
 			break;
 		case SCRIPT:

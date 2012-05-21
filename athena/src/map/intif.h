@@ -25,6 +25,9 @@ int intif_wis_message_to_gm(char *Wisp_name, int min_gm_level, char *mes);
 int intif_saveregistry(struct map_session_data *sd, int type);
 int intif_request_registry(struct map_session_data *sd, int flag);
 
+int intif_send_restock(struct map_session_data *sd, char index);
+int intif_request_restock(int char_id);
+
 int intif_request_member_storage(int account_id, int member_id);
 int intif_send_member_storage(int account_id, struct member_storage_data *mstor);
 
@@ -69,6 +72,7 @@ int intif_request_petdata(int account_id, int char_id, int pet_id);
 int intif_save_petdata(int account_id, struct s_pet *p);
 int intif_delete_petdata(int pet_id);
 int intif_rename(struct map_session_data *sd, int type, char *name);
+
 #define intif_rename_pc(sd, name) intif_rename(sd, 0, name)
 #define intif_rename_pet(sd, name) intif_rename(sd, 1, name)
 #define intif_rename_hom(sd, name) intif_rename(sd, 2, name)
