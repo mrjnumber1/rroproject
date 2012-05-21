@@ -9332,6 +9332,73 @@ ACMD_FUNC(shopsearch)
 	return 0;
 }
 
+/*==========================================
+* @whobuy - List who is buying the item (amount, price, and location).
+* remake by VoidLess, original by zephyrus_cr
+* re-edit by deathscythe to work in rAthena
+*------------------------------------------*/
+ACMD_FUNC(whobuy)
+{
+    char item_name[100];
+    int item_id, j, count = 0, sat_num = 0;
+    bool flag = 0; // place dot on the minimap?
+    struct map_session_data* pl_sd;
+    struct s_mapiterator* iter;
+    unsigned int MinPrice = battle_config.vending_max_value, MaxPrice = 0;
+    struct item_data *item_data;
+
+    nullpo_retr(-1, sd);
+    memset(item_name, '\0', sizeof(item_name));
+
+    if (!message || !*message || sscanf(message, "%99[^\n]", item_name) < 1) 
+	{
+        clif_displaymessage(fd, "Input item name or ID (use: @whobuy <name or ID>).");
+        return -1;
+    }
+    if  (	(item_data = itemdb_searchname(item_name)) == NULL 
+		&&  (item_data = itemdb_exists(atoi(item_name))) == NULL
+		)
+    {
+        clif_displaymessage(fd, msg_txt(19)); // Invalid item ID or name.
+        return -1;
+    }
+
+    item_id = item_data->nameid;
+
+    iter = mapit_getallusers();
+    for( pl_sd = (TBL_PC*)mapit_first(iter); mapit_exists(iter); pl_sd = (TBL_PC*)mapit_next(iter) )
+    {
+        if( pl_sd->buyer_id ) //check if player is autobuying
+        {
+			for (j = 0; j < pl_sd->buyingstore.slots; j++) {
+				if(pl_sd->buyingstore.items[j].nameid == item_id) {
+					snprintf(atcmd_output, CHAT_SIZE_MAX, "Price %d | Amount %d | Buyer %s | Map %s[%d,%d]",pl_sd->buyingstore.items[j].price,pl_sd->buyingstore.items[j].amount,pl_sd->status.name,mapindex_id2name(pl_sd->mapindex),pl_sd->bl.x, pl_sd->bl.y);
+					if(pl_sd->buyingstore.items[j].price < MinPrice) MinPrice = pl_sd->buyingstore.items[j].price;
+					if(pl_sd->buyingstore.items[j].price > MaxPrice) MaxPrice = pl_sd->buyingstore.items[j].price;
+                    clif_displaymessage(fd, atcmd_output);
+                    count++;
+                    flag = 1;
+                }
+            }
+            if(flag && pl_sd->mapindex == sd->mapindex){
+                clif_viewpoint(sd, 1, 1, pl_sd->bl.x, pl_sd->bl.y, ++sat_num, 0xFFFFFF);
+                flag = 0;
+            }
+        }
+    }
+    mapit_free(iter);
+
+    if(count > 0) 
+	{
+        snprintf(atcmd_output, sizeof(atcmd_output), "Found %d ea. Prices from %dz to %dz", count, MinPrice, MaxPrice);
+        clif_displaymessage(fd, atcmd_output);
+    } 
+	else
+        clif_displaymessage(fd, "Nobody is buying it right now.");
+
+    return 0;
+}
+
 //int atcommand_shopsearch(const int fd, struct map_session_data* sd, const char* command, const char* message)
 //{
 //    char item_name[100];
@@ -10781,7 +10848,7 @@ ACMD_FUNC(bump)
 	if(atoi(message) > 0)
 		cells = atoi(message);
 	
-	if(!message || !!*message || !cells)
+	if(!message || !*message || !cells)
 	{
 		clif_displaymessage(fd, "Please enter a proper command. (usage: @bump <cells=5>");
 		return -1;
@@ -10826,29 +10893,30 @@ ACMD_FUNC(sell)
 
 ACMD_FUNC(missioninfo)
 {
-	int i, j, slot=0;
+	int i, j, mapindex=0;
 
 	nullpo_retr(-1, sd);
 
-	if ( atoi(message) > 0 )
-		slot = atoi(message);
+	if(!message || !*message)
+	{
+		clif_displaymessage(fd, "Please enter a proper command. (usage: @missioninfo)");
+		return -1;
+	}
 
-	if(slot)
-		i=slot-1;
-	else
-		i=0;
-
-	for (; i < MAX_MISSION_SLOTS; ++i)
+	clif_displaymessage(fd, "Accepted missions: ");
+	for (i=0; i < MAX_MISSION_SLOTS; ++i)
 	{
 		if (sd->mission[i].mission_id < 1)
-		{
 			continue;
-		}
 		snprintf(atcmd_output, sizeof(atcmd_output), "Slot %d: %s", i+1, mission_db[sd->mission[i].mission_id-1].name);
 		clif_displaymessage(fd, atcmd_output);
 
 
-
+		mapindex = mission_db[sd->mission[i].mission_id-1].mapindex;
+		
+		snprintf(atcmd_output, sizeof(atcmd_output), " Map: %s", mapindex_id2name(mapindex));
+		clif_displaymessage(fd, atcmd_output);
+		
 		clif_displaymessage(fd, " Mobs: ");
 
 		for (j=0; j < MISSION_MAX_MOBS; ++j)
@@ -10876,9 +10944,332 @@ ACMD_FUNC(missioninfo)
 
 			clif_displaymessage(fd, atcmd_output);
 		}
+	}
 
-		if (slot)
+
+
+	return 0;
+}
+
+
+// usage
+//  <num> is an integer value from [1,MAX_RESTOCK_SLOTS]
+//  @restock set <num>
+//  @restock get <num>
+//  @restock clear <num>
+//  @restock check <num>
+
+struct refill_data
+{
+	int amount;
+	int inventory_index;
+	int storage_index;
+};
+
+static void atcommand_restock_sub(struct map_session_data* sd, struct refill_data* data, struct item* it)
+{	
+	int i, amount = 0, sto_count = 0, inv_count = 0;
+	int nameid; 
+	short c1, c2, c3, c4;
+
+	nullpo_retv(sd);
+	nullpo_retv(it);
+
+	if (it->amount == 0)
+		return;
+
+	// this should be unnecessary as it won't be called anywhere but ACMD_FUNC(restock)
+	//ARR_FIND(0, MAX_RESTOCK_SLOTS, i, sd->restock[idx].items[i].nameid == it->nameid);
+	//if ( i == MAX_RESTOCK_ITEMS)
+	// return;
+	nameid = it->nameid;
+	c1 = it->card[0];
+	c2 = it->card[1];
+	c3 = it->card[2];
+	c4 = it->card[3];
+	// search inventory index for the item
+	for (i = 0; i < MAX_INVENTORY; i++)
+	{
+		//ShowDebug("(inv_search: %d) i: %d | id: %d | amt: %d\n", nameid, i, sd->status.inventory[i].nameid, sd->status.inventory[i].amount);
+		if (sd->status.inventory[i].nameid > 0 && sd->inventory_data[i] != NULL &&
+			sd->status.inventory[i].amount > 0 && sd->status.inventory[i].nameid == nameid &&
+			sd->status.inventory[i].card[0] == c1 && sd->status.inventory[i].card[1] == c2 && 
+			sd->status.inventory[i].card[2] == c3 && sd->status.inventory[i].card[3] == c4
+		)
+		{
+			inv_count = sd->status.inventory[i].amount;
 			break;
+		}
+	}
+	if ( i != MAX_INVENTORY)
+		data->inventory_index = i;
+	else
+		data->inventory_index = -1;
+
+	// search storage index for the item
+	for (i=0; i < sd->status.storage.storage_amount; ++i)
+	{
+		struct item s_it = sd->status.storage.items[i];
+		//ShowDebug("(sto_search: %d c0-c3 %d %d %d %d ) i: %d | id: %d (c0-3: %d %d %d %d)| amt: %d\n", nameid, c1, c2, c3, c4, i, s_it.nameid, s_it.card[1], s_it.card[2], s_it.card[3], s_it.amount);
+		if (s_it.nameid > 0 &&
+			s_it.amount > 0 && s_it.nameid == nameid &&
+			s_it.card[0] == c1 && s_it.card[1] == c2 && 
+			s_it.card[2] == c3 && s_it.card[3] == c4
+		)
+		{
+			sto_count = s_it.amount;
+			break;
+		}
+	}
+	if ( i != sd->status.storage.storage_amount)
+		data->storage_index = i;
+	else
+		return;
+
+	if (inv_count < it->amount) // this means we need to retrieve
+	{ 
+		amount = it->amount - inv_count;
+		if (sto_count < amount) // not enough items in storage
+		{
+			if (sto_count)
+			{
+				amount = sto_count;
+				snprintf(atcmd_output, sizeof(atcmd_output), "Not enough of `%s` are in storage, instead %d items will attempt to be retrieved.", itemdb_jname(it->nameid), amount);
+				clif_displaymessage(sd->fd, atcmd_output);
+			}
+			else
+			{
+				amount = 0;
+				snprintf(atcmd_output, sizeof(atcmd_output), "You do not have any `%s` to retrieve!", itemdb_jname(it->nameid));
+				clif_displaymessage(sd->fd, atcmd_output);
+			}
+		}
+
+		// now, we know we have enough.
+	}
+	else if (inv_count > it->amount) // this means we need to store the items
+	{
+		amount = inv_count - it->amount;
+		if ( (amount+sto_count) >= MAX_AMOUNT) // too many items already stored
+		{
+			amount = MAX_AMOUNT - sto_count;
+
+			if (amount)
+			{
+				snprintf(atcmd_output, sizeof(atcmd_output), "Cannot store enough `%s`, as it would make the items stored exceed %d. Instead, %d items will be stored.", itemdb_jname(it->nameid), MAX_AMOUNT, -amount);
+				clif_displaymessage(sd->fd, atcmd_output);
+			}
+			else
+			{
+				snprintf(atcmd_output, sizeof(atcmd_output), "You do not have room in storage for `%s`!", itemdb_jname(it->nameid));
+				clif_displaymessage(sd->fd, atcmd_output);
+			}
+		}
+		amount = -amount; // set to negative as we are storing these, rather than unstoring
+	}
+
+	if (amount == 0)
+		return;
+
+	data->amount = amount;
+	return;
+}
+
+ACMD_FUNC(restock)
+{
+	int idx = 0, i=0, j=0;
+	char subcmd[8];
+	struct item* items;
+
+	memset(subcmd, '\0', sizeof(subcmd));
+
+	if (!message || !*message || sscanf(message, "%7s %d", subcmd, &idx) < 1)
+	{
+		clif_displaymessage(fd, "Please enter a proper command. (usage: @restock (set/get/clear/check) (<slot>)");
+		return -1;
+	}
+
+	idx -= 1;
+
+	if (idx >= MAX_RESTOCK_SLOTS || idx < 0)
+	{
+		snprintf(atcmd_output, sizeof(atcmd_output), "Please enter a valid index (slot 1-%d).", MAX_RESTOCK_SLOTS);
+		clif_displaymessage(fd, atcmd_output);
+		return -1;
+	}
+	
+	snprintf(atcmd_output, sizeof(atcmd_output), "@-->  Restock Slot #%d", idx+1);
+	clif_displaymessage(fd, atcmd_output);
+
+	if ( !strcmpi(subcmd, "get") ) // to retrieve our restock items from storage, if available
+	{
+		if (sd->state.storage_flag != 1 && sd->restock[idx].size > 0)
+		{
+			struct refill_data refill = { 0, 0, 0 };
+
+			if (storage_storageopen(sd) == 1)
+			{
+				clif_displaymessage(fd, "You cannot use your storage at this time.");
+				return -1;
+			}
+				
+			for (i=0; i < sd->restock[idx].size; ++i)
+			{
+				refill.amount = 0;
+
+				if (sd->restock[idx].items[i].nameid)
+					atcommand_restock_sub(sd, &refill, &sd->restock[idx].items[i]);
+
+				//ShowDebug("c:%d item:%d amt:%d inv:%d sto:%d\n", sd->status.char_id, sd->restock[idx].items[i].nameid, refill.amount, refill.inventory_index, refill.storage_index);
+				if(refill.amount == 0)
+					continue;
+				else if (refill.amount > 0) // take items from storage
+				{
+					if (storage_storageget(sd, refill.storage_index, refill.amount) == 0)
+					{
+						snprintf(atcmd_output, sizeof(atcmd_output), "Sorry, you do not have enough `%d` in storage", sd->restock[idx].items[i].nameid);
+						clif_displaymessage(fd, atcmd_output);
+					}
+				}
+				else if (refill.amount < 0) // put items in storage
+				{
+					//if (sd->status.inventory[refill.inventory_index].equip != 0) // in case we add this feature
+					//	pc_unequipitem(sd, refill.inventory_index, 3);
+					if (refill.inventory_index == -1)
+					{
+						ShowError("atcommand_restock: requesting storage of an item (%d) the player (%d) does not have!\n", 
+							sd->restock[idx].items[i].nameid, sd->status.char_id); 
+						return -1;
+					}
+					storage_storageadd(sd, refill.inventory_index, -(refill.amount) );
+				}	
+				
+			}
+			
+			storage_storageclose(sd);
+			clif_displaymessage(fd, "  -- Retrieval Complete --");
+		}
+		else
+		{
+			clif_displaymessage(fd, " Cannot retrieve items.");
+			return -1;
+		}
+
+	}
+	else if ( !strcmpi(subcmd, "clear") ) // to clear our restock settings to nothing
+	{
+		memset(&sd->restock[idx], '0', sizeof (sd->restock[idx]));
+		clif_displaymessage(fd, "EMPTIED!");
+	}
+	else if ( !strcmpi(subcmd, "set") ) // to record our restock settings
+	{
+		i=0; //jic
+
+		for (j=0; j < MAX_INVENTORY; ++j)
+		{
+			if ( !itemdb_exists(sd->status.inventory[j].nameid) )
+				continue;
+
+			switch (sd->inventory_data[j]->type)
+			{
+				case IT_HEALING:
+				case IT_USABLE:
+				case IT_ETC:
+				case IT_DELAYCONSUME:
+				case IT_THROWWEAPON:
+				case IT_CASH:
+				case IT_AMMO:
+				{
+					struct item* it = &sd->status.inventory[j];
+					if ( !itemdb_canstore(it, pc_isGM(sd)) )
+						continue;
+					else if (it->card[0] == CARD0_CREATE) 
+					{
+						int char_id = MakeDWord(it->card[2], it->card[3]);
+						if (   (BG_CHARID && char_id == BG_CHARID && BG_TRADE&32) 
+							|| (WOE_CHARID && char_id == WOE_CHARID && WOE_TRADE&32) 
+							|| (RAID_CHARID && char_id == RAID_CHARID && RAID_TRADE&32) 
+						   )
+							continue;
+				
+					}
+
+					memcpy(&sd->restock[idx].items[i], it, sizeof (struct item));
+					++i;
+				}
+				default: 
+					continue;
+			}
+
+			if (i >= MAX_RESTOCK_ITEMS)
+				break;
+		}
+
+		sd->restock[idx].size = i;
+		if (sd->restock[idx].size > MAX_RESTOCK_ITEMS) // how would this happen? well, don't know don't care it shouldn't be this value!
+			sd->restock[idx].size = MAX_RESTOCK_ITEMS;
+
+		sd->state.restock_dirty |= (1<<idx);
+		//ShowDebug("Restock Slot %d marked for saving. (Dirty: %d)\n", idx, sd->state.restock_dirty);
+
+		strcpy(subcmd, "check"); // so players will immediately view what they have set :)
+	}
+	if ( !strcmpi(subcmd, "check") ) // to view our restock settings
+	{
+		StringBuf buf;
+		StringBuf_Init(&buf);
+
+		items = sd->restock[idx].items;
+
+		if(sd->restock[idx].size == 0)
+		{
+			clif_displaymessage(fd, "EMPTY!");
+			return 0;
+		}
+
+		for (i=0; i < sd->restock[idx].size; ++i)
+		{
+			const struct item* it = &items[i];
+			struct item_data* itd;
+
+			if( it->nameid == 0 || (itd = itemdb_exists(it->nameid)) == NULL )
+				continue;
+			
+			StringBuf_Printf(&buf, "  %d %s (%s, id: %d)", it->amount, itd->jname, itd->name, it->nameid);
+			clif_displaymessage(fd, StringBuf_Value(&buf));
+
+			StringBuf_Clear(&buf);
+
+
+			if(it->card[0] == CARD0_CREATE)
+			{
+				int char_id = MakeDWord(it->card[2], it->card[3]);
+
+				switch (char_id)
+				{
+				case BG_CHARID:
+					StringBuf_Printf(&buf, "   => (BG Only!)");
+					break;
+				case WOE_CHARID:
+					StringBuf_Printf(&buf, "   => (WoE Only!)");
+					break;
+				case RAID_CHARID:
+					StringBuf_Printf(&buf, "   => (Instance Only!)");
+					break;
+				default:
+					StringBuf_Printf(&buf, "   => (Creator ID: %d)", char_id);
+					break;
+				}
+			}
+
+			if( StringBuf_Length(&buf) > 0 )
+				clif_displaymessage(fd, StringBuf_Value(&buf));
+
+			StringBuf_Clear(&buf);
+		}
+
+		StringBuf_Destroy(&buf);
+		clif_displaymessage(fd, "--End of List");
 	}
 
 	return 0;
@@ -11129,12 +11520,13 @@ void atcommand_basecommands(void) {
 		{ "storagelist",       40,40,     atcommand_itemlist, false },
 		{ "cartlist",          40,40,     atcommand_itemlist, false },
 		{ "itemlist",          40,40,     atcommand_itemlist, false },
-		{ "stats",             0,60,     atcommand_stats, false },
+		{ "stats",              0,60,     atcommand_stats, false },
 		{ "delitem",           60,60,     atcommand_delitem, false },
-		{ "charcommands",       60,60,      atcommand_commands, false },
-		{ "font",               60,60,      atcommand_font, false },
+		{ "charcommands",       60,60,    atcommand_commands, false },
+		{ "font",               60,60,    atcommand_font, false },
 
 		{ "whosell",            0,2,      atcommand_shopsearch, false },
+		{ "whobuy",             0,2,      atcommand_whobuy, false },
 
 		{ "gcash",				0,60,	  atcommand_gcash, false },
 		{ "gpoints",			0,60,	  atcommand_gpoints, false },
@@ -11159,7 +11551,7 @@ void atcommand_basecommands(void) {
 		{ "moveaccount",       99,99,     atcommand_moveaccount, false },
 #endif
 
-		{ "cashshop",			0,60,	  atcommand_cashshop, false },
+		{ "cashshop",			60,60,	  atcommand_cashshop, false },
 		{ "badgeshop",			60,60,	  atcommand_badgeshop, false },
 		{ "kafrashop",			0,60,	  atcommand_kafrashop, false },
 
@@ -11170,14 +11562,16 @@ void atcommand_basecommands(void) {
 		{ "battleinfo",		 	0,2,	  atcommand_battleinfo, false },
 		{ "guildskill",			0,2,	  atcommand_guildskill, false },
 
+		{ "restock",            0,60,     atcommand_restock, false },
+
 		{ "bgranked",           0,60,     atcommand_bgranked, false },
 		{ "bgregular",          0,60,     atcommand_bgregular, false },
 
 		{ "gmc",			    2,2,	  atcommand_gmc, false },
 		{ "ngmc",				2,2,	  atcommand_ngmc, false },
 		
-		{ "buy",                2,2,      atcommand_buysell, false },
-		{ "sell",                2,2,      atcommand_sell,   false },
+		{ "buy",                0,2,      atcommand_buysell, false },
+		{ "sell",               0,2,      atcommand_sell,   false },
 
 		{ "addfame",           99,99,     atcommand_addfame, false },
 		{ "control",			0,60,	  atcommand_control, false },

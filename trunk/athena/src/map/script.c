@@ -6094,15 +6094,6 @@ BUILDIN_FUNC(storeitem2)
 }
 
 
-
-
-
-
-
-
-
-
-
 /*==========================================
  * rentitem <item id>,<seconds>
  * rentitem "<item name>",<seconds>
@@ -17347,7 +17338,7 @@ BUILDIN_FUNC(givecash)
 
 	if(!amt)
 	{
-		ShowError("buildin_getcash: negative/invalid amt %d given to player %d\n", amt, sd->status.char_id);
+		ShowError("buildin_givecash: negative/invalid amt %d given to player %d\n", amt, sd->status.char_id);
 		script_pushint(st, -1);
 		return 0;
 	}
@@ -17368,7 +17359,7 @@ BUILDIN_FUNC(givepoints)
 
 	if(!amt)
 	{
-		ShowError("buildin_getpoints: negative/invalid amt %d given to player %d\n", amt, sd->status.char_id);
+		ShowError("buildin_givepoints: negative/invalid amt %d given to player %d\n", amt, sd->status.char_id);
 		script_pushint(st, -1);
 		return 0;
 	}
@@ -18196,7 +18187,8 @@ BUILDIN_FUNC(getmissioninfo)
 	pc_setreg(sd, add_str("@s_mission_points"), mission_db[i].points);
 
 	pc_setregstr(sd, add_str("@s_mission_name$"), mission_db[i].name);
-	pc_setregstr(sd, add_str("@s_mission_map$"), map[mission_db[i].mapindex].name);
+	pc_setregstr(sd, add_str("@s_mission_map$"), mapindex_id2name(mission_db[i].mapindex));
+
 
 	for (k=0; k < MISSION_MAX_MOBS; ++k)
 	{

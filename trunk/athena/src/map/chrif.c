@@ -272,6 +272,7 @@ int chrif_isconnected(void)
  *------------------------------------------*/
 int chrif_save(struct map_session_data *sd, int flag)
 {
+	int i;
 	nullpo_retr(-1, sd);
 
 	pc_makesavestatus(sd);
@@ -296,12 +297,19 @@ int chrif_save(struct map_session_data *sd, int flag)
 		sd->state.storage_flag = 0; //Force close it.
 
 	//Saving of registry values. 
-	if (sd->state.reg_dirty&4)
-		intif_saveregistry(sd, 3); //Save char regs
-	if (sd->state.reg_dirty&2)
-		intif_saveregistry(sd, 2); //Save account regs
-	if (sd->state.reg_dirty&1)
-		intif_saveregistry(sd, 1); //Save account2 regs
+	for (i=0; i < 3; ++i)
+	{
+		if (sd->state.reg_dirty & (1<<i)) // 3 = char, 2 = account, 1 = account2(mem)
+			intif_saveregistry(sd, i);
+	}
+	for (i=0; i < MAX_RESTOCK_SLOTS; ++i)
+	{
+		if (sd->state.restock_dirty & (1<<i))
+		{
+			//ShowDebug("Restock Slot %d marked as dirty, attempting save. (Dirty: %d)\n", i, sd->state.restock_dirty);
+			intif_send_restock(sd, (char)i);
+		}
+	}
 
 	pc_calc_playtime(sd);
 

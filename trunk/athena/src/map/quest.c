@@ -587,7 +587,7 @@ bool mission_submit(struct map_session_data *sd, int index)
 	unsigned int base=0, job=0;
 	int nameid[MISSION_MAX_REWARDS], count[MISSION_MAX_REWARDS];
 	int i;
-	char reg[NAME_LENGTH];
+	char reg[NAME_LENGTH], msg[CHAT_SIZE_MAX];
 	bool check_add = false;
 
 	nullpo_ret(sd);
@@ -695,6 +695,9 @@ bool mission_submit(struct map_session_data *sd, int index)
 	snprintf(reg, sizeof(reg), "MD_%d_time", sd->mission[index].mission_id);
 	pc_setglobalreg(sd, reg, (int)time(NULL));
 	pc_setglobalreg(sd, "MD_mission_points", pc_readglobalreg(sd, "MD_mission_points") + mission_db[sd->mission[index].mission_id-1].points);
+	
+	snprintf(msg, sizeof(msg), "You gained %d Mission Points!", mission_db[sd->mission[index].mission_id-1].points);
+	clif_displaymessage(sd->fd, msg);
 
 	mission_remove(sd, index);
 

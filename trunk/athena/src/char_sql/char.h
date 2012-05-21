@@ -68,6 +68,7 @@ extern char guild_position_db[256];
 extern char guild_skill_db[256];
 extern char guild_storage_db[256];
 extern char member_storage_db[256];
+extern char restock_db[64];
 extern char party_db[256];
 extern char pet_db[256];
 extern char mail_db[256];

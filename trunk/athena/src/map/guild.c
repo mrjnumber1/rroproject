@@ -247,6 +247,28 @@ int guild_getindex(struct guild *g,int account_id,int char_id)
 	return( i < g->max_member ) ? i : -1;
 }
 
+int guild_sub_count(struct block_list* bl, va_list ap)
+{
+	int guild_id;
+	struct map_session_data* sd = NULL;
+
+	nullpo_ret(bl);
+
+	guild_id = va_arg(ap, int);
+	sd = (TBL_PC*)bl;
+
+	nullpo_ret(sd); // should never happen, but just in case..
+
+
+	if (sd->state.autotrade) // do not count autotraders as members of the map!
+		return 0;
+	if(guild_id && (sd->status.guild_id != guild_id) )
+		return 0;
+
+	return 1;
+
+}
+
 /// lookup: player sd -> member position
 int guild_getposition(struct guild* g, struct map_session_data* sd)
 {

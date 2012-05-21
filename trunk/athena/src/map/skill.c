@@ -9713,13 +9713,19 @@ int skill_delayfix (struct block_list *bl, int skill_id, int skill_lv)
 	{
 		char details[128];
 		bool isASPDbased = false;
-		if(base_time == 0)
+		if (base_time == 0)
 		{
 			base_time = status_get_amotion(bl);
 			isASPDbased = true;
 		}
-
-		sprintf(details, "Cast Delay: [%d] ms. Base Delay: [%d] ms. %s", time, base_time, isASPDbased?"(ASPD-based)":"");
+		if ( (base_time > time && isASPDbased) || (time == battle_config.min_skill_delay_limit) )
+		{
+			sprintf(details, "Cast Delay: [%d] ms. Base Delay: [%d] ms. (Server-Enforced)", time, base_time);
+		}
+		else
+		{
+			sprintf(details, "Cast Delay: [%d] ms. Base Delay: [%d] ms. %s", time, base_time, isASPDbased?"(ASPD-based)":"");
+		}
 		clif_disp_onlyself(sd, details, strlen(details));
 	}
 

@@ -102,6 +102,7 @@ struct s_mission_data {
 	} item[MISSION_MAX_ITEMS];
 };
 
+
 struct map_session_data {
 	struct block_list bl;
 	struct unit_data ud;
@@ -177,6 +178,7 @@ struct map_session_data {
 		unsigned bg_loser : 1;
 		//unsigned evade_antiwpefilter : 1;
 		unsigned lowratechar : 1;
+		unsigned int restock_dirty : MAX_RESTOCK_SLOTS; // [misterj]
 	} state;
 	struct {
 		unsigned char no_weapon_damage, no_magic_damage, no_misc_damage;
@@ -479,12 +481,15 @@ struct map_session_data {
 	const char* delunit_prevfile;
 	int delunit_prevline;
 
-	//struct queue_data *qd;
 	int friend_req;
-
 	struct s_mission_data mission[MAX_MISSION_SLOTS];
 
+	struct restock_data restock[MAX_RESTOCK_SLOTS];
+
+
 };
+
+
 
 //Update this max as necessary. 55 is the value needed for Super Baby currently
 //#define MAX_SKILL_TREE 55

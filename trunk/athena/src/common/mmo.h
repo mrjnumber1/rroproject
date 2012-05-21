@@ -174,7 +174,12 @@
 #define MEMBERS_PER_GUILD_EXTENSION 3
 #define MAX_GUILD (DEFAULT_GUILD_MEMBERS+10*MEMBERS_PER_GUILD_EXTENSION)	// increased max guild members +2 per 1 extension levels [Lupus]
 #define MAX_GUILDPOSITION MAX_GUILD	// increased max guild positions to accomodate for all members [Valaris] (removed) [PoW]
+#define MAX_RESTOCK_ITEMS 24
+#define MAX_RESTOCK_SLOTS 4
 
+#if MAX_RESTOCK_ITEMS > MAX_INVENTORY
+#error MAX_RESTOCK_ITEMS may not exceed MAX_INVENTORY!!
+#endif
 
 enum item_types {
 	IT_HEALING = 0,
@@ -317,7 +322,7 @@ struct storage_data {
 	struct item items[MAX_STORAGE];
 };
 struct member_storage_data {
-	int dirty; //wtf is this shit called "dirty" for?
+	int dirty; 
 	int member_id;
 	short storage_status;
 	short storage_amount;
@@ -639,6 +644,13 @@ struct registry {
 	struct global_reg account[ACCOUNT_REG_NUM];
 	int account2_num;
 	struct global_reg account2[ACCOUNT_REG2_NUM];
+};
+
+
+struct restock_data
+{
+	struct item items[MAX_RESTOCK_ITEMS];
+	int size;
 };
 
 struct party_member {
