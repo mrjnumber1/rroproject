@@ -97,8 +97,6 @@ CREATE TABLE IF NOT EXISTS `char` (
   `fame` int(11) unsigned NOT NULL default '0',
   `rename` smallint(3) unsigned NOT NULL default '0',
   `delete_date` int(11) unsigned NOT NULL default '0',
-  `playtime` bigint(20) unsigned NOT NULL default '0',
-  `lang` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`char_id`),
   KEY `account_id` (`account_id`),
   KEY `party_id` (`party_id`),
