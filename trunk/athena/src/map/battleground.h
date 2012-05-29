@@ -124,6 +124,7 @@ void bg_block_skill_status(struct battleground_data *bg, int skillnum);
 void bg_block_skill_start(struct battleground_data *bg, int skillnum, int time);
 int bg_check_best(int bg_id1, int bg_id2);
 int bg_tally_stats(struct map_session_data *sd);
+int bg_view_stats(struct map_session_data *sd, int flag);
 
 int battleground_countlogin(struct map_session_data *sd, bool check_bat_room);
 

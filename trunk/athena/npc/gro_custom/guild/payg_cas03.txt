@@ -18,7 +18,7 @@
 //============================================================
 payon,166,177,3	script	Holy Shadow#f3-1::HolyShadow	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePy03:
 	FlagEmblem GetCastleData("payg_cas03",1);
 	end;
@@ -69,7 +69,7 @@ pay_gld,321,298,2	script	Holy Shadow#f3-3::HolyShadow2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastlePy03:
 	FlagEmblem GetCastleData("payg_cas03",1);
 	end;
@@ -83,7 +83,7 @@ pay_gld,333,254,4	duplicate(HolyShadow2)	Holy Shadow#f3-6	722
 //============================================================
 payg_cas03,236,54,2	script	Holy Shadow#f3-7::HolyShadow3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePy03:
 	FlagEmblem GetCastleData("payg_cas03",1);
 	end;

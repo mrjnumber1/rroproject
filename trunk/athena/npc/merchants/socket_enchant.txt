@@ -280,20 +280,21 @@ function	script	Func_Socket	{
 				mes "[Seiyablem]";
 				mes "Alright then, let the work begin!";
 				mes "You'd better pray for a successful result.";
-				next;
 				set .@a, rand(1,100);
 				if ((.@a > getarg(2)) && (.@a < getarg(3)))
 				{
-					specialeffect getarg(3) == 51 ? EF_LORD : EF_SANCTUARY; // only S Class items have Lord of Vermillion effect
-					mes "[Seiyablem]";
-					mes "Great, it seems to be successful.";
-					mes "It looks pretty well done. Congratulations!";
 					delitem getarg(0),1;
 					delitem getarg(5),getarg(6);
 					if (getarg(7,0) != 0 && getarg(8,0) != 0)
 						delitem getarg(7),getarg(8);
 					set Zeny, Zeny - getarg(4)*1000;
 					getitem getarg(1),1;
+					specialeffect getarg(3) == 51 ? EF_LORD : EF_SANCTUARY; // only S Class items have Lord of Vermillion effect
+					next;
+					mes "[Seiyablem]";
+					mes "Great, it seems to be successful.";
+					mes "It looks pretty well done. Congratulations!";
+
 					next;
 					mes "[Seiyablem]";
 					mes "See you again, buddy!";

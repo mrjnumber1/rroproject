@@ -300,7 +300,7 @@ int chrif_save(struct map_session_data *sd, int flag)
 	for (i=0; i < 3; ++i)
 	{
 		if (sd->state.reg_dirty & (1<<i)) // 3 = char, 2 = account, 1 = account2(mem)
-			intif_saveregistry(sd, i);
+			intif_saveregistry(sd, i+1);
 	}
 	for (i=0; i < MAX_RESTOCK_SLOTS; ++i)
 	{
@@ -310,8 +310,6 @@ int chrif_save(struct map_session_data *sd, int flag)
 			intif_send_restock(sd, (char)i);
 		}
 	}
-
-	pc_calc_playtime(sd);
 
 	WFIFOHEAD(char_fd, sizeof(sd->status) + 13);
 	WFIFOW(char_fd,0) = 0x2b01;

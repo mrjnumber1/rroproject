@@ -1,0 +1,177 @@
+market	mapflag	autotrade
+market	mapflag	nopenalty
+market	mapflag	noteleport
+market	mapflag	nobranch
+market	mapflag	nightenabled
+
+market,93,121,5	shop	Daggers & Katars	730,1201:-1,1204:-1,1207:-1,1210:-1,1213:-1,1216:-1,1219:-1,1222:-1,1245:-1,1247:-1,1248:-1,1249:-1,13000:-1,13003:-1,13010:-1,1250:-1,1252:-1,1254:-1
+
+market,92,118,5	shop	Swords & Staves	119,1101:-1,1104:-1,1107:-1,1110:-1,1113:-1,1119:-1,1122:-1,1123:-1,1126:-1,1129:-1,1146:-1,1116:-1,1151:-1,1154:-1,1157:-1,1160:-1,1601:-1,1604:-1,1607:-1,1610:-1,1617:-1,1619:-1
+
+market,90,118,5	shop	Spears & Axes	751,1401:-1,1404:-1,1407:-1,1451:-1,1454:-1,1457:-1,1460:-1,1463:-1,1410:-1,1301:-1,1351:-1,1354:-1,1357:-1,1360:-1
+
+market,96,121,5	shop	Maces & Knuckles	746,1501:-1,1504:-1,1507:-1,1510:-1,1513:-1,1516:-1,1519:-1,1522:-1,1801:-1,1803:-1,1805:-1,1807:-1,1809:-1,1811:-1
+
+market,98,121,5	shop	Bows & Guns	732,1701:-1,1704:-1,1707:-1,1710:-1,1713:-1,1714:-1,1718:-1,1721:-1,13102:-1,13150:-1,13151:-1,13163:-1,13165:-1,13154:-1,13155:-1,13168:-1
+
+market,100,121,3	shop	Whips & Instruments	741,1901:-1,1903:-1,1905:-1,1907:-1,1909:-1,1911:-1,1950:-1,1952:-1,1954:-1,1956:-1,1958:-1,1960:-1
+
+
+market,102,121,3	shop	Garments and Shoes	726,2501:-1,2503:-1,2505:-1,2512:-12401,2403:-1,2405:-1,2411:-1,2416:-1
+
+market,106,121,3	shop	Shields & Accessories	745,2101:-1,2103:-1,2105:-1,2107:-1,2113:-1,2117:-1,2608:-1,2609:-1,2612:-1,2613:-1,2627:-1,2628:-1
+
+market,107,119,3	shop	Armors	752,2301:-1,2303:-1,2305:-1,2307:-1,2309:-1,2328:-1,2312:-1,2314:-1,2316:-1,2341:-1,2321:-1,2323:-1,2332:-1,2325:-1,2330:-1,2335:-1,2338:-1,2340:-1
+
+market,109,118,3	shop	Headgear	702,2218:-1,2241:-1,2206:-1,2208:-1,2211:-1,2216:-1,2220:-1,2222:-1,2226:-1,2228:-1,2230:-1,2232:-1,5112:-1,5114:-1,2201:-1,2203:-1,2205:-1,2212:-1,2239:-1,2242:-1,2243:-1,2224:-1,5092:-1
+
+market,97,112,5	script	Market	874,{
+
+mes "^008A93[Market]^000000";
+mes "This is a simple area where you can use chats, vending, buyingstores, and ^FF0000@autotrade/!autotrade^000000";
+mes "Note that you can only add a store on each ^0000FF[Blue]^000000 block";
+mes "Map credits to Olrox!";
+close;
+
+}
+
+
+-	script	Vending_Engine	-1,{
+	end;
+
+OnInit:
+	
+	setcell "market",1,1,170,170,cell_nochat,1;
+	setcell "market",1,1,170,170,cell_novending,1;
+	
+	setcell "market", 60, 112, 61, 115, cell_novending, 0; setcell "market", 60, 112, 61, 115, cell_nochat, 0;
+	setcell "market", 62, 116, 63, 119, cell_novending, 0; setcell "market", 62, 116, 63, 119, cell_nochat, 0;
+	setcell "market", 64, 120, 65, 123, cell_novending, 0; setcell "market", 64, 120, 65, 123, cell_nochat, 0;
+	setcell "market", 66, 124, 67, 127, cell_novending, 0; setcell "market", 66, 124, 67, 127, cell_nochat, 0;
+	setcell "market", 68, 128, 69, 131, cell_novending, 0; setcell "market", 68, 128, 69, 131, cell_nochat, 0;
+	setcell "market", 70, 132, 71, 133, cell_novending, 0; setcell "market", 70, 132, 71, 133, cell_nochat, 0;
+	setcell "market", 72, 134, 73, 135, cell_novending, 0; setcell "market", 72, 134, 73, 135, cell_nochat, 0;
+	setcell "market", 74, 136, 75, 137, cell_novending, 0; setcell "market", 74, 136, 75, 137, cell_nochat, 0;
+	setcell "market", 76, 138, 77, 139, cell_novending, 0; setcell "market", 76, 138, 77, 139, cell_nochat, 0;
+	setcell "market", 78, 140, 79, 141, cell_novending, 0; setcell "market", 78, 140, 79, 141, cell_nochat, 0;
+	setcell "market", 80, 142, 83, 143, cell_novending, 0; setcell "market", 80, 142, 83, 143, cell_nochat, 0;
+	setcell "market", 84, 144, 87, 145, cell_novending, 0; setcell "market", 84, 144, 87, 145, cell_nochat, 0;
+	setcell "market", 88, 146, 91, 147, cell_novending, 0; setcell "market", 88, 146, 91, 147, cell_nochat, 0;
+	setcell "market", 92, 148, 95, 149, cell_novending, 0; setcell "market", 92, 148, 95, 149, cell_nochat, 0;
+	setcell "market", 96, 150, 99, 151, cell_novending, 0; setcell "market", 96, 150, 99, 151, cell_nochat, 0;
+	setcell "market", 70, 116, 71, 119, cell_novending, 0; setcell "market", 70, 116, 71, 119, cell_nochat, 0;
+	setcell "market", 72, 120, 73, 123, cell_novending, 0; setcell "market", 72, 120, 73, 123, cell_nochat, 0;
+	setcell "market", 74, 124, 75, 127, cell_novending, 0; setcell "market", 74, 124, 75, 127, cell_nochat, 0;
+	setcell "market", 76, 128, 77, 129, cell_novending, 0; setcell "market", 76, 128, 77, 129, cell_nochat, 0;
+	setcell "market", 78, 130, 79, 131, cell_novending, 0; setcell "market", 78, 130, 79, 131, cell_nochat, 0;
+	setcell "market", 80, 132, 81, 133, cell_novending, 0; setcell "market", 80, 132, 81, 133, cell_nochat, 0;
+	setcell "market", 82, 134, 83, 135, cell_novending, 0; setcell "market", 82, 134, 83, 135, cell_nochat, 0;
+	setcell "market", 84, 136, 87, 137, cell_novending, 0; setcell "market", 84, 136, 87, 137, cell_nochat, 0;
+	setcell "market", 88, 138, 91, 139, cell_novending, 0; setcell "market", 88, 138, 91, 139, cell_nochat, 0;
+	setcell "market", 92, 140, 95, 141, cell_novending, 0; setcell "market", 92, 140, 95, 141, cell_nochat, 0;
+	setcell "market", 78, 116, 79, 119, cell_novending, 0; setcell "market", 78, 116, 79, 119, cell_nochat, 0;
+	setcell "market", 80, 120, 81, 123, cell_novending, 0; setcell "market", 80, 120, 81, 123, cell_nochat, 0;
+	setcell "market", 82, 124, 83, 125, cell_novending, 0; setcell "market", 82, 124, 83, 125, cell_nochat, 0;
+	setcell "market", 84, 126, 85, 127, cell_novending, 0; setcell "market", 84, 126, 85, 127, cell_nochat, 0;
+	setcell "market", 86, 128, 87, 129, cell_novending, 0; setcell "market", 86, 128, 87, 129, cell_nochat, 0;
+	setcell "market", 88, 130, 91, 131, cell_novending, 0; setcell "market", 88, 130, 91, 131, cell_nochat, 0;
+	setcell "market", 92, 132, 95, 133, cell_novending, 0; setcell "market", 92, 132, 95, 133, cell_nochat, 0;
+	setcell "market", 60, 108, 61, 111, cell_novending, 0; setcell "market", 60, 108, 61, 111, cell_nochat, 0;
+	setcell "market", 62, 104, 63, 107, cell_novending, 0; setcell "market", 62, 104, 63, 107, cell_nochat, 0;
+	setcell "market", 64, 100, 65, 103, cell_novending, 0; setcell "market", 64, 100, 65, 103, cell_nochat, 0;
+	setcell "market", 66, 96, 67, 99, cell_novending, 0; setcell "market", 66, 96, 67, 99, cell_nochat, 0;
+	setcell "market", 68, 92, 69, 95, cell_novending, 0; setcell "market", 68, 92, 69, 95, cell_nochat, 0;
+	setcell "market", 70, 90, 71, 91, cell_novending, 0; setcell "market", 70, 90, 71, 91, cell_nochat, 0;
+	setcell "market", 72, 88, 73, 89, cell_novending, 0; setcell "market", 72, 88, 73, 89, cell_nochat, 0;
+	setcell "market", 74, 86, 75, 87, cell_novending, 0; setcell "market", 74, 86, 75, 87, cell_nochat, 0;
+	setcell "market", 76, 84, 77, 85, cell_novending, 0; setcell "market", 76, 84, 77, 85, cell_nochat, 0;
+	setcell "market", 78, 82, 79, 83, cell_novending, 0; setcell "market", 78, 82, 79, 83, cell_nochat, 0;
+	setcell "market", 80, 80, 83, 81, cell_novending, 0; setcell "market", 80, 80, 83, 81, cell_nochat, 0;
+	setcell "market", 84, 78, 87, 79, cell_novending, 0; setcell "market", 84, 78, 87, 79, cell_nochat, 0;
+	setcell "market", 88, 76, 91, 77, cell_novending, 0; setcell "market", 88, 76, 91, 77, cell_nochat, 0;
+	setcell "market", 92, 74, 95, 75, cell_novending, 0; setcell "market", 92, 74, 95, 75, cell_nochat, 0;
+	setcell "market", 96, 72, 99, 73, cell_novending, 0; setcell "market", 96, 72, 99, 73, cell_nochat, 0;
+	setcell "market", 92, 82, 95, 83, cell_novending, 0; setcell "market", 92, 82, 95, 83, cell_nochat, 0;
+	setcell "market", 88, 84, 91, 85, cell_novending, 0; setcell "market", 88, 84, 91, 85, cell_nochat, 0;
+	setcell "market", 84, 86, 87, 87, cell_novending, 0; setcell "market", 84, 86, 87, 87, cell_nochat, 0;
+	setcell "market", 82, 88, 83, 89, cell_novending, 0; setcell "market", 82, 88, 83, 89, cell_nochat, 0;
+	setcell "market", 80, 90, 81, 91, cell_novending, 0; setcell "market", 80, 90, 81, 91, cell_nochat, 0;
+	setcell "market", 78, 92, 79, 93, cell_novending, 0; setcell "market", 78, 92, 79, 93, cell_nochat, 0;
+	setcell "market", 76, 94, 77, 95, cell_novending, 0; setcell "market", 76, 94, 77, 95, cell_nochat, 0;
+	setcell "market", 74, 96, 75, 99, cell_novending, 0; setcell "market", 74, 96, 75, 99, cell_nochat, 0;
+	setcell "market", 72, 100, 73, 103, cell_novending, 0; setcell "market", 72, 100, 73, 103, cell_nochat, 0;
+	setcell "market", 70, 104, 71, 107, cell_novending, 0; setcell "market", 70, 104, 71, 107, cell_nochat, 0;
+	setcell "market", 78, 104, 79, 107, cell_novending, 0; setcell "market", 78, 104, 79, 107, cell_nochat, 0;
+	setcell "market", 80, 100, 81, 103, cell_novending, 0; setcell "market", 80, 100, 81, 103, cell_nochat, 0;
+	setcell "market", 82, 98, 83, 99, cell_novending, 0; setcell "market", 82, 98, 83, 99, cell_nochat, 0;
+	setcell "market", 84, 96, 85, 97, cell_novending, 0; setcell "market", 84, 96, 85, 97, cell_nochat, 0;
+	setcell "market", 86, 94, 87, 95, cell_novending, 0; setcell "market", 86, 94, 87, 95, cell_nochat, 0;
+	setcell "market", 88, 92, 91, 93, cell_novending, 0; setcell "market", 88, 92, 91, 93, cell_nochat, 0;
+	setcell "market", 92, 90, 95, 91, cell_novending, 0; setcell "market", 92, 90, 95, 91, cell_nochat, 0;
+	setcell "market", 100, 72, 103, 73, cell_novending, 0; setcell "market", 100, 72, 103, 73, cell_nochat, 0;
+	setcell "market", 104, 74, 107, 75, cell_novending, 0; setcell "market", 104, 74, 107, 75, cell_nochat, 0;
+	setcell "market", 108, 76, 111, 77, cell_novending, 0; setcell "market", 108, 76, 111, 77, cell_nochat, 0;
+	setcell "market", 112, 78, 115, 79, cell_novending, 0; setcell "market", 112, 78, 115, 79, cell_nochat, 0;
+	setcell "market", 116, 80, 119, 81, cell_novending, 0; setcell "market", 116, 80, 119, 81, cell_nochat, 0;
+	setcell "market", 120, 82, 121, 83, cell_novending, 0; setcell "market", 120, 82, 121, 83, cell_nochat, 0;
+	setcell "market", 122, 84, 123, 85, cell_novending, 0; setcell "market", 122, 84, 123, 85, cell_nochat, 0;
+	setcell "market", 124, 86, 125, 87, cell_novending, 0; setcell "market", 124, 86, 125, 87, cell_nochat, 0;
+	setcell "market", 126, 88, 127, 89, cell_novending, 0; setcell "market", 126, 88, 127, 89, cell_nochat, 0;
+	setcell "market", 128, 90, 129, 91, cell_novending, 0; setcell "market", 128, 90, 129, 91, cell_nochat, 0;
+	setcell "market", 130, 92, 131, 95, cell_novending, 0; setcell "market", 130, 92, 131, 95, cell_nochat, 0;
+	setcell "market", 132, 96, 133, 99, cell_novending, 0; setcell "market", 132, 96, 133, 99, cell_nochat, 0;
+	setcell "market", 134, 100, 135, 103, cell_novending, 0; setcell "market", 134, 100, 135, 103, cell_nochat, 0;
+	setcell "market", 136, 104, 137, 107, cell_novending, 0; setcell "market", 136, 104, 137, 107, cell_nochat, 0;
+	setcell "market", 138, 108, 139, 111, cell_novending, 0; setcell "market", 138, 108, 139, 111, cell_nochat, 0;
+	setcell "market", 128, 104, 129, 107, cell_novending, 0; setcell "market", 128, 104, 129, 107, cell_nochat, 0;
+	setcell "market", 126, 100, 127, 103, cell_novending, 0; setcell "market", 126, 100, 127, 103, cell_nochat, 0;
+	setcell "market", 124, 96, 125, 99, cell_novending, 0; setcell "market", 124, 96, 125, 99, cell_nochat, 0;
+	setcell "market", 122, 94, 123, 95, cell_novending, 0; setcell "market", 122, 94, 123, 95, cell_nochat, 0;
+	setcell "market", 120, 92, 121, 93, cell_novending, 0; setcell "market", 120, 92, 121, 93, cell_nochat, 0;
+	setcell "market", 118, 90, 119, 91, cell_novending, 0; setcell "market", 118, 90, 119, 91, cell_nochat, 0;
+	setcell "market", 116, 88, 117, 89, cell_novending, 0; setcell "market", 116, 88, 117, 89, cell_nochat, 0;
+	setcell "market", 112, 86, 115, 87, cell_novending, 0; setcell "market", 112, 86, 115, 87, cell_nochat, 0;
+	setcell "market", 108, 84, 111, 85, cell_novending, 0; setcell "market", 108, 84, 111, 85, cell_nochat, 0;
+	setcell "market", 104, 82, 107, 83, cell_novending, 0; setcell "market", 104, 82, 107, 83, cell_nochat, 0;
+	setcell "market", 104, 90, 107, 91, cell_novending, 0; setcell "market", 104, 90, 107, 91, cell_nochat, 0;
+	setcell "market", 108, 92, 111, 93, cell_novending, 0; setcell "market", 108, 92, 111, 93, cell_nochat, 0;
+	setcell "market", 112, 94, 113, 95, cell_novending, 0; setcell "market", 112, 94, 113, 95, cell_nochat, 0;
+	setcell "market", 114, 96, 115, 97, cell_novending, 0; setcell "market", 114, 96, 115, 97, cell_nochat, 0;
+	setcell "market", 116, 98, 117, 99, cell_novending, 0; setcell "market", 116, 98, 117, 99, cell_nochat, 0;
+	setcell "market", 118, 100, 119, 103, cell_novending, 0; setcell "market", 118, 100, 119, 103, cell_nochat, 0;
+	setcell "market", 120, 104, 121, 107, cell_novending, 0; setcell "market", 120, 104, 121, 107, cell_nochat, 0;
+	setcell "market", 138, 112, 139, 115, cell_novending, 0; setcell "market", 138, 112, 139, 115, cell_nochat, 0;
+	setcell "market", 136, 116, 137, 119, cell_novending, 0; setcell "market", 136, 116, 137, 119, cell_nochat, 0;
+	setcell "market", 134, 120, 135, 123, cell_novending, 0; setcell "market", 134, 120, 135, 123, cell_nochat, 0;
+	setcell "market", 132, 124, 133, 127, cell_novending, 0; setcell "market", 132, 124, 133, 127, cell_nochat, 0;
+	setcell "market", 130, 128, 131, 131, cell_novending, 0; setcell "market", 130, 128, 131, 131, cell_nochat, 0;
+	setcell "market", 128, 132, 129, 133, cell_novending, 0; setcell "market", 128, 132, 129, 133, cell_nochat, 0;
+	setcell "market", 126, 134, 127, 135, cell_novending, 0; setcell "market", 126, 134, 127, 135, cell_nochat, 0;
+	setcell "market", 124, 136, 125, 137, cell_novending, 0; setcell "market", 124, 136, 125, 137, cell_nochat, 0;
+	setcell "market", 122, 138, 123, 139, cell_novending, 0; setcell "market", 122, 138, 123, 139, cell_nochat, 0;
+	setcell "market", 120, 140, 121, 141, cell_novending, 0; setcell "market", 120, 140, 121, 141, cell_nochat, 0;
+	setcell "market", 116, 142, 119, 143, cell_novending, 0; setcell "market", 116, 142, 119, 143, cell_nochat, 0;
+	setcell "market", 112, 144, 115, 145, cell_novending, 0; setcell "market", 112, 144, 115, 145, cell_nochat, 0;
+	setcell "market", 108, 146, 111, 147, cell_novending, 0; setcell "market", 108, 146, 111, 147, cell_nochat, 0;
+	setcell "market", 104, 148, 107, 149, cell_novending, 0; setcell "market", 104, 148, 107, 149, cell_nochat, 0;
+	setcell "market", 104, 140, 107, 141, cell_novending, 0; setcell "market", 104, 140, 107, 141, cell_nochat, 0;
+	setcell "market", 108, 138, 111, 139, cell_novending, 0; setcell "market", 108, 138, 111, 139, cell_nochat, 0;
+	setcell "market", 112, 136, 115, 137, cell_novending, 0; setcell "market", 112, 136, 115, 137, cell_nochat, 0;
+	setcell "market", 116, 134, 117, 135, cell_novending, 0; setcell "market", 116, 134, 117, 135, cell_nochat, 0;
+	setcell "market", 118, 132, 119, 133, cell_novending, 0; setcell "market", 118, 132, 119, 133, cell_nochat, 0;
+	setcell "market", 120, 130, 121, 131, cell_novending, 0; setcell "market", 120, 130, 121, 131, cell_nochat, 0;
+	setcell "market", 122, 128, 123, 129, cell_novending, 0; setcell "market", 122, 128, 123, 129, cell_nochat, 0;
+	setcell "market", 124, 124, 125, 127, cell_novending, 0; setcell "market", 124, 124, 125, 127, cell_nochat, 0;
+	setcell "market", 126, 120, 127, 123, cell_novending, 0; setcell "market", 126, 120, 127, 123, cell_nochat, 0;
+	setcell "market", 128, 116, 129, 119, cell_novending, 0; setcell "market", 128, 116, 129, 119, cell_nochat, 0;
+	setcell "market", 120, 116, 121, 119, cell_novending, 0; setcell "market", 120, 116, 121, 119, cell_nochat, 0;
+	setcell "market", 118, 120, 119, 123, cell_novending, 0; setcell "market", 118, 120, 119, 123, cell_nochat, 0;
+	setcell "market", 116, 124, 117, 125, cell_novending, 0; setcell "market", 116, 124, 117, 125, cell_nochat, 0;
+	setcell "market", 114, 126, 115, 127, cell_novending, 0; setcell "market", 114, 126, 115, 127, cell_nochat, 0;
+	setcell "market", 112, 128, 113, 129, cell_novending, 0; setcell "market", 112, 128, 113, 129, cell_nochat, 0;
+	setcell "market", 108, 130, 111, 131, cell_novending, 0; setcell "market", 108, 130, 111, 131, cell_nochat, 0;
+	setcell "market", 104, 132, 107, 133, cell_novending, 0; setcell "market", 104, 132, 107, 133, cell_nochat, 0;
+
+
+
+}

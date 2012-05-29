@@ -504,7 +504,7 @@ int mmo_char_tosql(int char_id, struct mmo_charstatus* p)
 		(p->pet_id != cp->pet_id) || (p->weapon != cp->weapon) || (p->hom_id != cp->hom_id) ||
 		(p->shield != cp->shield) || (p->head_top != cp->head_top) ||
 		(p->head_mid != cp->head_mid) || (p->head_bottom != cp->head_bottom) || (p->delete_date != cp->delete_date) ||
-		(p->rename != cp->rename) || (p->robe != cp->robe) || (p->playtime != cp->playtime) || (p->lang != cp->lang)
+		(p->rename != cp->rename) || (p->robe != cp->robe)
 	)
 	{	//Save status
 		if( SQL_ERROR == Sql_Query(sql_handle, "UPDATE `%s` SET `base_level`='%d', `job_level`='%d',"
@@ -514,7 +514,7 @@ int mmo_char_tosql(int char_id, struct mmo_charstatus* p)
 			"`option`='%d',`party_id`='%d',`guild_id`='%d',`pet_id`='%d',`homun_id`='%d',"
 			"`weapon`='%d',`shield`='%d',`head_top`='%d',`head_mid`='%d',`head_bottom`='%d',"
 			"`last_map`='%s',`last_x`='%d',`last_y`='%d',`save_map`='%s',`save_x`='%d',`save_y`='%d', `rename`='%d',"
-			"`delete_date`='%lu',`robe`='%d', `playtime`='%u', `lang`='%u'"
+			"`delete_date`='%lu',`robe`='%d'"
 			" WHERE  `account_id`='%d' AND `char_id` = '%d'",
 			char_db, p->base_level, p->job_level,
 			p->base_exp, p->job_exp, p->zeny,
@@ -525,7 +525,7 @@ int mmo_char_tosql(int char_id, struct mmo_charstatus* p)
 			mapindex_id2name(p->last_point.map), p->last_point.x, p->last_point.y,
 			mapindex_id2name(p->save_point.map), p->save_point.x, p->save_point.y, p->rename,
 			(unsigned long)p->delete_date, 
-			p->robe, p->playtime, p->lang, // FIXME: platform-dependent size
+			p->robe, // FIXME: platform-dependent size
 			p->account_id, p->char_id) )
 		{
 			Sql_ShowDebug(sql_handle);
@@ -1115,7 +1115,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 		"`str`,`agi`,`vit`,`int`,`dex`,`luk`,`max_hp`,`hp`,`max_sp`,`sp`,"
 		"`status_point`,`skill_point`,`option`,`karma`,`manner`,`party_id`,`guild_id`,`pet_id`,`homun_id`,`hair`,"
 		"`hair_color`,`clothes_color`,`weapon`,`shield`,`head_top`,`head_mid`,`head_bottom`,`last_map`,`last_x`,`last_y`,"
-		"`save_map`,`save_x`,`save_y`,`partner_id`,`father`,`mother`,`child`,`fame`,`rename`,`delete_date`,`robe`, `playtime`, `lang` "
+		"`save_map`,`save_x`,`save_y`,`partner_id`,`father`,`mother`,`child`,`fame`,`rename`,`delete_date`,`robe` "
 		" FROM `%s` WHERE `char_id`=? LIMIT 1", char_db)
 	||	SQL_ERROR == SqlStmt_BindParam(stmt, 0, SQLDT_INT, &char_id, 0)
 	||	SQL_ERROR == SqlStmt_Execute(stmt)
@@ -1170,8 +1170,6 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 	||  SQL_ERROR == SqlStmt_BindColumn(stmt, 48, SQLDT_SHORT,	&p->rename, 0, NULL, NULL)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 49, SQLDT_UINT32, &p->delete_date, 0, NULL, NULL)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 50, SQLDT_SHORT,  &p->robe, 0, NULL, NULL)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 51, SQLDT_UINT,   &p->playtime, 0, NULL, NULL) 
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 52, SQLDT_UINT,   &p->lang, 0, NULL, NULL) 
 	)
 	{
 		SqlStmt_ShowDebug(stmt);
@@ -1469,161 +1467,6 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 
 
 
-/*
-int char_dump2sql(int char_id)
-{	
-	char filename[128], esc_name[NAME_LENGTH*2+1], str[32], esc_str[65], value[256], esc_value[513];
-	struct mmo_charstatus cp;
-	struct item *i_data;
-	struct s_skill *s_data;
-	char* data;
-
-	int i = 0;
-	FILE* fp;
-
-	if( mmo_char_fromsql(char_id, &cp, true) == 0 )
-		return 0; // Non existant or error.
-
-	sprintf(filename, "dumps/%d_%d.sql", cp.account_id, char_id);
-	if( (fp = fopen(filename, "w")) == NULL )
-		return 0;
-
-	Sql_EscapeStringLen(sql_handle, esc_name, cp.name, strnlen(cp.name, NAME_LENGTH));
-	fprintf(fp, "-- Character Information --\n");
-	fprintf(fp, "INSERT INTO `char` "
-		"(`account_id`, `char_num`, `name`, `class`, `base_level`, `job_level`, `base_exp`, `job_exp`, `zeny`, `str`, `agi`, `vit`, `int`, `dex`, `luk`, `max_hp`, `hp`, `max_sp`, `sp`, `status_point`, `skill_point`, `option`, `karma`, `manner`, `party_id`, `guild_id`, `pet_id`, `homun_id`, `hair`, `hair_color`, `clothes_color`, `weapon`, `shield`, `head_top`, `head_mid`, `head_bottom`, `last_map`, `last_x`, `last_y`, `save_map`, `save_x`, `save_y`, `partner_id`, `online`, `father`, `mother`, `child`, `fame`, `robe`, `playtime`, `lang`)"
-		" VALUES "
-		"('ACC', '%d', '%s', '%d', '%d', '%d', '%u', '%u', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%s', '%d', '%d', '%s', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%u');\n",
-		cp.slot, esc_name, cp.class_, cp.base_level, cp.job_level, cp.base_exp, cp.job_exp, cp.zeny, cp.str, cp.agi, cp.vit, cp.int_, cp.dex, cp.luk, cp.max_hp, cp.hp, cp.max_sp, cp.sp, cp.status_point, cp.skill_point, cp.option, cp.karma, cp.manner, 0, 0, 0, 0, cp.hair, cp.hair_color, cp.clothes_color, cp.weapon, cp.shield, cp.head_top, cp.head_mid, cp.head_bottom, mapindex_id2name(cp.last_point.map), cp.last_point.x, cp.last_point.y, mapindex_id2name(cp.save_point.map), cp.save_point.x, cp.save_point.y, 0, 0, 0, 0, 0, cp.fame, cp.robe, cp.playtime, cp.lang);
-
-	if( cp.hom_id )
-	{ // Homunculus Backup
-		struct s_homunculus hd;
-		if( mapif_homunculus_load(cp.hom_id, &hd) )
-		{
-			Sql_EscapeStringLen(sql_handle, esc_name, hd.name, strnlen(hd.name, NAME_LENGTH));
-
-			fprintf(fp, "-- Homunculus Information --\n");
-			fprintf(fp, "INSERT INTO `homunculus` "
-				"(`char_id`, `class`,`name`,`level`,`exp`,`intimacy`,`hunger`, `str`, `agi`, `vit`, `int`, `dex`, `luk`, `hp`,`max_hp`,`sp`,`max_sp`,`skill_point`, `rename_flag`, `vaporize`) "
-				"VALUES "
-				"('CHR', '%d', '%s', '%d', '%u', '%u', '%d', '%d', %d, '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d');\n\n",
-				hd.class_, esc_name, hd.level, hd.exp, hd.intimacy, hd.hunger, hd.str, hd.agi, hd.vit, hd.int_, hd.dex, hd.luk, hd.hp, hd.max_hp, hd.sp, hd.max_sp, hd.skillpts, hd.rename_flag, hd.vaporize);
-			
-			i = 0;
-			while( i < MAX_HOMUNSKILL )
-			{
-				if( hd.hskill[i].id > 0 )
-					fprintf(fp, "INSERT INTO `skill_homunculus` (`homun_id`, `id`, `lv`) VALUES ('HOM', '%d', '%d');\n", hd.hskill[i].id, hd.hskill[i].lv);
-
-				i++;
-			}
-		}
-	}
-
-	if( !char_new )
-	{ // Backup Account Information
-		fprintf(fp, "\n-- Account Storage --\n");
-		i = 0;
-		while( i < MAX_STORAGE && cp.storage.items[i].nameid > 0 )
-		{
-			i_data = &cp.storage.items[i];
-
-			fprintf(fp, "INSERT INTO `storage` "
-				"(`account_id`, `nameid`, `amount`, `equip`, `identify`, `refine`, `attribute`, `card0`, `card1`, `card2`, `card3`, `expire_time`, `serial`)"
-				" VALUES "
-				"('ACC', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%u', '%u');\n",
-				i_data->nameid, i_data->amount, i_data->equip, i_data->identify, i_data->refine, i_data->attribute, i_data->card[0], i_data->card[1], i_data->card[2], i_data->card[3], i_data->expire_time, i_data->serial);
-			i++;
-		}
-
-		if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `storage` WHERE `account_id` = '%d'", cp.account_id) )
-			Sql_ShowDebug(sql_handle); // Clear Storage Data to Avoid Multiple Backups.
-
-		fprintf(fp, "\n-- Global Reg Value Account Level --\n");
-		if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `str`, `value` FROM `%s` WHERE `type` = 2 AND `account_id` = '%d'", reg_db, cp.account_id) )
-			Sql_ShowDebug(sql_handle);
-
-		while( SQL_SUCCESS == Sql_NextRow(sql_handle) )
-		{
-			Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(str, data, sizeof(str));
-			Sql_EscapeStringLen(sql_handle, esc_str, str, strnlen(str, 32));
-
-			Sql_GetData(sql_handle, 1, &data, NULL); safestrncpy(value, data, sizeof(value));
-			Sql_EscapeStringLen(sql_handle, esc_value, value, strnlen(value, 256));
-
-			fprintf(fp, "INSERT INTO `global_reg_value` (`char_id`, `str`, `value`, `type`, `account_id`) VALUES ('0', '%s', '%s', '2', 'ACC');\n",
-				esc_str, esc_value);
-		}
-
-		if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `global_reg_value` WHERE `account_id` = '%d' AND `type` = 2", cp.account_id) )
-			Sql_ShowDebug(sql_handle); // Clear Global Reg Value Data to Avoid Multiple Backups.
-
-		fprintf(fp, "\n\n-- End of Account Related Backup --\n\n\n");
-	}
-
-	i = 0;
-	fprintf(fp, "\n-- Character Inventory --\n\n");
-	while( i < MAX_INVENTORY && cp.inventory[i].nameid > 0 )
-	{
-		i_data = &cp.inventory[i];
-
-		fprintf(fp, "INSERT INTO `inventory` "
-			"(`char_id`, `nameid`, `amount`, `equip`, `identify`, `refine`, `attribute`, `card0`, `card1`, `card2`, `card3`, `expire_time`, `serial`)"
-			" VALUES "
-			"('CHR', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%u', '%u');\n",
-			i_data->nameid, i_data->amount, i_data->equip, i_data->identify, i_data->refine, i_data->attribute, i_data->card[0], i_data->card[1], i_data->card[2], i_data->card[3], i_data->expire_time, i_data->serial);
-		i++;
-	}
-
-	fprintf(fp, "\n-- Character Cart Inventory --\n\n");
-	i = 0;
-	while( i < MAX_CART && cp.cart[i].nameid > 0 )
-	{
-		i_data = &cp.cart[i];
-
-		fprintf(fp, "INSERT INTO `cart_inventory` "
-			"(`char_id`, `nameid`, `amount`, `equip`, `identify`, `refine`, `attribute`, `card0`, `card1`, `card2`, `card3`, `expire_time`, `serial`)"
-			" VALUES "
-			"('CHR', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%u', '%u');\n",
-			i_data->nameid, i_data->amount, i_data->equip, i_data->identify, i_data->refine, i_data->attribute, i_data->card[0], i_data->card[1], i_data->card[2], i_data->card[3], i_data->expire_time, i_data->serial);
-		i++;
-	}
-
-	fprintf(fp, "\n-- Character Skills --\n\n");
-	i = 0;
-	while( i < MAX_SKILL )
-	{
-		if( cp.skill[i].id > 0 )
-		{
-			s_data = &cp.skill[i];
-			fprintf(fp, "INSERT INTO `skill` (`char_id`, `id`, `lv`) VALUES ('CHR', '%d', '%d');\n", s_data->id, s_data->lv);
-		}
-		i++;
-	}
-
-	fprintf(fp, "\n-- Character Global Reg Value --\n\n");
-	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `str`, `value` FROM `%s` WHERE `type` = 3 AND `char_id` = '%d'", reg_db, char_id) )
-		Sql_ShowDebug(sql_handle);
-
-	while( SQL_SUCCESS == Sql_NextRow(sql_handle) )
-	{
-		Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(str, data, sizeof(str));
-		Sql_EscapeStringLen(sql_handle, esc_str, str, strnlen(str, 32));
-
-		Sql_GetData(sql_handle, 1, &data, NULL); safestrncpy(value, data, sizeof(value));
-		Sql_EscapeStringLen(sql_handle, esc_value, value, strnlen(value, 256));
-
-		fprintf(fp, "INSERT INTO `global_reg_value` (`char_id`, `str`, `value`, `type`, `account_id`) VALUES ('CHR', '%s', '%s', '3', '0');\n",
-			esc_str, esc_value);
-	}
-
-	Sql_FreeResult(sql_handle);
-
-	fclose(fp);
-	return 1;
-}
-*/
 
 
 

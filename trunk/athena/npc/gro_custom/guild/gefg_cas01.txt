@@ -17,7 +17,7 @@
 //============================================================
 geffen,109,123,2	script	Repherion#g1-1::Repherion	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleG01:
 	FlagEmblem GetCastleData("gefg_cas01",1);
 	end;
@@ -67,7 +67,7 @@ gef_fild13,148,51,5	script	Repherion#g1-2::Repherion2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastleG01:
 	FlagEmblem GetCastleData("gefg_cas01",1);
 	end;
@@ -81,7 +81,7 @@ gef_fild13,211,71,6	duplicate(Repherion2)	Repherion#g1-5	722
 //============================================================
 gefg_cas01,28,157,4	script	Repherion#g1-6::Repherion3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleG01:
 	FlagEmblem GetCastleData("gefg_cas01",1);
 	end;

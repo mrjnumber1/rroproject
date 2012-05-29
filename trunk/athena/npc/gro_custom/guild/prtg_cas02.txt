@@ -17,7 +17,7 @@
 //============================================================
 prontera,146,194,3	script	Swanhild#p2-1::Swanhild	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePt02:
 	FlagEmblem GetCastleData("prtg_cas02",1);
 	end;
@@ -67,7 +67,7 @@ prt_gld,244,126,8	script	Swanhild#p2-2::Swanhild2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastlePt02:
 	FlagEmblem GetCastleData("prtg_cas02",1);
 	end;
@@ -81,7 +81,7 @@ prt_gld,236,128,8	duplicate(Swanhild2)	Swanhild#p2-5	722
 //============================================================
 prtg_cas02,40,227,4	script	Swanhild#p2-6::Swanhild3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePt02:
 	FlagEmblem GetCastleData("prtg_cas02",1);
 	end;

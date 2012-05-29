@@ -18,6 +18,7 @@
 aldebaran,152,97,4	script	Neuschwanstein#a1-1::Neuschwanstein	722,{
 	end;
 
+OnInterIfInitOnce:
 OnRecvCastleA01:
 	FlagEmblem GetCastleData("aldeg_cas01",1);
 	end;
@@ -80,7 +81,7 @@ alde_gld,51,87,8	duplicate(Neuschwanstein2)	Neuschwanstein#a1-5	722
 //============================================================
 aldeg_cas01,30,248,4	script	Neuschwanstein#a1-6::Neuschwanstein3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleA01:
 	FlagEmblem GetCastleData("aldeg_cas01",1);
 	end;

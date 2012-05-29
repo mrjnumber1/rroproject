@@ -17300,16 +17300,16 @@ BUILDIN_FUNC(homun_percentheal)
 	return 0;
 }
 
-BUILDIN_FUNC(get_playtime)
-{
-	struct map_session_data *sd = script_rid2sd(st);
-	if( sd == NULL )
-		return 0;
-	
-	pc_calc_playtime(sd);
-	script_pushint(st,sd->status.playtime);
-	return 0;
-}
+//BUILDIN_FUNC(get_playtime)
+//{
+//	struct map_session_data *sd = script_rid2sd(st);
+//	if( sd == NULL )
+//		return 0;
+//	
+//	pc_calc_playtime(sd);
+//	script_pushint(st,sd->status.playtime);
+//	return 0;
+//}
 
 
 BUILDIN_FUNC(adjust_memberreg)
@@ -17436,52 +17436,52 @@ BUILDIN_FUNC(islowratechar)
 	return 0;
 }
 
-BUILDIN_FUNC(setsecurity)
-{
-	TBL_PC *sd = script_rid2sd(st);
-	int val = script_getnum(st,2);
-	nullpo_ret(sd);
-	
-	if(!val)
-	{
-		ShowError("buildin_setsecurity: bad val received from m:%d a:%d c:%d\n", sd->status.member_id, sd->status.account_id, sd->status.char_id);
-		return -1;
-	}
-
-	pc_setaccountreg2(sd, "##SECURITY", val);
-
-	return 0;
-}
-BUILDIN_FUNC(checksecurity)
-{
-	TBL_PC* sd = script_rid2sd(st);
-
-	nullpo_ret(sd);
-
-	script_pushint(st, pc_readaccountreg2(sd, "##SECURITY"));
-
-	return 0;
-}
-BUILDIN_FUNC(enablesecurity)
-{
-	TBL_PC* sd = script_rid2sd(st);
-
-	nullpo_ret(sd);
-
-	sd->state.security = 1;
-
-	return 0;
-}
-BUILDIN_FUNC(disablesecurity)
-{
-	TBL_PC* sd = script_rid2sd(st);
-
-	nullpo_ret(sd);
-
-	sd->state.security = 0;
-
-	return 0;
-}
+//BUILDIN_FUNC(setsecurity)
+//{
+//	TBL_PC *sd = script_rid2sd(st);
+//	int val = script_getnum(st,2);
+//	nullpo_ret(sd);
+//	
+//	if(!val)
+//	{
+//		ShowError("buildin_setsecurity: bad val received from m:%d a:%d c:%d\n", sd->status.member_id, sd->status.account_id, sd->status.char_id);
+//		return -1;
+//	}
+//
+//	pc_setaccountreg2(sd, "##SECURITY", val);
+//
+//	return 0;
+//}
+//BUILDIN_FUNC(checksecurity)
+//{
+//	TBL_PC* sd = script_rid2sd(st);
+//
+//	nullpo_ret(sd);
+//
+//	script_pushint(st, pc_readaccountreg2(sd, "##SECURITY"));
+//
+//	return 0;
+//}
+//BUILDIN_FUNC(enablesecurity)
+//{
+//	TBL_PC* sd = script_rid2sd(st);
+//
+//	nullpo_ret(sd);
+//
+//	sd->state.security = 1;
+//
+//	return 0;
+//}
+//BUILDIN_FUNC(disablesecurity)
+//{
+//	TBL_PC* sd = script_rid2sd(st);
+//
+//	nullpo_ret(sd);
+//
+//	sd->state.security = 0;
+//
+//	return 0;
+//}
 
 BUILDIN_FUNC(getpartyshare)
 {
@@ -18103,7 +18103,7 @@ BUILDIN_FUNC(getmymissioninfo)
 	pc_setreg(sd, add_str("@my_s_mission_points"), mission_db[i].points);
 
 	pc_setregstr(sd, add_str("@my_s_mission_name$"), mission_db[i].name);
-	pc_setregstr(sd, add_str("@my_s_mission_map$"), mapindex_id2name(mission_db[i].mapindex));
+	pc_setregstr(sd, add_str("@my_s_mission_map$"), map[mission_db[i].mapindex].name);
 
 	for (k=0; k < MISSION_MAX_MOBS; ++k)
 	{
@@ -18187,7 +18187,7 @@ BUILDIN_FUNC(getmissioninfo)
 	pc_setreg(sd, add_str("@s_mission_points"), mission_db[i].points);
 
 	pc_setregstr(sd, add_str("@s_mission_name$"), mission_db[i].name);
-	pc_setregstr(sd, add_str("@s_mission_map$"), mapindex_id2name(mission_db[i].mapindex));
+	pc_setregstr(sd, add_str("@s_mission_map$"), map[mission_db[i].mapindex].name);
 
 
 	for (k=0; k < MISSION_MAX_MOBS; ++k)
@@ -18664,6 +18664,7 @@ struct script_function buildin_func[] = {
 	// BattleGround
 	BUILDIN_DEF(bg_logincount,""),
 	BUILDIN_DEF(bg_team_create,"siiiss"),
+	BUILDIN_DEF(bg_check_best, "ii"),
 
 	BUILDIN_DEF(waitingroom2bg,"siiiss"),
 	BUILDIN_DEF(waitingroom2bg_single,"isiis"),
@@ -18742,7 +18743,7 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(homun_heal, "ii"),
 	BUILDIN_DEF(homun_percentheal, "ii"),
 
-	BUILDIN_DEF(get_playtime,""),
+	//BUILDIN_DEF(get_playtime,""),
 
 	BUILDIN_DEF(paycash,"i"),
 	BUILDIN_DEF(paypoints,"i"),
@@ -18756,10 +18757,10 @@ struct script_function buildin_func[] = {
 
 	BUILDIN_DEF(setlowratechar, ""),
 	BUILDIN_DEF(islowratechar, ""),
-	BUILDIN_DEF(checksecurity, ""),
-	BUILDIN_DEF(setsecurity, "i"),
-	BUILDIN_DEF(enablesecurity, ""),
-	BUILDIN_DEF(disablesecurity, ""),
+	//BUILDIN_DEF(checksecurity, ""),
+	//BUILDIN_DEF(setsecurity, "i"),
+	//BUILDIN_DEF(enablesecurity, ""),
+	//BUILDIN_DEF(disablesecurity, ""),
 	
 	BUILDIN_DEF(getpartyshare, "?"),
 	BUILDIN_DEF(getpartycanshare, "?"),

@@ -18,7 +18,7 @@
 //============================================================
 payon,166,173,3	script	Scarlet Palace#f2-1::ScarletPalace	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePy02:
 	FlagEmblem GetCastleData("payg_cas02",1);
 	end;
@@ -70,7 +70,7 @@ pay_gld,292,112,6	script	Scarlet Palace#f2-3::ScarletPalace2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastlePy02:
 	FlagEmblem GetCastleData("payg_cas02",1);
 	end;
@@ -84,7 +84,7 @@ pay_gld,271,163,0	duplicate(ScarletPalace2)	Scarlet Palace#f2-6	722
 //============================================================
 payg_cas02,254,40,6	script	Scarlet Palace#f2-7::ScarletPalace3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePy02:
 	FlagEmblem GetCastleData("payg_cas02",1);
 	end;

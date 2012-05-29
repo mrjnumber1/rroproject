@@ -13523,7 +13523,8 @@ void clif_parse_Mail_send(int fd, struct map_session_data *sd)
 	struct mail_message msg;
 	int body_len;
 
-	if( sd->state.trading )
+	// don't allow the player to send under these conditions, or face a lot of duping issues
+	if(sd->npc_id || sd->state.vending || sd->state.buyingstore || sd->state.trading || sd->state.storage_flag)
 		return;
 
 	if( RFIFOW(fd,2) < 69 ) {
@@ -13540,6 +13541,7 @@ void clif_parse_Mail_send(int fd, struct map_session_data *sd)
 
 	body_len = RFIFOB(fd,68);
 
+	// please tell me i'm not the only one who laughs at "MAIL_BODY_LENGTH"
 	if (body_len > MAIL_BODY_LENGTH)
 		body_len = MAIL_BODY_LENGTH;
 

@@ -1,0 +1,741 @@
+// Quests adapted from Rikimaru's originals
+// Holy crap these are ridiculously easy and stupid
+
+
+// Alberta Cargo
+//
+alberta,105,52,3	script	Port Manager	855,{
+	set .@npcname$,"^0000FF[Port Manager]^000000";
+	
+	if (dq_cargo_time < 0) // quest complete, basically!
+	{
+		mes .@npcname$;
+		mes "Ah, you've found it! Thank you very much "+strcharinfo(0)+"! I'll send one of my associates to wrangle it up.";
+		next;
+		
+		setarray .@rewardi[0],501,502,503,504,505,608;
+		setarray .@rewardc[0], 20,  5, 10, 10, 10,  1;
+		setarray .@bexp[0], 1000000,560000,180000,18000,1700,150;
+		setarray .@jexp[0],  700000,420000,120000,12000,1100, 70;
+		set .@num, dq_cargo_time * -1;
+		
+		set dq_cargo_time, gettimetick(2);
+		
+		mes .@npcname$;
+		mes "On behalf of my employees and my city, I offer you this as a reward... it is a very humble offering, but I hope you appreciate it.";
+		
+		for (set .@i, 0; .@i < .@num; set .@i, .@i + 1)
+			getitem(.@rewardi[.@i], .@rewardc[.@i]);
+		getexp(.@bexp[.@num-1], .@jexp[.@num-1]);
+		
+		close;
+		
+		
+	}
+	else if( (gettimetick(2) - dq_cargo_time) < (60*60*24) ) //check if in the delay
+	{
+		mes .@npcname$;
+		mes "Hello there, "+strcharinfo(0)+"! Thanks for your help earlier, come back tomorrow and I'll let you know if we need help again.";
+		close;
+	}
+
+	if (BaseLevel >= 98)
+		set .@target, 6;
+	else if (BaseLevel >= 81)
+		set .@target, 5;
+	else if (BaseLevel >= 61)
+		set .@target, 4;
+	else if (BaseLevel >= 41)
+		set .@target, 3;
+	else if (BaseLevel >= 21)
+		set .@target, 2;
+	else
+		set .@target, 1;
+		
+	mes .@npcname$;
+	mes "Hello "+strcharinfo(0)+".";
+	mes "I've got a really quick errand I need completed.";
+	mes "We need someone to check on one of our lost cargo boxes..";
+	
+	if (select("No, sorry, I can't help you.:I accept the job!")==1)
+	{
+		next;
+		mes .@npcname$;
+		mes "Very well. Have a good day, adventurer.";
+		close;
+	}
+	next;
+	mes .@npcname$;
+	mes "Great! We've recently started finding mysterious cargo that our crews don't recall putting on the ship.";
+	next;
+	mes .@npcname$;
+	mes "However, these things have been quite odd. The packages have been.. wandering away.. on their own... it's very strange.";
+	next;
+	mes .@npcname$;
+	mes "Every once in a while, one will disappear, so we need people to go search the town for them.";
+	mes "You will need to look for the Cargo marked as #"+.@target+".";
+	mes "Good luck!";
+	set dq_cargo_time, .@target;
+	close;
+}
+
+function	script	f_ac_check	{
+	set .@num, getarg(0);
+	set .@npcname$, "^FF0000[Deadly Cargo ("+.@num+")]^000000";
+	
+	if (dq_cargo_time == .@num)
+	{
+		mes .@npcname$;
+		mes "Go... return to the Port Manager....";
+		soundeffect("se_scream_w01.wav",0);
+		next;
+		mes "["+strcharinfo(0)+"]";
+		mes "What the hell?! Yeah... I'll go. Talking boxes? Freaky stuff...";
+		set dq_cargo_time, -1*dq_cargo_time;
+		close;
+	}
+	else
+	{
+		soundeffect("se_scream_w01.wav",0);
+		mes .@npcname$;
+		mes ".........";
+		close;
+	}
+
+}
+
+alberta,186,174,3	script	Deadly Cargo (1)	464,{
+	callfunc "f_ac_check",1;
+}
+alberta,232,103,3	script	Deadly Cargo (2)	464,{
+	callfunc "f_ac_check",2;
+}
+alberta,247,90,3	script	Deadly Cargo (3)	464,{
+	callfunc "f_ac_check",3;
+}
+alberta,247,67,3	script	Deadly Cargo [4]	464,{
+	callfunc "f_ac_check",4;
+}
+alberta,245,43,3	script	Deadly Cargo [5]	464,{
+	callfunc "f_ac_check",5;
+}
+alberta,123,227,3	script	Deadly Cargo [6]	464,{
+	callfunc "f_ac_check",6;
+}
+
+//
+//
+//
+//
+//
+
+
+
+// Army Supply
+
+prontera,146,187,5	script	Army Officer	105,{
+	set .@npcname$,"^0000FF[Army Officer]^000000";
+	
+	if (BaseLevel < 60)
+	{
+		mes .@npcname$;
+		mes "Hello "+strcharinfo(0)+", we need people who can help our soldiers in Morocc.";
+		mes "However, you are still too weak to help, please come back when you're stronger.";
+		close;
+	}
+
+	mes .@npcname$;
+	mes "There are a few soldiers waiting for help in Morocc!";
+	mes .@npcname$;
+	if (BaseLevel >= 98)
+		mes "Please help the Injured Elite.";
+	else if (BaseLevel >= 81)
+		mes "Please help the Injured Veteran.";
+	else if (BaseLevel >= 60)
+		mes "Please help the Injured Recruit.";
+
+	mes "Bring them White Potions or Yggdrasil Berries.";
+	mes "They will offer you a reward for your time!";
+
+	close;
+}
+
+function	script	f_dqas_check	{
+	set .@npcname$, "Injured "+getarg(0);
+	set .@npcname2$, "Revived "+getarg(0);
+	set .@name$, "["+.@npcname$+"]";
+	set .@name2$, "["+.@npcname2$+"]";
+	set .@minLevel, getarg(1);
+	set .@maxLevel, getarg(2);
+	
+	setarray .@bexp[0], getarg(3), getarg(3) / 4;
+	setarray .@jexp[0], getarg(4), getarg(4) / 4;
+	
+	setarray .@items[0], 607, 504;
+	setarray .@itemc[0],  30, 200;
+	
+	if(gettimetick(2) - dq_as_time < (60 * 60 * 12)) 
+	{
+		mes "["+strcharinfo(0)+"]";
+		mes "Ah, no, I better let this man have time to rest.. I'll come back to him in a few hours";
+		close;
+	}
+	
+	if (BaseLevel <= .@maxLevel && BaseLevel >= .@minLevel)
+	{
+		mes .@name$;
+		mes "..Ungh... Please help me...";
+		mes "*cough* Argh!";
+		next;
+		set .@ch, select(.@itemc[0]+" "+getitemname(.@items[0])+":"+.@itemc[1]+" "+getitemname(.@items[1])+":Sorry, I have nothing to supply..");
+		if (.@ch > getarraysize(.@items) )
+		{
+			mes .@name$;
+			mes "I understand warrior, but know this, one cannot last forever if they try to rely on themselves forever.";
+			mes "Good luck in your future endeavors.";
+			close;
+		}
+		set .@ch, .@ch - 1;
+		
+		if (countitem(.@items[.@ch]) < .@itemc[.@ch])
+		{
+			mes .@name$;
+			mes "You would tease an injured man? How cruel, be gone from my sight!";
+			close2;
+			sleep2 100;
+			specialeffect2 EF_HIT1,AREA,strcharinfo(0);
+			sleep2 200;
+			percentheal -75,0;
+			end;
+		}
+		else
+		{
+			delitem .@items[.@ch], .@itemc[.@ch];
+			getexp .@bexp[.@ch], .@jexp[.@ch];
+			setnpcdisplay(.@npcname$, .@npcname2$, 813);
+			set dq_as_time, gettimetick(2);
+			mes .@name2$;
+			mes "Ahh..";
+			mes "Thank you very much! Now we can continue working against Satan Morroc!";
+			mes "Please be sure to return in half a day, my comrades and I would appreciate it.";
+			close2;
+			sleep2 20000;
+			setnpcdisplay(.@npcname2$, .@npcname$, 849);
+			end;
+		}
+		
+	}
+	else
+	{
+		mes .@name$;
+		mes "Argh...";
+		close;
+	}
+}
+
+morocc,172,68,5	script	Injured Recruit	849,{
+	callfunc "f_dqas_check", "Recruit", 61, 80, 320000, 280000;
+}
+
+morocc,174,68,5	script	Injured Veteran	849,{
+	callfunc "f_dqas_check", "Veteran", 81, 97, 950000, 800000;
+}
+
+morocc,176,68,5	script	Injured Elite	849,{
+	callfunc "f_dqas_check", "Elite", 97, 99, 3000000, 2700000;
+}
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// Church Donation
+// This offers what amounts to 30 minutes of stat+7 food for 500k zeny and a Cursed Ruby... we may need to change this later, if people are opposed to it
+prontera,165,191,3	script	Church Worker	790,{
+
+	if(gettimetick(2) - dq_cd_time < (60 * 30)) 
+	{
+		mes .npcname$;
+		mes "Sorry, but you have to wait a few more minutes before we can bless you again.";
+		close;
+	}
+	
+	for (set .@i, 0; .@i < getarraysize(.minLevels); set .@i, .@i + 1)
+	{
+		if (BaseLevel >= .minLevels[.@i])
+			break;
+	}
+	
+	if ( .@i == getarraysize(.minLevels) )
+	{
+		mes .npcname$;
+		mes "Please come back when you're stronger, I have a great service available for proven warriors.";
+		close;
+	}
+	
+	mes .npcname$;
+	mes "We seek donations of impure minerals of Rune-Midgard. We offer our special blessing to donaters.";
+	mes "Would you like to exchange ^BFBF00"+.cost[.@i]+"^000000 zeny and 1 Cursed Ruby for our blessing?";
+	next;
+	
+	if (select("Yes, sure!:No, sorry.")==2)
+	{
+		mes .npcname$;
+		mes "Okay, have a good day";
+		close;
+	}
+	
+	if (Zeny < .cost[.@i] || countitem(724) < 1) // 724 = cursed ruby
+	{
+		mes .npcname$;
+		mes "Ah, sorry, you do not have everything.";
+		mes "Remember, we accept only ^BFBF00"+.cost[.@i]+"^000000 zeny and 1 Cursed Ruby.";
+		mes "Please come back soon!";
+		close;
+	}
+	
+	mes .npcname$;
+	mes "O Father who art in heaven, Give this adventurer our daily bread, Let him deliver us from evil!!";
+	next;
+
+	
+	set Zeny, Zeny - .cost[.@i];
+	delitem(724, 1);
+	getexp(.bexp[.@i], .jexp[.@i]);
+	set dq_cd_time, gettimetick(2);
+	
+	for (set .@j, SC_STRFOOD; .@j <= SC_LUKFOOD; set .@j, .@j + 1)
+		sc_start(.@j, (30*60*1000), .foodLevel[.@i]); 
+	
+	
+	mes .npcname$;
+	mes "Okay, it's done!";
+	close;
+
+	
+OnInit:
+	set .npcname$, "^0000FF[Church Worker]^000000";
+	setarray .cost[0],  100000,  50000,  10000;
+	setarray .bexp[0],   40000,  20000,  10000;
+	setarray .jexp[0],   29000,  14000,   7000;
+	setarray .foodLevel[0],  3,      2,      1;
+	setarray .minLevels[0], 90,     81,     50; //remember, descending order!
+	
+}
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// Knight's Delivery
+alberta,122,55,5	script	Messenger Girl	862,{
+
+	if ( (gettimetick(2) - dq_kd_time) <  .timeLimit )
+	{
+		mes .npcname$;
+		mes "Sorry but you have to wait until "+(.timeLimit/(60*60))+" hours are over!";
+		close;
+	}
+	
+	set .@range, 4;
+	if (BaseLevel >= 81)
+		set .@range, 0;
+	else if (BaseLevel <= 80 && BaseLevel >= 61)
+		set .@range, 1;
+	else if (BaseLevel <= 60 && BaseLevel >= 41)
+		set .@range, 2;
+	else if (BaseLevel <= 40 && BaseLevel >= 21)
+		set .@range, 3;
+	else
+		set .@range, 4;
+		
+		
+	mes .npcname$;
+	mes "Hello "+strcharinfo(0)+", I need your help.";
+	next;
+	mes .npcname$;
+	mes "Could you please send a message to "+.target$[.@range]+"?";
+	mes "He's somewhere in "+.dest$[.@range]+".";
+	next;
+	if (select("Yes:No")==2)
+	{
+		mes .npcname$;
+		mes "Okay, bye!";
+		close;
+	}
+	else
+	{
+		mes .npcname$;
+		mes "Okay, thank you! Please go and find him.";
+		set dq_kd_target, .@range;
+		close;
+	}
+	
+OnInit:
+	set .npcname$,"^0000FF[Messenger Girl]^000000";	
+	setarray .target$[0], "Sir Grievous", "Sir Midetz", "Sir Lion",     "Sir Richard", "Sir Donovan";
+	setarray .dest$[0],  "Turtle Island",     "Izlude", "Prontera", "Treasure Island",     "Alberta";
+	set .timeLimit, 20*60*60;
+}
+function	script	f_kd_check	{
+	set .@name$, "^0000FF["+getarg(0)+"]^000000";
+	set .@bexp, getarg(1);
+	set .@jexp, getarg(2);
+	set .@num, getarg(3);
+	set .@limit, getvariableofnpc(.timeLimit, "Messenger Girl");
+	
+	if ( (gettimetick(2) - dq_kd_time) <  .@limit )
+	{
+		mes .@name$;
+		mes "Sorry but you have to wait until "+(.@limit/(60*60))+" hours are over!";
+		close;
+	}
+	
+	if (dq_kd_target == .@num)
+	{
+		mes .@name$;
+		mes "Ah, you've got a message for me? Thank you!";
+		getexp .@bexp, .@jexp;
+		set dq_kd_time, gettimetick(2);
+		close;
+	}
+	
+	mes .@name$;
+	mes "Good day to you, fine citizen.";
+	close;
+}
+
+alberta,56,80,5	script	Sir Donovan	65,{
+	callfunc "f_kd_check", "Sir Donovan", 300, 250, 4;
+}
+
+alb2trea,62,69,5	script	Sir Richard	65,{
+	callfunc "f_kd_check", "Sir Richard", 2000, 1800, 3;
+}
+
+prontera,109,116,5	script	Sir Lion	65,{
+	callfunc "f_kd_check", "Sir Lion", 17000, 15000, 2;
+}
+
+izlude,123,173,5	script	Sir Midetz	65,{
+	callfunc "f_kd_check", "Sir Midetz", 50000, 40000, 1;
+}
+
+tur_dun01,188,118,5	script	Sir Grevious	65,{
+	callfunc "f_kd_check", "Sir Grevious", 160000, 144000, 0;
+}
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// REMOVED: already handled by quest_brasilis.txt
+//Lost Puppies
+// brasilis,298,307,3	script	Angelo	50,{
+
+
+	// if( (gettimetick(2) - dq_lp_time) < .timeLimit ) 
+	// {
+		// mes .npcname$;
+		// mes "I'm sorry but you have to wait 24 hours until you can do the quest again!";
+		// close;
+	// }
+	// if( puppy_hunt&1 != 0 && puppy_hunt&2 != 0 && puppy_hunt&4 != 0) 
+	// {
+		// mes .npcname$;
+		// mes "Awesome, you found them!";
+		// mes "Take some EXP as a reward.";
+		// getexp .bexpReward, .jexpReward;
+		// set dq_lp_time,gettimetick(2);
+		// set puppy_hunt,0;
+		// next;
+		// mes .npcname$;
+		// mes "Goodbye!";
+		// close;
+	// }
+	// if(BaseLevel >= .minLevel) 
+	// {
+		// mes .npcname$;
+		// mes "Oh my, thank you!";
+		// mes "Hello "+strcharinfo(0)+", I really need your help!";
+		// next;
+		// mes .npcname$;
+		// mes "My Puppies ran away! They're somewhere in the field up here.";
+		// next;
+		// mes .npcname$;
+		// mes "Could you please find them for me?";
+		// next;
+		// switch(select("Yes, sure!:No, sorry..:Cancel")) 
+		// {
+			// case 1:
+				// mes .npcname$;
+				// mes "Okay come back when you found them!";
+				// set puppy_hunt,8;
+				// close;
+			// case 2:
+				// mes .npcname$;
+				// mes "Okay bye!";
+				// close;
+			// case 3:
+				// close;
+		// }
+	// }
+	// mes .npcname$;
+	// mes "Get to Base Level "+.minLevel+" in order to start my Quest!";
+	// close;
+	
+// OnInit:
+	// set .npcname$, "^0000FF[Angelo]^000000";
+	// set .timeLimit, 60*60*24;
+	// set .minLevel, 70;
+	// set .bexpReward, 50000;
+	// set .jexpReward, 40000;
+// }
+
+// function	script	f_puppy_check	{
+	// set .@num, getarg(0);
+	// set .@bitnum, 1 << (.@num-1);
+	
+	// set .@n$, "^0000FF[Puppy "+.@bitnum+"]^000000";
+	
+	// if ( puppy_hunt&8 != 0 && puppy_hunt&.@bitnum == 0)
+	// {
+		// mes .@n$;
+		// mes "Woof, woof!";
+		// set puppy_hunt, puppy_hunt|.@bitnum;
+		// next;
+		// mes "["+strcharinfo(0)+"]";
+		// mes "Found one. I'll tell Angelo where this pup is now.";
+		
+		// if (puppy_hunt&15 == 15) // 15 = 1|2|4|8
+		// {
+			// next;
+			// mes "You've found all three puppies, report back to Angelo!";
+		// }
+		// close;
+	// }
+// }
+// ====================== Now the Puppies are coming ==================================
+// bra_fild01,110,135,5	script	Puppy 1	81,{
+	// callfunc "f_puppy_check",1;
+// }
+// bra_fild01,39,204,5	script	Puppy 2	81,{
+	// callfunc "f_puppy_check",2;
+// }
+// bra_fild01,307,147,3	script	Puppy 3	81,{
+	// callfunc "f_puppy_check",3;
+// }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// Swab the Deck
+
+// (To be implemented later)
+
+// alberta,104,60,5	script	First Mate#dqstd	748,{
+
+
+	// if(countitem(6221) > 0 && ( (gettimetick(2) - dq_swd_time) > (60 * 60 * 20) ) ) 
+	// {
+		// mes .npcname$;
+		// mes "Hey, how many ^00AA00Mystic Leaf Cat Balls^000000 do you want to exchange to ^000077Shiny Beads^000000?";
+		// next;
+		// mes .npcname$;
+		// mes "Input the amount of the ^00AA00Mystic Leaf Cat Balls^000000 that you want to exchange.";
+		// mes "If you input 0, you're going to cancel the deal.";
+		// next;
+		// input @beadamount;
+		// if (@beadamount == 0) 
+		// {
+			// close;
+		// }
+		// mes .npcname$;
+		// mes "Do you really want to exchange";
+		// mes ""+ @beadamount +" ^00AA00Mystic Leaf Cat Balls^000000";
+		// mes "for "+ @beadamount +" ^000077Shiny Beads^000000?";
+		// next;
+		// switch(select("Yes!:No!")) 
+		// {
+			// case 1:
+			// mes .npcname$;
+			// mes "Okay, converting...";
+			// next;
+			// if(countitem(6221) < @beadamount)
+			// {
+				// mes .@npcname$;
+				// mes "I'm sorry, but you're missing some items!";
+				// close;
+			// }
+			
+			// delitem 6221,@beadamount;
+			// getitem .BeadID,@beadamount;
+			// getexp 500000, 400000;
+			// set dq_swd_time, gettimetick(2);
+			// mes .npcname$;
+			// mes "Okay you can exchange the ^000077Shiny Beads^000000 at the Second Mate.";
+			// close;
+			// case 2:
+			// mes .npcname$;
+			// mes "Okay, goodbye!";
+			// close;
+		// }
+	// }
+	
+	// mes .npcname$;
+	// mes "Hey, could you do something for me?";
+	// next;
+	// switch(select("Yes, sure!:No, bye!:Cancel")) 
+	// {
+		// case 1:
+			// mes .npcname$;
+			// mes "Okay you have to go to the Alberta Ship.";
+			// mes "Enter one of the portals and catch a plant!";
+			// next;
+			// mes .npcname$;
+			// mes "If you catch it, you'll get a ^00AA00Mystic Leaf Cat Balls^000000.";
+			// mes "If you get it, come back to me.";
+			// mes "If you fail, come back to me and get a new Cat Ball to catch a plant.";
+			// next;
+			// mes .npcname$;
+			// mes "So here, take this and come back when you're finished.";
+			// getitem 12408,1;
+			// close;
+		// case 2:
+			// mes .npcname$;
+			// mes "Okay, goodbye!";
+			// close;
+		// case 3:
+			// close;
+	// }
+			
+// OnInit:
+	// set .npcname$,"[First Mate]";
+	// set .BeadID, 6222;
+// }
+
+
+// alberta,107,59,5	script	Second Mate#dqstd	100,{
+	
+	// mes .npcname$;
+	// mes "Hello "+strcharinfo(0)+", do you want to buy some items?";
+	// mes "You'll have to give me ^000077Shiny Beads^000000 for them!";
+	// next;
+	// if (select("Yes, sure","No, nevermind!") == 2) 
+		// close;
+	// next;
+	// mes .npcname$;
+	// mes "Item <=> Cost";
+	// for( set .@i, 0; .@i < getarraysize(.ItemID); set .@i, .@i + 1 ) 
+	// {
+		// mes "^0000FF"+.itemcount[.@i]+"x "+getitemname(.ItemID[.@i])+"^000000 <=> ^00AA00"+.Cost[.@i]+"^000000";
+		// if( .@i < 1 )
+			// set .@menu$, getitemname(.ItemID[.@i]);
+		// else
+			// set .@menu$, .@menu$+":"+getitemname(.ItemID[.@i]);
+	// }
+
+	// next;
+	// select(.@menu$);
+	// set @choice, @menu - 1;
+
+	// mes .npcname$;
+	// mes "Are you really sure you want to trade ^00AA00"+.Cost[@choice]+"^000000 ^000077Shiny Beads^000000 for "+.itemcount[@choice]+"x '^FF0000"+getitemname(.ItemID[@choice])+"^000000'?";
+	// if(select("No! Cancel!:Yes, Trade me!") == 1) 
+	// {
+		// mes "Cancelled the Trade";
+		// close;
+	// }
+	// next;
+	// if(countitem(.BeadID) <.Cost[@choice]) 
+	// {
+		// mes "You need more ^000077Shiny Beads^000000 for "+.itemcount[@choice]+"x '"+getitemname(.ItemID[@choice])+"'";
+		// close;
+	// }
+
+	// set .@new, .BeadID - .Cost[@choice];
+	// if( .@new < 0 )
+		// set .@new, 0;
+	// delitem .BeadID, .Cost[@choice];
+	// getitem .ItemID[@choice], .itemcount[@choice];
+	// mes .npcname$;
+	// mes "The trade was successful. Have fun!";
+	// close;
+	
+// OnInit:
+
+	// set .npcname$, "^0000FF[Second Mate]^000000";
+	// set .BeadID, 6222;
+	// setarray .ItemID[0],   505, 5170,5773,5691,5578,5692; 
+	// setarray .Cost[0],       1,   20,  15,  15,  10,  15;
+	// setarray .itemcount[0], 20,     1,  1,   1,   1,   1;
+// }

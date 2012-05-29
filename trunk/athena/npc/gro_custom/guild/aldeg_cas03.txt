@@ -17,7 +17,7 @@
 //============================================================
 aldebaran,134,97,4	script	Nuenberg#a3-1::Nuenberg	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleA03:
 	FlagEmblem GetCastleData("aldeg_cas03",1);
 	end;
@@ -67,7 +67,7 @@ alde_gld,138,82,0	script	Nuenberg#a3-2::Nuenberg2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastleA03:
 	FlagEmblem GetCastleData("aldeg_cas03",1);
 	end;
@@ -79,7 +79,7 @@ alde_gld,146,82,0	duplicate(Nuenberg2)	Nuenberg#a3-3	722
 //============================================================
 aldeg_cas03,176,175,2	script	Nuenberg#a3-4::Nuenberg3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleA03:
 	FlagEmblem GetCastleData("aldeg_cas03",1);
 	end;

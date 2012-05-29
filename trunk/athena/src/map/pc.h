@@ -150,7 +150,7 @@ struct map_session_data {
 		unsigned int buyingstore : 1;
 		unsigned int lesseffect : 1;
 		unsigned int vending : 1;
-		unsigned int security : 1;
+		//unsigned int security : 1;
 		unsigned int dropinfo : 1;
 		unsigned int noks : 3; // [Zeph Kill Steal Protection]
 		unsigned int changemap : 1;
@@ -878,7 +878,7 @@ void pc_item_remove4all(int nameid, bool char_server);
 void pc_record_mobkills(struct map_session_data *sd, struct mob_data *md);
 void pc_record_maxdamage(struct block_list *src, struct block_list *dst, int damage);
 void pc_record_damage(struct block_list *src, struct block_list *dst, int damage);
-void pc_calc_playtime(struct map_session_data* sd);
+
 /*
 int pc_init_ctz(struct map_session_data *sd);
 enum e_consumable_trace_zone pc_checkctz(struct map_session_data *sd);

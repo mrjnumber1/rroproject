@@ -17,7 +17,7 @@
 //============================================================
 geffen,113,130,1	script	Eeyolbriggar#g2-1::Eeyolbriggar	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleG02:
 	FlagEmblem GetCastleData("gefg_cas02",1);
 	end;
@@ -67,7 +67,7 @@ gef_fild13,303,243,4	script	Eeyolbriggar#g2-2::Eeyolbriggar2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastleG02:
 	FlagEmblem GetCastleData("gefg_cas02",1);
 	end;
@@ -81,7 +81,7 @@ gef_fild13,324,243,4	duplicate(Eeyolbriggar2)	Eeyolbriggar#g2-5	722
 //============================================================
 gefg_cas02,65,130,5	script	Eeyolbriggar#g2-6::Eeyolbriggar3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleG02:
 	FlagEmblem GetCastleData("gefg_cas02",1);
 	end;

@@ -46,6 +46,7 @@ extern char mapindex_cfgfile[80];
 #define MAP_THORCAMP "thor_camp"
 #define MAP_CAPITOLINA "prt_monk"
 #define MAP_BGLOBBY "bat_room"
+#define MAP_MARKET "market"
 
 const char* mapindex_getmapname(const char* string, char* output);
 const char* mapindex_getmapname_ext(const char* string, char* output);

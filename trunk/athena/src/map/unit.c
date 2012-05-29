@@ -183,7 +183,7 @@ static int unit_walktoxy_timer(int tid, unsigned int tick, int id, intptr_t data
 			unit_warp( &sd->md->bl, sd->bl.m, sd->bl.x, sd->bl.y, CLR_TELEPORT );
 
 		if (sd->state.gmaster_flag &&
-			(battle_config.guild_aura&((agit_flag || agit2_flag)?2:1)) &&
+			(battle_config.guild_aura&((agit_flag)?2:1)) &&
 			(battle_config.guild_aura&(map_flag_gvg2(bl->m)?8:4))
 		)
 		{ //Guild Aura: Likely needs to be recoded, this method seems inefficient.
@@ -1646,10 +1646,13 @@ static int unit_attack_timer_sub(struct block_list* src, int tid, unsigned int t
 	}
 
 	sstatus = status_get_status_data(src);
-	range = sstatus->rhw.range;
 	
-	if( !sd || sd->status.weapon != W_BOW )
-		range++; //Dunno why everyone but bows gets this extra range...
+	//if( !sd || sd->status.weapon != W_BOW )
+	//	range++; //Dunno why everyone but bows gets this extra range...
+	// bastards; now bows get it!
+	
+	range = sstatus->rhw.range + 1;
+
 	if( unit_is_walking(target) )
 		range++; //Extra range when chasing
 

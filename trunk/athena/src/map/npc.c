@@ -1834,7 +1834,7 @@ int npc_unload(struct npc_data* nd)
 		iter = mapit_geteachpc();  
 		for( bl = (struct block_list*)mapit_first(iter); mapit_exists(iter); bl = (struct block_list*)mapit_next(iter) )  
 		{
-			struct map_session_data *sd = map_id2sd(bl->id);
+			struct map_session_data *sd = ((TBL_PC*)bl);
 			if( sd && sd->npc_timer_id != INVALID_TIMER )
 			{
 				const struct TimerData *td = get_timer(sd->npc_timer_id);
@@ -2144,9 +2144,9 @@ static const char* npc_parse_shop(char* w1, char* w2, char* w3, char* w4, const 
 	
 	if( !strcasecmp(w2,"cashshop") )
 		type = CASHSHOP;
-	else if( !strcasecmp(w2,"itemshop") )
+	else if( !strncmp(w2,"itemshop",8) )
 		type = ITEMSHOP;
-	else if( !strcasecmp(w2,"varshop") )
+	else if( !strncmp(w2,"varshop",7) )
 		type = VARSHOP;
 	else
 		type = SHOP;
@@ -2221,7 +2221,11 @@ static const char* npc_parse_shop(char* w1, char* w2, char* w3, char* w4, const 
 			if( type == SHOP ) value = id->value_buy;
 			else value = 0; // Cashshop doesn't have a "buy price" in the item_db
 		}
-
+		if (type == SHOP && value == 0)
+		{
+			//NPC selling items for free!
+			ShowWarning("npc_parse_shop: Item %s [%d] is being sold for FREE in '%s', line %d. \n", id->name, nameid, filepath, strline(buffer,start-buffer));
+		}
 		if( type == SHOP && value*0.75 < id->value_sell*1.24 )
 		{// Exploit possible: you can buy and sell back with profit
 			ShowWarning("npc_parse_shop: Item %s [%d] discounted buying price (%d->%d) is less than overcharged selling price (%d->%d) at file '%s', line '%d'.\n",
