@@ -43,11 +43,11 @@ void trade_traderequest(struct map_session_data *sd, struct map_session_data *ta
 	if (!pc_can_dropitems(sd))
 		return;
 	
-	if (!target_sd->state.security)
-	{
-		clif_displaymessage(sd->fd, "Target player cannot trade items, blocked with @security.");
-		return;
-	}
+	//if (target_sd->state.security)
+	//{
+	//	clif_displaymessage(sd->fd, "Target player cannot trade items, blocked with @security.");
+	//	return;
+	//}
 
 	if (target_sd == NULL || sd == target_sd) {
 		clif_tradestart(sd, 1); // character does not exist

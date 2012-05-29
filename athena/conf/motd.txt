@@ -1,2 +1,2 @@
 // Internal default is limited to 128 lines.  If you need more, you will need to modify the MOTD_LINE_SIZE definition in pc.c
-Welcome to KarmaRO! Please report any bugs you find.
+Welcome to KarmaRO! Please report any bugs you find on the forums! http://board.karma-ro.com

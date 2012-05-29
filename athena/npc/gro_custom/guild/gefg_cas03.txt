@@ -17,7 +17,7 @@
 //============================================================
 geffen,120,132,8	script	Yesnelph#g3-1::Yesnelph	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleG03:
 	FlagEmblem GetCastleData("gefg_cas03",1);
 	end;
@@ -67,7 +67,7 @@ gef_fild13,78,182,4	script	Yesnelph#g3-2::Yesnelph2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastleG03:
 	FlagEmblem GetCastleData("gefg_cas03",1);
 	end;
@@ -83,7 +83,7 @@ gef_fild13,144,244,4	duplicate(Yesnelph2)	Yesnelph#g3-7	722
 //============================================================
 gefg_cas03,122,220,6	script	Yesnelph#g3-8::Yesnelph3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleG03:
 	FlagEmblem GetCastleData("gefg_cas03",1);
 	end;

@@ -17,7 +17,7 @@
 //============================================================
 payon,166,169,3	script	Sacred Altar#f4-1::SacredAltar	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePy04:
 	FlagEmblem GetCastleData("payg_cas04",1);
 	end;
@@ -68,7 +68,7 @@ pay_gld,137,160,0	script	Sacred Altar#f4-3::SacredAltar2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastlePy04:
 	FlagEmblem GetCastleData("payg_cas04",1);
 	end;
@@ -82,7 +82,7 @@ pay_gld,153,166,1	duplicate(SacredAltar2)	Sacred Altar#f4-6	722
 //============================================================
 payg_cas04,255,259,0	script	Sacred Altar#f4-7::SacredAltar3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePy04:
 	FlagEmblem GetCastleData("payg_cas04",1);
 	end;

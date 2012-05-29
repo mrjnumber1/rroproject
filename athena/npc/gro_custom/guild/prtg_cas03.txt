@@ -20,7 +20,7 @@
 prontera,143,203,2	script	Fadhgridh#p3-1::Fadhgridh	722,{
 	end;
 
-
+OnInterIfInitOnce:
 OnRecvCastlePt03:
 	FlagEmblem GetCastleData("prtg_cas03",1);
 	end;
@@ -69,7 +69,7 @@ prt_gld,147,140,4	script	Fadhgridh#p3-2::Fadhgridh2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastlePt03:
 	FlagEmblem GetCastleData("prtg_cas03",1);
 	end;
@@ -83,7 +83,7 @@ prt_gld,158,136,4	duplicate(Fadhgridh2)	Fadhgridh#p3-5	722
 //============================================================
 prtg_cas03,168,28,4	script	Fadhgridh#p3-6::Fadhgridh3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePt03:
 	FlagEmblem GetCastleData("prtg_cas03",1);
 	end;

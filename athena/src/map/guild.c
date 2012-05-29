@@ -624,7 +624,7 @@ int guild_invite(struct map_session_data *sd,struct map_session_data *tsd)
 
 	if(tsd->status.guild_id>0 ||
 		tsd->guild_invite>0 ||
-		((agit_flag || agit2_flag) && map[tsd->bl.m].flag.gvg_castle))
+		((agit_flag) && map[tsd->bl.m].flag.gvg_castle))
 	{	//Can't invite people inside castles. [Skotlex]
 		clif_guild_inviteack(sd,0);
 		return 0;
@@ -787,7 +787,7 @@ int guild_leave(struct map_session_data* sd, int guild_id, int account_id, int c
 
 	if(sd->status.account_id!=account_id ||
 		sd->status.char_id!=char_id || sd->status.guild_id!=guild_id ||
-		((agit_flag || agit2_flag) && map[sd->bl.m].flag.gvg_castle))
+		((agit_flag) && map[sd->bl.m].flag.gvg_castle))
 		return 0;
 
 	intif_guild_leave(sd->status.guild_id, sd->status.account_id, sd->status.char_id,0,mes);
@@ -817,7 +817,7 @@ int guild_expulsion(struct map_session_data* sd, int guild_id, int account_id, i
   	//Can't leave inside guild castles.
 	if ((tsd = map_id2sd(account_id)) &&
 		tsd->status.char_id == char_id &&
-		((agit_flag || agit2_flag) && map[tsd->bl.m].flag.gvg_castle))
+		((agit_flag) && map[tsd->bl.m].flag.gvg_castle))
 		return 0;
 
 	// find the member and perform expulsion
@@ -1349,7 +1349,7 @@ int guild_reqalliance(struct map_session_data *sd,struct map_session_data *tsd)
 	struct guild *g[2];
 	int i;
 
-	if(agit_flag || agit2_flag)	{	// Disable alliance creation during woe [Valaris]
+	if(agit_flag)	{	// Disable alliance creation during woe [Valaris]
 		clif_displaymessage(sd->fd,"Alliances cannot be made during Guild Wars!");
 		return 0;
 	}	// end addition [Valaris]
@@ -1462,7 +1462,7 @@ int guild_delalliance(struct map_session_data *sd,int guild_id,int flag)
 {
 	nullpo_ret(sd);
 
-	if(agit_flag || agit2_flag)	{	// Disable alliance breaking during woe [Valaris]
+	if(agit_flag)	{	// Disable alliance breaking during woe [Valaris]
 		clif_displaymessage(sd->fd,"Alliances cannot be broken during Guild Wars!");
 		return 0;
 	}	// end addition [Valaris]
@@ -1498,7 +1498,7 @@ int guild_opposition(struct map_session_data *sd,struct map_session_data *tsd)
 				clif_guild_oppositionack(sd,2);
 				return 0;
 			}
-			if(agit_flag || agit2_flag) // Prevent the changing of alliances to oppositions during WoE.
+			if(agit_flag) // Prevent the changing of alliances to oppositions during WoE.
 				return 0;
 			//Change alliance to opposition.
 			intif_guild_alliance( sd->status.guild_id,tsd->status.guild_id,

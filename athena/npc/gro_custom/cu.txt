@@ -1,21 +1,3 @@
-amatsu,59,100,0	script	EXP Debugger	418,{
-
-	
-		
-	mes "base exp?";
-	input @base;
-	next;
-	mes "job exp?";
-	input @job;
-	
-	set .@quest_rate, getbattleflag("quest_exp_rate")/100;
-	if(@base && @job)
-		getexp @base/.@quest_rate, @job/.@quest_rate;
-	
-	close;
-}
-
-
 amatsu,53,94,0	script	Changer	418,{
 
 	if (changer_used&2048 == 1)
@@ -291,19 +273,14 @@ amatsu,53,94,0	script	Changer	418,{
 	close;
 }
 
+
+
+
 -	script	F_cu_main	-1,{
 ConfigStart:
-	set .@menuopts$, "Cancel:Security:Autolog Commands:Stylist";
-
-	if( Class < Job_Lord_Knight && !(Class >= Job_Wedding || Class <= Job_Xmas ) )
-		set .@menuopts$, .@menuopts$ + ":Change Class";
-	else if (   (BaseClass == Job_Merchant && checkcart() == 0 && getskilllv("MC_PUSHCART")>0) 
-			 ||((Class == Job_Hunter || Class == Job_Sniper) && (checkfalcon() == 0) && (getskilllv("HT_FALCON") > 0) ) 
-			 || (BaseJob != Job_Swordman && BaseClass == Job_Swordman && checkriding() == 0 && getskilllv("KN_RIDING")>0)
-			)
-		set .@menuopts$, .@menuopts$ + ":Rental";
-	
-	mes "[Groove Control Unit]";
+	set .@menuopts$, "Cancel:Autolog Commands:Stylist:Rental:Class Change";
+ 
+	mes "[Karma Control Unit]";
 	mes "Please select what you would like to configure";
 	
 	switch(select(.@menuopts$))
@@ -311,29 +288,24 @@ ConfigStart:
 		case 1:
 			break;
 		case 2:
-			callfunc "F_cu_security";
-			break;
-		case 3:
 			callsub F_cu_alogcmds;
 			break;
-		//case 3:
-		//	callfunc "F_cu_buffcfg";
-		//	break;
+		case 3:
+			callfunc "F_stylist";
+			break;
 		case 4:
-			callsub "F_stylist";
+			callfunc "F_cu_renter";
 			break;
 		case 5:
-			if(Class < Job_Lord_Knight && !(Class >= Job_Wedding || Class <= Job_Xmas ) )
-				callfunc "F_cu_jobchange";
-			else
-				callfunc "F_cu_renter";
+			callfunc "F_cu_jobchange";
+			break;
 	}
 	
 	close;
 	end;
 	
 				//NOTE: new ones must be set AFTER the current list. or else.
-OnInit:                            //1         //2          //4         //8        //0x10        //0x40           //0x80          //0x100
+OnInit:                            //1         //2          //4         //8        //0x10        //0x20           //0x40          //0x80
 	setarray .cmds$[0], "Cancel", "autoloot", "showdelay", "showzeny", "showexp", "dropinfo",   "showcasttime", "showcastdelay", "expinfo on";
 	end;
 	
@@ -351,35 +323,35 @@ alogcmdstart:
 	{
 		message strcharinfo(0),"No Autolog Commands found, use @control/!control to configure.";
 		message strcharinfo(0),"Automatically setting @autoloot, @showdelay, @showexp, @expinfo on, and @showzeny.";
-		set Autolog_Commands, 256|8|4|2|1;
+		set Autolog_Commands, 128|8|4|2|1;
 		goto alogcmdstart;
 	}
 		
-	if(checksecurity() == 0)
-		setsecurity(-1);
+	// if(checksecurity() == 0)
+		// setsecurity(-1);
 		
-	if(checksecurity() > 0)
-	{
-		enablesecurity();
-		mes "[MEMBER ID SECURITY]";
-		mes "Please enter the Member Security number (10000-99999) .....";
+	// if(checksecurity() > 0)
+	// {
+		// enablesecurity();
+		// mes "[MEMBER ID SECURITY]";
+		// mes "Please enter the Member Security number (10000-99999) .....";
 		
-		input .@num;
-		set .@fakehash, (100000-(checksecurity()+3)+7)*5+67;
-		if(.@num < 10000 || .@num > 99999 || (.@num !=  .@fakehash) )
-		{
-			mes "Security Code Invalid. Close your client and try again. Sorry for the inconvenience.";
-			end;
-		}
-		else
-		{
-			mes "Security Code Accepted. Welcome back, "+strcharinfo(0)+"!";
-			disablesecurity();
-			close;
-		}
-	}
-	else
-		message strcharinfo(0),"Security Code for your Member Accounts DISABLED. You should enable it with @control to protect your items and cash.";
+		// input .@num;
+		// set .@fakehash, (100000-(checksecurity()+3)+7)*5+67;
+		// if(.@num < 10000 || .@num > 99999 || (.@num !=  .@fakehash) )
+		// {
+			// mes "Security Code Invalid. Close your client and try again. Sorry for the inconvenience.";
+			// end;
+		// }
+		// else
+		// {
+			// mes "Security Code Accepted. Welcome back, "+strcharinfo(0)+"!";
+			// disablesecurity();
+			// close;
+		// }
+	// }
+	// else
+		// message strcharinfo(0),"Security Code for your Member Accounts DISABLED. You should enable it with @control to protect your items and cash.";
 	
 	
 	end;
@@ -388,16 +360,16 @@ alogcmdstart:
 F_cu_alogcmds:	
 	next;
 	
-	set .@menustr$, .cmds$[0];
+	set .@menustr$, "@"+.cmds$[0];
 	for( set .@i, 1; .@i < getarraysize(.cmds$); set .@i, .@i +1 )
-		set .@menustr$, .@menustr$ + ":" + .cmds$[.@i];
+		set .@menustr$, "@"+.@menustr$ + ":" + .cmds$[.@i];
 
 	// NOTE: NEW COMMANDS MUST BE ADDED AT THE END of .cmds$!
 
 
 Lcmdcfg:
 	for( set .@i, 1; .@i < getarraysize(.cmds$); set .@i, .@i + 1 )
-		mes .cmds$[.@i] + " " + ((Autolog_Commands & (1<<(.@i-1)))?"^00FF00Enabled^000000":"^FF0000Disabled^000000");	
+		mes "@"+.cmds$[.@i] + " " + ((Autolog_Commands & (1<<(.@i-1)))?"^00FF00(ON)^000000":"^FF0000(OFF)^000000");	
 
 
 
@@ -419,7 +391,7 @@ Lcmdcfg:
 
 function	script	F_cu_renter	{
 
-	if((BaseClass == Job_Merchant && checkcart() == 0 && getskilllv("MC_PUSHCART")>0))
+	if(((Class == Job_SuperNovice || BaseClass == Job_Merchant) && checkcart() == 0 && getskilllv("MC_PUSHCART")>0))
 		setcart;
 	else if(BaseJob != Job_Archer && BaseClass == Job_Archer && checkfalcon() == 0 && getskilllv("HT_FALCON")>0)
 		setfalcon;
@@ -613,6 +585,52 @@ function	script	F_cu_lr_jobchange	{
 	close;
 
 L_GivePlat:
+	if (Class == Job_Lord_Knight) {
+		skill 1001,1,0; // Charge Attack
+	} 
+	else if (Class == Job_Paladin) {
+		skill 1002,1,0; // Shrink
+	} 
+	else if (Class == Job_High_Wizard) {
+		skill 1006,1,0; // Sight Blaster
+	} 
+	else if (Class == Job_Professor) {
+		skill 1007,1,0; // Create Elemental Converter
+		skill 1008,1,0; // Elemental Change Water
+		skill 1017,1,0; // Elemental Change Earth
+		skill 1018,1,0; // Elemental Change Fire
+		skill 1019,1,0; // Elemental Change Wind
+	} 
+	else if (Class == Job_Sniper) {
+		skill 1009,1,0; // Phantasmic Arrow
+	} 
+	else if (Class == Job_Clown) {
+		skill 1010,1,0; // Pang Voice
+	} 
+	else if (Class == Job_Gypsy) {
+		skill 1011,1,0; // Wink of Charm
+	} 
+	else if (Class == Job_Whitesmith) {
+		skill 1012,1,0; // Unfair Trick
+		skill 1013,1,0; // Greed
+	} 
+	else if (Class == Job_Creator) {
+		skill 238,1,0; // Bioethics
+	}
+	else if (Class == Job_Assassin_Cross) {
+		skill 1003,1,0; // Sonic Acceleration
+		skill 1004,1,0; // Throw Venom Knife
+	} 
+	else if (Class == Job_Stalker) {
+		skill 1005,1,0; // Close Confine
+	} 
+	else if (Class == Job_High_Priest) {
+		skill 1014,1,0; // Redemptio
+	} 
+	else if (Class == Job_Champion) {
+		skill 1015,1,0; // Ki Translation
+		skill 1016,1,0; // Ki Explosion
+	}
 	if (BaseClass==Job_SuperNovice) goto L_sSuperN;
 	if (BaseClass==Job_Swordman) goto L_sSword;
 	if (BaseClass==Job_Mage) goto L_sMage;
@@ -698,7 +716,7 @@ function	script	F_cu_jobchange	{
 	{
 		mes "First you must decide, will you be a LR char or a BG char?";
 		mes "If you choose to be a LR char, the amount of content you are limited to is none. However you will have to level up at the server rates";
-		mes "If you choose to be a BG char you will be instantly maxed out in level, but you may not leave any towns, WoE areas, or the BG areas.";
+		mes "If you choose to be a BG char you will be instantly maxed out in level, but you may not leave any towns, WoE areas, or BG areas.";
 		switch(select("Cancel:I want all content available:I just want instant 99."))
 		{
 			case 1:
@@ -711,7 +729,7 @@ function	script	F_cu_jobchange	{
 				break;
 			case 3:
 				next;
-				goto OnBGChar;
+				callfunc "F_cu_bg_jobchange";
 				break;
 		}
 	}
@@ -722,8 +740,9 @@ function	script	F_cu_jobchange	{
 	}
 	
 	end;
-OnBGChar:
-
+}
+	
+function	script	F_cu_bg_jobchange	{
 	if(Class != Job_Novice)
 	{
 		message strcharinfo(0), "You are not allowed to use this function!";
@@ -759,14 +778,10 @@ OnBGChar:
 	}
 	
 	
-	
-	
-	
 	mes "Please select the job you wish to change to.";
 	mes "Remember, after you change, you will be that job forever.";
 	
 	select(.@jmenu$);
-	
 	
 	set .@jid, .@jobids[@menu-1];
 	set .@blv, 99;
@@ -891,136 +906,136 @@ OnBGChar:
 }
 
 
-function	script	F_cu_buffcfg	{
+// function	script	F_cu_buffcfg	{
 	
-	setarray @color$[0], "7F7F7F", "0000E5", "3F2F1F", "8F0000", "AFAF00", "5F1F5F", "BFBFBF", "2F2F2F";
-	setarray @cname$[0],"Neutral",  "Water",  "Earth",	 "Fire",    "Wind","Poison",   "Holy","Shadow";
+	// setarray @color$[0], "7F7F7F", "0000E5", "3F2F1F", "8F0000", "AFAF00", "5F1F5F", "BFBFBF", "2F2F2F";
+	// setarray @cname$[0],"Neutral",  "Water",  "Earth",	 "Fire",    "Wind","Poison",   "Holy","Shadow";
 	
-	next;
-	mes "[Buff Configuration]";
-	mes "Please choose what you would like to toggle.";
-	mes "Current Options:";
-	set .@status$, (Buff_Conf & (1 << 0))?("Assumptio"):("Kyrie Eleison");
-	mes "Use "+.@status$;
-	set .@status$, (Buff_Conf&(1<<1))?("Scrolls will be refreshed and consumed when using the buffer."):("Scrolls will NOT refresh from using the buffer.");
-	mes .@status$;
-	set .@status$, (Buff_Conf&(1<<2))?("You will be linked by the buffer."):("You will NOT be linked by the buffer.");
-	mes .@status$;
+	// next;
+	// mes "[Buff Configuration]";
+	// mes "Please choose what you would like to toggle.";
+	// mes "Current Options:";
+	// set .@status$, (Buff_Conf & (1 << 0))?("Assumptio"):("Kyrie Eleison");
+	// mes "Use "+.@status$;
+	// set .@status$, (Buff_Conf&(1<<1))?("Scrolls will be refreshed and consumed when using the buffer."):("Scrolls will NOT refresh from using the buffer.");
+	// mes .@status$;
+	// set .@status$, (Buff_Conf&(1<<2))?("You will be linked by the buffer."):("You will NOT be linked by the buffer.");
+	// mes .@status$;
 	
-	mes "The current element is ^"+@color$[BuffWpnEle]+@name$[BuffWpnEle]+"^000000";
+	// mes "The current element is ^"+@color$[BuffWpnEle]+@name$[BuffWpnEle]+"^000000";
 	
-	menu "Assumptio/Kyrie",LAKToggle,"Scroll Consumption",LSCToggle,"Auto Soul Link",LALToggle,"Element Endow",LENToggle;
+	// menu "Assumptio/Kyrie",LAKToggle,"Scroll Consumption",LSCToggle,"Auto Soul Link",LALToggle,"Element Endow",LENToggle;
 	
 	
-LAKToggle:
-	next;
-	set .@status$, (Buff_Conf & (1 << 0))?("Assumptio"):("Kyrie Eleison");
-	mes "[Buff Configuration]";
-	mes "Please choose an option.";
-	select("Assumptio:Kyrie Eleison");
+// LAKToggle:
+	// next;
+	// set .@status$, (Buff_Conf & (1 << 0))?("Assumptio"):("Kyrie Eleison");
+	// mes "[Buff Configuration]";
+	// mes "Please choose an option.";
+	// select("Assumptio:Kyrie Eleison");
 
-	set Buff_Conf, Buff_Conf ^ (1<<(@menu-1+1));
+	// set Buff_Conf, Buff_Conf ^ (1<<(@menu-1+1));
 	
-	next;					
-	set .@status$, (Buff_Conf & (1 << 0))?("Assumptio"):("Kyrie Eleison");
+	// next;					
+	// set .@status$, (Buff_Conf & (1 << 0))?("Assumptio"):("Kyrie Eleison");
 	
-	mes "[Buff Configuration]";
-	mes "The option was set to:";
-	mes .@status$;
-	close;
-	
-	
+	// mes "[Buff Configuration]";
+	// mes "The option was set to:";
+	// mes .@status$;
+	// close;
 	
 	
-LSCToggle:
-	next;
-	set .@status$, (Buff_Conf&(1<<1))?("Scrolls will be refreshed and consumed when using the buffer."):("Scrolls will NOT refresh from using the buffer.");
-	mes "[Buff Configuration]";
-	mes "The current option is:";
-	mes .@status$;
-	select("Refresh scrolls:Don't refresh scrolls");
+	
+	
+// LSCToggle:
+	// next;
+	// set .@status$, (Buff_Conf&(1<<1))?("Scrolls will be refreshed and consumed when using the buffer."):("Scrolls will NOT refresh from using the buffer.");
+	// mes "[Buff Configuration]";
+	// mes "The current option is:";
+	// mes .@status$;
+	// select("Refresh scrolls:Don't refresh scrolls");
 
-	set Buff_Conf, Buff_Conf ^ (1<<(@menu-1+2));
+	// set Buff_Conf, Buff_Conf ^ (1<<(@menu-1+2));
 	
 	
-	next;
-	set .@status$, (Buff_Conf&(1<<1))?("Scrolls will be refreshed and consumed when using the buffer."):("Scrolls will NOT refresh from using the buffer.");
+	// next;
+	// set .@status$, (Buff_Conf&(1<<1))?("Scrolls will be refreshed and consumed when using the buffer."):("Scrolls will NOT refresh from using the buffer.");
 	
-	mes "[Buff Configuration]";;
-	mes "The option was set to:";
-	mes .@status$;
-	close;
+	// mes "[Buff Configuration]";;
+	// mes "The option was set to:";
+	// mes .@status$;
+	// close;
 
-LALToggle:
-	next;
-	set .@status$, (Buff_Conf&(1<<2))?("You will be linked by the buffer."):("You will NOT be linked by the buffer.");
-	mes "[Buff Configuration]";
-	mes "The current option is:";
-	mes .@status$;
+// LALToggle:
+	// next;
+	// set .@status$, (Buff_Conf&(1<<2))?("You will be linked by the buffer."):("You will NOT be linked by the buffer.");
+	// mes "[Buff Configuration]";
+	// mes "The current option is:";
+	// mes .@status$;
 	
-	select("Give Soul Link:Don't give Soul Link");
+	// select("Give Soul Link:Don't give Soul Link");
 
-	set Buff_Conf, Buff_Conf ^ (1<<(@menu-1+3));
+	// set Buff_Conf, Buff_Conf ^ (1<<(@menu-1+3));
 	
 	
-	next;
-	set .@status$, (Buff_Conf&(1<<2))?("You will be linked by the buffer."):("You will NOT be linked by the buffer.");
+	// next;
+	// set .@status$, (Buff_Conf&(1<<2))?("You will be linked by the buffer."):("You will NOT be linked by the buffer.");
 	
-	mes "[Buff Configuration]";
-	mes "The option was set to:";
-	mes .@status$;
-	close;
+	// mes "[Buff Configuration]";
+	// mes "The option was set to:";
+	// mes .@status$;
+	// close;
 	
-LENToggle:
-	next;
-	mes "[Buff Configuration]";
-	mes "The current element is ^"+@color$[BuffWpnEle]+@name$[BuffWpnEle]+"^000000";
+// LENToggle:
+	// next;
+	// mes "[Buff Configuration]";
+	// mes "The current element is ^"+@color$[BuffWpnEle]+@name$[BuffWpnEle]+"^000000";
 	
 	
-	select("Neutral","Water","Earth","Fire","Wind","Poison","Holy","Shadow");
+	// select("Neutral","Water","Earth","Fire","Wind","Poison","Holy","Shadow");
 
-	set BuffWpnEle, @menu;
+	// set BuffWpnEle, @menu;
 	
-	next;
-	mes "[Buff Configuration]";
-	mes "Buffer Element changed to ^"+@color$[BuffWpnEle]+@name$[BuffWpnEle]+"^000000";
-	close;
+	// next;
+	// mes "[Buff Configuration]";
+	// mes "Buffer Element changed to ^"+@color$[BuffWpnEle]+@name$[BuffWpnEle]+"^000000";
+	// close;
 	
 	
 	
-}
+// }
 
 
-function	script	F_cu_security	{
+// function	script	F_cu_security	{
 
-OnSetCode:
-	mes "[MEMBER ID SECURITY]";
+// OnSetCode:
+	// mes "[MEMBER ID SECURITY]";
 	
-	if(checksecurity() > 0 || checksecurity() == -1)
-	{
-		mes "Please enter your desired NEW security number (10000-99999) .....";
-		input .@num;
-		if(.@num < 10000 || .@num > 99999)
-		{
-			mes "Security Code out of bounds. Sorry, try again using a number from (10000-99999).";
-			close;
-		}
-		else
-		{
-			mes "Security Code accepted.";
-			setsecurity( (100000-(.@num+3)+7)*5+67 );
-			close;
-		}
-	}
-	else
-	{
-		mes "You may not set the user security because you are not accepted! Somehow! How the fuck are you seeing this? Goddamnit mrj messed something up somewhere -_-";
-		close;
-	}
+	// if(checksecurity() > 0 || checksecurity() == -1)
+	// {
+		// mes "Please enter your desired NEW security number (10000-99999) .....";
+		// input .@num;
+		// if(.@num < 10000 || .@num > 99999)
+		// {
+			// mes "Security Code out of bounds. Sorry, try again using a number from (10000-99999).";
+			// close;
+		// }
+		// else
+		// {
+			// mes "Security Code accepted.";
+			// setsecurity( (100000-(.@num+3)+7)*5+67 );
+			// close;
+		// }
+	// }
+	// else
+	// {
+		// mes "You may not set the user security because you are not accepted! Somehow! How the fuck are you seeing this? Goddamnit mrj messed something up somewhere -_-";
+		// close;
+	// }
 	
-	message strcharinfo(0),"How did you get here? Please report this @security oddity to a dev!";
-	end;
+	// message strcharinfo(0),"How did you get here? Please report this @security oddity to a dev!";
+	// end;
 
-}
+// }
 
 

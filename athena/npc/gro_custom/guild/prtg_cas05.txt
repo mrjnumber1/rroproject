@@ -19,7 +19,7 @@
 //============================================================
 prontera,165,194,5	script	Gondul#p5-1::Gondul	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePt05:
 	FlagEmblem GetCastleData("prtg_cas05",1);
 	end;
@@ -68,7 +68,7 @@ prt_gld,199,243,2	script	Gondul#p5-2::Gondul2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastlePt05:
 	FlagEmblem GetCastleData("prtg_cas05",1);
 	end;
@@ -82,7 +82,7 @@ prt_gld,197,236,2	duplicate(Gondul2)	Gondul#p5-5	722
 //============================================================
 prtg_cas05,19,247,4	script	Gondul#p5-6::Gondul3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePt05:
 	FlagEmblem GetCastleData("prtg_cas05",1);
 	end;

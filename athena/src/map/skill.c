@@ -434,7 +434,7 @@ int skillnotok (int skillid, struct map_session_data *sd)
 			break;
 		case GD_EMERGENCYCALL:
 			if ( !map[m].flag.battleground && 
-				(!(battle_config.emergency_call&((agit_flag || agit2_flag)?2:1)) ||
+				(!(battle_config.emergency_call&((agit_flag)?2:1)) ||
 				!(battle_config.emergency_call&(map[m].flag.gvg || map[m].flag.gvg_castle?8:4)) ||
 				(battle_config.emergency_call&16 && map[m].flag.nowarpto && !map[m].flag.gvg_castle))
 			)	{
@@ -649,11 +649,11 @@ int skill_additional_effect (struct block_list* src, struct block_list *bl, int 
 			struct status_change_entry *sce;
 			// Enchant Poison gives a chance to poison attacked enemies
 			if((sce=sc->data[SC_ENCPOISON])) //Don't use sc_start since chance comes in 1/10000 rate.
-				status_change_start(bl,SC_POISON,sce->val2, sce->val1,0,0,0,
+				status_change_start(bl,SC_POISON,sce->val2, sce->val1,src->id,0,0,
 					skill_get_time2(AS_ENCHANTPOISON,sce->val1),0);
 			// Enchant Deadly Poison gives a chance to deadly poison attacked enemies
 			if((sce=sc->data[SC_EDP]))
-				sc_start4(bl,SC_DPOISON,sce->val2, sce->val1,0,0,0,
+				sc_start4(bl,SC_DPOISON,sce->val2, sce->val1,src->id,0,0,
 					skill_get_time2(ASC_EDP,sce->val1));
 		}
 	}
@@ -676,7 +676,7 @@ int skill_additional_effect (struct block_list* src, struct block_list *bl, int 
 			skilllv = pc_checkskill(sd, TF_POISON);
 	case TF_POISON:
 	case AS_SPLASHER:
-		if(!sc_start(bl,SC_POISON,(4*skilllv+10),skilllv,skill_get_time2(skillid,skilllv))
+		if(!sc_start2(bl, SC_POISON, (4*skilllv+10), skilllv, src->id, skill_get_time2(skillid,skilllv))
 			&&	sd && skillid==TF_POISON
 		)
 			clif_skill_fail(sd,skillid,USESKILL_FAIL_LEVEL,0);
@@ -2459,6 +2459,7 @@ static int skill_timerskill(int tid, unsigned int tick, int id, intptr_t data)
 						skill_addtimerskill(src,tick+250,src->id,0,0,skl->skill_id,skl->skill_lv,skl->type-1,skl->flag);
 					break;
 				case WZ_WATERBALL:
+					skill_toggle_magicpower(src, skl->skill_id);
 					if (!status_isdead(target))
 						skill_attack(BF_MAGIC,src,src,target,skl->skill_id,skl->skill_lv,tick,skl->flag);
 					if (skl->type>1 && !status_isdead(target) && !status_isdead(src)) {
@@ -7234,7 +7235,10 @@ static int skill_icewall_block(struct block_list *bl, va_list ap)
 		return 0;
 
 	if ( !check_distance_bl(bl, target, status_get_range(bl)) )
+	{
 		mob_unlocktarget(md, gettick());
+		mob_stop_walking(md,1);
+	}
 
 	return 0;
 }
@@ -9718,14 +9722,9 @@ int skill_delayfix (struct block_list *bl, int skill_id, int skill_lv)
 			base_time = status_get_amotion(bl);
 			isASPDbased = true;
 		}
-		if ( (base_time > time && isASPDbased) || (time == battle_config.min_skill_delay_limit) )
-		{
-			sprintf(details, "Cast Delay: [%d] ms. Base Delay: [%d] ms. (Server-Enforced)", time, base_time);
-		}
-		else
-		{
-			sprintf(details, "Cast Delay: [%d] ms. Base Delay: [%d] ms. %s", time, base_time, isASPDbased?"(ASPD-based)":"");
-		}
+
+		snprintf(details, sizeof(details), "Cast Delay: [%d] ms. Base Delay: [%d] ms. %s", time, base_time, isASPDbased?"(ASPD-based)":"");
+		
 		clif_disp_onlyself(sd, details, strlen(details));
 	}
 

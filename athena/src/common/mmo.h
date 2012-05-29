@@ -511,16 +511,16 @@ struct s_skillcount
 	unsigned int count;
 };
 
-enum lang_msg_lang
-{
-	LANG_MSG_ENG,
-	LANG_MSG_SWE,
-	LANG_MSG_ESP,
-	LANG_MSG_PRT,
-	LANG_MSG_TGL,
-
-	LANG_MAX
-};
+//enum lang_msg_lang
+//{
+//	LANG_MSG_ENG,
+//	LANG_MSG_SWE,
+//	LANG_MSG_ESP,
+//	LANG_MSG_PRT,
+//	LANG_MSG_TGL,
+//
+//	LANG_MAX
+//};
 
 struct mmo_charstatus 
 {
@@ -555,7 +555,6 @@ struct mmo_charstatus
 	short head_top,head_mid,head_bottom;
 	short robe;
 
-	unsigned int playtime;
 	//time_t last_tick;
 
 	char name[NAME_LENGTH];
@@ -584,7 +583,7 @@ struct mmo_charstatus
 	struct s_woestats woe_stats;
 	struct s_skillcount woe_skillcount[MAX_SKILL_TREE]; 
 
-	enum lang_msg_lang lang;
+	//enum lang_msg_lang lang;
 
 	time_t delete_date;
 };

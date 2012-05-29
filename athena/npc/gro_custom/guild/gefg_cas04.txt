@@ -18,7 +18,7 @@
 //============================================================
 geffen,127,130,7	script	Bergel#g4-1::Bergel	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleG04:
 	FlagEmblem GetCastleData("gefg_cas04",1);
 	end;
@@ -68,7 +68,7 @@ gef_fild13,190,283,3	script	Bergel#g4-2::Bergel2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastleG04:
 	FlagEmblem GetCastleData("gefg_cas04",1);
 	end;
@@ -80,7 +80,7 @@ gef_fild13,199,274,3	duplicate(Bergel2)	Bergel#g4-3	722
 //============================================================
 gefg_cas04,24,157,4	script	Bergel#g4-4::Bergel3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleG04:
 	FlagEmblem GetCastleData("gefg_cas04",1);
 	end;

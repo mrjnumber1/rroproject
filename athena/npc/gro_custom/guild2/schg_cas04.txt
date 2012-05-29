@@ -2248,7 +2248,7 @@ schg_cas04,111,46,4	script	Hljod#LF_sc04_3::LF_sc04_2	722,{
 		}
 	}
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlesc04:
 	FlagEmblem GetCastleData("schg_cas04",1);
 	end;
@@ -2908,7 +2908,7 @@ sch_gld,134,97,4	script	Hljod#flag_sc04_1::sc04_Flag	722,{
 		mes "appointed Guild Siege times.";
 		close;
 	}
-
+OnInterIfInitOnce:
 OnRecvCastlesc04:
 	FlagEmblem GetCastleData("schg_cas04",1);
 	end;

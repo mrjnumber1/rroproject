@@ -19,7 +19,7 @@ bat_room	mapflag	allow_bg_items
 
 // Info Board
 // *********************************************************************
-bat_room,163,156,2	script	Battleground Info Board	837,{
+bat_room,155,165,2	script	Battleground Info Board	837,{
 	if( $@Conquest == 1 )
 		mes "^FFA500Conquest^000000 - ^FF0000(" + bg_get_data($@Conquest_id2, 0) + ")^000000 vs ^0000FF(" + bg_get_data($@Conquest_id1, 0) + ")^000000";
 	else

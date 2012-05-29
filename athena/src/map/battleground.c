@@ -578,7 +578,7 @@ int bg_check_best(int bg_id1, int bg_id2)
 				break;
 			}
 
-			sprintf(out,"BG: New round record for %s!, %s with %d total.", stat, best[i].name, best[i].amt);
+			sprintf(out,"BG: New single round record for %s!, %s with %d total.", stat, best[i].name, best[i].amt);
 			clif_broadcast2(&sd1->bl, out, (int)strlen(out)+1, 0xFFA500, 0x190, 20, 0, 0, BG);
 			clif_broadcast2(&sd2->bl, out, (int)strlen(out)+1, 0xFFA500, 0x190, 20, 0, 0, BG);
 		}
@@ -602,6 +602,7 @@ int bg_team_clean(int bg_id, bool remove)
 
 		
 		bg_tally_stats(sd);
+		memset(&sd->status.bg_round_stats, 0, sizeof(sd->status.bg_round_stats));
 
 		bg_send_dot_remove(sd);
 		sd->state.bg_id = 0;
@@ -834,10 +835,10 @@ int bg_team_leave(struct map_session_data *sd, int flag)
 
 	switch( flag )
 	{
-		case 3: sprintf(output, "%s: %s kicked by AFK Status.", bg->g->name, sd->status.name); break;
-		case 2: sprintf(output, "%s: %s kicked by AFK Report.", bg->g->name, sd->status.name); break;
-		case 1: sprintf(output, "%s: %s has quit the game.", bg->g->name, sd->status.name); break;
-		case 0: sprintf(output, "%s: %s is leaving the battlefield.", bg->g->name, sd->status.name); break;
+		case 4: sprintf(output, "%s: %s was kicked by the team.", bg->g->name, sd->status.name); break;
+		case 3: sprintf(output, "%s: %s kicked by AFK Status.", bg->g->name, sd->status.name); sd->status.bg_stats.deserter++; break;
+		case 2: sprintf(output, "%s: %s kicked by AFK Report.", bg->g->name, sd->status.name); sd->status.bg_stats.deserter++; break;
+		case 1: sprintf(output, "%s: %s has quit the game.", bg->g->name, sd->status.name); sd->status.bg_stats.deserter++; break;
 	}
  	clif_bg_message(bg, 0, bg->g->name, output, strlen(output) + 1);
 
@@ -1231,7 +1232,7 @@ void bg_team_get_kafrapoints(int bg_id, int amount)
 }
 
 /* ==============================================================
-   bg_arena (0 EoS | 1 Boss | 2 TI | 3 CTF | 4 TD | 5 SC | 6 CON)
+   bg_arena (6 CON)
    bg_result (0 Won | 1 Tie | 2 Lost)
    ============================================================== */
 void bg_team_rewards(int bg_id, int nameid, int amount, int kafrapoints, int quest_id, const char *var, int add_value, int bg_arena, int bg_result)
@@ -1357,47 +1358,153 @@ void bg_team_rewards(int bg_id, int nameid, int amount, int kafrapoints, int que
 }
 
 
+// flag = 1 means check the player's current round stats
+int bg_view_stats(struct map_session_data *sd, int flag)
+{
+	char buf[CHAT_SIZE_MAX];
+	struct s_battleground_stats* st;
+	int class_, fd;
+
+	nullpo_ret(sd);
+
+	memset(buf, 0, sizeof (buf));
+	fd = sd->fd;
+
+	if (flag == 1)
+	{
+		snprintf(buf, sizeof (buf), "Your BG Round Stats:");
+		st = &sd->status.bg_round_stats;
+	}
+	else
+	{
+		snprintf(buf, sizeof (buf), "Your BG Stats:");
+		st = &sd->status.bg_stats;
+	}
+
+	clif_displaymessage(fd, buf);
+
+	if (flag != 1)
+	{
+		snprintf(buf, sizeof (buf), "Wins: %d (%d as leader) | Losses: %d (%d as leader) | Quits: %d", 
+			st->win, st->leader_win, st->lost, st->leader_lost, st->deserter);
+		clif_displaymessage(fd, buf);
+
+		snprintf(buf, sizeof (buf), "Points: %d | Rank Points: %d (%d Rank Matches)", st->points/100, st->rank_points/100, st->rank_games);
+		clif_displaymessage(fd, buf);
+
+	}
+	snprintf(buf, sizeof (buf), "Kills: %d | Deaths: %d", st->kill_count, st->death_count);
+	clif_displaymessage(fd, buf);
+
+	snprintf(buf, sizeof (buf), "Dmg Done: %u | Dmg Received: %u | Top Dmg: %u", st->damage_done, st->damage_received, st->top_damage);
+	clif_displaymessage(fd, buf);
+
+	snprintf(buf, sizeof (buf), "Emp Dmg: %u | Cade Dmg: %u | G-Stone Dmg: %u", st->emperium_damage, st->barricade_damage, st->gstone_damage);
+	clif_displaymessage(fd, buf);
+
+	snprintf(buf, sizeof (buf), "Emp Kills: %d | Cade Kills: %d | G-Stone Kills: %d", st->emperium_kill, st->barricade_kill, st->gstone_kill);
+	clif_displaymessage(fd, buf);
+
+	snprintf(buf, sizeof (buf), "HP Pots: %u | SP Pots: %u (%u SP used)", st->hp_heal_potions, st->sp_heal_potions, st->sp_used);
+	clif_displaymessage(fd, buf);
+
+
+	// put class based stats below this line
+	class_ = sd->class_&MAPID_BASEMASK;
+
+	if (class_ == MAPID_MAGE || class_ == MAPID_ACOLYTE || class_ == MAPID_THIEF)
+	{
+		snprintf(buf, sizeof (buf), "B.Gem: %u | Y.Gem: %u | R.Gem: %u", st->blue_gemstones, st->yellow_gemstones, st->red_gemstones);
+		clif_displaymessage(fd, buf);
+	}
+	else if (class_ == MAPID_MERCHANT || class_ == MAPID_GUNSLINGER || class_ == MAPID_NINJA)
+	{
+		snprintf(buf, sizeof (buf), "Zeny Consumed: %u", st->zeny_used);
+		clif_displaymessage(fd, buf);
+	}
+
+	if (class_ == MAPID_ARCHER || class_ == MAPID_GUNSLINGER)
+	{
+		snprintf(buf, sizeof (buf), "Ammo Used: %u", st->ammo_used);
+		clif_displaymessage(fd, buf);
+	}
+
+
+	class_ = sd->class_;
+
+	if (class_ == MAPID_CHAMPION)
+	{
+		snprintf(buf, sizeof (buf), "Spirit Balls: %u", st->spiritb_used);
+		clif_displaymessage(fd, buf);
+	}
+	else if (class_ == MAPID_CREATOR)
+	{
+		snprintf(buf, sizeof (buf), "Bombs Used: %u (%u failed)", st->acid_demonstration, st->acid_demonstration_fail);
+		clif_displaymessage(fd, buf);
+	}
+	else if (class_ == MAPID_ASSASSIN_CROSS)
+	{
+		snprintf(buf, sizeof (buf), "EDPs Cast: %u", st->poison_bottles);
+		clif_displaymessage(fd, buf);
+	}
+
+
+	snprintf(buf, sizeof (buf), "Support/Healing: (%u/%u) | Incorrect Support/Healing: (%u/%u)", 
+		st->support_skills_used, st->healing_done, st->wrong_support_skills_used, st->wrong_healing_done);
+	clif_displaymessage(fd, buf);
+
+	return 1;
+}
+
 int bg_tally_stats(struct map_session_data *sd)
 {
 	unsigned int max = UINT_MAX;
-
-	if(sd == NULL)
-		return 0;
-
-	if(sd->status.bg_stats.top_damage < sd->status.bg_round_stats.top_damage)
-		sd->status.bg_stats.top_damage = sd->status.bg_round_stats.top_damage;
+	struct s_battleground_stats *total, *round;
+	
+	nullpo_ret(sd);
+	
+	total = &sd->status.bg_stats;
+	round = &sd->status.bg_round_stats;
+	if(total->top_damage < round->top_damage)
+		total->top_damage = round->top_damage;
 		
-	add2limit(sd->status.bg_stats.hp_heal_potions, sd->status.bg_round_stats.hp_heal_potions, max);
-	add2limit(sd->status.bg_stats.sp_heal_potions, sd->status.bg_round_stats.sp_heal_potions, max);
-	add2limit(sd->status.bg_stats.damage_done,sd->status.bg_round_stats.damage_done,max);
-	add2limit(sd->status.bg_stats.damage_received,sd->status.bg_round_stats.damage_received,max);
-	add2limit(sd->status.bg_stats.emperium_damage,sd->status.bg_round_stats.emperium_damage,max);
-	add2limit(sd->status.bg_stats.barricade_damage,sd->status.bg_round_stats.barricade_damage,max);
-	add2limit(sd->status.bg_stats.gstone_damage,sd->status.bg_round_stats.gstone_damage,max);
-	add2limit(sd->status.bg_stats.yellow_gemstones,sd->status.bg_round_stats.yellow_gemstones,max);
-	add2limit(sd->status.bg_stats.red_gemstones,sd->status.bg_round_stats.red_gemstones,max);
-	add2limit(sd->status.bg_stats.blue_gemstones,sd->status.bg_round_stats.blue_gemstones,max);
-	add2limit(sd->status.bg_stats.poison_bottles,sd->status.bg_round_stats.poison_bottles,max);
-	add2limit(sd->status.bg_stats.acid_demonstration,sd->status.bg_round_stats.acid_demonstration,max);
-	add2limit(sd->status.bg_stats.acid_demonstration_fail,sd->status.bg_round_stats.acid_demonstration_fail,max);
-	add2limit(sd->status.bg_stats.support_skills_used,sd->status.bg_round_stats.support_skills_used,max);
-	add2limit(sd->status.bg_stats.healing_done,sd->status.bg_round_stats.healing_done,max);
-	add2limit(sd->status.bg_stats.wrong_support_skills_used,sd->status.bg_round_stats.wrong_support_skills_used,max);
-	add2limit(sd->status.bg_stats.wrong_healing_done,sd->status.bg_round_stats.wrong_healing_done,max);
-	add2limit(sd->status.bg_stats.sp_used,sd->status.bg_round_stats.sp_used,max);
-	add2limit(sd->status.bg_stats.zeny_used,sd->status.bg_round_stats.zeny_used,max);
-	add2limit(sd->status.bg_stats.spiritb_used,sd->status.bg_round_stats.spiritb_used,max);
-	add2limit(sd->status.bg_stats.ammo_used,sd->status.bg_round_stats.ammo_used,max);
+	add2limit(total->hp_heal_potions, round->hp_heal_potions, max);
+	add2limit(total->sp_heal_potions, round->sp_heal_potions, max);
+	add2limit(total->damage_done, round->damage_done, max);
+	add2limit(total->damage_received, round->damage_received, max);
+	add2limit(total->emperium_damage, round->emperium_damage, max);
+	add2limit(total->barricade_damage, round->barricade_damage, max);
+	add2limit(total->gstone_damage, round->gstone_damage, max);
+	add2limit(total->yellow_gemstones, round->yellow_gemstones, max);
+	add2limit(total->red_gemstones, round->red_gemstones, max);
+	add2limit(total->blue_gemstones, round->blue_gemstones, max);
+	add2limit(total->poison_bottles, round->poison_bottles, max);
+	add2limit(total->acid_demonstration, round->acid_demonstration, max);
+	add2limit(total->acid_demonstration_fail, round->acid_demonstration_fail, max);
+	add2limit(total->support_skills_used, round->support_skills_used, max);
+	add2limit(total->healing_done, round->healing_done, max);
+	add2limit(total->wrong_support_skills_used, round->wrong_support_skills_used, max);
+	add2limit(total->wrong_healing_done, round->wrong_healing_done, max);
+	add2limit(total->sp_used, round->sp_used, max);
+	add2limit(total->zeny_used, round->zeny_used, max);
+	add2limit(total->spiritb_used, round->spiritb_used, max);
+	add2limit(total->ammo_used, round->ammo_used, max);
 	max = USHRT_MAX;
 	
-	add2limit(sd->status.bg_stats.emperium_kill,sd->status.bg_round_stats.emperium_kill,max);
-	add2limit(sd->status.bg_stats.barricade_kill,sd->status.bg_round_stats.barricade_kill,max);
-	add2limit(sd->status.bg_stats.gstone_kill,sd->status.bg_round_stats.gstone_kill,max);
-	add2limit(sd->status.bg_stats.kill_count,sd->status.bg_round_stats.kill_count,max);
-	add2limit(sd->status.bg_stats.death_count,sd->status.bg_round_stats.death_count,max);
+	add2limit(total->emperium_kill, round->emperium_kill, max);
+	add2limit(total->barricade_kill, round->barricade_kill, max);
+	add2limit(total->gstone_kill, round->gstone_kill, max);
+	add2limit(total->kill_count, round->kill_count, max);
+	add2limit(total->death_count, round->death_count, max);
 
-	return 0;
+	if (sd->state.battle_info)
+	{
+		bg_view_stats(sd, 1);
+	}
+
+	return 1;
 }
+
 /*
 struct queue_data* queue_search(int q_id)
 { // Search a Queue using q_id

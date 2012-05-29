@@ -17,7 +17,7 @@
 //============================================================
 payon,166,165,3	script	Bamboo Grove Hill#f5-1::BambooGroveHill	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePy05:
 	FlagEmblem GetCastleData("payg_cas05",1);
 	end;
@@ -69,7 +69,7 @@ pay_gld,208,268,4	script	Bamboo Grove Hill#f5-3::BambooGroveHill2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastlePy05:
 	FlagEmblem GetCastleData("payg_cas05",1);
 	end;
@@ -83,7 +83,7 @@ pay_gld,187,294,2	duplicate(BambooGroveHill2)	Bamboo Grove Hill#f5-6	722
 //============================================================
 payg_cas05,32,249,4	script	Bamboo Grove Hill#f5-7::BambooGroveHill3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePy05:
 	FlagEmblem GetCastleData("payg_cas05",1);
 	end;

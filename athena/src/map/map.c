@@ -123,7 +123,6 @@ int autosave_interval = DEFAULT_AUTOSAVE_INTERVAL;
 int minsave_interval = 100;
 int save_settings = 0xFFFF;
 int agit_flag = 0;
-int agit2_flag = 0;
 int night_flag = 0; // 0=day, 1=night [Yor]
 
 struct charid_request {
@@ -3793,9 +3792,9 @@ int do_init(int argc, char *argv[])
 	}
 
 	battle_config_read(BATTLE_CONF_FILENAME);
-	lang_msg_config_read("conf/lang_msg_eng.conf",LANG_MSG_ENG);
-	lang_msg_config_read("conf/lang_msg_tgl.conf",LANG_MSG_TGL);
-	lang_msg_config_read("conf/lang_msg_esp.conf",LANG_MSG_ESP);
+	//lang_msg_config_read("conf/lang_msg_eng.conf",LANG_MSG_ENG);
+	//lang_msg_config_read("conf/lang_msg_tgl.conf",LANG_MSG_TGL);
+	//lang_msg_config_read("conf/lang_msg_esp.conf",LANG_MSG_ESP);
 	//lang_msg_config_read("conf/lang_msg_swe.conf",LANG_MSG_SWE);
 	msg_config_read(MSG_CONF_NAME);
 	script_config_read(SCRIPT_CONF_NAME);

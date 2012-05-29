@@ -26,6 +26,7 @@ OnInit:
 	add_bg_rental(EQP_HEAD_TOP, 2221,   10, 4, 4269); // fatasm hat
 	add_bg_rental(EQP_HEAD_TOP, 5170,  100, 4); // feather beret 
 	add_bg_rental(EQP_HEAD_TOP, 5396,  200, 4, 4127); // insomniac jaspercrest
+	add_bg_rental(EQP_HEAD_TOP, 5396.  200, 4, 4354); // jasper crest of stability
 	add_bg_rental(EQP_HEAD_TOP, 5518,  500, 4); // large bapho horn (def)
 	add_bg_rental(EQP_HEAD_TOP, 5225,  200, 4, 4223); // stun-resist marcher hat
 	add_bg_rental(EQP_HEAD_TOP, 5277,  150, 4); // yellow bandana
@@ -39,6 +40,9 @@ OnInit:
 	add_bg_rental(EQP_HEAD_TOP, 5137,  200, 0, 4269); // fatasm alice doll
 	add_bg_rental(EQP_HEAD_TOP, 5423,  500); // i love china
 	add_bg_rental(EQP_HEAD_TOP, 2289,    5); // poopoo hat
+	add_bg_rental(EQP_HEAD_TOP, 5453,  200); // RWC Copper
+	add_bg_rental(EQP_HEAD_TOP, 5451, 1000); // RWC Gold
+	add_bg_rental(EQP_HEAD_TOP, 5452,  500); // RWC Silver
 	
 		
 	// MID ONLY
@@ -183,7 +187,7 @@ OnInit:
 		{
 			set .@thiscost, .@cost;
 			
-			if (.@robe_cards[.@j] == 4402 && (.@bg_robes[.@i] != 2538 || .@bg_robes[.@i] != 2538 || .@bg_robes[.@i] != 2554 ) ) //only offer an aliot in bg robes or proxy (clown/pally/champ)
+			if (.@robe_cards[.@j] == 4402 && (.@bg_robes[.@i] != 2538 || .@bg_robes[.@i] != 2538 || .@bg_robes[.@i] != 2554 || .@bg_robes[.@i] != 2546) ) //only offer an aliot in bg robes beach or proxy (clown/pally/champ)
 			{
 				continue;
 			}

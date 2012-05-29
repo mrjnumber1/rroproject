@@ -17,7 +17,7 @@
 //============================================================
 aldebaran,131,97,4	script	Wuerzburg#a4-1::Wuerzburg	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleA04:
 	FlagEmblem GetCastleData("aldeg_cas04",1);
 	end;
@@ -67,7 +67,7 @@ alde_gld,239,246,2	script	Wuerzburg#a4-2::Wuerzburg2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastleA04:
 	FlagEmblem GetCastleData("aldeg_cas04",1);
 	end;
@@ -79,7 +79,7 @@ alde_gld,239,239,2	duplicate(Wuerzburg2)	Wuerzburg#a4-3	722
 //============================================================
 aldeg_cas04,167,61,2	script	Wuerzburg#a4-4::Wuerzburg3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleA04:
 	FlagEmblem GetCastleData("aldeg_cas04",1);
 	end;

@@ -45,11 +45,11 @@ int atcommand_killmonster(const int fd, struct map_session_data* sd, const char*
 
 
 #define MAX_MSG 1000
-#define MAX_MSG_LANG 300
+//#define MAX_MSG_LANG 300
 extern char* msg_table[MAX_MSG];
-extern char* lang_msg_table[LANG_MAX][MAX_MSG_LANG];
+//extern char* lang_msg_table[LANG_MAX][MAX_MSG_LANG];
 const char* msg_txt(int msg_number);
-const char* lang_msg_txt(struct map_session_data* sd, int num);
+//const char* lang_msg_txt(struct map_session_data* sd, int num);
 
 int lang_msg_config_read(const char* cfgName, enum lang_msg_lang lang);
 int msg_config_read(const char* cfgName);

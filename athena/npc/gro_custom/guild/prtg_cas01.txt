@@ -19,7 +19,7 @@
 //============================================================
 prontera,155,190,4	script	Kriemhild#p1-1::Kriemhild	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePt01:
 	FlagEmblem GetCastleData("prtg_cas01",1);
 	end;
@@ -68,7 +68,7 @@ prt_gld,131,60,6	script	Kriemhild#p1-2::Kriemhild2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastlePt01:
 	FlagEmblem GetCastleData("prtg_cas01",1);
 	end;
@@ -82,7 +82,7 @@ prt_gld,135,60,6	duplicate(Kriemhild2)	Kriemhild#p1-5	722
 //============================================================
 prtg_cas01,58,56,4	script	Kriemhild#p1-4::Kriemhild3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastlePt01:
 	FlagEmblem GetCastleData("prtg_cas01",1);
 	end;

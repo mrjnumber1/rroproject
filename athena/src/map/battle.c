@@ -3459,7 +3459,7 @@ int battle_check_target( struct block_list *src, struct block_list *target,int f
 		{
 			struct mob_data *md = BL_CAST(BL_MOB, t_bl);
 
-			if( !((agit_flag || agit2_flag) && map[m].flag.gvg_castle) && md->guardian_data && md->guardian_data->guild_id )
+			if( !((agit_flag) && map[m].flag.gvg_castle) && md->guardian_data && md->guardian_data->guild_id )
 				return 0; // Disable guardians/emperiums owned by Guilds on non-woe times.
 			break;
 		}
@@ -3476,16 +3476,16 @@ int battle_check_target( struct block_list *src, struct block_list *target,int f
 		case BL_SKILL:
 		{
 			struct skill_unit *su = (struct skill_unit *)src;
-			int inf2 = 0;
+
 			if (!su->group)
 				return 0;
 
-			// traps should hit everyone in pvp areas!
-			if ( (inf2 = skill_get_inf2(su->group->skill_id))&INF2_TRAP && map_flag_vs(src->m) )
-				return 1;
+
 
 			if (su->group->src_id == target->id)
 			{
+				int inf2 = skill_get_inf2(su->group->skill_id);
+
 				if (inf2&INF2_NO_TARGET_SELF)
 					return -1;
 				if (inf2&INF2_TARGET_SELF)
@@ -3524,7 +3524,7 @@ int battle_check_target( struct block_list *src, struct block_list *target,int f
 		case BL_MOB:
 		{
 			struct mob_data *md = BL_CAST(BL_MOB, s_bl);
-			if( !((agit_flag || agit2_flag) && map[m].flag.gvg_castle) && md->guardian_data && md->guardian_data->guild_id )
+			if( !((agit_flag) && map[m].flag.gvg_castle) && md->guardian_data && md->guardian_data->guild_id )
 				return 0; // Disable guardians/emperium owned by Guilds on non-woe times.
 
 			if( !md->special_state.ai )
@@ -3652,7 +3652,7 @@ bool battle_check_range(struct block_list *src, struct block_list *bl, int range
 	if( src->type == BL_PC )
 	{ // Range for players' attacks and skills should always have a circular check. [Inkfish]
 		int dx = src->x - bl->x, dy = src->y - bl->y;
-		if( !check_distance(dx*dx + dy*dy, 0, range*range+(dx&&dy?1:0)) )
+		if( !check_distance(dx, dy, range) )
 			return false;
 	}
 	else

@@ -17,7 +17,7 @@
 //============================================================
 geffen,131,123,6	script	Mersetzdeitz#g5-1::Mersetzdeitz	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleG05:
 	FlagEmblem GetCastleData("gefg_cas05",1);
 	end;
@@ -67,7 +67,7 @@ gef_fild13,302,87,7	script	Mersetzdeitz#g5-2::Mersetzdeitz2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastleG05:
 	FlagEmblem GetCastleData("gefg_cas05",1);
 	end;
@@ -81,7 +81,7 @@ gef_fild13,26,147,2	duplicate(Mersetzdeitz2)	Mersetzdeitz#g5-5	722
 //============================================================
 gefg_cas05,77,185,7	script	Mersetzdeitz#g5-5::Mersetzdeitz3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleG05:
 	FlagEmblem GetCastleData("gefg_cas05",1);
 	end;

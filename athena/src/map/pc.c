@@ -477,11 +477,12 @@ bool pc_can_give_items(int level)
 
 bool pc_can_dropitems(struct map_session_data *sd)
 {
-	if(sd->state.security)
-	{
-		clif_displaymessage(sd->fd, "You cannot perform this operation because @security is ENABLED.");
-	}
-	return !(sd->state.security);
+	//if(sd->state.security)
+	//{
+	//	clif_displaymessage(sd->fd, "You cannot perform this operation because @security is ENABLED.");
+	//}
+	//return !(sd->state.security);
+	return true;
 }
 
 /*==========================================
@@ -4198,6 +4199,13 @@ int pc_useitem(struct map_session_data *sd,int n)
 
 	// Store information for later use before it is lost (via pc_delitem) [Paradox924X]
 	nameid = sd->inventory_data[n]->nameid;
+
+	// fail to consume while sitting
+	if (sd->inventory_data[n]->flag.delay_consume)
+	{
+		if ( pc_issit(sd) )
+			return 0;
+	}
 
 	//Since most delay-consume items involve using a "skill-type" target cursor,
 	//perform a skill-use check before going through. [Skotlex]
@@ -9336,15 +9344,6 @@ void pc_item_remove4all(int nameid, bool char_server)
 
 		}
 		mapit_free(iter);
-	}
-}
-
-void pc_calc_playtime(struct map_session_data* sd)
-{
-	if( !sd->state.autotrade && sd->state.active )
-	{
-		sd->status.playtime += DIFF_TICK(last_tick, sd->last_tick);
-		sd->last_tick = last_tick;
 	}
 }
 

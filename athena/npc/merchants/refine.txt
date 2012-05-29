@@ -568,31 +568,31 @@ ein_in01,38,29,0	script	Paul Spanner	63,{
 // Weapon/Armor Refiners
 //=====================================================================================
 prt_in,63,60,0	script	Hollgrehenn	85,{
-	callfunc "refinemain","Hollgrehenn",0;
+	callfunc "refinemain","Hollgrehenn",1;
 	end;
 }
 morocc_in,73,38,6	script	Aragham	99,{
-	callfunc "refinemain","Aragham",0;
+	callfunc "refinemain","Aragham",1;
 	end;
 }
 payon,144,173,5	script	Antonio	88,{
-	callfunc "refinemain","Antonio",0;
+	callfunc "refinemain","Antonio",1;
 	end;
 }
 alberta_in,28,58,0	script	Fredrik	85,{
-	callfunc "refinemain","Fredrik",0;
+	callfunc "refinemain","Fredrik",1;
 	end;
 }
 yuno_in01,171,21,4	script	Lambert	88,{
-	callfunc "refinemain","Lambert",0;
+	callfunc "refinemain","Lambert",1;
 	end;
 }
 ein_in01,24,87,5	script	Manthasman	826,{
-	callfunc "refinemain","Manthasman Pruhag",0;
+	callfunc "refinemain","Manthasman Pruhag",1;
 	end;
 }
 lhz_in02,282,20,7	script	Fulerr	869,{
-	callfunc "refinemain","Fulerr",0;
+	callfunc "refinemain","Fulerr",1;
 	end;
 }
 
@@ -1059,64 +1059,53 @@ function	script	orimain	{
 		mes "- Currently you're carrying -";
 		mes "- too many items with you. -";
 		mes "- Please try again -";
-		mes "- after you loose some weight. -";
+		mes "- after you lose some weight. -";
 		close;
 	}
+	
 	mes "[" + getarg(0) + "]";
-	mes "I can purify your";
-	mes "Rough Oridecons or";
-	mes "Rough Eluniums. I'll need";
-	mes "5 Rough Stones to make";
-	mes "1 pure one for you.";
+	mes "I can purify your Rough Oridecons or Rough Eluniums. I'll turn every 5 Rough Stones into 1 pure one for you.";
 	next;
-	switch(select("Make Oridecon:Make Elunium:Ask about Enchanted Stones")) {
-	case 1:
-		if (countitem(756) > 4) {
-			delitem 756,5;  //Oridecon_Stone
-			getitem 984,1; // Oridecon
-			mes "[" + getarg(0) + "]";
-			mes "Here's your Oridecon.";
-			mes "You're welcome to come";
-			mes "back whenever you want.";
-			close;
-		}
-		else {
-			mes "[" + getarg(0) + "]";
-			mes "You're kidding me, right?";
-			mes "I just told you that I need 5 Rough Oridecons to make a pure Oridecon.";
-			close;
-		}
-	case 2:
-		if (countitem(757) > 4) {
-			delitem 757,5;  //Elunium_Stone
-			getitem 985,1; // Elunium
-			mes "[" + getarg(0) + "]";
-			mes "Here's your Elunium.";
-			mes "You're welcome to come";
-			mes "back whenever you want.";
-			close;
-		}
-		else {
-			mes "[" + getarg(0) + "]";
-			mes "You're kidding me, right?";
-			mes "I just told you that I need 5 Rough Eluniums to make a pure Elunium.";
-			close;
-		}
-	case 3:
+	
+	set .@s, select("Make Oridecon:Make Elunium:Ask about Enchanted Stones");
+	
+	if (.@s == 3) 
+	{
 		mes "[" + getarg(0) + "]";
 		mes "Enchanted Stones...?";
-		mes "I've been a stonesmith for 20 years, so I've heard a lot about them. Supposedly, there are";
-		mes "four different kinds.";
+		mes "I've been a stonesmith for 20 years, so I've heard a lot about them. Supposedly, there are four different kinds.";
 		next;
 		mes "[" + getarg(0) + "]";
 		mes "Each Enchanted Stone possesses one of the following elemental properties: Earth, Wind, Water and Fire.";
-		next;
-		mes "[" + getarg(0) + "]";
 		mes "If someone combines a Enchanted Stone with a weapon while smithing, that weapon will possess the same property as the Stone.";
-		next;
-		mes "[" + getarg(0) + "]";
 		mes "Needless to say, you need to have some smithing skill to produce this kind of elemental weapon.";
 		close;
+	}
+	else
+	{
+		set .@s, .@s - 1;
+		
+		set .@rough, 756;
+		set .@pure , 984;
+		
+		if(countitem(.@rough+.@s) > 4)
+		{
+			set .@amt, countitem(.@rough+.@s) / 5;
+			delitem(.@rough+.@s, .@amt*5);
+			getitem(.@pure+.@s, .@amt);
+			
+			
+			mes "[" + getarg(0) + "]";
+			mes "Here's your "+getitemname(.@pure+.@s)+". You're welcome to come back anytime.";
+			close;
+		}
+		else
+		{
+			mes "[" + getarg(0) + "]";
+			mes "You're kidding me, right?";
+			mes "I just told you that I need 5 rough stones to make a pure one - so come back when you have more. I offer a free service, so don't try to play me!";
+			close;
+		}
 	}
 }
 

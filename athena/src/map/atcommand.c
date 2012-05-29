@@ -54,7 +54,7 @@ char atcommand_symbol = '@'; // first char of the commands
 char atcommand_symbol2 = '!';
 char charcommand_symbol = '#';
 char* msg_table[MAX_MSG]; // Server messages (0-499 reserved for GM commands, 500-999 reserved for others)
-char* lang_msg_table[LANG_MAX][MAX_MSG_LANG];
+//char* lang_msg_table[LANG_MAX][MAX_MSG_LANG];
 
 // local declarations
 #define ACMD_FUNC(x) int atcommand_ ## x (const int fd, struct map_session_data* sd, const char* command, const char* message)
@@ -106,27 +106,27 @@ const char* msg_txt(int msg_number)
 
 	return "??";
 }
-const char* lang_msg_txt(struct map_session_data* sd, int num)
-{
-	enum lang_msg_lang lang = SERVER_LANG;
-
-	if(sd != NULL)
-		lang = sd->status.lang;
-
-	if( num >= 0 && num < MAX_MSG_LANG &&
-		lang_msg_table[lang][num] != NULL && lang_msg_table[lang][num][0] != '\0')
-		return lang_msg_table[lang][num];
-	else
-	{
-		char* out;
-		memset(&out, '\0', 1);
-
-		snprintf(out, CHAT_SIZE_MAX, "msg %d not yet translated to lang %d", num, lang);
-		return out;
-	}
-
-	return "you should not be seeing this!";
-}
+//const char* lang_msg_txt(struct map_session_data* sd, int num)
+//{
+//	enum lang_msg_lang lang = SERVER_LANG;
+//
+//	if(sd != NULL)
+//		lang = sd->status.lang;
+//
+//	if( num >= 0 && num < MAX_MSG_LANG &&
+//		lang_msg_table[lang][num] != NULL && lang_msg_table[lang][num][0] != '\0')
+//		return lang_msg_table[lang][num];
+//	else
+//	{
+//		char* out;
+//		memset(&out, '\0', 1);
+//
+//		snprintf(out, CHAT_SIZE_MAX, "msg %d not yet translated to lang %d", num, lang);
+//		return out;
+//	}
+//
+//	return "you should not be seeing this!";
+//}
 
 //-----------------------------------------------------------
 // Returns Players title (from msg_athena.conf) [Lupus]
@@ -506,9 +506,9 @@ ACMD_FUNC(mapmove)
 	if(ud->skilltimer != INVALID_TIMER)
 		return -1;
 
-	if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000)) 
+	if( DIFF_TICK(gettick(),sd->refresh_tick) < (1*1000)) 
 	{
-		sprintf(atcmd_output, "%d ms until next mapmove...", 3000-DIFF_TICK(gettick(),sd->refresh_tick));
+		sprintf(atcmd_output, "%d ms until next mapmove...", 1000-DIFF_TICK(gettick(),sd->refresh_tick));
 		clif_displaymessage(fd,atcmd_output);
 		return -1;
 	}
@@ -1913,7 +1913,7 @@ ACMD_FUNC(baselevelup)
 	}
 
 	if (level > 0) {
-		if (sd->status.base_level == pc_maxbaselv(sd)) { // check for max level by Valaris
+		if (sd->status.base_level >= pc_maxbaselv(sd)) { // check for max level by Valaris
 			clif_displaymessage(fd, msg_txt(47)); // Base level can't go any higher.
 			return -1;
 		} // End Addition
@@ -1972,7 +1972,7 @@ ACMD_FUNC(joblevelup)
 		return -1;
 	}
 	if (level > 0) {
-		if (sd->status.job_level == pc_maxjoblv(sd)) {
+		if (sd->status.job_level >= pc_maxjoblv(sd)) {
 			clif_displaymessage(fd, msg_txt(23)); // Job level can't go any higher.
 			return -1;
 		}
@@ -2372,7 +2372,7 @@ ACMD_FUNC(go)
 		{ MAP_MANUK,	   {286, 271,  85}, {226, 129, 245} }, // 30=Manuk
 		{ MAP_SPLENDIDE,   {195, 191, 358}, {141,  19, 232} }, // 31=Splendide
 		{ MAP_DICASTES,	   {194, 120, 195}, {182, 199, 315} }, // 32=Dicastes
-		{ MAP_BGLOBBY,	   {150, 150, 150}, {146, 146, 146} }, // 33=BG
+		{ MAP_MARKET,      { 97,  97,  97}, {108, 108, 108} }, // 33=Market
 	};
 
 	nullpo_retr(-1, sd);
@@ -2381,9 +2381,9 @@ ACMD_FUNC(go)
 	if(ud->skilltimer != INVALID_TIMER)
 		return -1;
 
-if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000)) 
+if( DIFF_TICK(gettick(),sd->refresh_tick) < (2*1000)) 
 	{
-		sprintf(atcmd_output, "%d ms until next go...", 3000-DIFF_TICK(gettick(),sd->refresh_tick));
+		sprintf(atcmd_output, "%d ms until next go...", 2000-DIFF_TICK(gettick(),sd->refresh_tick));
 		clif_displaymessage(fd,atcmd_output);
 		return -1;
 	}
@@ -2411,13 +2411,13 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000))
 		clif_displaymessage(fd, " 6=Al De Baran          7=Lutie          8=Comodo");
 		clif_displaymessage(fd, " 9=Yuno                 10=Amatsu        11=Gonryun");
 		clif_displaymessage(fd, " 12=Umbala              13=Niflheim      14=Louyang");
-		clif_displaymessage(fd, " 15=St. Capitolina      16=Brasilis      17=Jawaii");
+		clif_displaymessage(fd, " 15=Capitolina          16=Brasilis      17=Jawaii");
 		clif_displaymessage(fd, " 18=Ayothaya            19=Einbroch      20=Lighthalzen");
 		clif_displaymessage(fd, " 21=Einbech             22=Hugel         23=Rachel");
 		clif_displaymessage(fd, " 24=Veins               25=Moscovia      26=Nameless Island");
 		clif_displaymessage(fd, " 27=Freya Temple        28=Thor Camp     29=Midgard Camp");
 		clif_displaymessage(fd, " 30=Manuk               31=Splendide     32=Dicastes");
-		clif_displaymessage(fd, " 33=BG Room");
+		clif_displaymessage(fd, " 33=Market");
 		return -1;
 	}
 
@@ -2437,21 +2437,16 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000))
 		town = 1;
 	} else if (strncmp(map_name, "geffen", 3) == 0) {
 		town = 2;
-	} else if (strncmp(map_name, "payon", 3) == 0 ||
-	           strncmp(map_name, "paion", 3) == 0) {
+	} else if (strncmp(map_name, "payon", 3) == 0) {
 		town = 3;
 	} else if (strncmp(map_name, "alberta", 3) == 0) {
 		town = 4;
-	} else if (strncmp(map_name, "izlude", 3) == 0 ||
-	           strncmp(map_name, "islude", 3) == 0) {
+	} else if (strncmp(map_name, "izlude", 3) == 0) {
 		town = 5;
-	} else if (strncmp(map_name, "aldebaran", 3) == 0 ||
-	           strcmp(map_name,  "al") == 0) {
+	} else if (strncmp(map_name, "aldebaran", 3) == 0) {
 		town = 6;
 	} else if (strncmp(map_name, "lutie", 3) == 0 ||
-	           strcmp(map_name,  "christmas") == 0 ||
-	           strncmp(map_name, "xmas", 3) == 0 ||
-	           strncmp(map_name, "x-mas", 3) == 0) {
+	           strncmp(map_name, "xmas", 3) == 0) {
 		town = 7;
 	} else if (strncmp(map_name, "comodo", 3) == 0) {
 		town = 8;
@@ -2460,8 +2455,7 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000))
 		town = 9;
 	} else if (strncmp(map_name, "amatsu", 3) == 0) {
 		town = 10;
-	} else if (strncmp(map_name, "gonryun", 3) == 0||
-			   strncmp(map_name, "kunlun", 3) == 0) {
+	} else if (strncmp(map_name, "gonryun", 3) == 0) {
 		town = 11;
 	} else if (strncmp(map_name, "umbala", 3) == 0) {
 		town = 12;
@@ -2469,24 +2463,20 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000))
 		town = 13;
 	} else if (strncmp(map_name, "louyang", 3) == 0) {
 		town = 14;
-	} else if (strncmp(map_name, "st.capitolinaabbey", 3) == 0 ||
-	           strncmp(map_name, "saintcapitolinaabbey", 3) == 0 ||
-	           strncmp(map_name, "abbey", 3) == 0 ||
-			   strncmp(map_name, "stcapitolinaabbey", 3) == 0) {
+	} else if (strncmp(map_name, "capitolina", 3) == 0 ||
+	           strncmp(map_name, "abbey", 3) == 0) {
 		town = 15;
 	} else if (strncmp(map_name, "brasilis", 3) == 0 ||
 	           strncmp(map_name, "brazilis", 3) == 0) {
 		town = 16;
-	} else if (strncmp(map_name, "jawaii", 3) == 0 ||
-	           strncmp(map_name, "jawai", 3) == 0) {
+	} else if (strncmp(map_name, "jawaii", 3) == 0) {
 		town = 17;
-	} else if (strncmp(map_name, "ayothaya", 3) == 0 ||
-	           strncmp(map_name, "ayotaya", 3) == 0) {
+	} else if (strncmp(map_name, "ayothaya", 3) == 0) {
 		town = 18;
-	} else if (strncmp(map_name, "einbroch", 5) == 0 ||
-	           strncmp(map_name, "ainbroch", 5) == 0) {
+	} else if (strncmp(map_name, "einbroch", 5) == 0) {
 		town = 19;
-	} else if (strncmp(map_name, "lighthalzen", 3) == 0) {
+	} else if (strncmp(map_name, "lighthalzen", 3) == 0 ||
+			   strncmp(map_name, "lhz", 3) == 0) {
 		town = 20;
 	} else if (strncmp(map_name, "einbech", 3) == 0) {
 		town = 21;
@@ -2500,12 +2490,11 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000))
 		town = 25;
 	} else if (strncmp(map_name, "nameless",3) == 0) {
 		town = 26;
-	} else if (strncmp(map_name, "freya'stemple",3) == 0 ||
-			   strncmp(map_name, "freyatemple",3) == 0) {
+	} else if (strncmp(map_name, "freya",3) == 0) {
 		town = 27;
-	} else if (strncmp(map_name, "thorcamp",3) == 0) {
+	} else if (strncmp(map_name, "thor",3) == 0) {
 		town = 28;
-	} else if (strncmp(map_name, "midgardcamp",3) == 0) {
+	} else if (strncmp(map_name, "midgard",3) == 0) {
 		town = 29;
 	} else if (strncmp(map_name, "manuk",3) == 0) {
 		town = 30;
@@ -2514,8 +2503,8 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000))
 	} else if (strncmp(map_name, "dicastes",3) == 0 ||
 			   strncmp(map_name, "eldicastes",3) ==0) {
 		town = 32;
-	} else if (strncmp(map_name, "bg",3) == 0 ||
-			   strncmp(map_name, "battleground",3) == 0) {
+	} else if (strncmp(map_name, "vend",3) == 0 ||
+			   strncmp(map_name, "market",3) == 0) {
 		town = 33;
 	}
 
@@ -2530,11 +2519,6 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (3*1000))
 		if (sd->bl.m >= 0 && map[sd->bl.m].flag.nowarp && battle_config.any_warp_GM_min_level > pc_isGM(sd)) {
 			clif_displaymessage(fd, msg_txt(248));
 			return -1;
-		}
-		if(town == 33 && battleground_countlogin(sd,false) >3)
-		{
-			clif_displaymessage(fd, "Sorry but no more than 3 users from the same IP may join. ");
-			clif_displaymessage(fd, "Please contact a GM about giving yourself an exception.");
 		}
 		if (pc_setpos(sd, mapindex_name2id(data[town].map), data[town].x[spot] + rnd()%5, data[town].y[spot] + rnd()%5, CLR_TELEPORT) == 0) {
 			clif_displaymessage(fd, msg_txt(0)); // Warped.
@@ -7303,14 +7287,14 @@ ACMD_FUNC(refresh)
 	struct unit_data* ud = unit_bl2ud(&sd->bl);
 
 	nullpo_retr(-1, sd);
-	nullpo_retr(-1, ud);
+	nullpo_retr(-1, &sd->ud);
 
-	if(ud->skilltimer != INVALID_TIMER)
+	if(sd->ud.skilltimer != INVALID_TIMER)
 		return -1;
 
-	if( DIFF_TICK(gettick(),sd->refresh_tick) < (4*100)) 
+	if( DIFF_TICK(gettick(),sd->refresh_tick) < (5*100)) 
 	{
-		sprintf(atcmd_output, "%d ms until next refresh...", 400-DIFF_TICK(gettick(),sd->refresh_tick));
+		sprintf(atcmd_output, "%d ms until next refresh...", 500-DIFF_TICK(gettick(),sd->refresh_tick));
 		clif_displaymessage(fd,atcmd_output);
 		return -1;
 	}
@@ -9008,7 +8992,7 @@ ACMD_FUNC(stats)
 		{ "Hair - %d", 0 },
 		{ "Hair Color - %d", 0 },
 		{ "Cloth Color - %d", 0 },
-		{ "Playtime - %d secs", 0 },
+		{ "Mission Pts - %d", 0 },
 		{ "Kafra Pts - %d", 0 },
 		{ "Cash Pts - %d", 0 },
 		{ "Zeny - %d", 0 },
@@ -9040,7 +9024,7 @@ ACMD_FUNC(stats)
 	output_table[15].value = sd->status.hair;
 	output_table[16].value = sd->status.hair_color;
 	output_table[17].value = sd->status.clothes_color;
-	output_table[18].value = sd->status.playtime + DIFF_TICK(last_tick, sd->last_tick);
+	output_table[18].value = pc_readglobalreg(sd, "MD_mission_points");
 	output_table[19].value = pc_readaccountreg2(sd, "##KAFRAPOINTS");
 	output_table[20].value = pc_readaccountreg2(sd, "##CASHPOINTS");
 	
@@ -10708,19 +10692,20 @@ ACMD_FUNC(bgkick)
 	else if( (pl_sd = map_nick2sd((char *)message)) == NULL )
 		clif_displaymessage(fd, msg_txt(3)); // Character not found.
 	else if( sd->state.bg_id != pl_sd->state.bg_id )
-		clif_displaymessage(fd, "That Player is not in your team!");
+		clif_displaymessage(fd, "That player is not in your team!");
 	else if( sd == pl_sd )
 		clif_displaymessage(fd, "You cannot kick yourself!");
 	else
 	{ // Everytest OK!
-		bg_team_leave(pl_sd,2);
+		bg_team_leave(pl_sd, 4);
 		
 		sprintf(atcmd_output, "You have been kicked from BG by the Team Leader, %s!", sd->status.name); 
 		clif_displaymessage(pl_sd->fd, atcmd_output);
-		pc_setpos(pl_sd,pl_sd->status.save_point.map,pl_sd->status.save_point.x,pl_sd->status.save_point.y,3);
+		pc_setpos(pl_sd,pl_sd->status.save_point.map,pl_sd->status.save_point.x,pl_sd->status.save_point.y, CLR_TELEPORT);
 
-		sprintf(atcmd_output, "- [%s] Kicked by Team Leader -", pl_sd->status.name);
-		clif_broadcast2(&sd->bl, atcmd_output, (int)strlen(atcmd_output)+1, sd->state.bmaster_flag->color, 0x190, 20, 0, 0, BG);
+		// msg already displayed via bg_team_leave
+		//sprintf(atcmd_output, "- [%s] Kicked by Team Leader -", pl_sd->status.name);
+		//clif_broadcast2(&sd->bl, atcmd_output, (int)strlen(atcmd_output)+1, sd->state.bmaster_flag->color, 0x190, 20, 0, 0, BG);
 		return 0;
 	}
 	return -1;
@@ -10729,14 +10714,14 @@ ACMD_FUNC(bgkick)
 ACMD_FUNC(reportafk)
 {
 	struct map_session_data *pl_sd;
-	struct battleground_data *bg = sd->state.bmaster_flag;
+	struct battleground_data *bg;
 	int i;
 
 	nullpo_retr(-1,sd);
-	
+	nullpo_retr(-1, (bg = bg_team_search(sd->state.bg_id)) );
 	//if( !sd->state.bmaster_flag )
 	//	clif_displaymessage(fd, "This command is reserved for Team Leaders Only.");
-
+	// kicks all members of the invoking sd's bg team that are marked as afk
 	for(i=0; i < MAX_BG_MEMBERS; ++i)
 	{
 		if( (pl_sd = bg->members[i].sd) == NULL)
@@ -10758,6 +10743,17 @@ ACMD_FUNC(reportafk)
 	return -1;
 }
 
+ACMD_FUNC(bgstats)
+{
+	nullpo_retr(-1, sd);
+	
+	if (sd->state.bg_id)
+		bg_view_stats(sd, 1); // current round stats
+	else
+		bg_view_stats(sd, 0); // alltime stats
+		
+	return 0;
+}
 
 ACMD_FUNC(bgranked)
 {
@@ -10897,12 +10893,6 @@ ACMD_FUNC(missioninfo)
 
 	nullpo_retr(-1, sd);
 
-	if(!message || !*message)
-	{
-		clif_displaymessage(fd, "Please enter a proper command. (usage: @missioninfo)");
-		return -1;
-	}
-
 	clif_displaymessage(fd, "Accepted missions: ");
 	for (i=0; i < MAX_MISSION_SLOTS; ++i)
 	{
@@ -10914,7 +10904,7 @@ ACMD_FUNC(missioninfo)
 
 		mapindex = mission_db[sd->mission[i].mission_id-1].mapindex;
 		
-		snprintf(atcmd_output, sizeof(atcmd_output), " Map: %s", mapindex_id2name(mapindex));
+		snprintf(atcmd_output, sizeof(atcmd_output), " Map: %s", map[mapindex].name);
 		clif_displaymessage(fd, atcmd_output);
 		
 		clif_displaymessage(fd, " Mobs: ");

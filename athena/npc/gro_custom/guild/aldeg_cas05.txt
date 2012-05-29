@@ -18,7 +18,7 @@
 //============================================================
 aldebaran,128,97,4	script	Rothenburg#a5-1::Rothenburg	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleA05:
 	FlagEmblem GetCastleData("aldeg_cas05",1);
 	end;
@@ -68,7 +68,7 @@ alde_gld,265,93,6	script	Rothenburg#a5-2::Rothenburg2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastleA05:
 	FlagEmblem GetCastleData("aldeg_cas05",1);
 	end;
@@ -80,7 +80,7 @@ alde_gld,265,87,6	duplicate(Rothenburg2)	Rothenburg#a5-3	722
 //============================================================
 aldeg_cas05,170,85,2	script	Rothenburg#a5-4::Rothenburg3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleA05:
 	FlagEmblem GetCastleData("aldeg_cas05",1);
 	end;

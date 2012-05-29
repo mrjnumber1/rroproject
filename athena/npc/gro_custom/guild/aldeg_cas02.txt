@@ -18,7 +18,7 @@
 //============================================================
 aldebaran,149,97,4	script	Hohenschwangau#a2-1::Hohenschwangau	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleA02:
 	FlagEmblem GetCastleData("aldeg_cas02",1);
 	end;
@@ -68,7 +68,7 @@ alde_gld,99,251,4	script	Hohenschwangau#a2-2::Hohenschwangau2	722,{
 		mes " prove your strength and honor with a steel blade in your hand.";
 	}
 	close;
-
+OnInterIfInitOnce:
 OnRecvCastleA02:
 	FlagEmblem GetCastleData("aldeg_cas02",1);
 	end;
@@ -80,7 +80,7 @@ alde_gld,99,244,4	duplicate(Hohenschwangau2)	Hohenschwangau#a2-3	722
 //============================================================
 aldeg_cas02,82,71,2	script	Hohenschwangau#a2-4::Hohenschwangau3	722,{
 	end;
-
+OnInterIfInitOnce:
 OnRecvCastleA02:
 	FlagEmblem GetCastleData("aldeg_cas02",1);
 	end;

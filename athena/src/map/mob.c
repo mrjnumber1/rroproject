@@ -2004,20 +2004,25 @@ void mob_damage(struct mob_data *md, struct block_list *src, int damage)
 
 int mob_showmvpdead(struct block_list* bl,va_list ap)
 {
-	struct map_session_data *ksd;
-	struct mob_data *md;
+	TBL_PC *ksd;
+	TBL_MOB *md;
 	int dmg;
 	char out[CHAT_SIZE_MAX];
 
-	ksd=va_arg(ap,struct map_session_data*);
-	md=va_arg(ap,struct mob_data*);
+	nullpo_retr(0, bl);
+
+	ksd=va_arg(ap,TBL_PC*);
+	md=va_arg(ap,TBL_MOB*);
 	dmg=va_arg(ap,int);
+
+	nullpo_retr(0, md);
+	nullpo_retr(0, ksd);
 
 	if(ksd->bl.id == bl->id)
 		return 0;
 
 	sprintf(out,"%s destroyed the Boss %s with %d damage!",ksd->status.name,md->name,dmg);
-	clif_displaymessage( ((struct map_session_data*)bl)->fd, out);
+	clif_displaymessage( ((TBL_PC*)bl)->fd, out);
 	return 1;
 }
 
@@ -2025,6 +2030,29 @@ int mob_showmvpdead(struct block_list* bl,va_list ap)
  * Signals death of mob.
  * type&1 -> no drops, type&2 -> no exp
  *------------------------------------------*/
+int mob_getrandomcash(struct block_list *bl, va_list ap)
+{
+	int rand_val = rnd()%10000;
+	TBL_PC* sd;
+	// 1% chance for 5 kafra points
+	// .1% chance for 50 kafra points
+	// .01% chance for 500 kafra points
+	nullpo_retr(0, bl); 
+	nullpo_retr(0, (sd = (TBL_PC*)bl) );
+
+	if ( rand_val == 1 )
+		pc_getcash(sd, 0, 500);
+	else if ( rand_val <= 10)
+		pc_getcash(sd, 0, 50);
+	else if ( rand_val <= 100)
+		pc_getcash(sd, 0, 5);
+	else
+		return 0;
+
+	return 1;
+	
+}
+
 int mob_dead(struct mob_data *md, struct block_list *src, int type)
 {
 	struct status_data *status;
@@ -2083,6 +2111,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 		{
 			map_foreachinrange(quest_update_objective_sub,&md->bl,AREA_SIZE,BL_PC,sd->status.party_id,md->class_);
 			map_foreachinrange(mission_update_sub,&md->bl, AREA_SIZE*5, BL_PC, sd->status.party_id, md->class_);
+			party_foreachsamemap(mob_getrandomcash, mvp_sd, 0);
 		}
 		else
 		{
@@ -2490,7 +2519,9 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 				struct party_data *p = party_search(mvp_sd->status.party_id);
 
 				if(p && p->party.count > 1)
-					party_foreachsamemap(mob_showmvpdead,mvp_sd,AREA_SIZE*5,mvp_sd,md,mvp_damage);
+				{
+					party_foreachsamemap(mob_showmvpdead, mvp_sd, AREA_SIZE*3, mvp_sd, md, mvp_damage);
+				}
 			}
 
 			mvp_sd->mvp_kills += 1;
@@ -2510,7 +2541,6 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 	rebirth =  ( md->sc.data[SC_KAIZEL] || (md->sc.data[SC_REBIRTH] && !md->state.rebirth) );
 	if( !rebirth )
 	{ // Only trigger event on final kill
-		int rand_val = rnd()%10000;
 		md->status.hp = 0; //So that npc_event invoked functions KNOW that mob is dead
 		if( src )
 			switch( src->type )
@@ -2526,21 +2556,6 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 		if(sd)
 		{
 			pc_record_mobkills(sd, md);
-			// 1% chance for 5 kafra points
-			// .1% chance for 50 kafra points
-			// .01% chance for 500 kafra points
-			if ( rand_val == 1 )
-			{
-				pc_getcash(sd, 0, 500);
-			}
-			else if ( rand_val <= 10)
-			{
-				pc_getcash(sd, 0, 50);
-			}
-			else if ( rand_val <= 100)
-			{
-				pc_getcash(sd, 0, 5);
-			}
 		}
 
 		if( md->npc_event[0] && !md->state.npc_killmonster )
