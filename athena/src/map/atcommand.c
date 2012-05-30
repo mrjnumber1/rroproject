@@ -151,49 +151,49 @@ static char* player_title_txt(int level)
 /*==========================================
  * Read Message Data
  *------------------------------------------*/
-
-int lang_msg_config_read(const char* cfgName, enum lang_msg_lang lang)
-{
-	int msg_number;
-	char line[1024], w1[1024], w2[1024];
-	FILE *fp;
-	static int called = 1;
-
-	if ((fp = fopen(cfgName, "r")) == NULL) 
-	{
-		ShowError("Messages file not found: %s\n", cfgName);
-		return 1;
-	}
-
-	if ((--called) == 0)
-		memset(lang_msg_table[lang], 0, sizeof(lang_msg_table[lang][0]) * MAX_MSG_LANG);
-
-	while(fgets(line, sizeof(line), fp))
-	{
-		if (line[0] == '/' && line[1] == '/')
-			continue;
-		if (sscanf(line, "%[^:]: %[^\r\n]", w1, w2) != 2)
-			continue;
-
-		if (strcmpi(w1, "import") == 0)
-			msg_config_read(w2);
-		else
-		{
-			msg_number = atoi(w1);
-			if (msg_number >= 0 && msg_number < MAX_MSG)
-			{
-				if (lang_msg_table[lang][msg_number] != NULL)
-					aFree(lang_msg_table[lang][msg_number]);
-				lang_msg_table[lang][msg_number] = (char *)aMalloc((strlen(w2) + 1)*sizeof (char));
-				strcpy(lang_msg_table[lang][msg_number],w2);
-			}
-		}
-	}
-
-	fclose(fp);
-
-	return 0;
-}
+//
+//int lang_msg_config_read(const char* cfgName, enum lang_msg_lang lang)
+//{
+//	int msg_number;
+//	char line[1024], w1[1024], w2[1024];
+//	FILE *fp;
+//	static int called = 1;
+//
+//	if ((fp = fopen(cfgName, "r")) == NULL) 
+//	{
+//		ShowError("Messages file not found: %s\n", cfgName);
+//		return 1;
+//	}
+//
+//	if ((--called) == 0)
+//		memset(lang_msg_table[lang], 0, sizeof(lang_msg_table[lang][0]) * MAX_MSG_LANG);
+//
+//	while(fgets(line, sizeof(line), fp))
+//	{
+//		if (line[0] == '/' && line[1] == '/')
+//			continue;
+//		if (sscanf(line, "%[^:]: %[^\r\n]", w1, w2) != 2)
+//			continue;
+//
+//		if (strcmpi(w1, "import") == 0)
+//			msg_config_read(w2);
+//		else
+//		{
+//			msg_number = atoi(w1);
+//			if (msg_number >= 0 && msg_number < MAX_MSG)
+//			{
+//				if (lang_msg_table[lang][msg_number] != NULL)
+//					aFree(lang_msg_table[lang][msg_number]);
+//				lang_msg_table[lang][msg_number] = (char *)aMalloc((strlen(w2) + 1)*sizeof (char));
+//				strcpy(lang_msg_table[lang][msg_number],w2);
+//			}
+//		}
+//	}
+//
+//	fclose(fp);
+//
+//	return 0;
+//}
 int msg_config_read(const char* cfgName)
 {
 	int msg_number;
@@ -241,12 +241,12 @@ int msg_config_read(const char* cfgName)
  *------------------------------------------*/
 void do_final_msg(void)
 {
-	int i, j;
+	int i;
 	for (i = 0; i < MAX_MSG; i++)
 		aFree(msg_table[i]);
-	for( i = 0; i < LANG_MAX; ++i)
-		for(j = 0; j < MAX_MSG_LANG; ++j)
-			aFree(lang_msg_table[i][j]);
+	//for( i = 0; i < LANG_MAX; ++i)
+	//	for(j = 0; j < MAX_MSG_LANG; ++j)
+	//		aFree(lang_msg_table[i][j]);
 }
 
 
