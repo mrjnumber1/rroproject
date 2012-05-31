@@ -31,7 +31,7 @@
 			$val = "%".$val."%";
 			
 			$sth->bindValue(":name", $val, PDO::PARAM_STR);
-			var_dump($val);
+			//var_dump($val);
 		}
 		else
 		{
@@ -42,14 +42,14 @@
 
 			$val = "%".$val."%";
 			$sth->bindValue(":name", $val, PDO::PARAM_STR);
-			var_dump($val);
+			//var_dump($val);
 		}
 		
 		$sth->execute();
 
 		//print $query.' val: '.$val;
 		
-		$sth->debugDumpParams();
+		//$sth->debugDumpParams();
 		
 		$i = 0;
 		while ( ($item = $sth->fetch(PDO::FETCH_ASSOC)) )
