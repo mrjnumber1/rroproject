@@ -3753,12 +3753,12 @@ int pc_search_inventory(struct map_session_data *sd,int item_id)
 
 	if( item_id )
 	{
-		if( map_bg_items(sd->bl.m) && BG_CHARID )
+		if( map_bg_items(sd->bl.m) && BG_CHARID && !pc_islowratechar(sd) )
 		{ // Battleground Items
 			ARR_FIND( 0, MAX_INVENTORY, i, sd->status.inventory[i].nameid == item_id && sd->status.inventory[i].amount > 0 && sd->status.inventory[i].card[0] == CARD0_CREATE && MakeDWord(sd->status.inventory[i].card[2],sd->status.inventory[i].card[3]) == BG_CHARID );
 			if( i < MAX_INVENTORY ) return i;
 		}
-		else if( map_gvg_items(sd->bl.m) && WOE_CHARID )
+		else if( map_gvg_items(sd->bl.m) && WOE_CHARID && !pc_islowratechar(sd) )
 		{ // WoE Items
 			ARR_FIND( 0, MAX_INVENTORY, i, sd->status.inventory[i].nameid == item_id && sd->status.inventory[i].amount > 0 && sd->status.inventory[i].card[0] == CARD0_CREATE && MakeDWord(sd->status.inventory[i].card[2],sd->status.inventory[i].card[3]) == WOE_CHARID );
 			if( i < MAX_INVENTORY ) return i;
@@ -4223,11 +4223,11 @@ int pc_useitem(struct map_session_data *sd,int n)
 	if( sd->status.inventory[n].card[0] == CARD0_CREATE )
 	{ // Do not allow use BG /woe / etc
 		char_id = MakeDWord(sd->status.inventory[n].card[2],sd->status.inventory[n].card[3]);
-		if(BG_CHARID && char_id == BG_CHARID && !map_bg_items(sd->bl.m) )
+		if(pc_islowratechar(sd) || (BG_CHARID && char_id == BG_CHARID && !map_bg_items(sd->bl.m)) )
 			return 0;
-		if( WOE_CHARID && char_id == WOE_CHARID && !map_gvg_items(sd->bl.m) )
+		if(pc_islowratechar(sd) || (WOE_CHARID && char_id == WOE_CHARID && !map_gvg_items(sd->bl.m)) )
 			return 0;
-		if( RAID_CHARID && char_id == RAID_CHARID && !map_raid_items(sd->bl.m) )
+		if( RAID_CHARID && char_id == RAID_CHARID && !map_raid_items(sd->bl.m))
 			return 0;
 	}
 

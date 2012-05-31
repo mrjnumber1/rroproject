@@ -9262,7 +9262,7 @@ int skill_consume_requirement( struct map_session_data *sd, short skill, short l
 			if( sd->status.zeny < req.zeny )
 				req.zeny = sd->status.zeny;
 
-			if (!area)
+			if ( !pc_islowratechar(sd) )
 				pc_payzeny(sd,req.zeny);
 
 			if(area == 1) //woe
