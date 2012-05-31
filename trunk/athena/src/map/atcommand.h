@@ -51,7 +51,7 @@ extern char* msg_table[MAX_MSG];
 const char* msg_txt(int msg_number);
 //const char* lang_msg_txt(struct map_session_data* sd, int num);
 
-int lang_msg_config_read(const char* cfgName, enum lang_msg_lang lang);
+//int lang_msg_config_read(const char* cfgName, enum lang_msg_lang lang);
 int msg_config_read(const char* cfgName);
 void do_final_msg(void);
 
