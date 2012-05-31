@@ -117,6 +117,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `msn` varchar(39) NOT NULL default '',
   `aim` varchar(15) NOT NULL default '',
   `mpass` varchar(40) NOT NULL default '',
+  `storage_password` char(32) NOT NULL,
   `last_ip` varchar(20) NOT NULL default '0.0.0.0',
   `last_login` datetime NOT NULL default '0000-00-00 00:00:00',
   `services` smallint(5) unsigned NOT NULL default '0',

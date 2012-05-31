@@ -155,6 +155,7 @@ CREATE TABLE IF NOT EXISTS `guild` (
   `exp` bigint(20) unsigned NOT NULL default '0',
   `next_exp` int(11) unsigned NOT NULL default '0',
   `skill_point` tinyint(11) unsigned NOT NULL default '0',
+  `storage_password` char(32) NOT NULL,
   `mes1` varchar(60) NOT NULL default '',
   `mes2` varchar(120) NOT NULL default '',
   `emblem_len` int(11) unsigned NOT NULL default '0',
@@ -350,6 +351,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   `member_id` int(11) unsigned NOT NULL default '0',
   `userid` varchar(23) NOT NULL default '',
   `user_pass` varchar(32) NOT NULL default '',
+
   `sex` enum('M','F','S') NOT NULL default 'M',
   `email` varchar(39) NOT NULL default '',
   `level` tinyint(3) NOT NULL default '0',
