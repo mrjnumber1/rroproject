@@ -486,6 +486,7 @@ struct map_session_data {
 
 	struct restock_data restock[MAX_RESTOCK_SLOTS];
 
+	char memreg_str_val[256];
 
 };
 

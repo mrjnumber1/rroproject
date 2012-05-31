@@ -19,7 +19,12 @@
 
 /// Save storage data to sql
 int storage_tosql(int account_id, struct storage_data* p)
-{
+{	
+	if (p->password != NULL)
+	{
+		if (SQL_ERROR == Sql_Query(sql_handle, "UPDATE `login` SET `storage_password` = '%s' WHERE `account_id` = '%d' LIMIT 1", p->password, account_id))
+			Sql_ShowDebug(sql_handle);
+	}
 	memitemdata_to_sql(p->items, MAX_STORAGE, account_id, TABLE_STORAGE);
 	return 0;
 }
@@ -67,6 +72,18 @@ int storage_fromsql(int account_id, struct storage_data* p)
 		}
 	}
 	p->storage_amount = i;
+
+	StringBuf_Init(&buf); //TODO: this doesn't synch ith the login db from the login server
+	StringBuf_Printf(&buf, "SELECT `storage_password` FROM `login` WHERE `account_id`='%d'", account_id);
+
+	if ( SQL_ERROR == Sql_Query(sql_handle, StringBuf_Value(&buf)) )
+		Sql_ShowDebug(sql_handle);
+
+	StringBuf_Destroy(&buf);
+
+	Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(p->password, data, sizeof(p->password));
+
+
 	Sql_FreeResult(sql_handle);
 
 	ShowInfo("storage load complete from DB - id: %d (total: %d)\n", account_id, p->storage_amount);
@@ -77,6 +94,11 @@ int storage_fromsql(int account_id, struct storage_data* p)
 /// Save guild_storage data to sql
 int guild_storage_tosql(int guild_id, struct guild_storage* p)
 {
+	if (p->password != NULL)
+	{
+		if (SQL_ERROR == Sql_Query(sql_handle, "UPDATE `guild` SET `storage_password` = '%s' WHERE `guild_id` = '%d' LIMIT 1", p->password, guild_id))
+			Sql_ShowDebug(sql_handle);
+	}
 	memitemdata_to_sql(p->items, MAX_GUILD_STORAGE, guild_id, TABLE_GUILD_STORAGE);
 	ShowInfo ("guild storage save to DB - guild: %d\n", guild_id);
 	return 0;
@@ -127,6 +149,18 @@ int guild_storage_fromsql(int guild_id, struct guild_storage* p)
 		}
 	}
 	p->storage_amount = i;
+
+	StringBuf_Init(&buf);
+	StringBuf_Printf(&buf, "SELECT `storage_password` FROM `%s` WHERE `guild_id`='%d'", guild_db, guild_id);
+
+	if ( SQL_ERROR == Sql_Query(sql_handle, StringBuf_Value(&buf)) )
+		Sql_ShowDebug(sql_handle);
+
+	StringBuf_Destroy(&buf);
+
+	Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(p->password, data, sizeof(p->password));
+
+
 	Sql_FreeResult(sql_handle);
 
 	ShowInfo("guild storage load complete from DB - id: %d (total: %d)\n", guild_id, p->storage_amount);
@@ -136,6 +170,12 @@ int guild_storage_fromsql(int guild_id, struct guild_storage* p)
 
 int member_storage_tosql(int member_id, struct member_storage_data* p)
 {
+	if (p->password != NULL)
+	{
+		if (SQL_ERROR == Sql_Query(sql_handle, "UPDATE `members` SET `storage_password` = '%s' WHERE `member_id` = '%d' LIMIT 1", p->password, member_id))
+			Sql_ShowDebug(sql_handle);
+	}
+
 	memitemdata_to_sql(p->items, MAX_MEMBER_STORAGE, member_id, TABLE_MEMBER_STORAGE);
 	ShowInfo ("member storage saved to DB - member: %d\n", member_id);
 	return 0;
@@ -182,6 +222,18 @@ int member_storage_fromsql(int member_id, struct member_storage_data* p)
 		}
 	}
 	p->storage_amount = i;
+	
+	StringBuf_Init(&buf);
+	StringBuf_Printf(&buf, "SELECT `storage_password` FROM `%s` WHERE `member_id`='%d'", member_db, member_id);
+
+	if ( SQL_ERROR == Sql_Query(sql_handle, StringBuf_Value(&buf)) )
+		Sql_ShowDebug(sql_handle);
+
+	StringBuf_Destroy(&buf);
+
+	Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(p->password, data, sizeof(p->password));
+
+
 	Sql_FreeResult(sql_handle);
 
 	ShowInfo("member storage load complete from DB - id: %d (total: %d)\n", member_id, p->storage_amount);

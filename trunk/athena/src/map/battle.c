@@ -10,6 +10,7 @@
 #include "../common/ers.h"
 #include "../common/strlib.h"
 #include "../common/utils.h"
+#include "../common/md5calc.h"
 
 #include "map.h"
 #include "path.h"
@@ -4143,6 +4144,11 @@ void battle_set_defaults()
 	int i;
 	for (i = 0; i < ARRAYLENGTH(battle_data); i++)
 		*battle_data[i].val = battle_data[i].defval;
+	
+	memset(&battle_config.storage_salt, '\0', sizeof (battle_config.storage_salt));
+	memset(&battle_config.gstorage_salt, '\0', sizeof (battle_config.gstorage_salt));
+	memset(&battle_config.mstorage_salt, '\0', sizeof (battle_config.mstorage_salt));
+	memset(&battle_config.general_salt, '\0', sizeof (battle_config.general_salt));
 }
 
 void battle_adjust_conf()
@@ -4208,6 +4214,14 @@ int battle_config_read(const char* cfgName)
 				continue;
 			if (sscanf(line, "%1023[^:]:%1023s", w1, w2) != 2)
 				continue;
+			if (strcmpi(w1, "storage_salt") == 0)
+				MD5_String(w2, battle_config.storage_salt);
+			if (strcmpi(w1, "gstorage_salt") == 0)
+				MD5_String(w2, battle_config.gstorage_salt);
+			if (strcmpi(w1, "mstorage_salt") == 0)
+				MD5_String(w2, battle_config.mstorage_salt);
+			if (strcmpi(w1, "general_salt") == 0)
+				MD5_String(w2, battle_config.general_salt);
 			if (strcmpi(w1, "import") == 0)
 				battle_config_read(w2);
 			else

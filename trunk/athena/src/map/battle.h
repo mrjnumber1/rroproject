@@ -540,7 +540,7 @@ extern struct Battle_Config
 	int mission_max_items;
 	int mission_max_rewards;
 	int mission_slots;
-
+	char storage_salt[32], gstorage_salt[32], mstorage_salt[32], general_salt[32];
 
 } battle_config;
 

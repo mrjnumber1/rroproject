@@ -319,6 +319,7 @@ struct status_change_data {
 
 struct storage_data {
 	int storage_amount;
+	char password[32+1];
 	struct item items[MAX_STORAGE];
 };
 struct member_storage_data {
@@ -326,6 +327,7 @@ struct member_storage_data {
 	int member_id;
 	short storage_status;
 	short storage_amount;
+	char password[32+1];
 	struct item items[MAX_MEMBER_STORAGE];
 };
 struct guild_storage {
@@ -333,6 +335,7 @@ struct guild_storage {
 	int guild_id;
 	short storage_status;
 	short storage_amount;
+	char password[32+1];
 	struct item items[MAX_GUILD_STORAGE];
 };
 
