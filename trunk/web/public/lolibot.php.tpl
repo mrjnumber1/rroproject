@@ -435,7 +435,7 @@
 	}
 
 	//$val == 0 || $val == "" || strpos($val, "%") 
-	print "[[type: ".$type." || v: ". $val. " || test: ".($val === 0 || $val == "" || strpos($val, "%"))."]]".PHP_EOL;
+	//print "[[type: ".$type." || v: ". $val. " || test: ".($val === 0 || $val == "" || strpos($val, "%"))."]]".PHP_EOL;
 	switch ($type)
 	{
 		case "help":
