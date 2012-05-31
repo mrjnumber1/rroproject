@@ -1152,7 +1152,7 @@ int pc_reg_received(struct map_session_data *sd)
 	sd->change_level = pc_readglobalreg(sd,"jobchange_level");
 	sd->die_counter = pc_readglobalreg(sd,"PC_DIE_COUNTER");
 
-	sd->state.lowratechar = 1;//pc_readglobalreg(sd,"lowratechar");
+	sd->state.lowratechar = !pc_readglobalreg(sd,"bgchar");
 
 	// Cash shop
 //	sd->cashPoints = pc_readaccountreg2(sd,"##CASHPOINTS");
@@ -1442,22 +1442,6 @@ static int pc_calc_skillpoint(struct map_session_data* sd)
 
 	return skill_point;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*==========================================
@@ -4700,12 +4684,13 @@ int pc_setpos(struct map_session_data* sd, unsigned short mapindex, int x, int y
 		if (sd->regen.state.gc)
 			sd->regen.state.gc = 0;
 
-		if(!pc_islowratechar(sd) && map_nonlr_accessible(mapindex))
-		{
+		//TODO: fixthis
+		//if(!pc_islowratechar(sd) && !map_nonlr_accessible(mapindex))
+		//{
 			//char out[128];
-			clif_displaymessage(sd->fd, "You are not allowed to enter this map because you are a non-LR char. Returning to save area...");
-			pc_setpos(sd,sd->status.save_point.map,sd->status.save_point.x,sd->status.save_point.y,CLR_TELEPORT);
-		}
+			//clif_displaymessage(sd->fd, "You are not allowed to enter this map because you are a BG character.");
+		//	pc_setpos(sd, sd->status.save_point.map, sd->status.save_point.x, sd->status.save_point.y, CLR_TELEPORT);
+		//}
 	}
 
 	if( m < 0 )
@@ -5935,9 +5920,13 @@ int pc_resetlvl(struct map_session_data* sd,int type)
 	nullpo_ret(sd);
 
 	if (type != 3) //Also reset skills
-		pc_resetskill(sd, 0);
+	{
+		pc_resetskill(sd, 1);
+		pc_calc_skilltree(sd);
+	}
 
-	if(type == 1){
+	if(type == 1)
+	{
 		sd->status.skill_point=0;
 		sd->status.base_level=1;
 		sd->status.job_level=1;
@@ -5952,7 +5941,8 @@ int pc_resetlvl(struct map_session_data* sd,int type)
 		sd->status.int_=1;
 		sd->status.dex=1;
 		sd->status.luk=1;
-		if(sd->status.class_ == JOB_NOVICE_HIGH) {
+		if(sd->status.class_ == JOB_NOVICE_HIGH) 
+		{
 			sd->status.status_point=100;	// not 88 [celest]
 			// give platinum skills upon changing
 			pc_skill(sd,142,1,0);
@@ -6010,6 +6000,9 @@ int pc_resetlvl(struct map_session_data* sd,int type)
 
 	status_calc_pc(sd,0);
 	clif_skillinfoblock(sd);
+
+	clif_displaymessage(sd->fd, "Sorry, but because of a bug, you must be kicked. Complain to staff, please!!");
+	clif_GM_kick(NULL, sd);
 
 	return 0;
 }

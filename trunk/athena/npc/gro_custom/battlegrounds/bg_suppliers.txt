@@ -2,44 +2,109 @@
 // *********************************************************************
 
 bat_room,160,156,3	script	BG Rental Tops	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,160,154,3	script	BG Rental Mids	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,160,152,3	script	BG Rental Lower	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,160,150,3	script	BG Rental Armors	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,160,148,3	script	BG Rental Shields	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,160,146,3	script	BG Rental Shoes	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,160,144,3	script	BG Rental Garments	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,160,142,3	script	BG Rental Accessories	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,160,140,3	script	BG Rental Weapons	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 
 
 bat_room,148,148,7	script	Tierra BG Items	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,148,146,7	script	Flavius BG Items	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,148,144,7	script	KvM BG Items	109,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	vending_open();
 }
 bat_room,148,150,7	script	Kafra Point Exchanger	448,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	set .@n$, "[Kafra Point Exchanger]";
 	set .cq_required, 10;
 	set .kp_bonus, 500;
@@ -233,23 +298,205 @@ OnInit:
 	}
 }
 
+bat_room,169,145,6	script	Mann Co. Refiner	105,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
+	set .@n$, "[Mann Co. Refiner]";
+	mes .@n$;
+	mes "I'm the armsmith who can upgrade your items, for only 10 Kafra Points per level. What would you like me to refine?";
+	next;
+	
+	setarray .@position$[1], "Head","Body","Left Hand","Right Hand","Robe","Shoes";
+	set .@menu$,"";
+	for( set .@i,1; .@i <= 6; set .@i,.@i+1 )
+	{
+		if( getequipisequiped(.@i) )
+			set .@menu$, .@menu$ + .@position$[.@i] + "-" + "[" + getequipname(.@i) + "]";
 
+		set .@menu$, .@menu$ + ":";
+	}
+	set .@part,select(.@menu$);
+	if(!getequipisequiped(.@part)) 
+	{
+		mes .@n$;
+		mes "You're not wearing anything there that I can refine.";
+		emotion e_an;
+		close;
+	}
+	//Check if the item is refinable...
+	if(!getequipisenableref(.@part)) 
+	{
+		mes .@n$;
+		mes "I don't think I can refine this item at all...";
+		close;
+	}
+	//Check to see if the items is already +10
+	if(getequiprefinerycnt(.@part) >= 10) {
+		mes .@n$;
+		mes "I can't refine this any more. This is as refined as it gets!";
+		close;
+	}
+	
+	set .@refineitemid, getequipid(.@part); // save id of the item
+	set .@refinerycnt, getequiprefinerycnt(.@part); //save refinery count
+	set .@price, 10;
+	switch(getequipweaponlv(.@part))
+	{
+	case 0: 	//Refine Armor
+		set .@safe,4;
+		break;
+	case 1: 	//Refine Level 1 Weapon
+		set .@safe,7; 
+		break;
+	case 2: 	//Refine Level 2 Weapon
+		set .@safe,6; 
+		break;
+	case 3: 	//Refine Level 3 Weapon
+		set .@safe,5; 
+		break;
+	case 4: 	//Refine Level 4 Weapon
+		set .@safe,4; 
+		break;
+	case 5: 	//Refine other stuff?
+		set .@safe,4; 
+		break;
+	}
+	
+	
+	if(getequiprefinerycnt(.@part) < .@safe) 
+	{
+		mes .@n$;
+		mes "I can refine this to the safe limit or a desired number of times... it's your choice...";
+		next;
+		set .@menu2,select("To the safe limit please.","I'll decide how many times.","I've changed my mind...");
+	} 
+	else 
+		set .@menu2,2;
+	switch(.@menu2)
+	{
+	case 1: 
+		set .@refinecnt,.@safe - getequiprefinerycnt(.@part);
+		break;
+	case 2:
+		next;
+		mes .@n$;
+		mes "So how many times would you like me to refine your item?";
+		next;
+		input .@refinecnt;
+		set .@refinecheck,.@refinecnt + getequiprefinerycnt(.@part);
+		if (.@refinecnt < 1 || .@refinecheck > 10) 
+		{
+			mes .@n$;
+			mes "I can't refine this item that many times.";
+			close;
+		}
+		if(.@refinecheck > .@safe) 
+		{
+			set .@refinecheck,.@refinecheck - .@safe;
+			mes .@n$;
+			mes "This will try to refine the equipment " + .@refinecheck + " times past the safe limit. Your equipment may be destroyed... is that ok?";
+			next;
+			if(select("Yes...","No...") == 2)
+			{
+				mes .@n$;
+				mes "You said so..Hmm so be it...";
+				close;
+			}
+		}
+		break;
+	case 3:
+		next;
+		mes .@n$;
+		mes "You said so..Hmm so be it...";
+		close;
+	}
+	set .@fullprice,.@price * .@refinecnt;
+	mes .@n$;
+	mes "That will cost you " + .@fullprice + " Kafra Points. Is that ok?";
+	next;
+	if(select("Yes","No...") == 2){
+		mes .@n$;
+		mes "You said so..Hmm so be it...";
+		close;
+	}
+	if(countitem(.@material) < .@refinecnt || ##KAFRAPOINTS < .@fullprice) 
+	{
+		mes .@n$;
+		mes "Is that all you got? Unfortunately I can't work for you at a lower price. Try putting yourself in my shoes.";
+		close;
+	}
+	paypoints(.@fullprice);
+
+	while(.@refinecnt)
+	{
+		if (getequipisequiped(.@part) == 0) {
+			mes .@n$;
+			mes "Look here... you don't have any Items on...";
+			close;
+		}
+		if (getequipid(.@part) != .@refineitemid || (.@menu2 == 1 && getequippercentrefinery(.@part) < 100)) 
+		{
+			mes .@n$;
+			mes "Clan... No, but Did you imagine I could be so stupid !?!";
+			mes "You have changed it...";
+			mes "Go out before I stun you with my Hammer!!!";
+			close;
+		} 
+		mes "Clang, clang!!!";
+		if(.@menu2 == 2 && getequippercentrefinery(.@part) <= rand(100)) 
+		{
+			failedrefitem .@part;
+			emotion e_omg;
+			mes .@n$;
+			mes "WAHHHH!!! I'm so sorry... I warned you this could happen...";
+			set .@refinecnt,.@refinecnt - 1;
+			if(.@refinecnt == 0) close;
+			mes "Here's the unused Zeny and Material back...";
+			set .@fullprice,.@refinecnt * .@price;
+			givepoints(.@fullprice);
+
+			close;
+		}
+		successrefitem .@part;
+		emotion e_no1;
+		set .@refinecnt,.@refinecnt - 1;
+		next;
+	}
+	mes .@n$;
+	mes "All finished... Come again soon.";
+	close;		
+	
+}
 bat_room,163,146,2	script	Saxton Hale	731,{
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "This function is only available to BG chars!";
+		end;
+	}
 	mes "[Saxton Hale]";
 	mes "What do you need?";
 	switch(select("BG Supply:WoE Supply:WoE Boxes:Universal Ammo"))
 	{
 	case 1:
-		setarray .@Items[0],   11501,11502,547,  525, 526, 678, 7135, 7136, 7137, 7138, 7139,  715,  716,  717,12016, 1025, 7321,  662,12073,12077,12082,12087,12093,12098, 12114, 12115, 12116, 12117, 12020, 12118, 12119, 12120, 12121, 12279, 12319, 12320, 14536, 605, 606, 12028, 12029, 682, 683, 12032, 12033, 12034, 12299, 14544, 14542, 12354, 12274, 12275, 14530, 12247, 12351, 12298, 12018;
-		setarray .@Amount[0],  200,  200,  200,   50,  50,  50,  100,  100,  100,  100,  400,  100,  200,  150,   50,   50,  100,  100,    5,    5,    5,    5,    5,    5,    50,    50,    50,    50,    50,    50,    50,    50,    50,     5,    30,    30,    30,  30,  30,    30,    30,  30,  30,    30,    30,    30,     5,     5,     5,     5,     1,     1,    30,     1,     1,     1,    20;   
-		setarray .@Value[0],     1,    1,    1,    1,   1,   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,   1,   1,     1,     1,   1,   1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1;
+		setarray .@Items[0],   11501,11502, 547, 505,  525, 526, 678, 7135, 7136, 7137, 7138, 7139,  715,  716,  717,12016, 1025, 7321,  662,12073,12077,12082,12087,12093,12098, 12114, 12115, 12116, 12117, 12020, 12118, 12119, 12120, 12121, 12279, 12319, 12320, 14536, 605, 606, 12028, 12029, 682, 683, 12032, 12033, 12034, 12299, 14544, 14542, 12354, 12274, 12275, 14530, 12247, 12351, 12298, 12018;
+		for (set .@i, 0; .@i < getarraysize(.@Items); set .@i, .@i + 1)
+		{
+			set .@Amount[.@i], 1000;
+			set .@Value[.@i], 1;
+		}
+		//setarray .@Amount[0], 10000,  10000,  10000,  10000, 10000, 10000,  10000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,   10000,   10000,  1000,  1000,    1000,    1000,    1000,    1000,    1000,    1000,    10000,    10000,    10000,    10000,    10000,    10000,    10000,    10000,    10000,     1000,    1000,    1000,    1000,  1000,  1000,    1000,    1000,  1000,  1000,    1000,    1000,    1000,     1000,     1000,     1000,     1000,     1000,     1000,    1000,     1000,     1000,     1000,    1000;  
+		//setarray .@Value[0],     1,    1,    1,    1,   1,   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,   1,   1,     1,     1,   1,   1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1;
 		set .@cID, getbattleflag("bg_reserved_char_id");
 		set .@Tarjet$, "BG";
+		set .@tval, 1;
 		break;
 	case 2: // WoE Supply Items
-		setarray .@Items[0],   525, 526,   7137, 7138,   662,12073,12077,12082,12087,12093,12098, 12114, 12115, 12116, 12117, 12020, 12118, 12119, 12120, 12121, 12279, 12319, 12320, 14536, 605, 606, 12028, 12029, 682, 683, 12032, 12033, 12034, 12299, 14544, 14542, 12354, 12274, 12275, 14530, 12247, 12351, 12298, 12018;
-		setarray .@Amount[0], 150, 150,     100,  100,   100,    5,    5,    5,    5,    5,    5,    50,    50,    50,    50,    50,    50,    50,    50,    50,     5,    30,    30,    30,  30,  30,    30,    30,  30,  30,    30,    30,    30,     5,     5,     5,     5,     1,     1,    30,     1,     1,     1,    20;   
-		setarray .@Value[0],    1,   1,   1,   1,  1,  1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,  1,  1,    1,    1,  1,  1,    10;
+		setarray .@Items[0],  11501, 11502, 525, 526,   7137, 7138,   662,12073,12077,12082,12087,12093,12098, 12114, 12115, 12116, 12117, 12020, 12118, 12119, 12120, 12121, 12279, 12319, 12320, 14536, 605, 606, 12028, 12029, 682, 683, 12032, 12033, 12034, 12299, 14544, 14542, 12354, 12274, 12275, 14530, 12247, 12351, 12298, 12018;
+		setarray .@Amount[0], 1000, 1000, 150, 150,     100,  100,   100,    5,    5,    5,    5,    5,    5,    50,    50,    50,    50,    50,    50,    50,    50,    50,     5,    30,    30,    30,  30,  30,    30,    30,  30,  30,    30,    30,    30,     5,     5,     5,     5,     1,     1,    30,     1,     1,     1,    20;   
+		setarray .@Value[0],    1, 1, 1,   1,   1,   1,  1,  1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,  1,  1,    1,    1,  1,  1,    10;
 
 		set .@cID, getbattleflag("woe_reserved_char_id");
 		set .@Tarjet$, "WoE";
@@ -257,14 +504,14 @@ bat_room,163,146,2	script	Saxton Hale	731,{
 	case 3: // WoE Boxes
 		setarray .@Items[0],  8916, 8917, 8924, 8929, 8935, 8934,  8926, 8927, 8962, 8961, 8925, 8928, 8930;
 		setarray .@Amount[0],    3,    1,    2,    2,    1,    1,     2,    1,    1,    1,    4,    1,    1;
-		setarray .@Value[0],     2,    2,    2,    2,   2,   2,     2,    2,    2,    2,    2,   2,    2;
+		setarray .@Value[0],     2,    2,    2,    2,    2,    2,     2,    2,    2,    2,    2,    2,    2;
 		set .@cID, 0;
 		set .@Tarjet$, "WoE";
 		break;
 	case 4: // Arrows
 		setarray .@Items[0], 12004,12005,12006,12009,12008,12012,12010,12011,12014,12015,12013,12007,12183,1773,1774,1758,1759,1761,1763,1764,1766,1768,1769,13200,13201,13202,13203,13204,13205,13206,13207,13250,13251,13252,13253,13254,7521,7522,7523,7524,1771;
 		setarray .@Amount[0],5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500;
-		setarray .@Value[0], 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,    3, 3,   3,   3,   3,   3,   3,   3;
+		setarray .@Value[0], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,    1, 1,   1,   1,   1,   1,   1,   1;
 		set .@cID, 0;
 		set .@Tarjet$, "Universal";
 		break;
@@ -279,8 +526,6 @@ bat_room,163,146,2	script	Saxton Hale	731,{
 		set .@Tarjet$, "Raid";
 		break;
 	}
-	
-	
 	set .@Menu$, "";
 	for( set .@i, 0; .@i < getarraysize(.@Items); set .@i, .@i + 1 )
 		set .@Menu$, .@Menu$ + .@Amount[.@i] + " " + getitemname(.@Items[.@i]) + " (" + .@Value[.@i] + " badges):";
@@ -294,14 +539,14 @@ bat_room,163,146,2	script	Saxton Hale	731,{
 
        
 	mes "[Saxton Hale]";
-	mes "How many packages do you want to buy? (1-100)";
+	mes "How many packages do you want to buy? (1-30)";
 	next;
 
 	input .@total;
-	if( .@total < 1 || .@total > 100 )
+	if( .@total < 1 || .@total > 30)
 	{
 		mes "[Saxton Hale]";
-		mes "I am sorry, please input a value from 1 to 100.";
+		mes "I am sorry, please input a value from 1 to 30.";
 		mes "Talk to me again when you do your selections.";
 		close;
 	}

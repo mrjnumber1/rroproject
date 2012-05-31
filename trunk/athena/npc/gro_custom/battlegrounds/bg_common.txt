@@ -84,6 +84,16 @@ OnClock2200:
 
 bat_room,159,178,5	script	Blutarch Mann#1	420,{
 	cutin "bat_kiyom2",2;
+	
+	if (islowratechar() == 1)
+	{
+		mes "[Blutarch Mann]";
+		mes "I'm sorry great adventurer, but I only accept those who were born soldiers into my clan.";
+		mes "(If you'd like to BG, start a new character and elect to instantly become level 99)";
+		close2;
+		cutin "",255;
+		end;
+	}
 	mes "[Blutarch Mann]";
 	mes "Hello " + strcharinfo(0) + ", let's capture the castles of the RED!";
 	next;
@@ -132,7 +142,15 @@ bat_room,159,178,5	script	Blutarch Mann#1	420,{
 bat_room,156,178,5	script	Redmond Mann#2	416,{
 
 	cutin "bat_crua1",2;	
-	
+	if (islowratechar() == 1)
+	{
+		mes "[Redmond Mann]";
+		mes "I'm sorry great adventurer, but I only accept those who were born soldiers into my clan.";
+		mes "(If you'd like to BG, start a new character and elect to instantly become level 99)";
+		close2;
+		cutin "",255;
+		end;
+	}
 	mes "[Redmond Mann]";
 	mes "Hello " + strcharinfo(0) + ", let's defend ourselves from the BLUs!";
 	next;

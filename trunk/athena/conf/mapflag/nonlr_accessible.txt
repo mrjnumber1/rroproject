@@ -1,0 +1,9 @@
+// KarmaRO bg accessible maps
+// note that town and allow_bg_items and allow_gvg_items maps fall under this category as well
+
+gef_fild13	mapflag	nonlr_accessible
+prt_gld	mapflag	nonlr_accessible
+pay_gld	mapflag	nonlr_accessible
+alde_gld	mapflag	nonlr_accessible
+aru_gld	mapflag	nonlr_accessible
+sch_gld	mapflag	nonlr_accessible

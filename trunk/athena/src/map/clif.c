@@ -915,14 +915,14 @@ static int clif_setlevel(struct block_list* bl)
 			// npcs and pets do not have level
 			return 0;
 			break;
-		case BL_PC:
-			if(lv == 99)
-			{
-				struct map_session_data* sd = BL_CAST(BL_PC,bl);
-				if(pc_islowratechar(sd) == false)
-					return 0; 
-			}
-			break;
+		//case BL_PC:
+			//if(lv == 99)
+			//{
+				//struct map_session_data* sd = BL_CAST(BL_PC,bl);
+				//if(pc_islowratechar(sd) == false)
+				//	return 0; 
+			//}
+			//break;
 		default:
 			if(lv >= 99)
 				return 99;
