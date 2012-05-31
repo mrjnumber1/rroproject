@@ -18272,6 +18272,73 @@ BUILDIN_FUNC(getmissionlist)
 // end missions
 
 
+// storage passwords
+BUILDIN_FUNC(set_storage_password)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	const char* str = script_getstr(st, 2);
+
+	nullpo_ret(sd);
+
+	storage_setpassword(sd, str, 1);
+	return 0;
+}
+BUILDIN_FUNC(set_mstorage_password)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	const char* str = script_getstr(st, 3);
+
+	nullpo_ret(sd);
+
+	storage_setpassword(sd, str, 1);
+	return 0;
+}
+BUILDIN_FUNC(set_gstorage_password)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	const char* str = script_getstr(st, 2);
+
+	nullpo_ret(sd);
+
+	storage_setpassword(sd, str, 1);
+	return 0;
+}
+// check, not get! to possibly expose the player to the password hashes would be so stupid!
+BUILDIN_FUNC(check_storage_password)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	const char* str = script_getstr(st, 2);
+
+	nullpo_ret(sd);
+
+	script_pushint(st, (int)storage_checkpassword(sd, str, 1));
+	return 0;
+}
+BUILDIN_FUNC(check_mstorage_password)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	const char* str = script_getstr(st, 2);
+
+	nullpo_ret(sd);
+
+	script_pushint(st, (int)storage_checkpassword(sd, str, 3));
+	return 0;
+}
+BUILDIN_FUNC(check_gstorage_password)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	const char* str = script_getstr(st, 2);
+
+	nullpo_ret(sd);
+
+	script_pushint(st, (int)storage_checkpassword(sd, str, 2));
+	return 0;
+}
+
+
+
+// end storage passwords
+
 // declarations that were supposed to be exported from npc_chat.c
 #ifdef PCRE_SUPPORT
 BUILDIN_FUNC(defpattern);
@@ -18785,6 +18852,17 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(getmymissioninfo, "i"),
 	BUILDIN_DEF(assign_mission, "ii"),
 	BUILDIN_DEF(submit_mission, "i"),
+
+	//storage passwords [mrj]
+	BUILDIN_DEF(set_storage_password, "s"),
+	BUILDIN_DEF(set_mstorage_password, "s"),
+	BUILDIN_DEF(set_gstorage_password, "s"),
+
+	BUILDIN_DEF(check_storage_password, "s"),
+	BUILDIN_DEF(check_mstorage_password, "s"),
+	BUILDIN_DEF(check_gstorage_password, "s"),
+
+
 
 
 	{NULL,NULL,NULL},

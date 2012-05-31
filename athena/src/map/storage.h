@@ -12,6 +12,9 @@ struct item;
 //#include "map.h"
 struct map_session_data;
 
+bool storage_setpassword(struct map_session_data *sd, const char* passwd, int type); 
+bool storage_checkpassword(struct map_session_data *sd, const char* passwd, int type);
+
 static int storage_additem(struct map_session_data* sd, struct item* item_data, int amount, int flag);
 
 int storage_delitem(struct map_session_data* sd, int n, int amount);

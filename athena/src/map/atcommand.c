@@ -1243,10 +1243,16 @@ ACMD_FUNC(speed)
 ACMD_FUNC(storage)
 {
 	nullpo_retr(-1, sd);
-	
+
 	if (sd->npc_id || sd->state.vending || sd->state.buyingstore || sd->state.trading || sd->state.storage_flag)
 		return -1;
 
+	if ( !storage_checkpassword(sd, message, 1) )
+	{
+		clif_displaymessage(fd, "Incorrect password!");
+		return -1;
+	}
+	
 	if (storage_storageopen(sd) == 1)
 	{	//Already open.
 		clif_displaymessage(fd, msg_txt(250));
@@ -1278,6 +1284,12 @@ ACMD_FUNC(memberstorage)
 	if(sd->state.storage_flag == 3)
 	{
 		clif_displaymessage(fd, "You already have your member storage open. Close it to be able to open other storage.");
+		return -1;
+	}
+	
+	if ( !storage_checkpassword(sd, message, 3) )
+	{
+		clif_displaymessage(fd, "Incorrect password!");
 		return -1;
 	}
 
@@ -1326,6 +1338,12 @@ ACMD_FUNC(guildstorage)
 	if (sd->state.storage_flag == 3)
 	{
 		clif_displaymessage(fd, "You already have your member storage open. Close it to be able to open other storage.");
+		return -1;
+	}
+		
+	if ( !storage_checkpassword(sd, message, 2) )
+	{
+		clif_displaymessage(fd, "Incorrect password!");
 		return -1;
 	}
 

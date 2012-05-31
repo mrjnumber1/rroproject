@@ -887,6 +887,7 @@ int pc_isequip(struct map_session_data *sd,int n)
  *------------------------------------------*/
 
 
+// TODO: figure out why this comes out bad from the char server
 void pc_setmemberid(struct map_session_data *sd)
 {
 #ifndef TXT_ONLY
@@ -7955,7 +7956,41 @@ int pc_readmemreg(struct map_session_data *sd, const char *reg)
 	Sql_FreeResult(mmysql_handle);
 	return result;
 #endif
-	return -1;
+	return 0;
+}
+
+char* pc_readmemreg_str(struct map_session_data *sd, const char *reg)
+{
+#ifndef TXT_ONLY
+	StringBuf buf;
+	
+	StringBuf_Init(&buf);
+	StringBuf_Printf(&buf, "SELECT `global_reg_value`.`value` FROM `global_reg_value` WHERE `global_reg_value`.`account_id`='%d' AND `global_reg_value`.`type` = '1' AND `global_reg_value`.`str` = '%s' LIMIT 1",sd->status.member_id, reg);
+	
+	if(SQL_ERROR == Sql_Query(mmysql_handle, StringBuf_Value(&buf)) )
+	{
+		Sql_ShowDebug(mmysql_handle);
+		ShowWarning("Error retrieving memreg `%s` for m:%d, c:%d, a:%d \n", reg, sd->status.member_id, sd->status.account_id, sd->status.char_id);
+		clif_displaymessage(sd->fd, "You need to contact a GM immediately about your member ID.");
+	}
+	else
+	{
+		if( SQL_SUCCESS == Sql_NextRow(mmysql_handle) )
+		{
+			char* data;
+			memset(&sd->memreg_str_val, '\0', sizeof(sd->memreg_str_val));
+
+			Sql_GetData(mmysql_handle, 0, &data, NULL);
+			safestrncpy(sd->memreg_str_val, data, sizeof(sd->memreg_str_val));
+		}
+	}
+
+	StringBuf_Destroy(&buf);
+	Sql_FreeResult(mmysql_handle);
+
+	return sd->memreg_str_val;
+#endif
+	return NULL;
 }
 
 int pc_readregistry(struct map_session_data *sd,const char *reg,int type)
@@ -8012,8 +8047,8 @@ char* pc_readregistry_str(struct map_session_data *sd,const char *reg,int type)
 		//sd_reg = sd->save_reg.account2;
 		//max = sd->save_reg.account2_num;
 		//intif_request_registry(sd,1);
-		ShowWarning("pc_readregistry_str: attempted to return an account2 reg str!\n");
-		return NULL;
+		pc_readmemreg_str(sd, reg);
+		return sd->memreg_str_val;
 	break;
 	default:
 		return NULL;

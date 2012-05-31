@@ -848,10 +848,10 @@ int memitemdata_to_sql(const struct item items[], int max, int id, int tableswit
 	int errors = 0;
 
 	switch (tableswitch) {
-	case TABLE_INVENTORY:     tablename = inventory_db;     selectoption = "char_id";    break;
-	case TABLE_CART:          tablename = cart_db;          selectoption = "char_id";    break;
-	case TABLE_STORAGE:       tablename = storage_db;       selectoption = "account_id"; break;
-	case TABLE_GUILD_STORAGE: tablename = guild_storage_db; selectoption = "guild_id";   break;
+	case TABLE_INVENTORY:     tablename = inventory_db;     selectoption = "char_id";     break;
+	case TABLE_CART:          tablename = cart_db;          selectoption = "char_id";     break;
+	case TABLE_STORAGE:       tablename = storage_db;       selectoption = "account_id";  break;
+	case TABLE_GUILD_STORAGE: tablename = guild_storage_db; selectoption = "guild_id";    break;
 	case TABLE_MEMBER_STORAGE: tablename = member_storage_db; selectoption = "member_id"; break;
 	default:
 		ShowError("Invalid table name!\n");
@@ -981,6 +981,7 @@ int memitemdata_to_sql(const struct item items[], int max, int id, int tableswit
 	}
 
 	StringBuf_Destroy(&buf);
+
 	aFree(flag);
 
 	return errors;

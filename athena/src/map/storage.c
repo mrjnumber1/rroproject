@@ -7,6 +7,8 @@
 #include "../common/malloc.h"
 #include "../common/showmsg.h"
 #include "../common/utils.h"
+#include "../common/md5calc.h"
+#include "../common/strlib.h"
 
 #include "map.h" // struct map_session_data
 #include "storage.h"
@@ -1035,4 +1037,158 @@ int storage_guild_storage_quit(struct map_session_data* sd, int flag)
 	stor->storage_status = 0;
 
 	return 0;
+}
+
+
+bool storage_setpassword(struct map_session_data *sd, const char* passwd, int type)
+{
+	char md5buf1[32], md5buf2[64+1], md5buf3[32+1];
+
+	nullpo_retr(false, sd);
+	nullpo_retr(false, passwd);
+
+	memset(md5buf1, '\0', sizeof (md5buf1));
+	memset(md5buf2, '\0', sizeof (md5buf2));
+	memset(md5buf2, '\0', sizeof (md5buf3));
+
+	if (strlen(passwd) < 6)
+	{
+		clif_displaymessage(sd->fd, "Sorry, passwords must be 6 characters or longer");
+		return false;
+	}
+	MD5_String(passwd, md5buf1);
+
+	switch (type)
+	{
+	case 1: // regular storage
+		{
+			snprintf(md5buf2, sizeof(md5buf2), "%s%s", md5buf1, battle_config.storage_salt);
+			MD5_String(md5buf2, md5buf3);
+
+			safestrncpy(sd->status.storage.password, md5buf3, sizeof (sd->status.storage.password));
+			return true;
+		}
+		break;
+	case 2:
+		{
+			struct guild_storage *gstor;
+			
+			if (!sd->status.guild_id)
+			{
+				clif_displaymessage(sd->fd, "You must be part of a guild to use this function!");
+				return false;
+			}
+
+			if (!sd->state.gmaster_flag)
+			{
+				clif_displaymessage(sd->fd, "Only the guild leader may use this function.");
+				return false;
+			}
+
+			if((gstor = guild2storage2(sd->status.guild_id)) == NULL) 
+			{
+				intif_request_guild_storage(sd->status.account_id, sd->status.guild_id);
+				return false;
+			}
+
+			snprintf(md5buf2, sizeof(md5buf2), "%s%s", md5buf1, battle_config.gstorage_salt);
+			MD5_String(md5buf2, md5buf3);
+
+			safestrncpy(gstor->password, md5buf3, sizeof (gstor->password));
+
+			return true;
+		}
+		break;
+	case 3:
+		{
+			struct member_storage_data *mstor;
+
+			if (!sd->status.member_id)
+			{
+				clif_displaymessage(sd->fd, "You must have a member ID to do this! Oh god what happened?!");
+				return false;
+			}
+			if((mstor = member2storage2(sd->status.member_id)) == NULL) 
+			{
+				intif_request_member_storage(sd->status.account_id, sd->status.member_id);
+				return false;
+			}
+
+			snprintf(md5buf2, sizeof(md5buf2), "%s%s", md5buf1, battle_config.mstorage_salt);
+			MD5_String(md5buf2, md5buf3);
+			
+			safestrncpy(mstor->password, md5buf3, sizeof (mstor->password));
+
+			return true;
+		}
+		break;
+	default:
+		return false;
+	}
+
+	return false;
+}
+
+bool storage_checkpassword(struct map_session_data *sd, const char* passwd, int type)
+{
+	char md5buf1[32], md5buf2[64+1], md5buf3[32+1]; 
+	char target[32+1];
+	char* salt;
+
+	memset(md5buf1, '\0', sizeof (md5buf1));
+	memset(md5buf2, '\0', sizeof (md5buf2));
+	memset(md5buf2, '\0', sizeof (md5buf3));
+	memset(target, '\0', sizeof (target));
+
+	nullpo_retr(false, sd);
+
+	switch (type)
+	{
+	case 1: //regular storage
+		salt = battle_config.storage_salt;
+		safestrncpy(target, sd->status.storage.password, sizeof(target));
+		break;
+	case 2: //guild storage
+		{
+			struct guild_storage *gstor;
+			salt = battle_config.gstorage_salt;
+
+			if((gstor = guild2storage2(sd->status.guild_id)) == NULL) 
+			{
+				intif_request_guild_storage(sd->status.account_id,sd->status.guild_id);
+				return false;
+			}
+
+			safestrncpy(target, gstor->password, sizeof(target));
+
+		}
+		break;
+	case 3: //member storage
+		{
+			struct member_storage_data *mstor;
+			salt = battle_config.mstorage_salt;
+
+			if((mstor = member2storage2(sd->status.member_id)) == NULL) 
+			{
+				intif_request_member_storage(sd->status.account_id,sd->status.member_id);
+				return false;
+			}
+
+			safestrncpy(target, mstor->password, sizeof(target));
+
+		}
+		break;
+	default:
+		return false;
+	}
+
+	if(strlen(target) == 0)
+		return true;
+	MD5_String(passwd, md5buf1);
+	snprintf(md5buf2, sizeof(md5buf2), "%s%s", md5buf1, *salt);
+	MD5_String(md5buf2, md5buf3);
+
+
+	return ( strncmp(md5buf3, target, sizeof (target)) == 0 );
+
 }
