@@ -7477,10 +7477,10 @@ ACMD_FUNC(mobinfo)
 			clif_displaymessage(fd, atcmd_output);
 		}
 
-		sprintf(atcmd_output, "  ATK: %d~%d | MATK: %d~%d | DEF: %d+%d | MDEF: %d+%d | ASPD: %3.1f",
+		sprintf(atcmd_output, "  ATK: %d~%d | MATK: %d~%d | DEF: %d+%d | MDEF: %d+(%d+%d) | ASPD: %3.1f",
 			mob->status.rhw.atk, mob->status.rhw.atk2,
 			mob->status.int_+(mob->status.int_/7)*(mob->status.int_/7), mob->status.int_+(mob->status.int_/5)*(mob->status.int_/5),
-			mob->status.def, mob->status.vit, mob->status.mdef, mob->status.int_+mob->status.vit/2, 200.-(double)mob->status.adelay/20.);
+			mob->status.def, mob->status.vit, mob->status.mdef, mob->status.int_, mob->status.vit/2, 200.-(double)mob->status.adelay/20.);
 		clif_displaymessage(fd, atcmd_output);
 		
 		
