@@ -176,6 +176,12 @@ dicastes01, 200, 322,3	duplicate(f_tooldealer)	Tool Dealer#98	893
 // Important Note : Item ID 677 Platinum Coin is a special item that allow user to select the Enchant, from old chronosRO
 
 bat_room,166,145,4	script	Mann Co. Engineer	63,{
+
+	if (islowratechar() == 1)
+	{
+		message strcharinfo(0), "Sorry, only BG Chars may use this feature";
+		end;
+	}
 	mes "[Mann Co. Engineer]";
 	mes "I'm a man who can apply special bonuses to your equipment in exchange for BG badges";
 	mes "How can I help you?";

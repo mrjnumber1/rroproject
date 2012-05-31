@@ -17407,20 +17407,20 @@ BUILDIN_FUNC(paypoints)
 
 	return 0;
 }
-BUILDIN_FUNC(setlowratechar)
+BUILDIN_FUNC(setbgchar)
 {
 	TBL_PC* sd = script_rid2sd(st);
 
 	nullpo_ret(sd);
 
-	if(pc_islowratechar(sd))
+	if(!pc_islowratechar(sd))
 	{
-		ShowError("Char `%s` (c:%d a:%d m:%d) is already assigned as a LR char!", sd->status.name, sd->status.char_id, sd->status.account_id, sd->status.member_id);
+		ShowError("buildin_setbgchar: Char `%s` (c:%d a:%d m:%d) is already assigned as a BG char!", sd->status.name, sd->status.char_id, sd->status.account_id, sd->status.member_id);
 		return -1;
 	}
 
-	sd->state.lowratechar = 1;
-	script_pushint(st, pc_setglobalreg(sd,"lowratechar",1));
+	sd->state.lowratechar = 0;
+	script_pushint(st, pc_setglobalreg(sd,"bgchar",1));
 
 	return 0;
 
@@ -17432,6 +17432,16 @@ BUILDIN_FUNC(islowratechar)
 	nullpo_ret(sd);
 
 	script_pushint(st, pc_islowratechar(sd));
+
+	return 0;
+}
+BUILDIN_FUNC(isbgchar)
+{
+	TBL_PC* sd = script_rid2sd(st);
+
+	nullpo_ret(sd);
+
+	script_pushint(st, !pc_islowratechar(sd));
 
 	return 0;
 }
@@ -18822,7 +18832,7 @@ struct script_function buildin_func[] = {
 
 	BUILDIN_DEF(getnpcid, "i"),
 
-	BUILDIN_DEF(setlowratechar, ""),
+	BUILDIN_DEF(setbgchar, ""),
 	BUILDIN_DEF(islowratechar, ""),
 	//BUILDIN_DEF(checksecurity, ""),
 	//BUILDIN_DEF(setsecurity, "i"),

@@ -712,23 +712,25 @@ OnInit:
 function	script	F_cu_jobchange	{
 	next;
 
-	if(Class == Job_Novice && islowratechar() == 0)
+	if(Class == Job_Novice && islowratechar() == 1 && jc_set == 0)
 	{
 		mes "First you must decide, will you be a LR char or a BG char?";
-		mes "If you choose to be a LR char, the amount of content you are limited to is none. However you will have to level up at the server rates";
+		mes "If you choose to be a LR char, you are limited to nothing but BG. However you will have to level up at the server rates.";
 		mes "If you choose to be a BG char you will be instantly maxed out in level, but you may not leave any towns, WoE areas, or BG areas.";
-		switch(select("Cancel:I want all content available:I just want instant 99."))
+		switch(select("Cancel:I want to earn my levels:Take me to 99, it's skull-bashing time."))
 		{
 			case 1:
 				close;
 				break;
 			case 2:
-				setlowratechar();
 				next;
+				set jc_set, 1;
 				callfunc "F_cu_lr_jobchange";
 				break;
 			case 3:
 				next;
+				set jc_set, 1;
+				setbgchar();
 				callfunc "F_cu_bg_jobchange";
 				break;
 		}
@@ -739,6 +741,7 @@ function	script	F_cu_jobchange	{
 		callfunc "F_cu_lr_jobchange";
 	}
 	
+	close;
 	end;
 }
 	
@@ -901,8 +904,8 @@ function	script	F_cu_bg_jobchange	{
 		skill 1016,1,0; // Ki Explosion
 	}
 	
-	
-	close;
+	save "bat_room", 153, 150;
+	warp "bat_room", 153, 150;
 }
 
 

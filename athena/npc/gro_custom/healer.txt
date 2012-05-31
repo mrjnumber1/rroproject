@@ -1,11 +1,11 @@
 -	script	f_healer	-1,{
 
-	set .@isbg, ( getmapflag(strcharinfo(3), mf_battleground) );
-	if(islowratechar() == 1 && !.isbg )
+	set .@isbg, ( islowratechar() == 0 );
+	if(islowratechar() == 1)
 		goto OnClick;
 OnTouch:
-	set .@isbg, ( getmapflag(strcharinfo(3), mf_battleground) );
-	if(islowratechar() == 1 && !.isbg )
+	set .@isbg, ( islowratechar() == 0 );
+	if(islowratechar() == 1)
 		end;
 		
 OnClick:	
@@ -59,8 +59,6 @@ OnBuffs:
 	
 	//unitskilluseid .@npcgid,"PR_KYRIE",10,.@chargid;
 
-	
-	
 	
 	set .@spirit, 0;
 	switch(BaseJob)

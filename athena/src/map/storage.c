@@ -1185,7 +1185,7 @@ bool storage_checkpassword(struct map_session_data *sd, const char* passwd, int 
 	if(strlen(target) == 0)
 		return true;
 	MD5_String(passwd, md5buf1);
-	snprintf(md5buf2, sizeof(md5buf2), "%s%s", md5buf1, *salt);
+	snprintf(md5buf2, sizeof(md5buf2), "%s%s", md5buf1, salt);
 	MD5_String(md5buf2, md5buf3);
 
 

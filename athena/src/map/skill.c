@@ -390,8 +390,8 @@ int skillnotok (int skillid, struct map_session_data *sd)
 	if(map[m].flag.restricted && map[m].zone && skill_get_nocast (skillid) & (8*map[m].zone))
 		return 1;
 
-//	if(!pc_islowratechar(sd) && !map_nonlr_battle(m))
-//		return 1;
+	if(!pc_islowratechar(sd) && !map_nonlr_battle(m))
+		return 1;
 
 	switch (skillid) {
 		case AL_WARP:

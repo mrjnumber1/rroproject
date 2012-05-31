@@ -3235,6 +3235,8 @@ static const char* npc_parse_mapflag(char* w1, char* w2, char* w3, char* w4, con
 		map[m].flag.allow_gvg_items=state;
 	else if (!strcmpi(w3,"allow_bg_items"))
 		map[m].flag.allow_bg_items=state;
+	else if (!strcmpi(w3,"nonlr_accessible"))
+		map[m].flag.nonlr_accessible=state;
 	else if (!strcmpi(w3,"nopenalty")) {
 		map[m].flag.noexppenalty=state;
 		map[m].flag.nozenypenalty=state;

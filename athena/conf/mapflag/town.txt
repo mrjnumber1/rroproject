@@ -11,13 +11,14 @@
 //============================================================
 
 prontera	mapflag	town
+morocc	mapflag	town
+alberta	mapflag	town
 izlude	mapflag	town
+aldebaran	mapflag	town
 moc_ruins	mapflag	town
 geffen	mapflag	town
 payon	mapflag	town
 pay_arche	mapflag	town
-alberta	mapflag	town
-aldebaran	mapflag	town
 yuno	mapflag	town
 lighthalzen	mapflag	town
 einbroch	mapflag	town
@@ -31,3 +32,14 @@ louyang	mapflag	town
 hugel	mapflag	town
 rachel	mapflag	town
 veins	mapflag	town
+moscovia	mapflag	town
+manuk	mapflag	town
+splendide	mapflag	town
+brasilis	mapflag	town
+market	mapflag	town
+dicastes01	mapflag	town
+dicastes02	mapflag	town
+mid_camp	mapflag	town
+ra_temple	mapflag	town
+nameless_i	mapflag	town
+thor_camp	mapflag	town
