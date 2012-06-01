@@ -54,7 +54,6 @@ CREATE TABLE IF NOT EXISTS `char` (
   `job_level` smallint(6) unsigned NOT NULL default '1',
   `base_exp` bigint(20) unsigned NOT NULL default '0',
   `job_exp` bigint(20) unsigned NOT NULL default '0',
-  `zeny` int(11) unsigned NOT NULL default '0',
   `str` smallint(4) unsigned NOT NULL default '0',
   `agi` smallint(4) unsigned NOT NULL default '0',
   `vit` smallint(4) unsigned NOT NULL default '0',
@@ -569,5 +568,11 @@ CREATE TABLE IF NOT EXISTS `storage` (
   KEY `account_id` (`account_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+DROP TABLE IF EXISTS `zeny`;
+CREATE TABLE IF NOT EXISTS `zeny` (
+  `account_id` int(11) unsigned NOT NULL default '0',
+  `amount` int(11) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`account_id`)
+) ENGINE=MyISAM;
 
 INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`) VALUES ('1', 's1', 'p1', 'S','athena@athena.com');
