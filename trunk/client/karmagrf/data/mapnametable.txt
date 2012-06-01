@@ -1,4 +1,5 @@
 //사크라이서버 10.11.10
+market.rsw#KarmaRO Vender Market#
 schg_cas06.rsw#BG Conquest - Himinn#
 schg_cas07.rsw#BG Conquest - Andlangr#
 schg_cas08.rsw#BG Conquest - Vidblainn#

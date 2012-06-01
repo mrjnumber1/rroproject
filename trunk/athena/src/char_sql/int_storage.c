@@ -72,6 +72,8 @@ int storage_fromsql(int account_id, struct storage_data* p)
 		}
 	}
 	p->storage_amount = i;
+	
+	Sql_FreeResult(sql_handle);
 
 	StringBuf_Init(&buf); //TODO: this doesn't synch ith the login db from the login server
 	StringBuf_Printf(&buf, "SELECT `storage_password` FROM `login` WHERE `account_id`='%d'", account_id);
@@ -81,9 +83,14 @@ int storage_fromsql(int account_id, struct storage_data* p)
 
 	StringBuf_Destroy(&buf);
 
-	Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(p->password, data, sizeof(p->password));
-
-
+	if( SQL_ERROR == Sql_NextRow(sql_handle) )
+	{// no such entry
+		Sql_ShowDebug(sql_handle);
+	}
+	else
+	{
+		Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(p->password, data, sizeof(p->password));
+	}
 	Sql_FreeResult(sql_handle);
 
 	ShowInfo("storage load complete from DB - id: %d (total: %d)\n", account_id, p->storage_amount);
@@ -149,6 +156,8 @@ int guild_storage_fromsql(int guild_id, struct guild_storage* p)
 		}
 	}
 	p->storage_amount = i;
+	
+	Sql_FreeResult(sql_handle);
 
 	StringBuf_Init(&buf);
 	StringBuf_Printf(&buf, "SELECT `storage_password` FROM `%s` WHERE `guild_id`='%d'", guild_db, guild_id);
@@ -158,10 +167,19 @@ int guild_storage_fromsql(int guild_id, struct guild_storage* p)
 
 	StringBuf_Destroy(&buf);
 
-	Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(p->password, data, sizeof(p->password));
-
+	if( SQL_ERROR == Sql_NextRow(sql_handle) )
+	{// no such entry
+		Sql_ShowDebug(sql_handle);
+	}
+	else
+	{
+		Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(p->password, data, sizeof(p->password));
+	}
 
 	Sql_FreeResult(sql_handle);
+
+
+
 
 	ShowInfo("guild storage load complete from DB - id: %d (total: %d)\n", guild_id, p->storage_amount);
 	return 0;
@@ -223,6 +241,8 @@ int member_storage_fromsql(int member_id, struct member_storage_data* p)
 	}
 	p->storage_amount = i;
 	
+	Sql_FreeResult(sql_handle);
+
 	StringBuf_Init(&buf);
 	StringBuf_Printf(&buf, "SELECT `storage_password` FROM `%s` WHERE `member_id`='%d'", member_db, member_id);
 
@@ -231,10 +251,17 @@ int member_storage_fromsql(int member_id, struct member_storage_data* p)
 
 	StringBuf_Destroy(&buf);
 
-	Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(p->password, data, sizeof(p->password));
-
-
+	if( SQL_ERROR == Sql_NextRow(sql_handle) )
+	{// no such entry
+		Sql_ShowDebug(sql_handle);
+	}
+	else
+	{
+		Sql_GetData(sql_handle, 0, &data, NULL); safestrncpy(p->password, data, sizeof(p->password));
+	}
 	Sql_FreeResult(sql_handle);
+
+
 
 	ShowInfo("member storage load complete from DB - id: %d (total: %d)\n", member_id, p->storage_amount);
 	return 0;

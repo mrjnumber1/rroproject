@@ -1,0 +1,18 @@
+INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
+(12319, 'Strawberry_Cake', 'Rune Strawberry Cake', 2, 0, NULL, 30, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCATKRATE,600000,5; sc_start SC_INCMATKRATE,600000,5;', NULL, NULL),
+(12320, 'Pineapple_Juice', 'Schwartzwald Pine Jubilee', 2, 0, NULL, 30, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCHIT,600000,10; sc_start SC_INCFLEE2,600000,20;', NULL, NULL),
+(12321, 'Spicy_Sandwich', 'Arunafeltz Desert Sandwich', 2, 0, NULL, 30, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCCRI,600000,7;', NULL, NULL),
+(605, 'Anodyne', 'Anodyne', 11, 2000, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemskill "SM_ENDURE",1;', NULL, NULL),
+(606, 'Aloebera', 'Aloevera', 11, 1500, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemskill "SM_SELFPROVOKE",1;', NULL, NULL),
+(12028, 'Box_Of_Thunder', 'Box of Thunder', 2, 1000, NULL, 20, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_SpeedUp0,20000,0;', NULL, NULL),
+(12029, 'Gloomy_Box', 'Box of Gloom', 11, 1000, NULL, 20, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemskill "AC_CONCENTRATION",1;', NULL, NULL),
+(12030, 'Box_Of_Grudge', 'Box of Resentment', 2, 1000, NULL, 20, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_ATKPOTION,60000,20;', NULL, NULL),
+(12031, 'Sleepy_Box', 'Box of Drowsiness', 2, 1000, NULL, 20, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_MATKPOTION,60000,20;', NULL, NULL),
+(12032, 'Box_Of_Storm', 'Box of Storms', 11, 1000, NULL, 20, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemskill "ITEM_ENCHANTARMS",2;', NULL, NULL),
+(12033, 'Box_Of_Sunlight', 'Box of Sunlight', 2, 1000, NULL, 20, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_Intravision,30000,0;', NULL, NULL),
+(12034, 'Painting_Box', 'Box of Panting', 2, 1000, NULL, 20, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'percentheal 0,9; if(rand(1000)<300) sc_start SC_Silence,30000,0;', NULL, NULL),
+(12016, 'Speed_Up_Potion', 'Speed Potion', 2, 2, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_SpeedUp1,5000,0;', NULL, NULL),
+(682, 'Realgar_Wine', 'Distilled Fighting Spirit', 2, 0, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_ATKPOTION,60000,30;', NULL, NULL),
+(683, 'Exorcize_Herb', 'Herb of Incantation', 2, 0, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_MATKPOTION,60000,30;', NULL, NULL),
+(12247, 'Halohalo', 'Halo-Halo', 2, 2, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, 20, NULL, NULL, 'sc_start SC_INCALLSTATUS,600000,3;', NULL, NULL),
+(12351, 'Shout_Megaphone', 'Scream Megaphone', 11, 20, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemskill "MC_LOUD",1;', NULL, NULL);
