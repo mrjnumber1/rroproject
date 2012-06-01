@@ -1008,6 +1008,8 @@ int mmo_chars_fromsql(struct char_session_data* sd, uint8* buf)
 	struct mmo_charstatus p;
 	int j = 0, i;
 	char last_map[MAP_NAME_LENGTH_EXT];
+	int zeny;
+	char* data;
 
 	stmt = SqlStmt_Malloc(sql_handle);
 	if( stmt == NULL )
@@ -1070,9 +1072,6 @@ int mmo_chars_fromsql(struct char_session_data* sd, uint8* buf)
 	}
 
 	/* START - Zeny. [Valaris for KarmaRO] */
-	int zeny;
-	char* data;
-
 	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `amount` FROM `zeny` WHERE `account_id`='%d'", sd->account_id) )
 		Sql_ShowDebug(sql_handle);
 
@@ -1124,6 +1123,8 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 	struct s_skill tmp_skill;
 	struct s_friend tmp_friend;
 	struct s_skillcount tmp_skillcount;
+	int zeny;
+	char* data;
 #ifdef HOTKEY_SAVING
 	struct hotkey tmp_hotkey;
 	int hotkey_num;
@@ -1219,8 +1220,6 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 	strcat(t_msg, " status");
 
 	/* START - Zeny. [Valaris for KarmaRO] */
-	int zeny;
-	char* data;
 
 	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `amount` FROM `zeny` WHERE `account_id`='%d'", p->account_id) )
 		Sql_ShowDebug(sql_handle);
