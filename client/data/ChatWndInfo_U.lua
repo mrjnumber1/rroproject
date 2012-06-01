@@ -17,20 +17,50 @@ ChatSubWnd_1 = {
 	option8 = 1,
 	option9 = 0,
 	option10 = 0,
-	option11 = 0,
+	option11 = 1,
 	option12 = 1,
 	option13 = 1,
 	option14 = 0,
 	option15 = 1,
 	option16 = 0,
 	option17 = 0,
-	option18 = 1,
+	option18 = 0,
 	option19 = 0,
 	option20 = 0,
 	option21 = 0,
 }
 
 ChatSubWnd_2 = {
+	XPos = 0,
+	YPos = 0,
+	Width = 0,
+	Height = 0,
+	TabState = "On",
+	TabName = [[Public]],
+	option1 = 0,
+	option2 = 1,
+	option3 = 0,
+	option4 = 0,
+	option5 = 0,
+	option6 = 0,
+	option7 = 0,
+	option8 = 0,
+	option9 = 0,
+	option10 = 0,
+	option11 = 0,
+	option12 = 0,
+	option13 = 0,
+	option14 = 0,
+	option15 = 0,
+	option16 = 0,
+	option17 = 0,
+	option18 = 0,
+	option19 = 0,
+	option20 = 0,
+	option21 = 0,
+}
+
+ChatSubWnd_3 = {
 	XPos = 0,
 	YPos = 0,
 	Width = 0,
@@ -60,7 +90,7 @@ ChatSubWnd_2 = {
 	option21 = 0,
 }
 
-ChatSubWnd_3 = {
+ChatSubWnd_4 = {
 	XPos = 0,
 	YPos = 0,
 	Width = 0,
@@ -90,7 +120,7 @@ ChatSubWnd_3 = {
 	option21 = 0,
 }
 
-ChatSubWnd_4 = {
+ChatSubWnd_5 = {
 	XPos = 0,
 	YPos = 0,
 	Width = 0,
@@ -120,7 +150,7 @@ ChatSubWnd_4 = {
 	option21 = 0,
 }
 
-ChatSubWnd_5 = {
+ChatSubWnd_6 = {
 	XPos = 0,
 	YPos = 0,
 	Width = 0,
@@ -150,7 +180,7 @@ ChatSubWnd_5 = {
 	option21 = 0,
 }
 
-ChatSubWnd_6 = {
+ChatSubWnd_7 = {
 	XPos = 0,
 	YPos = 0,
 	Width = 0,
@@ -180,7 +210,7 @@ ChatSubWnd_6 = {
 	option21 = 0,
 }
 
-ChatSubWnd_7 = {
+ChatSubWnd_8 = {
 	XPos = 0,
 	YPos = 0,
 	Width = 0,
@@ -210,7 +240,7 @@ ChatSubWnd_7 = {
 	option21 = 0,
 }
 
-ChatSubWnd_8 = {
+ChatSubWnd_9 = {
 	XPos = 0,
 	YPos = 0,
 	Width = 0,

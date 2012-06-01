@@ -547,12 +547,12 @@ Weight :^777777 10^000000
 598#
 A potion made from ground Red Herbs that restores ^000088about 45 HP^000000.
 ^ffffff_^000000
-Weight :^777777 1^000000
+Weight :^777777 .1^000000
 #
 599#
 A potion made from ground Red and Yellow Herbs that restores ^000088about 105 HP^000000.
 ^ffffff_^000000
-Weight :^777777 1^000000
+Weight :^777777 .1^000000
 #
 
 601#
@@ -580,12 +580,12 @@ Weight :^777777 5^000000
 605#
 A medicine made from ground Mint that is used to ease pain and relax muscle tension. It's a popular painkiller because of its potency.
 ^ffffff_^000000
-Weight :^777777 10^000000
+Weight :^777777 1^000000
 #
 606#
 A basic herbal emollient made from Aloe extract. Despite its stench and sour taste, it's addictive if regularly eaten.
 ^ffffff_^000000
-Weight :^777777 10^000000
+Weight :^777777 1^000000
 #
 607#
 Fruit from the Yggdrasil tree which brings life to our world. Its fantastic taste is full of life.
@@ -935,12 +935,12 @@ Weight :^777777 1^000000
 682#
 A magical drink which increases attack strength when it is taken.
 ^ffffff_^000000
-Weight :^777777 10^000000
+Weight :^777777 1^000000
 #
 683#
 An enchanted herb which increases Magical attack strength when eaten.
 ^ffffff_^000000
-Weight :^777777 5^000000
+Weight :^777777 1^000000
 #
 684#
 A tropical delicacy known as the king of fruits. It's big, green and heavy, and is covered in thorns.
@@ -34394,17 +34394,17 @@ Weight : ^7777771^000000
 11500#
 A potion made from ground Yellow Herbs that restores ^000088about 175 HP^000000.
 ^ffffff_^000000
-Weight :^777777 1^000000
+Weight :^777777 .1^000000
 #
 11501#
 A potion made from ground White Herbs that restores ^000088about 325 HP^000000.
 ^ffffff_^000000
-Weight :^777777 1^000000
+Weight :^777777 .1^000000
 #
 11502#
 A potion made from ground Blue Herbs that restores ^000088about 60 SP^000000.
 ^ffffff_^000000
-Weight :^777777 1^000000
+Weight :^777777 .1^000000
 #
 11503#
 A potion made from grinded White Herbs that restores about^000088 400~500 HP^000000.
@@ -34728,7 +34728,7 @@ Weight :^777777 25^000000
 12016#
 A potion which increases the moving speed of a character for a duration.
 ^ffffff_^000000
-Weight :^777777 10^000000
+Weight :^777777 .1^000000
 #
 12017#
 A potion which decreases the moving speed of a character for a duration.
@@ -34790,37 +34790,37 @@ Weight :^777777 20^000000
 12028#
 Increases Movement Speed for 20 seconds.
 ^ffffff_^000000
-Weight :^777777 20^000000
+Weight :^777777 2^000000
 #
 12029#
 Cast ^008800Level 1 Attention Concentrate^000000.
 ^ffffff_^000000
-Weight :^777777 20^000000
+Weight :^777777 2^000000
 #
 12030#
 Increases your ATK by 20 for 60 seconds.
 ^ffffff_^000000
-Weight :^777777 20^000000
+Weight :^777777 2^000000
 #
 12031#
 Increases your MATK by 20 for 60 seconds.
 ^ffffff_^000000
-Weight :^777777 20^000000
+Weight :^777777 2^000000
 #
 12032#
 Imbues the user's weapon with the ^0000FFWater^000000 Property for 3 minutes.
 ^ffffff_^000000
-Weight :^777777 20^000000
+Weight :^777777 2^000000
 #
 12033#
 Enables the user to detect any hidden enemies for 30 seconds.
 ^ffffff_^000000
-Weight :^777777 20^000000
+Weight :^777777 2^000000
 #
 12034#
 Restores 9% of Maximum SP, but has a 30% chance to get you ^880000Silence^000000 for 30 seconds.
 ^ffffff_^000000
-Weight :^777777 20^000000
+Weight :^777777 2^000000
 #
 12035#
 A sealed box containing a Lotto Ball from numbers 1-10.
@@ -35985,7 +35985,7 @@ A glass of sweetened fruits and desserts served with crushed ice and lots of mil
 All Stats +3 for 10 minute duration.
 Limited to Level 20 or above players.
 ^ffffff_^000000
-Weight :^777777 10^000000
+Weight :^777777 1^000000
 #
 12248#
 A box containing Fancy Ball ornament.
@@ -36392,19 +36392,19 @@ Weight :^777777 1^000000
 A snack sent from Rune-Midgards. Be careful not to let anybody taste the cake without even asking.
 ^000088ATK, MATK + 5 for 10 minutes.^000000
 ^ffffff_^000000
-Weight :^777777 30^000000
+Weight :^777777 3^000000
 #
 12320#
 A snack sent from Schwartzwald. Ice cold fruit juice quenches your throat and cools your whole body.
 ^000088HIT + 10 , Perfect Dodge + 20 for 10 minutes.^000000
 ^ffffff_^000000
-Weight :^777777 30^000000
+Weight :^777777 3^000000
 #
 12321#
 A snack sent from Arunafeltz. This sandwich helps developing stamina with its spicy taste.
 ^000088Critical + 7 for 10 minutes.^000000
 ^ffffff_^000000
-Weight :^777777 30^000000
+Weight :^777777 3^000000
 #
 12322#
 A pie covered with sweet chocolate. This sure looks not pretty but the taste is excellent. It reminds you of the taste of homemade pie. 
@@ -36581,7 +36581,7 @@ Weight :^777777 10^000000
 12351#
 Add a chance of auto casting ^008800Level 1 Crazy Uproar^000000 on the wearer.
 ^ffffff_^000000
-Weight :^777777 5^000000
+Weight :^777777 1^000000
 #
 12352#
 A scroll with lots of dungeon & field coordination written on it. You can go to the place you want by tearing the paper into pieces.
@@ -48062,20 +48062,20 @@ Weight :^777777 1^000000
 14509#
 A potent medicine that stimulates concentration.
 Temporarily increases Attack Speed.
-Weight :^777777 2^000000
+Weight :^777777 .1^000000
 Applicable Job :^777777 Every Job^000000
 #
 14510#
 A special tonic that combats the effects of drowsiness.
 Temporarily increases Attack Speed.
-Weight :^777777 2^000000
+Weight :^777777 .1^000000
 Required Level :^777777 40^000000
 Applicable Job :^777777 All except Acolyte, Priest, Bard and Dancer^000000
 #
 14511#
 Remarkably powerful medicine that stimulates circulation and amplifies quickness.
 Temporarily increases Attack Speed.
-Weight :^777777 2^000000
+Weight :^777777 .1^000000
 Required Level :^777777 85^000000
 Applicable Job :^777777 Swordman Class, Merchant Class, TaeKwon Class, Mage, Wizard, Rogue^000000
 #
