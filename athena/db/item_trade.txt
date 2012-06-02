@@ -724,8 +724,8 @@
 7914,251,100	// Ancient_Document_TW
 //11503,219,100	// Siege_White_Potion
 //11504,219,100	// Siege_Blue_Potion
-12274,251,100	// Gold_Pill_1
-12275,251,100	// Gold_Pill_2
+//12274,251,100	// Gold_Pill_1
+//12275,251,100	// Gold_Pill_2
 12287,251,100	// Love_Angel
 12288,251,100	// Squirrel
 12289,251,100	// Gogo
@@ -733,8 +733,8 @@
 12295,251,100	// PC_Bang_Coin_Box2
 12296,251,100	// PC_Bang_Coin_Box3
 12297,251,100	// PC_Bang_Coin_Box4
-12298,251,100	// SP_Potion
-12299,251,100	// Mega_Resist_Potion
+//12298,251,100	// SP_Potion
+//12299,251,100	// Mega_Resist_Potion
 12300,243,100	// Wild_Rose_Scroll
 12301,243,100	// Doppelganger_Scroll
 12302,243,100	// Ygnizem_Scroll

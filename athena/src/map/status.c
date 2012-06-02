@@ -7605,6 +7605,9 @@ int status_change_clear_buffs (struct block_list* bl, int type)
 			case SC_CP_SHIELD:
 			case SC_CP_ARMOR:
 			case SC_CP_HELM:
+			case SC_INCALLSTATUS:
+			case SC_ATKPOTION:
+			case SC_MATKPOTION:
 			case SC_STRFOOD:
 			case SC_AGIFOOD:
 			case SC_VITFOOD:

@@ -6328,7 +6328,7 @@ CREATE TABLE `item_db2` (
 -- Dumping data for table `item_db2`
 --
 
-INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
+REPLACE INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
 (12114, 'Elemental_Fire', 'Fire Elemental Converter', 11, 2, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemskill "ITEM_ENCHANTARMS",4;', NULL, NULL),
 (12115, 'Elemental_Water', 'Water Elemental Converter', 11, 2, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemskill "ITEM_ENCHANTARMS",2;', NULL, NULL),
 (12116, 'Elemental_Earth', 'Earth Elemental Converter', 11, 2, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemskill "ITEM_ENCHANTARMS",3;', NULL, NULL),
@@ -6472,7 +6472,7 @@ INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_bu
 
 
 
-INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
+REPLACE INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
 (5306, 'Freyja_Crown', 'Freya''s Crown', 5, 0, NULL, 500, NULL, 12, NULL, 0, 4294967294, 7, 2, 256, NULL, 0, 0, 328, 'bonus2 bSubRace,RC_DemiHuman,5;', NULL, NULL),
 (5307, 'Carmen_Miranda''s_Hat', 'Carmen Miranda''s Hat', 5, 20, NULL, 400, NULL, 3, NULL, 0, 4294967295, 7, 0, 256, NULL, 0, 1, 329, 'bonus bMdef,3; bonus3 bAutoSpellWhenHit,"DC_WINKCHARM",1,50;', NULL, NULL),
 (5308, 'Brazilian_Flag_Hat', 'Brazil National Flag Hat', 5, 20, NULL, 300, NULL, 3, NULL, 1, 4294967295, 7, 0, 256, NULL, 0, 1, 330, 'bonus bSpeedAddRate,25;', NULL, NULL),
@@ -6684,7 +6684,7 @@ INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_bu
 (5697, 'E_Smoking_Pipe_', 'E Smoking Pipe', 5, 20, NULL, 100, NULL, 0, NULL, 0, 0, 7, 2, 1, NULL, 0, 0, 55, 'bonus bVit,1;', NULL, NULL),
 (5698, 'E_Pair_OE_Red_Ribbon_', 'E Pair OE Red Ribbon', 5, 20, NULL, 100, NULL, 1, NULL, 0, 0, 7, 2, 512, NULL, 45, 0, 169, NULL, NULL, NULL);
 
-INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
+REPLACE INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
 (5699, 'E_Fish_On_Head_', 'E Fish On Head', 5, 20, NULL, 500, NULL, 2, NULL, 0, 4294967295, 7, 2, 256, NULL, 50, 1, 149, 'bonus bDex,1; bonus bAgi,1;', NULL, NULL),
 (5700, 'E_Hibiscus', 'E Hibiscus', 5, 20, NULL, 200, NULL, 0, NULL, 0, 4294967295, 7, 2, 256, NULL, 10, 0, 210, 'bonus bInt,1; bonus bDex,1; bonus bMdef,5;', NULL, NULL),
 (5701, 'E_Cat_Hat', 'E Cat Hat', 5, 20, NULL, 300, NULL, 1, NULL, 0, 4294967295, 7, 2, 256, NULL, 0, 1, 182, 'bonus bLuk,2; bonus bMdef,10;', NULL, NULL),
@@ -6794,14 +6794,14 @@ INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_bu
 
 
 
-INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
+REPLACE INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
 (2609, 'Skul_Ring', 'Skull Ring', 3, 10000, NULL, 100, NULL, 0, NULL, 0, 4294967295, 7, 2, 136, NULL, 0, 0, 0, NULL, NULL, NULL),
 (2610, 'Gold_Ring', 'Gold Ring', 3, 30000, NULL, 100, NULL, 0, NULL, 0, 4294967295, 7, 2, 136, NULL, 0, 0, 0, NULL, NULL, NULL),
 (2611, 'Silver_Ring', 'Silver Ring', 3, 20000, NULL, 100, NULL, 0, NULL, 0, 4294967295, 7, 2, 136, NULL, 0, 0, 0, NULL, NULL, NULL),
 (2612, 'Flower_Ring', 'Flower Ring', 3, 1500, NULL, 100, NULL, 0, NULL, 0, 4294967295, 7, 2, 136, NULL, 0, 0, 0, NULL, NULL, NULL),
 (2613, 'Diamond_Ring', 'Diamond Ring', 3, 45000, NULL, 100, NULL, 0, NULL, 0, 4294967295, 7, 2, 136, NULL, 0, 0, 0, NULL, NULL, NULL);
 
-INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
+REPLACE INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
 (598, 'Light_Red_Pot', 'Light Red Potion', 0, 50, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemheal rand(45,65),0;', NULL, NULL),
 (599, 'Light_Orange_Pot', 'Light Orange Potion', 0, 200, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemheal rand(105,145),0;', NULL, NULL),
 (11500, 'Light_Yellow_Pot', 'Light Yellow Potion', 0, 550, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemheal rand(175,235),0;', NULL, NULL),
@@ -6811,7 +6811,7 @@ INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_bu
 (14510, 'Light_Awakening_Pot', 'Light Awakening Potion', 2, 1500, NULL, 2, NULL, NULL, NULL, NULL, 4294442735, 7, 2, NULL, NULL, 40, NULL, NULL, 'sc_start SC_ASPDPOTION1,1800000,0;', NULL, NULL),
 (14511, 'Light_Berserk_Pot', 'Light Berserk Potion', 2, 3000, NULL, 2, NULL, NULL, NULL, NULL, 31868582, 7, 2, NULL, NULL, 85, NULL, NULL, 'sc_start SC_ASPDPOTION2,1800000,0;', NULL, NULL);
 
-INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
+REPLACE INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
 (12319, 'Strawberry_Cake', 'Rune Strawberry Cake', 2, 0, NULL, 30, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCATKRATE,600000,5; sc_start SC_INCMATKRATE,600000,5;', NULL, NULL),
 (12320, 'Pineapple_Juice', 'Schwartzwald Pine Jubilee', 2, 0, NULL, 30, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCHIT,600000,10; sc_start SC_INCFLEE2,600000,20;', NULL, NULL),
 (12321, 'Spicy_Sandwich', 'Arunafeltz Desert Sandwich', 2, 0, NULL, 30, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCCRI,600000,7;', NULL, NULL),
@@ -6829,3 +6829,17 @@ INSERT INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_bu
 (683, 'Exorcize_Herb', 'Herb of Incantation', 2, 0, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_MATKPOTION,60000,30;', NULL, NULL),
 (12247, 'Halohalo', 'Halo-Halo', 2, 2, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, 20, NULL, NULL, 'sc_start SC_INCALLSTATUS,600000,3;', NULL, NULL),
 (12351, 'Shout_Megaphone', 'Scream Megaphone', 11, 20, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'itemskill "MC_LOUD",1;', NULL, NULL);
+
+REPLACE INTO `item_db2` ( `id` , `name_english` , `name_japanese` , `type` , `price_buy` , `price_sell` , `weight` , `attack` , `defence` , `range` , `slots` , `equip_jobs` , `equip_upper` , `equip_genders` , `equip_locations` , `weapon_level` , `equip_level` , `refineable` , `view` , `script` , `equip_script` , `unequip_script` )
+VALUES ( 5451, 'Dragonhelm_Gold', 'RWC 2008 Dragon Helm Gold', 5, 20, NULL , 2500, NULL , 7, NULL , 1, 4294967295, 7, 2, 256, NULL , 1, 0, 452, 'bonus bAspdRate,10; bonus bAllStats,3; bonus2 bAddRace,RC_DemiHuman,5;', NULL , NULL ) , 
+( 5452, 'Dragonhelm_Silver', 'RWC 2008 Dragon Helm Silver', 5, 20, NULL , 2500, NULL , 5, NULL , 1, 4294967295, 7, 2, 256, NULL , 1, 0, 453, 'bonus bAspdRate,7; bonus bAllStats,2; bonus2 bAddRace,RC_DemiHuman,3;', NULL , NULL ) , 
+( 5453, 'Dragonhelm_Copper', 'RWC 2008 Dragon Helm Copper', 5, 20, NULL , 2500, NULL , 0, NULL , 1, 4294967295, 7, 2, 256, NULL , 1, 0, 454, 'bonus bAspdRate,5; bonus bAllStats,2; bonus2 bAddRace,RC_DemiHuman,1;', NULL , NULL ) ,
+(12073, 'Str_Dish08', 'Bearfoot Special', 0, 60000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_STRFOOD, 1200000, 8; percentheal 1,1;', NULL, NULL),
+(12077, 'Int_Dish07', 'Special Royal Jelly Herbal Tea', 0, 40000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INTFOOD, 1200000, 7; percentheal 1,1;', NULL, NULL),
+(12082, 'Vit_Dish07', 'Sumptuous Feast', 0, 40000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_VITFOOD, 1200000, 7; percentheal 1,1;', NULL, NULL),
+(12087, 'Agi_Dish07', 'Steamed Alligator with Vegetable', 0, 40000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_AGIFOOD, 1200000, 7; percentheal 1,1;', NULL, NULL),
+(12093, 'Dex_Dish08', 'Special Toast', 0, 60000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_DEXFOOD, 1200000, 8; percentheal 1,1;', NULL, NULL),
+(12097, 'Luk_Dish07', 'Assorted Shish Kebob', 0, 40000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_LUKFOOD, 1200000, 7; percentheal 1,1;', NULL, NULL),
+(12124, 'Rainbow_Cake', 'Rainbow Cake', 2, 2, NULL, 20, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_BATKFOOD,1200000,10; sc_start SC_MATKFOOD,120000,10;', NULL, NULL),
+(12274, 'Gold_Pill_1', 'Daehwandan', 0, 0, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCMHPRATE,36000000,5; percentheal 5,0;', NULL, NULL),
+(12275, 'Gold_Pill_2', 'Taecheongdan', 0, 0, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCMSPRATE,36000000,5; percentheal 0,5;', NULL, NULL);

@@ -1,0 +1,14 @@
+
+REPLACE INTO `item_db2` ( `id` , `name_english` , `name_japanese` , `type` , `price_buy` , `price_sell` , `weight` , `attack` , `defence` , `range` , `slots` , `equip_jobs` , `equip_upper` , `equip_genders` , `equip_locations` , `weapon_level` , `equip_level` , `refineable` , `view` , `script` , `equip_script` , `unequip_script` )
+VALUES ( 5451, 'Dragonhelm_Gold', 'RWC 2008 Dragon Helm Gold', 5, 20, NULL , 2500, NULL , 7, NULL , 1, 4294967295, 7, 2, 256, NULL , 1, 0, 452, 'bonus bAspdRate,10; bonus bAllStats,3; bonus2 bAddRace,RC_DemiHuman,5;', NULL , NULL ) , 
+( 5452, 'Dragonhelm_Silver', 'RWC 2008 Dragon Helm Silver', 5, 20, NULL , 2500, NULL , 5, NULL , 1, 4294967295, 7, 2, 256, NULL , 1, 0, 453, 'bonus bAspdRate,7; bonus bAllStats,2; bonus2 bAddRace,RC_DemiHuman,3;', NULL , NULL ) , 
+( 5453, 'Dragonhelm_Copper', 'RWC 2008 Dragon Helm Copper', 5, 20, NULL , 2500, NULL , 0, NULL , 1, 4294967295, 7, 2, 256, NULL , 1, 0, 454, 'bonus bAspdRate,5; bonus bAllStats,2; bonus2 bAddRace,RC_DemiHuman,1;', NULL , NULL ) ,
+(12073, 'Str_Dish08', 'Bearfoot Special', 0, 60000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_STRFOOD, 1200000, 8; percentheal 1,1;', NULL, NULL),
+(12077, 'Int_Dish07', 'Special Royal Jelly Herbal Tea', 0, 40000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INTFOOD, 1200000, 7; percentheal 1,1;', NULL, NULL),
+(12082, 'Vit_Dish07', 'Sumptuous Feast', 0, 40000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_VITFOOD, 1200000, 7; percentheal 1,1;', NULL, NULL),
+(12087, 'Agi_Dish07', 'Steamed Alligator with Vegetable', 0, 40000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_AGIFOOD, 1200000, 7; percentheal 1,1;', NULL, NULL),
+(12093, 'Dex_Dish08', 'Special Toast', 0, 60000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_DEXFOOD, 1200000, 8; percentheal 1,1;', NULL, NULL),
+(12097, 'Luk_Dish07', 'Assorted Shish Kebob', 0, 40000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_LUKFOOD, 1200000, 7; percentheal 1,1;', NULL, NULL),
+(12124, 'Rainbow_Cake', 'Rainbow Cake', 2, 2, NULL, 20, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_BATKFOOD,1200000,10; sc_start SC_MATKFOOD,120000,10;', NULL, NULL),
+(12274, 'Gold_Pill_1', 'Daehwandan', 0, 0, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCMHPRATE,36000000,5; percentheal 5,0;', NULL, NULL),
+(12275, 'Gold_Pill_2', 'Taecheongdan', 0, 0, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCMSPRATE,36000000,5; percentheal 0,5;', NULL, NULL);

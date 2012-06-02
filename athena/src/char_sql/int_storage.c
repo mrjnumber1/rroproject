@@ -20,7 +20,7 @@
 /// Save storage data to sql
 int storage_tosql(int account_id, struct storage_data* p)
 {	
-	if (p->password != NULL)
+	if (p->password[0] != '\0')
 	{
 		if (SQL_ERROR == Sql_Query(sql_handle, "UPDATE `login` SET `storage_password` = '%s' WHERE `account_id` = '%d' LIMIT 1", p->password, account_id))
 			Sql_ShowDebug(sql_handle);
@@ -83,6 +83,8 @@ int storage_fromsql(int account_id, struct storage_data* p)
 
 	StringBuf_Destroy(&buf);
 
+	memset(p->password, '\0', sizeof(p->password));
+
 	if( SQL_ERROR == Sql_NextRow(sql_handle) )
 	{// no such entry
 		Sql_ShowDebug(sql_handle);
@@ -101,7 +103,7 @@ int storage_fromsql(int account_id, struct storage_data* p)
 /// Save guild_storage data to sql
 int guild_storage_tosql(int guild_id, struct guild_storage* p)
 {
-	if (p->password != NULL)
+	if (p->password[0] != '\0')
 	{
 		if (SQL_ERROR == Sql_Query(sql_handle, "UPDATE `guild` SET `storage_password` = '%s' WHERE `guild_id` = '%d' LIMIT 1", p->password, guild_id))
 			Sql_ShowDebug(sql_handle);
@@ -167,6 +169,7 @@ int guild_storage_fromsql(int guild_id, struct guild_storage* p)
 
 	StringBuf_Destroy(&buf);
 
+	memset(p->password, '\0', sizeof(p->password));
 	if( SQL_ERROR == Sql_NextRow(sql_handle) )
 	{// no such entry
 		Sql_ShowDebug(sql_handle);
@@ -188,7 +191,7 @@ int guild_storage_fromsql(int guild_id, struct guild_storage* p)
 
 int member_storage_tosql(int member_id, struct member_storage_data* p)
 {
-	if (p->password != NULL)
+	if (p->password[0] != '\0')
 	{
 		if (SQL_ERROR == Sql_Query(sql_handle, "UPDATE `members` SET `storage_password` = '%s' WHERE `member_id` = '%d' LIMIT 1", p->password, member_id))
 			Sql_ShowDebug(sql_handle);
@@ -251,6 +254,7 @@ int member_storage_fromsql(int member_id, struct member_storage_data* p)
 
 	StringBuf_Destroy(&buf);
 
+	memset(p->password, '\0', sizeof(p->password));
 	if( SQL_ERROR == Sql_NextRow(sql_handle) )
 	{// no such entry
 		Sql_ShowDebug(sql_handle);

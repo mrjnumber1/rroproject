@@ -1247,7 +1247,7 @@ ACMD_FUNC(storage)
 	if (sd->npc_id || sd->state.vending || sd->state.buyingstore || sd->state.trading || sd->state.storage_flag)
 		return -1;
 
-	if ( !storage_checkpassword(sd, message, 1) )
+	if ( storage_haspassword(sd, 1) && !storage_checkpassword(sd, message, 1) )
 	{
 		clif_displaymessage(fd, "Incorrect password!");
 		return -1;
@@ -1287,7 +1287,7 @@ ACMD_FUNC(memberstorage)
 		return -1;
 	}
 	
-	if ( !storage_checkpassword(sd, message, 3) )
+	if ( storage_haspassword(sd, 3) &&  !storage_checkpassword(sd, message, 3) )
 	{
 		clif_displaymessage(fd, "Incorrect password!");
 		return -1;
@@ -1341,7 +1341,7 @@ ACMD_FUNC(guildstorage)
 		return -1;
 	}
 		
-	if ( !storage_checkpassword(sd, message, 2) )
+	if ( storage_haspassword(sd, 2) &&  !storage_checkpassword(sd, message, 2) )
 	{
 		clif_displaymessage(fd, "Incorrect password!");
 		return -1;
@@ -2391,6 +2391,7 @@ ACMD_FUNC(go)
 		{ MAP_SPLENDIDE,   {195, 191, 358}, {141,  19, 232} }, // 31=Splendide
 		{ MAP_DICASTES,	   {194, 120, 195}, {182, 199, 315} }, // 32=Dicastes
 		{ MAP_MARKET,      { 97,  97,  97}, {108, 108, 108} }, // 33=Market
+		{ MAP_BGLOBBY,     {150, 150, 150}, {146, 146, 146} }, // 34=BG
 	};
 
 	nullpo_retr(-1, sd);
@@ -2524,6 +2525,10 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (2*1000))
 	} else if (strncmp(map_name, "vend",3) == 0 ||
 			   strncmp(map_name, "market",3) == 0) {
 		town = 33;
+	} else if (strncmp(map_name, "bg",2) == 0 ||
+			   strncmp(map_name, "battlegrounds",3) == 0)
+	{
+		town = 34;
 	}
 
 
@@ -2538,6 +2543,24 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (2*1000))
 			clif_displaymessage(fd, msg_txt(248));
 			return -1;
 		}
+		if (town == 34) 
+		{
+			// 3 per ip limit @ bg
+			if ( battleground_countlogin(sd, false) > 3)
+			{
+				clif_displaymessage(fd, "Sorry, but no more than 3 users from the same IP may join BG.");
+				clif_displaymessage(fd, "Please contact a GM to if you and your friends require an exception.");
+				return -1;
+			}
+			
+			if ( pc_islowratechar(sd) )
+			{
+				clif_displaymessage(fd, "Sorry, only BG Warriors may enter the BG lobby.");
+				return -1;
+			}
+			
+		}
+		
 		if (pc_setpos(sd, mapindex_name2id(data[town].map), data[town].x[spot] + rnd()%5, data[town].y[spot] + rnd()%5, CLR_TELEPORT) == 0) {
 			clif_displaymessage(fd, msg_txt(0)); // Warped.
 		} else {
