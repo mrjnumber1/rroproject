@@ -14506,7 +14506,7 @@ Weight :^777777 0^000000
 Applicable Job :^777777 Every Job^000000
 #
 2772#
-Increases damage against ^FF0000Fire^000000, ^0000FFWater^000000, ^996600Earth^000000, ^009900Wind^000000 Property monsters by 10%.
+Reduces damage against ^FF0000Fire^000000, ^0000FFWater^000000, ^996600Earth^000000, ^009900Wind^000000 Property attacks by 10%.
 HP + 300
 Attack Speed +5%
 Reduce Casting Time by 3%.
@@ -23592,7 +23592,7 @@ Applicable Job :^777777 Every Job Except Novice^000000
 5451#
 A helmet that exists in Legends, only the Champions of RWC are fit to wear it.
 Attack Speed is increased by 10%. ALL STAT + 3
-Increases damage from DemiHuman monster by 5%.
+Increases damage to DemiHuman monster by 5%.
 Impossible to refine this item.
 (All transfer methods except Kafra Storage are locked)
 Class :^777777 Headgear^000000
@@ -23604,7 +23604,7 @@ Applicable Job :^777777 Every Job^000000
 5452#
 A helmet that exists in Legends, only the Runner-Ups of RWC are fit to wear it.
 Attack Speed is increased by 7%. ALL STAT + 2
-Increases damage from DemiHuman monster by 3%.
+Increases damage to DemiHuman monster by 3%.
 Impossible to refine this item.
 (All transfer methods except Kafra Storage are locked)
 Class :^777777 Headgear^000000
@@ -23616,7 +23616,7 @@ Applicable Job :^777777 Every Job^000000
 5453#
 A helmet that exists in Legends, only the 3rd Placing of RWC are fit to wear it.
 Attack Speed is increased by 5%. ALL STAT + 2
-Increases damage from DemiHuman monster by 1%.
+Increases damage to DemiHuman monster by 1%.
 Impossible to refine this item.
 (All transfer methods except Kafra Storage are locked)
 Class :^777777 Headgear^000000
@@ -35049,7 +35049,7 @@ Weight :^777777 100^000000
 One of the finest dishes from Louyang, a delicacy made from a bear's meaty foot.
 STR + 8
 ^ffffff_^000000
-Weight :^777777 50^000000
+Weight :^777777 .1^000000
 #
 12074#
 A fresh and juicy satay made from thick tendons. Only good for the first hour after it's cooked.
@@ -35073,7 +35073,7 @@ Weight :^777777 30^000000
 An herbal tea mixed with royal jelly that has a pungent scent, but a refreshing flavor.
 INT + 7
 ^ffffff_^000000
-Weight :^777777 80^000000
+Weight :^777777 .1^000000
 #
 12078#
 A sweetly scented tea, one of Charles Orleans's specialties, that is regularly enjoyed by the royal family.
@@ -35103,7 +35103,7 @@ Weight :^777777 50^000000
 A magnificent feast fit for gods that would make mortals cry tears of joy.
 VIT + 7
 ^ffffff_^000000
-Weight :^777777 40^000000
+Weight :^777777 .1^000000
 #
 12083#
 A jumbo sized burrito for jumbo sized appetites, though it is a bit difficult to eat.
@@ -35133,7 +35133,7 @@ Weight :^777777 80^000000
 A special Umbala dish made with steamed alligator meat wrapped in vegetables.
 AGI + 7
 ^ffffff_^000000
-Weight :^777777 80^000000
+Weight :^777777 .1^000000
 #
 12088#
 A spicy curry with a spice known to have the flavor of patience. Fortunately, the taste is balanced with pumpkin.
@@ -35169,7 +35169,7 @@ Weight :^777777 80^000000
 Large toasted bread garnished with huge amounts of meat, cheese, and vegetables. It's so big, that it's hard to eat it as one meal.
 DEX + 8
 ^ffffff_^000000
-Weight :^777777 100^000000
+Weight :^777777 .1^000000
 #
 12094#
 Heavenly tasting juice that makes the drinker feel refreshed and relaxed.
@@ -35193,7 +35193,7 @@ Weight :^777777 30^000000
 Marinated meat and vegetables roasted on a skewer.
 LUK + 7
 ^ffffff_^000000
-Weight :^777777 80^000000
+Weight :^777777 .1^000000
 #
 12098#
 A riceball garnished with strawberries that give it an unexpectedly delicious taste.
@@ -35345,7 +35345,7 @@ Weight :^777777 7^000000
 A colorful rice cake that is used as a party food in the far East.
 Temporarily adds + 10 ATK and MATK.
 ^ffffff_^000000
-Weight :^777777 7^000000
+Weight :^777777 2^000000
 #
 12125#
 A cooking kit that is designed for outdoor use. It's a little crude, but it's also portable.
@@ -36147,14 +36147,16 @@ Weight :^777777 7^000000
 12274#
 ... 
 Only one of Eastern religious groups can be created.
-Increases Maximum HP + 5% for 1 hour. Increases HP + 10%.
+Increases Maximum HP + 5% for 1 hour. 
+Restores HP + 5%.
 ^ffffff_^000000
 Weight : ^777777 1^000000
 #
 12275#
 Created as a vision of the various magic herb pills.
 ...
-Increases Maximum SP + 5% for 1 hour. Increases SP + 10%.
+Increases Maximum SP + 5% for 1 hour. 
+Restores SP + 5%.
 ^ffffff_^000000
 Weight : ^777777 1^000000
 #
@@ -36601,7 +36603,7 @@ Weight :^777777 1^000000
 12354#
 A chocolate roll cake in the form of fire wood covered by snow.
 When you see it, you can feel Xmas is coming.
-Increase the restoration power by 3% for 10 minutes. HIT + 3, CRIT + 7.
+Increase the HP and SP by 3% for 10 minutes. HIT + 3, CRIT + 7.
 ^ffffff_^000000
 Weight :^777777 5^000000
 #
