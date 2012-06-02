@@ -94,6 +94,16 @@ bat_room,159,178,5	script	Blutarch Mann#1	420,{
 		cutin "",255;
 		end;
 	}
+	if (bg_logincount() > 3)
+	{
+		mes "[Blutarch Mann]";
+		mes "I'm sorry, but it appears that more than 3 people from your IP are in BG, and as such I cannot allow you to enter.";
+		mes "I'm sure your intentions are pure...";
+		close2;
+		cutin "",255;
+		end;
+	}
+	
 	mes "[Blutarch Mann]";
 	mes "Hello " + strcharinfo(0) + ", let's capture the castles of the RED!";
 	next;
@@ -151,6 +161,16 @@ bat_room,156,178,5	script	Redmond Mann#2	416,{
 		cutin "",255;
 		end;
 	}
+	if (bg_logincount() > 3)
+	{
+		mes "[Redmond Mann]";
+		mes "I'm sorry, but it appears that more than 3 people from your IP are in BG, and as such I cannot allow you to enter.";
+		mes "I'm sure your intentions are pure...";
+		close2;
+		cutin "",255;
+		end;
+	}
+	
 	mes "[Redmond Mann]";
 	mes "Hello " + strcharinfo(0) + ", let's defend ourselves from the BLUs!";
 	next;

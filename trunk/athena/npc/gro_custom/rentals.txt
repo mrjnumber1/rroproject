@@ -16,44 +16,41 @@ OnInit:
 	// Keep our columns lined up, or see cock removed from body
 	// UPPER+MEDIUM+LOWER
 	add_bg_rental(EQP_HEAD_LOW|EQP_HEAD_MID|EQP_HEAD_TOP
-							  ,5808,   100, 5, 4223); //+5 stun-resist d bash
+							  ,5808,   50, 5, 4223); //+5 stun-resist d bash
 							  
 	// UPPER ONLY
-	add_bg_rental(EQP_HEAD_TOP, 5409,  200, 4, 4412); // aria cowboyhat
 	
+	// refined
+	add_bg_rental(EQP_HEAD_TOP, 5132,  100, 4); // Angeling Hat 
 	add_bg_rental(EQP_HEAD_TOP, 5374,  500, 4); //  bapho horn (atk)
-	
 	add_bg_rental(EQP_HEAD_TOP, 2221,   10, 4, 4269); // fatasm hat
 	add_bg_rental(EQP_HEAD_TOP, 5170,  100, 4); // feather beret 
-	add_bg_rental(EQP_HEAD_TOP, 5396,  200, 4, 4127); // insomniac jaspercrest
-	add_bg_rental(EQP_HEAD_TOP, 5396.  200, 4, 4354); // jasper crest of stability
 	add_bg_rental(EQP_HEAD_TOP, 5518,  500, 4); // large bapho horn (def)
 	add_bg_rental(EQP_HEAD_TOP, 5225,  200, 4, 4223); // stun-resist marcher hat
 	add_bg_rental(EQP_HEAD_TOP, 5277,  150, 4); // yellow bandana
 	add_bg_rental(EQP_HEAD_TOP, 5278,  150, 4); // yellow ribbon
 	
-	
+	// unrefined
+	add_bg_rental(EQP_HEAD_TOP, 5451, 1000, 0, 4412); // Aria RWC Gold
 	add_bg_rental(EQP_HEAD_TOP, 2285,   10); // aoa
-	
 	add_bg_rental(EQP_HEAD_TOP, 5172,   10); // beret
-	
 	add_bg_rental(EQP_HEAD_TOP, 5137,  200, 0, 4269); // fatasm alice doll
+	add_bg_rental(EQP_HEAD_TOP, 5451, 1000, 0, 4087); // Fatasm RWC Gold
 	add_bg_rental(EQP_HEAD_TOP, 5423,  500); // i love china
 	add_bg_rental(EQP_HEAD_TOP, 2289,    5); // poopoo hat
-	add_bg_rental(EQP_HEAD_TOP, 5453,  200); // RWC Copper
-	add_bg_rental(EQP_HEAD_TOP, 5451, 1000); // RWC Gold
-	add_bg_rental(EQP_HEAD_TOP, 5452,  500); // RWC Silver
+	add_bg_rental(EQP_HEAD_TOP, 5451, 1000, 0, 4412); // Order RWC Gold
+	add_bg_rental(EQP_HEAD_TOP, 5451, 1000, 0, 4188); // Red Stone RWC 2008
+	add_bg_rental(EQP_HEAD_TOP, 5451, 1000, 0, 4354); // RWC Gold of Stability
+	add_bg_rental(EQP_HEAD_TOP, 5451, 1000, 0, 4223); // Stun-Resist RWC Gold
+
 	
 		
 	// MID ONLY
-	
-	
 	add_bg_rental(EQP_HEAD_MID, 5389,  100); // angel of ghost
 	add_bg_rental(EQP_HEAD_MID, 2204,   50, 0, 4412); // aria glasses
 	add_bg_rental(EQP_HEAD_MID, 2202,   50, 0, 4412); // aria sunglasses
 	add_bg_rental(EQP_HEAD_MID, 5800,  500); // blush of groom
 	add_bg_rental(EQP_HEAD_MID, 5135,   75); // cyclops visor
-	
 	add_bg_rental(EQP_HEAD_MID, 2204,  200, 0, 4269); // fatasm glasses
 	add_bg_rental(EQP_HEAD_MID, 2202,  200, 0, 4269); // fatasm sunglasses
 	add_bg_rental(EQP_HEAD_MID, 2204,   50, 0, 4354); // glasses of stability
@@ -66,8 +63,8 @@ OnInit:
 	add_bg_rental(EQP_HEAD_MID, 2202,  100, 0, 4127); // insomniac sunglasses
 	add_bg_rental(EQP_HEAD_MID, 2291,   50); // masquerade
 	add_bg_rental(EQP_HEAD_MID, 5288,   50); // red glasses
-	add_bg_rental(EQP_HEAD_MID, 2204,  350, 0, 4188); // red stone glasses
-	add_bg_rental(EQP_HEAD_MID, 2202,  350, 0, 4188); // red stone sunglasses
+	add_bg_rental(EQP_HEAD_MID, 2204,  250, 0, 4188); // red stone glasses
+	add_bg_rental(EQP_HEAD_MID, 2202,  250, 0, 4188); // red stone sunglasses
 	add_bg_rental(EQP_HEAD_MID, 5325,  500); // robo eyes
 	add_bg_rental(EQP_HEAD_MID, 2204,  100, 0, 4223); // stun-resist glasses
 	add_bg_rental(EQP_HEAD_MID, 2202,  100, 0, 4223); // stun-resist sunglasses
@@ -79,7 +76,7 @@ OnInit:
 	
 	add_bg_rental(EQP_HEAD_LOW, 2265,    5); // Gangster Mask
 	add_bg_rental(EQP_HEAD_LOW, 5377,  150); // Gentleman's Pipe
-	add_bg_rental(EQP_HEAD_LOW, 5305,  100); // Pirate Dagger
+	add_bg_rental(EQP_HEAD_LOW, 5155,  100); // Father's Mustache
 	add_bg_rental(EQP_HEAD_LOW, 5463,  100); // Rainbow Scarf
 	add_bg_rental(EQP_HEAD_LOW, 5462,   50); // Spiked Scarf
 	add_bg_rental(EQP_HEAD_LOW, 5574,  200); // Well-Chewed Pencil
@@ -122,7 +119,7 @@ OnInit:
 	
 	// SHIELDS
 	
-	setarray .@bg_shields[0], 2102, 2115, 2131, 2138; // guard, valk shield, magic bible, bradium shield
+	setarray .@bg_shields[0], 2102, 2115, 2131, 2138, 2124; // guard, valk shield, magic bible, bradium shield, thorny buckler
 	setarray .@shield_cards[0], 4013, 4058, 4045, 4439;
 	
 	set .@cost,   25;
@@ -229,7 +226,7 @@ OnInit:
 	
 	// ACCESSORIES
 	
-	setarray .@bg_accs[0], 2607, 2729, 2701, 2749, 2671, 2624, 2787, 2730;
+	setarray .@bg_accs[0], 2607, 2729, 2701, 2749, 2671, 2624, 2787, 2730, 2702;
 	setarray .@acc_cards[0], 4044, 4064, 4084, 4103, 4252, 4436, 4079; 
 	
 	set .@cost, 25;
@@ -257,17 +254,17 @@ OnInit:
 	
 	add_bg_rental(EQP_ACC, 2655,   15); // BSB ATK+50 w/ combo
 	
-	add_bg_rental(EQP_ACC, 2774,    5); // glorious ring (stats+1)
+	//add_bg_rental(EQP_ACC, 2774,    5); // glorious ring (stats+1)
 	add_bg_rental(EQP_ACC, 2773,   20); // glorious ring (stats+2)
 	add_bg_rental(EQP_ACC, 2772,   50); // glorious ring
 	
-	add_bg_rental(EQP_ACC, 2720,   50); // Medal Swordman
-	add_bg_rental(EQP_ACC, 2721,   50); // Medal Thief
-	add_bg_rental(EQP_ACC, 2722,   50); // Medal Acolyte
-	add_bg_rental(EQP_ACC, 2723,   50); // Medal Mage
-	add_bg_rental(EQP_ACC, 2724,   50); // Medal Archer
-	add_bg_rental(EQP_ACC, 2725,   50); // Medal Merchant
-	add_bg_rental(EQP_ACC, 2733,   50); // Sheriff Badge do not move; belongs with the medals!
+	// add_bg_rental(EQP_ACC, 2720,   50); // Medal Swordman
+	// add_bg_rental(EQP_ACC, 2721,   50); // Medal Thief
+	// add_bg_rental(EQP_ACC, 2722,   50); // Medal Acolyte
+	// add_bg_rental(EQP_ACC, 2723,   50); // Medal Mage
+	// add_bg_rental(EQP_ACC, 2724,   50); // Medal Archer
+	// add_bg_rental(EQP_ACC, 2725,   50); // Medal Merchant
+	// add_bg_rental(EQP_ACC, 2733,   50); // Sheriff Badge do not move; belongs with the medals!
 	
 	
 	add_bg_rental(EQP_ACC, 2710,   10); // refined BSB ATK+30 w/o combo
@@ -275,7 +272,7 @@ OnInit:
 	add_bg_rental(EQP_ACC, 2678,   15); // Ring of Flame Lord
 	add_bg_rental(EQP_ACC, 2679,   15); // Ring of Resonance
 	
-	add_bg_rental(EQP_ACC, 2677,   10); // Spirit Ring
+//	add_bg_rental(EQP_ACC, 2677,   10); // Spirit Ring
 	
 	add_bg_rental(EQP_ACC, 2660,   50); // vesper core02
 	

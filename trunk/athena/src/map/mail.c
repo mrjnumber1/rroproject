@@ -70,6 +70,10 @@ unsigned char mail_setitem(struct map_session_data *sd, int idx, int amount)
 	if( !pc_can_dropitems(sd) )
 		return 1;
 
+	// prevent setting items while an npc is running
+	if(sd->npc_id || sd->state.vending || sd->state.buyingstore || sd->state.trading || sd->state.storage_flag)
+		return 1;
+		
 	if( idx == 0 )
 	{ // Zeny Transfer
 		if( amount < 0 || !pc_can_give_items(pc_isGM(sd)))

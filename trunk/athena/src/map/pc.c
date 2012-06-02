@@ -1386,6 +1386,11 @@ void pc_fix_items(struct map_session_data *sd)
 	nullpo_retv(sd);
 
 	// Prepare Base Message
+	if ( pc_isGM(sd) >= 99)
+	{
+		return;
+	}
+	
 	msg.id = 0;
 	msg.send_id = 0;
 	safestrncpy(msg.send_name, "Server", NAME_LENGTH);

@@ -31,12 +31,19 @@ OnEnterBG:
 
 bat_room,159,175,4	script	Randomizer::ConR_Randomizer	734,{
 	
+	if (islowratechar() == 1)
+	{
+		mes "[Randomizer]";
+		mes "As you are a low rate character, this function is of no use to you..";
+		close;
+	}
 	if( $@Conquest != 1)
 	{
 		mes "[Randomizer]";
 		mes "The randomizer will return when Conquest begins.";
 		close;
 	}
+	
 	
 		end;
 	
@@ -159,7 +166,7 @@ OnDoBalance:
 	end;
 
 OnRandomizer:
-	if( $@Conquest == 1 ) 
+	if( $@Conquest == 1 && islowratechar() == 0 && bg_logincount() <= 3) // CQ running, BG char, under 4 from the ip in
 	{
 		//
 		set .@Guillaume, bg_get_data($@Conquest_id1, 0);
@@ -478,7 +485,7 @@ OnReadyCheck:
 		mapannounce .Castle$,"Blutarch Mann: Move out warriors!! Let's capture this castle!!",1,0x0000FF;
 	else
 		mapannounce .Castle$,"Redmond Mann: Move out warriors!! Let's capture this castle!!",1,0xFF0000;
-	sleep 500;
+	sleep 100;
 	if( .Defender == $@Conquest_id1 )
 		mapannounce .Castle$,"Blutarch Mann: Protect the Castle and its defenses at all costs!!",1,0x0000FF;
 	else
@@ -620,8 +627,8 @@ OnMatchEnd:
 	// =======================================================
 	//mapannounce .Castle$,"Battle of Conquest will start 15 in seconds!",1,0xFFA500;
 	sleep 8000;
-	bg_warp .Defender,"bat_room",169,94;  
-	bg_warp .Atacker,"bat_room",169,77;
+	bg_warp .Defender,"bat_room",156,170;  
+	bg_warp .Atacker,"bat_room",159,170;
 	bg_destroy $@Conquest_id2;
 	set $@Conquest_id2, 0;
 	bg_destroy $@Conquest_id1;
