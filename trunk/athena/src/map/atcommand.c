@@ -11595,6 +11595,7 @@ void atcommand_basecommands(void) {
 
 		{ "restock",            0,60,     atcommand_restock, false },
 
+		{ "bgstats",            0,60,     atcommand_bgstats, false },
 		{ "bgranked",           0,60,     atcommand_bgranked, false },
 		{ "bgregular",          0,60,     atcommand_bgregular, false },
 
