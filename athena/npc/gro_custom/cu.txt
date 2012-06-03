@@ -730,7 +730,6 @@ function	script	F_cu_jobchange	{
 			case 3:
 				next;
 				set jc_set, 1;
-				setbgchar();
 				callfunc "F_cu_bg_jobchange";
 				break;
 		}
@@ -746,6 +745,8 @@ function	script	F_cu_jobchange	{
 }
 	
 function	script	F_cu_bg_jobchange	{
+	if (islowratechar() == 1)
+		setbgchar();
 	if(Class != Job_Novice)
 	{
 		message strcharinfo(0), "You are not allowed to use this function!";

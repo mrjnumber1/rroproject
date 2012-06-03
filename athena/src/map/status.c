@@ -4737,10 +4737,15 @@ int status_get_sc_def(struct block_list *bl, enum sc_type type, int rate, int ti
 		//Item resistance (only applies to rate%)
 		if(sd && SC_COMMON_MIN <= type && type <= SC_COMMON_MAX)
 		{
+			int bonus_resist = 0;	
+			
 			if( sd->reseff[type-SC_COMMON_MIN] > 0 )
-				rate -= rate*sd->reseff[type-SC_COMMON_MIN]/10000;
+				bonus_resist += sd->reseff[type-SC_COMMON_MIN];
 			if( sd->sc.data[SC_COMMONSC_RESIST] )
-				rate -= rate*sd->sc.data[SC_COMMONSC_RESIST]->val1/100;
+				bonus_resist += sd->sc.data[SC_COMMONSC_RESIST]->val1*100;
+				
+			if (bonus_resist)
+				rate -= rate*bonus_resist/10000;
 		}
 	}
 	if (!(rand()%10000 < rate))
