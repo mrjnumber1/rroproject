@@ -15,13 +15,7 @@ Holy Marcher Hat
 	50 Manacles
 	20 Soft Feathers
 	$200 Kafra Points
-	
-Sunglasses[1]
-	2 Sunglasses
-	10 1carat Diamonds
-	100 Battle Badges (7773)
-	$30 Kafra Points
-	
+
 Dress Hat[1] (5211)
 	15 Soft Feathers
 	1 Wizard Hat (2252)
@@ -38,21 +32,95 @@ Def Bapho Horns
 	1 Attack Bapho Horn
 	1 Feather Beret
 	$100 Kafra Points
+
+Anubis Hat (5490)
+	1 Healing Staff (1625)
+	60 Golden Hair (1060)
+	30 Cultish Masque (1045)
+	5 Soft Silk (7166)
 	
-Rainbow Scarf
+Bullock Helm (5560)
+	1 Broken Crown (7754)
+	5 Flash Light (7327)
+	1 Bone Helm (5017)
+	30 Steel (999)
+HMH[1] (5225)
+	1 Magician Hat (5045)
+	20 Blue Feather (7441)
+	5 Star Crumb (1000)
+ILOVECHINA (5423)
+	1 Apple O' Archer (2285)
+	1 Angeling Hat (5132)
+	20 Soft Feather (7063)
+Koneko Hat (5372)
+Blue Ribbon[1] (5404)
+Dragoon Helm (5467)
+Filir Hat (5405)
+Flapping Evil Wing[1] (5376)
+Helm of Abyss[1] (5363)
+Brazil Sports Hat (5308)
+Ramen Hat (5293)
+Yellow Bandana (5277)
+Angeling Hat (5132)
+Little Angel Doll (5354)
+Ship Captain Hat (5359)
+Sloth Hat[1] (5761)
+Geographer Hat[1] (5455)
+Bunny Top Hat (5378)
+Carmen Miranda's Hat (5407)
+Octopus Hat (5554)
+Valkyrie Feather Band[1] (5256)
+Vanilmirth Hat (5289)
+BAseball Cap[1] (5282)
+Baby Dragon Hat (5531)
+Leaf Cat Hat (5555)
+Nekomimi Kafra Band[1] (5387)
 	
-Spiked Scarf
+	
+Hyegun Hat[1] (5367)
+Ifrit Mask (5420)
+Close Helmet (5131)
+Execurtioner Hood (5304)
+Crown of Deceit[1] (5564)
+Rabbit Earplugs[1] (5520)
+Dark Randgris Helm
+Dokeb Wig[0] (5276)
+Note Headphones[1] (515)
+Wings of Victory (5457)
+Moonlight Flower Hat (5214)
+Afro Wig (5258)
+Chullos[1] (5243)
+Sad Paper Bag (5448)
+Focused Paper Bag (5449)
 
-Blush of Groom
+	
+	
+Rainbow Scarf (5463)
+Spiked Scarf (5462)
+Father's Mustache (5155)
+Well-Chesed Pencil (5574)
+Gentleman's Pipe (5377)
 
-Gentleman's Pipe
+Fish in Mouth (5403)
+Angry Mouth (5521)
+Lollipop (5445)
 
-Robo Eyes
+Hockey Mask (5314)
+Smiling Tongue Mask (5203)
+Hahoe Mask (5176)
 
-Red Glasses
+Angel Spirit (5389)
+Blush of Groom (5800)
+Robo Eyes (5325)
+Odin Mask (5483)
+Sunglasses[1]
+	2 Sunglasses
+	10 1carat Diamonds
+	100 Battle Badges (7773)
+	$300 Kafra Points
+	
+Red Glasses (5288)
 
-Gangster Scarf
+Peco Ears (5358)
 
-Pirate Dagger
-
-Cyclops Visor
+Cyclops Visor (5135)
