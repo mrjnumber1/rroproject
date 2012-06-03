@@ -332,13 +332,13 @@ bat_room,168,142,3	script	Mann Co. Sorceror	64,{
 		case 2:
 			mes "[Mann Co. Sorceror]";
 			mes "It shall be done.";
-			ResetSkill;
+			ResetStatus;
 			close;
 			break;
 		case 3:
 			mes "[Mann Co. Sorceror]";
 			mes "It shall be done.";
-			ResetStatus;
+			ResetSkill;
 			close;
 			break;
 		case 4:
@@ -535,6 +535,7 @@ bat_room,163,146,2	script	Saxton Hale	731,{
 	}
 	mes "[Saxton Hale]";
 	mes "What do you need?";
+	mes "Remember, these items go Directly to Storage.";
 	switch(select("BG Supply:WoE Supply:WoE Boxes:Universal Ammo"))
 	{
 	case 1:
@@ -591,15 +592,12 @@ bat_room,163,146,2	script	Saxton Hale	731,{
 	for( set .@i, 0; .@i < getarraysize(.@Items); set .@i, .@i + 1 )
 		set .@Menu$, .@Menu$ + .@Amount[.@i] + " " + getitemname(.@Items[.@i]) + " (" + .@Value[.@i] + " badges):";
 	set .@j, select(.@Menu$) - 1;
-
+	mes "[Saxton Hale]";
 	mes "^0000FF" + .@Amount[.@j] + " ^nItemID^" +.@Items[.@j] + "^000000";
 	mes "It will cost you " + .@Value[.@j] + " badges per pack.";
 	mes "It will be found in your storage";
-	
 	set .@Destiny, 1;
 
-       
-	mes "[Saxton Hale]";
 	mes "How many packages do you want to buy? (1-30)";
 	next;
 
@@ -657,18 +655,19 @@ bat_room,163,146,2	script	Saxton Hale	731,{
 		mes "Participate in Battleground arenas to receive it.";
 		close;
 	}
-        set .@i7773, .@vtotal;
+	
+	set .@i7773, .@vtotal;
 
-	mes "[Saxton Hale]";
-	mes "Are you ready to pay and receive your items?";
-	mes "^0000FF" + .@i7773 + "^000000 Battle Badges";
+	//mes "[Saxton Hale]";
+	//mes "Are you ready to pay and receive your items?";
+	//mes "^0000FF" + .@i7773 + "^000000 Battle Badges";
 
-	if( select("Yes:Nevermind") == 2 )
-	{
-		mes "[Saxton Hale]";
-		mes "Ok, come again if you change your mind.";
-		close;
-	}
+	//if( select("Yes:Nevermind") == 2 )
+	//{
+	//	mes "[Saxton Hale]";
+	//	mes "Ok, come again if you change your mind.";
+	//	close;
+	//}
 
 	if( .@Destiny )
 	{ // Check Storage Space Limit
@@ -729,6 +728,10 @@ bat_room,163,146,2	script	Saxton Hale	731,{
 		else
 			getitem .@Items[.@j],.@total;
 	}
-
+	
+	next;
+	mes "[Saxton Hale]";
+	mes "Okay, the items have been placed in your Storage.";
+	mes "Come back to me if you need more items, brave warrior!";
 	close;
 }
