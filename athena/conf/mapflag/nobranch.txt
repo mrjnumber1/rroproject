@@ -340,3 +340,18 @@ bra_in01	mapflag	nobranch
 // Poring War ==================
 poring_w01	mapflag	nobranch
 poring_w02	mapflag	nobranch
+
+dicastes01	mapflag	nobranch
+dicastes02	mapflag	nobranch
+schg_cas06	mapflag	nobranch
+schg_cas07	mapflag	nobranch
+schg_cas08	mapflag	nobranch
+schg_cas09	mapflag	nobranch
+schg_cas10	mapflag	nobranch
+schg_cas11	mapflag	nobranch
+arug_cas06	mapflag	nobranch
+arug_cas07	mapflag	nobranch
+arug_cas08	mapflag	nobranch
+arug_cas09	mapflag	nobranch
+arug_cas10	mapflag	nobranch
+arug_cas11	mapflag	nobranch
