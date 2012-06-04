@@ -1418,7 +1418,7 @@
 2459,Upg_Shoes,Upg Shoes,5,20,,200,,15,,1,0xFFFFFFFE,7,2,64,,1,1,0,{},{},{}
 2460,Upg_Boots,Upg Boots,5,20,,300,,21,,1,0x016E5CEA,7,2,64,,1,1,0,{},{},{}
 2461,Upg_Greave,Upg Greaves,5,20,,400,,32,,1,0x00004080,7,2,64,,1,1,0,{},{},{}
-2462,Sleipnir_C,Sleipnir,5,20,,0,,40,,0,0xFFFFFFFF,7,2,64,,94,0,0,{ bonus bMdef,10; },{},{}
+2462,Sleipnir_C,Sleipnir,5,20,,0,,40,,0,0xFFFFFFFF,7,2,64,,94,0,0,{ bonus bUseSPrate,-200; bonus bAspdRate,100; bonus bDelayRate,-200; bonus bCastrate,-200; bonus bIgnoreDefRace,RC_NonBoss; bonus bIgnoreMDefRace,RC_NonBoss;   bonus bDoubleRate,100;},{sc_start4 SC_ENDURE,60000,10,0,0,1;},{sc_end SC_ENDURE; }
 2463,Feral_Boots,Feral Boots,5,20,,0,,22,,0,0xFFFFFFFF,7,2,64,,75,0,0,{ bonus bMdef,2; },{},{}
 2464,No_Fear_Shoes,No Fear Shoes,5,0,,0,,6,,0,0xFFFFFFFF,7,2,64,,20,0,0,{ bonus bStr,1; bonus bInt,1; bonus bDex,1; },{},{}
 2465,Dance_Shoes,Dance Shoes,5,20,,300,,15,,1,0x00000000,7,2,64,,105,1,0,{ bonus bAgi,1; },{},{}
