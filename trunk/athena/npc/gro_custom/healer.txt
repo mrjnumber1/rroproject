@@ -23,7 +23,7 @@ OnClick:
 		set .@mustpay, 1;
 		
 	if(.@mustpay == 1)
-		if(Zeny < 1000)
+		if(Zeny < 5000)
 			callsub nocash;
 
 OnDebuffs:
@@ -160,7 +160,7 @@ OnHeals:
         if( (Hp != MaxHp) || (Sp != MaxSp) )
 		set .@healed, 1;
         if(.@healed && .@mustpay)
-	        set Zeny, Zeny - 1000;
+	        set Zeny, Zeny - 5000;
 	
 	percentheal 100,100;
 
