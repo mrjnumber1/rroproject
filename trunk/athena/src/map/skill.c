@@ -7891,14 +7891,15 @@ int skill_unit_onplace_timer (struct skill_unit *src, struct block_list *bl, uns
 				if( diff >= 500 )
 					sg->val1--;
 
-				if( battle_config.heal_exp > 0 && (ss->id != bl->id) ) // No bonus EXP for self-heals off Sanctuary
+				if( battle_config.heal_exp > 0 && (ss->id != bl->id) && ss->type == BL_PC ) // No bonus EXP for self-heals off Sanctuary
 				{
 					struct map_session_data *sd = BL_CAST(BL_PC, ss);
-
+					
 					heal_get_job_exp = heal_get_job_exp * battle_config.heal_exp / 100;
 					if( heal_get_job_exp <= 0 )
 						heal_get_job_exp = 1;
-					pc_gainexp(sd, bl, heal_get_job_exp, heal_get_job_exp, false);
+					if (sd)
+						pc_gainexp(sd, bl, heal_get_job_exp, heal_get_job_exp, false);
 				}
 			}
 			if( sg->val1 <= 0 )
