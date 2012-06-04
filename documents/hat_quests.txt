@@ -137,12 +137,33 @@ Lollipop (5445)
 
 Hockey Mask (5314)
 Smiling Tongue Mask (5203)
+	1 Mr. Smile (2278)
+	5 Tongue (1015)
 Hahoe Mask (5176)
+	1 Mr Smile (2278)
+	100 Trunk (1019)
+	10 Torn Magic Book (7117) // To bring the enchantment
 
 Angel Spirit (5389)
+	1 Angel Wing Ears (5074)
+	50 Steel (999)
+	$50 Kafra Points
+
 Blush of Groom (5800)
+	100 Alice Apron (7047)
+	$50 Kafra Points
+	1 Blush (5040)
+
 Robo Eyes (5325)
+	$1000 Kafra Points
+	Binoculars (2296)
+	5 Metal Fragment (7095) // Must kill Vesper Newton
+
 Odin Mask (5483)
+	50 Steel (999)
+	$50 Kafra Points
+	50 Rune of Darkness (7511)
+
 Sunglasses[1]
 	2 Sunglasses
 	10 1carat Diamonds
