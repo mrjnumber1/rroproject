@@ -1039,7 +1039,59 @@ int storage_guild_storage_quit(struct map_session_data* sd, int flag)
 	return 0;
 }
 
+bool storage_haspassword(struct map_session_data *sd, int type)
+{
+	nullpo_retr(true, sd); // better to force a fail on a null sd
 
+	switch (type)
+	{
+	case 1: // regular storage
+		{
+			return (sd->status.storage.password[0] != '\0');
+		}
+		break;
+	case 2:
+		{
+			struct guild_storage *gstor;
+
+			if (!sd->status.guild_id)
+			{
+				ShowWarning("storage_checkpassword: checking for guildless char (c:%d a:%d)\n", sd->status.char_id, sd->status.account_id);
+				return false;
+			}
+			else if((gstor = guild2storage2(sd->status.guild_id)) == NULL) 
+			{
+				ShowWarning("storage_checkpassword: no guild storage data available (c:%d a:%d)\n", sd->status.char_id, sd->status.account_id);
+				intif_request_guild_storage(sd->status.account_id, sd->status.guild_id);
+				return false;
+			}
+			else
+				return (gstor->password[0] != '\0');
+		}
+		break;
+	case 3:
+		{
+			struct member_storage_data *mstor;
+
+			if (!sd->status.member_id)
+			{
+				clif_displaymessage(sd->fd, "You must have a member ID to do this! Oh god what happened?!");
+				return false;
+			}
+			else if((mstor = member2storage2(sd->status.member_id)) == NULL) 
+			{
+				intif_request_member_storage(sd->status.account_id, sd->status.member_id);
+				return false;
+			}
+			else
+				return (mstor->password[0] != '\0');
+		}
+		break;
+
+	}
+
+	return false;
+}
 bool storage_setpassword(struct map_session_data *sd, const char* passwd, int type)
 {
 	char md5buf1[32], md5buf2[64+1], md5buf3[32+1];
@@ -1057,13 +1109,17 @@ bool storage_setpassword(struct map_session_data *sd, const char* passwd, int ty
 		return false;
 	}
 	MD5_String(passwd, md5buf1);
+	ShowDebug("Received pw: %s\n", passwd);
 
 	switch (type)
 	{
 	case 1: // regular storage
 		{
+			ShowDebug("Hashing %s%s\n", md5buf1, battle_config.storage_salt);
 			snprintf(md5buf2, sizeof(md5buf2), "%s%s", md5buf1, battle_config.storage_salt);
+			ShowDebug("Hashing %s\n");
 			MD5_String(md5buf2, md5buf3);
+			ShowDebug("Stored pw as %s\n", md5buf3);
 
 			safestrncpy(sd->status.storage.password, md5buf3, sizeof (sd->status.storage.password));
 			return true;
