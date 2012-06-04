@@ -102,31 +102,85 @@ Yellow Bandana (5277)
 	$1000 Kafra Points
 
 Angeling Hat (5132)
-Little Angel Doll (5354)
-Ship Captain Hat (5359)
-Sloth Hat[1] (5761)
-Geographer Hat[1] (5455)
-Bunny Top Hat (5378)
-Carmen Miranda's Hat (5407)
-Octopus Hat (5554)
-Valkyrie Feather Band[1] (5256)
-Vanilmirth Hat (5289)
-Baseball Cap[1] (5282)
-Baby Dragon Hat (5531)
-Leaf Cat Hat (5555)
-Nekomimi Kafra Band[1] (5387)
-Hyegun Hat[1] (5367)
-Ifrit Mask (5420)
-Close Helmet (5131)
-Execurtioner Hood (5304)
-Crown of Deceit[1] (5564)
-	
 
+
+Little Angel Doll (5354)
+
+
+Ship Captain Hat (5359)
+
+
+Sloth Hat[1] (5761)
+
+
+Geographer Hat[1] (5455)
+
+
+Bunny Top Hat (5378)
+
+
+Carmen Miranda's Hat (5407)
+
+
+Octopus Hat (5554)
+
+
+Valkyrie Feather Band[1] (5256)
+
+
+Vanilmirth Hat (5289)
+
+
+Baseball Cap[1] (5282)
+
+
+Baby Dragon Hat (5531)
+
+
+Leaf Cat Hat (5555)
+
+
+Nekomimi Kafra Band[1] (5387)
+
+
+Hyegun Hat[1] (5367)
+	Munak Hat (2264)
+	Bongun Hat (5046)
+	100 Amulet (609)
+
+
+Ifrit Mask (5420)
+	100 Flame Heart (994)
+	$50 Kafra Points
+	100 Golden Feather (6394)
+
+
+Close Helmet (5131)
+	1 Goibne's Helm (5128)
+	100 Steel (999)
+	50 Gold (969)
+	10 Furnace (612)
+
+Executioner Hood (5304)
+	Hood (2501)
+	1 Black Dyestuffs (983)
+	50 Rune of Darkness (7511)	
+
+Crown of Deceit[1] (5564)
+	1 Crown (2235)
+	50 Peco Peco Feathers (7101)
+	$100 Kafra Points
+	50 Rubby (723)
+	10 Dark red Scale (6091)
+	50 Garnet (718)
+	10 Gold (969)
+	
 Rabbit Earplugs[1] (5520)
 	1 Headset (5001)
 	100 Fur (6020)
 	$50 Kafra Points
 	Small Ribbons (5085)
+
 
 Dark Randgris Helm
 	10 Valhalla's Flower (7510)
