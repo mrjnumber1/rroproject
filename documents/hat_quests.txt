@@ -113,36 +113,73 @@ Little Angel Doll (5354)
 	$500 Kafra Points
 
 Ship Captain Hat (5359)
+// Dex +1, Long Rate Attack + 7%, Slotted
+	$1000 Kafra Points
+	Corsair [1] (5163)
+	Scarlet Dyestuffs (975)
+	500 Sharp Arrows (1764)
 
 
 Sloth Hat[1] (5761)
-
+	100 Black Hair (1020)
+	100 Fur (6020)
+	100 Animal Skin (919)
+	$25 Kafra Points
 
 Geographer Hat[1] (5455)
-
+	500 Maneater blossoms (1032)
+	$25 Kafra Points
+	Hat[1] (2221)
+	1 Yggdrasilberry Dew (7141)
+	10 Yggdrasil Seed (608)
 
 Bunny Top Hat (5378)
-
+	1 bunny Band (2214)
+	Sunday Hat (5032)
+	$10 Kafra Points
 
 Carmen Miranda's Hat (5407)
-
-
+	Hat [1] (2221)
+	$10 Kafra Points
+	100 Banana (513)
+	100 Strawberry (578)
+	
 Octopus Hat (5554)
-
+	100 Squid Ink (1024)
+	100 Tentacle (962)
+	10 Yggdrasil Leaf (610)
 
 Valkyrie Feather Band[1] (5256)
+	1 Valhalla's Flower (7510)
+	1 Kafra Band (5020)
+	$10 Kafra Points
 
 
 Vanilmirth Hat (5289)
+	50 Mud Lump (7004)
+	10 Level 5 Earth Spike Scrolls (687)
+	10 Level 5 Fire bolt Scrolls (691)
+	10 Level 5 cold Bolt Scrolls (689)
+	10 Level 5 Lightening Bolt Scrolls (693)
+	$25 Kafra Points
 
 
 Baseball Cap[1] (5282)
+	Colbaltblue Dyestuffs (978)
+	Hat [1] (2221)
 
 
 Baby Dragon Hat (5531)
+	50 Dragon Skin (7123)
+	50 Dragon Tail (1037)
+	50 Dragon Horn (7265)
 
 
 Leaf Cat Hat (5555)
+	100 Fig Leaf (7298)
+	1 Blue Gemstone (717)
+	1 Red Gemstone (716)
+	100 Fur (6020)
 
 
 Nekomimi Kafra Band[1] (5387)
