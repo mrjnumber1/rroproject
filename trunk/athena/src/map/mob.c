@@ -2030,29 +2030,6 @@ int mob_showmvpdead(struct block_list* bl,va_list ap)
  * Signals death of mob.
  * type&1 -> no drops, type&2 -> no exp
  *------------------------------------------*/
-int mob_getrandomcash(struct block_list *bl, va_list ap)
-{
-	int rand_val = rnd()%10000;
-	TBL_PC* sd;
-	// 1% chance for 5 kafra points
-	// .1% chance for 50 kafra points
-	// .01% chance for 500 kafra points
-	nullpo_retr(0, bl); 
-	nullpo_retr(0, (sd = (TBL_PC*)bl) );
-
-	if ( rand_val == 1 )
-		pc_getcash(sd, 0, 500);
-	else if ( rand_val <= 10)
-		pc_getcash(sd, 0, 50);
-	else if ( rand_val <= 100)
-		pc_getcash(sd, 0, 5);
-	else
-		return 0;
-
-	return 1;
-	
-}
-
 int mob_dead(struct mob_data *md, struct block_list *src, int type)
 {
 	struct status_data *status;
@@ -2095,7 +2072,17 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 
 	if( sd )
 	{
-		if( sd->mission_mobid == md->class_)
+		int rand_val = rnd()%10000;
+		int cash = 0;
+		
+		if ( rand_val == 1 )
+			cash=500;
+		else if ( rand_val <= 10)
+			cash=50;
+		else if ( rand_val <= 100)
+			cash=5;
+				
+		if ( sd->mission_mobid == md->class_)
 		{ //TK_MISSION [Skotlex]
 			if( ++sd->mission_count >= 100 && (temp = mob_get_random_id(0, 0xE, sd->status.base_level)) )
 			{
@@ -2107,11 +2094,41 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 			}
 			pc_setglobalreg(sd,"TK_MISSION_COUNT", sd->mission_count);
 		}
+		if (cash)
+		{
+			if (sd->status.party_id)
+			{
+				struct party_data *p;
+				
+				if( (p=party_search(sd->status.party_id)) !=NULL )
+				{
+					int c=0;
+					struct map_session_data* msd[MAX_PARTY];
+					
+					for (i = c = 0; i < MAX_PARTY; i++) 
+					{
+						if( (msd[c] = p->data[i].sd) == NULL || msd[c]->bl.m != sd->bl.m || pc_isdead(msd[c]) || (battle_config.idle_no_share && pc_isidle(msd[c])) )
+							continue;
+						c++;
+					}
+					
+					c = rnd()%(c);
+					
+					pc_getcash(msd[c], 0, cash);
+					cash = 0;
+				}
+				
+			}
+			else
+			{
+				pc_getcash(sd, 0, cash);
+			}
+		}
 		if( sd->status.party_id )
 		{
+				
 			map_foreachinrange(quest_update_objective_sub,&md->bl,AREA_SIZE,BL_PC,sd->status.party_id,md->class_);
 			map_foreachinrange(mission_update_sub,&md->bl, AREA_SIZE*5, BL_PC, sd->status.party_id, md->class_);
-			party_foreachsamemap(mob_getrandomcash, mvp_sd, 0);
 		}
 		else
 		{
