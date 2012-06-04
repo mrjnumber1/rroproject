@@ -1,3 +1,189 @@
+
+function	script	f_kafra_resetpass	{
+
+	set .@type, getarg(0);
+	
+	mes "[Kafra Employee]";
+	mes "For security purposes, I need to confirm that you know your password already.";
+	input .@str$;
+	
+	next;
+	
+	set .@result, 0;
+	switch (.@type)
+	{
+		case 1:
+			set .@result, check_storage_password(.@str$);
+			break;
+		case 3:
+			set .@result, check_gstorage_password(.@str$);
+			break;
+		case 2:
+			set .@result, check_mstorage_password(.@str$);
+			break;
+		default:
+			set .@result, 0;
+			break;
+	}
+	
+	if ( .@result == 0)
+	{
+		mes "[Kafra Employee]";
+		mes "I'm sorry, that is not correct.";
+		close2;
+		cutin "",255;
+		return;
+	}
+	else
+	{
+		mes "[Kafra Employee]";
+		mes "Okay, it is confirmed that you know the password. Please input your new password.";
+		
+		input .@new_pass$;
+		
+	switch (.@type)
+	{
+		case 1:
+			set_storage_password(.@new_pass$);
+			break;
+		case 3:
+			set_gstorage_password(.@new_pass$);
+			break;
+		case 2:
+			set_mstorage_password(.@new_pass$);
+			break;
+		default:
+			return;
+			break;
+	}
+		
+		next;
+		
+		mes "[Kafra Employee]";
+		mes "It was done. Have a nice day!";
+		close2;
+		cutin "",255;
+		return;
+	}
+	
+}
+
+
+
+function	script	f_kafra_checkpass	{
+	set .@type, getarg(0);
+	
+	set .@result, 0;
+	switch (.@type)
+	{
+		case 1:
+			set .@result, storage_has_password();
+			break;
+		case 2:
+			set .@result, mstorage_has_password();
+			break;
+		case 3:
+			set .@result, gstorage_has_password();
+			break;
+		default:
+			return 0;
+			break;
+	}
+	
+	if (!.@result)
+	{
+		mes "[Kafra Employee]";
+		set .@who$, (.@type ==3)?("The Guild Leader"):("you");
+		mes "Ah, it seems that this storage has no password, "+.@who$+" may configure it at any main Kafra Employee you see.";
+		mes "Please close this window to open storage.";
+		close2;
+		cutin "",255;
+		openstorage();
+		end;
+	}
+	else
+	{
+	
+		set .@result, 0;
+		for (set .@i, 3; .@i > 0; set .@i, .@i - 1)
+		{
+			mes "[Kafra Employee]";
+			mes "A password was detected on this storage. Please enter it to access it.";
+			input .@str$;
+			next;
+			switch (.@type)
+			{
+				case 1:
+					set .@result, check_storage_password(.@str$);
+					break;
+				case 2:
+					set .@result, check_mstorage_password(.@str$);
+					break;
+				case 3:
+					set .@result, check_gstorage_password(.@str$);
+					break;
+				default:
+					return 0;
+					break;
+			}
+			
+			if (.@result == 0)
+			{
+				mes "[Kafra Employee]";
+				mes "Invalid password.";
+				mes "You have "+.@i-1+" tries remaining..";
+				next;
+			}
+			else
+				break;
+		}	
+		if (.@i == 0)
+		{
+			mes "[Kafra Employee]";
+			mes "Too many failed attempts. Please try again.";
+			close2;
+			cutin "",255;
+			end;
+		}
+		else if (.@result == 1)
+		{
+			mes "[Kafra Employee]";
+			mes "Password accepted. Please close this window to open storage.";
+			
+			close2;
+
+			switch (.@type)
+			{
+				case 1:
+					cutin "",255;
+					openstorage();
+					end;
+				case 2:
+					if (memberopenstorage() == 1)
+					{
+						mes "[Kafra Employee]";
+						mes "I'm sorry but another person is in the member storage right now. Please wait until that person is finished.";
+						close2;
+					}
+					cutin "",255;
+					end;
+				case 3:
+					if (guildopenstorage() == 1)
+					{
+						mes "[Kafra Employee]";
+						mes "I'm sorry but another person is in the guild storage right now. Please wait until that person is finished.";
+						close2;
+					}
+					cutin "",255;
+					end;
+			}
+		}
+	}
+
+}
+
+
+
 -	script	f_kafra	-1,{
 
 	cutin "kafra_09",2;
@@ -6,80 +192,60 @@
 	mes "The Kafra services are always on your side.";
 	mes "How may I assist you?";
 	
-	setarray @K_Menu0$[0],"Save","Use Storage","Use Member Storage";
+	set .@menu$, "Save:Manage Storage Passwords:Use Storage:Use Member Storage";
+	if (getcharid(2) != 0)
+		set .@menu$, .@menu$ + ":Use Guild Storage";
 	
-	if(getcharid(2) != 0)
-		set @K_Menu0$[3], "Use Guild Storage";
-		
-	menu 	@K_Menu0$[0],K_Menu0,@K_Menu0$[1],K_Menu1,@K_Menu0$[2],K_Menu2,
-		@K_Menu0$[3],K_Menu3,@K_Menu0$[4],K_Menu4,@K_Menu0$[5],K_Menu5,
-		@K_Menu0$[6],K_Menu6,@K_Menu0$[7],K_Menu7;
-	K_Menu0:
-		set @num,0;
-		goto K_Menuf;
-	K_Menu1:
-		set @num,1;
-		goto K_Menuf;
-	K_Menu2:
-		set @num,2;
-		goto K_Menuf;
-	K_Menu3:
-		set @num,3;
-		goto K_Menuf;
-	K_Menu4:
-		set @num,4;
-		goto K_Menuf;
-	K_Menu5:
-		set @num,5;
-		goto K_Menuf;
-	K_Menu6:
-		set @num,6;
-		goto K_Menuf;
-	K_Menu7:
-		set @num,7;
-	K_Menuf:
-		if (@K_Menu0$[@num] == "Save")
-		{	
+	set .@s, select(.@menu$);
+	
+	switch (.@s)
+	{
+		case 1: //save
+		{
 			next;
 			
+			if (islowratechar() == 0)
+			{
+				mes "[Kafra Employee]";
+				mes "I'm sorry, you cannot use this function, as you are limited to saving in the battlegrounds room.";
+				mes "Fight on!";
+				close2;
+				cutin "",255;
+				end;
+			}
 			getmapxy(@mapname$, @mapx, @mapy,0);
-			savepoint @mapname$,@mapx,@mapy;
+			savepoint(@mapname$,@mapx,@mapy);
 			
 			mes "[Kafra Employee]";
 			mes "You are now saved where you are standing.";
 			mes "Enjoy your day!";
 			close2;
 			cutin "",255;
+			end;
 		}
-		if (@K_Menu0$[@num] == "Use Storage")
+		case 2: //manage passwords
 		{
-			close2;
-			cutin "",255;
-			openstorage;
+			next;
+			
+			mes "[Kafra Employee]";
+			mes "Ah, electing to check your storage passwords? I see.";
+			
+			set .@menu$, "Account Storage:Member Storage";
+			if ( getcharid(2) != 0 && getguildmasterid(getcharid(2)) == getcharid(0) )
+				set .@menu$, .@menu$ + ":Guild Storage";
+			next;
+			set .@type, select(.@menu$);
+			
+			callfunc "f_kafra_resetpass", .@type;
+			
+			end;
 		}
-		if (@K_Menu0$[@num] == "Use Guild Storage")
-		{
-			close2;
-			if(guildopenstorage() == 1)
-			{
-				mes "[Kafra Employee]";
-				mes "I'm sorry but another guild member is using the guild storage";
-				mes "right now.  Please wait until that person is finished.";
-				close2;
-			}
-			cutin "",255;
-		}
-		if (@K_Menu0$[@num] == "Use Member Storage")
-		{
-			close2;
-			if(memberopenstorage() == 1)
-			{
-				mes "[Kafra Employee]";
-				mes "I'm sorry but another person is using the member storage right now. Please wait until that person is finished.";
-				close2;
-			}
-			cutin "",255;
-		}
+		case 3:
+		case 4:
+		case 5:
+			callfunc "f_kafra_checkpass", .@s-2;
+		
+	}
 	end;
 }
 
