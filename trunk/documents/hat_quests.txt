@@ -90,7 +90,17 @@ Brazil Sports Hat (5308)
 	50 Talon (917)
 	Cap (2226)
 Ramen Hat (5293)
+	$1000 Kafra Point
+	50 Smooth Noodle (12057)
+	5 Tantan Noodle (12395)
+	1 Porcelain (735)
+	10 Hwergelmir's Tonic (12095)
+
 Yellow Bandana (5277)
+	1 Lemon Dyestuffs (976)
+	1 Bandana
+	$1000 Kafra Points
+
 Angeling Hat (5132)
 Little Angel Doll (5354)
 Ship Captain Hat (5359)
@@ -110,10 +120,30 @@ Ifrit Mask (5420)
 Close Helmet (5131)
 Execurtioner Hood (5304)
 Crown of Deceit[1] (5564)
+	
+
 Rabbit Earplugs[1] (5520)
+	1 Headset (5001)
+	100 Fur (6020)
+	$50 Kafra Points
+	Small Ribbons (5085)
+
 Dark Randgris Helm
+	10 Valhalla's Flower (7510)
+	1 Evil Wing (2255)
+	100 Rune of Darkness (7511)
+
 Dokeb Wig[0] (5276)
+	10 Cobaltblue Dyestuffs (978)
+	10 Scarlet Dyestuffs (975)
+	10 Lemon Dyestuffs (976)
+	500 Dark Hair (1020)
+
 Note Headphones[1] (515)
+	1 Headset (5001)
+	10 Angel Magic Powder (6395)
+	10 Metal Fragment (7095)
+
 Wings of Victory (5457)
 	
 Moonlight Flower Hat (5214)
