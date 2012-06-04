@@ -106,7 +106,7 @@ bat_room,148,150,7	script	Kafra Point Exchanger	448,{
 	}
 	set .@n$, "[Kafra Point Exchanger]";
 	set .cq_required, 10;
-	set .kp_bonus, 500;
+	set .kp_bonus, 150;
 	
 	
 	mes .@n$;
