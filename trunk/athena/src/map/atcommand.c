@@ -2436,7 +2436,7 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (2*1000))
 		clif_displaymessage(fd, " 24=Veins               25=Moscovia      26=Nameless Island");
 		clif_displaymessage(fd, " 27=Freya Temple        28=Thor Camp     29=Midgard Camp");
 		clif_displaymessage(fd, " 30=Manuk               31=Splendide     32=Dicastes");
-		clif_displaymessage(fd, " 33=Market");
+		clif_displaymessage(fd, " 33=Market              34=BG Room");
 		return -1;
 	}
 
@@ -2553,7 +2553,7 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (2*1000))
 				return -1;
 			}
 			
-			if ( pc_islowratechar(sd) )
+			if ( pc_islowratechar(sd)  && pc_isGM(sd) > 99)
 			{
 				clif_displaymessage(fd, "Sorry, only BG Warriors may enter the BG lobby.");
 				return -1;

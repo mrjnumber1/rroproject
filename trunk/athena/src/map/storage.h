@@ -11,7 +11,7 @@ struct member_storage_data;
 struct item;
 //#include "map.h"
 struct map_session_data;
-
+bool storage_haspassword(struct map_session_data *sd, int type);
 bool storage_setpassword(struct map_session_data *sd, const char* passwd, int type); 
 bool storage_checkpassword(struct map_session_data *sd, const char* passwd, int type);
 

@@ -367,7 +367,7 @@ bat_room,166,145,4	script	Mann Co. Engineer	63,{
 					set .@Enchant, 4700 + (rand(6) * 10);
 				else 					// 15% chance for failure 
 				{
-					failedenchant 2;
+					failedenchant 2, 0;
 					emotion e_sob;
 					mes "[Mann Co. Engineer]";
 					mes "Wah! ...I am so sorry, it failed.";
@@ -390,8 +390,7 @@ bat_room,166,145,4	script	Mann Co. Engineer	63,{
 			mes "[Mann Co. Engineer]";
 			mes "^FFA500To enchant your HeadGear^000000:";
 			mes "a) 200 Battle Badges.";
-			mes "b) 2,000,000 Zeny";
-			mes "c) 100 Kafra Points"; 
+			mes "b) 100 Kafra Points"; 
 			mes "You will gain +1 to a random stat.";
 			mes "^FF0000Headgear will lose refines and cards^000000.";
 			next;

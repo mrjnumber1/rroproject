@@ -7282,16 +7282,17 @@ BUILDIN_FUNC(successenchant)
 
 BUILDIN_FUNC(failedenchant)
 {
-	int i = -1, num;
+	int i = -1, num, break_on_fail=1;
 	TBL_PC *sd;
 
 	num = script_getnum(st,2);
+	break_on_fail = script_getnum(st, 3)
 	sd = script_rid2sd(st);
 	if( sd == NULL )
 		return 0;
 	if( num > 0 && num <= ARRAYLENGTH(equip) )
 		i = pc_checkequip(sd, equip[num - 1]);
-	if( i >= 0 )
+	if( i >= 0 && break_on_fail )
 	{
 		log_pick_pc(sd, LOG_TYPE_SCRIPT, sd->status.inventory[i].nameid, -1, &sd->status.inventory[i], sd->status.inventory[i].serial );
 		pc_unequipitem(sd,i,3);
@@ -18283,6 +18284,40 @@ BUILDIN_FUNC(getmissionlist)
 
 
 // storage passwords
+BUILDIN_FUNC(storage_has_password)
+{
+	TBL_PC *sd = script_rid2sd(st);
+
+	nullpo_ret(sd);
+
+	script_pushint(st, (int)storage_haspassword(sd, 1));
+
+	return 0;
+	
+}
+BUILDIN_FUNC(mstorage_has_password)
+{
+	TBL_PC *sd = script_rid2sd(st);
+
+	nullpo_ret(sd);
+
+	script_pushint(st, (int)storage_haspassword(sd, 3));
+
+	return 0;
+	
+}
+BUILDIN_FUNC(gstorage_has_password)
+{
+	TBL_PC *sd = script_rid2sd(st);
+
+	nullpo_ret(sd);
+
+	script_pushint(st, (int)storage_haspassword(sd, 2));
+
+	return 0;
+	
+}
+
 BUILDIN_FUNC(set_storage_password)
 {
 	TBL_PC *sd = script_rid2sd(st);
@@ -18300,7 +18335,7 @@ BUILDIN_FUNC(set_mstorage_password)
 
 	nullpo_ret(sd);
 
-	storage_setpassword(sd, str, 1);
+	storage_setpassword(sd, str, 3);
 	return 0;
 }
 BUILDIN_FUNC(set_gstorage_password)
@@ -18310,7 +18345,7 @@ BUILDIN_FUNC(set_gstorage_password)
 
 	nullpo_ret(sd);
 
-	storage_setpassword(sd, str, 1);
+	storage_setpassword(sd, str, 2);
 	return 0;
 }
 // check, not get! to possibly expose the player to the password hashes would be so stupid!
@@ -18864,6 +18899,11 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(submit_mission, "i"),
 
 	//storage passwords [mrj]
+	BUILDIN_DEF(storage_has_password, ""),
+	BUILDIN_DEF(mstorage_has_password, ""),
+	BUILDIN_DEF(gstorage_has_password, ""),
+
+
 	BUILDIN_DEF(set_storage_password, "s"),
 	BUILDIN_DEF(set_mstorage_password, "s"),
 	BUILDIN_DEF(set_gstorage_password, "s"),
