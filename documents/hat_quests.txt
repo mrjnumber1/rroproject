@@ -129,16 +129,37 @@ Rainbow Scarf (5463)
 Spiked Scarf (5462)
 Father's Mustache (5155)
 Well-Chesed Pencil (5574)
+	$1000 Kafra Points (or Battle Badges)
+	1000 Wooden Gnarl (7222)
+	Knife [3] (1201)
+	50 coal (1003)
+
 Gentleman's Pipe (5377)
+	$1000 Kafra Points (or Battle Badges)
+	1 Pipe (2268)
+	10 Dark Crystal Fragment (7315)
 
 Fish in Mouth (5403)
+ // 5% chance of Fresh Fish when a monster gets killed. Fresh Fish recovery +25%
+	100 Fish Tail (1023)
+	50 Fresh Fish (579)
+	10 Slick Paper (7111)
+
 Angry Mouth (5521)
+	$10 Kafra Points
+	10 Denture from Dragon Mask (7266)
+	10 Torn Magic Book (7117)
+
 Lollipop (5445)
+	100 Strawberry (578)
+	10 Slick Paper (7111)
+	$10 Kafra Points
 
 Hockey Mask (5314)
 Smiling Tongue Mask (5203)
 	1 Mr. Smile (2278)
 	5 Tongue (1015)
+
 Hahoe Mask (5176)
 	1 Mr Smile (2278)
 	100 Trunk (1019)
@@ -178,9 +199,11 @@ Red Glasses (5288)
 Peco Ears (5358)
 	50 Peco Peco Feathers (7101)
 	Elven Ears (2286)
+	$25 Kafra Points
 
 Cyclops Visor (5135)
 	1 Gold (969)
 	100 Fine Sand (7043)
 	1 Mini Furnace (612)
 	1 Dragon Breath Cocktail (12080)
+	$50 Kafra Points
