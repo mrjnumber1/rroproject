@@ -102,10 +102,15 @@ Yellow Bandana (5277)
 	$1000 Kafra Points
 
 Angeling Hat (5132)
-
+	1 Angel Wing (2254)
+	5 Poring hat (5035)
+	Beret (5172)
 
 Little Angel Doll (5354)
-
+	Angel Wing (2254)
+	100 Little Ghost Doll (7268)
+	100 Holy Water (523)
+	$500 Kafra Points
 
 Ship Captain Hat (5359)
 
@@ -141,8 +146,9 @@ Leaf Cat Hat (5555)
 
 
 Nekomimi Kafra Band[1] (5387)
-
-
+	Kafra Band (5020)
+	Black Cat Ears (5057)
+	
 Hyegun Hat[1] (5367)
 	Munak Hat (2264)
 	Bongun Hat (5046)
