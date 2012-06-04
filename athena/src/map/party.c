@@ -916,6 +916,8 @@ int party_send_xy_clear(struct party_data *p)
 // NOTE: party share level is now HARD CONFIGGED to 20. fuck eathena sometimes.
 int party_check_exp_share(struct party_data *p)
 {
+	nullpo_ret(p);
+
 	if (p->party.exp)
 		return 1;
 	else if (p->party.count < 2)
