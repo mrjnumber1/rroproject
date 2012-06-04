@@ -176,5 +176,11 @@ Red Glasses (5288)
 	5 Scarlet Dyestuffs (975)
 
 Peco Ears (5358)
+	50 Peco Peco Feathers (7101)
+	Elven Ears (2286)
 
 Cyclops Visor (5135)
+	1 Gold (969)
+	100 Fine Sand (7043)
+	1 Mini Furnace (612)
+	1 Dragon Breath Cocktail (12080)
