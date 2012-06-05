@@ -4859,7 +4859,8 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, in
 				case SC_FOOD_AGI_CASH:	case SC_FOOD_VIT_CASH:	case SC_FOOD_DEX_CASH:
 				case SC_FOOD_INT_CASH:	case SC_FOOD_LUK_CASH:  case SC_MIRACLE:
 				case SC_S_LIFEPOTION:   case SC_L_LIFEPOTION:   case SC_INCHEALRATE:
-				case SC_INCALLSTATUS:
+				case SC_INCALLSTATUS:	case SC_INCMATKRATE:	case SC_INCMHPRATE:
+				case SC_INCMSPRATE:
 
 
 				case SC_BGWINTAUNT:		case SC_BGLOSER:     
