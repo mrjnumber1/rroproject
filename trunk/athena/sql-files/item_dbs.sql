@@ -6843,3 +6843,6 @@ VALUES ( 5451, 'Dragonhelm_Gold', 'RWC 2008 Dragon Helm Gold', 5, 20, NULL , 250
 (12124, 'Rainbow_Cake', 'Rainbow Cake', 2, 2, NULL, 20, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_BATKFOOD,1200000,10; sc_start SC_MATKFOOD,120000,10;', NULL, NULL),
 (12274, 'Gold_Pill_1', 'Daehwandan', 0, 0, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCMHPRATE,36000000,5; percentheal 5,0;', NULL, NULL),
 (12275, 'Gold_Pill_2', 'Taecheongdan', 0, 0, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCMSPRATE,36000000,5; percentheal 0,5;', NULL, NULL);
+
+REPLACE INTO `item_db` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
+(12098, 'Luk_Dish08', 'Strawberry Flavored Rice Ball', 0, 60000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_LUKFOOD, 1200000, 8; percentheal 9,3;', NULL, NULL);
