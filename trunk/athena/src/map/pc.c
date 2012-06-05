@@ -5520,7 +5520,7 @@ int pc_gainexp(struct map_session_data *sd, struct block_list *src, unsigned int
 	
 	//Cap exp to the level up requirement of the previous level when you are at max level, otherwise cap at UINT_MAX (this is required for some S. Novice bonuses). [Skotlex]
 	if (base_exp) {
-		nextb = nextb?UINT_MAX:pc_thisbaseexp(sd);
+		nextb = (nextb&&(sd->status.class_==JOB_SUPER_NOVICE||sd->status.class_==JOB_SUPER_BABY))?UINT_MAX:pc_thisbaseexp(sd);
 		if(sd->status.base_exp > nextb - base_exp)
 			sd->status.base_exp = nextb;
 		else
@@ -5530,7 +5530,7 @@ int pc_gainexp(struct map_session_data *sd, struct block_list *src, unsigned int
 	}
 
 	if (job_exp) {
-		nextj = nextj?UINT_MAX:pc_thisjobexp(sd);
+		nextj = (nextj&&(sd->status.class_==JOB_SUPER_NOVICE||sd->status.class_==JOB_SUPER_BABY))?UINT_MAX:pc_thisjobexp(sd);
 		if(sd->status.job_exp > nextj - job_exp)
 			sd->status.job_exp = nextj;
 		else
