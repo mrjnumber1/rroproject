@@ -6846,3 +6846,7 @@ VALUES ( 5451, 'Dragonhelm_Gold', 'RWC 2008 Dragon Helm Gold', 5, 20, NULL , 250
 
 REPLACE INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
 (12098, 'Luk_Dish08', 'Strawberry Flavored Rice Ball', 0, 60000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_LUKFOOD, 1200000, 8; percentheal 9,3;', NULL, NULL);
+
+REPLACE INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
+(2462, 'Sleipnir_C', 'Sleipnir', 5, 20, NULL, 0, NULL, 40, NULL, 0, 4294967295, 7, 2, 64, NULL, 94, 0, 0, 'bonus bUseSPrate,-200; bonus bAspdRate,100; bonus bDelayRate,-200; bonus bCastrate,-200; bonus bIgnoreDefRace,RC_NonBoss; bonus bIgnoreMDefRace,RC_NonBoss;   bonus bDoubleRate,100;', 'sc_start4 SC_ENDURE,60000,10,0,0,1;', 'sc_end SC_ENDURE;');
+
