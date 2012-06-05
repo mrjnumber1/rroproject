@@ -27,6 +27,8 @@ prt_fild01	mapflag	mob_count_rate	5
 prt_fild05	mapflag	mob_count_rate	5
 prt_fild06	mapflag	mob_count_rate	5
 prt_fild08	mapflag	mob_count_rate	5
+moc_fild01	mapflag	mob_count_rate	5
+moc_fild12	mapflag	mob_count_rate	5
 
 // maps requiring reductions
 ama_dun01	mapflag	mob_count_rate	2
@@ -42,5 +44,6 @@ prt_sewb4	mapflag	mob_count_rate	2
 thor_v03	mapflag	mob_count_rate	2
 tur_dun03	mapflag	mob_count_rate	2
 tur_dun04	mapflag	mob_count_rate	2
+moc_fild22	mapflag	mob_count_rate	2
 
 
