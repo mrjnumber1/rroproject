@@ -268,7 +268,7 @@ morocc,176,68,5	script	Injured Elite	849,{
 //
 
 // Church Donation
-// This offers what amounts to 30 minutes of stat+7 food for 500k zeny and a Cursed Ruby... we may need to change this later, if people are opposed to it
+// This offers what amounts to 30 minutes of stat+3 food for 500k zeny and a Cursed Ruby... we may need to change this later, if people are opposed to it
 prontera,165,191,3	script	Church Worker	790,{
 
 	if(gettimetick(2) - dq_cd_time < (60 * 30)) 
@@ -334,8 +334,8 @@ prontera,165,191,3	script	Church Worker	790,{
 OnInit:
 	set .npcname$, "^0000FF[Church Worker]^000000";
 	setarray .cost[0],  100000,  50000,  10000;
-	setarray .bexp[0],   40000,  20000,  10000;
-	setarray .jexp[0],   29000,  14000,   7000;
+	setarray .bexp[0],   10000,   5000,   1000;
+	setarray .jexp[0],    7250,   3000,    500;
 	setarray .foodLevel[0],  3,      2,      1;
 	setarray .minLevels[0], 90,     81,     50; //remember, descending order!
 	
