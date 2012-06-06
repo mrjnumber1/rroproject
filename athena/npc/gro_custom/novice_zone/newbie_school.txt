@@ -1,0 +1,785 @@
+// Newbie School
+// 1 == need to talk to interfaces tutor
+// 2 == need to talk to skills tutor (include line about hidden skills)
+// 3 == need to talk to stats tutor
+// 4 == need to talk to items tutor
+// 5 == need to talk to battle tutor
+// 6 == need to talk to jobs tutor (includes new dialog on taekwon, ninja, gunslinger)
+// 7 == done newbie school, talk to Tutorial Girl to leave
+// 8 == 
+// 9 == chose to not do the newbie zone
+
+// Tutorial Girl
+
+moc_para01,32,180,5	script	Tutorial Girl#Newbie_School 65, {
+	mes "[Tutorial Girl]";
+	if (newbie_school < 7) {
+		mes "Sorry, I can't let you leave til you finish talking to all of the tutors! Hang in there!";
+		end;
+		}
+	else {
+		mes "Wow, you talked to all of the tutors! You're definitely ready to leave the Newbie School.";
+		next;
+		mes "[Tutorial Girl]";
+		mes "Well, that's not true 100% yet. There's a few last things I'm going to tell you.";
+		next;
+		mes "[Tutorial Girl]";
+		mes "First, if you're not remembering something that you learned here, I want you to know that the basics can be found again on http://www.karma-ro.com";
+		next;
+		// @control
+		mes "[Tutorial Girl]";
+		mes "There are also some commands that should know about. The most important one is the ^4D4DFF@control^000000 command.";
+		next;
+		mes "[Tutorial Girl]";
+		mes "^4D4DFF@control^00000 is a very important command!!"; // need to add description here
+		mes "Using ^4D4DFF@control^000000 gives you the ability to configure your autolog commands, set your personal styles, access rental mounts, carts, and falcons if your class can use them, and lets you change from Novice to your next Job.";
+		next;
+		// @aloot and related commands (including @nolootid)
+		mes "[Tutorial Girl]";
+		mes "^4D4DFF@autoloot^000000 lets you automatically gain items from monsters after you kill them If you check out ^4D4DFF@alootid^000000, it will give you different options on how you can be more specific to only pick up certain items. This is useful if you only want to pick up an item that drops at a very low rate. ^4D4DFF@nolootid^000000 will let you pick up everything but this item. If you want to know what your autolooting settings look like, type ^4D4DFF@autolootinfo^000000.";
+		next;
+		// @main
+		mes "[Tutorial Girl]";
+		mes "Sometimes when you are in far away places, you might get lonely for talking to others! In this case, ^4D4DFF@main^000000 comes to the rescue.";
+		next;
+		mes "[Tutorial Girl]";
+		mes "^4D4DFF@main^000000 lets you talk to other players across the entire server at any time. Remember to be courteous and nonspammy though! You'd want the same from others.";
+		next;
+		// @storage
+		mes "[Tutorial Girl]";
+		mes "After awhile, you'll find you are running out of room in your character inventory, that's when ^4D4DFF@storage^000000 comes in handy.";
+		next;
+		mes "[Tutorial Girl]";
+		mes "^4D4DFF@storage^00000 lets you place your items into your personal storage as well as take them out. You can store up to 600 items in your personal storage to access anywhere."; // need to add description here
+		next;
+		mes "[Tutorial Girl]";
+		mes "You should also know that ^4D4DFF@mstorage^000000 will let you place items into a storage shared by all character accounts under your member account. This lets you store and transfer items between character accounts safely! You can store up to 600 items in your member storage.";
+		mes "[Tutorial Girl]";
+		mes "I hope all the information you gained here will stay with you! Remember, you can always check http://www.karma-ro.com if you need to refresh yourself on the Basics again.";
+		close2;
+		set newbie_school,8;
+		warp moc_para01,31,14;
+		end;
+		}
+	}
+
+// Interfaces tutor, checks if newbie_school == 1
+
+moc_para01,14,180,5	script	Interfaces Tutor#Newbie_School	65,{
+	mes "[Interfaces Tutor]";
+	if (newbie_school == 7) {
+		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
+		end;
+		}
+	if (newbie_school == 6) {
+		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
+		end;
+		}
+	if (newbie_school == 5) {
+		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
+		end;
+		}
+	if (newbie_school == 4) {
+		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
+		end;
+		}
+	if (newbie_school == 3) {
+		mes "Heh, you've knocked another one off! Talk to the Stats Tutor next!";
+		end;
+		}
+	if (newbie_school == 2) {
+		mes "Hey, you've got a lot more tutors to go! Talk to the Skills Tutor now!";
+		end;
+		}
+	else {
+		mes "well, I guess it's my turn to teach you!";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "This is the most basic of classes... the Interfaces Tutor";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "It's possible to move every interface window on your screen by dragging the window. Just click on the window, hold down the mouse button and move your mouse.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "Now, let me explain each interface window according to their default positions on your screen.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "At the upper left side of your screen, you will see a window with your character name and level. This is the ^3355FFBasic Information Window^000000.";
+		mes "[Interfaces Tutor]";
+		mes "When you're out killing monsters, keep an eye on your Basic Information Window and observe the change in your Base Level experience gauge and your Job Level experience gauge.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "Once one of these fills to a 100% full, you gain an experience level of the type that filled up! On every Base Level gain, you will gain stat points which the Stats Tutor will tell you more details on after me, and on every Job Level gain, you will gain skill points which the Skills Tutor will tell you more details on after me!";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "On the right side";
+		mes "of the Basic Info window,";
+		mes "you will see various";
+		mes "Menu buttons.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "Clicking these Menu buttons will open other Interface Windows, such as the Inventory Window";
+		mes "or Party Window.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "Now...";
+		mes "The ^3355FFChat Window^000000 is";
+		mes "located at the bottom";
+		mes "of your screen.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "At the bottom right of the Chat Window, you should see 2 blue buttons. The left button allows you to change your chatting options.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "The '^3355FFSend to All^000000' option";
+		mes "allows you to chat with";
+		mes "everyone on your screen.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "The '^3355FFSend to Party^000000' and '^3355FFSend to Guild^000000' options allows you to send messages to only members of your party or guild, regardless of how far they are.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "You can drag the Scroll Bar";
+		mes "on the right side of the Chat Window to review a conversation. Since the Chat Window is always active, you won't have any problem communicating with other players.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "Now, one of the most important interfaces is the ^3355FFMini-Map^000000, located at the upper-right of your screen.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "The red dots on the Mini-Map indicate locations of ^3355FFWarp Portals^000000 which connect to different zones.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "If you've joined a party or a guild, the Mini-Map will also show you the location of your party or guild members if they are on the same map.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "Please click the Menu buttons";
+		mes "on the right side of your Basic Info window and familiarize yourself with the other interfaces.";
+		next;
+		mes "[Interfaces Tutor]";
+		mes "Well, that was my brief overview on in-game interfaces. It might seem like a lot of information now, but it will soon become second nature.";
+		mes "Good luck talking to the next tutor! He will teach you about Skills!";
+		close2;
+		set newbie_school,2;
+		end;
+		}
+	}
+
+// Skills Tutor
+
+moc_para01,17,180,5	script	Skills Tutor#Newbie_School	65,{
+	mes "[Skills Tutor]";
+	if (newbie_school == 7) {
+		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
+		end;
+		}
+	if (newbie_school == 6) {
+		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
+		end;
+		}
+	if (newbie_school == 5) {
+		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
+		end;
+		}
+	if (newbie_school == 4) {
+		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
+		end;
+		}
+	if (newbie_school == 3) {
+		mes "Heh, you've knocked another one off! Talk to the Stats Tutor next!";
+		end;
+		}
+	if (newbie_school < 2) {
+		mes "You're not ready to talk to me yet! Talk to the Interfaces Tutor.";
+		end;
+		}
+	else {
+		mes "well, I guess it's my turn to teach you!";
+		next;
+		mes "[Skills Tutor]";
+		mes "It's my job to teach you about the use of skills!";
+		mes "In your Basic Info Window, click the ^3355FFSkill^000000 button to open your Skill Window. You can also press the '^3355FFAlt^000000' and '^3355FFS^000000' keys at the same time.";
+		next;
+		mes "[Skills Tutor]";
+		mes "When your";
+		mes "Skill Window is open,";
+		mes "you'll see an icon labeled";
+		mes "'^3355FFBasic Skill^000000.'";
+		if (JobLevel < 7) {
+			next;
+			mes "[Skills Tutor]";
+			mes "Now, at the bottom of the Skill Window, the number of remaining Skill Points that you have is displayed.";
+			next;
+			mes "[Skills Tutor]";
+			mes "Open your Skill Window ('Alt' + 'S') and click the '^3355FFLv Up^000000' button next to the Basic Skill icon to allocate a Skill Point to your Basic Skills.";
+			set nov_get_item03,10;
+			switch (JobLevel) {
+			case 1: getexp 0,10; break;
+			case 2: getexp 0,18; break;
+			case 3: getexp 0,28; break;
+			case 4: getexp 0,40; break;
+			case 5: getexp 0,91; break;
+			case 6: getexp 0,151; break;
+				}
+			}
+		else {
+				next;
+				mes "[Skills Tutor]";
+				mes "Huh. Actually, your Job Level is higher that I thought. I guess you already know the basics about skills then.";
+			}
+		next;
+		mes "[Skills Tutor]";
+		mes "So did you distribute the skill points to your Basic Skills? You'll need to master the Basic Skills eventually, so it's a good idea.";
+		next;
+		mes "[Skills Tutor]";
+		mes "For more detailed information on skills, go speak to Leo Handerson, one of the assistant tutors.";
+		next;
+		mes "[Skills Tutor]";
+		mes "Oh, I almost forgot!";
+		mes "Let me teach you the ^3355FFFirst Aid^000000 skill. This skill will help you out a lot when you're in danger.";
+		next;
+		mes "^3355FFYou have learned";
+		mes "the ^4A708BFirst Aid^3355FF skill.^000000";
+		skill 142,1,0; //NV_FIRSTAID
+		next;
+		mes "[Skills Tutor]";
+		mes "Now, open your Skill Window";
+		mes "and check if you have the ^3355FFFirst Aid^000000 skill icon. To use it, you need to double-click that skill icon.";
+		mes "Now, try it!";
+		percentheal -50,0;
+		next;
+		mes "[Skills Tutor]";
+		mes "Active skills, like First Aid, require a certain amount of SP to use them. The First Aid skill is useful for Novices, since it refills a little bit of HP.";
+		next;
+		mes "[Skills Tutor]";
+		mes "Well, you've been a great student! I'll heal you up before I send you to the next tutor!";
+		next;
+		percentheal 100,100;
+		mes "[Skills Tutor]";
+		mes "Feel my power! Heal!!";
+		mes "All better now, good luck!";
+		close2;
+		set newbie_school,3;
+		end;
+		}
+	}
+
+// Stats Tutor
+
+moc_para01,20,180,5	script	Stats Tutor#Newbie_School	65,{
+	mes "[Stats Tutor]";
+	if (newbie_school == 7) {
+		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
+		end;
+		}
+	if (newbie_school == 6) {
+		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
+		end;
+		}
+	if (newbie_school == 5) {
+		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
+		end;
+		}
+	if (newbie_school == 4) {
+		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
+		end;
+		}
+	if (newbie_school < 3) {
+		mes "You're not ready to talk to me yet!";
+		end;
+		}
+	else {
+		mes "well, I guess it's my turn to teach you!";
+		next;
+	mes "[Stats Tutor]";
+	mes "Welcome, new adventurer.";
+	mes "I, Stats Tutor will help you to learn about the fundamental";
+	mes "rules of your Character Statuses.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Also known as 'Stats,'";
+	mes "your statuses are the fundamental building blocks of your character.";
+	next;
+	mes "[Stats Tutor]";
+	mes "I am willing to help you learn about the statuses more than anything else, so feel free to ask me about character statuses you";
+	mes "may be wondering about.";
+	next;
+	mes "[Stats Tutor]";
+	mes "In Ragnarok Online,";
+	mes "the Character Statuses are Strength, Agility, Vitality, Intelligence, Dexterity and Luck.";
+	next;
+	mes "[Stats Tutor]";
+	mes "First, open your Status Window by using the '^3355FFAlt^000000 + ^3355FFA^000000' keys.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Let me explain Strength first.";
+	mes "^4D4DFFStrength (STR)^000000 increases";
+	mes "^4D4DFFphysical attack damage (ATK) ^000000";
+	mes "and your ^4D4DFF maximum weight limit^000000.";
+	next;
+	mes "[Stats Tutor]";
+	mes "1 STR increases your physical attack damage by 1 point. A certain amount of attack damage bonus is given when the STR stat is increased to a multiple of 10.";
+	next;
+	mes "[Stats Tutor]";
+	mes "The way the attack damage bonus is calculated is by taking the total strength value, removing the very last digit, and squaring the number you have left.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Let's say your attack is displayed as '48 + 1.' That's a total of 49 strength. When you remove the last digit, '9,' we are left with the number '4.' 4 multiplied by itself equals 16.";
+	next;
+	mes "[Stats Tutor]";
+	mes "So the physical attack bonus is 16. Now, if you had a total of 50 STR, the attack bonus would be 25. And if your STR is 100, your attack bonus would be 100.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Okay, now let's move";
+	mes "on to Agility (AGI).";
+	mes "Agility affects your Flee Rate and Attack Speed. The higher your Flee Rate, the better chance you have of avoiding enemy attacks.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Your Flee Rate";
+	mes "is equal to the number";
+	mes "of your Base Level added";
+	mes "to your AGI.";
+	next;
+	mes "[Stats Tutor]";
+	mes "So if you have 40 AGI and you're at Base Level 30, your Flee Rate would be 70. It's so simple! Following the Flee Rate formula, your flee rate will be a total of 70.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Now, AGI only relates to normal Flee Rate. Perfect Dodge is another factor that determines success in dodging attacks, but we'll talk about that when we discuss";
+	mes "the LUK stat.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Another benefit to increasing AGI is that your Attack Speed (ASPD) will also increase, meaning the time between your melee attacks will be reduced.";
+	next;
+	mes "[Stats Tutor]";
+	mes "ASPD, however,";
+	mes "differs by Job Class,";
+	mes "so please remember that.";
+	next;
+	mes "[Stats Tutor]";
+	mes "^666666*Whew!*^000000";
+	mes "That's almost too";
+	mes "much excitement for";
+	mes "one day. Shall we move";
+	mes "on to the next subject?";
+	next;
+	mes "[Stats Tutor]";
+	mes "Our next subject";
+	mes "will be Vitality (VIT)";
+	mes "and Intelligence (INT).";
+	next;
+	mes "[Stats Tutor]";
+	mes "^4D4DFFVitality^000000 affects the ^4D4DFFmaximum HP, amount of HP restoration and defense^000000. The amount of HP increased by VIT is differs by your job class.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Out of all the Job Classes, the Swordman class benefits most";
+	mes "from increases in VIT.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Let's check defense.";
+	mes "On your stat window, your defense is displayed as DEF. Two numerical values are shown, and the second number reflects the addition to your defense by your VIT.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Now, the first number";
+	mes "displayed in your Defense is the defense calculated from your Equipment and Armor.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Now, the equipment you wear reduces damage from enemies by a percentage of the total damage, where VIT reduces by a set amount. That's why Defense is displayed with two numbers.";
+	next;
+	mes "[Stats Tutor]";
+	mes "The next subject";
+	mes "is Intelligence (INT).";
+	next;
+	mes "[Stats Tutor]";
+	mes "INT affects your maximum amount of ^4D4DFFSP^000000, ^4D4DFFSP restoration^000000, the ^4D4DFF damage of your magic attack (MATK)^000000 and your ^4D4DFFdefense against magic attack (MDEF)^000000.";
+	next;
+	mes "[Stats Tutor]";
+	mes "The SP amount and MATK increased";
+	mes "by 1 INT is dependent on Job Class, just like VIT. This means that some Jobs will naturally benefit more from having more INT than others.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Just like normal DEF, your Magic Defense (MDEF) shows as 2 different numerical values. The MDEF contributed by INT is the second MDEF value displayed.";
+	next;
+	mes "[Stats Tutor]";
+	mes "In order to study manipulation of the natural elements, you should prioritize on having intelligence. Therefore, Sages and Wizards";
+	mes "focus on the INT stat.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Our last subject";
+	mes "is Dexterity (DEX)";
+	mes "and Luck (LUK).";
+	next;
+	mes "[Stats Tutor]";
+	mes "Dexterity mainly affects your accuracy, attack speed (ASPD)";
+	mes "and your average attack strength.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Let me explain...";
+	mes "If you have low DEX, the difference between the minimum damage and";
+	mes "the maximum damage you can inflict becomes huge. The damage of your attacks becomes unstable.";
+	next;
+	mes "[Stats Tutor]";
+	mes "If you are using a ^4D4DFFBow^000000 as your";
+	mes "main weapon, your attack strength will be based on^4D4DFFDEX^000000. So Archers should focus on increasing their DEX.";
+	next;
+	mes "[Stats Tutor]";
+	mes "The amount of DEX that you";
+	mes "have will also affect your attack accuracy. Attack accuracy is calculated by the number of your Base Level added to your DEX.";
+	next;
+	mes "[Stats Tutor]";
+	mes "For example, if you are at";
+	mes "Base Level 40 and have 20 DEX,";
+	mes "your attack accuracy would be 60.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Finally, DEX also reduces the casting time of spells and skills. Therefore, having some DEX would";
+	mes "be handy for Mages and Wizards.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Now, let me tell";
+	mes "you about the LUK stat.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Luck (LUK) affects the chance";
+	mes "for a critical attack, the Flee Rate and a small amount of damage you deal to monsters.";
+	next;
+	mes "[Stats Tutor]";
+	mes "For a critical attack, the start value is 1 for everyone and it's increased by^4d4dff 1^000000 for every ^4d4dff3 LUK^000000.";
+	next;
+	mes "[Stats Tutor]";
+	mes "With more LUK, you have an increased change of inflicting ^3355FFcritical attacks^000000 to your enemies. Critical attacks are useful to you, as they pierce your enemy's defense.";
+	next;
+	mes "[Stats Tutor]";
+	mes "You can tell you've performed a critical attack when an attack has inflicted more damage than usual to an enemy, and the damage number is displayed with an explosive red visual effect.";
+	next;
+	mes "[Stats Tutor]";
+	mes "For every 10 LUK, you add 1 point to your Perfect Dodge rate. Perfect Dodge is sort of like your Flee Rate. When you perform a Perfect Dodge, the word '^FF7F00Lucky^000000' will appear over your head.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Although similar to your Flee Rate, Perfect Dodge is a separate factor in attack evasion that is calculated differently.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Well, I must say,";
+	mes "Luck is a good thing to have, but that doesn't mean you need it before everything else.";
+	next;
+	mes "[Stats Tutor]";
+	mes "Speaking of luck, Good luck to you chap, as you're finally done my course! it's time for you to speak to the Items Tutor next, I think you'll find her a bit more fun.";
+		close2;
+		set newbie_school,4;
+		end;
+		}
+		
+	}
+
+// items Tutor
+
+moc_para01,23,180,5	script	Items Tutor#Newbie_School	65,{
+	mes "[Items Tutor]";
+	if (newbie_school == 7) {
+		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
+		end;
+		}
+	if (newbie_school == 6) {
+		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
+		end;
+		}
+	if (newbie_school == 5) {
+		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
+		end;
+		}
+	if (newbie_school < 4) {
+		mes "You're not ready to talk to me yet!";
+		end;
+		}
+	else {
+		mes "well, I guess it's my turn to teach you!";
+		next;
+				mes "[Items Tutor]";
+		mes "Don't worry, it'll be short.";
+		mes "Open your Inventory Window";
+		mes "through either the '^3355FFitems^000000' button in the Basic Info window, or by pressing the '^3355FFAlt^000000' and '^3355FFE^000000' keys at the same time.";
+		next;
+		mes "[Items Tutor]";
+		mes "In the Inventory Window, you'll see 3 tabs labeled ^3355FFitem^000000, ^3355FFequip^000000 and ^3355FFetc^000000. Items that can be consumed are under the ^4A708Bitem^000000 tab.";
+		next;
+		mes "[Items Tutor]";
+		mes "Now, would you click the ^4A708Bitem^000000 tab in the Inventory Window? I just gave you a Novice Potion. You can drink it by double-clicking it. Go ahead, try it!";
+		getitem 569,1; //Novice_Potion
+		percentheal -50,0;
+		mes "[Items Tutor]";
+		if (countitem(569) < 1) {
+			mes "Nice~!";
+			}
+		else {
+			mes "Um...";
+			mes "Well, you can drink";
+			mes "it later I guess.";
+			}
+			next;
+			mes "[Items Tutor]";
+			mes "Let me explain about";
+			mes "items in the ^4A708Bequip^000000 tab";
+			mes "of the Inventory Window.";
+			next;
+			mes "[Items Tutor]";
+			mes "When you click on the ^4A708Bequip^000000 tab, you can view every item in your inventory that you can equip. Right now you don't have much, but put on whatever you can, but don't worry, you'll get better items in time! Everyone does!";
+			next;
+			next;
+			mes "[Items Tutor]";
+			mes "Would you";
+			mes "press the '^3355FFF12^000000' key?";
+			mes "This will summon your";
+			mes "Hotkey bar on your screen.";
+			next;
+			mes "[Items Tutor]";
+			mes "You can assign hotkeys to your items, skills and equipment using the Hotkey bar. Just drag skill icons from the Skill Window or items from the Inventory Window into the Hotkey bar.";
+			next;
+			mes "[Items Tutor]";
+			mes "The Hotkeys are '^3355FFF1^000000' to '^3355FFF9^000000.'";
+			mes "If you have attended the Skill Class, you must have been given the First Aid skill. Drag and drop the First Aid skill icon into the Hotkey bar.";
+			next;
+			mes "[Items Tutor]";
+			mes "For your information, only";
+			mes "active skills can be assigned to a Hotkey and dragged to the Hotkey bar. Active Skills have colored, square shaped icons that can be double-clicked and used.";
+			next;
+			mes "[Items Tutor]";
+			mes "Passive Skills, such as the aptly named 'Basic Skill,' cannot be dragged into the Hotkey bar because Passive Skills are always in effect and don't need to be activated.";
+						
+		next;
+					mes "[Items Tutor]";
+			mes "Well, that's it! onto the Battle Tutor for you";
+		close2;
+		set newbie_school,5;
+		end;
+		}
+	}
+
+// Battle Tutor
+
+moc_para01,26,180,5	script	Battle Tutor#Newbie_School	65,{
+	mes "[Battle Tutor]";
+	if (newbie_school == 7) {
+		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
+		end;
+		}
+	if (newbie_school == 6) {
+		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
+		end;
+		}
+	if (newbie_school < 5) {
+		mes "You're not ready to talk to me yet!";
+		end;
+		}
+	else {
+		mes "well, I guess it's my turn to teach you!";
+		next;
+		mes "[Battle Tutor]";
+		mes "Take heart, my lecture will be short!";
+		mes "I will teach you how to fight Monsters in the world of Rune-Midgard!"
+		next;
+			mes "[Battle Tutor]";
+			mes "First, you place the cursor on a monster. When you left click, you will hit the monster once.";
+			next;
+			mes "[Battle Tutor]";
+			mes "If you are too lazy to keep left clicking, left click on the monster while holding the '^4D4DFFCtrl^000000' key. You will then continue attacking the monster until one of you is dead, or you run away.";
+			next;
+			mes "[Battle Tutor]";
+			mes "You can also just hold down the left mouse button while the cursor is on the monster. Still, there are some people who are even too lazy to use the '^4D4DFFCtrl^000000' key every time they attack a monster.";
+			next;
+			mes "[Battle Tutor]";
+			mes "If you're one of them, type the command ^E79E29//nc^000000 in your Chat Window. Then, when you left click";
+			mes "a monster, you'll just continuously attack it!";
+			next;
+			mes "[Battle Tutor]";
+			mes "If a monster happens to have the Undead property, you can use the 'Heal' skill to attack if you happen to have it.";
+			next;
+			mes "[Battle Tutor]";
+			mes "When you use the Heal skill while holding down the '^4D4DFFShift^000000' key, you can target the monster with the Heal skill to damage it.";
+			next;
+			mes "[Battle Tutor]";
+			mes "Of course for this skill, we do have a very convenient option for lazy people too. Type the command ^E79E29//ns^000000 in your Chat Window.";
+			next;
+			mes "[Battle Tutor]";
+			mes "This will allow you to attack monsters by using the Heal skill without holding the shift key. Handy, huh?";
+			next;
+			mes "[Battle Tutor]";
+			mes "Do you understand these battle commands? Now, I will teaching you about monster behaviors and properties and then you'll be done with my course.";
+			next;
+					mes "[Battle Tutor]";
+					mes "There are many aggressive monsters that will attack you first before you even approach them. ";
+					next;
+					mes "[Battle Tutor]";
+					mes "There are also a few monsters that will cooperate with others of their kind. Attack one of them, and the whole pack of them will swarm around you, seeking revenge.";
+					next;
+					mes "[Battle Tutor]";
+					mes "Every monster can be specified by their types, sizes and properties. For example, there are Demi-human, Brute, Holy and Demon property monsters out there.";
+					next;
+					mes "[Battle Tutor]";
+					mes "When you're aware of what property a monster is, you can use that knowledge to help you in battle.";
+					next;
+					mes "[Battle Tutor]";
+					mes "If you manage to get cards for that increase your damage upon certain monster properties, or reduce damage from specific monster properties, you'll have a much easier time in battle.";
+					next;
+					mes "[Battle Tutor]";
+					mes "Monsters are separated by their size: small, medium and large. There are a few cards that allow you to do more damage to";
+					mes "a specific monster size.";
+					next;
+					mes "[Battle Tutor]";
+					mes "Also, each weapon has its strengths and weaknesses. The size of the weapon will affect the damage it will deal to monsters.";
+					next;
+					mes "[Battle Tutor]";
+					mes "For example, Dagger class weapons do 100 % damage on small sized monsters but only inflict 50 % on large monsters.";
+					next;
+					mes "[Battle Tutor]";
+					mes "Common monster properties include Water, Wind, Earth, Fire, Shadow, Ghost and Holy. If you attack a monster with an opposing property, you can inflict additional damage~";
+					next;
+					mes "[Battle Tutor]";
+					mes "But if you attack a monster with";
+		mes "a skill or weapon that inflicts damage of the same property as the monster, the damage will be greatly reduced, or completely negated. You might even heal the monster!";
+		next;
+		mes "[Battle Tutor]";
+		mes "In the case of Ghost property monsters, normal weapons cannot do any harm. However, a weapon with any other property will be able to deal out some damage.";
+		next;
+		mes "[Battle Tutor]";
+		mes "Well, that wraps up what you need to know for the basics of battling monsters! Onto the final tutor, who will tell you about jobs!"
+		close2;
+		set newbie_school,6;
+		end;
+		}
+	}
+
+// Jobs Tutor
+
+moc_para01,29,180,5	script	Jobs Tutor#Newbie_School	65,{
+	mes "[Jobs Tutor]";
+	if (newbie_school == 7) {
+		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
+		end;
+		}
+	if (newbie_school < 6) {
+		mes "You're not ready to talk to me yet!";
+		end;
+		}
+	else {
+		mes "well, I guess it's my turn to teach you!";
+		next;
+		mes "[Jobs Tutor]";
+		mes "Hi, I'm the Jobs Tutor. You should know by now that you're a Novice. But you don't always have to be one. In fact, in Rune-Midgard, there are many professions you can undertake from here.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "To make it easy on you for now, I'm just going to explain the First Job Classes. They're what you'll have to worry about soonest.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "As the name implies, the";
+		mes "Swordman is an expert in wielding Swords. They can also use Spear weapons, but typically you don't see Spear wielding Swordmen very often. To be honest, smart Swordmen will use Daggers as they offer the best Attack Speed at the low levels."; // HOW DO YOU LIKE THAT BITCH
+		next;
+		mes "[Jobs Tutor]";
+		mes "Swordman possess strong physical strength, allowing them to equip heavy armor and weapons. Most weapon classes, except for bows and rods, can be equipped by the Swordman class.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "The only weakness of the Swordman class is that they cannot use magic spells. However, this can be compensated by using weapons with an elemental attribute.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "One of the greatest benefits of being a Swordman is having an enormous amount of HP, meaning they can more easily withstand damage from their enemies.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "After learning some strong attack skills, the Swordman is almost unbeatable in a melee fight.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "In Ragnarok Online, Swordman generally takes the position of tanker, protecting characters of other classes from being attacked or hurt.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "A Swordman is the ideal character to take the position of party leader. When advancing to the Second Job Class, Swordmen can change their jobs to ^8E2323Knights^000000 or ^8E2323Crusaders^000000.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "The Mage class specializes in using the forces of Fire, Water, Earth and Lightning to attack their enemies.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "However, due to their weak physical strength, they are only allowed to equip Rods and Knives as weapons, and wear light armor for defense.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "Despite their physical weakness, they are able to do massive damage with their powerful spells. This fact alone attracts many people to join this class.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "In Ragnarok Online, the Mage takes a heavily offensive role in parties and is depended upon to deal great damage to enemies.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "When advancing to the Second Job Class, Mages can change their jobs to ^8E2323Wizards^000000 or ^8E2323Sages^000000.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "The Archer class are experts in using Bow weapons, and are useful in parties for their long range attacks.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "Despite being physically weaker, Archers possess high accuracy with powerful long range bows. This allows them to attack and kill monsters from a safe distance.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "In Ragnarok Online, Archers have relatively little HP, but their long range attacks allow them to easily dispatch enemies before the enemy gets close enough to hurt them.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "When advancing to the Second Job Class, every Archer may advance to the ^8E2323Hunter^000000 class. Alternatively, male Archers may advance to become ^8E2323Bards^000000, and female Archers may become ^8E2323Dancers^000000.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "The Merchant class specializes in commerce. Due to the strong influence of the Merchant Guild, the Merchant class is attractive to those who wish to focus on earning Zeny. When fighting alone, a Merchant is best to use Dagger class weapons as they will offer the greatest Attack Speed at a lower level.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "In Ragnarok Online, the Merchant class possesses various economic abilities. Merchants can learn to sell items to NPCs for higher prices, as well as receive discounts from NPCs.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "In addition, Merchants may rent";
+		mes "a Cart that greatly expands their carrying capacity and allows them to open shops with their own items and prices.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "When advancing to the Second Job Class, Merchants can change their jobs to ^8E2323Blacksmiths^000000 or ^8E2323Alchemists^000000.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "Thieves are experts at using Dagger class weapons. They strike quickly and easily evade attacks from their enemies. Thieves can also use Bow class weapons, but lack skills that would let them utilize the power of Bow class weapons like Archers can."; // added note on Bow class weapons
+		next;
+		mes "[Jobs Tutor]";
+		mes "Thieves can learn skills that allow them to hide from their enemies, or steal items from monsters. They are also feared for their use of poison, which slowly weakens";
+		mes "their enemies.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "When advancing to the Second Job Class, Thieves can change their jobs to ^8E2323Assassins^000000 or ^8E2323Rogues^000000.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "In Ragnarok Online, Acolytes act as messengers of God in Rune-Midgard. They possess skills that support their allies, as well as the life saving Heal ability.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "The Acolyte's support abilities make them a welcome addition to any party. In difficult situations, the Acolyte's skills will ensure the survival of the party, allowing other members to focus on offense.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "When advancing to the Second Job Class, Acolytes can change their jobs to ^8E2323Priests^000000 or ^8E2323Monks^000000.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "The Taekwon class is a martial arts master! They do not using weapons at all and fight with bare hands and feet!";
+		next;
+		mes "[Jobs Tutor]";
+		mes "Their strength grows with their friends around them, so Taekwons battle best in a group of heroes!";
+		next;
+		mes "[Jobs Tutor]";
+		mes "When advancing to the Second Job Class, Taekwons can change their jobs to ^8E2323Star Gladiators^000000 or ^8E2323Soul Linkers^000000.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "The Ninja class specializes in the Eastern arts. Due to the strong attunement that the Ninja Guild has with Nature, they can channel mystical elemental energies using elemental orbs.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "In Ragnarok Online, the Ninja class may not be the strongest, but it can definitely be quite tricky and will give most regular monsters a run for their money.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "Remember when choosing Ninja as a First Class Job, that they do not have a Second Class Job, so you will be stuck as a Ninja forever.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "The Gunslinger class is a master of firearms. Their steady and practiced aim lets them pierce the hearts of their enemies with mighty bullets.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "In Ragnarok Online, the Gunslinger class is darn powerful, but does have its limitations. Pick your guns and skills carefully, as different guns have different strengths and weaknesses and some skills only work with certain guns.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "Remember when choosing the Gunslinger as a First Class Job, that they do not have a Second Class Job, so you will be stuck as a Gunslinger forever.";
+		next;
+		mes "[Jobs Tutor]";
+		mes "well, that's all I can teach you for now. You've done well to come this far. Talk to Tutorial Girl to leave the Newbie School. Good luck and remember to pick your class wisely!";
+		close2;
+		set newbie_school,7;
+		end;
+		}
+	}
+
