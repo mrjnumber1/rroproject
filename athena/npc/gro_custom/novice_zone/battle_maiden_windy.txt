@@ -33,10 +33,10 @@ bat_room,153,149,5	script	Battlegrounds Guide#BGGuide	55,{
 			next;
 			mes "[Battle Maiden Wendy]";
 			mes "Well, wow! That's just about all I can tell you for now! Good luck on the field of battle! I'm rooting for ya!";
-			break;
+			close;
 		case 2:
 			mes "[Battle Maiden Wendy]";
 			mes "Oh... Ok...";
-			end;
+			close;
 		}
 	}
