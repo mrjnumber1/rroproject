@@ -4176,7 +4176,6 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Assassin^000000
 #
 1283#
-^000088Rental Item^000000
 Katar Of Speed.
 Increases 25% damage with Sonic Blow skill.
 ASPD + 3%.
@@ -5134,7 +5133,6 @@ Weapon Level :^777777 4^000000
 Required Level :^777777 80^000000
 Applicable Job :^777777 Swordman Class^000000
 #
-1427#
 ^000088Rental Item^000000
 A good long spear.
 Increases 25% damage with Magnum Break skill.
@@ -6116,7 +6114,6 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Novice, Swordman Class, Acolyte Class, Merchant Class^000000
 #
 1547#
-^000088Rental Item^000000
 Mace of Insanity.
 Increases 25% damage with Cart Revolution skill.
 STR + 2.
@@ -6477,7 +6474,6 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Priest, Sage, Star Gladiator^000000
 #
 1578#
-^000088Rental Item^000000
 Book Of Prayer.
 VIT + 2. MDEF + 10. 
 Max SP + 10%.
@@ -7025,7 +7021,6 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Mage Class, Acolyte Class, Soul Linker^000000
 #
 1642#
-^000088Rental Item^000000
 Staff Of Darkness.
 Decreases casting time by 5%.
 MATK + 15%. INT + 2.
@@ -7670,7 +7665,6 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Archer Class, Thief, Rogue^000000
 #
 1744#
-^000088Rental Item^000000
 The devil's bow.
 Increases 25% damage with Double Strafe skill.
 DEX + 2.
@@ -8215,7 +8209,6 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Priest, Monk^000000
 #
 1828#
-^000088Rental Item^000000
 Knuckle of monk.
 Increases 25% damage with Finger Offensive skill.
 INT + 2.
@@ -8929,7 +8922,6 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Dancer^000000
 #
 1982#
-^000088Rental Item^000000
 Phenomena Whip.
 Increases 25% damage with Throw Arrow skill.
 DEX + 2.
@@ -11322,7 +11314,6 @@ Weight :^777777 40^000000
 Applicable Job :^777777 Every Job^000000
 #
 2384#
-^000088Rental Items^000000
 A Tunic that has been granted additional tolerance against certain properties.
 Decreases 20% damage from ^777777Neutral^000000 and ^777777Water^000000 property.
 MDEF + 5. MHP + 800. Cannot be Frozen.
@@ -11332,7 +11323,6 @@ Weight :^777777 0^000000
 Applicable Job :^777777 Every Job^000000
 #
 2385#
-^000088Rental Items^000000
 An armor that allows the master to regain his life by taking the enemies
 HP, SP Natural Recovery is Disabled.
 When unequipped, you lose 100 SP.
@@ -11842,7 +11832,6 @@ Weight :^777777 30^000000
 Applicable Job :^777777 Every Job^000000
 #
 2439#
-^000088Rental Items^000000
 Shoes that were made with complex design and very soft skin to show how fun your legs could be with these.
 MHP + 17% , MSP + 8%.
 Every 10 seconds, your HP goes up by 20, SP goes up by 3.
@@ -12610,7 +12599,6 @@ Required Level :^777777 70^000000
 Applicable Job :^777777 Every Jobs except Novice^000000
 #
 2543#
-^000088Rental Items^000000
 A Soft Manteau that has been blessed by a Wind Fairy. 
 It is said to allow the wearer to be protected from danger.
 FLEE + 13, Reduce 13% of ^777777Neutral^000000 Property damage.
@@ -12663,7 +12651,6 @@ Weight :^777777 0^000000
 Applicable Job :^777777 Every Job^000000
 #
 2548#
-^000088Rental Items^000000
 A warm scarf that is worn around the neck and shoulders.
 Add a 10% resistance against DemiHuman monster.
 MaxHP + 10%
@@ -13690,7 +13677,6 @@ Weight :^777777 0^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2688#
-^000088Rental Items^000000
 An esoteric ring which enables its wearer to amplify his hidden power.
 Critical Rate + 10%
 Class :^777777 Accessory^000000
@@ -13700,7 +13686,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2689#
-^000088Rental Items^000000
 Jewelry, worn on the earlobe, that increases its wearer's intelligence.
 INT + 3
 Class :^777777 Accessory^000000
@@ -13710,7 +13695,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2690#
-^000088Rental Items^000000
 A metal band worn on the finger which strangely increases its wearer's strength.
 STR + 4
 Class :^777777 Accessory^000000
@@ -13720,7 +13704,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2691#
-^000088Rental Items^000000
 A necklace once worn by an ancient queen that enhances the vitality of whoever wears it.
 VIT + 4
 Class :^777777 Accessory^000000
@@ -13730,7 +13713,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2692#
-^000088Rental Items^000000
 A specially made covering worn on the hands to improve one's grip on weapons.
 DEX + 4
 Class :^777777 Accessory^000000
@@ -13740,7 +13722,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2693#
-^000088Rental Items^000000
 Mystic jewelry that attaches to clothing by means of a pin.
 AGI + 4
 Class :^777777 Accessory^000000
@@ -13750,7 +13731,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2694#
-^000088Rental Items^000000
 A string of beads used to count the number of repetitions that prayers are recited.
 LUK + 4, MDEF + 5
 [^000088Rosary & Spiritual Ring Equip Set^000000]
@@ -13911,7 +13891,6 @@ Weight :^777777 0^000000
 Applicable Job :^777777 Every Job Except Novice^000000
 #
 2711#
-^000088Rental Items^000000
 A beautiful ring which contains the spirits of the deceased.
 It is said to be able to amplify magic if it comes in contact with spiritual power.
 INT + 2, DEX + 2
@@ -14192,7 +14171,6 @@ Weight :^777777 0^000000
 Applicable Job :^777777 Every Job^000000
 #
 2741#
-^000088Rental Items^000000
 A Jewelry Ring that contains a 3 Seal Magic Spell.
 Enables use of ^008800Level 1 Heal^000000 and ^008800Level 1 Teleport^000000.
 Casting cannot be interrupted.
@@ -14327,7 +14305,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job^000000
 #
 2754#
-^000088Rental Items^000000
 A ring that has special power in each shape.
 Increases 15% experience from ^000088Undead Monster^000000.
 Class :^777777 Accessory^000000
@@ -14337,7 +14314,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job^000000
 #
 2755#
-^000088Rental Items^000000
 A ring that has special power in each shape.
 Increases 15% experience from ^000088Brute Monster^000000.
 Class :^777777 Accessory^000000
@@ -14347,7 +14323,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job^000000
 #
 2756#
-^000088Rental Items^000000
 A ring that has special power in each shape.
 Increases 15% experience from ^000088Plant Monster^000000.
 Class :^777777 Accessory^000000
@@ -14357,7 +14332,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job^000000
 #
 2757#
-^000088Rental Items^000000
 A ring that has special power in each shape.
 Increases 15% experience from ^000088Insect Monster^000000.
 Class :^777777 Accessory^000000
@@ -14367,7 +14341,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job^000000
 #
 2758#
-^000088Rental Items^000000
 A ring that has special power in each shape.
 Increases 15% experience from ^000088Fish Monster^000000.
 Class :^777777 Accessory^000000
@@ -14377,7 +14350,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job^000000
 #
 2759#
-^000088Rental Items^000000
 A ring that has special power in each shape.
 Increases 15% experience from ^000088Demon Monster^000000.
 Class :^777777 Accessory^000000
@@ -14387,7 +14359,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job^000000
 #
 2760#
-^000088Rental Items^000000
 A ring that has special power in each shape.
 Increases 15% experience from ^000088DemiHuman Monster^000000.
 Class :^777777 Accessory^000000
@@ -14397,7 +14368,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job^000000
 #
 2761#
-^000088Rental Items^000000
 A ring that has special power in each shape.
 Increases 15% experience from ^000088Angel Monster^000000.
 Class :^777777 Accessory^000000
@@ -14407,7 +14377,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job^000000
 #
 2762#
-^000088Rental Items^000000
 A ring that has special power in each shape.
 Increases 15% experience from ^000088Dragon Monster^000000.
 Class :^777777 Accessory^000000
@@ -14417,7 +14386,6 @@ Required Level :^777777 1^000000
 Applicable Job :^777777 Every Job^000000
 #
 2763#
-^000088Rental Items^000000
 A weird ring adorned with a skull in which the words, "^990000Forever, until death...^000000" are engraved.
 ATK + 5%, MATK + 5%
 MaxHP + 5%, Increases heal effectiveness by 5%.
@@ -40544,7 +40512,6 @@ Required Level :^777777 80^000000
 Applicable Job :^777777 Swordman Class, Merchant Class^000000
 #
 13419#
-^000088Rental Item^000000
 Saber Sacred.
 Increases damage against Undead monster by 40%.
 Class :^777777 One-Hand Sword^000000
