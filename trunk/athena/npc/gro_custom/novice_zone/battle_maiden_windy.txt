@@ -1,0 +1,42 @@
+bat_room,153,149,5	script	Battlegrounds Guide#BGGuide	55,{
+
+	mes "[Battle Maiden Wendy]";
+	mes "Hey there! I'm Wendy! Do you need to know about the special ^4D4DFF@commands^000000 for Battlegrounds? If so, I'm your gal!";
+	switch(select("Yep! I sure do!:Nah, I already know them!")) {
+		case 1:
+			mes "[Battle Maiden Wendy]";
+			mes "Glad you asked! Cause I've been busting to tell someone about all these great features!";
+			next;
+			mes "[Battle Maiden Wendy]";
+			mes "@battleinfo (or @batinfo or @bi) will let you customize whether kills/deaths or damage is displayed in your chat window.";
+			next;
+			mes "[Battle Maiden Wendy]";
+			mes "@order is really important for guild leaders inside Battlegrounds to use. If you're in charge of your Battlegrounds group, use @order to give directions.";
+			next;
+			mes "[Battle Maiden Wendy]";
+			mes "If you're the leader of your Battlegrounds group but want to trade that power to another user, you can do so by using the @leader command.";
+			next;
+			mes "[Battle Maiden Wendy]";
+			mes "Hotkeying the @guildskill with the appropriate guild skill to your alt + m shortkeys will let you access your @guildskills on the fly rather than from the Battlegrounds team window. A good Battlegrounds team leader will do this in order to make it easier for them to use these skills when they need to.";
+			next;
+			mes "[Battle Maiden Wendy]";
+			mes "@bgkick can kick a player from your Battlegrounds team. If a player isn't listening or griefing your team (assisting the other team either by not helping or doing things that deliberately hurt your group), you can kick them with @bgkick. Use this sparingly! You wouldn't want a reputation as an abuser!";
+			next;
+			mes "[Battle Maiden Wendy]";
+			mes "@bgranked will let you view the rankings from ranked Battlegrounds matches and @bgregular will let you view the rankings from regular Battlegrounds matches.";
+			next;
+			mes "[Battle Maiden Wendy]";
+			mes "Using @bgstats will let you view your Battlegrounds stats, wins, losses, pots used, damage dealt, damage received and so much more! If you're in a match, it'll only display that information for the current round, but otherwise, it'll tell you what's gone down over the current week.";
+			next;
+			mes "[Battle Maiden Wendy]";
+			mes "The @restock command is very important. It lets you automatically fill your inventory to 89% of your maximum weight. You can make specific sets that let you retrieve items and also clear your settings.";
+			next;
+			mes "[Battle Maiden Wendy]";
+			mes "Well, wow! That's just about all I can tell you for now! Good luck on the field of battle! I'm rooting for ya!";
+			break;
+		case 2:
+			mes "[Battle Maiden Wendy]";
+			mes "Oh... Ok...";
+			end;
+		}
+	}
