@@ -11,11 +11,7 @@
 //MD_mission_points    // mission points received
 
 //removed MD_killevent script, as it is pointless to have it here
-amatsu,63,94,4	varshop(MD_mission_points)	Mission Reward Gears	966,1578:100,1744:100,1137:100,1653:100,13419:100,1145:100,1283:100,1547:100,1828:100,1982:100,1427:100,1642:100,2348:150,2358:150,2350:150,2344:150,2385:400,2346:150,2132:1000,2384:2000,2441:1000,2439:1000,2546:2000,2548:2000,2511:150,2543:150,2741:300,2688:300,2763:1000:2695:200,2693:200,2689:200,2692:300,2691:200,2690:200,2694:200,2711:300,2760:100,2753:100,2756:100,2755:100,2759:100,2762:100,2758:100,2754:100,2757:100,2761:100
 
-amatsu,61,94,4	varshop(MD_mission_points)	Mission Point Items	966,13535:15,13536:20,13537:25,13531:3,13532:5,13533:15,13534:25
-
-amatsu,59,94,4	varshop(MD_mission_points)	Eden Gears	966,2456:3,2457:5,2458:8,2473:10,5583:5,18514:10,2560:5,2571:15,15009:5,15010:10,15011:15,1583:20,1747:5,1748:10,18106:15,13050:5,13051:10,13066:15,1931:10,1289:10,1831:10,16004:5,16005:10,16014:15,13112:5,13113:10,13114:15,13423:5,13424:10,13434:15,1192:5,1193:10,1197:15,1434:10,1650:5,1651:10,1658:15,1986:10
 amatsu,57,94,4	script	Mission Board	857,{
 	callfunc "MD_mission_board","Mission Board";
 }
@@ -280,6 +276,10 @@ L_submitMission:
 	next;
 	mes .@name$;
 	mes "Do you want to submit this mission?";
+	if (Class == Job_Novice)
+	{
+		mes "^990000Because you are a novice, it is recommended that you change classes first, or you will waste all the Job EXP you earned. Talk to the Mission Coordinator or use @control to job change^000000";
+	}
 	if (select("Yes:No") == 2)
 		goto L_mainMenu;
 		

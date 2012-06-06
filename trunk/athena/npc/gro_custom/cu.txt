@@ -176,10 +176,12 @@ function	script	F_cu_resetter	{
 			close;
 		case 2:
 			ResetSkill;
+			force_disconnect();
 			break;
 		case 3:
 			ResetStatus;
 			ResetSkill;
+			force_disconnect();
 			close;
 	}
 }
