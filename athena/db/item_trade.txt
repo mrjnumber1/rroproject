@@ -1385,15 +1385,15 @@
 //14319,219,100	// ???
 //14320,219,100	// ???
 14317,219,100	// Bacsojin_Scroll
-13419,251,100	// Holy_Saber
-1578,251,100	// Book_Of_Prayer
-1982,251,100	// Phenomena_Whip
-1642,251,100	// Staff_Of_Darkness
-1828,251,100	// Monk_Knuckle
-1547,251,100	// Mace_Of_Madness
-1427,251,100	// Spear_Of_Excellent
-1744,251,100	// Bow_Of_Evil
-1283,251,100	// Katar_Of_Speed
+// 13419,251,100	// Holy_Saber
+// 1578,251,100	// Book_Of_Prayer
+// 1982,251,100	// Phenomena_Whip
+// 1642,251,100	// Staff_Of_Darkness
+// 1828,251,100	// Monk_Knuckle
+// 1547,251,100	// Mace_Of_Madness
+// 1427,251,100	// Spear_Of_Excellent
+// 1744,251,100	// Bow_Of_Evil
+// 1283,251,100	// Katar_Of_Speed
 13111,251,100	// Sharpshooter_Revolver
 //14321,219,100	// ???
 //14322,219,100	// ???
