@@ -1611,7 +1611,7 @@ static int clif_delayquit(int tid, unsigned int tick, int id, intptr_t data)
  *------------------------------------------*/
 void clif_quitsave(int fd,struct map_session_data *sd)
 {
-	if (!battle_config.prevent_logout ||
+	if (!battle_config.prevent_logout || pc_isGM(sd) || // GMs don't have a delay. [Valaris for KarmaRO]
 	  	DIFF_TICK(gettick(), sd->canlog_tick) > battle_config.prevent_logout)
 		map_quit(sd);
 	else if (sd->fd)
@@ -8921,6 +8921,13 @@ void clif_parse_LoadEndAck(int fd,struct map_session_data *sd)
 	sd->state.callshop = 0;
 
 	map_addblock(&sd->bl);
+
+	if(sd->state.connect_new && pc_isGM(sd) && (pc_isGM(sd) >= get_atcommand_level("hide"))){ // GMs will always login as hidden. [Valaris for KarmaRO]
+		sd->sc.option |= OPTION_INVISIBLE;
+		sd->vd.class_ = INVISIBLE_CLASS;
+		clif_changeoption(&sd->bl);
+	}
+
 	clif_spawn(&sd->bl);
 
 	// Party
@@ -9286,7 +9293,7 @@ void clif_parse_QuitGame(int fd, struct map_session_data *sd)
 
 	/*	Rovert's prevent logout option fixed [Valaris]	*/
 	if( !sd->sc.data[SC_CLOAKING] && !sd->sc.data[SC_HIDING] && !sd->sc.data[SC_CHASEWALK] &&
-		(!battle_config.prevent_logout || DIFF_TICK(gettick(), sd->canlog_tick) > battle_config.prevent_logout) )
+		(!battle_config.prevent_logout || pc_isGM(sd) || DIFF_TICK(gettick(), sd->canlog_tick) > battle_config.prevent_logout) ) // GMs don't have a delay. [Valaris for KarmaRO]
 	{
 		if(sd->vender_id) { // Exiting while vending will enable autotrade [Valaris for KarmaRO]
 			sd->state.autotrade = 1;
@@ -9535,8 +9542,12 @@ void clif_parse_ActionRequest_sub(struct map_session_data *sd, int action_type, 
 		if( sd->sc.option&(OPTION_WEDDING|OPTION_XMAS|OPTION_SUMMER) )
 			return;
 
-		if( sd->sc.data[SC_BASILICA] )
-			return;
+		if( sd->sc.data[SC_BASILICA] ) { // Allow monster NPCs to be clicked inside BASILICA cells. [Valaris for KarmaRO]
+			struct block_list *target;
+			target = map_id2bl(target_id);
+			if(target && target->type!=BL_NPC)
+				return;
+		}
 
 		if (!battle_config.sdelay_attack_enable && pc_checkskill(sd, SA_FREECAST) <= 0) {
 			if (DIFF_TICK(tick, sd->ud.canact_tick) < 0) {
@@ -9621,7 +9632,7 @@ void clif_parse_Restart(int fd, struct map_session_data *sd)
 	case 0x01:
 		/*	Rovert's Prevent logout option - Fixed [Valaris]	*/
 		if( !sd->sc.data[SC_CLOAKING] && !sd->sc.data[SC_HIDING] && !sd->sc.data[SC_CHASEWALK] &&
-			(!battle_config.prevent_logout || DIFF_TICK(gettick(), sd->canlog_tick) > battle_config.prevent_logout) )
+			(!battle_config.prevent_logout || pc_isGM(sd) || DIFF_TICK(gettick(), sd->canlog_tick) > battle_config.prevent_logout) ) // GMs don't have a delay. [Valaris for KarmaRO]
 		{	//Send to char-server for character selection.
 			chrif_charselectreq(sd, session[fd]->client_addr);
 		} else {
@@ -12182,6 +12193,7 @@ void clif_parse_GMHide(int fd, struct map_session_data *sd)
 		else
 			status_set_viewdata(&sd->bl, sd->status.class_);
 		clif_displaymessage(fd, "Invisible: Off.");
+		clif_spawn(&sd->bl); // Added. [Valaris for KarmaRO]
 	} else {
 		sd->sc.option |= OPTION_INVISIBLE;
 		sd->vd.class_ = INVISIBLE_CLASS;
@@ -13534,7 +13546,7 @@ void clif_parse_Mail_send(int fd, struct map_session_data *sd)
 
 	if( DIFF_TICK(sd->cansendmail_tick, gettick()) > 0 )
 	{
-		clif_displaymessage(sd->fd,"Cannot send mails too fast!!.");
+		clif_displaymessage(sd->fd,"You must wait before sending another mail message."); // Modified text [Valaris for KarmaRO]
 		clif_Mail_send(fd, true); // fail
 		return;
 	}
