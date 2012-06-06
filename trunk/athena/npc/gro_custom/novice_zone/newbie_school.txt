@@ -11,13 +11,15 @@
 
 // Tutorial Girl
 
-moc_para01,32,180,5	script	Tutorial Girl#Newbie_School 65, {
+moc_para01,32,180,5	script	Tutorial Girl#Newbscl	906,{
 	mes "[Tutorial Girl]";
-	if (newbie_school < 7) {
+	if (newbie_school < 7) 
+	{
 		mes "Sorry, I can't let you leave til you finish talking to all of the tutors! Hang in there!";
 		close;
-		}
-	else {
+	}
+	else 
+	{
 		mes "Wow, you talked to all of the tutors! You're definitely ready to leave the Newbie School.";
 		next;
 		mes "[Tutorial Girl]";
@@ -31,7 +33,7 @@ moc_para01,32,180,5	script	Tutorial Girl#Newbie_School 65, {
 		mes "There are also some commands that should know about. The most important one is the ^4D4DFF@control^000000 command.";
 		next;
 		mes "[Tutorial Girl]";
-		mes "^4D4DFF@control^00000 is a very important command!!"; // need to add description here
+		mes "^4D4DFF@control^000000 is a very important command!!"; // need to add description here
 		mes "Using ^4D4DFF@control^000000 gives you the ability to configure your autolog commands, set your personal styles, access rental mounts, carts, and falcons if your class can use them, and lets you change from Novice to your next Job.";
 		next;
 		// @aloot and related commands (including @nolootid)
@@ -50,48 +52,56 @@ moc_para01,32,180,5	script	Tutorial Girl#Newbie_School 65, {
 		mes "After awhile, you'll find you are running out of room in your character inventory, that's when ^4D4DFF@storage^000000 comes in handy.";
 		next;
 		mes "[Tutorial Girl]";
-		mes "^4D4DFF@storage^00000 lets you place your items into your personal storage as well as take them out. You can store up to 600 items in your personal storage to access anywhere."; // need to add description here
+		mes "^4D4DFF@storage^000000 lets you place your items into your personal storage as well as take them out. You can store up to 600 items in your personal storage to access anywhere."; // need to add description here
 		next;
 		mes "[Tutorial Girl]";
 		mes "You should also know that ^4D4DFF@mstorage^000000 will let you place items into a storage shared by all character accounts under your member account. This lets you store and transfer items between character accounts safely! You can store up to 600 items in your member storage.";
+		next;
 		mes "[Tutorial Girl]";
 		mes "I hope all the information you gained here will stay with you! Remember, you can always check http://www.karma-ro.com if you need to refresh yourself on the Basics again.";
 		close2;
 		set newbie_school,8;
-		warp moc_para01,31,14;
+		warp "moc_para01",31,14;
 		end;
-		}
 	}
+}
 
 // Interfaces tutor, checks if newbie_school == 1
 
-moc_para01,14,180,5	script	Interfaces Tutor#Newbie_School	65,{
+moc_para01,14,180,5	script	Interfaces Tutor#newbscl	84,{
 	mes "[Interfaces Tutor]";
-	if (newbie_school == 7) {
+	if (newbie_school == 7) 
+	{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
-		}
-	else if (newbie_school == 6) {
+	}
+	if (newbie_school == 6) 
+	{
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
 		close;
-		}
-	else if (newbie_school == 5) {
+	}
+	if (newbie_school == 5) 
+	{
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
 		close;
-		}
-	else if (newbie_school == 4) {
+	}
+	if (newbie_school == 4) 
+	{
 		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
 		close;
-		}
-	else if (newbie_school == 3) {
+	}
+	if (newbie_school == 3) 
+	{
 		mes "Heh, you've knocked another one off! Talk to the Stats Tutor next!";
 		close;
-		}
-	else if (newbie_school == 2) {
+	}
+	if (newbie_school == 2) 
+	{
 		mes "Hey, you've got a lot more tutors to go! Talk to the Skills Tutor now!";
 		close;
-		}
-	else {
+	}
+	else 
+	{
 		mes "well, I guess it's my turn to teach you!";
 		next;
 		mes "[Interfaces Tutor]";
@@ -161,38 +171,45 @@ moc_para01,14,180,5	script	Interfaces Tutor#Newbie_School	65,{
 		close2;
 		set newbie_school,2;
 		end;
-		}
 	}
+}
 
 // Skills Tutor
 
-moc_para01,17,180,5	script	Skills Tutor#Newbie_School	65,{
+moc_para01,17,180,5	script	Skills Tutor#newbscl	753,{
 	mes "[Skills Tutor]";
-	if (newbie_school == 7) {
+	if (newbie_school == 7) 
+	{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
-		}
-	else if (newbie_school == 6) {
+	}
+	if (newbie_school == 6) 
+	{
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
 		close;
-		}
-	else if (newbie_school == 5) {
+	}
+	if (newbie_school == 5) 
+	{
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
 		close;
-		}
-	else if (newbie_school == 4) {
+	}
+	if (newbie_school == 4) 
+	{
 		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
 		close;
-		}
-	else if (newbie_school == 3) {
+	}
+	if (newbie_school == 3) 
+	{
 		mes "Heh, you've knocked another one off! Talk to the Stats Tutor next!";
 		close;
-		}
-	else if (newbie_school < 2) {
+	}
+	if (newbie_school < 2) 
+	{
 		mes "You're not ready to talk to me yet! Talk to the Interfaces Tutor.";
 		close;
-		}
-	else {
+	}
+	else 
+	{
 		mes "well, I guess it's my turn to teach you!";
 		next;
 		mes "[Skills Tutor]";
@@ -204,7 +221,8 @@ moc_para01,17,180,5	script	Skills Tutor#Newbie_School	65,{
 		mes "Skill Window is open,";
 		mes "you'll see an icon labeled";
 		mes "'^3355FFBasic Skill^000000.'";
-		if (JobLevel < 7) {
+		if (JobLevel < 7) 
+		{
 			next;
 			mes "[Skills Tutor]";
 			mes "Now, at the bottom of the Skill Window, the number of remaining Skill Points that you have is displayed.";
@@ -212,20 +230,23 @@ moc_para01,17,180,5	script	Skills Tutor#Newbie_School	65,{
 			mes "[Skills Tutor]";
 			mes "Open your Skill Window ('Alt' + 'S') and click the '^3355FFLv Up^000000' button next to the Basic Skill icon to allocate a Skill Point to your Basic Skills.";
 			set nov_get_item03,10;
-			switch (JobLevel) {
-			case 1: getexp 0,10; break;
-			case 2: getexp 0,18; break;
-			case 3: getexp 0,28; break;
-			case 4: getexp 0,40; break;
-			case 5: getexp 0,91; break;
-			case 6: getexp 0,151; break;
-				}
+			switch (JobLevel) 
+			{
+				case 1: getexp 0,10; break;
+				case 2: getexp 0,18; break;
+				case 3: getexp 0,28; break;
+				case 4: getexp 0,40; break;
+				case 5: getexp 0,91; break;
+				case 6: getexp 0,151; break;
 			}
-		else {
-				next;
-				mes "[Skills Tutor]";
-				mes "Huh. Actually, your Job Level is higher that I thought. I guess you already know the basics about skills then.";
-			}
+		}
+		else 
+		{
+			next;
+			mes "[Skills Tutor]";
+			mes "Huh. Actually, your Job Level is higher that I thought. I guess you already know the basics about skills then.";
+		}
+		
 		next;
 		mes "[Skills Tutor]";
 		mes "So did you distribute the skill points to your Basic Skills? You'll need to master the Basic Skills eventually, so it's a good idea.";
@@ -244,8 +265,7 @@ moc_para01,17,180,5	script	Skills Tutor#Newbie_School	65,{
 		mes "[Skills Tutor]";
 		mes "Now, open your Skill Window";
 		mes "and check if you have the ^3355FFFirst Aid^000000 skill icon. To use it, you need to double-click that skill icon.";
-		mes "Now, try it!";
-		percentheal -50,0;
+		mes "Try it out!";
 		next;
 		mes "[Skills Tutor]";
 		mes "Active skills, like First Aid, require a certain amount of SP to use them. The First Aid skill is useful for Novices, since it refills a little bit of HP.";
@@ -257,37 +277,42 @@ moc_para01,17,180,5	script	Skills Tutor#Newbie_School	65,{
 		mes "[Skills Tutor]";
 		mes "Feel my power! Heal!!";
 		mes "All better now, good luck!";
-		close2;
 		set newbie_school,3;
-		end;
-		}
+		close;
 	}
+}
 
 // Stats Tutor
 
-moc_para01,20,180,5	script	Stats Tutor#Newbie_School	65,{
+moc_para01,20,180,5	script	Stats Tutor#newbscl	754,{
 	mes "[Stats Tutor]";
-	if (newbie_school == 7) {
+	if (newbie_school == 7) 
+	{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
-		}
-	else if (newbie_school == 6) {
+	}
+	if (newbie_school == 6) 
+	{
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
 		close;
-		}
-	else if (newbie_school == 5) {
+	}
+	if (newbie_school == 5) 
+	{
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
 		close;
-		}
-	else if (newbie_school == 4) {
+	}
+	if (newbie_school == 4) 
+	{
 		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
 		close;
-		}
-	else if (newbie_school < 3) {
+	}
+	if (newbie_school < 3) 
+	{
 		mes "You're not ready to talk to me yet!";
 		close;
-		}
-	else {
+	}
+	else 
+	{
 		mes "well, I guess it's my turn to teach you!";
 		next;
 	mes "[Stats Tutor]";
@@ -308,7 +333,7 @@ moc_para01,20,180,5	script	Stats Tutor#Newbie_School	65,{
 	mes "the Character Statuses are Strength, Agility, Vitality, Intelligence, Dexterity and Luck.";
 	next;
 	mes "[Stats Tutor]";
-	mes "First, open your Status Window by using the '^3355FFAlt^000000 + ^3355FFA^000000' keys.";
+	mes "First, open your Status Window by using the '^3355FFAlt^000000 + ^3355FFQ^000000' keys.";
 	next;
 	mes "[Stats Tutor]";
 	mes "Let me explain Strength first.";
@@ -392,8 +417,7 @@ moc_para01,20,180,5	script	Stats Tutor#Newbie_School	65,{
 	mes "INT affects your maximum amount of ^4D4DFFSP^000000, ^4D4DFFSP restoration^000000, the ^4D4DFF damage of your magic attack (MATK)^000000 and your ^4D4DFFdefense against magic attack (MDEF)^000000.";
 	next;
 	mes "[Stats Tutor]";
-	mes "The SP amount and MATK increased";
-	mes "by 1 INT is dependent on Job Class, just like VIT. This means that some Jobs will naturally benefit more from having more INT than others.";
+	mes "The SP amount increased by 1 INT is dependent on Job Class, just like VIT for HP. This means that some jobs will naturally benefit more from having more INT than others.";
 	next;
 	mes "[Stats Tutor]";
 	mes "Just like normal DEF, your Magic Defense (MDEF) shows as 2 different numerical values. The MDEF contributed by INT is the second MDEF value displayed.";
@@ -442,7 +466,7 @@ moc_para01,20,180,5	script	Stats Tutor#Newbie_School	65,{
 	mes "for a critical attack, the Flee Rate and a small amount of damage you deal to monsters.";
 	next;
 	mes "[Stats Tutor]";
-	mes "For a critical attack, the start value is 1 for everyone and it's increased by^4d4dff 1^000000 for every ^4d4dff3 LUK^000000.";
+	mes "For a critical attack, the start value is 1 for everyone and it's increased by^4d4dff 1^000000 for approximately every ^4d4dff3 LUK^000000.";
 	next;
 	mes "[Stats Tutor]";
 	mes "With more LUK, you have an increased change of inflicting ^3355FFcritical attacks^000000 to your enemies. Critical attacks are useful to you, as they pierce your enemy's defense.";
@@ -464,35 +488,40 @@ moc_para01,20,180,5	script	Stats Tutor#Newbie_School	65,{
 	mes "Speaking of luck, Good luck to you chap, as you're finally done my course! it's time for you to speak to the Items Tutor next, I think you'll find her a bit more fun.";
 		close2;
 		set newbie_school,4;
-		end;
+		close;
 		}
 		
 	}
 
 // items Tutor
 
-moc_para01,23,180,5	script	Items Tutor#Newbie_School	65,{
+moc_para01,23,180,5	script	Items Tutor#newbscl	726,{
 	mes "[Items Tutor]";
-	if (newbie_school == 7) {
+	if (newbie_school == 7) 
+	{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
-		}
-	else if (newbie_school == 6) {
+	}
+	if (newbie_school == 6) 
+	{
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
 		close;
-		}
-	else if (newbie_school == 5) {
+	}
+	if (newbie_school == 5)
+	{
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
 		close;
-		}
-	else if (newbie_school < 4) {
+	}
+	if (newbie_school < 4) 
+	{
 		mes "You're not ready to talk to me yet!";
 		close;
-		}
-	else {
+	}
+	else 
+	{
 		mes "well, I guess it's my turn to teach you!";
 		next;
-				mes "[Items Tutor]";
+		mes "[Items Tutor]";
 		mes "Don't worry, it'll be short.";
 		mes "Open your Inventory Window";
 		mes "through either the '^3355FFitems^000000' button in the Basic Info window, or by pressing the '^3355FFAlt^000000' and '^3355FFE^000000' keys at the same time.";
@@ -501,164 +530,159 @@ moc_para01,23,180,5	script	Items Tutor#Newbie_School	65,{
 		mes "In the Inventory Window, you'll see 3 tabs labeled ^3355FFitem^000000, ^3355FFequip^000000 and ^3355FFetc^000000. Items that can be consumed are under the ^4A708Bitem^000000 tab.";
 		next;
 		mes "[Items Tutor]";
-		mes "Now, would you click the ^4A708Bitem^000000 tab in the Inventory Window? I just gave you a Novice Potion. You can drink it by double-clicking it. Go ahead, try it!";
-		getitem 569,1; //Novice_Potion
-		percentheal -50,0;
-		mes "[Items Tutor]";
-		if (countitem(569) < 1) {
-			mes "Nice~!";
-			}
-		else {
-			mes "Um...";
-			mes "Well, you can drink";
-			mes "it later I guess.";
-			}
-			next;
-			mes "[Items Tutor]";
-			mes "Let me explain about";
-			mes "items in the ^4A708Bequip^000000 tab";
-			mes "of the Inventory Window.";
-			next;
-			mes "[Items Tutor]";
-			mes "When you click on the ^4A708Bequip^000000 tab, you can view every item in your inventory that you can equip. Right now you don't have much, but put on whatever you can, but don't worry, you'll get better items in time! Everyone does!";
-			next;
-			next;
-			mes "[Items Tutor]";
-			mes "Would you";
-			mes "press the '^3355FFF12^000000' key?";
-			mes "This will summon your";
-			mes "Hotkey bar on your screen.";
-			next;
-			mes "[Items Tutor]";
-			mes "You can assign hotkeys to your items, skills and equipment using the Hotkey bar. Just drag skill icons from the Skill Window or items from the Inventory Window into the Hotkey bar.";
-			next;
-			mes "[Items Tutor]";
-			mes "The Hotkeys are '^3355FFF1^000000' to '^3355FFF9^000000.'";
-			mes "If you have attended the Skill Class, you must have been given the First Aid skill. Drag and drop the First Aid skill icon into the Hotkey bar.";
-			next;
-			mes "[Items Tutor]";
-			mes "For your information, only";
-			mes "active skills can be assigned to a Hotkey and dragged to the Hotkey bar. Active Skills have colored, square shaped icons that can be double-clicked and used.";
-			next;
-			mes "[Items Tutor]";
-			mes "Passive Skills, such as the aptly named 'Basic Skill,' cannot be dragged into the Hotkey bar because Passive Skills are always in effect and don't need to be activated.";
-						
+		mes "Now, would you click the ^4A708Bitem^000000 tab in the Inventory Window? I just gave you some Novice Potions. You can drink them by double-clicking it. Try it when you're done here!";
+		getitem 569,10; //Novice_Potion
+		percentheal -20,0;
 		next;
-					mes "[Items Tutor]";
-			mes "Well, that's it! onto the Battle Tutor for you";
-		close2;
+		mes "[Items Tutor]";
+		mes "Let me explain about";
+		mes "items in the ^4A708Bequip^000000 tab";
+		mes "of the Inventory Window.";
+		next;
+		mes "[Items Tutor]";
+		mes "When you click on the ^4A708Bequip^000000 tab, you can view every item in your inventory that you can equip. Right now you don't have much, but put on whatever you can, but don't worry, you'll get better items in time! Everyone does!";
+		next;
+		mes "[Items Tutor]";
+		mes "Would you";
+		mes "press the '^3355FFF12^000000' key?";
+		mes "This will summon your";
+		mes "Hotkey bar on your screen.";
+		next;
+		mes "[Items Tutor]";
+		mes "You can assign hotkeys to your items, skills and equipment using the Hotkey bar. Just drag skill icons from the Skill Window or items from the Inventory Window into the Hotkey bar.";
+		next;
+		mes "[Items Tutor]";
+		mes "The Hotkeys are '^3355FFF1^000000' to '^3355FFF9^000000.'";
+		mes "If you have attended the Skill Class, you must have been given the First Aid skill. Drag and drop the First Aid skill icon into the Hotkey bar.";
+		next;
+		mes "[Items Tutor]";
+		mes "For your information, only";
+		mes "active skills can be assigned to a Hotkey and dragged to the Hotkey bar. Active Skills have colored, square shaped icons that can be double-clicked and used.";
+		next;
+		mes "[Items Tutor]";
+		mes "Passive Skills, such as the aptly named 'Basic Skill,' cannot be dragged into the Hotkey bar because Passive Skills are always in effect and don't need to be activated.";
+		next;
+		mes "[Items Tutor]";
+		mes "Well, that's it! onto the Battle Tutor for you";
 		set newbie_school,5;
-		end;
+		close;
 		}
 	}
 
 // Battle Tutor
 
-moc_para01,26,180,5	script	Battle Tutor#Newbie_School	65,{
+moc_para01,26,180,5	script	Battle Tutor#Newbscl	92,{
 	mes "[Battle Tutor]";
-	if (newbie_school == 7) {
+	if (newbie_school == 7) 
+	{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
-		}
-	else if (newbie_school == 6) {
+	}
+	if (newbie_school == 6) 
+	{
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
 		close;
-		}
-	else if (newbie_school < 5) {
+	}
+	if (newbie_school < 5) 
+	{
 		mes "You're not ready to talk to me yet!";
 		close;
-		}
-	else {
+	}
+	else 
+	{
 		mes "well, I guess it's my turn to teach you!";
 		next;
 		mes "[Battle Tutor]";
 		mes "Take heart, my lecture will be short!";
-		mes "I will teach you how to fight Monsters in the world of Rune-Midgard!"
+		mes "I will teach you how to fight Monsters in the world of Rune-Midgard!";
 		next;
-			mes "[Battle Tutor]";
-			mes "First, you place the cursor on a monster. When you left click, you will hit the monster once.";
-			next;
-			mes "[Battle Tutor]";
-			mes "If you are too lazy to keep left clicking, left click on the monster while holding the '^4D4DFFCtrl^000000' key. You will then continue attacking the monster until one of you is dead, or you run away.";
-			next;
-			mes "[Battle Tutor]";
-			mes "You can also just hold down the left mouse button while the cursor is on the monster. Still, there are some people who are even too lazy to use the '^4D4DFFCtrl^000000' key every time they attack a monster.";
-			next;
-			mes "[Battle Tutor]";
-			mes "If you're one of them, type the command ^E79E29//nc^000000 in your Chat Window. Then, when you left click";
-			mes "a monster, you'll just continuously attack it!";
-			next;
-			mes "[Battle Tutor]";
-			mes "If a monster happens to have the Undead property, you can use the 'Heal' skill to attack if you happen to have it.";
-			next;
-			mes "[Battle Tutor]";
-			mes "When you use the Heal skill while holding down the '^4D4DFFShift^000000' key, you can target the monster with the Heal skill to damage it.";
-			next;
-			mes "[Battle Tutor]";
-			mes "Of course for this skill, we do have a very convenient option for lazy people too. Type the command ^E79E29//ns^000000 in your Chat Window.";
-			next;
-			mes "[Battle Tutor]";
-			mes "This will allow you to attack monsters by using the Heal skill without holding the shift key. Handy, huh?";
-			next;
-			mes "[Battle Tutor]";
-			mes "Do you understand these battle commands? Now, I will teaching you about monster behaviors and properties and then you'll be done with my course.";
-			next;
-					mes "[Battle Tutor]";
-					mes "There are many aggressive monsters that will attack you first before you even approach them. ";
-					next;
-					mes "[Battle Tutor]";
-					mes "There are also a few monsters that will cooperate with others of their kind. Attack one of them, and the whole pack of them will swarm around you, seeking revenge.";
-					next;
-					mes "[Battle Tutor]";
-					mes "Every monster can be specified by their types, sizes and properties. For example, there are Demi-human, Brute, Holy and Demon property monsters out there.";
-					next;
-					mes "[Battle Tutor]";
-					mes "When you're aware of what property a monster is, you can use that knowledge to help you in battle.";
-					next;
-					mes "[Battle Tutor]";
-					mes "If you manage to get cards for that increase your damage upon certain monster properties, or reduce damage from specific monster properties, you'll have a much easier time in battle.";
-					next;
-					mes "[Battle Tutor]";
-					mes "Monsters are separated by their size: small, medium and large. There are a few cards that allow you to do more damage to";
-					mes "a specific monster size.";
-					next;
-					mes "[Battle Tutor]";
-					mes "Also, each weapon has its strengths and weaknesses. The size of the weapon will affect the damage it will deal to monsters.";
-					next;
-					mes "[Battle Tutor]";
-					mes "For example, Dagger class weapons do 100 % damage on small sized monsters but only inflict 50 % on large monsters.";
-					next;
-					mes "[Battle Tutor]";
-					mes "Common monster properties include Water, Wind, Earth, Fire, Shadow, Ghost and Holy. If you attack a monster with an opposing property, you can inflict additional damage~";
-					next;
-					mes "[Battle Tutor]";
-					mes "But if you attack a monster with";
+		mes "[Battle Tutor]";
+		mes "First, you place the cursor on a monster. When you left click, you will hit the monster once.";
+		next;
+		mes "[Battle Tutor]";
+		mes "If you are too lazy to keep left clicking, left click on the monster while holding the '^4D4DFFCtrl^000000' key. You will then continue attacking the monster until one of you is dead, or you run away.";
+		next;
+		mes "[Battle Tutor]";
+		mes "You can also just hold down the left mouse button while the cursor is on the monster. Still, there are some people who are even too lazy to use the '^4D4DFFCtrl^000000' key every time they attack a monster.";
+		next;
+		mes "[Battle Tutor]";
+		mes "If you're one of them, type the command ^E79E29//nc^000000 in your Chat Window. Then, when you left click";
+		mes "a monster, you'll just continuously attack it!";
+		next;
+		mes "[Battle Tutor]";
+		mes "If a monster happens to have the Undead property, you can use the 'Heal' skill to attack if you happen to have it.";
+		next;
+		mes "[Battle Tutor]";
+		mes "When you use the Heal skill while holding down the '^4D4DFFShift^000000' key, you can target the monster with the Heal skill to damage it.";
+		next;
+		mes "[Battle Tutor]";
+		mes "Of course for this skill, we do have a very convenient option for lazy people too. Type the command ^E79E29//ns^000000 in your Chat Window.";
+		next;
+		mes "[Battle Tutor]";
+		mes "This will allow you to attack monsters by using the Heal skill without holding the shift key. Handy, huh?";
+		next;
+		mes "[Battle Tutor]";
+		mes "Do you understand these battle commands? Now, I will teaching you about monster behaviors and properties and then you'll be done with my course.";
+		next;
+		mes "[Battle Tutor]";
+		mes "There are many aggressive monsters that will attack you first before you even approach them. ";
+		next;
+		mes "[Battle Tutor]";
+		mes "There are also a few monsters that will cooperate with others of their kind. Attack one of them, and the whole pack of them will swarm around you, seeking revenge.";
+		next;
+		mes "[Battle Tutor]";
+		mes "Every monster can be specified by their types, sizes and properties. For example, there are Demi-human, Brute, Holy and Demon property monsters out there.";
+		next;
+		mes "[Battle Tutor]";
+		mes "When you're aware of what property a monster is, you can use that knowledge to help you in battle.";
+		next;
+		mes "[Battle Tutor]";
+		mes "If you manage to get cards for that increase your damage upon certain monster properties, or reduce damage from specific monster properties, you'll have a much easier time in battle.";
+		next;
+		mes "[Battle Tutor]";
+		mes "Monsters are separated by their size: small, medium and large. There are a few cards that allow you to do more damage to";
+		mes "a specific monster size.";
+		next;
+		mes "[Battle Tutor]";
+		mes "Also, each weapon has its strengths and weaknesses. The size of the weapon will affect the damage it will deal to monsters.";
+		next;
+		mes "[Battle Tutor]";
+		mes "For example, Dagger class weapons do 100 % damage on small sized monsters but only inflict 50 % on large monsters.";
+		next;
+		mes "[Battle Tutor]";
+		mes "Common monster properties include Water, Wind, Earth, Fire, Shadow, Ghost and Holy. If you attack a monster with an opposing property, you can inflict additional damage~";
+		next;
+		mes "[Battle Tutor]";
+		mes "But if you attack a monster with";
 		mes "a skill or weapon that inflicts damage of the same property as the monster, the damage will be greatly reduced, or completely negated. You might even heal the monster!";
 		next;
 		mes "[Battle Tutor]";
 		mes "In the case of Ghost property monsters, normal weapons cannot do any harm. However, a weapon with any other property will be able to deal out some damage.";
 		next;
 		mes "[Battle Tutor]";
-		mes "Well, that wraps up what you need to know for the basics of battling monsters! Onto the final tutor, who will tell you about jobs!"
-		close2;
+		mes "Well, that wraps up what you need to know for the basics of battling monsters! Onto the final tutor, who will tell you about jobs!";
+
 		set newbie_school,6;
-		end;
-		}
+		close;
 	}
+}
 
 // Jobs Tutor
 
-moc_para01,29,180,5	script	Jobs Tutor#Newbie_School	65,{
+moc_para01,29,180,5	script	Jobs Tutor#nscl	57,{
 	mes "[Jobs Tutor]";
-	if (newbie_school == 7) {
+	if (newbie_school == 7) 
+	{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
-		}
-	if (newbie_school < 6) {
+	}
+	if (newbie_school < 6) 
+	{
 		mes "You're not ready to talk to me yet!";
 		close;
-		}
-	else {
+	}
+	else 
+	{
 		mes "well, I guess it's my turn to teach you!";
 		next;
 		mes "[Jobs Tutor]";
@@ -779,7 +803,6 @@ moc_para01,29,180,5	script	Jobs Tutor#Newbie_School	65,{
 		mes "well, that's all I can teach you for now. You've done well to come this far. Talk to Tutorial Girl to leave the Newbie School. Good luck and remember to pick your class wisely!";
 		close2;
 		set newbie_school,7;
-		end;
-		}
+		close;
 	}
-
+}

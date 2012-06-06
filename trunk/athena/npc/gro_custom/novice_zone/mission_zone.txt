@@ -1,33 +1,43 @@
 // Marroll Knight - Select BG or LR character
 
-new_1-1,60,115,4	script	Marroll Knight#nv	744,{
+new_1-1,60,115,4	script	Marroll Knight#nv	459,{
 	mes "[Marroll Knight]";
 	mes "I'm here to recruit warriors. I represent an elite guard of knights whose special training regimen will take you from a wimpy ^FF9000Novice^000000 to a powerful ^E40CAA[Battlegrounds Hero]^000000 with one simple spell. But there's a catch.";
-	mes "First you must decide if it's worth it. If you become a ^E40CAA[Battlegrounds Hero]^000000, you will face some restrictions.";
+	next
+	mes "[Marroll Knight]";
+	mes "If you become a ^E40CAA[Battlegrounds Hero]^000000, you will face some restrictions.";
 	next;
+	mes "[Marroll Knight]";
 	mes "A ^E40CAA[Battlegrounds Hero]^000000 will be instantly maxed out in level, but we cannot allow such a powerful person in our service to wander freely.";
 	next;
+	mes "[Marroll Knight]";
 	mes "A ^E40CAA[Battlegrounds Hero]^000000 can only participate in ^666666Battlegrounds^000000 and ^666666War of the Emperium^000000, you will be forbidden to enter any areas that are not towns, ^666666War of the Emperium^000000 Guild versus Guild maps, or ^666666Battlegrounds^000000.";
 	next;
+	mes "[Marroll Knight]";
 	mes "This is the price you must pay in exchange for becoming a powerful ^E40CAA[Battlegrounds Hero]^000000.";
 	next;
-	mes "Remember, there are other ways to becoming a Hero. If you take the same path that most walk down (as a low rate character), you will not have any restrictions on your character, but you will have to level up at the server rates, so it will take you longer to reach the power that a ^E40CAA[Battlegrounds Hero]^000000 has instantly at their disposal.";
+	mes "[Marroll Knight]";
+	mes "Remember, there are other ways to becoming Powerful Hero. If you take the same path that some walk down (as a low rate character), you will not have any restrictions on your character, but you will have to level up yourself.";
 	next;
-	mes "Remember, you can have only one ^E40CAA[Battlegrounds Hero]^000000 per account, os choose wisely.";
-	switch(select("Cancel:I want to earn my levels:Take me to 99, it's skull-bashing time.")) {
+	mes "[Marroll Knight]";
+	mes "If you chose that path, you will never be able to fight with the mighty ^E40CAA[Battlegrounds Heroes]^000000.";
+	mes "Join me, and you will become very powerful!";
+	next;
+	switch(select("Let me think about it first:I want to earn my levels:Take me to 99, it's skull-bashing time.")) 
+	{
 	case 1:
 		mes "[Marroll Knight]";
 		mes "Remember, as soon as you leave this area, you won't get this opportunity to decide ever again. So think carefully on it.";
-		end;
+		close;
 	case 2:
 		mes "[Marroll Knight]";
 		mes "Hah, I knew you were too timid to become one of us.";
-		end;
+		close;
 	case 3:
 		mes "Marroll Knight";
 		mes "Very well, you will become a ^E40CAA[Battlegrounds Hero]^000000. I hope this is the decision you really wanted.";
 		callfunc "F_cu_bg_jobchange";
-		end;
+		close;
 	}	
 }
 
@@ -44,7 +54,8 @@ new_1-1,66,114,4	script	Bulletin Board#nv	111,{
 // Shion#nv1
 
 new_1-1,53,114,4	script	Shion#nv1	727,{
-	if (nov_1st_cos > 2) {
+	if (nov_1st_cos > 2) 
+	{
 		mes "[Shion]";
 		mes "The Teleport Officer can send you to the Mission Zone.";
 		next;
@@ -55,17 +66,14 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 		mes "When you get the Mission Zone, remember to look me up!";
 		close;
 	}
-	else if (nov_1st_cos == 2) {
+	else if (nov_1st_cos == 2) 
+	{
 		mes "[Shion]";
 		mes "Hey...";
 		mes "You little rascal!";
 		next;
 		mes "[Shion]";
-		mes "Wait...";
-		mes "Calm down Shion.";
-		mes "You're a professional";
-		mes "trainer! Don't get all";
-		mes "upset at a Novice!";
+		mes "Wait... Calm down Shion. You're a professional trainer! Don't get all upset at a Novice!";
 		next;
 		mes "[Shion]";
 		mes "Go and cross the bridge to the right, right now! ^666666*Ahem*^000000 Talk to the Teleport Officer. She will send you the Mission Zone where you can learn from all sorts of Tutors or jump right into your adventures.";
@@ -82,7 +90,8 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 		mes "When you get the Mission Zone, remember to look me up!";
 		close;
 	}
-	else if (nov_1st_cos == 1) {
+	else
+	{
 		mes "[Shion]";
 		mes "Hello there~";
 		mes "Welcome to Karma-RO!";
@@ -99,7 +108,8 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 		mes "Now that we've met, is there anything I can help you with?";
 		mes "I'm here for your questions~";
 		next;
-		switch(select("Where should I go?:About Basic Interfaces:Who are you?")) {
+		switch(select("Where should I go?:About Basic Interfaces")) 
+		{
 		case 1:
 			mes "[Shion]";
 			mes "Do you see the bridge to your";
@@ -118,7 +128,7 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 			mes "at the entrance, so don't";
 			mes "worry about getting lost.";
 			mes "Take care now~!";
-			set nov_1st_cos,1;
+			set nov_1st_cos,2;
 			next;
 			mes "[Shion]";
 			mes "When you get the Mission Zone, remember to look me up!";
@@ -153,15 +163,9 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 			mes "at the entrance, so don't";
 			mes "worry about getting lost.";
 			mes "Take care now~!";
-			set nov_1st_cos,1;
 			next;
 			mes "[Shion]";
 			mes "When you get the Mission Zone, remember to look me up!";
-			close;
-		case 3:
-			mes "[Shion]";
-			mes "Me? I'm Shion!";
-			mes "But that's a rude way of asking! I'm volunteering my time and effort here, so you've got to show me a little bit of respect at least!";
 			set nov_1st_cos,2;
 			close;
 		}
@@ -172,90 +176,101 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 // Outside Guard
 
 new_1-1,144,116,2	script	Sad Guard#nv1	105,{
-  if (base job != Novice) {
- 	mes "[Training Grounds Guard]";
-  mes "Gosh, how did you get here?";
-  mes "You must have gotten a defective ^3355FFButterfly Wing^000000!";
-  next;
-  mes "[Training Grounds Guard]";
-  mes "No... you don't belong here anymore.";
-  mes "Talk to the Mission Zone Teleport Officer";
-  mes "She can send you back to civilization, geez!";
-  close;
-  }
-  else {
-	mes "[Training Grounds Guard]";
-	if(rand(2)) {
-		mes "We used to have more to do.";
-		mes "But then the Mission Zone came.";
+	if (Class != Job_Novice) 
+	{
+		mes "[Training Grounds Guard]";
+		mes "Gosh, how did you get here?";
+		mes "You must have gotten a defective ^3355FFButterfly Wing^000000!";
 		next;
-		mes "You're standing outside the now defunct Training Grounds.";
-		mes "I used to guard this outer court yard every day and direct new adventurers to go inside.";
-		next;
-		mes "Not anymore though...";
-		next;
-		mes "I guess you'll be wanting";
-		mes "To head to the Mission Zone to";
-		mes "start your new adventure.";
-		next;
-		mes "You know, we used to train new";
-		mes "adventurers, but then they took our jobs.";
+		mes "[Training Grounds Guard]";
+		mes "No... you don't belong here anymore.";
+		mes "Talk to the Mission Zone Teleport Officer...";
+		mes "She can send you back to civilization, geez!";
+		close;
 	}
-	else {
-		mes "Talk to the Mission Zone Officer";
-		mes "To start your new adventure";
-		next;
-		mes "Go, Novice, go!";
-		mes "Fight, and grow stronger! Look towards a brighter tomorrow!";
+	else 
+	{
+		mes "[Training Grounds Guard]";
+		if(rand(2)==1) 
+		{
+			mes "We used to have more to do.";
+			mes "But then the Mission Zone came.";
+			next;
+			mes "You're standing outside the now defunct Training Grounds.";
+			mes "I used to guard this outer court yard every day and direct new adventurers to go inside.";
+			next;
+			mes "Not anymore though...";
+			next;
+			mes "I guess you'll be wanting";
+			mes "To head to the Mission Zone to";
+			mes "start your new adventure.";
+			next;
+			mes "You know, we used to train new";
+			mes "adventurers, but then they took our jobs.";
+		}
+		else 
+		{
+			mes "Talk to the Mission Zone Officer";
+			mes "To start your new adventure";
+			next;
+			mes "Go, Novice, go!";
+			mes "Fight, and grow stronger! Look towards a brighter tomorrow!";
+		}
+		close;
+
 	}
-	close;
-// }
 }
 
 // Mission Zone Teleport Officer
 
 new_1-1,144,107,2	script	Mission Zone Officer#nv1	729,{
-if (BaseJob != Novice) {
-   mes "[Mission Zone Officer]";
-  mes "Hey, this area is restricted!";
-  next;
-  mes "[Mission Zone Officer]";
-  mes "No... you don't belong here anymore.";
-  mes "I'll send you back to the Mission Zone. ";
-  savepoint moc_para01,31,14;
-  close2;
-  warp "moc_para01",31,14;
-  end;
-  }
-else {
-	mes "[Mission Zone Officer]";
-	mes "Those who are wandering around this strange world with aimless eyes listen up and come to me!";
-	mes "Mission Zone is here to help you and will show you the great future.";
-	next;
-	mes "[Mission Zone Officer]";
-	mes "Are you a fresh adventurer?";
-	mes "Are you eager to do something good?";
-	mes "Would you like to be a problem solver?";
-	mes "Mission Zone is here to solve your problem.";
-	next;
-	switch(select("Move to Mission Zone:Don't want to talk anymore.")) {
-	case 1:
+	if (Class != Job_Novice) 
+	{
 		mes "[Mission Zone Officer]";
-		mes "I'll guide you to our base to begin your training!";
-		set nak_warp,4;
-		set nov_1st_cos,3; // tells Shion to tell Novice to go back caross bridge again
+		mes "Hey, this area is restricted!";
+		next;
+		mes "[Mission Zone Officer]";
+		mes "No... you don't belong here anymore.";
+		mes "I'll send you back to the Mission Zone. ";
+		savepoint "moc_para01",31,14;
 		close2;
-		savepoint moc_para01,31,14; // thanks lighta
 		warp "moc_para01",31,14;
 		end;
-	case 2:
+	}
+	else 
+	{
 		mes "[Mission Zone Officer]";
-		mes "If you don't know what to do for your future, don't hesitate to tell me. Just drop by and talk to me! Ok?";
+		mes "Those who are wandering around this strange world with aimless eyes listen up and come to me!";
+		mes "Mission Zone is here to help you and will show you the great future.";
 		next;
-		mes "There's not much else going out here, so you probably should just come with me.";
+		mes "[Mission Zone Officer]";
+		mes "Are you a fresh adventurer?";
+		mes "Are you eager to do something good?";
+		mes "Would you like to be a problem solver?";
+		mes "Mission Zone is here to solve your problem.";
 		next;
-		mes "It's good karma to help others as well...~";
-		close;
+		switch(select("Move to Mission Zone:Don't want to talk anymore.")) 
+		{
+		case 1:
+			mes "[Mission Zone Officer]";
+			mes "I'll guide you to our base to begin your training!";
+			set nak_warp,4;
+			set nov_1st_cos,3; // tells Shion to tell Novice to go back caross bridge again
+			close2;
+			savepoint "moc_para01",31,14; // thanks lighta
+			warp "moc_para01",31,14;
+			end;
+		case 2:
+			mes "[Mission Zone Officer]";
+			mes "If you don't know what to do for your future, don't hesitate to tell me. Just drop by and talk to me! Ok?";
+			next;
+		mes "[Mission Zone Officer]";
+			mes "There's not much else going out here, so you probably should just come with me.";
+			next;
+		mes "[Mission Zone Officer]";
+			mes "It's good karma to help others as well...~";
+			close;
+		}
 	}
 }
 
@@ -263,60 +278,71 @@ else {
 // Shion #nv2
 moc_para01,25,35,4	script	Shion#nv2	727,{
 	mes "[Shion]";
-	if (BaseJob != Novice && MD_mission_pts > 0) {
+	if (Class != Job_Novice && MD_missions_completed > 0) 
+	{
+		mes "^666666*GEEEEEZ*^000000 Don't you have karma to be farming?";
+		mes "Don't just stand around! Go do something!";
+		mes "Talk to the Agents behind the desk to get a new mission!";
+		close;
+	}
+	else if (Class != Job_Novice && MD_missions_completed <= 0) 
+	{
+		mes "You must be new to the Mission Zone! Talk to Mission Coordinator Lime behind the desk to start doing missions! I'm actually the Novice Coordinator, so there isn't much more I can do for you than that. Sorry~*";
+		close;
+	}
+	else if (Class == Job_Novice && MD_missions_completed <= 0 && newbie_school > 8) 
+	{
+		mes "Hey smart stuff, you should know what you're doing, so talk to Coordinator Lime on my left and get started on those missions! If you're too cool for school, then prove it!";
+		close;
+	}
+	else if (Class == Job_Novice && newbie_school == 8)
+	{
+		mes "[Shion]";
+		mes "Great job completing the Karma-RO Newbie School! You're now ready for missions!";
+		mes "Talk to Coordinator Lime on my left and you can work on the missions!";
+		set newbie_school, 9;
+		close;
+	}
+	else 
+	{
+		mes "Hi, Welcome to the ^666666Mission Zone^000000";
+		mes "I'm the Novice Coordinator, Shion.";
+		next;
+		mes "[Shion]";
+		mes "You're ^666666*fresh*^000000 here, aren't you?";
+		mes "Glad to meet you~!";
+		next;
+		mes "[Shion]";
+		mes "Wait, we've met before! I'm so forgetful!";
+		mes "You're " + strcharinfo(0) + ".";
+		mes "I'm so glad you managed to make it here!";
+		next;
+		mes "[Shion]";
+		mes "Since we've got the meet and greet out of the way, let me tell you what's next.";
+		next;
+		mes "[Shion]";
+		mes "You can either jump straight into doing Missions here or if you're unsure, I'll send you upstairs to learn the basics.";
+		next;
+		mes "[Shion]";
+		mes "I don't like to send ^666666*newbies*^000000 to do missions right out of the gate, but sometimes they insist they're ready and who am I to stop someone that is that ^666666*fired up*^000000~!";
+		next;
+		mes "[Shion]";
+		mes "So, what's it going to be?";
+		next;
+		switch(select("I think I'd like to learn the Basics:I'm ready to do Missions now!")) 
 		{
-			mes "^666666*GEEEEEZ*^000000 Don't you have karma to be farming?";
-			mes "Don't just stand around! Go do something!";
-			mes "Talk to the Agents behind the desk to get a new mission!";
-			close;
-			}
-	if (BaseJob != Novice && MD_mission_pts < 0) {
-		{
-			mes "You must be new to the Mission Zone! Talk to Mission Coordinator Lime behind the desk to start doing missions! I'm actually the Novice Coordinator, so there isn't much more I can do for you than that. Sorry~*";
-			close;
-		}
-	if (BaseJob == Novice && MD_mission_pts < 0 && newbie_school > 8) {
-		{
-			mes "Hey smart stuff, you should know what you're doing, so go talk to the Mission Coordinator behind the desk and get started on those missions! If you're too cool for school, then prove it!";
-		}
-	else {
-	mes "Hi, Welcome to the ^666666Mission Zone^000000";
-	mes "I'm the Novice Coordinator, Shion.";
-	next;
-	mes "[Shion]";
-	mes "You're ^666666*fresh*^000000 here, aren't you?"
-	mes "Glad to meet you~!";
-	next;
-	mes "[Shion]";
-	mes "Wait, we've met before! I'm so forgetful!";
-	mes "You're " + strcharinfo(0) + ".";
-	mes "I'm so glad you managed to make it here!";
-	next;
-	mes "[Shion]";
-	mes "Since we've got the meet and greet out of the way, let me tell you what's next.";
-	next;
-	mes "[Shion]";
-	mes "You can either jump straight into doing Missions here or if you're unsure, I'll send you upstairs to learn the basics.";
-	next;
-	mes "[Shion]";
-	mes "I don't like to send ^666666*newbies*^000000 to do missions right out of the gate, but sometimes they insist they're ready and who am I to stop someone that is that ^666666*fired up*^000000~!";
-	next;
-	mes "[Shion]";
-	mes "So, what's it going to be?";
-	next;
-	switch(select("I think I'd like to learn the Basics:I'm ready to do Missions now!")) {
-		case 1:
-			mes "[Shion]";
-			mes "Alright, I'll send you upstairs and the tutors up there will ^666666*school*^000000 you up to be Mission Zone ready";
-			set newbie_school,1;
-			close2;
-			warp moc_para01,14,176;
-			end;
-		case 2:
-			mes "[Shion]";
-			mes "Alright, talk to the Mission Zone Agents behind the desk, and you'll be ready to start your first Missions.";
-			set newbie_school,9; // didn't want to do the newbie school
-			close;
+			case 1:
+				mes "[Shion]";
+				mes "Alright, I'll send you upstairs and the tutors up there will ^666666*school*^000000 you up to be Mission Zone ready";
+				set newbie_school,1;
+				close2;
+				warp "moc_para01",14,176;
+				end;
+			case 2:
+				mes "[Shion]";
+				mes "Alright, talk to the Mission Zone Agents behind the desk, and you'll be ready to start your first Missions.";
+				set newbie_school,9; // didn't want to do the newbie school
+				close;
 		}
 	}
 }
@@ -324,139 +350,363 @@ moc_para01,25,35,4	script	Shion#nv2	727,{
 
 // Mission Coordinator Lime
 
-moc_para01,27,35,5	script	Mission Coordinator Lime#1	952,{
-	if (MD_mission_pts > 0) {
+moc_para01,27,35,5	script	Coordinator Lime#1	952,{
+	if (First_Job_Class_Trial >= Job_Swordman)
+	{
+		mes "[Mission Coordinator Lime]";
+		mes "Ah, you've returned! But wait, have you met the requirements?";
+		next;
+		if ( getskilllv("NV_BASIC") < 9)
+		{
+			mes "[Mission Coordinator Lime]";
+			mes "Well, you're there yet. Remember, our deal was that your job level must have all of the Basic Skills, and don't forget you should learn all of the Basic Skills in your Skill Window (Alt + S). Once you've done that, talk to me again.";
+			close;
+		}
+		else
+		{
+			mes "[Mission Coordinator Lime]";
+			mes "Great~! You reached Job Level 10 and even got all of your Basic Skills maxed out. You're a pro!";
+			mes "I haven't forgotten my promise! But did you remember to keep up your end of the deal?";
+			next;
+			setarray .@manuals[0], 2819, 2824, 2822, 2821, 2823, 2820;
+			setarray .@figures[0], 2766, 2768, 2769, 2767, 2771, 2770;
+			set .@tc, First_Job_Class_Trial-1;
+			
+			if ( countitem(.@manuals[.@tc]) == 0 )
+			{
+				mes "[Mission Coordinator Lime]";
+				mes "Bring me the "+getitemname(.@manuals[.@tc])+" I lent you, or the deal is off.";
+				close;
+			}
+			else
+			{
+				mes "[Mission Coordinator Lime]";
+				mes "Wow, great! You've made it and brought the manual back!.";
+				next;
+				delitem(.@manuals[.@tc], 1);
+				mes "[Mission Coordinator Lime]";
+				mes "Now, I will reward you with the "+getitemname(.@figures[.@tc])+" I promised you.";
+				if (Class == Job_Novice)
+				{
+					mes "You have been transformed into a handsomer person too, now!";
+					mes "When you get to Job Level 50, type ^0000BF@control^000000 to change your class, and you will be able to convert yourself to a Second Job.";
+					callfunc "Job_Change_cu",First_Job_Class_Trial;
+				}
+				next;
+				getitem(.@figures[.@tc], 1);
+				mes "[Mission Coordinator Lime]";
+				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the Novice Figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through...";
+				next;
+				mes "[Mission Coordinator Lime]";
+				mes "...and the "+getitemname(.@figures[.@tc])+" to remind you where you are going and the power you now possess.";
+				next;
+				mes "[Mission Coordinator Lime]";
+				mes "Good luck, and don't forget to do all our missions!";
+				mes "If you do, you'll earn points that you can bring to Reward King Michael to my right to exchange for great items!";
+				set First_Job_Class_Trial, -1;
+				next;
+				mes "[Mission Coordinator Lime]";
+				mes "Here, as an added bonus, I'll even start you off with our Paradise Armor starter pack~!";
+				mes "I recommend you head to Reward King Michael and purchase your first Paradise Weapon!";
+				
+				getitem(2456, 1); //eden boots i
+				getitem(5583, 1); //eden hat i
+				getitem(2560, 1); //eden manteau i
+				getitem(15009,1); //eden uniform i
+				
+				close;
+			}
+		}
+	}
+	else if (MD_missions_completed > 0) 
+	{
+		if (Class == Job_Novice)
+		{
+			mes "[Mission Coordinator Lime]";
+			mes "Oh.. you're still a novice?";
+			mes "If you'd like to change classes, please use ^0000AF@control^000000.";
+			close;
+		}
 		mes "[Mission Coordinator Lime]";
 		mes "Hey there adventurer! I'm glad to see you working hard on missions!";
 		next;
 		mes "[Mission Coordinator Lime]";
 		mes "Remember, as you finish Missions, you will earn Mission Reward Points which you can trade at the Exchange Zone for equipment and items!";
+		next;
+		mes "[Mission Coordinator Lime]";
+		mes "Talk to Reward King Michael to my right and he'll show you how to pick them up.";
 		close;
-		end;
-		}
-	else {
-	mes "[Mission Coordinator Lime]";
-	mes "Hi, welcome to the Mission Zone! Are you ready to start your adventures?";
-	next;
-	while(1) {
-		switch(select("What is the Mission Zone?:Join the Mission Zone:Cancel")) {
+	}
+	else 
+	{
+		mes "[Mission Coordinator Lime]";
+		mes "Hi, welcome to the Mission Zone! Are you ready to start your adventures?";
+		next;
+		
+		
+		switch(select("What is the Mission Zone?:Join the Mission Zone:Cancel")) 
+		{
 			case 1:
 				mes "[Mission Coordinator Lime]";
-				mes "We're here to guide newbies through the world of Rune-Midgard. Oru missions will send you all around Rune Midgard and through the lands of her allies.";
+				mes "We're here to guide newbies through the world of Rune-Midgard. Our missions will send you all around Rune Midgard and through the lands of her allies.";
 				next;
 				mes "[Mission Coordinator Lime]";
 				mes "Every mission you take and complete, you'll be rewarded with points, and you can exchange the points for better equipment and items!";
 				next;
 				mes "[Mission Coordinator Lime]";
 				mes "Many of our missions are better done in a group, so team up and make friends to make things easier for you! Afterall, this is a social ga- I mean making friends is GREAT!";
-				next;
+				close;
 				break;
 			case 2:
-				if (MD_mission_pts > 0) {
-					mes "[Mission Coordinator Lime]";
-					mes "You goofball! You're already done missions, you clearly know what you're doing!";
-					break;
-					}
-				else {
-					mes "[Mission Coordinator Lime]";
-					mes "So you want to learn how to do missions?";
-					next;
-					switch(select("Yes, I want to start doing missions!:No, I don't want to have fun.")) {
-						case 1:
-							mes "[Mission Coordinator Lime]";
-							mes "Alright. To take on missions, you will check out the board on the right and it will assign you whatever tasks are available. Don't worry, missions are tailored to your level of ability. We won't assign you missions you can't complete.";
+				mes "[Mission Coordinator Lime]";
+				mes "So you want to learn how to do missions?";
+				next;
+				switch(select("Yes, I want to start doing missions!:No, I don't want to have fun.")) 
+				{
+					case 1:
+						mes "[Mission Coordinator Lime]";
+						mes "Alright. To take on missions, you will check out the board on the right and it will assign you whatever tasks are available. Don't worry, missions are tailored to your level of ability. We won't assign you missions you can't complete.";
+						next;
+						mes "[Mission Coordinator Lime]";
+						mes "Good luck!";
+						
+						if (Class == Job_Novice && First_Class_Job_Trial == 0)
+						{
 							next;
 							mes "[Mission Coordinator Lime]";
-							mes "Good luck!";
-							break;
-						case 2:
-							mes "[Mission Coordinator Lime]";
-							mes "Boy, you're a downer... maybe you should think twice about it.";
+							mes "Oh! We have a special deal for novices like yourself.";
+							mes "Those who use our figure and manual receive bonuses upon completion of their missions.";
 							next;
-							break;
+							mes "[Mission Coordinator Lime]";
+							mes "What first class do you want to be? I will let you take on the Job Manual of one First Job Class which will give you a taste of how that class works as well as a Novice Figure.";
+							next;
+							mes "[Mission Coordinator Lime]";
+							mes "When you get to Job Level 10 and return to me, I will change you to your First Job Class and exchange your Job Manual for your respective Job Class Figure. Note, only Swordsmen, Acolytes, Mages, Archers, Thiefs, and Merchants will receive a new Job Class Figure. ";
+							next;
+							mes "[Mission Coordinator Lime]";
+							mes "All other First Jobs (Gunslingers, Ninjas, and Taekwons) will keep their Novice Figure.";
+							next;
+							mes "[Mission Coordinator Lime]";
+							mes "However, before all that, I will give you some basic items.";
+							next;
+							getitem(1243,1); //novice main gauche
+							getitem(2352,1); //novice ninja suit
+							getitem(2112,1); //novice guard
+							getitem(5055,1); //novice eggshell
+							getitem(2414,1); //novice boots
+							getitem(2510,1); //novice hood
+							
+							getitem(12324,5); //novice bwing
+							getitem(12323,50); //novice fwing
+							getitem(569,400); //novice potions
+							mes "[Mission Coordinator Lime]";
+							mes "Now then, what class would you like to be?";
+							switch(select("Swordsman:Acolyte:Mage:Archer:Thief:Merchant:Something else"))
+							{
+								case 1:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Swordsman. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Swordsman Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2819, 1; // Swordman Job Manual
+									set First_Job_Class_Trial,Job_Swordman;
+									close;
+								case 2:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Acolyte. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Acolyte Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2821, 1; // Acolyte Job Manual
+									set First_Job_Class_Trial,Job_Archer;
+									close;	
+								case 3:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Mage. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Mage Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2824, 1; // Mage Job Manual
+									set First_Job_Class_Trial,Job_Mage;
+									close;
+								case 4:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Archer. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Archer Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2822, 1; // Archer Job Manual
+									set First_Job_Class_Trial,Job_Archer;
+									close;
+								case 5:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Thief. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Thief Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2820, 1; // Thief Job Manual
+									set First_Job_Class_Trial,Job_Thief;
+									close;
+								case 6:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Merchant. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Merchant Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2823, 1; // Merchant Job Manual
+									set First_Job_Class_Trial,Job_Merchant;
+									close;
+								case 7:
+									mes "[Mission Coordinator Lime]";
+									mes "I see... well, I am sorry, but we only offer this for those who choose to be one of the 6 primary classes.";
+									set First_Job_Class_Trial,-1;
+									close;
+							}
 						}
-					}
+						
+						close;
+					case 2:
+						mes "[Mission Coordinator Lime]";
+						mes "Boy, you're a downer... maybe you should think twice about it.";
+						next;
+						close;
 				}
+				
 			case 3:
 				mes "[Mission Coordinator Lime]";
-				mes "Okedoke";
+				mes "Okey-dokey..";
 				close;
-			}
+		}
+		
 	}
-				
+}
+
+moc_para01,21,35,5	script	Inventor Aerystotle	121,{
+	set .@n$, "[Inventor Aerystotle]";
+	
+	mes .@n$;
+	mes "Yes, the Control Unit!";
+	mes "This mighty invention of mine gives adventurers remote access to the luxuries of civilization from anywhere! Tiny Ymir chips allow this~! It's complicated!";
+	next;
+	mes .@n$;
+	mes "You can call up this amazing device just by typing @control";
+	next;
+	
+	if (select("Okay... thank you.:What does it do?")==1)
+	{
+		mes .@n$;
+		mes "Heheh... walk away. You know you'll need my help.";
+		close;
+	}
+	
+	mes .@n$;
+	mes "Very well, allow me to explain.";
+	mes "First up, Autolog Commands.";
+	next;
+	mes .@n$;
+	mes "The autolog commands let you customize how you'll experience your world when you start your adventure each day. Some might call it augmented reality. I just call it autolog commands. With your custom settings, you can pick out what information is displayed when logging in! You could for example set autoloot on, displaying of zeny, and so on!";
+	next;
+	mes .@n$;
+	mes "The stylist option lets you change your look on the go! Always a plus for busy adventurers who don't have the time to schedule a full makeover when they're busy fighting back hordes of orcs!";
+	next;
+	mes .@n$;
+	mes "The rental function is for Cavalier classes like Knights and Crusaders who need to summon their Peco Pecos from afar. It allows Hunters to get their Falcons from anywhere, and Merchants are able to have their Pushcarts sent straight to them.";
+	next;
+	mes .@n$;
+	mes "Class change lets you contact the Mission Zone home office to register and confirm a change of class. Meet the requirements, you'll be able to change your class from anywhere.";
+	next;
+	mes .@n$;
+	mes "Sometimes you realize you made some bad decisions. Well, with my Ymir powered Control Unit, you can use the Neuraliser functionality and reset your stats and skills from anywhere.";
+	next;
+	mes .@n$;
+	mes "That wraps up everything... try it out! It's glorious!";
+	close;
 	
 }
+
 
 // Mission Reward King Michael and Exchange Zone NPCs
 
 
-moc_para01,23,35,5	script	Mission Reward King Michael	967,{
-	if (MD_mission_pts > 0)
+moc_para01,23,35,5	script	Reward King Michael	967,{
+	if (MD_mission_points > 0)
 	{
 		mes "[Mission Reward King Michael]";
 		mes "Hey there adventurer! You've got some Mission Reward Points. Do you want to trade those in?";
 		next;
-		if (mission_reward_points_tradein_knowledge < 1)
+		if (MD_knowledge_trade < 1)
 		{
 			mes "[Mission Reward King Michael]";
 			mes "Oh right, you're new and don't know this yet. So let me tell you about Mission Reward Point Trade-Ins. You can exchange Mission Reward Points for equipment and items! It's one of the great perks about doing Missions.";
-			set mission_reward_points_tradein_knowledge,1;
+			set MD_knowledge_trade,1;
 			next;
-			}
-		else 
-		{
-			switch(select("I want to exchange Mission Reward Points:Cancel")) {
-				case 1:
-					mes "[Mission Reward King Michael]";
-					mes "Alright! I'm sending you to the Mission Reward Points Exchange Zone!";
-					warp moc_para01,107,86;
-					close2;
-				case 2:
-					mes "[Mission Reward King Michael]";
-					mes "Alright! Talk to me again some time if you actually want to trade in Mission Reward Points.";
-					close;
-				}
-			}
 		}
-	else
+		
+		switch(select("I want to exchange Mission Reward Points:Cancel")) 
 		{
-			mes "[Mission Reward King Michael]";
-			mes "You don't have any Mission Reward Points!";
-			mes "You should go look at the Mission Board and find some Missions to do! You'll earn Mission Reward Points which you can turn in for equipment and items in the Exchange Zone!";
-			close;
-			}
+			case 1:
+				mes "[Mission Reward King Michael]";
+				mes "Alright! I'm sending you to the Mission Reward Points Exchange Zone!";
+				close2;
+				warp "moc_para01",107,86;
+				end;
+			case 2:
+				mes "[Mission Reward King Michael]";
+				mes "Alright! Talk to me again some time if you actually want to trade in Mission Reward Points.";
+				close;
+		}
+		
+	}
+	else
+	{
+		mes "[Mission Reward King Michael]";
+		mes "You don't have any Mission Reward Points!";
+		mes "You should go look at the Mission Board and find some Missions to do! You'll earn Mission Reward Points which you can turn in for equipment and items in the Exchange Zone!";
+		close;
 	}
 	
-moc_para01,105,92,5	script	Mission Reward King Michael#EZ	967,{
-	mes "[Mission Rewadr King Michael]";
-	mes "Are you done trading in your Mission Reward Points at the Exchange Zone?";
-	mes "If so, I can send you back to the Mission Zone!";
-	switch(select("Yes, I'm done!:No, I'm still browsing.")) {
+}
+	
+moc_para01,105,92,5	script	Reward King Michael#EZ	967,{
+	mes "[Mission Reward King Michael]";
+	mes "What would you like?";
+	next;
+	switch(select("Oh, nothing.:What are these items?:Send me back, please!")) 
+	{
 		case 1:
+			mes "[Mission Reward King Michael]";
+			mes "Alright, take your time, and talk to me when you're done to go back to the Mission Zone.";
+			close;	
+		case 2:
+			mes "[Mission Reward King Michael]";
+			mes "Ah, let me explain, there are three shops as you can see, the Karma Gears, Light Consumables, and Paradise Gears";
+			next;
+			
+			mes "[Mission Reward King Michael]";
+			mes "Paradise gears are those which are intended to give new adventurers an advantage in levelling in exchange for completing missions on behalf of the Mission Zone.";
+			next; 
+			mes "They are very cheap but provide some decent benefits. They cannot be upgraded or refined but they remain permanently attached to you and will not expire.. unless you sell them to an NPC, of course";
+			next;
+			mes "[Mission Reward King Michael]";
+			mes "Light consumable boxes allow you to carry large quantities of potions specially crafted in the cutting edge laboratories of Lighthalzen alchemists. You will be able to carry larger numbers of these exciting example of new healing technologies without feeling even a slight burden.";
+			next;
+			mes "[Mission Reward King Michael]";
+			mes "Karma gears provide an added bonus to veteran adventurers. They are more costly and are available for you you to do as you please, you could even sell them to others if you'd like. When put in the hands of the right person, they provide a powerful boost in battling monsters.";
+			next;
+			mes "[Mission Reward King Michael]";
+			mes "That wraps up about everything there is to know about these items. If you'd like to learn about them individually, check the shop and right click the items.";
+			close;	
+		case 3:
 			mes "[Mission Reward King Michael]";
 			mes "Alright, I'll send you back to the Mission Zone now.";
 			close2;
 			warp "moc_para01",31,14; 
 			end;
-		case 2:
-			mes "[Mission Reward King Michael]";
-			mes "Alright, take your time, and talk to me when you're done to go back to the Mission Zone.";
-			close;
-			end;
-		}
+			
 	}
 	
-moc_para01,110,95,4	varshop(MD_mission_points)	Mission Reward Gears	966,1578:100,1744:100,1137:100,1653:100,13419:100,1145:100,1283:100,1547:100,1828:100,1982:100,1427:100,1642:100,2348:150,2358:150,2350:150,2344:150,2385:400,2346:150,2132:1000,2384:2000,2441:1000,2439:1000,2546:2000,2548:2000,2511:150,2543:150,2741:300,2688:300,2763:1000:2695:200,2693:200,2689:200,2692:300,2691:200,2690:200,2694:200,2711:300,2760:100,2753:100,2756:100,2755:100,2759:100,2762:100,2758:100,2754:100,2757:100,2761:100
+}
+	
+moc_para01,110,95,4	varshop(MD_mission_points)	Karma Gears#mz	966,1578:100,1744:100,13419:100,1283:100,1547:100,1828:100,1982:100,1427:100,1642:100,2348:250,2358:250,2350:250,2344:250,2385:400,2346:250,2384:4000,2441:1500,2439:1000,2546:2000,2548:2500,2511:350,2543:350,2741:300,2688:500,2763:3000:2695:500,2693:500,2689:500,2692:800,2691:500,2690:500,2694:500,2711:500,2760:150,2753:150,2756:150,2755:150,2759:150,2762:150,2758:150,2754:150,2757:150,2761:150
 
-moc_para01,110,89,4	varshop(MD_mission_points)	Mission Point Items	966,13535:15,13536:20,13537:25,13531:3,13532:5,13533:15,13534:25
+moc_para01,110,89,4	varshop(MD_mission_points)	Light Consumables#mz	966,13535:15,13536:20,13537:25,13531:3,13532:5,13533:15,13534:25
 
-moc_para01,110,82,4	varshop(MD_mission_points)	Eden Gears	966,2456:3,2457:5,2458:8,2473:10,5583:5,18514:10,2560:5,2571:15,15009:5,15010:10,15011:15,1583:20,1747:5,1748:10,18106:15,13050:5,13051:10,13066:15,1931:10,1289:10,1831:10,16004:5,16005:10,16014:15,13112:5,13113:10,13114:15,13423:5,13424:10,13434:15,1192:5,1193:10,1197:15,1434:10,1650:5,1651:10,1658:15,1986:10
+moc_para01,110,82,4	varshop(MD_mission_points)	Paradise Gears#mz	966,2456:1,2457:5,2458:8,2473:10,5583:5,18514:10,2560:5,2571:15,15009:5,15010:10,15011:15,1583:20,1747:5,1748:10,18106:15,13050:5,13051:10,13066:15,1931:10,1289:10,1831:10,16004:5,16005:10,16014:15,13112:5,13113:10,13114:15,13423:5,13424:10,13434:15,1192:5,1193:10,1197:15,1434:10,1650:5,1651:10,1658:15,1986:10
 
 // Mission Board
 
-moc_para01,38,37,4	script	Mission Board	857,{
+moc_para01,38,37,4	script	Mission Board#mz	857,{
 	callfunc "MD_mission_board","Mission Board";
-	}
+}
 
 moc_para01,16,22,7	script	Old Adventurer#eden	900,{
 	mes "[Old Adventurer]";
@@ -466,214 +716,3 @@ moc_para01,16,22,7	script	Old Adventurer#eden	900,{
 	mes "The Eden Group used to own this building, but they wouldn't let me join! The Mission Zone welcomes everyone, even old men like me!";
 	close;
 }
-
-// Job changer/rewards debugger npc to go into other mission zone npcs
-
-moc_para01,179,44,1	script	Job Changer Test NPC#trial	820,{
-	if (BaseJob == Job_Novice && First_Job_Class_Trial == 0)
-	{
-		mes "What first class do you want to be? I will let you take on the Job Manual of one First Job Class which will give you a taste of how that class works as well as a Novice Figure. When you get to Job Level 10 and return to me, I will change you to your First Job Class and exchange your Job Manual for your respective Job Class Figure. Note, only Swordsmen, Acolytes, Mages, Archers, Thiefs, and Merchants will receive a new Job Class Figure. All other First Jobs (Gunslingers, Ninjas, and Taekwons) will keep their Novice Figure.";
-		next;
-		switch(select("Swordsman":Acolyte":"Mage":"Archer":"Thief":"Merchant"))
-		{
-			case 1:
-				mes "You have chosen Swordsman. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Swordsman Job Manual.";
-				getitem 2765, 1; // Novice Figure
-				getitem 2819, 1; // Swordman Job Manual
-				set First_Job_Class_Trial,1;
-				close;
-			case 2:
-				mes "You have chosen Acolyte. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Acolyte Job Manual.";
-				getitem 2765, 1; // Novice Figure
-				getitem 2821, 1; // Acolyte Job Manual
-				set First_Job_Class_Trial,2;
-				close;	
-			case 3:
-				mes "You have chosen Mage. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Mage Job Manual.";
-				getitem 2765, 1; // Novice Figure
-				getitem 2824, 1; // Mage Job Manual
-				set First_Job_Class_Trial,3;
-				close;
-			case 4:
-				mes "You have chosen Archer. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Archer Job Manual.";
-				getitem 2765, 1; // Novice Figure
-				getitem 2822, 1; // Archer Job Manual
-				set First_Job_Class_Trial,4;
-				close;
-			case 5:
-				mes "You have chosen Thief. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Thief Job Manual.";
-				getitem 2765, 1; // Novice Figure
-				getitem 2820, 1; // Thief Job Manual
-				set First_Job_Class_Trial,5;
-				close;
-			case 6:
-				mes "You have chosen Merchant. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Merchant Job Manual.";
-				getitem 2765, 1; // Novice Figure
-				getitem 2823, 1; // Merchant Job Manual
-				set First_Job_Class_Trial,6;
-				close;
-			}
-		}
-if (BaseJob == Job_Novice && First_Job_Class_Trial != 0)
-	{
-		mes "Ah, you've returned! But wait, have you met the requirements?";
-		next;
-		if (getskillv("NV_BASIC") < 9)
-		{
-			mes "Well, you're not at the right job level. Please check the requirements again. Remember, our deal was that your job level must be at least 10, and don't forget you should learn all of the Basic Skills in your Skill Window (Alt + S). Once you've done that, talk to me again.";
-			close;
-			}
-		else
-		{
-			mes "Great~! You've reached Job Level 10 and even got all of your Basic Skills maxed out. You're one Pro Novice!";
-			mes "I haven't forgotten my promise! But did you remember to keep up your end of the deal?";
-			next;
-			// Swordman
-			if (First_Job_Class_Trial == 1 && countitem(2819) == 0)
-			{
-				mes "Whoa there buddy! I can't change you to Swordman unless you bring me the Swordsman Manual I lent you. Come back to me with that and I'll change you to a Swordsman.";
-				close;
-				}
-			if (First_Job_Class_Trial == 1 && countitem (2819) == 1)
-			{
-				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Swordsman Manual I lent you! Clearly, you're no Thief. First, I'll take that Manual back.";
-				next;
-				delitem 2819, 1; // delete Swordman Manual
-				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Swordsman!";
-				next;
-				callfunc "Job_Change",Job_Swordman;
-				mes "Congratulations! You are now a Swordman!";
-				next;
-				mes "Now, I will reward you with the Swordman Figure I promised you!";
-				next;
-				getitem 2766,1; // Swordman Figure
-				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the swordman figure to remind you where you are going and the power you now possess. Good luck! May Odin bless you!";
-				close;
-				}
-			// Acolyte
-			if (First_Job_Class_Trial == 2 && countitem(2821) == 0)
-			{
-				mes "Whoa there buddy! I can't change you to Acolyte unless you bring me the Acolyte Manual I lent you. Come back to me with that and I'll change you to a Acolyte.";
-				close;
-				}
-			if (First_Job_Class_Trial == 2 && countitem (2821) == 1)
-			{
-				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Acolyte Manual I lent you! Clearly, you're no Thief. First, I'll take that Manual back.";
-				next;
-				delitem 2821, 1; // delete Acolyte Manual
-				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Acolyte!";
-				next;
-				callfunc "Job_Change",Job_Acolyte;
-				mes "Congratulations! You are now a Acolyte!";
-				next;
-				mes "Now, I will reward you with the Acolyte Figure I promised you!";
-				next;
-				getitem 2767,1; // Acolyte Figure
-				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the acolyte figure to remind you where you are going and the oaths that you swore. Good luck! May God bless you!";
-				close;
-				}
-			// Mage
-			if (First_Job_Class_Trial == 3 && countitem(2824) == 0)
-			{
-				mes "Whoa there buddy! I can't change you to Mage unless you bring me the Mage Manual I lent you. Come back to me with that and I'll change you to a Mage.";
-				close;
-				}
-			if (First_Job_Class_Trial == 3 && countitem (2824) == 1)
-			{
-				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Mage Manual I lent you! Clearly, you're no Thief. First, I'll take that Manual back.";
-				next;
-				delitem 2824, 1; // delete Mage Manual
-				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Mage!";
-				next;
-				callfunc "Job_Change",Job_Mage;
-				mes "Congratulations! You are now a Mage!";
-				next;
-				mes "Now, I will reward you with the Mage Figure I promised you!";
-				next;
-				getitem 2768,1; // Mage Figure
-				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the Mage figure to remind you where you are going and the power that dwells within you now. Good luck! May Odin bless you!";
-				close;
-				}
-			// Archer
-			if (First_Job_Class_Trial == 4 && countitem(2822) == 0)
-			{
-				mes "Whoa there buddy! I can't change you to Archer unless you bring me the Archer Manual I lent you. Come back to me with that and I'll change you to a Archer.";
-				close;
-				}
-			if (First_Job_Class_Trial == 4 && countitem (2822) == 1)
-			{
-				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Archer Manual I lent you! Clearly, you're no Thief. First, I'll take that Manual back.";
-				next;
-				delitem 2822, 1; // delete Archer Manual
-				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Archer!";
-				next;
-				callfunc "Job_Change",Job_Archer;
-				mes "Congratulations! You are now a Archer!";
-				next;
-				mes "Now, I will reward you with the Swordman Figure I promised you!";
-				next;
-				getitem 2769,1; // Archer Figure
-				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the archer figure to remind you where you are going and to keep your marks true. Good luck! May Odin bless you!";
-				close;
-				}
-			// Thief
-			if (First_Job_Class_Trial == 5 && countitem(2820) == 0)
-			{
-				mes "Whoa there buddy! I can't change you to Swordman unless you bring me the Thief Manual I lent you. Come back to me with that and I'll change you to a Thief.";
-				close;
-				}
-			if (First_Job_Class_Trial == 5 && countitem (2820) == 1)
-			{
-				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Thief Manual I lent you! You might want to be a thief, but you've got a sense of honor! Are you sure you don't want to be a swordman!? Just Kidding. First, I'll take that Manual back.";
-				next;
-				delitem 2820, 1; // delete Thief Manual
-				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Thief!";
-				next;
-				callfunc "Job_Change",Thief;
-				mes "Congratulations! You are now a Thief!";
-				next;
-				mes "Now, I will reward you with the Thief Figure I promised you!";
-				next;
-				getitem 2770,1; // Thief Figure
-				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the thief figure... hm.. boy you sure are a tricky one! Anyway, good luck! May Odin bless you or perhaps Loki. Man I don't know what to do with you!!";
-				close;
-				}
-			// Merchant
-			if (First_Job_Class_Trial == 6 && countitem(2823) == 0)
-			{
-				mes "Whoa there buddy! I can't change you to Merchant unless you bring me the Merchant Manual I lent you. Come back to me with that and I'll change you to a Swordsman.";
-				close;
-				}
-			if (First_Job_Class_Trial == 6 && countitem (2823) == 1)
-			{
-				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Merchant Manual I lent you! Clearly, you're no Thief. First, I'll take that Manual back.";
-				next;
-				delitem 2823, 1; // delete Merchant Manual
-				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Merchant!";
-				next;
-				callfunc "Job_Change",Job_Merchant;
-				mes "Congratulations! You are now a Merchant!;"
-				next;
-				mes "Now, I will reward you with the Merchant Figure I promised you!";
-				next;
-				getitem 2771,1; // Merchant Figure
-				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the merchant figure to remind you of your duties as a tradesperson. Good luck! May your wallet always be fat with zeny!";
-				close;
-				}				
-			else {
-				mes "You're missing something! Remember the requirements I set for you and come back meeting those. You need to have your Job Manual and have gotten to Job Level 10. Not only that, it wouldn't hurt if you maxed out your Basic Skills (check in your Skill Window with Alt + S).";
-				}
-			}
-		}
-if (BaseJob != Job_Novice)
-	{
-		mes "I've done all I can do for you. Good luck my friend.";
-		close;
-	}
-else
-	{
-		mes "I don't think there's anything I can do for you. Sorry.";
-		close;
-	}
-}
-	
