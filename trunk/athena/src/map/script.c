@@ -7286,7 +7286,7 @@ BUILDIN_FUNC(failedenchant)
 	TBL_PC *sd;
 
 	num = script_getnum(st,2);
-	break_on_fail = script_getnum(st, 3)
+	break_on_fail = script_getnum(st, 3);
 	sd = script_rid2sd(st);
 	if( sd == NULL )
 		return 0;
@@ -18380,7 +18380,16 @@ BUILDIN_FUNC(check_gstorage_password)
 	return 0;
 }
 
+BUILDIN_FUNC(setjobchangelevel)
+{
+	TBL_PC *sd = script_rid2sd(st);
+	int level = script_getnum(st, 2);
 
+	sd->change_level = level;
+	pc_setglobalreg(sd, "jobchange_level", level);
+
+	return 0;
+}
 
 // end storage passwords
 
@@ -18911,6 +18920,7 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(check_storage_password, "s"),
 	BUILDIN_DEF(check_mstorage_password, "s"),
 	BUILDIN_DEF(check_gstorage_password, "s"),
+	BUILDIN_DEF(setjobchangelevel, "i"),
 
 
 
