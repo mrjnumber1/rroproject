@@ -485,7 +485,7 @@ OnInit:
 function	script	F_cu_jobchange	{
 	next;
 
-	if(Class == Job_Novice && islowratechar() == 1 && jc_set == 0)
+	if(Class == Job_Novice && islowratechar() == 1 && BaseLevel == 1)
 	{
 		mes "First you must decide, will you be a LR char or a BG char?";
 		mes "If you choose to be a LR char, you can do anything but BG. However you will have to level up at the server rates.";
@@ -563,7 +563,7 @@ function	script	F_cu_bg_jobchange	{
 	set .@jid, .@jobids[@menu-1];
 	set .@blv, 99;
 	set .@jlv, 70;
-	set .@skpoint, 9+49+69;
+	set .@skpoint, 49+69;
 	
 	if( .@jid == Job_Clown && Sex == 0 )
 	{
@@ -572,16 +572,16 @@ function	script	F_cu_bg_jobchange	{
 	else if(.@jid == Job_Soul_Linker || .@jid == Job_Star_Gladiator)
 	{
 		set .@jlv, 50;
-		set .@skpoint, 9+49+49;
+		set .@skpoint, 49+49;
 	}
 	else if(.@jid == Job_Taekwon)
 	{
 		set .@jlv, 50;
-		set .@skpoint, 9+49;
+		set .@skpoint, 49;
 	}
 	else if(.@jid == Job_Ninja || .@jid == Job_Gunslinger)
 	{
-		set .@skpoint, 9+69;
+		set .@skpoint, 69;
 	}
 
 	
@@ -591,14 +591,17 @@ function	script	F_cu_bg_jobchange	{
 	set BaseLevel, .@blv;
 	set JobLevel, .@jlv;
 	set SkillPoint, .@skpoint;
+	if(.@jid != Job_Taekwon || .@jid != Job_Ninja || .@jid != Job_Gunslinger)
+		setjobchangelevel(50);
+
+	skill 1,9,0; // basic skills
+	skill 142,1,0; // First Aid
 	ResetSkill;
 	ResetStatus;
 	
 	
 	
 	
-	// derp
-	skill 142,1,0; // First Aid
 
 	// first job skills
 	if (BaseClass == Job_Swordman) {
