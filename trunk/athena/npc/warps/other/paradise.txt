@@ -14,10 +14,14 @@
 
 moc_para01,57,27,0	warp	parawarp001	1,1,moc_para01,161,26
 moc_para01,158,26,0	warp	parawarp002	1,1,moc_para01,54,27
-moc_para01,48,16,0	warp	parawarp003	1,1,moc_para01,47,164
-moc_para01,47,161,0	warp	parawarp004	1,1,moc_para01,48,19
-moc_para01,41,187,0	warp	parawarp005	1,1,moc_para01,179,93
-moc_para01,179,90,0	warp	parawarp006	1,1,moc_para01,41,184
+// Move from downstairs to upstairs, removed because of adding Novice Training Grounds to Eden Group upper floor.
+//moc_para01,48,16,0	warp	parawarp003	1,1,moc_para01,47,164
+// Move from upstairs to downstairs, removed because of adding Novice Training Grounds to Eden Group upper floor.
+//moc_para01,47,161,0	warp	parawarp004	1,1,moc_para01,48,19
+// Move between rooms upstairs in Eden Group, removed because of adding Novice Training Grounds to Eden Group upper floor.
+//moc_para01,41,187,0	warp	parawarp005	1,1,moc_para01,179,93
+// Move between rooms upstairs in Eden Group. Removed because of adding Novice Training Grounds to Eden Group upper floor.
+//moc_para01,179,90,0	warp	parawarp006	1,1,moc_para01,41,184
 moc_para01,100,27,0	warp	parawarp007	1,1,moc_para01,46,86
 moc_para01,49,86,0	warp	parawarp008	1,1,moc_para01,103,27
 moc_para01,113,32,0	warp	parawarp009	1,1,moc_para01,105,92
