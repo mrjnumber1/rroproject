@@ -1,5 +1,4 @@
 
-
 // Outer court yard of novice training grounds
 
 // BG or Low Rate Character selection
@@ -474,3 +473,214 @@ moc_para01,16,22,7	script	Old Adventurer#eden	900,{
 	mes "The Eden Group used to own this building, but they wouldn't let me join! The Mission Zone welcomes everyone, even old men like me!";
 	close;
 }
+
+// Job changer/rewards debugger npc to go into other mission zone npcs
+
+moc_para01,179,44,1	script	Job Changer Test NPC#trial	820,{
+	if (BaseJob == Job_Novice && First_Job_Class_Trial == 0)
+	{
+		mes "What first class do you want to be? I will let you take on the Job Manual of one First Job Class which will give you a taste of how that class works as well as a Novice Figure. When you get to Job Level 10 and return to me, I will change you to your First Job Class and exchange your Job Manual for your respective Job Class Figure. Note, only Swordsmen, Acolytes, Mages, Archers, Thiefs, and Merchants will receive a new Job Class Figure. All other First Jobs (Gunslingers, Ninjas, and Taekwons) will keep their Novice Figure.";
+		next;
+		switch(select("Swordsman":Acolyte":"Mage":"Archer":"Thief":"Merchant"))
+		{
+			case 1:
+				mes "You have chosen Swordsman. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Swordsman Job Manual.";
+				getitem 2765, 1; // Novice Figure
+				getitem 2819, 1; // Swordman Job Manual
+				set First_Job_Class_Trial,1;
+				close;
+			case 2:
+				mes "You have chosen Acolyte. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Acolyte Job Manual.";
+				getitem 2765, 1; // Novice Figure
+				getitem 2821, 1; // Acolyte Job Manual
+				set First_Job_Class_Trial,2;
+				close;	
+			case 3:
+				mes "You have chosen Mage. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Mage Job Manual.";
+				getitem 2765, 1; // Novice Figure
+				getitem 2824, 1; // Mage Job Manual
+				set First_Job_Class_Trial,3;
+				close;
+			case 4:
+				mes "You have chosen Archer. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Archer Job Manual.";
+				getitem 2765, 1; // Novice Figure
+				getitem 2822, 1; // Archer Job Manual
+				set First_Job_Class_Trial,4;
+				close;
+			case 5:
+				mes "You have chosen Thief. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Thief Job Manual.";
+				getitem 2765, 1; // Novice Figure
+				getitem 2820, 1; // Thief Job Manual
+				set First_Job_Class_Trial,5;
+				close;
+			case 6:
+				mes "You have chosen Merchant. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Merchant Job Manual.";
+				getitem 2765, 1; // Novice Figure
+				getitem 2823, 1; // Merchant Job Manual
+				set First_Job_Class_Trial,6;
+				close;
+			}
+		}
+if (BaseJob == Job_Novice && First_Job_Class_Trial != 0)
+	{
+		mes "Ah, you've returned! But wait, have you met the requirements?";
+		next;
+		if (getskillv("NV_BASIC") < 9)
+		{
+			mes "Well, you're not at the right job level. Please check the requirements again. Remember, our deal was that your job level must be at least 10, and don't forget you should learn all of the Basic Skills in your Skill Window (Alt + S). Once you've done that, talk to me again.";
+			close;
+			}
+		else
+		{
+			mes "Great~! You've reached Job Level 10 and even got all of your Basic Skills maxed out. You're one Pro Novice!";
+			mes "I haven't forgotten my promise! But did you remember to keep up your end of the deal?";
+			next;
+			// Swordman
+			if (First_Job_Class_Trial == 1 && countitem(2819) == 0)
+			{
+				mes "Whoa there buddy! I can't change you to Swordman unless you bring me the Swordsman Manual I lent you. Come back to me with that and I'll change you to a Swordsman.";
+				close;
+				}
+			if (First_Job_Class_Trial == 1 && countitem (2819) == 1)
+			{
+				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Swordsman Manual I lent you! Clearly, you're no Thief. First, I'll take that Manual back.";
+				next;
+				delitem 2819, 1; // delete Swordman Manual
+				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Swordsman!";
+				next;
+				callfunc "Job_Change",Job_Swordman;
+				mes "Congratulations! You are now a Swordman!";
+				next;
+				mes "Now, I will reward you with the Swordman Figure I promised you!";
+				next;
+				getitem 2766,1; // Swordman Figure
+				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the swordman figure to remind you where you are going and the power you now possess. Good luck! May Odin bless you!";
+				close;
+				}
+			// Acolyte
+			if (First_Job_Class_Trial == 2 && countitem(2821) == 0)
+			{
+				mes "Whoa there buddy! I can't change you to Acolyte unless you bring me the Acolyte Manual I lent you. Come back to me with that and I'll change you to a Acolyte.";
+				close;
+				}
+			if (First_Job_Class_Trial == 2 && countitem (2821) == 1)
+			{
+				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Acolyte Manual I lent you! Clearly, you're no Thief. First, I'll take that Manual back.";
+				next;
+				delitem 2821, 1; // delete Acolyte Manual
+				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Acolyte!";
+				next;
+				callfunc "Job_Change",Job_Acolyte;
+				mes "Congratulations! You are now a Acolyte!";
+				next;
+				mes "Now, I will reward you with the Acolyte Figure I promised you!";
+				next;
+				getitem 2767,1; // Acolyte Figure
+				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the acolyte figure to remind you where you are going and the oaths that you swore. Good luck! May God bless you!";
+				close;
+				}
+			// Mage
+			if (First_Job_Class_Trial == 3 && countitem(2824) == 0)
+			{
+				mes "Whoa there buddy! I can't change you to Mage unless you bring me the Mage Manual I lent you. Come back to me with that and I'll change you to a Mage.";
+				close;
+				}
+			if (First_Job_Class_Trial == 3 && countitem (2824) == 1)
+			{
+				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Mage Manual I lent you! Clearly, you're no Thief. First, I'll take that Manual back.";
+				next;
+				delitem 2824, 1; // delete Mage Manual
+				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Mage!";
+				next;
+				callfunc "Job_Change",Job_Mage;
+				mes "Congratulations! You are now a Mage!";
+				next;
+				mes "Now, I will reward you with the Mage Figure I promised you!";
+				next;
+				getitem 2768,1; // Mage Figure
+				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the Mage figure to remind you where you are going and the power that dwells within you now. Good luck! May Odin bless you!";
+				close;
+				}
+			// Archer
+			if (First_Job_Class_Trial == 4 && countitem(2822) == 0)
+			{
+				mes "Whoa there buddy! I can't change you to Archer unless you bring me the Archer Manual I lent you. Come back to me with that and I'll change you to a Archer.";
+				close;
+				}
+			if (First_Job_Class_Trial == 4 && countitem (2822) == 1)
+			{
+				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Archer Manual I lent you! Clearly, you're no Thief. First, I'll take that Manual back.";
+				next;
+				delitem 2822, 1; // delete Archer Manual
+				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Archer!";
+				next;
+				callfunc "Job_Change",Job_Archer;
+				mes "Congratulations! You are now a Archer!";
+				next;
+				mes "Now, I will reward you with the Swordman Figure I promised you!";
+				next;
+				getitem 2769,1; // Archer Figure
+				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the archer figure to remind you where you are going and to keep your marks true. Good luck! May Odin bless you!";
+				close;
+				}
+			// Thief
+			if (First_Job_Class_Trial == 5 && countitem(2820) == 0)
+			{
+				mes "Whoa there buddy! I can't change you to Swordman unless you bring me the Thief Manual I lent you. Come back to me with that and I'll change you to a Thief.";
+				close;
+				}
+			if (First_Job_Class_Trial == 5 && countitem (2820) == 1)
+			{
+				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Thief Manual I lent you! You might want to be a thief, but you've got a sense of honor! Are you sure you don't want to be a swordman!? Just Kidding. First, I'll take that Manual back.";
+				next;
+				delitem 2820, 1; // delete Thief Manual
+				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Thief!";
+				next;
+				callfunc "Job_Change",Thief;
+				mes "Congratulations! You are now a Thief!";
+				next;
+				mes "Now, I will reward you with the Thief Figure I promised you!";
+				next;
+				getitem 2770,1; // Thief Figure
+				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the thief figure... hm.. boy you sure are a tricky one! Anyway, good luck! May Odin bless you or perhaps Loki. Man I don't know what to do with you!!";
+				close;
+				}
+			// Merchant
+			if (First_Job_Class_Trial == 6 && countitem(2823) == 0)
+			{
+				mes "Whoa there buddy! I can't change you to Merchant unless you bring me the Merchant Manual I lent you. Come back to me with that and I'll change you to a Swordsman.";
+				close;
+				}
+			if (First_Job_Class_Trial == 6 && countitem (2823) == 1)
+			{
+				mes "Wow! Great! You reached the Job Level requirement I set and have brought me back that Merchant Manual I lent you! Clearly, you're no Thief. First, I'll take that Manual back.";
+				next;
+				delitem 2823, 1; // delete Merchant Manual
+				mes "Now, with the power granted to me, I bestow upon you the First Job Class of Merchant!";
+				next;
+				callfunc "Job_Change",Job_Merchant;
+				mes "Congratulations! You are now a Merchant!;"
+				next;
+				mes "Now, I will reward you with the Merchant Figure I promised you!";
+				next;
+				getitem 2771,1; // Merchant Figure
+				mes "As you go forth on your adventures in Ragnarok Online, hold both figures close to you, the novice figure to remind you were you once were and to always remember when you encounter new travellers that they are going through the struggles that you went through... and the merchant figure to remind you of your duties as a tradesperson. Good luck! May your wallet always be fat with zeny!";
+				close;
+				}				
+			else {
+				mes "You're missing something! Remember the requirements I set for you and come back meeting those. You need to have your Job Manual and have gotten to Job Level 10. Not only that, it wouldn't hurt if you maxed out your Basic Skills (check in your Skill Window with Alt + S).";
+				}
+			}
+		}
+if (BaseJob != Job_Novice)
+	{
+		mes "I've done all I can do for you. Good luck my friend.";
+		close;
+	}
+else
+	{
+		mes "I don't think there's anything I can do for you. Sorry.";
+		close;
+	}
+}
+	
