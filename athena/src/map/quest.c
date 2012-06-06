@@ -694,6 +694,7 @@ bool mission_submit(struct map_session_data *sd, int index)
 
 	snprintf(reg, sizeof(reg), "MD_%d_time", sd->mission[index].mission_id);
 	pc_setglobalreg(sd, reg, (int)time(NULL));
+	pc_setglobalreg(sd, "MD_missions_completed", pc_readglobalreg(sd, "MD_missions_completed") + 1);
 	pc_setglobalreg(sd, "MD_mission_points", pc_readglobalreg(sd, "MD_mission_points") + mission_db[sd->mission[index].mission_id-1].points);
 	
 	snprintf(msg, sizeof(msg), "You gained %d Mission Points!", mission_db[sd->mission[index].mission_id-1].points);
