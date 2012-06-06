@@ -3,7 +3,7 @@
 new_1-1,60,115,4	script	Marroll Knight#nv	459,{
 	mes "[Marroll Knight]";
 	mes "I'm here to recruit warriors. I represent an elite guard of knights whose special training regimen will take you from a wimpy ^FF9000Novice^000000 to a powerful ^E40CAA[Battlegrounds Hero]^000000 with one simple spell. But there's a catch.";
-	next
+	next;
 	mes "[Marroll Knight]";
 	mes "If you become a ^E40CAA[Battlegrounds Hero]^000000, you will face some restrictions.";
 	next;

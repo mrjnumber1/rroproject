@@ -21,7 +21,7 @@ OnInit:
 		"louyang",      "Louyang, the Highland",
 		"xmas",         "Lutie, the Snow Village",	
 		"manuk",        "Manuk",
-		"market",       "the Commerce Zone";
+		"market",       "the Commerce Zone",
 		"mid_camp",     "Midgard Expedition Camp",
 		"morocc",       "the Morroc Accident Site",
 		"moscovia",     "Moscovia",
