@@ -71,23 +71,23 @@ moc_para01,14,180,5	script	Interfaces Tutor#Newbie_School	65,{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
 		}
-	if (newbie_school == 6) {
+	else if (newbie_school == 6) {
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
 		close;
 		}
-	if (newbie_school == 5) {
+	else if (newbie_school == 5) {
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
 		close;
 		}
-	if (newbie_school == 4) {
+	else if (newbie_school == 4) {
 		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
 		close;
 		}
-	if (newbie_school == 3) {
+	else if (newbie_school == 3) {
 		mes "Heh, you've knocked another one off! Talk to the Stats Tutor next!";
 		close;
 		}
-	if (newbie_school == 2) {
+	else if (newbie_school == 2) {
 		mes "Hey, you've got a lot more tutors to go! Talk to the Skills Tutor now!";
 		close;
 		}
@@ -172,23 +172,23 @@ moc_para01,17,180,5	script	Skills Tutor#Newbie_School	65,{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
 		}
-	if (newbie_school == 6) {
+	else if (newbie_school == 6) {
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
 		close;
 		}
-	if (newbie_school == 5) {
+	else if (newbie_school == 5) {
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
 		close;
 		}
-	if (newbie_school == 4) {
+	else if (newbie_school == 4) {
 		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
 		close;
 		}
-	if (newbie_school == 3) {
+	else if (newbie_school == 3) {
 		mes "Heh, you've knocked another one off! Talk to the Stats Tutor next!";
 		close;
 		}
-	if (newbie_school < 2) {
+	else if (newbie_school < 2) {
 		mes "You're not ready to talk to me yet! Talk to the Interfaces Tutor.";
 		close;
 		}
@@ -271,19 +271,19 @@ moc_para01,20,180,5	script	Stats Tutor#Newbie_School	65,{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
 		}
-	if (newbie_school == 6) {
+	else if (newbie_school == 6) {
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
 		close;
 		}
-	if (newbie_school == 5) {
+	else if (newbie_school == 5) {
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
 		close;
 		}
-	if (newbie_school == 4) {
+	else if (newbie_school == 4) {
 		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
 		close;
 		}
-	if (newbie_school < 3) {
+	else if (newbie_school < 3) {
 		mes "You're not ready to talk to me yet!";
 		close;
 		}
@@ -477,15 +477,15 @@ moc_para01,23,180,5	script	Items Tutor#Newbie_School	65,{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
 		}
-	if (newbie_school == 6) {
+	else if (newbie_school == 6) {
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
 		close;
 		}
-	if (newbie_school == 5) {
+	else if (newbie_school == 5) {
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
 		close;
 		}
-	if (newbie_school < 4) {
+	else if (newbie_school < 4) {
 		mes "You're not ready to talk to me yet!";
 		close;
 		}
@@ -560,11 +560,11 @@ moc_para01,26,180,5	script	Battle Tutor#Newbie_School	65,{
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
 		close;
 		}
-	if (newbie_school == 6) {
+	else if (newbie_school == 6) {
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
 		close;
 		}
-	if (newbie_school < 5) {
+	else if (newbie_school < 5) {
 		mes "You're not ready to talk to me yet!";
 		close;
 		}
