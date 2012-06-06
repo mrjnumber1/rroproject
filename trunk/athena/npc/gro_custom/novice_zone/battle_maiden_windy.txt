@@ -1,10 +1,29 @@
 bat_room,148,155,5	script	Battlegrounds Guide	430,{
 
 	mes "[Battle Maiden Wendy]";
-	mes "Hey there! I'm Wendy! Do you need to know about the special ^4D4DFF@commands^000000 for Battlegrounds? If so, I'm your gal!";
-	switch(select("Yep! I sure do!:Nah, I already know them!")) 
+	mes "Hey there! I'm Wendy! Battlegrounds is amazing!! I'm a real expert around these parts, so I can tell you just about anything you want to know. From how this place works to the special commands you need to know to get stuff done to where you can trade them hard earned badges of yours!";
+	switch(select("What is Battlegrounds?:What are the @commands for BG?:Where can I trade badges?:Nah, I already know them!")) 
 	{
-	case 1:
+  case 1:
+    mes "[Battle Maiden Wendy]";
+    mes "The Battlegrounds is a special constructed zone where teams of mercenaries working for the RED or BLU battle for control of the local Fortresses.";
+    next;
+    mes "[Battle Maiden Wendy]";
+    mes "The BLU team is on the attack, trying to capture the Fortress from the REDs. You have to break down the Fortress' guardian stones and gates to advance to the Emperium control point deep inside! And while any good adventurer worth his salt could probably break down these on their own, you're facing a whole crew of REDs inside who will stop at nothing to keep you from it.";
+    next;
+    mes "[Battle Maiden Wendy]";
+    mes "Speaking of the REDs, they're hired to defend the Fortress at all costs. You'll be using the built in teleportation systems inside the Fortress to move between different areas and fight the BLUs wherever they might threaten the Fortress's defenses.";
+    next;
+    mes "[Battle Maiden Wendy]";
+    mes "To win the control of the Fortress, a team, regardless of color, has to work as an organized group. This isn't the place for any lone wolves or solo heroes! After all, Battle Badges are on the line!;
+    next;
+    mes "[Battle Maiden Wendy]";
+    mes "Those Battle Badges are worth a lot, since a lot of the venders around these here parts take them instead of zeny for most of their goods. So if you want to keep on fighting, you're gonna need em! The winning team will receive a lion's share of these rewards, while the losers will only get a piddling.";
+    next;
+    mes "[Battle Maiden Wendy]";
+    mes "Well partner, hope this caught you up on how Battlegrounds works! If you think you've got the cajones, then talk to the BLU or RED Presidents up there and join em!";
+    break;
+	case 2:
 		mes "[Battle Maiden Wendy]";
 		mes "Glad you asked! Cause I've been busting to tell someone about all these great features!";
 		next;
@@ -35,9 +54,28 @@ bat_room,148,155,5	script	Battlegrounds Guide	430,{
 		mes "[Battle Maiden Wendy]";
 		mes "Well, wow! That's just about all I can tell you for now! Good luck on the field of battle! I'm rooting for ya!";
 		break;
+  case 3;
+    mes "[Battle Maiden Wendy]";
+    mes "Ah! You're wondering where to trade them there Battle Badges! Well, around these parts, any of the local merchants accept em instead of zeny! Battle Badges are just worth that much to these folks.";
+    next;
+    mes "[Battle Maiden Wendy]";
+    mes "You can trade them hard-earned Battle Badges for Classic Battlegrounds equipment down on the left hand side of the room! Them knightly looking folks are still holding fort and willing to trade! They've got some good quality stuff that doesn't expire and it might be worth it to check out if you're looking for some of that Classic Battlegrounds equipment.";
+    next;
+    mes "[Battle Maiden Wendy]";
+    mes "Now, on the other hand, if you want some of the latest and greatest in disposable gears, I recommend you head down to the far right hand side of this room and talk to those Cathand Merchants. They're selling rental BG equipments. They're pretty neat, given equipment that's already refined and enchanted with monster cards in exchange for badges. The catch is they're rentals and they will expire! But tough fighters have the sort of income that it's no real problem for them.";
+    next;
+    mes "[Battle Maiden Wendy]";
+    mes "Suppose you're looking for some Potions or other Usable items, well, you'll be wanting to talk to Saxton Hale here right next to me! She's the local Usable items trader and she can get you just about anything you'd want or need.";
+    next;
+    mes "[Battle Maiden Wendy]";
+    mes "If you're looking for special services, them Mann Co. employees over there are probably the best around! They can refine or enchant just about any item you've got!";
+    next;
+    mes "[Battle Maiden Wendy]";
+    mes "Well, now tha' ya know what them badges are good for, you probably wanna get out there and start earning them rather than listening to me yak your head off!";
+    break;
 	default:
 		mes "[Battle Maiden Wendy]";
-		mes "Oh... Ok...";
+		mes "Oh... Ok...*sniff*";
 		break;
 	}
 		
