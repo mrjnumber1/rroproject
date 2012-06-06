@@ -1,9 +1,4 @@
-
-// Outer court yard of novice training grounds
-
-// BG or Low Rate Character selection
-
-
+// Marroll Knight - Select BG or LR character
 
 new_1-1,60,115,4	script	Marroll Knight#nv	744,{
 	mes "[Marroll Knight]";
@@ -20,15 +15,15 @@ new_1-1,60,115,4	script	Marroll Knight#nv	744,{
 	next;
 	mes "Remember, you can have only one ^E40CAA[Battlegrounds Hero]^000000 per account, os choose wisely.";
 	switch(select("Cancel:I want to earn my levels:Take me to 99, it's skull-bashing time.")) {
-	Case 1:
+	case 1:
 		mes "[Marroll Knight]";
 		mes "Remember, as soon as you leave this area, you won't get this opportunity to decide ever again. So think carefully on it.";
 		end;
-	Case 2:
+	case 2:
 		mes "[Marroll Knight]";
 		mes "Hah, I knew you were too timid to become one of us.";
 		end;
-	Case 3:
+	case 3:
 		mes "Marroll Knight";
 		mes "Very well, you will become a ^E40CAA[Battlegrounds Hero]^000000. I hope this is the decision you really wanted.";
 		callfunc "F_cu_bg_jobchange";
@@ -46,7 +41,7 @@ new_1-1,66,114,4	script	Bulletin Board#nv	111,{
 	close;
 }
 
-// 1rst Encounter with Shion, starting Mission Zone Training
+// Shion#nv1
 
 new_1-1,53,114,4	script	Shion#nv1	727,{
 	if (nov_1st_cos > 2) {
@@ -177,18 +172,18 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 // Outside Guard
 
 new_1-1,144,116,2	script	Sad Guard#nv1	105,{
-// If Base Level or Job Level not 1/1 Novice {
-// 	mes "[Training Grounds Guard]";
-// mes "Gosh, how did you get here?";
-// mes "You must have gotten a defective ^3355FFButterfly Wing^000000!";
-// next;
-// 	mes "[Training Grounds Guard]";
-// mes "No... you don't belong here anymore.";
-// mes "Talk to the Mission Zone Teleport Officer";
-// mes "She can send you back to civilization, geez!";
-// close;
-// }
-// else {
+  if (base job != Novice) {
+ 	mes "[Training Grounds Guard]";
+  mes "Gosh, how did you get here?";
+  mes "You must have gotten a defective ^3355FFButterfly Wing^000000!";
+  next;
+  mes "[Training Grounds Guard]";
+  mes "No... you don't belong here anymore.";
+  mes "Talk to the Mission Zone Teleport Officer";
+  mes "She can send you back to civilization, geez!";
+  close;
+  }
+  else {
 	mes "[Training Grounds Guard]";
 	if(rand(2)) {
 		mes "We used to have more to do.";
@@ -217,22 +212,22 @@ new_1-1,144,116,2	script	Sad Guard#nv1	105,{
 // }
 }
 
-// Eden Group Officer
+// Mission Zone Teleport Officer
 
 new_1-1,144,107,2	script	Mission Zone Officer#nv1	729,{
-// If Base Level or Job Level not 1/1 Novice {
-// 	mes "[Mission Zone Officer]";
-// mes "Hey, this area is restricted!";
-// next;
-// 	mes "[Mission Zone Officer]";
-// mes "No... you don't belong here anymore.";
-// mes "I'll send you back to the Mission Zone. ";
-// set player's save point to moc_para01,31,14;
-// close2;
-// warp "moc_para01",31,14;
-// end;
-// }
-// else {
+if (BaseJob != Novice) {
+   mes "[Mission Zone Officer]";
+  mes "Hey, this area is restricted!";
+  next;
+  mes "[Mission Zone Officer]";
+  mes "No... you don't belong here anymore.";
+  mes "I'll send you back to the Mission Zone. ";
+  savepoint moc_para01,31,14;
+  close2;
+  warp "moc_para01",31,14;
+  end;
+  }
+else {
 	mes "[Mission Zone Officer]";
 	mes "Those who are wandering around this strange world with aimless eyes listen up and come to me!";
 	mes "Mission Zone is here to help you and will show you the great future.";
@@ -265,24 +260,22 @@ new_1-1,144,107,2	script	Mission Zone Officer#nv1	729,{
 }
 
 
-// Inside the Eden Grounds, second encoutner with Shion
-
-// Fixed name from "Shion#nv1" to Shion#nv2" thanks to lighta
+// Shion #nv2
 moc_para01,25,35,4	script	Shion#nv2	727,{
 	mes "[Shion]";
-	if novice > 1/1 and md_mission_points > 0
+	if (BaseJob != Novice && MD_mission_pts > 0) {
 		{
 			mes "^666666*GEEEEEZ*^000000 Don't you have karma to be farming?";
 			mes "Don't just stand around! Go do something!";
 			mes "Talk to the Agents behind the desk to get a new mission!";
 			close;
 			}
-	if md_mission_points < 0 and novice > 1/1 
+	if (BaseJob != Novice && MD_mission_pts < 0) {
 		{
 			mes "You must be new to the Mission Zone! Talk to Mission Coordinator Lime behind the desk to start doing missions! I'm actually the Novice Coordinator, so there isn't much more I can do for you than that. Sorry~*";
 			close;
 		}
-	if md_mission_points < 0 and novice == 1/1 and newbie_school > 8
+	if (BaseJob == Novice && MD_mission_pts < 0 && newbie_school > 8) {
 		{
 			mes "Hey smart stuff, you should know what you're doing, so go talk to the Mission Coordinator behind the desk and get started on those missions! If you're too cool for school, then prove it!";
 		}
@@ -315,23 +308,23 @@ moc_para01,25,35,4	script	Shion#nv2	727,{
 		case 1:
 			mes "[Shion]";
 			mes "Alright, I'll send you upstairs and the tutors up there will ^666666*school*^000000 you up to be Mission Zone ready";
-//			set newbie_school,1;
+			set newbie_school,1;
 			close2;
 			warp moc_para01,14,176;
 			end;
 		case 2:
 			mes "[Shion]";
 			mes "Alright, talk to the Mission Zone Agents behind the desk, and you'll be ready to start your first Missions.";
-//			set newbie_school,9; // didn't want to do the newbie school
+			set newbie_school,9; // didn't want to do the newbie school
 			close;
 		}
 	}
 }
 
 
-// Mission Agents - Mission Zone Front Desk
+// Mission Coordinator Lime
 
-moc_para01,27,35,5	script	Mission Zone Mission Coordinator Lime#1	952,{
+moc_para01,27,35,5	script	Mission Coordinator Lime#1	952,{
 	if (MD_mission_pts > 0) {
 		mes "[Mission Coordinator Lime]";
 		mes "Hey there adventurer! I'm glad to see you working hard on missions!";
