@@ -15,7 +15,7 @@ moc_para01,32,180,5	script	Tutorial Girl#Newbie_School 65, {
 	mes "[Tutorial Girl]";
 	if (newbie_school < 7) {
 		mes "Sorry, I can't let you leave til you finish talking to all of the tutors! Hang in there!";
-		end;
+		close;
 		}
 	else {
 		mes "Wow, you talked to all of the tutors! You're definitely ready to leave the Newbie School.";
@@ -69,27 +69,27 @@ moc_para01,14,180,5	script	Interfaces Tutor#Newbie_School	65,{
 	mes "[Interfaces Tutor]";
 	if (newbie_school == 7) {
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
-		end;
+		close;
 		}
 	if (newbie_school == 6) {
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
-		end;
+		close;
 		}
 	if (newbie_school == 5) {
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
-		end;
+		close;
 		}
 	if (newbie_school == 4) {
 		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
-		end;
+		close;
 		}
 	if (newbie_school == 3) {
 		mes "Heh, you've knocked another one off! Talk to the Stats Tutor next!";
-		end;
+		close;
 		}
 	if (newbie_school == 2) {
 		mes "Hey, you've got a lot more tutors to go! Talk to the Skills Tutor now!";
-		end;
+		close;
 		}
 	else {
 		mes "well, I guess it's my turn to teach you!";
@@ -170,27 +170,27 @@ moc_para01,17,180,5	script	Skills Tutor#Newbie_School	65,{
 	mes "[Skills Tutor]";
 	if (newbie_school == 7) {
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
-		end;
+		close;
 		}
 	if (newbie_school == 6) {
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
-		end;
+		close;
 		}
 	if (newbie_school == 5) {
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
-		end;
+		close;
 		}
 	if (newbie_school == 4) {
 		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
-		end;
+		close;
 		}
 	if (newbie_school == 3) {
 		mes "Heh, you've knocked another one off! Talk to the Stats Tutor next!";
-		end;
+		close;
 		}
 	if (newbie_school < 2) {
 		mes "You're not ready to talk to me yet! Talk to the Interfaces Tutor.";
-		end;
+		close;
 		}
 	else {
 		mes "well, I guess it's my turn to teach you!";
@@ -269,23 +269,23 @@ moc_para01,20,180,5	script	Stats Tutor#Newbie_School	65,{
 	mes "[Stats Tutor]";
 	if (newbie_school == 7) {
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
-		end;
+		close;
 		}
 	if (newbie_school == 6) {
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
-		end;
+		close;
 		}
 	if (newbie_school == 5) {
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
-		end;
+		close;
 		}
 	if (newbie_school == 4) {
 		mes "Wow, only three tutors left! Talk to the Items Tutor and you'll be ready to use all those items you've got!";
-		end;
+		close;
 		}
 	if (newbie_school < 3) {
 		mes "You're not ready to talk to me yet!";
-		end;
+		close;
 		}
 	else {
 		mes "well, I guess it's my turn to teach you!";
@@ -475,19 +475,19 @@ moc_para01,23,180,5	script	Items Tutor#Newbie_School	65,{
 	mes "[Items Tutor]";
 	if (newbie_school == 7) {
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
-		end;
+		close;
 		}
 	if (newbie_school == 6) {
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
-		end;
+		close;
 		}
 	if (newbie_school == 5) {
 		mes "Wow, only two tutors left! Talk to the Battle Tutor and you'll be done!";
-		end;
+		close;
 		}
 	if (newbie_school < 4) {
 		mes "You're not ready to talk to me yet!";
-		end;
+		close;
 		}
 	else {
 		mes "well, I guess it's my turn to teach you!";
@@ -558,15 +558,15 @@ moc_para01,26,180,5	script	Battle Tutor#Newbie_School	65,{
 	mes "[Battle Tutor]";
 	if (newbie_school == 7) {
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
-		end;
+		close;
 		}
 	if (newbie_school == 6) {
 		mes "Wow, only one tutor left! Talk to the Jobs Tutor and you'll be done!";
-		end;
+		close;
 		}
 	if (newbie_school < 5) {
 		mes "You're not ready to talk to me yet!";
-		end;
+		close;
 		}
 	else {
 		mes "well, I guess it's my turn to teach you!";
@@ -652,11 +652,11 @@ moc_para01,29,180,5	script	Jobs Tutor#Newbie_School	65,{
 	mes "[Jobs Tutor]";
 	if (newbie_school == 7) {
 		mes "You've already heard my lecture! It's time to talk to the Tutorial Girl to leave and start your adventure! You don't want to listen to this boring crap again. *winks*";
-		end;
+		close;
 		}
 	if (newbie_school < 6) {
 		mes "You're not ready to talk to me yet!";
-		end;
+		close;
 		}
 	else {
 		mes "well, I guess it's my turn to teach you!";
