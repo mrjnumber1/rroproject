@@ -26,21 +26,21 @@
 //============================================================ 
 
 // Bulletin Board
-new_1-1,66,114,4	script	Bulletin Board#nv	111,{
+//new_1-1,66,114,4	script	Bulletin Board#nv	111,{
 	mes "^FF0000=================================^000000";
 	mes "^FF0000 ^000000 ^E40CAA[Welcome]^CC0000 to ^FF9000Novice^7FFF00 Training ^00FF00Grounds ^E40CAA[Welcome]^FF0000^000000";
 	mes "^FF0000=================================^000000";
 	close;
 }
 
-new_1-1,144,116,2	script	Guard#nv1	105,{
+//new_1-1,144,116,2	script	Guard#nv1	105,{
 	mes "[Training Grounds Guard]";
 	mes "Welcome to the Training Grounds.";
 	mes "You are now in the outer court yard. Please go inside the castle to begin your training.";
 	close;
 }
 
-new_1-1,144,107,2	script	Guard#nv2	105,{
+//new_1-1,144,107,2	script	Guard#nv2	105,{
 	mes "[Training Grounds Guard]";
 	if(rand(2)) {
 		mes "Come in!";
@@ -62,7 +62,7 @@ new_1-1,144,107,2	script	Guard#nv2	105,{
 }
 
 // Receptionist
-new_1-2,100,29,4	script	Receptionist#nv1	86,{
+//new_1-2,100,29,4	script	Receptionist#nv1	86,{
 	mes "[Training Grounds Receptionist]";
 	mes "Hello, you look to be new here.";
 	mes "What is your name?";
@@ -179,7 +179,7 @@ new_1-2,100,29,4	script	Receptionist#nv1	86,{
 	}
 }	
 
-new_1-1,53,114,4	script	Shion#nv1	727,{
+//new_1-1,53,114,4	script	Shion#nv1	727,{
 	if (nov_get_item04 > 9 || nov_get_item05 > 9) {
 		mes "[Shion]";
 		mes "Hm...?";
@@ -351,7 +351,7 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 }
 
 // Interfaces Tutor
-new_1-2,99,105,3	script	Interfaces Tutor#nv1	751,{
+//new_1-2,99,105,3	script	Interfaces Tutor#nv1	751,{
 	if (nov_get_item02 > 9 && nov_get_item03 > 9 && nov_get_item04 > 9) {
 		mes "[Kris]";
 		mes "You've completed all the essential courses. Have you spoken to the assistant tutors already? The field combat training will be your next course. Would you like to proceed?";
@@ -628,7 +628,7 @@ new_1-2,99,105,3	script	Interfaces Tutor#nv1	751,{
 	}
 }
 
-new_1-2,83,111,3	script	Skill Tutor#nv	753,{
+//new_1-2,83,111,3	script	Skill Tutor#nv	753,{
 	if (nov_get_item02 > 9 && nov_get_item03 > 9 && nov_get_item04 > 9) {
 		mes "[Cecil]";
 		mes "Huh...?";
@@ -885,7 +885,7 @@ new_1-2,83,111,3	script	Skill Tutor#nv	753,{
 	}
 }
 
-new_1-2,115,111,3	script	Item Tutor#nv	726,{
+//new_1-2,115,111,3	script	Item Tutor#nv	726,{
 	if (nov_get_item02 > 9 && nov_get_item03 > 9 && nov_get_item04 > 9) {
 		mes "[Alice]";
 		mes "Huh...?";
@@ -1234,7 +1234,7 @@ new_1-2,115,111,3	script	Item Tutor#nv	726,{
 	}
 }
 
-new_1-2,118,108,3	script	Kafra Employee#nv1	117,{
+//new_1-2,118,108,3	script	Kafra Employee#nv1	117,{
 	mes "[Kafra Employee]";
 	mes "Welcome to";
 	mes "Kafra Corporation.";
@@ -1533,7 +1533,7 @@ new_1-2,118,108,3	script	Kafra Employee#nv1	117,{
 }
 
 //Interface Assistant
-new_1-2,161,182,5	script	Instructor#nv	92,{
+//new_1-2,161,182,5	script	Instructor#nv	92,{
 	mes "[Edwin]";
 	mes "Welcome to my class.";
 	mes "Choose the subject you";
@@ -1702,7 +1702,7 @@ new_1-2,161,182,5	script	Instructor#nv	92,{
 	}
 }
 
-new_1-2,182,182,3	script	Somatology Instructor	754,{
+//new_1-2,182,182,3	script	Somatology Instructor	754,{
 	mes "[Jare Riotte]";
 	mes "Welcome, new adventurer.";
 	mes "I, Jare Riotte will help you to learn about the fundamental";
@@ -1893,7 +1893,7 @@ new_1-2,182,182,3	script	Somatology Instructor	754,{
 	}
 }
 
-new_1-2,184,172,1	script	Understandings of Skills	47,{
+//new_1-2,184,172,1	script	Understandings of Skills	47,{
 	mes "[Leo Handerson]";
 	mes "Welcome~";
 	mes "Oh look at this";
@@ -2153,7 +2153,7 @@ new_1-2,184,172,1	script	Understandings of Skills	47,{
 	}
 }
 
-new_1-2,121,101,2	script	Guide Soldier#nv1	105,{
+//new_1-2,121,101,2	script	Guide Soldier#nv1	105,{
 	mes "[Guide Soldier]";
 	mes "We Guide Soldiers provide location information at the entrance of every town. You can easily find us by our special uniforms.";
 	next;
@@ -2166,7 +2166,7 @@ new_1-2,121,101,2	script	Guide Soldier#nv1	105,{
 	close;
 }
 
-new_1-2,17,182,5	script	Helper#nv	84,{
+//new_1-2,17,182,5	script	Helper#nv	84,{
 	if (nov_2nd_cos < 11) {
 		mes "[Elmeen]";
 		mes "Congratulations!";
@@ -2452,7 +2452,7 @@ new_1-2,17,182,5	script	Helper#nv	84,{
 	}
 }
 
-new_1-2,38,182,3	script	Entrance Guard#nv	92,{
+//new_1-2,38,182,3	script	Entrance Guard#nv	92,{
 	if (nov_2nd_cos == 0) {
 		mes "[Muriel]";
 		mes "I'm sorry, but I can't let anybody who hasn't been instructed on fighting enter the Field Combat Training Grounds.";
@@ -2620,7 +2620,7 @@ new_1-2,38,182,3	script	Entrance Guard#nv	92,{
 }
 
 //Teleport NPC
-new_1-3,95,30,4	script	Trainer#nv1::NovHoffman	84,{
+//new_1-3,95,30,4	script	Trainer#nv1::NovHoffman	84,{
 	mes "[Hoffman]";
 	mes "Hey there~";
 	mes "I'm here to provide";
