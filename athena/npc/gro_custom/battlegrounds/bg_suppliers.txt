@@ -290,14 +290,16 @@ bat_room,168,142,3	script	Mann Co. Sorceror	64,{
 			mes "[Mann Co. Sorceror]";
 			mes "It shall be done.";
 			ResetSkill;
-			close;
+			close2;
+			force_disconnect();
 			break;
 		case 4:
 			mes "[Mann Co. Sorceror]";
 			mes "It shall be done.";
 			ResetSkill;
 			ResetStatus;
-			close;
+			close2;
+			force_disconnect();
 			break;
 			
 	}

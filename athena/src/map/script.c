@@ -18391,6 +18391,16 @@ BUILDIN_FUNC(setjobchangelevel)
 	return 0;
 }
 
+//temp workaround until i figure out what the fuck is causing the skill tree bug..
+BUILDIN_FUNC(force_disconnect)
+{
+	TBL_PC *sd = script_rid2sd(st);
+
+	clif_displaymessage(sd->fd, "Sorry, but because of a bug, you must be kicked. Complain to staff, please!!");
+	clif_GM_kick(NULL, sd);
+	return 0;
+}
+
 // end storage passwords
 
 // declarations that were supposed to be exported from npc_chat.c
@@ -18872,7 +18882,7 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(givepoints,"i"),
 
 	BUILDIN_DEF(successenchant,"ii"),
-	BUILDIN_DEF(failedenchant,"i"),
+	BUILDIN_DEF(failedenchant,"i?"),
 
 	BUILDIN_DEF(getnpcid, "i"),
 
@@ -18921,6 +18931,7 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(check_mstorage_password, "s"),
 	BUILDIN_DEF(check_gstorage_password, "s"),
 	BUILDIN_DEF(setjobchangelevel, "i"),
+	BUILDIN_DEF(force_disconnect, ""),
 
 
 
