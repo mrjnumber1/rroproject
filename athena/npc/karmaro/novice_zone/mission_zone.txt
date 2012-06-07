@@ -1,3 +1,12 @@
+// --------------------------------------------------------------
+// -                       Mission Zone                         -
+// --------------------------------------------------------------
+//      Special NPCs for Mission Zone
+//      Designed to take a player from Starting Location into
+//      Rest of the Game and allow them to sign up and do
+//      do missions that they earn mission points for to 
+//      exchange for equipment and consumables.
+
 // Marroll Knight - Select BG or LR character
 
 new_1-1,60,115,4	script	Marroll Knight#nv	459,{
@@ -41,7 +50,7 @@ new_1-1,60,115,4	script	Marroll Knight#nv	459,{
 	}	
 }
 
-// Bulletin Board
+// Bulletin Board - Flavor Text NPC
 
 new_1-1,66,114,4	script	Bulletin Board#nv	111,{
 	mes "^FF0000=================================^000000";
@@ -51,7 +60,7 @@ new_1-1,66,114,4	script	Bulletin Board#nv	111,{
 	close;
 }
 
-// Shion#nv1
+// Player Introduction NPC - Shion
 
 new_1-1,53,114,4	script	Shion#nv1	727,{
 	if (nov_1st_cos > 2) 
@@ -173,7 +182,7 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 }
 
 
-// Outside Guard
+// Flavor Text NPC - Sad Guard
 
 new_1-1,144,116,2	script	Sad Guard#nv1	105,{
 	if (Class != Job_Novice) 
@@ -221,7 +230,8 @@ new_1-1,144,116,2	script	Sad Guard#nv1	105,{
 	}
 }
 
-// Mission Zone Teleport Officer
+// Sends Player to Mission Zone from Novice Training Grounds
+// - Mission Zone Teleport Officer
 
 new_1-1,144,107,2	script	Mission Zone Officer#nv1	729,{
 	if (Class != Job_Novice) 
@@ -275,7 +285,7 @@ new_1-1,144,107,2	script	Mission Zone Officer#nv1	729,{
 }
 
 
-// Shion #nv2
+// Mission Zone Starter NPC for Novices - Shion
 moc_para01,25,35,4	script	Shion#nv2	727,{
 	mes "[Shion]";
 	if (Class != Job_Novice && MD_missions_completed > 0) 
@@ -570,6 +580,9 @@ moc_para01,27,35,5	script	Coordinator Lime#1	952,{
 	}
 }
 
+// Flavor Text NPC - Inventor Aerystotle
+// script by mrj
+
 moc_para01,21,35,5	script	Inventor Aerystotle	121,{
 	set .@n$, "[Inventor Aerystotle]";
 	
@@ -708,6 +721,7 @@ moc_para01,38,37,4	script	Mission Board#mz	857,{
 	callfunc "MD_mission_board","Mission Board";
 }
 
+// Flavor Text NPC - Old Adventurer
 moc_para01,16,22,7	script	Old Adventurer#eden	900,{
 	mes "[Old Adventurer]";
 	mes "Would you believe I am old enough to remember when the Mission Zone wasn't here?";
@@ -715,4 +729,111 @@ moc_para01,16,22,7	script	Old Adventurer#eden	900,{
 	mes "[Old Adventurer]";
 	mes "The Eden Group used to own this building, but they wouldn't let me join! The Mission Zone welcomes everyone, even old men like me!";
 	close;
+}
+
+// Flavor Text NPC - Jobs Tutor
+// Provides flavor text on how to change classes and what the different classes are
+// Script by Nick per mrj's request
+// v1.0
+//
+moc_para01,38,14,5	script	Jobs Tutor#mzone	57,{
+	set .npcname$,"[Jobs Tutor]";
+	mes .npcname$;
+	mes "Are you looking for how to change your class?";
+	mes "Luckily, I, the Jobs Tutor, can help you!";
+	next;
+	switch(select("Where can I change my class?:What are the different classes?:Nevermind"))
+	{
+	case 1:
+		mes .npcname$;
+		mes "When you started your adventures, you were given a Control Unit that you can access by typing @control. The Control Unit will let you change your class anywhere as long as you meet the basic requirements for each class before changing.";
+		next;
+		mes .npcname$;
+		mes "For changing your First Class Job, you should know that if you're looking to change to one of the six primary First Class Jobs (Swordman, Acolyte, Mage, Archer, Thief, or Merchant), the Mission Zone has arranged a contract with their respective Guilds to train them at the Registration Desk. If you choose to train through the Mission Zone, you will be gifted additional items and receive a short quest that will let you receive a special First Class Job accessory, not available elsewhere.";
+		next;
+		mes .npcname$;
+		mes "Otherwise, you could travel to the respective Guilds and change your job with them officially, but there's no real benefit for doing this.";
+		next;
+		mes .npcname$;
+		mes "Well, I hope that helps. Feel free to talk to me again if you have further questions.";
+		close;
+	case 2:
+		mes .npcname$;
+		mes "Luckily, I happen to know all about the Class Jobs you can take on in Ragnarok Online!";
+		mes "If you had my class in the Newbie School, you'd know this!";
+		mes "But sit back and listen, because I'm about to tell you a lot of information.";
+		next;
+		mes .npcname$;
+		mes "There are six primary First Class Jobs in Ragnarok Online.";
+		mes "They are the Swordman, the Acolyte, the Mage, the Archer, the Thief, and the Merchant.";
+		mes "Each of these has the choice of two Second Class Jobs which differ in their roles and skills. When you reach the maximum level of 99 as a Second Class Job, you can opt to be reborn, and you will have to level back up as a High First Class Job. While this seems like a lot of work, when you go to change back to a Second Class Job, you will become a Transcendent Second Class Job with brand new powerful skills that you did not have before, as well as the ability to grow 20 more skill points that you could not have before.";
+		next;
+		mes .npcname$;
+		mes "The Swordman is a strong melee fighter. You can choose the Knight (who becomes the Lord Knight after Transcending) who possesses strong sword and spear skills. Knights don't deal the most damage, but they are very tankable.";
+		next;
+		mes .ncpname$;
+		mes "You can also choose to be a Crusader (who becomes the Paladin after Transcending) who possesses strong defensive skills and can protect others. The Crusader is a powerful ally to have when going into Siege or Battlegrounds. Even though the Crusader cannot deal strong attacks out of their own, they can protect offensive classes who have weak defenses.";
+		next;
+		mes .npcname$;
+		mes "The Acolyte is a divine class who brings the power of God to heal or mete out His justice. You can choose the Priest (who becomes the High Priest after Transcending) who possesses amazing support skills that increase the damage that their partymates can do. Priests can also forgo supporting in favor of taking on Holy magic spells that deal strong damage to Demon and Undead monsters.";
+		next;
+		mes .npcname$;
+		mes "The Acolyte can choose instead though to become a Monk (who becomes the Champion after Transcending). Monks use their strong fists to deal amazing damage, channeling from their Spirit Orbs. A Monk may be one of the strongest classes to take on Boss monsters, or an amazingly strong Crowd Control to have on your side when going into Siege or Battlegrounds.";
+		next;
+		mes .npcname$;
+		mes "The Mage harnesses the power of nature. They can choose to become the Wizard (who becomes the High Wizard after Transcending) and uses this power to channel it into strong Magical Attacks and can deal massive Area damage to all foes on-screen or the Sage (who becomes the Scholar after Transcending) who uses their power instead to provide powerful Area Control skills and amazing Debuffs. Both are a valued ally when going into Siege or Battlegrounds.";
+		next;
+		mes .npcname$;
+		mes "The Archer takes aim from their strong decisions. They can become the Hunter (who becomes the Sniper after Transcending). The Hunter has strong Arrow skills that deal lots of damage very quickly. They also can use their Falcons to assist them. Hunters can manage Area Control with their Traps which will either halt their enemies progress or deal damage to them.";
+		next;
+		mes .npcname$;
+		mes "Archers can also choose to become the Bard or the Dancer (which become the Minstrel or the Gypsy after Transcending) depending on their gender. Both Bards and Dancers use their Songs to assist their allies and offend their enemies. No party is complete without a Bard along, regardless of whether you're battling monsters or players. It never hurts to have a Dancer either!";
+		next;
+		mes .npcname$;
+		mes "The Thief works from the shadows to attack or confound the enemy. They can become the Assassin (who becomes the Assassin Cross after Transcending) and can use powerful Poison skills to eliminate anyone who stands in their way or they can become the Rogue (who becomes the Stalker after Transcending) who uses their trickery to steal whatever they want, including the skills of their enemies!";
+		next;
+		mes .npcname$;
+		mes "The Merchant is a shrewd tradesperson. They can become the Blacksmith (who becomes the Mastersmith after Transcending) and is able to forge strong weapons as well as deal strong attacks to monsters. They can forge a stronger party as well through their buffs. Merchants can also choose to become the Alchemist (who becomes the Biochemist after Transcending). The Alchemist uses their knowledge of Potions and Chemistry to brew concoctions that can heal weakened party members or they can use their chemical knowledge as a weapon against monsters and enemy players.";
+		next;
+		mes .npcname$;
+		mes "Those are the six primary First Class Jobs and their Second Class Jobs.";
+		mes "Do you want to hear about the Expanded Jobs now?";
+		switch(select("Nah, I've heard all I cared about:Wait, there's more jobs!?"))
+		{
+		case 1:
+			mes .npcname$;
+			mes "Glad I could help. I hope this has enlightened you on the variety of jobs available in Ragnarok Online. Feel free to talk to me anytime you're curious for more information.";
+			close;
+		case 2:
+			mes .npcname$;
+			mes "There are four Expanded Jobs. They are Gunslingers, Ninjas, Super Novices, and Taekwons.";
+			mes "Only Taekwons have a Second Class Job, the rest are only First Class Jobs.";
+			next;
+			mes .npcname$;
+			mes "The Gunslinger is a firearms expert. Their quick hands and steady aim allow them to use a variety of Guns. A good Gunslinger has to specialise though in a particular type of Guns, though. Certain gun specializations favor Burst Damage and Area Control while others are aimed at dealing high damage to a single target. Gunslingers are an excellent duelist and able to face down most monsters with ease.";
+			next;
+			mes .npcname$;
+			mes "The Ninja is a master of the secret arts. They can choose to specialise in elemental magic, using the power of elemental stones to cast powerful spells. Or they can choose to lurk in the shadows, vanishing in the mist and throwing a variety of kunai and shuriken to dispatch their enemies.";
+			next;
+			mes .npcname$;
+			mes "The Super Novice is a special path that any Novice can take if they're willing to level to Base 45. A Super Novice can learn any of the First Class Job skills. They can pick and choose their skills carefully to take on monsters as they wish. Unfortunately, when it comes to Siege and Battlegrounds, you'd probably be better off going with a real expert than these jack of all trades.";
+			next;
+			mes .npcname$;
+			mes "The Taekwon follows a hard road to become an expert of the kicking arts. Unlike the other Expanded Jobs, the Taekwon has a choice of two Second Class Jobs. The Taekwon can choose to become the Star Gladiator, a powerful warrior who channels the Moon, the Sun, and the Stars to gain their true power. Monsters who Star Gladiators have marked as their enemies will soon face a beatdown of universal proportions. ";
+			next;
+			mes .npcname$;
+			mes "Or the Taekwon can choose to become the Soul Linker. They call on the power of their ancestors to use the Soul Link which unlocks the hidden abilities of the other classes. Soul Linkers also have strong defensive Ka magic which make them a useful ally in any Siege or Battlegrounds engagement. Even though Soul Linkers have given up TaeKwon Do, when it comes to fighting monsters, they can also use Es magic to blast their foes. A Soul Linker won't be able to specialize though in both Ka and Es magic along with the Soul Links, so the Soul Linker must decide whether they want to focus their talents towards helping other players or fighting monsters.";
+			next;
+			mes .npcname$;
+			mes "A TaeKwon who chooses to not change to the Star Gladiator or the Soul Linker can also choose to become a TaeKwon Ranker, but they must complete TaeKwon missions and compete with other TaeKwon Rankers to stay ranked, otherwise they lose access to the Ranker Bonus.";
+			next;
+			mes .npcname$;
+			mes "Well, that's every single class in Ragnarok Online. I hope this information is helpful to you. Feel free to talk to me anytime if you ever need to hear this again.";
+			close;
+		}
+	case 3:
+		mes .npcname$;
+		mes "Well, come back to me anytime you're curious.";
+		close;
+	}
 }
