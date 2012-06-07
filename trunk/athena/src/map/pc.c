@@ -6946,6 +6946,15 @@ int pc_dead(struct map_session_data *sd,struct block_list *src, int skillid)
 		}
 	}
 
+	// START - Death sounds [Valaris for KarmaRO]
+	if(!sd->disguise){
+		if(sd->status.sex)
+			clif_soundeffectall(&sd->bl,"die_male.wav",0,AREA);
+		else
+			clif_soundeffectall(&sd->bl,"die_swordman_female.wav",0,AREA);
+	}
+	// END - Death sounds [Valaris for SymphonicRO]
+
 	// changed penalty options, added death by player if pk_mode [Valaris]
 	if(battle_config.death_penalty_type
 		&& (sd->class_&MAPID_UPPERMASK) != MAPID_NOVICE	// only novices will receive no penalty
