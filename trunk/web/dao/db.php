@@ -10,7 +10,7 @@
 			protected $new = true;
 			
 			protected $data = array(); // for table's data
-			protected $daseta_ext = array(); //for JOINED data
+			protected $data_ext = array(); //for JOINED data
 			protected $table = '';
 			protected $id_column = '';
 

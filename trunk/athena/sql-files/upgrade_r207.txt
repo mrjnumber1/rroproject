@@ -1,0 +1,28 @@
+
+DROP TABLE IF EXISTS `members`;
+CREATE TABLE IF NOT EXISTS `members` (
+  `member_id` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(50) NOT NULL default '',
+  `email` varchar(39) NOT NULL default '',
+  `sex` enum('M','F') NOT NULL default 'M',
+  `msn` varchar(39) NOT NULL default '',
+  `aim` varchar(15) NOT NULL default '',
+  `mpass` varchar(40) NOT NULL default '',
+  `storage_password` char(32) NOT NULL,
+  `last_ip` varchar(20) NOT NULL default '0.0.0.0',
+  `last_login` datetime NOT NULL default '0000-00-00 00:00:00',
+  `banned` tinyint(1) unsigned NOT NULL default '0',
+  `salt` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`member_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1
+
+DELETE FROM `karmausr_rodb`.`item_db2` WHERE `item_db2`.`id` = 2462;
+
+REPLACE INTO `mob_db` VALUES (1078,'RED_PLANT','Red Plant','Red Plant',1,10,0,0,0,1,1,2,100,99,0,0,0,0,0,0,7,12,0,3,22,0x40,2000,1,1,1,0,0,0,0,0,0,0,0,507,5500,712,1000,711,1000,905,500,906,300,914,500,708,50,2269,2,0,0,0,0);
+REPLACE INTO `mob_db` VALUES (1079,'BLUE_PLANT','Blue Plant','Blue Plant',1,10,0,0,0,1,1,2,100,99,0,0,0,0,0,0,7,12,0,3,22,0x40,2000,1,1,1,0,0,0,0,0,0,0,0,510,5500,712,1000,711,1000,905,500,906,300,522,50,514,1000,2270,2,0,0,0,0);
+REPLACE INTO `mob_db` VALUES (1080,'GREEN_PLANT','Green Plant','Green Plant',1,10,0,0,0,1,1,2,100,99,0,0,0,0,0,0,7,12,0,3,22,0x40,2000,1,1,1,0,0,0,0,0,0,0,0,511,7000,712,1000,621,20,905,3000,906,1500,704,50,521,50,2270,2,0,0,0,0);
+REPLACE INTO `mob_db` VALUES (1081,'YELLOW_PLANT','Yellow Plant','Yellow Plant',1,10,0,0,0,1,1,2,100,99,0,0,0,0,0,0,7,12,0,3,22,0x40,2000,1,1,1,0,0,0,0,0,0,0,0,508,5500,712,1000,711,1000,905,500,906,300,707,5,914,500,2269,2,0,0,0,0);
+REPLACE INTO `mob_db` VALUES (1082,'WHITE_PLANT','White Plant','White Plant',1,10,0,0,0,1,1,2,100,99,0,0,0,0,0,0,7,12,0,3,22,0x40,2000,1,1,1,0,0,0,0,0,0,0,0,509,5500,712,1000,631,20,905,3000,906,1500,521,50,703,50,2269,2,0,0,0,0);
+REPLACE INTO `mob_db` VALUES (1083,'SHINING_PLANT','Shining Plant','Shining Plant',1,20,0,0,0,1,1,2,100,99,0,0,0,0,0,90,7,12,0,3,26,0x40,2000,1,1,1,0,0,0,0,0,0,0,0,510,5500,508,1000,509,1000,710,5,608,20,518,500,607,50,714,1,0,0,0,0);
+REPLACE INTO `mob_db` VALUES (1084,'BLACK_MUSHROOM','Black Mushroom','Black Mushroom',1,15,0,0,0,1,1,2,100,99,0,0,0,0,0,0,7,12,0,3,22,0x40,2000,1,1,1,0,0,0,0,0,0,0,0,970,50,971,50,630,20,949,2000,991,800,921,5500,921,5500,7033,5500,0,0,0,0);
+REPLACE INTO `mob_db` VALUES (1085,'RED_MUSHROOM','Red Mushroom','Red Mushroom',1,15,0,0,0,1,1,2,100,99,0,0,0,0,0,0,7,12,0,3,22,0x40,2000,1,1,1,0,0,0,0,0,0,0,0,970,50,972,50,630,20,949,2000,990,1000,921,5500,921,5500,7033,5500,0,0,0,0);

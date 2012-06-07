@@ -8,7 +8,7 @@
 bat_room,169,74,0	script	Registration::ConR_Guillaume	418,{
 	end;
 OnInit:
-	set .CQ_Wait_Size, 2;
+	set .CQ_Wait_Size, 3;
 	waitingroom "BLU Team",getvariableofnpc(.CQ_Wait_Size,"ConR_Guillaume"),"Conquest::OnGuillaumeJoin",1;
 	end;
 OnEnterBG:
@@ -28,7 +28,6 @@ OnEnterBG:
 
 
 //Conquest Randomizer
-
 bat_room,159,175,4	script	Randomizer::ConR_Randomizer	734,{
 	
 	if (islowratechar() == 1)
@@ -54,7 +53,6 @@ OnResumeRoom:
 
 // Battleground Engine
 // *********************************************************************
-
 -	script	Conquest	-1,{
 	end;
 
@@ -134,6 +132,8 @@ OnDoBalance:
 
 	set .@Guillaume, bg_get_data($@Conquest_id1, 0);
 	set .@Croix, bg_get_data($@Conquest_id2, 0);
+	set $BLU_size, .@Guillaume;
+	set $RED_size, .@Croix;
 
 	if( .@Guillaume < .@Croix )
 		waitingroom2bg_single $@Conquest_id1,.Castle$,.GX,.GY,"ConR_Guillaume";
@@ -161,6 +161,8 @@ OnDoBalance:
 
 		set .@Guillaume, .@Guillaume + .@Limit;
 		set .@Croix, .@Croix + .@Limit;
+		set $BLU_size, .@Guillaume;
+		set $RED_size, .@Croix;
 		mapannounce "bat_room","Conquest -- BLU: " + .@Guillaume + "/50, RED: " + .@Croix + "/50 (Playing)",1,0xFFA500;
 	}
 	end;
@@ -171,6 +173,8 @@ OnRandomizer:
 		//
 		set .@Guillaume, bg_get_data($@Conquest_id1, 0);
 		set .@Croix, bg_get_data($@Conquest_id2, 0);
+		set $BLU_size, .@Guillaume;
+		set $RED_size, .@Croix;
 
 		if( .@Guillaume < .@Croix )
 				waitingroom2bg_single $@Conquest_id1,.Castle$,.GX,.GY,"ConR_Randomizer";
@@ -199,6 +203,8 @@ OnRandomizer:
 
 				set .@Guillaume, .@Guillaume + .@Limit;
 				set .@Croix, .@Croix + .@Limit;
+				set $BLU_size, .@Guillaume;
+				set $RED_size, .@Croix;
 				mapannounce "bat_room","Conquest -- BLU: " + .@Guillaume + "/50, RED: " + .@Croix + "/50 (Playing)",1,0xFFA500;
 		}
 		end;
@@ -215,6 +221,8 @@ OnReadyCheck:
 	
 	set .@Guillaume, getwaitingroomstate(0,"ConR_Guillaume");
 	set .@Croix, getwaitingroomstate(0,"ConR_Croix");
+	set $BLU_size, .@Guillaume;
+	set $RED_size, .@Croix;
 	
 	if( .@Guillaume < .CQ_Wait_Size || .@Croix < .CQ_Wait_Size )
 	{
