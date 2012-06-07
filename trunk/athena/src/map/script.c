@@ -12552,12 +12552,27 @@ BUILDIN_FUNC(npcwalkto)
 {
 	struct npc_data *nd=(struct npc_data *)map_id2bl(st->oid);
 	int x=0,y=0;
+	int retrycount=20; // Added. [Valaris for KarmaRO]
+	short i=0; // Added. [Valaris for KarmaRO]
 
 	x=script_getnum(st,2);
 	y=script_getnum(st,3);
 
 	if(nd) {
-		unit_walktoxy(&nd->bl,x,y,0);
+		if(x < 0 || y < 0) { // Added -1,-1 for random walking. [Valaris for KarmaRO]
+			for(i=0;i<retrycount;i++){	// Search of a movable place
+				int r=rand();
+				x=r%(12*2+1)-12;
+				y=r/(12*2+1)%(12*2+1)-12;
+				x+=nd->bl.x;
+				y+=nd->bl.y;
+
+				if((map_getcell(nd->bl.m,x,y,CELL_CHKPASS)) && unit_walktoxy(&nd->bl,x,y,1)){
+					break;
+				}
+			}
+		} else	
+			unit_walktoxy(&nd->bl,x,y,0);
 	}
 
 	return 0;
