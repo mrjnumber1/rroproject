@@ -1424,10 +1424,7 @@ int parse_login(int fd)
 				uint8* hash = session[fd]->hash;
 				ShowInfo("auth failed: invalid client hash '%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X' from %s (userid=%s).\n",
 					hash[0], hash[1], hash[2], hash[3], hash[4], hash[5], hash[6], hash[7], hash[8], hash[9], hash[10], hash[11], hash[12], hash[13], hash[14], hash[15], ip, sd->userid);
-			//	if( sd->level < 99 )
-			//		result = 5; //exe not latest version;
-			//	else
-					result = mmo_auth(sd);
+					result = 5; //exe not latest version;
 			}
 			else
 				result = mmo_auth(sd);
