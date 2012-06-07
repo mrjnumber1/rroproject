@@ -4225,6 +4225,21 @@ static int clif_getareachar(struct block_list* bl,va_list ap)
 	case BL_SKILL:
 		clif_getareachar_skillunit(sd,(TBL_SKILL*)bl);
 		break;
+	case BL_NPC: // NPCs using item sprites. [Valaris for KarmaRO]
+		if( ((TBL_NPC*)bl)->size == 3 ) {
+			WFIFOHEAD(sd->fd,packet_len(0x9d));
+			WFIFOW(sd->fd,0)=0x9d;
+			WFIFOL(sd->fd,2)=bl->id;
+			WFIFOW(sd->fd,6)=((TBL_NPC*)bl)->class_;
+			WFIFOB(sd->fd,8)=1;
+			WFIFOW(sd->fd,9)=bl->x;
+			WFIFOW(sd->fd,11)=bl->y;
+			WFIFOW(sd->fd,13)=1;
+			WFIFOB(sd->fd,15)=0;
+			WFIFOB(sd->fd,16)=0;
+			WFIFOSET(sd->fd,packet_len(0x9d));
+			break;
+		}
 	default:
 		if(&sd->bl == bl)
 			break;
@@ -4271,8 +4286,16 @@ int clif_outsight(struct block_list *bl,va_list ap)
 			clif_clearchar_skillunit((struct skill_unit *)bl,tsd->fd);
 			break;
 		case BL_NPC:
-			if( !(((TBL_NPC*)bl)->sc.option&OPTION_INVISIBLE) )
-				clif_clearunit_single(bl->id,CLR_OUTSIGHT,tsd->fd);
+			if( !(((TBL_NPC*)bl)->sc.option&OPTION_INVISIBLE) ) {
+				if( ((TBL_NPC*)bl)->size == 3 ) { // NPCs using item sprites. [Valaris for KarmaRO]
+					WFIFOHEAD(tsd->fd,packet_len(0xa1));
+					WFIFOW(tsd->fd,0) = 0xa1;
+					WFIFOL(tsd->fd,2) = bl->id;
+					WFIFOSET(tsd->fd,packet_len(0xa1));
+				}
+				else
+					clif_clearunit_single(bl->id,CLR_OUTSIGHT,tsd->fd);
+			}
 			break;
 		default:
 			if ((vd=status_get_viewdata(bl)) && vd->class_ != INVISIBLE_CLASS)
@@ -4312,6 +4335,21 @@ int clif_insight(struct block_list *bl,va_list ap)
 		case BL_SKILL:
 			clif_getareachar_skillunit(tsd,(TBL_SKILL*)bl);
 			break;
+		case BL_NPC: // NPCs using item sprites. [Valaris for KarmaRO]
+			if( ((TBL_NPC*)bl)->size == 3 ) {
+				WFIFOHEAD(tsd->fd,packet_len(0x9d));
+				WFIFOW(tsd->fd,0)=0x9d;
+				WFIFOL(tsd->fd,2)=bl->id;
+				WFIFOW(tsd->fd,6)=((TBL_NPC*)bl)->class_;
+				WFIFOB(tsd->fd,8)=1;
+				WFIFOW(tsd->fd,9)=bl->x;
+				WFIFOW(tsd->fd,11)=bl->y;
+				WFIFOW(tsd->fd,13)=1;
+				WFIFOB(tsd->fd,15)=0;
+				WFIFOB(tsd->fd,16)=0;
+				WFIFOSET(tsd->fd,packet_len(0x9d));
+				break;
+			}
 		default:
 			clif_getareachar_unit(tsd,bl);
 			break;
@@ -9826,6 +9864,14 @@ void clif_parse_TakeItem(int fd, struct map_session_data *sd)
 	map_object_id = RFIFOL(fd,packet_db[sd->packet_ver][RFIFOW(fd,0)].pos[0]);
 	
 	fitem = (struct flooritem_data*)map_id2bl(map_object_id);
+
+	if(fitem && fitem->bl.type == BL_NPC){ // NPCs using item sprites. [Valaris for KarmaRO]
+		clif_additem(sd,0,0,7); // So the item can be clicked again.
+		if (pc_cant_act(sd))
+			return;
+		npc_click(sd,(TBL_NPC*)&fitem->bl);
+		return;
+	}
 
 	do {
 		if (pc_isdead(sd)) {

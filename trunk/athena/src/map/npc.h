@@ -57,8 +57,7 @@ struct npc_data {
 	struct npc_item_vend vending[MAX_VENDING];
 	int rent_time;
 
-
-	unsigned size : 2;
+	unsigned size : 3; // 3 for Item Sprites. [Valaris for KarmaRO]
 
 	void* chatdb; // pointer to a npc_parse struct (see npc_chat.c)
 	enum npc_subtype subtype;

@@ -2462,6 +2462,11 @@ static const char* npc_parse_script(char* w1, char* w2, char* w3, char* w4, cons
 
 	CREATE(nd, struct npc_data, 1);
 
+	if(w4[0] == '@' && w4[1]){ // @ sets size to 3 for Item Sprites. [Valaris for KarmaRO]
+		nd->size=3;
+		w4++;
+	}
+
 	if( sscanf(w4, "%d,%d,%d", &class_, &xs, &ys) == 3 )
 	{// OnTouch area defined
 		nd->u.scr.xs = xs;
@@ -2498,7 +2503,7 @@ static const char* npc_parse_script(char* w1, char* w2, char* w3, char* w4, cons
 		nd->ud.dir = dir;
 		npc_setcells(nd);
 		map_addblock(&nd->bl);
-		if( class_ >= 0 )
+		if( class_ >= 0 && nd->size != 3) // Do not use spawn packet for Item Sprite. [Valaris for KarmaRO]
 		{
 			status_set_viewdata(&nd->bl, nd->class_);
 			if(map[nd->bl.m].users)
