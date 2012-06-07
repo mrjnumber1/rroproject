@@ -1,0 +1,81 @@
+//===== eAthena Script ======================================= 
+//= Mahoro City Cleaner NPCs
+//===== By: ================================================== 
+//= Ketonom / Valaris
+//===== Current Version: ===================================== 
+//= 1.0
+//===== Compatible With: ===================================== 
+//= eA svn stable 8811+
+//===== Description: ========================================= 
+//= An Alice monster npc named Mahoro that walks around cities
+//===== Updates: ============================================= 
+//= v1.0
+//= - Original Version, based on Valaris's original script.
+//= v1.01
+//= - Replaced kissing emote with singing emote.
+//= v1.99
+//= - Renamed to Sakuya.
+//= - Moved to the Space Rift.
+//= - Now walks randomly, and uses singing emote randomly.
+//= v1.99b
+//= - Moved back to Prontera for KarmaRO
+//============================================================ 
+
+prontera.gat,156,191,3	script	Mahoro	1275,{
+	end;
+
+OnInit:
+	npcspeed 190;
+	initnpctimer;
+	end;
+
+OnTimer0001:
+	specialeffect 304;
+	end;
+
+OnTimer1000:
+	if(.emote<45) set .emote,rand(45);
+	if(.emote==0) emotion 2;
+	end;
+
+OnTimer2000:
+	if(.emote==4) emotion 2;
+	end;
+
+OnTimer3000:
+	if(.emote==9) emotion 2;
+	end;
+
+OnTimer4000:
+	if(.emote==14) emotion 2;
+	end;
+
+OnTimer5000:
+	if(.emote==45) set .emote,rand(45);
+	if(.emote==19) emotion 2;
+	end;
+
+OnTimer6000:
+	if(.emote==24) emotion 2;
+	end;
+
+OnTimer7000:
+	if(.emote==29) emotion 2;
+	end;
+
+OnTimer8000:
+	if(.emote==34) emotion 2;
+	end;
+
+OnTimer9000:
+	if(.emote==39) emotion 2;
+	end;
+
+OnTimer10000:
+	if(.emote==44) emotion 2;
+	set .emote,45;
+	npcwalkto -1, -1;
+	setnpctimer 2;
+	startnpctimer;
+	end;
+}
