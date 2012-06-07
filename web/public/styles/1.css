@@ -1,0 +1,490 @@
+@charset "UTF-8";
+
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+body
+{
+	background-color: #455B2C;
+	background-image: url('../images/main_background.jpg');
+	background-position: center top;
+	background-attachment: fixed;
+
+    /*font-family: "Verdana", sans-serif;*/
+	margin: 0;
+	padding: 0;
+	text-align: center;
+
+}
+
+#header
+{
+	height:150px;
+	background-image:url('../images/banner_bg.jpg');
+	background-repeat:no-repeat; 
+	background-position: center;
+	/*background-color: #455B2C;*/
+	position: relative;
+	bottom: 5px;
+	z-index: 0;
+}
+#headertop
+{
+	background-image:url('../images/bbt.png');
+	background-repeat:repeat-x;
+	height:21px;
+	z-index: 3;
+}
+
+#headerbot
+{
+	background-image: url('../images/bbb.png');
+	background-repeat:repeat-x;
+	height: 29px;
+	position: relative;
+	bottom: 12px;
+	margin: 0;
+	padding: 0;
+}
+
+
+
+#loginbox
+{
+	float:right;
+	
+	background:url('../images/login_box_blank.png');
+	background-repeat: no-repeat;
+	width:298px;
+	height:43px;
+	
+	margin: auto;
+}
+#logincontainer
+{
+	position: relative;
+	top: 7px;
+	left: -5px;
+}
+#logincontainer fieldset
+{
+    display: inline;
+}
+#loginbutton
+{
+	width: 53px;
+	height: 19px;
+	border:none;
+	background: url('../images/login_up.png');
+	position: relative;
+	top: 2px;
+	left: 2px; 
+}
+#loginbutton:target
+{
+	background: url('../images/login_down.png');
+}
+
+.loginfield
+{
+	border: 1px solid #000;
+	background-color: #ecbf8e;
+	height:19px;
+	width: 109px;
+	font-size: .9em
+
+}
+#statusbox
+{
+	float:right;
+	
+	background: url('../images/status_box1.png');
+	width: 215;
+	height: 74px;
+	border: none;
+
+}
+#arrowcontainer
+{
+    width: 53px;
+    height: 21px;
+    position: relative;
+    display: inline;
+    top: 8px;
+    left: 64px;
+}
+#arrowcontainer img
+{
+    border: 0;
+}
+#timecontainer
+{
+	color: #001;
+	font-family: monospace;	
+	text-align: right;
+	
+	position: relative;
+	right: 18px;
+	top: 1px;
+}
+
+#page
+{
+	position: relative;
+	bottom: 10px;
+}
+#navmenu
+{
+	background-image:url('../images/left_background.jpg');
+	background-repeat:repeat-y;
+	background-position: left;
+	background-color:#f7f17f;
+	
+	float:left;
+	text-align:left;
+	
+	width: 180px;
+	border: #000 2px solid;
+	border-left: 0;
+	border-top: 0;
+	padding-bottom: 2px;
+	/*margin-left: 2px;*/
+
+	
+}
+#mainheader
+{
+    background-image:url('../images/h_main.png');
+}
+#infoheader
+{
+    background-image:url('../images/h_information.png');
+}
+#rankheader
+{
+    background-image:url('../images/h_rankings.png');
+}
+#refheader
+{
+    background-image:url('../images/h_reference.png');
+}
+.navheader
+{
+    background-repeat:no-repeat;
+
+	height:49px;
+	width:190px;
+	position: relative;
+	left: -3px;
+}
+.navheader p
+{
+	margin: auto;
+	text-align: center;
+}
+
+ul.nav
+{
+	list-style: square url("../images/box.png");
+	margin: 0;
+	padding: 0;
+    padding-bottom: 2px;
+	margin-left: 25px;
+	margin-right: 2px;
+}
+.nav li 
+{
+	padding-bottom: 1px;
+	padding-top: 0px;
+	font-size: .8em;
+	font-family: "Verdana", sans-serif;
+    font-weight: bold;
+}
+.nav span
+{
+	display: block;
+    padding-left: 5px;
+}
+.nav a
+{
+	text-decoration: none;
+	display: block;
+	color: #fcf1e4;
+    padding-left: 5px;
+    /*text-shadow: -1px 0px #324, 0px 1px #324, 1px 0px #324, 0px -1px #324;*/
+    /*text-shadow: -1px 0px #fff, 0px 1px #214, 1px 0px #214, 0px -1px #fff;/**/
+    text-shadow: 1px 1px #010;
+}
+.nav a:hover
+{
+	text-decoration: none;
+	background-color: #262;
+	color: #BBB;
+}
+#maincontent
+{
+	background-image:url('../images/scroll_background.jpg');
+	background-repeat:repeat-x;
+	background-color: #f1e97e;
+	
+	width: 55%;
+    height: 561px;
+	/**/
+	display: inline-block;
+	text-align: left;
+    font-family: "Verdana", sans-serif;
+	font-size: .8em;
+	border: 2px solid #000;
+
+	padding: 10px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+	overflow: auto;
+}
+#playerstatus
+{
+	float:right;
+	text-align:right;
+	position: relative;
+	width: 135px;
+	bottom: 0px;
+}
+
+
+#acoheader
+{
+	margin: 0;
+	height: 70px;
+	background-image:url('../images/acolyte_header.png');
+	background-repeat:no-repeat; 
+	background-position: center top;
+}
+#smithheader
+{
+	margin: 0;
+	height: 70px;
+	background-image:url('../images/smith_header.png');
+	background-repeat:no-repeat; 
+	background-position: right top;
+}
+#swordmanheader
+{
+	margin: 0;
+	height: 70px;
+	background-image:url('../images/woe_header.png');
+	background-repeat:no-repeat; 
+	background-position: center top;
+}
+#pcbox
+{
+	background-image:url('../images/pv_box.png');
+	background-repeat:no-repeat; 
+	height: 83px;
+	margin-bottom: 0px;
+}
+#woebox img
+{
+	display:block;
+	margin:auto;
+}
+#pcbox img
+{
+	display: block;
+	margin: auto;
+	position: relative;
+	top: 12px;
+	left: 40px;
+}
+#cqbox
+{
+	background-image:url('../images/conquest_box.png');
+	background-repeat:no-repeat; 
+	height: 92px;
+	margin-bottom: 0px;
+}
+#redcount
+{
+
+	position: relative;
+	right: 55px;
+	top: 13px;
+	
+}
+#blucount
+{
+	position: relative;
+	right: 21px;
+	top: 13px;
+}
+#woebox
+{
+	background-image:url('../images/woe_box.png');
+	background-repeat:no-repeat; 
+	height: 85px;
+}
+#woebox p
+{
+	color: #000;
+	font-family: monospace;
+	text-align: center;
+	position: relative;
+	top: 19px;
+	font-size: .9em;
+}
+
+#datatable
+{
+    width: 100%;
+	text-align: center;
+	margin: auto;
+    display: table;
+    border: 0;
+    padding: 0px;
+    padding-bottom: 10px;
+
+}
+.pagedata
+{
+	margin: auto;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #000;
+}
+.pagedata tbody
+{
+    padding-top: 1px;
+    border: 1px solid #000;
+}
+.ebmborder
+{
+    border: 1px solid #fff;
+    background-color: #fff;
+    width: 24px;
+    height: 24px;
+}
+.pagedata th a
+{
+    display:block;
+    text-decoration: none;
+    color: #f1e97e;
+}
+.pagedata th a:hover
+{
+    text-decoration: underline;
+    color: #ffff44;
+}
+.pagedata th
+{
+    font-size: .75em;
+    font-family: "Verdana", sans-serif;
+    background: #533a70;
+    margin-top: 2px;
+    color: #f3d2a7;
+    text-shadow: 1px 1px #215;
+    border-top: 1px solid #65A;
+    border-left: 1px solid #65A;
+    border-right: 1px solid #215;
+    border-bottom: 1px solid #215;/**/
+}
+.pagedata tr
+{
+}
+.pagedata td
+{
+
+	padding: 2px;
+	margin: 0;
+    font-size: .70em;
+    font-family: "Verdana", sans-serif;
+	
+}
+.pagedata a
+{
+    color: #f1e97e;
+    font-weight: bold;
+    text-decoration: none;
+}
+.pagedata a:hover
+{
+    color: #ff4;
+    text-decoration: underline;
+}
+.tr1:hover, .tr2:hover
+{
+    background: #001505;
+}
+.tr1, .tr2
+{
+    color: #f1e97e;
+    text-shadow: 1px 1px #010;
+}
+.tr1, .trh, .tr1h
+{
+    background: #202608;
+}
+.tr2, .tr2h
+{
+    background: #313d1c;
+}
+.trh, .tr1h, .tr2h
+{
+    color: #f1e97e;
+    font-weight: 600;
+    text-shadow: 1px 1px #010;
+}
+.al
+{
+    text-align: left;
+}
+.ar
+{
+    text-align: right;
+}
+.ac
+{
+    text-align: center;
+}
+.nc00, .nc01, .nc02, .nc03,
+.nc10, .nc11, .nc12, .nc13
+{
+    font-weight: bold;
+}
+/*
+.nc00 { color: #a592e5; }
+.nc10 { color: #edbf8e; }/**/
+.nc00{color:#9fb2ef;text-shadow: -1px -1px #000 1px 1px #000;}
+.nc10{color:#e096c5; text-shadow: -1px -1px #000 1px 1px #000;}
+.nc20{color:#7C60B0;}
+.nc01{color:#D8E8FE;}
+.nc11{color:#FFB3F3;}
+.nc21{color:#EEB9BA;}
+.nc02{color:#AFFABE;}
+.nc12{color:#C762F2;}
+.nc22{color:#47B53C;}
+.nc03{color:#FFEA95;}
+.nc13{color:#C53A9E;}
+.nc23{color:#F0C413;}
+/**/
+hr
+{
+	border: 0;
+	height: 17px;
+	background: url('../images/headers/bars/headerLong.png') 0 0 no-repeat;
+	/*margin : 1em 0;*/
+}
+
+#footer
+{
+    height:30px;
+    font-size: .8em;
+    background: url('../images/scroll_background.jpg');
+    border: 2px solid;
+    border-bottom: 0;
+}

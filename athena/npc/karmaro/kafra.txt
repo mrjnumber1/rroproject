@@ -192,12 +192,72 @@ function	script	f_kafra_checkpass	{
 	mes "The Kafra services are always on your side.";
 	mes "How may I assist you?";
 	
-	set .@menu$, "Save:Manage Storage Passwords:Use Storage:Use Member Storage";
+	//set .@menu$, "Save:Manage Storage Passwords:Use Storage:Use Member Storage";
+	set .@menu$, "Save:Use Storage:Use Member Storage";
 	if (getcharid(2) != 0)
 		set .@menu$, .@menu$ + ":Use Guild Storage";
-	
 	set .@s, select(.@menu$);
 	
+	switch (.@s)
+	{
+		case 1: //save
+		{
+			next;
+			
+			if (islowratechar() == 0)
+			{
+				mes "[Kafra Employee]";
+				mes "I'm sorry, you cannot use this function, as you are limited to saving in the battlegrounds room.";
+				mes "Fight on!";
+				close2;
+				cutin "",255;
+				end;
+			}
+			getmapxy(@mapname$, @mapx, @mapy,0);
+			savepoint(@mapname$,@mapx,@mapy);
+			
+			mes "[Kafra Employee]";
+			mes "You are now saved where you are standing.";
+			mes "Enjoy your day!";
+			close2;
+			cutin "",255;
+			end;
+		}
+		case 2: //storage
+		{
+			close2;
+			cutin "",255;
+			end;
+		}
+		case 3: //mstorage
+		{
+			close2;
+			if (guildopenstorage() == 1)
+			{
+				mes "[Kafra Employee]";
+				mes "Sorry, another guild member is using the storage for now. Please wait until they are done.";
+				close2;
+			}
+			cutin "",255;
+			end;
+		}
+		case 4: //gstorage
+		{
+			close2;
+			if (guildopenstorage() == 1)
+			{
+				mes "[Kafra Employee]";
+				mes "Sorry, another guild member is using the storage for now. Please wait until they are done.";
+				close2;
+			}
+			cutin "",255;
+			end;
+		}
+	}
+	
+	
+	
+	// later!
 	switch (.@s)
 	{
 		case 1: //save
@@ -228,17 +288,21 @@ function	script	f_kafra_checkpass	{
 			next;
 			
 			mes "[Kafra Employee]";
-			mes "Ah, electing to check your storage passwords? I see.";
+			mes "I'm sorry.. this function is not complete yet.";
+			close;
 			
-			set .@menu$, "Account Storage:Member Storage";
-			if ( getcharid(2) != 0 && getguildmasterid(getcharid(2)) == getcharid(0) )
-				set .@menu$, .@menu$ + ":Guild Storage";
-			next;
-			set .@type, select(.@menu$);
+//			mes "[Kafra Employee]";
+//			mes "Ah, electing to check your storage passwords? I see.";
 			
-			callfunc "f_kafra_resetpass", .@type;
+//			set .@menu$, "Account Storage:Member Storage";
+//			if ( getcharid(2) != 0 && getguildmasterid(getcharid(2)) == getcharid(0) )
+//				set .@menu$, .@menu$ + ":Guild Storage";
+//			next;
+//			set .@type, select(.@menu$);
 			
-			end;
+//			callfunc "f_kafra_resetpass", .@type;
+			
+//			end;
 		}
 		case 3:
 		case 4:

@@ -108,26 +108,22 @@ CREATE TABLE IF NOT EXISTS `item_serials` (
 
 
 
+DROP TABLE IF EXISTS `members`;
 CREATE TABLE IF NOT EXISTS `members` (
   `member_id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(50) NOT NULL default '',
   `email` varchar(39) NOT NULL default '',
   `sex` enum('M','F') NOT NULL default 'M',
-  `country` varchar(20) NOT NULL default '',
   `msn` varchar(39) NOT NULL default '',
   `aim` varchar(15) NOT NULL default '',
   `mpass` varchar(40) NOT NULL default '',
   `storage_password` char(32) NOT NULL,
   `last_ip` varchar(20) NOT NULL default '0.0.0.0',
   `last_login` datetime NOT NULL default '0000-00-00 00:00:00',
-  `services` smallint(5) unsigned NOT NULL default '0',
   `banned` tinyint(1) unsigned NOT NULL default '0',
-  `ref_option` tinyint(3) unsigned NOT NULL default '0',
-  `ref_email` varchar(39) NOT NULL default 'none',
-  `ref_points` smallint(5) unsigned NOT NULL default '0',
-  `mlevel` tinyint(1) unsigned NOT NULL default '0',
+  `salt` int(11) NOT NULL default '0',
   PRIMARY KEY  (`member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 CREATE TABLE IF NOT EXISTS `member_storage` (
