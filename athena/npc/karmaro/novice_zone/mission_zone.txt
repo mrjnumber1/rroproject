@@ -496,70 +496,77 @@ moc_para01,27,35,5	script	Coordinator Lime#1	952,{
 							mes "[Mission Coordinator Lime]";
 							mes "All other First Jobs (Gunslingers, Ninjas, and Taekwons) will keep their Novice Figure.";
 							next;
-							mes "[Mission Coordinator Lime]";
-							mes "However, before all that, I will give you some basic items.";
-							next;
-							getitem(1243,1); //novice main gauche
-							getitem(2352,1); //novice ninja suit
-							getitem(2112,1); //novice guard
-							getitem(5055,1); //novice eggshell
-							getitem(2414,1); //novice boots
-							getitem(2510,1); //novice hood
-							
-							getitem(12324,5); //novice bwing
-							getitem(12323,50); //novice fwing
-							getitem(569,400); //novice potions
-							mes "[Mission Coordinator Lime]";
-							mes "Now then, what class would you like to be?";
-							switch(select("Swordsman:Acolyte:Mage:Archer:Thief:Merchant:Something else"))
+							if (LimeNoviceItems < 1)
 							{
-								case 1:
-									mes "[Mission Coordinator Lime]";
-									mes "You have chosen Swordsman. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Swordsman Job Manual.";
-									getitem 2765, 1; // Novice Figure
-									getitem 2819, 1; // Swordman Job Manual
-									set First_Job_Class_Trial,Job_Swordman;
-									close;
-								case 2:
-									mes "[Mission Coordinator Lime]";
-									mes "You have chosen Acolyte. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Acolyte Job Manual.";
-									getitem 2765, 1; // Novice Figure
-									getitem 2821, 1; // Acolyte Job Manual
-									set First_Job_Class_Trial,Job_Archer;
-									close;	
-								case 3:
-									mes "[Mission Coordinator Lime]";
-									mes "You have chosen Mage. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Mage Job Manual.";
-									getitem 2765, 1; // Novice Figure
-									getitem 2824, 1; // Mage Job Manual
-									set First_Job_Class_Trial,Job_Mage;
-									close;
-								case 4:
-									mes "[Mission Coordinator Lime]";
-									mes "You have chosen Archer. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Archer Job Manual.";
-									getitem 2765, 1; // Novice Figure
-									getitem 2822, 1; // Archer Job Manual
-									set First_Job_Class_Trial,Job_Archer;
-									close;
-								case 5:
-									mes "[Mission Coordinator Lime]";
-									mes "You have chosen Thief. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Thief Job Manual.";
-									getitem 2765, 1; // Novice Figure
-									getitem 2820, 1; // Thief Job Manual
-									set First_Job_Class_Trial,Job_Thief;
-									close;
-								case 6:
-									mes "[Mission Coordinator Lime]";
-									mes "You have chosen Merchant. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Merchant Job Manual.";
-									getitem 2765, 1; // Novice Figure
-									getitem 2823, 1; // Merchant Job Manual
-									set First_Job_Class_Trial,Job_Merchant;
-									close;
-								case 7:
-									mes "[Mission Coordinator Lime]";
-									mes "I see... well, I am sorry, but we only offer this for those who choose to be one of the 6 primary classes.";
-									set First_Job_Class_Trial,-1;
-									close;
+								mes "[Mission Coordinator Lime]";
+								mes "However, before all that, I will give you some basic items.";
+								next;
+								getitem(1243,1); //novice main gauche
+								getitem(2352,1); //novice ninja suit
+								getitem(2112,1); //novice guard
+								getitem(5055,1); //novice eggshell
+								getitem(2414,1); //novice boots
+								getitem(2510,1); //novice hood
+							
+								getitem(12324,5); //novice bwing
+								getitem(12323,50); //novice fwing
+								getitem(569,400); //novice potions
+								set LimeNoviceItems,1;
+								}
+							else
+							{							
+								mes "[Mission Coordinator Lime]";
+								mes "Now then, what class would you like to be?";
+								switch(select("Swordsman:Acolyte:Mage:Archer:Thief:Merchant:Something else"))
+								{
+									case 1:
+										mes "[Mission Coordinator Lime]";
+										mes "You have chosen Swordsman. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Swordsman Job Manual.";
+										getitem 2765, 1; // Novice Figure
+										getitem 2819, 1; // Swordman Job Manual
+										set First_Job_Class_Trial,Job_Swordman;
+										close;
+									case 2:
+										mes "[Mission Coordinator Lime]";
+										mes "You have chosen Acolyte. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Acolyte Job Manual.";
+										getitem 2765, 1; // Novice Figure
+										getitem 2821, 1; // Acolyte Job Manual
+										set First_Job_Class_Trial,Job_Archer;
+										close;	
+									case 3:
+										mes "[Mission Coordinator Lime]";
+										mes "You have chosen Mage. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Mage Job Manual.";
+										getitem 2765, 1; // Novice Figure
+										getitem 2824, 1; // Mage Job Manual
+										set First_Job_Class_Trial,Job_Mage;
+										close;
+									case 4:
+										mes "[Mission Coordinator Lime]";
+										mes "You have chosen Archer. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Archer Job Manual.";
+										getitem 2765, 1; // Novice Figure
+										getitem 2822, 1; // Archer Job Manual
+										set First_Job_Class_Trial,Job_Archer;
+										close;
+									case 5:
+										mes "[Mission Coordinator Lime]";
+										mes "You have chosen Thief. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Thief Job Manual.";
+										getitem 2765, 1; // Novice Figure
+										getitem 2820, 1; // Thief Job Manual
+										set First_Job_Class_Trial,Job_Thief;
+										close;
+									case 6:
+										mes "[Mission Coordinator Lime]";
+										mes "You have chosen Merchant. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Merchant Job Manual.";
+										getitem 2765, 1; // Novice Figure
+										getitem 2823, 1; // Merchant Job Manual
+										set First_Job_Class_Trial,Job_Merchant;
+										close;
+									case 7:
+										mes "[Mission Coordinator Lime]";
+										mes "I see... well, I am sorry, but we only offer this for those who choose to be one of the 6 primary classes.";
+										set First_Job_Class_Trial,-1;
+										close;
+								}
 							}
 						}
 						
