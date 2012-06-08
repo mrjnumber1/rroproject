@@ -417,12 +417,29 @@ moc_para01,27,35,5	script	Coordinator Lime#1	952,{
 				next;
 				mes "[Mission Coordinator Lime]";
 				mes "Here, as an added bonus, I'll even start you off with our Paradise Armor starter pack~!";
+				if (BaseClass==Job_Taekwon || BaseClass==Job_Gunslinger || BaseClass==Job_Ninja)
+				{
+					mes "Since you chose to be a "+jobname(Class)+", you will get a second Novice Figure as well.";
+					}
+				mes "I'll also exchange your Novice Main Gauche for a special starting weapon!";
+				mes "After you reach Base Level 26, though,";
 				mes "I recommend you head to Reward King Michael and purchase your first Paradise Weapon!";
 				
+				delitem(1243, 1); //remove novice main gauche from inventory
 				getitem(2456, 1); //eden boots i
 				getitem(5583, 1); //eden hat i
 				getitem(2560, 1); //eden manteau i
 				getitem(15009,1); //eden uniform i
+
+				if (BaseClass==Job_Swordman) { getitem(13041, 1); }
+				if (BaseClass==Job_Acolyte) { getitem(1545, 1); }
+				if (BaseClass==Job_Mage) { getitem(1639, 1); }
+				if (BaseClass==Job_Thief) { getitem(13041, 1); }
+				if (BaseClass==Job_Merchant) { getitem(13041, 1); }
+				if (BaseClass==Job_Archer) { getitem(1742, 1); getitem(12005, 1); }
+				if (BaseClass==Job_Taekwon) { getitem(2765, 1); getitem(569, 100); }
+				if (BaseClass==Job_Gunslinger) { getitem(2765, 1); getitem(13100, 1); getitem(12149, 1); }
+				if (BaseClass==Job_Ninja) { getitem(2765, 1); getitem(13010, 1); }
 				
 				close;
 			}
@@ -511,6 +528,7 @@ moc_para01,27,35,5	script	Coordinator Lime#1	952,{
 								getitem(12324,5); //novice bwing
 								getitem(12323,50); //novice fwing
 								getitem(569,400); //novice potions
+								getitem(2765,1); // Novice Figure
 								set LimeNoviceItems,1;
 								}
 							else
@@ -522,42 +540,36 @@ moc_para01,27,35,5	script	Coordinator Lime#1	952,{
 									case 1:
 										mes "[Mission Coordinator Lime]";
 										mes "You have chosen Swordsman. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Swordsman Job Manual.";
-										getitem 2765, 1; // Novice Figure
 										getitem 2819, 1; // Swordman Job Manual
 										set First_Job_Class_Trial,Job_Swordman;
 										close;
 									case 2:
 										mes "[Mission Coordinator Lime]";
 										mes "You have chosen Acolyte. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Acolyte Job Manual.";
-										getitem 2765, 1; // Novice Figure
 										getitem 2821, 1; // Acolyte Job Manual
 										set First_Job_Class_Trial,Job_Archer;
 										close;	
 									case 3:
 										mes "[Mission Coordinator Lime]";
 										mes "You have chosen Mage. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Mage Job Manual.";
-										getitem 2765, 1; // Novice Figure
 										getitem 2824, 1; // Mage Job Manual
 										set First_Job_Class_Trial,Job_Mage;
 										close;
 									case 4:
 										mes "[Mission Coordinator Lime]";
 										mes "You have chosen Archer. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Archer Job Manual.";
-										getitem 2765, 1; // Novice Figure
 										getitem 2822, 1; // Archer Job Manual
 										set First_Job_Class_Trial,Job_Archer;
 										close;
 									case 5:
 										mes "[Mission Coordinator Lime]";
 										mes "You have chosen Thief. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Thief Job Manual.";
-										getitem 2765, 1; // Novice Figure
 										getitem 2820, 1; // Thief Job Manual
 										set First_Job_Class_Trial,Job_Thief;
 										close;
 									case 6:
 										mes "[Mission Coordinator Lime]";
 										mes "You have chosen Merchant. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Merchant Job Manual.";
-										getitem 2765, 1; // Novice Figure
 										getitem 2823, 1; // Merchant Job Manual
 										set First_Job_Class_Trial,Job_Merchant;
 										close;
@@ -717,11 +729,8 @@ moc_para01,105,92,5	script	Reward King Michael#EZ	967,{
 }
 	
 moc_para01,110,95,4	varshop(MD_mission_points)	Karma Gears#mz	966,1578:100,1744:100,13419:100,1283:100,1547:100,1828:100,1982:100,1427:100,1642:100,2348:250,2358:250,2350:250,2344:250,2385:400,2346:250,2384:4000,2441:1500,2439:1000,2546:2000,2548:2500,2511:350,2543:350,2741:300,2688:500,2763:3000:2695:500,2693:500,2689:500,2692:800,2691:500,2690:500,2694:500,2711:800,2760:150,2753:150,2756:150,2755:150,2759:150,2762:150,2758:150,2754:150,2757:150,2761:150
-
 moc_para01,110,89,4	varshop(MD_mission_points)	Light Consumables#mz	966,13535:15,13536:20,13537:25,13531:3,13532:5,13533:15,13534:25
-
 moc_para01,110,82,4	varshop(MD_mission_points)	Paradise Gears#mz	966,2456:1,2457:5,2458:8,2473:10,5583:5,18514:10,2560:5,2571:15,15009:5,15010:10,15011:15,1583:20,1747:5,1748:10,18106:15,13050:5,13051:10,13066:15,1931:10,1289:10,1831:10,16004:5,16005:10,16014:15,13112:5,13113:10,13114:15,13423:5,13424:10,13434:15,1192:5,1193:10,1197:15,1434:10,1650:5,1651:10,1658:15,1986:10
-
 // Mission Board
 
 moc_para01,38,37,4	script	Mission Board#mz	857,{
