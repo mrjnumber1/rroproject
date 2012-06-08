@@ -24,7 +24,7 @@ OnClick:
 		
 	if(.@mustpay == 1)
 		if(Zeny < 5000)
-			callsub nocash;
+			goto nocash;
 
 OnDebuffs:
 					
@@ -37,9 +37,7 @@ OnDebuffs:
 			sc_end .@bad_sc[.@i];	
 			set .@healed, 1;
 		}			
-	
-	if(islowratechar() == 1 && !.@isbg)
-		goto OnHeals;
+
 		
 OnBuffs:
 	set .@npcgid, getnpcid(0);
@@ -51,6 +49,9 @@ OnBuffs:
 	unitskilluseid .@npcgid,"AL_BLESSING",10,.@chargid;
 	unitskilluseid .@npcgid,"AL_INCAGI",10,.@chargid;
 	
+		
+	if(islowratechar() == 1 && !.@isbg)
+		goto OnHeals;
 	//unitskilluseid .@npcgid,"PR_IMPOSITIO",5,.@chargid;
 	//unitskilluseid .@npcgid,"PR_SUFFRAGIUM",3,.@chargid;
 	//unitskilluseid .@npcgid,"PR_MAGNIFICAT",5,.@chargid;
@@ -170,7 +171,8 @@ OnHeals:
 	end;
 	
 nocash:
-	message strcharinfo(0), "Low Rate Characters above level 90 need 1k zeny to use the Healer outside of BG! Go kill some porings. :)";
+	mes "Low Rate Characters above level 90 need 5k zeny to use the Healer outside of BG! Go kill some porings. :)";
+	close2;
 	end;
 }
 
@@ -290,3 +292,4 @@ arug_cas07, 304, 305,1	duplicate(f_healer)	Healer#cq5h2	895,10,10
 arug_cas08, 310, 154,6	duplicate(f_healer)	Healer#cq6h1	895,10,10
 arug_cas08, 333, 154,4	duplicate(f_healer)	Healer#cq6h2	895,10,10
 
+moc_para01,  27,  20,4	duplicate(f_healer)	Healer#eden	895,10,10
