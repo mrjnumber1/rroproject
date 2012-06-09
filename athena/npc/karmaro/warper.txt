@@ -243,15 +243,17 @@ ActuallyImplemented:
 		"Amatsu Shrine",ama,
 		"Ant Hell",ant,
 		"Ayothaya Dungeons",wayodun,
+		"Brasilis Dungeon",bradun,
 		"Byalan Tunnel",byalan,
 		"Clock Tower",clock,
 		"Comodo Caves",beach,
-		//"Dimensonal Gorge",dimen,
+		"Dimensonal Gorge",dgorge,
 		"Einbech Mine",weindun,
 		"Gefenia",gefenia,
 		"Geffen Dungeon",dgeffenw,
 		"Glast Heim",glast,
 		"Gonryun Shrine",gon,
+		"Guild Dungeons",guilddun,
 		"Ice Cave",iced,
 		"Juperos Ruins",wjuper,
 		"Kiel Robot Factory",wkieldun,
@@ -1280,18 +1282,10 @@ ActuallyImplemented:
 	menu 	"Sograt Desert 1",dmocfild1,
 		"Sograt Desert 2",dmocfild2,
 		"Sograt Desert 3",dmocfild3,
-		"Sograt Desert 4",dmocfild4,
-		"Sograt Desert 5",dmocfild5,
-		"Sograt Desert 6",dmocfild6,
 		"Sograt Desert 7",dmocfild7,
-		"Sograt Desert 8",dmocfild8,
-		"Sograt Desert 9",dmocfild9,
-		"Sograt Desert 10",dmocfild10,
 		"Sograt Desert 11",dmocfild11,
 		"Sograt Desert 12",dmocfild12,
 		"Sograt Desert 13",dmocfild13,
-		"Sograt Desert 14",dmocfild14,
-		"Sograt Desert 15",dmocfild15,
 		"Sograt Desert 16",dmocfild16,
 		"Sograt Desert 17",dmocfild17,
 		"Sograt Desert 18",dmocfild18,
@@ -1787,6 +1781,27 @@ ActuallyImplemented:
 		"Level 3",dabbey3;	
 		
 		
+
+	bradun: // Brasilis Dungeon
+	mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+	next;
+	menu	"Level 1",dbradun1,
+		"Level 2",dbradun2;
+
+	guilddun: // Guild Dungeons
+	mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+	menu	"Aldebaran Guild Dungeon",dgldun2,
+		"Arunafeltz Guild Dungeon",darugdun,
+		"Geffen Guild Dungeon",dgldun4,
+		"Payon Guild Dungeon",dgldun1,
+		"Prontera Guild Dungeon",dgldun3,
+		"Schwarzwald Guild Dungeon",dschgdun;
+
+	dgorge: // Dimensional Gorge
+	mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+	menu	"Continental Guard Quarantine",dgorge0,
+		"Level 1",dgorge1,
+		"Level 2",dgorge2;
 
 	dnyd1:
 
@@ -2686,31 +2701,45 @@ ActuallyImplemented:
 	goto LWarpEnd;
 	end;
 	dgldun1:
-	set @warp_name$, "Baldur Guild Dungeon";
+	set @warp_name$, "Payon Guild Dungeon";
 	set @warp_map$,"gld_dun01"; 
-	set @warp_x,119; 
-	set @warp_y,93; 
+	set @warp_x,121; 
+	set @warp_y,19; 
 	goto LWarpEnd;
 	end;
 	dgldun2:
-	set @warp_name$, "Luina Guild Dungeon";
+	set @warp_name$, "Aldebaran Guild Dungeon";
 	set @warp_map$,"gld_dun02"; 
-	set @warp_x,39; 
-	set @warp_y,161; 
+	set @warp_x,176; 
+	set @warp_y,112; 
 	goto LWarpEnd;
 	end;
 	dgldun3:
-	set @warp_name$, "Valkyrie Guild Dungeon";
+	set @warp_name$, "Prontera Guild Dungeon";
 	set @warp_map$,"gld_dun03"; 
-	set @warp_x,50; 
-	set @warp_y,44; 
+	set @warp_x,48; 
+	set @warp_y,38; 
 	goto LWarpEnd;
 	end;
 	dgldun4:
-	set @warp_name$, "Britoniah Guild Dungeon";
+	set @warp_name$, "Geffen Guild Dungeon";
 	set @warp_map$,"gld_dun04"; 
-	set @warp_x,116; 
+	set @warp_x,111; 
+	set @warp_y,26; 
+	goto LWarpEnd;
+	end;
+	darugdun:
+	set @warp_name$, "Arunafeltz Guild Dungeon";
+	set @warp_map$,"arug_dun01"; 
+	set @warp_x,353; 
 	set @warp_y,45; 
+	goto LWarpEnd;
+	end;
+	dschgdun:
+	set @warp_name$, "Schwarzwald Guild Dungeon";
+	set @warp_map$,"schg_dun01"; 
+	set @warp_x,199; 
+	set @warp_y,171; 
 	goto LWarpEnd;
 	end;
 	casino:
@@ -2796,6 +2825,42 @@ ActuallyImplemented:
 	set @warp_y,10; 
 	goto LWarpEnd;
 	end;
+	dbradun1:
+	set @warp_name$, "Brasilis Dungeon F1";
+	set @warp_map$,"bra_dun01"; 
+	set @warp_x,147; 
+	set @warp_y,139; 
+	goto LWarpEnd;
+	end;
+	dbradun2:
+	set @warp_name$, "Brasilis Dungeon F2";
+	set @warp_map$,"bra_dun02"; 
+	set @warp_x,261; 
+	set @warp_y,259; 
+	goto LWarpEnd;
+	end;	
+	dgorge0:
+	set @warp_name$, "Continental Guard Quarantine";
+	set @warp_map$,"moc_fild20"; 
+	set @warp_x,210; 
+	set @warp_y,332; 
+	goto LWarpEnd;
+	end;
+	dgorge1:
+	set @warp_name$, "Dimensional Gorge F1";
+	set @warp_map$,"moc_fild21"; 
+	set @warp_x,31; 
+	set @warp_y,196; 
+	goto LWarpEnd;
+	end;
+	dgorge2:
+	set @warp_name$, "Dimensional Gorge F2";
+	set @warp_map$,"moc_fild22"; 
+	set @warp_x,37; 
+	set @warp_y,196; 
+	goto LWarpEnd;
+	end;	
+
 
 	//-------------------------------
 	//         Field Warps
@@ -3137,47 +3202,11 @@ ActuallyImplemented:
 	set @warp_y,182; 
 	goto LWarpEnd;
 	end;
-	dmocfild4:
-	set @warp_map$,"moc_fild04"; 
-	set @warp_x,184; 
-	set @warp_y,217; 
-	goto LWarpEnd;
-	end;
-	dmocfild5:
-	set @warp_map$,"moc_fild05"; 
-	set @warp_x,203; 
-	set @warp_y,213; 
-	goto LWarpEnd;
-	end;
-	dmocfild6:
-	set @warp_map$,"moc_fild06"; 
-	set @warp_x,213; 
-	set @warp_y,208; 
-	goto LWarpEnd;
-	end;
 	dmocfild7:
 	set @warp_map$,"moc_fild07"; 
 	set @warp_x,224; 
 	set @warp_y,170; 
 	goto LWarpEnd;
-	end;
-	dmocfild8:
-	set @warp_map$,"moc_fild08"; 
-	set @warp_x,229; 
-	set @warp_y,177; 
-	goto LWarpEnd;
-	end;
-	dmocfild9:
-	set @warp_map$,"moc_fild09"; 
-	set @warp_x,195; 
-	set @warp_y,198; 
-	goto LWarpEnd;
-	end;
-	dmocfild10:
-	set @warp_map$,"moc_fild10"; 
-	set @warp_x,209; 
-	set @warp_y,168; 
-	goto LWarpEnd; 
 	end;
 	dmocfild11:
 	set @warp_map$,"moc_fild11"; 
@@ -3195,18 +3224,6 @@ ActuallyImplemented:
 	set @warp_map$,"moc_fild13"; 
 	set @warp_x,185; 
 	set @warp_y,263; 
-	goto LWarpEnd;
-	end;
-	dmocfild14:
-	set @warp_map$,"moc_fild14"; 
-	set @warp_x,209; 
-	set @warp_y,219; 
-	goto LWarpEnd;
-	end;
-	dmocfild15:
-	set @warp_map$,"moc_fild15"; 
-	set @warp_x,223; 
-	set @warp_y,188; 
 	goto LWarpEnd;
 	end;
 	dmocfild16:
