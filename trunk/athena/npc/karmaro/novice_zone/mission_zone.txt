@@ -54,7 +54,7 @@ new_1-1,60,115,4	script	Marroll Knight#nv	459,{
 
 new_1-1,66,114,4	script	Bulletin Board#nv	111,{
 	mes "^FF0000=================================^000000";
-	mes "^FF0000 ^000000 ^E40CAA[Welcome]^CC0000 to ^FF9000Karma-RO^000000";
+	mes "Welcome to Ragnarok Online!";
 	mes "Cross this bridge and begin your adventure!";
 	mes "^FF0000=================================^000000";
 	close;
@@ -357,8 +357,13 @@ moc_para01,25,35,4	script	Shion#nv2	727,{
 	}
 }
 
-
-// Mission Coordinator Lime
+// --------------------------------------------------------------
+// -                  Coordinator Lime                          -
+// --------------------------------------------------------------
+//      Describes the Mission Zone to Players
+//      Gives new characters starter equipment and consumables
+//      Gives Platinum first job class skills
+//      
 
 moc_para01,27,35,5	script	Coordinator Lime#1	952,{
 	if (First_Job_Class_Trial >= Job_Swordman)
@@ -431,12 +436,45 @@ moc_para01,27,35,5	script	Coordinator Lime#1	952,{
 				getitem(2560, 1); //eden manteau i
 				getitem(15009,1); //eden uniform i
 
-				if (BaseClass==Job_Swordman) { getitem(13041, 1); }
-				if (BaseClass==Job_Acolyte) { getitem(1545, 1); }
-				if (BaseClass==Job_Mage) { getitem(1639, 1); }
-				if (BaseClass==Job_Thief) { getitem(13041, 1); }
-				if (BaseClass==Job_Merchant) { getitem(13041, 1); }
-				if (BaseClass==Job_Archer) { getitem(1742, 1); getitem(12005, 1); }
+				if (BaseClass==Job_Swordman)
+				{
+					getitem(13041, 1);
+					skill 144,1,0; // Moving HP Recovery
+					skill 145,1,0; // Fatal Blow
+					skill 146,1,0; // Auto Berserk
+					}
+				if (BaseClass==Job_Acolyte)
+				{
+					getitem(1545, 1);
+					skill 156,1,0; // Holy Light
+					}
+				if (BaseClass==Job_Mage)
+				{
+					getitem(1639, 1);
+					skill 157,1,0; // Energy Coat
+					}
+				if (BaseClass==Job_Thief)
+				{
+					getitem(13041, 1);
+					skill 149,1,0; // Sprinkle Sand
+					skill 150,1,0; // Back Sliding
+					skill 151,1,0; // Pick Stone
+					skill 152,1,0; // Throw Stone
+					}
+				if (BaseClass==Job_Merchant)
+				{
+					getitem(13041, 1); 
+					skill 153,1,0; // Cart Revolution
+					skill 154,1,0; // Change Cart
+					skill 155,1,0; // Loud Exclamation
+					}
+				if (BaseClass==Job_Archer)
+				{
+					getitem(1742, 1); 
+					getitem(12005, 1);
+					skill 147,1,0; // Arrow Crafting
+					skill 148,1,0; // Arrow Repel
+					}
 				if (BaseClass==Job_Taekwon) { getitem(2765, 1); getitem(569, 100); }
 				if (BaseClass==Job_Gunslinger) { getitem(2765, 1); getitem(13100, 1); getitem(12149, 1); }
 				if (BaseClass==Job_Ninja) { getitem(2765, 1); getitem(13010, 1); }
@@ -747,11 +785,20 @@ moc_para01,16,22,7	script	Old Adventurer#eden	900,{
 	close;
 }
 
-// Flavor Text NPC - Jobs Tutor
-// Provides flavor text on how to change classes and what the different classes are
-// Script by Nick per mrj's request
-// v1.0
+
+// --------------------------------------------------------------
+// -                  Jobs Tutor                                -
+// --------------------------------------------------------------
+//      Describes where to change classes
+//	Describes different classes
+// --------------------------------------------------------------
+//      Flavor Text NPC - Jobs Tutor
+//	- Provides flavor text on how to change classes and what
+//	the different classes are
+//	Script by Nick per mrj's request
+//	v1.0
 //
+
 moc_para01,38,14,5	script	Jobs Tutor#mzone	57,{
 	set .npcname$,"[Jobs Tutor]";
 	mes .npcname$;
