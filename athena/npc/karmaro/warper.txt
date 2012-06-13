@@ -243,7 +243,7 @@ ActuallyImplemented:
 		"Amatsu Shrine",ama,
 		"Ant Hell",ant,
 		"Ayothaya Dungeons",wayodun,
-		"Brasilis Dungeon",bradun,
+		"Brasilis Dungeon",wbradun,
 		"Byalan Tunnel",byalan,
 		"Clock Tower",clock,
 		"Comodo Caves",beach,
@@ -1630,6 +1630,7 @@ ActuallyImplemented:
 		"Culvert 2",dglastcul1,
 		"Culvert 3",dglastcul3,
 		"Culvert 4",dglastcul4,
+		"Inside GH",dglastin,
 		"St.Abbey",dglastchur,
 		"Staircase Dungeon",dglaststep,
 		"Underground Cave 1",dglastcave1,
@@ -1780,28 +1781,29 @@ ActuallyImplemented:
 		"Level 2",dabbey2,
 		"Level 3",dabbey3;	
 		
-		
-
-	bradun: // Brasilis Dungeon
+	wbradun:
 	mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
 	next;
 	menu	"Level 1",dbradun1,
-		"Level 2",dbradun2;
-
-	guilddun: // Guild Dungeons
+			"Level 2",dbradun2;
+			
+	guilddun:
 	mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+	next;
 	menu	"Aldebaran Guild Dungeon",dgldun2,
-		"Arunafeltz Guild Dungeon",darugdun,
-		"Geffen Guild Dungeon",dgldun4,
-		"Payon Guild Dungeon",dgldun1,
-		"Prontera Guild Dungeon",dgldun3,
-		"Schwarzwald Guild Dungeon",dschgdun;
-
-	dgorge: // Dimensional Gorge
+			"Arunafeltz Guild Dungeon",darugdun,
+			"Geffen Guild Dungeon",dgldun4,
+			"Payon Guild Dungeon",dgldun1,
+			"Prontera Guild Dungeon",dgldun3,
+			"Schwarzwald Guild Dungeon",dschgdun;
+			
+	dgorge:
+	
 	mes "Please select a Level. Beware that you will be warped directly into the dungeon.";
+	next;
 	menu	"Continental Guard Quarantine",dgorge0,
-		"Level 1",dgorge1,
-		"Level 2",dgorge2;
+			"Level 1",dgorge1,
+			"Level 2",dgorge2;
 
 	dnyd1:
 
@@ -2322,6 +2324,13 @@ ActuallyImplemented:
 	set @warp_y,277; 
 	goto LWarpEnd;
 	end;
+	dglastin:
+	set @warp_name$, "Inside Glast Heim";
+	set @warp_map$, "gl_in01";
+	set @warp_x,73;
+	set @warp_y,70;
+	goto LWarpEnd;
+	end;
 	dglastchur:
 	set @warp_name$, "Glast Heim St.Abbey";
 	set @warp_map$,"gl_church"; 
@@ -2729,7 +2738,7 @@ ActuallyImplemented:
 	goto LWarpEnd;
 	end;
 	darugdun:
-	set @warp_name$, "Arunafeltz Guild Dungeon";
+	set @warp_name$, "Arunafelz Guild Dungeon";
 	set @warp_map$,"arug_dun01"; 
 	set @warp_x,353; 
 	set @warp_y,45; 
@@ -2746,6 +2755,36 @@ ActuallyImplemented:
 	set @warp_map$,"cmd_in02"; 
 	set @warp_x,179; 
 	set @warp_y,129; 
+	goto LWarpEnd;
+	end;
+	dbradun1:
+	set @warp_map$,"bra_dun01"; 
+	set @warp_x,147; 
+	set @warp_y,139; 
+	goto LWarpEnd;
+	end;
+	dbradun2:
+	set @warp_map$,"bra_dun02"; 
+	set @warp_x,261; 
+	set @warp_y,259; 
+	goto LWarpEnd;
+	end;
+	dgorge0:
+	set @warp_map$,"moc_fild20"; 
+	set @warp_x,210; 
+	set @warp_y,332; 
+	goto LWarpEnd;
+	end;
+	dgorge1:
+	set @warp_map$,"moc_fild21"; 
+	set @warp_x,31; 
+	set @warp_y,196; 
+	goto LWarpEnd;
+	end;
+	dgorge2:
+	set @warp_map$,"moc_fild22"; 
+	set @warp_x,37; 
+	set @warp_y,196; 
 	goto LWarpEnd;
 	end;
 	dthor1:
@@ -2825,42 +2864,6 @@ ActuallyImplemented:
 	set @warp_y,10; 
 	goto LWarpEnd;
 	end;
-	dbradun1:
-	set @warp_name$, "Brasilis Dungeon F1";
-	set @warp_map$,"bra_dun01"; 
-	set @warp_x,147; 
-	set @warp_y,139; 
-	goto LWarpEnd;
-	end;
-	dbradun2:
-	set @warp_name$, "Brasilis Dungeon F2";
-	set @warp_map$,"bra_dun02"; 
-	set @warp_x,261; 
-	set @warp_y,259; 
-	goto LWarpEnd;
-	end;	
-	dgorge0:
-	set @warp_name$, "Continental Guard Quarantine";
-	set @warp_map$,"moc_fild20"; 
-	set @warp_x,210; 
-	set @warp_y,332; 
-	goto LWarpEnd;
-	end;
-	dgorge1:
-	set @warp_name$, "Dimensional Gorge F1";
-	set @warp_map$,"moc_fild21"; 
-	set @warp_x,31; 
-	set @warp_y,196; 
-	goto LWarpEnd;
-	end;
-	dgorge2:
-	set @warp_name$, "Dimensional Gorge F2";
-	set @warp_map$,"moc_fild22"; 
-	set @warp_x,37; 
-	set @warp_y,196; 
-	goto LWarpEnd;
-	end;	
-
 
 	//-------------------------------
 	//         Field Warps
@@ -3928,3 +3931,4 @@ splendide, 366, 238,3	duplicate(f_warper)	Warp Agent#95	894
 dicastes01, 202, 188,3	duplicate(f_warper)	Warp Agent#96	894
 dicastes01, 128, 205,3	duplicate(f_warper)	Warp Agent#97	894
 dicastes01, 203, 321,3	duplicate(f_warper)	Warp Agent#98	894
+moc_para01,  34,  22,5	duplicate(f_warper)	Warp Agent#99	894
