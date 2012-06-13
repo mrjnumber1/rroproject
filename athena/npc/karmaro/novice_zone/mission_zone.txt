@@ -805,7 +805,7 @@ moc_para01,38,14,5	script	Jobs Tutor#mzone	57,{
 	mes "Are you looking for how to change your class?";
 	mes "Luckily, I, the Jobs Tutor, can help you!";
 	next;
-	switch(select("Where can I change my class?:What are the different classes?:Nevermind"))
+	switch(select("Where can I change my class?:What are the different classes?:Have you heard of Platinum Skills?:Nevermind"))
 	{
 	case 1:
 		mes .npcname$;
@@ -895,6 +895,76 @@ moc_para01,38,14,5	script	Jobs Tutor#mzone	57,{
 			close;
 		}
 	case 3:
+		mes .npcname$;
+		mes "I have license from the different Job guilds";
+		mes "throughout this world to grant you your special";
+		mes "skills which are available to your class.";
+		mes "Would you like these skills now?";
+		next;
+		if (select("Yes Please:No") == 2) {
+			mes .npcname$;
+			mes "Have a nice day, anyway!";
+			close;
+		}
+		if (BaseClass == Job_Swordman) {
+			skill 144,1,0; // Moving HP-Recovery
+			skill 145,1,0; // Fatal Blow
+			skill 146,1,0; // Auto Berserk
+		} else if (BaseClass == Job_Mage) {
+			skill 157,1,0; // Energy Coat
+		} else if (BaseClass == Job_Archer) {
+			skill 147,1,0; // Arrow Crafting
+			skill 148,1,0; // Arrow Repel
+		} else if (BaseClass == Job_Merchant) {
+			skill 153,1,0; // Cart Revolution
+			skill 154,1,0; // Change Cart
+			skill 155,1,0; // Crazy Uproar
+		} else if (BaseClass == Job_Thief) {
+			skill 149,1,0; // Sand Attack
+			skill 150,1,0; // Back Slide
+			skill 151,1,0; // Find Stone
+			skill 152,1,0; // Stone Fling
+		} else if (BaseClass == Job_Acolyte) {
+			skill 156,1,0; // Holy Light
+		}
+		if (Class == Job_Knight) {
+			skill 1001,1,0; // Charge Attack
+		} else if (Class == Job_Crusader) {
+			skill 1002,1,0; // Shrink
+		} else if (Class == Job_Wizard) {
+			skill 1006,1,0; // Sight Blaster
+		} else if (Class == Job_Sage) {
+			skill 1007,1,0; // Create Elemental Converter
+			skill 1008,1,0; // Elemental Change Water
+			skill 1017,1,0; // Elemental Change Earth
+			skill 1018,1,0; // Elemental Change Fire
+			skill 1019,1,0; // Elemental Change Wind
+		} else if (Class == Job_Hunter) {
+			skill 1009,1,0; // Phantasmic Arrow
+		} else if (Class == Job_Bard) {
+			skill 1010,1,0; // Pang Voice
+		} else if (Class == Job_Dancer) {
+			skill 1011,1,0; // Wink of Charm
+		} else if (Class == Job_Blacksmith) {
+			skill 1012,1,0; // Unfair Trick
+			skill 1013,1,0; // Greed
+		} else if (Class == Job_Alchemist) {
+			skill 238,1,0; // Bioethics
+		} else if (Class == Job_Assassin) {
+			skill 1003,1,0; // Sonic Acceleration
+			skill 1004,1,0; // Throw Venom Knife
+		} else if (Class == Job_Rogue) {
+			skill 1005,1,0; // Close Confine
+		} else if (Class == Job_Priest) {
+			skill 1014,1,0; // Redemptio
+		} else if (Class == Job_Monk) {
+			skill 1015,1,0; // Ki Translation
+			skill 1016,1,0; // Ki Explosion
+		}
+		mes .npcname$;
+		mes "There you go!";
+		close;
+	case 4:
 		mes .npcname$;
 		mes "Well, come back to me anytime you're curious.";
 		close;
