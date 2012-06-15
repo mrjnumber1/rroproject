@@ -1,16 +1,16 @@
-//===== eAthena Script ======================================= 
+//===== eAthena Script =======================================
 //= Moscovia Quests
-//===== By: ================================================== 
+//===== By: ==================================================
 //= Kisuka
-//===== Current Version: ===================================== 
+//===== Current Version: =====================================
 //= 1.9
-//===== Compatible With: ===================================== 
+//===== Compatible With: =====================================
 //= eAthena SVN
-//===== Description: ========================================= 
+//===== Description: =========================================
 //= Quests for Moscovia.
 //= The Moving Island, Help Mikhail, Acorn Exchange,
 //= Banish Winter, Shafka Hat, Koshei the Immortal.
-//===== Additional Comments: ================================= 
+//===== Additional Comments: =================================
 //= 1.0 First version. [Kisuka]
 //= 1.1 Small fixes on The Moving Island. [Kisuka]
 //= 1.2 Fixed a "player not attached" error. [brianluau]
@@ -21,7 +21,7 @@
 //= 1.7 Fixes on donpcevents and fixed some left over aegis stuff. [Kisuka]
 //= 1.8 Fixed some condition checks. [Gepard]
 //= 1.9 Corrected NPC counting mobs for the wrong NPC. (bugreport:4736) [L0ne_W0lf]
-//============================================================ 
+//============================================================
 
 //============================================================================
 // The Moving Island
@@ -6735,6 +6735,11 @@ moscovia,208,182,7	script	Acorn Dealer#mos	967,{
 		mes "something to eat and you can feed squirrels.";
 		next;
 		mes "[Acorn Dealer]";
+		mes "If you look around the city...";
+		mes "We have very large squirrels...";
+		mes "but there may be other uses...";
+		next;
+		mes "[Acorn Dealer]";
 		mes "Someone can decorate their house";
 		mes "with them but I don't know how...";
 		mes "they've got to be highly talented.";
@@ -6787,7 +6792,7 @@ moscovia,208,182,7	script	Acorn Dealer#mos	967,{
 //----------------------------------------------------------------------------
 // Big Squirrel - Trade Acorns for Gems
 //----------------------------------------------------------------------------
-mosk_fild01,113,108,3	script	Big Squirrel#mos	111,{
+moscovia,199,206,3	script	Big Squirrel#mos	111,{
 	if (checkweight(1201,1) == 0 ) {
 		mes "- Please stop here !! -";
 		mes "- You're carrying too many items -";
@@ -7106,7 +7111,7 @@ mosk_fild01,113,108,3	script	Big Squirrel#mos	111,{
 	}
 }
 
-mosk_fild01,113,108,5	script	#mos_sq	1104,2,2,{
+moscovia,199,206,5	script	#mos_sq	1104,2,2,{
 	end;
 	
 OnTouch:
@@ -15898,7 +15903,7 @@ mosk_dun02,57,220,0	script	House Ghost Jar#rus43	111,{
 				mes "One! Two! Three!!";
 				next;
 				if (.@rucard_game01 == 1) {
-					cutin "Æ÷¸µÄ«µå",4;
+					cutin "Ã†Ã·Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					emotion 0;
 					emotion 5,1;
 					next;
@@ -15911,13 +15916,13 @@ mosk_dun02,57,220,0	script	House Ghost Jar#rus43	111,{
 					next;
 				}else{
 					if (.@rucard_game01 == 1) {
-						cutin "Æ÷¸µÄ«µå",4;
+						cutin "Ã†Ã·Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					}
 					else if (.@rucard_game01 == 2) {
-						cutin "¿£Á©¸µÄ«µå",4;
+						cutin "Â¿Â£ÃÂ©Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					}
 					else if (.@rucard_game01 == 3) {
-						cutin "°í½ºÆ®¸µÄ«µå",4;
+						cutin "Â°Ã­Â½ÂºÃ†Â®Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					}
 					emotion 0;
 					emotion 23,1;
@@ -15939,7 +15944,7 @@ mosk_dun02,57,220,0	script	House Ghost Jar#rus43	111,{
 				mes "One! Two! Three!!";
 				next;
 				if (.@rucard_game01 == 2) {
-					cutin "¿£Á©¸µÄ«µå",4;
+					cutin "Â¿Â£ÃÂ©Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					emotion 0;
 					emotion 5,1;
 					next;
@@ -15952,13 +15957,13 @@ mosk_dun02,57,220,0	script	House Ghost Jar#rus43	111,{
 					next;
 				}else{
 					if (.@rucard_game01 == 1) {
-						cutin "Æ÷¸µÄ«µå",4;
+						cutin "Ã†Ã·Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					}
 					else if (.@rucard_game01 == 2) {
-						cutin "¿£Á©¸µÄ«µå",4;
+						cutin "Â¿Â£ÃÂ©Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					}
 					else if (.@rucard_game01 == 3) {
-						cutin "°í½ºÆ®¸µÄ«µå",4;
+						cutin "Â°Ã­Â½ÂºÃ†Â®Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					}
 					emotion 0;
 					emotion 23,1;
@@ -15980,7 +15985,7 @@ mosk_dun02,57,220,0	script	House Ghost Jar#rus43	111,{
 				mes "One! Two! Three!!";
 				next;
 				if (.@rucard_game01 == 3) {
-					cutin "°í½ºÆ®¸µÄ«µå",4;
+					cutin "Â°Ã­Â½ÂºÃ†Â®Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					emotion 0;
 					emotion 5,1;
 					next;
@@ -15993,13 +15998,13 @@ mosk_dun02,57,220,0	script	House Ghost Jar#rus43	111,{
 					next;
 				}else{
 					if (.@rucard_game01 == 1) {
-						cutin "Æ÷¸µÄ«µå",4;
+						cutin "Ã†Ã·Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					}
 					else if (.@rucard_game01 == 2) {
-						cutin "¿£Á©¸µÄ«µå",4;
+						cutin "Â¿Â£ÃÂ©Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					}
 					else if (.@rucard_game01 == 3) {
-						cutin "°í½ºÆ®¸µÄ«µå",4;
+						cutin "Â°Ã­Â½ÂºÃ†Â®Â¸ÂµÃ„Â«ÂµÃ¥",4;
 					}
 					emotion 0;
 					emotion 23,1;
