@@ -1,36 +1,36 @@
-Rideword Hat
+Rideword Hat (5208)
 	50 Bookclip in Memory (7015)
 	10 Bloody Pages (7449)
-	1 Book of Billows[3]
-	1 Book of Mother Earth[3]
-	1 Book of the Blazing Sun[3]
-	1 Book of Gust of Wind[3]
+	1 Book of Billows[3] (1568)
+	1 Book of Mother Earth[3] (1569)
+	1 Book of the Blazing Sun[3] (1570)
+	1 Book of Gust of Wind[3] (1571)
 	
-Feather Beret
-	50 Soft Feathers
-	1 Beret
+Feather Beret (5170)
+	50 Soft Feathers (7063)
+	1 Beret (5172)
 	50 Kafra Points
 	
-Holy Marcher Hat
-	50 Manacles
-	20 Soft Feathers
+Holy Marcher Hat (5255)
+	50 Manacles (1098)
+	100 Soft Feathers (7063)
 	$200 Kafra Points
 
 Dress Hat[1] (5211)
-	15 Soft Feathers
+	100 Soft Feathers (7063)
 	1 Wizard Hat (2252)
 	1 Morpheus's Hood (5126)
 	
-Alice Doll[1]
-	1 Wedding Dress
+Alice Doll[1] (5137)
+	1 Wedding Dress (2338)
 	1 KVM Morning Star (1546)
 	1 KVM Spear (1426)
 	1 KVM Bloody Roar (1281)
 	$100 Kafra Points
 	
-Def Bapho Horns
-	1 Attack Bapho Horn
-	1 Feather Beret
+Def Bapho Horns (5518)
+	1 Attack Bapho Horn (5374)
+	1 Feather Beret (5170)
 	$100 Kafra Points
 
 Anubis Hat (5490)
@@ -98,7 +98,8 @@ Ramen Hat (5293)
 
 Yellow Bandana (5277)
 	1 Lemon Dyestuffs (976)
-	1 Bandana
+	1 Bandana (2211)
+  1 Poo Poo Hat (2289)
 	$1000 Kafra Points
 
 Angeling Hat (5132)
@@ -225,7 +226,7 @@ Rabbit Earplugs[1] (5520)
 	Small Ribbons (5085)
 
 
-Dark Randgris Helm
+Dark Randgris Helm (5373)
 	10 Valhalla's Flower (7510)
 	1 Evil Wing (2255)
 	666 Rune of Darkness (7511)
@@ -347,9 +348,9 @@ Odin Mask (5483)
 	$50 Kafra Points
 	50 Rune of Darkness (7511)
 
-Sunglasses[1]
-	2 Sunglasses
-	10 1carat Diamonds
+Sunglasses[1] (2202)
+	2 Sunglasses (2201)
+	100 1carat Diamonds (730)
 	100 Battle Badges (7773)
 	$300 Kafra Points
 	
