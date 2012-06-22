@@ -1809,15 +1809,15 @@ ActuallyImplemented:
 
 	set @warp_name$, "Yggdrasil Root F1";
 	set @warp_map$,"nyd_dun01";
-	set @warp_x,150;
-	set @warp_y,150;
+	set @warp_x,54;
+	set @warp_y,221;
 	goto LWarpEnd;
 	end;
 	dnyd2:
 	set @warp_name$, "Yggdrasil Root F2";
 	set @warp_map$,"nyd_dun02";
-	set @warp_x,150;
-	set @warp_y,150;
+	set @warp_x,61;
+	set @warp_y,265;
 	goto LWarpEnd;
 	end;
 	dmalangdo:
