@@ -17,15 +17,15 @@ Holy Marcher Hat (5255)
 	$200 Kafra Points
 
 Dress Hat[1] (5211)
-	100 Soft Feathers (7063)
+	10 Soft Feathers (7063)
 	1 Wizard Hat (2252)
 	1 Morpheus's Hood (5126)
 	
 Alice Doll[1] (5137)
 	1 Wedding Dress (2338)
-	1 KVM Morning Star (1546)
-	1 KVM Spear (1426)
-	1 KVM Bloody Roar (1281)
+	1 Small Ribbon (5085)
+	1 Marionette Doll (5141)
+	50 Alice Aprons (7047)
 	$100 Kafra Points
 	
 Def Bapho Horns (5518)
@@ -61,10 +61,10 @@ Koneko Hat (5372)
 Blue Ribbon[1] (5404)
 	1 Ribbon [1] (2209)
 	5 Cobalt Blue Dyestuffs (978)
-	50 Box of Gloom (12029)
+	20 Box of Gloom (12029)
 Dragoon Helm (5467)
 	10 Denture from Dragon Mask (7266)
-	1 Dragon Breath Cocktail (12080)
+//	1 Dragon Breath Cocktail (12080)
 	7 Dragon Canine (1035)
 	7 Dragon Horn (7265)
 	66 Dragon Scale (1036)
@@ -75,50 +75,59 @@ Filir Hat (5405)
 	88 Blue Feather (7441)
 	1 Beanie (5076)
 Flapping Evil Wing[1] (5376)
+	Flapping Angel Wing (5210)
 	Evil Wing (2255)
-	2 Willow Card (4010)
 	666 Little Evil Wing (1039)
 Helm of Abyss[1] (5363)
 	1 Army Cap (2261)
 	5 black Dyestuffs (983)
-	45 Reins (1064)
+	405 Reins (1064)
 Brazil Sports Hat (5308)
 // Brazil Independence Day - 9/7/1822
-	99 Tiger Panty (7267)
-	77 burning horseshoe (7120)
-	118 Leopard Skin (7171)
-	222 Talon (917)
+	9 Tiger Panty (7267)
+	7 burning horseshoe (7120)
+	18 Leopard Skin (7171)
+	22 Talon (917)
 	Cap (2226)
 Ramen Hat (5293)
-	$1000 Kafra Point
-	1958 Smooth Noodle (12057) // the year ramen noodles were first marketed in Japan
-	5 Tantan Noodle (12395)
+	$10 Kafra Point
+	5 Smooth Noodle (12057) // the year ramen noodles were first marketed in Japan
+	1 Tantan Noodle (12395)
 	1 Porcelain (735)
-	10 Hwergelmir's Tonic (12095)
+	1 Hwergelmir's Tonic (12095)
 
 Yellow Bandana (5277)
-	1 Lemon Dyestuffs (976)
+	2 Lemon Dyestuffs (976)
 	1 Bandana (2211)
-  1 Poo Poo Hat (2289)
-	$1000 Kafra Points
+	1 Poo Poo Hat (2289)
+	$100 Kafra Points
 
 Angeling Hat (5132)
 	1 Angel Wing (2254)
 	5 Poring hat (5035)
 	Beret (5172)
-
-Little Angel Doll (5354)
+	
+Angeling Hairpin (5153)
+	1 Angeling Hat (5132)
+	1 Clip (2607)
+	
+Flapping Angel Wing (5210)
+	1 Angel Wing (2254)
+	15 Soft Feather (7063)
+	
+	
+Little Angel Doll (5324)
 	Angel Wing (2254)
 	777 Little Ghost Doll (7268)
-	777 Holy Water (523)
-	$500 Kafra Points
+	77 Holy Water (523)
+	$50 Kafra Points
 
 Ship Captain Hat (5359)
 // Dex +1, Long Rate Attack + 7%, Slotted
 	$1000 Kafra Points
 	Corsair [1] (5163)
 	Scarlet Dyestuffs (975)
-	5000 Sharp Arrows (1764)
+	500 Sharp Arrows (1764)
 
 
 Sloth Hat[1] (5761)
@@ -142,8 +151,8 @@ Bunny Top Hat (5378)
 Carmen Miranda's Hat (5407)
 	Hat [1] (2221)
 	$10 Kafra Points
-	666 Banana (513) // number of letters in Carmen
-	777 Strawberry (578) // number of letters in Miranda
+	6 Banana (513) // number of letters in Carmen
+	7 Strawberry (578) // number of letters in Miranda
 	
 Octopus Hat (5554)
 	144 Squid Ink (1024) // the century the octopus genus was named in the science literature
@@ -202,7 +211,7 @@ Ifrit Mask (5420)
 Close Helmet (5131)
 	1 Goibne's Helm (5128)
 	100 Steel (999)
-	50 Gold (969)
+	1 Gold (969)
 	10 Furnace (612)
 
 Executioner Hood (5304)
@@ -214,10 +223,8 @@ Crown of Deceit[1] (5564)
 	1 Crown (2235)
 	35 Peco Peco Feathers (7101)
 	$100 Kafra Points
-	20 Rubby (723)
-	10 Dark red Scale (6091)
+	20 Ruby (723)
 	55 Garnet (718)
-	10 Gold (969)
 	
 Rabbit Earplugs[1] (5520)
 	1 Headset (5001)
@@ -265,6 +272,7 @@ Focused Paper Bag (5449)
 	
 Rainbow Scarf (5463)
 	$1000 Kafra Points
+	1 F
 	1 Red Muffler (7216)		
 	1 Black Dyestuffs (983)
 	1 Cobaltblue Dyestuffs (978)
@@ -283,11 +291,11 @@ Spiked Scarf (5462)
 
 Father's Mustache (5155)
 	1 Grampa Beard (2241)
-	5 Seed of Life (7140)
+//	5 Seed of Life (7140)
 	$1000 Kafra Points
-	1 Vital Flower (6113)
+//	1 Vital Flower (6113)
 
-Well-Chesed Pencil (5574)
+Well-Chewed Pencil (5574)
 	$1000 Kafra Points (or Battle Badges)
 	222 Wooden Gnarl (7222)
 	Knife [3] (1201)
@@ -317,7 +325,7 @@ Lollipop (5445)
 Hockey Mask (5314)
 	100 Steel (999)
 	50 Metal Fragment (7095)
-	$1000 Kafra Points
+	$100 Kafra Points
 
 Smiling Tongue Mask (5203)
 	1 Mr. Smile (2278)
@@ -351,8 +359,8 @@ Odin Mask (5483)
 Sunglasses[1] (2202)
 	2 Sunglasses (2201)
 	100 1carat Diamonds (730)
-	100 Battle Badges (7773)
-	$300 Kafra Points
+//	100 Battle Badges (7773)
+	$1000 Kafra Points
 	
 Red Glasses (5288)
 	$50 Kafra Points
@@ -368,5 +376,5 @@ Cyclops Visor (5135)
 	1 Gold (969)
 	55 Fine Sand (7043)
 	1 Mini Furnace (612)
-	1 Dragon Breath Cocktail (12080)
+//	1 Dragon Breath Cocktail (12080)
 	$50 Kafra Points
