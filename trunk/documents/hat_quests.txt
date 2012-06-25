@@ -357,3 +357,8 @@ Cyclops Visor (5135)
 	1 Mini Furnace (612)
 //	1 Dragon Breath Cocktail (12080)
 	$50 Kafra Points
+   
+Army Cap (5685)
+   100 Sticky Mucus (938)
+   Cap (2265)
+   100,000 zeny
