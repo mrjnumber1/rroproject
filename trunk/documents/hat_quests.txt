@@ -11,7 +11,7 @@ Feather Beret (5170)
 	1 Beret (5172)
 	50 Kafra Points
 	
-Holy Marcher Hat (5255)
+Holy Marcher Hat (5225)
 	50 Manacles (1098)
 	100 Soft Feathers (7063)
 	$200 Kafra Points
@@ -61,16 +61,7 @@ Koneko Hat (5372)
 Blue Ribbon[1] (5404)
 	1 Ribbon [1] (2209)
 	5 Cobalt Blue Dyestuffs (978)
-	20 Box of Gloom (12029)
-Dragoon Helm (5467)
-	10 Denture from Dragon Mask (7266)
-//	1 Dragon Breath Cocktail (12080)
-	7 Dragon Canine (1035)
-	7 Dragon Horn (7265)
-	66 Dragon Scale (1036)
-	66 Dragon Mane (6073)
-	1 fire Dragon scale (7451)
-	1 Helm 2229
+	20 Box of Gloom (12029) 	
 Filir Hat (5405)
 	88 Blue Feather (7441)
 	1 Beanie (5076)
@@ -104,7 +95,7 @@ Yellow Bandana (5277)
 
 Angeling Hat (5132)
 	1 Angel Wing (2254)
-	5 Poring hat (5035)
+	1 Poring hat (5035)
 	Beret (5172)
 	
 Angeling Hairpin (5153)
@@ -147,12 +138,6 @@ Bunny Top Hat (5378)
 	1 bunny Band (2214)
 	Sunday Hat (5032)
 	$10 Kafra Points
-
-Carmen Miranda's Hat (5407)
-	Hat [1] (2221)
-	$10 Kafra Points
-	6 Banana (513) // number of letters in Carmen
-	7 Strawberry (578) // number of letters in Miranda
 	
 Octopus Hat (5554)
 	144 Squid Ink (1024) // the century the octopus genus was named in the science literature
@@ -177,12 +162,6 @@ Vanilmirth Hat (5289)
 Baseball Cap[1] (5282)
 	Colbaltblue Dyestuffs (978)
 	Hat [1] (2221)
-
-
-Baby Dragon Hat (5531)
-	23 Dragon Skin (7123)
-	37 Dragon Tail (1037)
-	65 Dragon Horn (7265)
 
 
 Leaf Cat Hat (5555)
@@ -244,12 +223,12 @@ Dokeb Wig[0] (5276)
 	4 Lemon Dyestuffs (976)
 	444 Dark Hair (1020)
 
-Note Headphones[1] (515)
+Note Headphones[1] (5151)
 	1 Headset (5001)
 	5 Angel Magic Powder (6395)
 	5 Metal Fragment (7095)
 
-Wings of Victory (5457)
+Wings of Victory (5347)
 	
 Moonlight Flower Hat (5214)
 	500 Nine Tails (1022)
