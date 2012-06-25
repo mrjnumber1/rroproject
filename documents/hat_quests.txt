@@ -362,3 +362,9 @@ Army Cap (5685)
    100 Sticky Mucus (938)
    Cap (2265)
    100,000 zeny
+   
+Ifrit of Ears (5421)
+   100 Live coal (7098)
+   50 Flame Heart (994)
+   Elven Ears (2286)
+   $500 Kafra Points
