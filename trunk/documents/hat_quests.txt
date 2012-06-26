@@ -44,10 +44,7 @@ Bullock Helm (5560)
 	5 Flash Light (7327)
 	1 Bone Helm (5017)
 	30 Steel (999)
-HMH[1] (5225)
-	1 Magician Hat (5045)
-	20 Blue Feather (7441)
-	5 Star Crumb (1000)
+   
 ILOVECHINA (5423)
 	1 Apple O' Archer (2285)
 	1 Angeling Hat (5132)
@@ -120,12 +117,6 @@ Ship Captain Hat (5359)
 	Scarlet Dyestuffs (975)
 	500 Sharp Arrows (1764)
 
-
-Sloth Hat[1] (5761)
-	45 Black Hair (1020) // how long a sloth is in centimeters
-	35 Fur (6020) // how many decagrams a sloth weighs
-	7 Animal Skin (919) // the length of a sloth tail
-	$25 Kafra Points
 
 Geographer Hat[1] (5455)
 	433 Maneater blossoms (1032) // the length of the song Maneater by Hall & Oates
@@ -217,7 +208,7 @@ Dark Randgris Helm (5373)
 	1 Evil Wing (2255)
 	666 Rune of Darkness (7511)
 
-Dokeb Wig[0] (5276)
+Dokebi Wig[0] (5276)
 	4 Cobaltblue Dyestuffs (978)
 	4 Scarlet Dyestuffs (975)
 	4 Lemon Dyestuffs (976)
@@ -240,10 +231,6 @@ Afro Wig (5258)
 	1 Lemon Dyestuffs (976)
 	111 Dark Hair (1020)
 
-Chullos[1] (5243)
-	100 Fur (6020)
-	1 orange Dyestuffs (980)
-	1 Scarlet Dyestuffs (975)
 
 Sad Paper Bag (5448)
 Focused Paper Bag (5449)
