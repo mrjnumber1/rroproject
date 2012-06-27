@@ -1627,7 +1627,7 @@ ActuallyImplemented:
 		"Chivalry 2",dglastchiv2,
 		"Churchyard",dglastyard,
 		"Culvert 1",dglastcul1,
-		"Culvert 2",dglastcul1,
+		"Culvert 2",dglastcul2,
 		"Culvert 3",dglastcul3,
 		"Culvert 4",dglastcul4,
 		"Inside GH",dglastin,
