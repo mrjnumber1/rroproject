@@ -11,7 +11,7 @@ struct map_session_data;
 //if the item drops farther from the player than this,
 //it will not be autolooted. [Skotlex]
 //Note: The range is unlimited unless this define is set.
-#define AUTOLOOT_DISTANCE AREA_SIZE
+//#define AUTOLOOT_DISTANCE AREA_SIZE
 
 #define ATCOMMAND_FAILED -1
 #define ATCOMMAND_SUCCEEDED 0

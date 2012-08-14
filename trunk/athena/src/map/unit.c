@@ -1352,7 +1352,7 @@ int unit_skilluse_pos2( struct block_list *src, short skill_x, short skill_y, sh
 		{
 			char details[CHAT_SIZE_MAX];
 			sprintf(details, "Cast Time: [%d] ms. Base Time: [%d] ms.", casttime, skill_get_cast(skill_num, skill_lv));
-			clif_disp_onlyself(sd, details, CHAT_SIZE_MAX);
+			clif_disp_onlyself(sd, details, strlen(details));
 		}
 	}
 	else

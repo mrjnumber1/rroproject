@@ -19,7 +19,7 @@ new_1-1,60,115,4	script	Marroll Knight#nv	459,{
 	mes "[Marroll Knight]";
 	mes "A ^E40CAA[Battlegrounds Hero]^000000 will be instantly maxed out in level, but we cannot allow such a powerful person in our service to wander freely.";
 	next;
-	mes "[Marroll Knight]";
+	mes "[Marroll Knight]"
 	mes "A ^E40CAA[Battlegrounds Hero]^000000 can only participate in ^666666Battlegrounds^000000 and ^666666War of the Emperium^000000, you will be forbidden to enter any areas that are not towns, ^666666War of the Emperium^000000 Guild versus Guild maps, or ^666666Battlegrounds^000000.";
 	next;
 	mes "[Marroll Knight]";
@@ -54,7 +54,7 @@ new_1-1,60,115,4	script	Marroll Knight#nv	459,{
 
 new_1-1,66,114,4	script	Bulletin Board#nv	111,{
 	mes "^FF0000=================================^000000";
-	mes "Welcome to Ragnarok Online!";
+	mes "Welcome to Karma-RO!";
 	mes "Cross this bridge and begin your adventure!";
 	mes "^FF0000=================================^000000";
 	close;
@@ -357,13 +357,8 @@ moc_para01,25,35,4	script	Shion#nv2	727,{
 	}
 }
 
-// --------------------------------------------------------------
-// -                  Coordinator Lime                          -
-// --------------------------------------------------------------
-//      Describes the Mission Zone to Players
-//      Gives new characters starter equipment and consumables
-//      Gives Platinum first job class skills
-//      
+
+// Mission Coordinator Lime
 
 moc_para01,27,35,5	script	Coordinator Lime#1	952,{
 	if (First_Job_Class_Trial >= Job_Swordman)
@@ -422,63 +417,74 @@ moc_para01,27,35,5	script	Coordinator Lime#1	952,{
 				next;
 				mes "[Mission Coordinator Lime]";
 				mes "Here, as an added bonus, I'll even start you off with our Paradise Armor starter pack~!";
-				if (BaseClass==Job_Taekwon || BaseClass==Job_Gunslinger || BaseClass==Job_Ninja)
-				{
-					mes "Since you chose to be a "+jobname(Class)+", you will get a second Novice Figure as well.";
-					}
-				mes "I'll also exchange your Novice Main Gauche for a special starting weapon!";
-				mes "After you reach Base Level 26, though,";
 				mes "I recommend you head to Reward King Michael and purchase your first Paradise Weapon!";
 				
-				delitem(1243, 1); //remove novice main gauche from inventory
 				getitem(2456, 1); //eden boots i
 				getitem(5583, 1); //eden hat i
 				getitem(2560, 1); //eden manteau i
 				getitem(15009,1); //eden uniform i
-
-				if (BaseClass==Job_Swordman)
-				{
-					getitem(13041, 1);
-					skill 144,1,0; // Moving HP Recovery
-					skill 145,1,0; // Fatal Blow
-					skill 146,1,0; // Auto Berserk
-					}
-				if (BaseClass==Job_Acolyte)
-				{
-					getitem(1545, 1);
-					skill 156,1,0; // Holy Light
-					}
-				if (BaseClass==Job_Mage)
-				{
-					getitem(1639, 1);
-					skill 157,1,0; // Energy Coat
-					}
-				if (BaseClass==Job_Thief)
-				{
-					getitem(13041, 1);
-					skill 149,1,0; // Sprinkle Sand
-					skill 150,1,0; // Back Sliding
-					skill 151,1,0; // Pick Stone
-					skill 152,1,0; // Throw Stone
-					}
-				if (BaseClass==Job_Merchant)
-				{
-					getitem(13041, 1); 
-					skill 153,1,0; // Cart Revolution
-					skill 154,1,0; // Change Cart
-					skill 155,1,0; // Loud Exclamation
-					}
-				if (BaseClass==Job_Archer)
-				{
-					getitem(1742, 1); 
-					getitem(12005, 1);
-					skill 147,1,0; // Arrow Crafting
-					skill 148,1,0; // Arrow Repel
-					}
-				if (BaseClass==Job_Taekwon) { getitem(2765, 1); getitem(569, 100); }
-				if (BaseClass==Job_Gunslinger) { getitem(2765, 1); getitem(13100, 1); getitem(12149, 1); }
-				if (BaseClass==Job_Ninja) { getitem(2765, 1); getitem(13010, 1); }
 				
+				switch (Class)
+				{
+					case Job_Merchant:
+					case Job_Thief:
+					case Job_Swordman:
+						getitem(13041, 1);
+						break;
+					case Job_Mage:
+						getitem(1639, 1);
+						break;
+					case Job_Archer:
+						getitem(1742, 1);
+						getitem(12005, 1);
+						break;
+					case Job_Acolyte:
+						getitem(1545, 1);
+						break;
+				}
+			if (BaseClass==Job_SuperNovice) goto L_sSuperN;
+			if (BaseClass==Job_Swordman) goto L_sSword;
+			if (BaseClass==Job_Mage) goto L_sMage;
+			if (BaseClass==Job_Archer) goto L_sArcher;
+			if (BaseClass==Job_Acolyte) goto L_sAcolyte;
+			if (BaseClass==Job_Merchant) goto L_sMerchant;
+			if (BaseClass==Job_Thief) goto L_sThief;
+				close;
+			L_sSuperN:
+				skill 142,1,0;
+				close;
+			L_sSword:
+				skill 142,1,0;
+				skill 144,1,0;
+				skill 145,1,0;
+				skill 146,1,0;
+				close;
+			L_sMage:
+				skill 142,1,0;
+				skill 157,1,0;
+				close;
+			L_sArcher:
+				skill 142,1,0;
+				skill 147,1,0;
+				skill 148,1,0;
+				close;
+			L_sAcolyte:
+				skill 142,1,0;
+				skill 156,1,0;
+				close;
+			L_sMerchant:
+				skill 142,1,0;
+				skill 153,1,0;
+				skill 154,1,0;
+				skill 155,1,0;
+				close;
+			L_sThief:
+				skill 142,1,0;
+				skill 149,1,0;
+				skill 150,1,0;
+				skill 151,1,0;
+				skill 152,1,0;
+				close;
 				close;
 			}
 		}
@@ -551,72 +557,117 @@ moc_para01,27,35,5	script	Coordinator Lime#1	952,{
 							mes "[Mission Coordinator Lime]";
 							mes "All other First Jobs (Gunslingers, Ninjas, and Taekwons) will keep their Novice Figure.";
 							next;
-							if (LimeNoviceItems < 1)
+							mes "[Mission Coordinator Lime]";
+							mes "Now then, what class would you like to be?";
+							switch(select("Swordsman:Mage:Archer:Acolyte:Thief:Merchant:Something else"))
 							{
-								mes "[Mission Coordinator Lime]";
-								mes "However, before all that, I will give you some basic items.";
-								next;
-								getitem(1243,1); //novice main gauche
-								getitem(2352,1); //novice ninja suit
-								getitem(2112,1); //novice guard
-								getitem(5055,1); //novice eggshell
-								getitem(2414,1); //novice boots
-								getitem(2510,1); //novice hood
+								case 1:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Swordsman. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Swordsman Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2819, 1; // Swordman Job Manual
+									getitem(1243,1); //novice main gauche
+									getitem(2352,1); //novice ninja suit
+									getitem(2112,1); //novice guard
+									getitem(5055,1); //novice eggshell
+									getitem(2414,1); //novice boots
+									getitem(2510,1); //novice hood
+									
+									getitem(12324,5); //novice bwing
+									getitem(12323,50); //novice fwing
+									getitem(569,400); //novice potions
+									set First_Job_Class_Trial,Job_Swordman;
+									close;
+								case 2:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Mage. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Mage Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2824, 1; // Mage Job Manual
+							getitem(1243,1); //novice main gauche
+							getitem(2352,1); //novice ninja suit
+							getitem(2112,1); //novice guard
+							getitem(5055,1); //novice eggshell
+							getitem(2414,1); //novice boots
+							getitem(2510,1); //novice hood
 							
-								getitem(12324,5); //novice bwing
-								getitem(12323,50); //novice fwing
-								getitem(569,400); //novice potions
-								getitem(2765,1); // Novice Figure
-								set LimeNoviceItems,1;
-								}
-							else
-							{							
-								mes "[Mission Coordinator Lime]";
-								mes "Now then, what class would you like to be?";
-								switch(select("Swordsman:Acolyte:Mage:Archer:Thief:Merchant:Something else"))
-								{
-									case 1:
-										mes "[Mission Coordinator Lime]";
-										mes "You have chosen Swordsman. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Swordsman Job Manual.";
-										getitem 2819, 1; // Swordman Job Manual
-										set First_Job_Class_Trial,Job_Swordman;
-										close;
-									case 2:
-										mes "[Mission Coordinator Lime]";
-										mes "You have chosen Acolyte. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Acolyte Job Manual.";
-										getitem 2821, 1; // Acolyte Job Manual
-										set First_Job_Class_Trial,Job_Archer;
-										close;	
-									case 3:
-										mes "[Mission Coordinator Lime]";
-										mes "You have chosen Mage. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Mage Job Manual.";
-										getitem 2824, 1; // Mage Job Manual
-										set First_Job_Class_Trial,Job_Mage;
-										close;
-									case 4:
-										mes "[Mission Coordinator Lime]";
-										mes "You have chosen Archer. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Archer Job Manual.";
-										getitem 2822, 1; // Archer Job Manual
-										set First_Job_Class_Trial,Job_Archer;
-										close;
-									case 5:
-										mes "[Mission Coordinator Lime]";
-										mes "You have chosen Thief. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Thief Job Manual.";
-										getitem 2820, 1; // Thief Job Manual
-										set First_Job_Class_Trial,Job_Thief;
-										close;
-									case 6:
-										mes "[Mission Coordinator Lime]";
-										mes "You have chosen Merchant. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Merchant Job Manual.";
-										getitem 2823, 1; // Merchant Job Manual
-										set First_Job_Class_Trial,Job_Merchant;
-										close;
-									case 7:
-										mes "[Mission Coordinator Lime]";
-										mes "I see... well, I am sorry, but we only offer this for those who choose to be one of the 6 primary classes.";
-										set First_Job_Class_Trial,-1;
-										close;
-								}
+							getitem(12324,5); //novice bwing
+							getitem(12323,50); //novice fwing
+							getitem(569,400); //novice potions
+									set First_Job_Class_Trial,Job_Mage;
+									close;
+								case 4:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Acolyte. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Acolyte Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2821, 1; // Acolyte Job Manual
+							getitem(1243,1); //novice main gauche
+							getitem(2352,1); //novice ninja suit
+							getitem(2112,1); //novice guard
+							getitem(5055,1); //novice eggshell
+							getitem(2414,1); //novice boots
+							getitem(2510,1); //novice hood
+							
+							getitem(12324,5); //novice bwing
+							getitem(12323,50); //novice fwing
+							getitem(569,400); //novice potions
+									set First_Job_Class_Trial,Job_Acolyte;
+									close;	
+								case 3:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Archer. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Archer Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2822, 1; // Archer Job Manual
+							getitem(1243,1); //novice main gauche
+							getitem(2352,1); //novice ninja suit
+							getitem(2112,1); //novice guard
+							getitem(5055,1); //novice eggshell
+							getitem(2414,1); //novice boots
+							getitem(2510,1); //novice hood
+							
+							getitem(12324,5); //novice bwing
+							getitem(12323,50); //novice fwing
+							getitem(569,400); //novice potions
+									set First_Job_Class_Trial,Job_Archer;
+									close;
+								case 5:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Thief. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Thief Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2820, 1; // Thief Job Manual
+							getitem(1243,1); //novice main gauche
+							getitem(2352,1); //novice ninja suit
+							getitem(2112,1); //novice guard
+							getitem(5055,1); //novice eggshell
+							getitem(2414,1); //novice boots
+							getitem(2510,1); //novice hood
+							
+							getitem(12324,5); //novice bwing
+							getitem(12323,50); //novice fwing
+							getitem(569,400); //novice potions
+									set First_Job_Class_Trial,Job_Thief;
+									close;
+								case 6:
+									mes "[Mission Coordinator Lime]";
+									mes "You have chosen Merchant. Return to me when you are job 10, and I will change you to your First Job Class. Here is your Novice Figure and Merchant Job Manual.";
+									getitem 2765, 1; // Novice Figure
+									getitem 2823, 1; // Merchant Job Manual
+							getitem(1243,1); //novice main gauche
+							getitem(2352,1); //novice ninja suit
+							getitem(2112,1); //novice guard
+							getitem(5055,1); //novice eggshell
+							getitem(2414,1); //novice boots
+							getitem(2510,1); //novice hood
+							
+							getitem(12324,5); //novice bwing
+							getitem(12323,50); //novice fwing
+							getitem(569,400); //novice potions
+									set First_Job_Class_Trial,Job_Merchant;
+									close;
+								case 7:
+									mes "[Mission Coordinator Lime]";
+									mes "I see... well, I am sorry, but we only offer this for those who choose to be one of the 6 primary classes.";
+									set First_Job_Class_Trial,-1;
+									close;
 							}
 						}
 						
@@ -738,20 +789,19 @@ moc_para01,105,92,5	script	Reward King Michael#EZ	967,{
 			close;	
 		case 2:
 			mes "[Mission Reward King Michael]";
-			mes "Ah, let me explain, there are three shops as you can see, the Karma Gears, Light Consumables, and Paradise Gears";
+			mes "Ah, let me explain, two of these shops belong to us you can see, the Karma Gears and Paradise Gears. The rest belong to the Kafra Corp. Speak to their rep to see what those are about.";
 			next;
 			
 			mes "[Mission Reward King Michael]";
 			mes "Paradise gears are those which are intended to give new adventurers an advantage in levelling in exchange for completing missions on behalf of the Mission Zone.";
 			next; 
-			mes "They are very cheap but provide some decent benefits. They cannot be upgraded or refined but they remain permanently attached to you and will not expire.. unless you sell them to an NPC, of course";
+			mes "[Mission Reward King Michael]";
+			mes "They are very cheap but provide some decent benefits. They cannot be upgraded or refined but they remain permanently attached to you and will not expire.. unless you sell them to an NPC, of course.";
 			next;
 			mes "[Mission Reward King Michael]";
-			mes "Light consumable boxes allow you to carry large quantities of potions specially crafted in the cutting edge laboratories of Lighthalzen alchemists. You will be able to carry larger numbers of these exciting example of new healing technologies without feeling even a slight burden.";
+			mes "Karma Gears provide an added bonus to veteran adventurers. They are more costly and are available for you you to do as you please, you could even sell them to others if you'd like. When put in the hands of the right person, they provide a powerful boost in battling monsters.";
 			next;
-			mes "[Mission Reward King Michael]";
-			mes "Karma gears provide an added bonus to veteran adventurers. They are more costly and are available for you you to do as you please, you could even sell them to others if you'd like. When put in the hands of the right person, they provide a powerful boost in battling monsters.";
-			next;
+
 			mes "[Mission Reward King Michael]";
 			mes "That wraps up about everything there is to know about these items. If you'd like to learn about them individually, check the shop and right click the items.";
 			close;	
@@ -765,10 +815,49 @@ moc_para01,105,92,5	script	Reward King Michael#EZ	967,{
 	}
 	
 }
+
+// 2790/2788/2789/2787
+moc_para01,110,95,4	varshop(MD_mission_points)	Karma Gears#mz	966,1578:100,1744:100,13419:100,1283:100,1547:100,1828:100,1982:100,1427:100,1642:100,2348:250,2358:250,2350:250,2399:150,2344:250,2385:400,2346:250,2384:1500,2441:1000,2439:600,2546:1100,2553:150,2548:1500,2561:200,2511:350,2543:350,2741:300,2688:500,2763:1500:2695:350,2693:350,2689:350,2692:350,2691:350,2690:350,2694:350,2711:350,2790:500,2788:500,2789:500,2787:500,2695:500,2760:150,2753:150,2756:150,2755:150,2759:150,2762:150,2758:150,2754:150,2757:150,2761:150
+moc_para01,110,92,4	varshop(MD_mission_points)	Paradise Gears#mz	966,2456:1,2457:5,2458:8,2473:10,5583:5,18514:10,2560:5,2571:15,15009:5,15010:10,15011:15,1583:20,1747:5,1748:10,18106:15,13050:5,13051:10,13066:15,1931:10,1289:10,1831:10,16004:5,16005:10,16014:15,13112:5,13113:10,13114:15,13423:5,13424:10,13434:15,1192:5,1193:10,1197:15,1434:10,1650:5,1651:10,1658:15,1986:10
+
+
+moc_para01,108,80,2	script	Kafra Corp. Rep#mz	114,{
+	set .@n$, "[Kafra Corp. Rep]";
 	
-moc_para01,110,95,4	varshop(MD_mission_points)	Karma Gears#mz	966,1578:100,1744:100,13419:100,1283:100,1547:100,1828:100,1982:100,1427:100,1642:100,2348:250,2358:250,2350:250,2344:250,2385:400,2346:250,2384:4000,2441:1500,2439:1000,2546:2000,2548:2500,2511:350,2543:350,2741:300,2688:500,2763:3000:2695:500,2693:500,2689:500,2692:800,2691:500,2690:500,2694:500,2711:800,2760:150,2753:150,2756:150,2755:150,2759:150,2762:150,2758:150,2754:150,2757:150,2761:150
-moc_para01,110,89,4	varshop(MD_mission_points)	Light Consumables#mz	966,13535:15,13536:20,13537:25,13531:3,13532:5,13533:15,13534:25
-moc_para01,110,82,4	varshop(MD_mission_points)	Paradise Gears#mz	966,2456:1,2457:5,2458:8,2473:10,5583:5,18514:10,2560:5,2571:15,15009:5,15010:10,15011:15,1583:20,1747:5,1748:10,18106:15,13050:5,13051:10,13066:15,1931:10,1289:10,1831:10,16004:5,16005:10,16014:15,13112:5,13113:10,13114:15,13423:5,13424:10,13434:15,1192:5,1193:10,1197:15,1434:10,1650:5,1651:10,1658:15,1986:10
+	mes .@n$;
+	mes "Hello, I'm from the Kafra Corp. We offer our goods to adventurers who bring us Kafra Points. What would you like?";
+	
+	next;
+	set .@s, select("What are Kafra Points?:What are these shops?:Nothing, thanks");
+	switch (.@s)
+	{
+		case 1:
+			mes .@n$;
+			mes "Kafra Points are special currency obtained from killing mobs, completing quests, and participating in Battlegrounds.";
+			next;
+			mes .@n$;
+			mes "You may use these in the shops below to obtain bonus items not otherwise found in Rune-Midgard.";
+			close;
+		case 2:
+			mes .@n$;
+			mes "Kafra Shop Items are our main attraction, these are utility items containing things like lightweight potions and buffing scrolls. Also inclued are some utility items, such as Gym Passes and Token of Siegfried. View the shop to see what the items do.";
+			next;
+			mes .@n$;
+			mes "Enchantment Stones are items that go into Hidden Slots of Armor items. Be warned, once the Enchantment is placed, it can never be overridden or dislodged. You may still extract any card placed in the armor, but the Enchantment is permanent."; 
+			next;
+			mes .@n$;
+			mes "Pet Taming items are items used for capturing certain mobs. These mobs can be used as cute pets, and rumor has it they provide the owner benefits if they like you enough...";
+		case 3:
+			close;
+	}
+
+}
+
+moc_para01,105,75,2	varshop(##KAFRAPOINTS)	Enchantment Stones#mz	113,4700:300,4710:300,4720:300,4730:300,4740:300,4750:300,4701:1000,4711:1000,4721:1000,4731:1000,4741:1000,4751:1000,4702:3000,4712:3000,4722:3000,4732:3000,4742:3000,4752:3000,4760:500,4761:1500,4766:500,4767:1500,4762:200,4763:500,4764:400,4765:700,4795:100,4796:200,4797:300,4798:500,4799:700,4800:200,4801:350,4802:500
+moc_para01,108,75,2	varshop(##KAFRAPOINTS)	Kafra Shop Items#mz	116,13531:1,13532:2,13533:3,13534:5,13810:15,13762:140,13826:10,13827:10,12913:35,12914:35,13912:75,13913:75,13995:35,13714:65,13718:65,13749:45,13749:45,13809:45,14004:50,13989:50,13761:75,13759:60,13760:30,8918:30,8919:30,8960:75,12922:100,13710:1500
+moc_para01,111,75,2	varshop(##KAFRAPOINTS)	Pet Taming#mz	115,12358:250,12359:250,12360:250,12361:250,12362:250,12363:250,12364:250,12365:250,12366:250,12367:250,12368:250,12369:250,12370:250,12371:250,12372:250,12373:250
+
+
 // Mission Board
 
 moc_para01,38,37,4	script	Mission Board#mz	857,{
@@ -785,27 +874,18 @@ moc_para01,16,22,7	script	Old Adventurer#eden	900,{
 	close;
 }
 
-
-// --------------------------------------------------------------
-// -                  Jobs Tutor                                -
-// --------------------------------------------------------------
-//      Describes where to change classes
-//	Describes different classes
-// --------------------------------------------------------------
-//      Flavor Text NPC - Jobs Tutor
-//	- Provides flavor text on how to change classes and what
-//	the different classes are
-//	Script by Nick per mrj's request
-//	v1.0
+// Flavor Text NPC - Jobs Tutor
+// Provides flavor text on how to change classes and what the different classes are
+// Script by Nick per mrj's request
+// v1.0
 //
-
 moc_para01,38,14,5	script	Jobs Tutor#mzone	57,{
 	set .npcname$,"[Jobs Tutor]";
 	mes .npcname$;
 	mes "Are you looking for how to change your class?";
 	mes "Luckily, I, the Jobs Tutor, can help you!";
 	next;
-	switch(select("Where can I change my class?:What are the different classes?:Have you heard of Platinum Skills?:Nevermind"))
+	switch(select("Where can I change my class?:What are the different classes?:Nevermind"))
 	{
 	case 1:
 		mes .npcname$;
@@ -896,77 +976,871 @@ moc_para01,38,14,5	script	Jobs Tutor#mzone	57,{
 		}
 	case 3:
 		mes .npcname$;
-		mes "I have license from the different Job guilds";
-		mes "throughout this world to grant you your special";
-		mes "skills which are available to your class.";
-		mes "Would you like these skills now?";
-		next;
-		if (select("Yes Please:No") == 2) {
-			mes .npcname$;
-			mes "Have a nice day, anyway!";
-			close;
-		}
-		if (BaseClass == Job_Swordman) {
-			skill 144,1,0; // Moving HP-Recovery
-			skill 145,1,0; // Fatal Blow
-			skill 146,1,0; // Auto Berserk
-		} else if (BaseClass == Job_Mage) {
-			skill 157,1,0; // Energy Coat
-		} else if (BaseClass == Job_Archer) {
-			skill 147,1,0; // Arrow Crafting
-			skill 148,1,0; // Arrow Repel
-		} else if (BaseClass == Job_Merchant) {
-			skill 153,1,0; // Cart Revolution
-			skill 154,1,0; // Change Cart
-			skill 155,1,0; // Crazy Uproar
-		} else if (BaseClass == Job_Thief) {
-			skill 149,1,0; // Sand Attack
-			skill 150,1,0; // Back Slide
-			skill 151,1,0; // Find Stone
-			skill 152,1,0; // Stone Fling
-		} else if (BaseClass == Job_Acolyte) {
-			skill 156,1,0; // Holy Light
-		}
-		if (Class == Job_Knight) {
-			skill 1001,1,0; // Charge Attack
-		} else if (Class == Job_Crusader) {
-			skill 1002,1,0; // Shrink
-		} else if (Class == Job_Wizard) {
-			skill 1006,1,0; // Sight Blaster
-		} else if (Class == Job_Sage) {
-			skill 1007,1,0; // Create Elemental Converter
-			skill 1008,1,0; // Elemental Change Water
-			skill 1017,1,0; // Elemental Change Earth
-			skill 1018,1,0; // Elemental Change Fire
-			skill 1019,1,0; // Elemental Change Wind
-		} else if (Class == Job_Hunter) {
-			skill 1009,1,0; // Phantasmic Arrow
-		} else if (Class == Job_Bard) {
-			skill 1010,1,0; // Pang Voice
-		} else if (Class == Job_Dancer) {
-			skill 1011,1,0; // Wink of Charm
-		} else if (Class == Job_Blacksmith) {
-			skill 1012,1,0; // Unfair Trick
-			skill 1013,1,0; // Greed
-		} else if (Class == Job_Alchemist) {
-			skill 238,1,0; // Bioethics
-		} else if (Class == Job_Assassin) {
-			skill 1003,1,0; // Sonic Acceleration
-			skill 1004,1,0; // Throw Venom Knife
-		} else if (Class == Job_Rogue) {
-			skill 1005,1,0; // Close Confine
-		} else if (Class == Job_Priest) {
-			skill 1014,1,0; // Redemptio
-		} else if (Class == Job_Monk) {
-			skill 1015,1,0; // Ki Translation
-			skill 1016,1,0; // Ki Explosion
-		}
-		mes .npcname$;
-		mes "There you go!";
-		close;
-	case 4:
-		mes .npcname$;
 		mes "Well, come back to me anytime you're curious.";
 		close;
 	}
 }
+
+moc_para01,165,47,3	script	Dr. Hatterson#parahat	804,{
+
+	if (getarraysize(.hats) < 1)
+		callsub LoadHats;
+		
+		
+	set .@n$,"[Dr. Hatterson]";
+	
+	mes .@n$;
+	mes "Hello, I'm Dr. Hatterson, PhD in Fashion, an expert on headgear trends around the world!"; 
+	next;
+	mes .@n$;
+	mes "I've spent many years researching the wearing of hats and how their style affects how people look at you and how you feel about yourself!";
+	next;
+	mes .@n$;
+	mes "A PhD in Fashion specializing in hats might sound silly to you, but my brother has a PhD in basket weaving underwater.";
+	next;
+	mes .@n$;
+	mes "With my research, I can make just about any hat out there, but I prefer to leave the more basic hat manufacturing to the proles! In fact, I craft only special hats!";
+	next;
+	mes .@n$;
+	mes "Take a look at my catalog and let me know if you see anything you like.";
+	
+L_hatmenu:
+	set .@menustr$, "Nothing right now, thanks.";
+	
+	for (set .@i, 0; .@i < getarraysize(.hats); set .@i, .@i + 1)
+	{
+		set .@name$, getitemname(.hats[.@i]) + (getitemslots(.hats[.@i])?"["+getitemslots(.hats[.@i])+"]":"");
+		set .@menustr$, .@menustr$ + ":" + .@name$;
+	}
+	
+	next;
+	set .@s, select(.@menustr$)-2;
+	
+	if (.@s == -1)
+	{
+		mes .@n$;
+		mes "Ah, okay, then.";
+		close;
+	}
+	else
+	{
+		mes "<"+getitemname(.hats[.@s])+">";
+		
+		if (.kafra_r[.@s])
+			mes "Kafra Points: " + .kafra_r[.@s];
+		if (.cash_r[.@s])
+			mes "Cash Points: " + .cash_r[.@s];
+		if (.mission_r[.@s])
+			mes "Mission Points: " + .mission_r[.@s];
+		if (.zeny_r[.@s])
+			mes "Zeny: " + .zeny_r[.@s];
+		if (.badge_r[.@s])
+			mes "Badges: " + .badge_r[.@s];
+			
+		if (.items_r[.@s])
+		{
+			
+			set .@item_amt, getarraysize(getd(".hat_"+.hats[.@s]+"_id"));
+			for (set .@i, 0; .@i < .@item_amt; set .@i, .@i + 1)
+			{
+				set .@ingredient_amount, getd(".hat_"+.hats[.@s]+"_amt["+.@i+"]");
+				set .@ingredient_id, getd(".hat_"+.hats[.@s]+"_id["+.@i+"]");
+				set .@slots$, getitemslots(.@ingredient_id)?"["+getitemslots(.@ingredient_id)+"]":""; 
+				mes " - " + .@ingredient_amount + " ^7F2F2F" + getitemname(.@ingredient_id) + " " + .@slots$ + "^000000";
+			}
+		}
+		
+		switch (select("Create " + getitemname(.hats[.@s]) +":Return the main menu:I'm done looking"))
+		{
+			case 1:
+				
+				// check requirements
+				next;
+				set .@good, 1;
+				if (.kafra_r[.@s] && ##KAFRAPOINTS < .kafra_r[.@s])
+				{
+					set .@good, 0;
+					mes "Not enough Kafra Points";
+				}
+				if (.cash_r[.@s] && ##CASHPOINTS < .cash_r[.@s])
+				{
+					set .@good, 0;
+					mes "Not enough Cash Points";
+				}
+				if (.mission_r[.@s] && MD_mission_pts < .mission_r[.@s])
+				{
+					set .@good, 0;
+					mes "Not enough Mission Points";
+				}
+				if (.zeny_r[.@s] && Zeny < .zeny_r[.@s])
+				{
+					set .@good, 0;
+					mes "Not enough Zeny";
+				}
+				if (.badge_r[.@s] && countitem(7773) < .badge_r[.@s])
+				{
+					set .@good, 0;
+					mes "Not enough BG Badges";
+				}
+				if (.items_r[.@s])
+				{
+					
+					set .@item_amt, getarraysize(getd(".hat_"+.hats[.@s]+"_id"));
+					for (set .@i, 0; .@i < .@item_amt; set .@i, .@i + 1)
+					{
+						set .@ingredient_amount, getd(".hat_"+.hats[.@s]+"_amt["+.@i+"]");
+						set .@ingredient_id, getd(".hat_"+.hats[.@s]+"_id["+.@i+"]");
+						set .@slots$, getitemslots(.@ingredient_id)?"["+getitemslots(.@ingredient_id)+"]":""; 
+						
+						if ( countitem(.@ingredient_id) < .@ingredient_amount)
+						{
+							set .@good, 0;
+							mes "Not enough ^7F2F2F" + getitemname(.@ingredient_id) + " " + .@slots$ + "^000000";
+						}
+					}
+				}
+				
+				if (.@good == 1)
+				{
+					if (.kafra_r[.@s])
+						paypoints(.kafra_r[.@s]);
+					if (.cash_r[.@s])
+						paycash(.cash_r[.@s]);
+					if (.mission_r[.@s])
+						set MD_mission_pts, MD_mission_pts - .mission_r[.@s];
+					if (.zeny_r[.@s])
+						set Zeny, Zeny - .zeny_r[.@s];
+					if (.badge_r[.@s])
+						delitem(7773, .badge_r[.@s]);
+					
+					if (.items_r[.@s])
+					{
+					
+						set .@item_amt, getarraysize(getd(".hat_"+.hats[.@s]+"_id"));
+						for (set .@i, 0; .@i < .@item_amt; set .@i, .@i + 1)
+						{
+							set .@ingredient_amount, getd(".hat_"+.hats[.@s]+"_amt["+.@i+"]");
+							set .@ingredient_id, getd(".hat_"+.hats[.@s]+"_id["+.@i+"]");
+							
+							delitem(.@ingredient_id, .@ingredient_amount);
+						}
+					}
+					
+					getitem(.hats[.@s],1);
+					announce(strcharinfo(0) + " has created a [" + getitemname(.hats[.@s]) + "]!", bc_all|bc_blue);
+					next;
+					mes .@n$;
+					mes "It's beautiful, isn't it?! Go out and show the world your assets!";
+					close;
+				}
+				else
+				{
+					next;
+					mes .@n$;
+					mes "I'm sorry... you do not seem to meet all of the requirements.";
+					close;
+				}
+				
+				
+				
+			case 2:
+				mes "";
+				goto L_hatmenu;
+				end;
+			case 3:
+				close;
+		}
+		
+		
+	}
+	
+	
+	end;
+	
+	
+	
+	OnInit:
+	LoadHats:
+	
+	function add_hat;
+	
+	set .@i, 0;
+	add_hat(.@i,5258,30,0,0,0,0,978,1,975,1,976,1,1020,111);set .@i, .@i + 1; 								// Afro Wig
+	add_hat(.@i,5137,100,0,0,0,0,2338,1,5141,1,7047,50,661,3);set .@i, .@i + 1; 							// Alice Doll
+	add_hat(.@i,5389,50,0,0,0,0,5074,1,999,50);set .@i, .@i + 1; 											// Angel Spirit
+	add_hat(.@i,5153,20,0,0,0,0,5132,1,2607,1);set .@i, .@i + 1; 											// Angeling Hairpin
+	add_hat(.@i,5132,20,0,0,0,0,2254,1,5035,1,5172,1);set .@i, .@i + 1; 									// Angeling Hat
+	add_hat(.@i,5521,10,0,0,0,0,7266,10,7117,10);set .@i, .@i + 1; 											// Angry Mouth
+	add_hat(.@i,5490,50,0,0,0,0,1625,1,1060,60,1045,30,7166,5);set .@i, .@i + 1; 							// Anubis Hat
+	add_hat(.@i,5685,10,0,0,100000,0,938,100,2226,1);set .@i, .@i + 1; 										// Army Cap
+	add_hat(.@i,5404,20,0,0,0,0,2209,1,978,5,12029,20);set .@i, .@i + 1; 									// Blue Ribbon
+	add_hat(.@i,5800,300,0,0,0,0,7047,100,5040,1);set .@i, .@i + 1; 								 		// Blush of Groom
+	add_hat(.@i,5308,20,0,0,0,0,7267,9,7120,7,7171,18,917,22,2226,1);set .@i, .@i + 1;						// Brazil Sports Hat
+	add_hat(.@i,5560,50,0,0,0,0,7754,1,7327,5,5017,1,999,30);set .@i, .@i + 1; 								// Bullock Helm
+	add_hat(.@i,5378,10,0,0,0,0,2214,1,5032,1);set .@i, .@i + 1; 											// Bunny Top Hat
+	add_hat(.@i,5445,10,0,0,0,0,578,100,7111,10);set .@i, .@i + 1; 											// Candy Cane in Mouth
+	add_hat(.@i,5304,15,0,0,0,0,2501,1,983,1,7511,50);set .@i, .@i + 1; 									// Cap of Blindness
+	add_hat(.@i,5283,10,0,0,0,0,7115,40,7116,30,916,15);set .@i, .@i + 1;									// Chick Hat
+	add_hat(.@i,5564,100,0,0,0,0,2235,1,7101,35,723,20,718,55);set .@i, .@i + 1;							// Crown of Deceit
+	add_hat(.@i,5135,50,0,0,0,0,969,1,7043,55,612,1);set .@i, .@i + 1; 										// Cyclops Visor
+	add_hat(.@i,5373,50,0,0,0,0,7150,10,2255,1,7511,666);set .@i, .@i + 1; 									// Dark Rand Helm
+	add_hat(.@i,5455,25,0,0,0,0,1032,433,2221,1,7141,5,608,4);set .@i, .@i + 1; 							// Decorative Geographer
+	add_hat(.@i,5211,10,0,0,0,0,7063,10,2252,1,5126,1);set .@i, .@i + 1; 									// Dress Hat
+	add_hat(.@i,5421,300,0,0,0,0,7098,100,994,50,2286,1);set .@i, .@i + 1; 									// Ears of Ifrit
+	add_hat(.@i,5282,25,0,0,0,0,978,1,2221,1);set .@i, .@i + 1; 											// Europe Baseball Cap
+	add_hat(.@i,5276,10,0,0,0,0,978,4,975,4,976,4,1020,444);set .@i, .@i + 1; 								// Fantastic Wig
+	add_hat(.@i,5155,1000,0,0,0,0,2241,1,7140,5,6113,1);set .@i, .@i + 1;								 	// Father's Moustache
+	add_hat(.@i,5170,50,0,0,0,0,7063,50,5172,1);set .@i, .@i + 1; 											// Feather Beret
+	add_hat(.@i,5405,30,0,0,0,0,7441,88,5076,1);set .@i, .@i + 1;								 			// Filir Hat
+	add_hat(.@i,5403,30,0,0,0,0,1023,100,579,50,7111,10);set .@i, .@i + 1;								 	// Fish in Mouth
+	add_hat(.@i,5210,30,0,0,0,0,2254,1,7063,15);set .@i, .@i + 1; 											// Flapping Angel Wing
+	add_hat(.@i,5376,100,0,0,0,0,2255,1,5210,1,1039,666);set .@i, .@i + 1; 									// Flying Evil Wing
+	add_hat(.@i,5377,1000,0,0,0,0,2268,1,7315,10);set .@i, .@i + 1;								 			// Gentleman's Pipe
+	add_hat(.@i,5363,50,0,0,0,0,5685,1,983,5,1064,405);set .@i, .@i + 1; 									// Helm of Abyss
+	add_hat(.@i,5314,100,0,0,0,0,999,100,7095,50);set .@i, .@i + 1; 										// Hockey Mask
+	add_hat(.@i,5367,70,0,0,0,0,2264,1,5046,1,609,100);set .@i, .@i + 1; 									// Hyegun Hat
+	add_hat(.@i,5423,100,0,0,0,0,2285,1,5132,1,7063,20);set .@i, .@i + 1; 									// ILOVECHINA
+	add_hat(.@i,5372,100,0,0,0,0,7206,50,6020,10,7263,2,5058,1,982,5);set .@i, .@i + 1; 					// Koneko Hat
+	add_hat(.@i,5518,100,0,0,0,0,5374,1,5170,1);set .@i, .@i + 1;											// Large Bapho Horn
+	add_hat(.@i,5555,10,0,0,0,0,7298,88,717,1,716,1,6020,60);set .@i, .@i + 1; 								// Leaf Cat Hat
+	add_hat(.@i,5324,50,0,0,0,0,2254,1,7268,777,523,77);set .@i, .@i + 1; 									// Little Angel Doll
+	add_hat(.@i,5420,50,0,0,0,0,994,66,7101,55,7122,44);set .@i, .@i + 1;								 	// Mask of Ifrit
+	add_hat(.@i,5214,10,0,0,0,0,1022,500,1234,1);set .@i, .@i + 1; 											// Moonlight Flower Hat
+	add_hat(.@i,5387,10,0,0,0,0,2210,1,5057,1);set .@i, .@i + 1;											// Nekomimi Kafra Band
+	add_hat(.@i,5151,10,0,0,0,0,5001,1,7574,5,7095,5);set .@i, .@i + 1; 									// Note Headphones
+	add_hat(.@i,5554,10,0,0,0,0,1024,144,962,144,610,8);set .@i, .@i + 1; 									// Octopus Hat
+	add_hat(.@i,5483,50,0,0,0,0,999,50,7511,50);set .@i, .@i + 1; 											// Odin's Mask
+	add_hat(.@i,5225,200,0,0,0,0,1098,50,7063,50);set .@i, .@i + 1;											// Parade Hat
+	add_hat(.@i,5358,25,0,0,0,0,7101,50,2286,1);set .@i, .@i + 1; 											// Peco Ears
+	add_hat(.@i,5520,50,0,0,0,0,5001,1,6020,77,5085,1);set .@i, .@i + 1; 									// Rabbit Earplugs
+	add_hat(.@i,5463,1000,0,0,0,0,7216,1,983,1,978,1,979,1,976,1,980,1,975,1,981,1,982,1);set .@i, .@i + 1; // Rainbow Scarf
+	add_hat(.@i,5293,10,0,0,0,0,12057,5,12395,1,735,1,12095,1);set .@i, .@i + 1; 							// Ramen Hat
+	add_hat(.@i,5288,50,0,0,0,0,2203,1,975,5);set .@i, .@i + 1; 											// Red Glasses
+	add_hat(.@i,5208,30,0,0,0,0,7015,50,7449,10,1553,1,1554,1,1555,1,1556,1);set .@i, .@i + 1; 				// Rideword Hat
+	add_hat(.@i,5325,300,0,0,0,0,2296,1,7095,5,999,100);set .@i, .@i + 1; 									// Robo Eyes
+	add_hat(.@i,5359,300,0,0,0,0,5019,1,975,1,1764,500);set .@i, .@i + 1; 									// Ship Captain's Hat
+	add_hat(.@i,5203,50,0,0,0,0,2278,1,1015,5);set .@i, .@i + 1; 											// Smiling Tongue Mask
+	add_hat(.@i,5462,1000,0,0,0,0,7216,1,7215,50,952,50);set .@i, .@i + 1; 									// Spiked Scarf
+	add_hat(.@i,2202,300,0,0,0,0,730,100,2201,2);set .@i, .@i + 1;											// Sunglasses [1]
+	add_hat(.@i,5256,10,0,0,0,0,7510,1,2210,1);set .@i, .@i + 1; 											// Valk Feather Band
+	add_hat(.@i,5289,25,0,0,0,0,7004,50,687,10,691,10,689,10,693,10);set .@i, .@i + 1;						// Vanil Hat
+	add_hat(.@i,5574,1000,0,0,0,0,7222,222,1201,1,1003,50);set .@i, .@i + 1; 								// Well Chewed Pencil
+	add_hat(.@i,5277,100,0,0,0,0,976,2,2211,1,2289,1);set .@i, .@i + 1; 									// Yellow Bandana
+	
+	//hatid,kpointreq,cpointreq,mpointreq,zenyreq,badgereq,itemid1,itemamt1,...itemidn,itemamtn
+	function add_hat {
+	
+		set .@hat_index, getarg(0);
+		set .@hat_id, getarg(1);
+		set .@kp_req, getarg(2);
+		set .@cp_req, getarg(3);
+		set .@mp_req, getarg(4);
+		set .@z_req , getarg(5);
+		set .@bb_req, getarg(6);
+		set .@args  , getargcount();
+		set .@item_req, (.@args-7) / 2;
+		
+		
+		set .hats[.@hat_index]     , .@hat_id;
+		set .kafra_r[.@hat_index]  , .@kp_req;
+		set .cash_r[.@hat_index]   , .@cp_req;
+		set .mission_r[.@hat_index], .@mp_req;
+		set .zeny_r[.@hat_index]   , .@z_req;
+		set .badge_r[.@hat_index]  , .@bb_req;
+		set .items_r[.@hat_index]  , .@item_req;
+		
+		
+		if (.@item_req > 0)
+		{
+			set .@base, 7;
+			
+			set .@i, 0;
+			for (set .@n, 0; .@n < .@item_req; set .@n, .@n + 1)
+			{
+				setd(".hat_"+.@hat_id+"_id["+.@n+"]", getarg(.@base+.@i));
+				setd(".hat_"+.@hat_id+"_amt["+.@n+"]", getarg(.@base+.@i+1));
+				set .@i, .@i+2;
+			}
+		
+		}
+		
+		
+	}
+	
+}
+
+moc_para01,167,52,4	script	Well-Versed Man#rwchat	947,{
+
+	set .@n$, "[Well-Versed Man]";
+	mes .@n$;
+	mes "Hail, Traveller!";
+	
+	if (BaseLevel < 99)
+	{
+		next;
+		mes .@n$;
+		mes "Oh, inexperienced one. Come to me at your max level, your strongest state, and I will be happy to provide you with challenge for the strongest warriors. Oh, and do bring friends for help, you will not be able to go anywhere without them.";
+		close;
+	}
+	if (BaseLevel == 99 && RWC_WORTHY == 0)
+	{
+		next;
+		mes .@n$;
+		mes "I'm a man of many connections. I've witnessed events in faraway lands. You may not think much of me, but I am a .. Transcendent Being, if you will."; 
+
+		next;
+		mes .@n$;
+		mes "But enough about me, I know more than this Hatterson, he speaks only of helmets of Rune-Midgard, Arunafelz, Niflheim, Jotunheim, and Schwarzvald.";
+
+		next;
+		mes .@n$;
+		mes "I know of glorious helmets created for adventurers from an alternate realm, found past the Fourth Wall.";
+		
+		next;
+		mes .@n$;
+		mes "However, these items are no small task for creation.. I will require proof of excellence in order to entrust my knowledge to you... do you think yourself worthy?";
+
+		next;
+		if ( select("What do I need to prove myself?:I think *your*self crazy, bye.")==2)
+		{	
+			mes .@n$;
+			mes "Suit yourself. You'll never obtain ultimate power if you do not search for it.";
+			
+			close;
+		}
+		
+		mes .@n$;
+		mes "Ah, good, so you accept my challenge? Very well then. I need proof that you are strong enough to withstand the power of these items, even in their weakest forms...";
+		
+		next;
+		mes .@n$;
+		mes "Complete these missions before I consider you worthy:";
+		
+		setarray .@mission$[0], "Demons of the Cursed Abbey", "Shadows of Dimensional Gorge", "Deadly Experiments from Somatology Laboratory", "Sleep Under Thor Volcano, Red-Grey Beasts!", "Beyond the Gates of Thanatos Tower";
+		
+		for (set .@i, 0; .@i < getarraysize(.@mission$); set .@i, .@i + 1)
+			mes " "+(.@i+1)+") "+.@mission$[.@i];
+		
+		
+		next;
+		mes .@n$;
+		mes "Only upon completing these missions can I truly tell if you're a worthy being. ";
+		set RWC_WORTHY, 1;
+		
+	}
+	if (RWC_WORTHY == 1)
+	{
+		next;
+		mes .@n$;
+		mes "Allow me to check your progress...";
+		
+		next;
+		setarray .@mission_name$[0], "Demons of the Cursed Abbey", "Shadows of Dimensional Gorge", "Deadly Experiments from Somatology Laboratory", "Sleep Under Thor Volcano, Red-Grey Beasts!", "Beyond the Gates of Thanatos Tower";
+		setarray .@mission_id[0], 70, 77, 74, 73, 80;
+		
+		mes .@n$;
+		set .@completed, 0;
+		for (set .@i, 0; .@i < getarraysize(.@mission_name$); set .@i, .@i+1)
+		{
+			set .@complete_time, getd("MD_"+.@mission_id[.@i]+"_time");
+			if ( .@complete_time < 10000)
+				mes "^006F00"+.@mission_name$[.@i] + "^000000 is not done yet...";
+			else
+				set .@completed, .@completed + 1;
+		}
+		
+		if (.@completed < 5)
+		{	
+			next;
+			mes .@n$;
+			mes "You have just a few more to go. I believe in you!";
+			close;
+		}
+		else
+		{
+			mes "ALL DONE!";
+			set RWC_WORTHY, 2;
+		}
+		
+	}
+	if (RWC_WORTHY == 2)
+	{
+		next;
+		mes .@n$;
+		mes "Well done! You've gone through a lot in your day, haven't you? I do not doubt your abilities one bit. You and your friends are quite the adventurers, and quite powerful warriors...";
+		
+		next;
+		mes .@n$;
+		mes "With this item, who knows what kind of havoc you could wreak. Oh dear, it flusters me so much to think of it!";
+		
+		next;
+		mes .@n$;
+		mes "Sorry, right then. I assume you'd like to know what you need to do?";
+		
+		next;
+		mes .@n$;
+		mes "First, allow me to explain. This helmet will increase your damage against Humans, add at least 1 to every stat, and also increase your speed of attack.";
+		
+		next;
+		mes .@n$;
+		mes "There is a catch, though.. it must be crafted in three parts. First, as a Copper version. Then, we temper it into a Silver version. With just a bit more work, then you'll have the complete helmet... the RWC Gold Helm. Oh, it's quite a majesty to behold.";
+		
+		next;
+		mes .@n$;
+		mes "You have to do this for a price, of course! I'm not going to just hand it out to you for free because you're powerful. Nope, I'd like to turn some profit, and I need materials from some of the strongest monsters from this realm. Can you handle it?";
+		
+		if ( select("I'm ready:Um, nope") == 2)
+		{
+			next;
+			mes .@n$;
+			mes "Oh my, how unfortunate. A worthy being with no aspirations.... It's quite tragic to see. All that power and intellect, but no desire to use it. Sad to see it wasted.";
+			close;
+		}	
+		set RWC_WORTHY, 3;
+	
+	}
+	
+	if (RWC_WORTHY == 3)
+	{
+		next;
+		mes .@n$;
+		mes "You can handle it. Good, good. What would you like to do?";
+		
+		next;
+		set .@s, select("Craft Copper Helm:Convert Copper to Silver:Convert Silver to Gold:Nothing");
+			
+		switch (.@s)
+		{
+			case 1:
+			case 2:
+			case 3:
+				mes .@n$;
+				mes "Allow me to show you what I require. And remember, I need materials gathered from some powerful monsters, but that should be no problem for you, right?";
+				if (.@s > 1)
+					mes "Please also don't forget, you'll lose whatever cards and refines the hat may have by now. So be sure to deslot it first.";
+				
+				next;
+				set .@reward, 0;
+				set .@cost, 0;
+				set .@stats, 0;
+				set .@aspd, 0;
+				set .@dmg, 0;
+				set .@item_count, 100;
+				deletearray .@ingredients[0], .@item_count;
+				deletearray .@amounts[0], .@item_count;
+				
+				if (.@s == 1) // copper
+				{
+					set .@reward, 5453;
+					set .@cost, 500;
+					set .@stats, 2;
+					set .@aspd, 5;
+					set .@dmg, 1;
+					setarray .@ingredients[0], 5025, 1559, 5007, 2256, 7451, 7345, 1035, 1036, 1037, 7123, 7265, 7266, 7297, 7289, 714;
+					setarray .@amounts[0],        1,    1,    1,    1,    1,   30,  100,  100,  100,  100,  100,  100,   10,    5,   5;
+				}
+				else if (.@s == 2) // silver
+				{
+					set .@reward, 5452;
+					set .@cost, 1000;
+					set .@stats, 2;
+					set .@aspd, 7;
+					set .@dmg, 3;
+					setarray .@ingredients[0], 5453, 7211, 7108, 7450, 999, 985, 7510, 7294, 7296, 7292;
+					setarray .@amounts[0],        1,    1,    1,    1, 100,  30,   10,    3,    5,   10;
+				}
+				else if (.@s == 3) // gold
+				{
+					set .@reward, 5451;
+					set .@cost, 1500;
+					set .@stats, 3;
+					set .@aspd, 10;
+					set .@dmg, 5;
+					setarray .@ingredients[0], 5452, 7566, 7562, 7024, 7754, 1181, 7563, 969, 714, 7290, 7291, 7295, 7293;
+					setarray .@amounts[0],        1,    1,    1,    1,    1,    1,  500,  10,   5,    10,   3,    5,    3;
+				}
+				set .@item_count, getarraysize(.@ingredients);
+				set .@desc$, "AllStats+" + .@stats + ", ASPD+" + .@aspd + "%, Human Dmg +" + .@dmg + "%";
+				mes "^2F0000"+getitemname(.@reward)+"^000000";
+				mes .@desc$;
+				mes ##KAFRAPOINTS + " / " +.@cost + " Kafra Points";
+				set .@gather_completion, 0;
+				for (set .@i, 0; .@i < .@item_count; set .@i, .@i+1)
+				{
+					mes countitem(.@ingredients[.@i]) + "/" + .@amounts[.@i] + " " + getitemname(.@ingredients[.@i]);
+					if (countitem(.@ingredients[.@i]) >= .@amounts[.@i])
+						set .@gather_completion, .@gather_completion + 1;
+				}
+				if( select("Submit Items for Creation:I'll bring them to you when I can, I promise!") == 2)
+				{
+					next;
+					mes .@n$;
+					mes "It's good to see you with such determination! Fight on, Warrior!";
+					close;
+				}
+				
+				next;
+				mes .@n$;
+				mes "Okay. Then, let's see if you've got everything.";
+				
+				set .@good, 1;
+				if (.@gather_completion == .@item_count) 
+					mes "You've got every item needed... ";
+				else
+				{
+					set .@good, 0;
+					mes "Oh, you're still missing some items.";
+				}
+					
+				if (##KAFRAPOINTS >= .@cost)
+					mes "You can afford my troll toll to get into this monster's soul.";
+				else
+				{
+					mes "You need more Kafra Points.";
+					set .@good, 0;
+				}
+					
+				if (.@good == 0)
+				{
+					mes "Come back when you have everything, yes?";
+					close;
+				}
+				
+				next;
+				mes .@n$;
+				// now we give the hat
+				mes "Oh.. oh, this is incredible, great job! You can complete the ^00001F" + getitemname(.@reward) + "^000000!!";
+				
+				for (set .@i, 0; .@i < .@item_count; set .@i, .@i+1)
+					delitem(.@ingredients[.@i], .@amounts[.@i]);
+				paypoints(.@cost);
+				getitem(.@reward, 1);
+				
+				set .@annc$, strcharinfo(0) + ", ";
+				
+				if (getcharid(2) != 0)
+					set .@annc$, .@annc$ + "of " + getguildname(getcharid(2)) + ", ";
+				set .@annc$, .@annc$ + "has created the otherworldy helm [" + getitemname(.@reward) + "]"; 
+				announce .@annc$, bc_all|bc_blue; 
+				
+				next;
+				mes .@n$;
+				mes "It's magnificent, isn't it?";
+				close;
+			case 4:
+				mes .@n$;
+				mes "So be it. Come back to me if you still desire the Ultimate Power.";
+				close;
+		}
+	}
+}
+
+
+
+// --------------------------------------------------------------
+// -                   Fast Cooking NPCs                        -
+// --------------------------------------------------------------
+//      Special NPCs for Mission Zone
+//      Fast access Cooking NPCs that do not require quests
+//	For New World and Rune Midgard Foods
+//
+//
+// npc legend
+// 	1) moc_para01,180,45 - New World Trader
+// Not Done	-- Must wear a Chef Hat to use
+// Done		-- Exchanges New World Foods for their items
+//		-- bypassing Tripatriate Union's Food
+//		-- Quest Requirement to get them
+//		-- Requiring 1 Kafra Point for Food Traded
+//		-- 1 Rune Strawberry Cake 12319
+//		-- = 5 Mystic Horn 6023
+//		-- 1 Arunafeltz Desert Sandwich 12321
+//		-- = 5 Peaked Hat 6021
+//		-- 1 Schwarzwald Pine Jubilee 12320
+//		-- = 5 Fur 6020
+//
+//	2) moc_para01,181,41 - Madeleine Chu
+//		-- Explains Cooking in Basic Terms
+//		-- Offers to give Level 1-5 Cookbooks
+//		-- Where to find Level 6-10 Cookbooks
+//		-- Where to find Pro, Royal, Fantastic Cook Kits
+//
+// Done	3) moc_para01,176,34 - Cooking Vender
+//		-- Shop NPC to sell Buyable Ingredients
+//		-- and outdoor and Home cooking kits
+//
+//	4) moc_para01,176,42 - Culinary Expert
+//		-- Explains Food Buffs
+//		-- Explains Different Levels of Food Buffs
+//		-- Tells players where to get a Chef Hat
+//		-- Tells players about Rune-Midgard Foods 
+//		-- and Ash Vacuum foods
+//		-- Mentions Prontera church daily
+// 
+// Duplicate Lutie Vending Machine
+// Chef Hat, 5026
+// Mission Shop
+// Chef Hat, 100 P
+
+// List of items
+// (Drop Rates based on our server rates)
+// --------------------------------------------------------------
+// ------------------------  Cookbooks  -------------------------
+
+// Level 1 Cookbook, 7472
+//	-- Trade Level 1 Cookbook for 10 Pumpkins 535
+// Level 2 cookbook, 7473
+//	-- Trade for 5 Well Baked Cookies 538
+// Level 3 Cookbook, 7474
+//	-- 5 Sushi 551
+// Level 4 Cookbook, 7475
+//	-- 5 Bao 553
+// Level 5 Cookbook, 7476
+//	-- 10 Shoot 711
+
+// How to get Level 6-10 Cookbooks
+// Level 6 Cookbook, 7477
+//	-- Pirate Skeleton 0.50%
+//	-- Orc Lady 0.30%
+//	-- Requiem 0.10%
+// Level 7 Cookbook, 7478
+//	-- Evil Druid 0.40%
+// Level 8 Cookbook, 7479
+//	-- Gemini-S58 0.60%
+//	-- Death Word 0.20%
+// Level 9 cookbook, 7480
+//	-- Turtle General 20.00%
+//	-- Death Word 0.10%
+// Level 10 Cookbook, 7481
+//	-- Maya Purple 0.20%
+//
+//
+// --------------------------------------------------------------
+// --------------------  Cooking Kits  --------------------------
+// Outdoor Cooking Kit 12125 - Purchaseable
+// Home Cooking Kit 12126 - Purchaseable
+// Professional Cooking Kit 12127
+//	-- Miyabi Doll 1%
+//	-- Venatu 10%
+//	-- Orc Lady 1%
+//	-- Magnolia 0.50%
+//	-- Violy 5%
+// Royal Cooking Kit 12128
+//	-- Dimik 5%
+//	-- Alice 1%
+//	-- Tengu 2%
+//	-- Aliza 5%
+// Fantastic Cooking Kit 12129
+//	-- Lady Tanee 100%
+// --------------------------------------------------------------
+// ------------------  Cooking Ingredients  ---------------------
+//	-- Outdoor Cooking Kit, 12125:-1,
+//	-- Home Cooking Kit, 12126:-1,
+//	-- Cooking Oil, 7457:-1,
+//	-- Pot, 7482:-1,
+//	-- Bread, 580:-1,
+//	-- Edible Mushroom, 581:-1,
+//	-- Grain, 577:-1,
+//	-- Jack O Pumpkin, 1062:-1,
+//	-- Shrimp 567:-1,
+//	-- Red Chile, 7286:-1,
+//	-- Red Spice, 7456:-1,
+//	-- Savory Sauce, 7454:-1,
+//	-- Spicy Sauce, 7455:-1,
+//	-- Sweet Sauce, 7453:-1,
+//	-- Yellow Spice, 7452:-1,
+
+// --------------------------------------------------------------
+// ------------------  1) New World Trader  ---------------------
+// étranger (Fr. foreign)
+
+
+
+moc_para01,180,45,5	script	Chef Etranger#cookZ	820,{
+	set .n$,"[Chef Etranger]";
+	mes .n$;
+	mes "Heh. I may not look like much, but I'm a master chef. I've travelled all over the three kingdoms and created three dishes which truly embrace the quality of each";
+	next;
+	mes .n$;
+	mes "Unfortunately, I'm too old to travel to Jotunheim. If I had samples of what lies beyond the Ash Vacuum, I could work on a new dish to be my final masterpiece.";
+	next;
+	mes .n$;
+	mes "Why don't you take a pick?";
+	next;
+
+	setarray(.@ingredients[0], 6023, 6020, 6021);
+	setarray(.@foods[0], 12319, 12320, 12321);
+	set(.@mstr$, "");
+	for (set(.@i, 0); .@i < getarraysize(.@ingredients); set(.@i, .@i+1) )
+		set(.@mstr$, .@mstr$ + "Every 5 "+getitemname(.@ingredients[.@i])+" I have for 1 "+getitemname(.@foods[.@i])+":");
+	
+	set(.@mstr$, .@mstr$ + "What do these dishes do?:Cancel");
+	
+	set(.@s, select(.@mstr$) - 1);
+	
+	switch (.@s)
+	{
+		case 0:
+		case 1:
+		case 2:
+			mes .@n$;
+			mes "Okay.. let's take a look, did you bring what I wanted?";
+			next;
+			if (countitem(.@ingredients[.@s]) > 4)
+			{
+				mes .@n$;
+				mes "Yes, you did bring me enough!";
+				mes "Here you go!";
+				set(.@amt, countitem(.@ingredients[.@s]) / 5);
+				delitem(.@ingredients[.@s], .@amt * 5);
+				getitem(.@foods[.@s], .@amt);
+				close;
+			}
+			else
+			{
+				mes .n$;
+				mes "Whoa, I can't prepare you "+getitemname(.@foods[.@s])+" unless you bring me at least 5 "+getitemname(.@ingredients[.@s])+".";
+				next;
+				mes .n$;
+				mes "Why don't you come back when you have at least 5 "+getitemname(.@ingredients[.@s])+"? Then I can make you the dish you want to have!";
+				close;
+			}
+			
+			break;
+		case 3:
+			mes .n$;
+			mes "These are specially prepared dishes... They aren't like the foods you may already know how to prepare. My dishes give temporary benefits...";
+			next;
+			mes .n$;
+			mes "The ^9F0000Rune Strawberry Cake^000000 will give you a 10 minute buff of ^9F0000+5% ATK and +5% MATK^000000. This soft and sweet spongecake is a favorite of Charles Orleans.";
+			next;
+			mes .n$;
+			mes "The ^009F00Arunafeltz Desert Sandwich^000000 with its rough and dry texture will surprise you with a 10 minute buff of ^009F00+7 Crit Rate^000000. It's best eaten quickly and washed down.";
+			next;
+			mes .n$;
+			mes "My ^00009FSchwarzwald Pineapple Jubilee^000000 can rinse any taste out of your mouth with its cool fruity flavor. For 10 minutes, you will be buffed with ^00009F+10 Hit and +20 Perfect Dodge^000000.";
+			next;
+			mes .n$;
+			mes "Aren't you just eager to try my dishes now...?";
+			close;
+		case 4:
+			mes .n$;
+			mes "Alright...you're missing out though.";
+			close;
+	}
+}
+
+// --------------------------------------------------------------
+// ------------------  2) Madeleine Chu  ------------------------
+//	2) moc_para01,181,41 - Madeleine Chu
+//		-- Must wear a Chef Hat to use
+//		-- Explains Cooking in Basic Terms
+//		-- Offers to give Level 1-5 Cookbooks
+//		-- Where to find Level 6-10 Cookbooks
+//		-- Where to find Pro, Royal, Fantastic Cook Kits
+//
+// Level 1 Cookbook, 7472
+//	-- Trade Level 1 Cookbook for 10 Pumpkins 535
+// Level 2 cookbook, 7473
+//	-- Trade for 5 Well Baked Cookies 538
+// Level 3 Cookbook, 7474
+//	-- 5 Sushi 551
+// Level 4 Cookbook, 7475
+//	-- 5 Bao 553
+// Level 5 Cookbook, 7476
+//	-- 10 Shoot 711
+
+moc_para01,181,41,5	script	Madeleine Chu#cookZ	886,{
+	set .npcname$,"[Madeleine Chu]";
+	mes .npcname$;
+	mes "Hi, I'm "+ .npcname$ +"";
+	mes "I was an assistant to the famous Charles Orleans. Now I've branched out to open my own cooking store here at the Mission Zone for professionals only...";
+	next;
+
+	mes .npcname$;
+	mes "How can I do business with you?";
+	next;
+	switch(select("I want to buy Level 1~5 Cookbooks:Where can I get Level 6~10 Cookbooks?:Where can I find better cooking kits?:Eh.. I dont need anything"))
+	{
+		case 1:
+			mes .npcname$;
+			mes "I can sell you some Cookbooks, for a price. Let's call it 10,000 zeny per Level.";
+			
+			next;
+			set .@s, select("Level 1 Cookbook:Level 2 Cookbook:Level 3 Cookbook:Level 4 Cookbook:Level 5 Cookbook:Cancel");
+			if (.@s == 6)
+			{
+				mes .npcname$;
+				mes "Well then...";
+				close2;
+				end;
+			}
+			else 
+			{
+				setarray .@cookbook[0],7472,7473,7474,7475,7476;
+				setarray .@price[0],1,2,3,4,5;
+				set .@s, .@s-1;
+				set .@base, 10000;
+				
+				if (Zeny < .@price[.@s]*.@base)
+				{
+					mes .@npcname$;
+					mes "Well, I'd love to help you but you just can't afford the cookbook. Come back to me when you've got more than "+.@price[.@s]*.@base + " zeny!";
+					close;
+				}
+				set Zeny, Zeny -.@price[.@s]*.@base;
+				
+				mes .npcname$;
+				mes "Here you are!";
+				getitem(.@cookbook[.@s], 1);
+				close;
+			}
+		case 2:
+			mes .npcname$;
+			mes "There are better Cookbooks than the ones I keep here. but I've never seen them. Monsters tend to steal nicer cookbooks.";
+			next;
+			mes .npcname$;
+			mes "You might find some nicer cookbooks if you start investigating where monsters tend to hang out.";
+			close;
+		case 3:
+			mes .npcname$;
+			mes "There are better cooking kits out there.. monsters often like to steal them... Perhaps you should go steal some back?";
+			next;
+			mes .npcname$;
+			mes "I wonder if monsters cook with them.. I wonder what a monster's dishes taste like.";
+			next;
+			mes .npcname$;
+			mes "There is also a best possible cooking kit... but it belongs to ^00ff00Lady Tanee^000000 in Ayothoya Shrine... so good luck getting that!";
+			close;
+		case 4:
+			mes .npcname$;
+			mes "Don't waste my time then! Can't you see how busy I am?";
+			close;
+	}
+
+}
+
+// --------------------------------------------------------------
+// ------------------  3) Cooking Vender  -----------------------
+
+moc_para01,176,34,3	shop	Cooking Merchant#cookZ	97,12125:-1,12126:-1,7457:-1,7482:-1,580:-1,581:-1,577:-1,1062:-1,567:-1,7286:-1,7456:-1,7454:-1,7455:-1,7453:-1,7452:-1
+
+// --------------------------------------------------------------
+// ------------------  4) Culinary Expert  ----------------------
+// "I may look like a small girl, but I have a very sophisticated palate."
+// "In order to cook, you'll need to first don a ^0000ffChef Hat^000000!";
+// "I heard you can exchange some monster drops to a ";
+// "^ff0000Vending Machine^000000 in Lutie for one.";
+// "Someone might try to sell you one elsewhere";
+// "but you should know in your heart you're not a true chef";
+// "even if your food achieves the desired effect.";
+
+// "When you come back to me with a ^0000ffChef Hat^000000";
+// "I'll be willing to share what else I know about foods.";
+
+//moc_para01,176,42,5	script	Culinary Expert#cookZ	72,{
+//	set .n$,"[Culinary Expert]";
+//	mes .n$;
+//	mes "Hello World!";
+//	close;
+// }

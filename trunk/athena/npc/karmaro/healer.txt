@@ -19,12 +19,12 @@ OnClick:
 	set LastUsedHealer, .@rightnow;
 	set .@healed, 0;
 	
-	if(islowratechar() == 1 && BaseLevel > 90 && !.@isbg)
-		set .@mustpay, 1;
+//	if(islowratechar() == 1 && BaseLevel > 90 && !.@isbg)
+//		set .@mustpay, 1;
 		
-	if(.@mustpay == 1)
-		if(Zeny < 5000)
-			goto nocash;
+//	if(.@mustpay == 1)
+//		if(Zeny < 500)
+//			goto nocash;
 
 OnDebuffs:
 					
@@ -51,7 +51,7 @@ OnBuffs:
 	
 		
 	if(islowratechar() == 1 && !.@isbg)
-		goto OnHeals;
+		goto OnRepairs;
 	//unitskilluseid .@npcgid,"PR_IMPOSITIO",5,.@chargid;
 	//unitskilluseid .@npcgid,"PR_SUFFRAGIUM",3,.@chargid;
 	//unitskilluseid .@npcgid,"PR_MAGNIFICAT",5,.@chargid;
@@ -154,26 +154,26 @@ OnScrollbuffs:
 	
 	
 OnRepairs:
-	atcommand "@repairall";
+	repairall;
 	
 OnHeals:
         set .@healed, 0;
         if( (Hp != MaxHp) || (Sp != MaxSp) )
 		set .@healed, 1;
-        if(.@healed && .@mustpay)
-	        set Zeny, Zeny - 5000;
+//        if(.@healed && .@mustpay)
+//	        set Zeny, Zeny - 500;
 	
 	percentheal 100,100;
 
 
 	
 	
-	end;
+//	end;
 	
 nocash:
-	mes "Low Rate Characters above level 90 need 5k zeny to use the Healer outside of BG! Go kill some porings. :)";
-	close2;
-	end;
+//	mes "Low Rate Characters above level 90 need 5k zeny to use the Healer outside of BG! Go kill some porings. :)";
+//	close2;
+//	end;
 }
 
 prontera, 152, 180,5	duplicate(f_healer)	Healer#0	895,10,10

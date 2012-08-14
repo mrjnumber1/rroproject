@@ -1197,7 +1197,7 @@ int status_check_skilluse(struct block_list *src, struct block_list *target, int
 	
 	if(tsc && tsc->count)
 	{	
-		if( tsc->data[SC_INVINCIBLE] )
+		if( tsc->data[SC_INVINCIBLE] && !tsc->data[SC_INVINCIBLEOFF] )
 			return 0;
 		if(!skill_num && !(status->mode&MD_BOSS) && tsc->data[SC_TRICKDEAD])
 			return 0;
@@ -6514,6 +6514,11 @@ int status_change_clear(struct block_list* bl, int type)
 		case SC_DEXFOOD:
 		case SC_INTFOOD:
 		case SC_LUKFOOD:
+		case SC_INCATKRATE:
+		case SC_INCMATKRATE:
+		case SC_INCHIT:
+		case SC_INCFLEE2:
+		case SC_INCCRI:
 			continue;
 
 		}

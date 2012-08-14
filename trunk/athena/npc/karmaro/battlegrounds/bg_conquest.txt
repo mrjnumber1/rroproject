@@ -51,6 +51,32 @@ OnResumeRoom:
 		end;
 }
 
+-	script	CQ_tracker	-1,{
+
+
+OnTimer60000:
+	if ($@Conquest == 1)
+	{
+		set $BLU_size, bg_get_data($@Conquest_id1, 0);
+		set $RED_size, bg_get_data($@Conquest_id2, 0);
+	}
+	else
+	{
+			set $BLU_size, getwaitingroomstate(0,"ConR_Guillaume");
+			set $RED_size, getwaitingroomstate(0,"ConR_Croix");
+	}
+	stopnpctimer;
+	initnpctimer;
+	end;
+	
+OnInit:
+	set $BLU_size, 0;
+	set $RED_size, 0;
+	initnpctimer;
+	end;
+
+}
+
 // Battleground Engine
 // *********************************************************************
 -	script	Conquest	-1,{

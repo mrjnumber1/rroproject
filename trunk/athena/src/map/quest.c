@@ -547,7 +547,7 @@ int mission_update(struct map_session_data *sd, int mob_id)
 					else
 						snprintf(out, CHAT_SIZE_MAX, "[%s] finished hunting `%s`!", mission_db[sd->mission[i].mission_id -1].name, mob->jname);	
 				}
-				clif_coloredMessage(&sd->bl, out, 0xFF001F, SELF);
+				clif_coloredMessage(&sd->bl, out, 0xf5d76d, SELF);
 					
 				return 1;
 			}
@@ -562,13 +562,17 @@ int mission_update_sub(struct block_list *bl, va_list ap)
 	//map_foreachinrange(quest_update_mission_sub,&md->bl, AREA_SIZE, BL_PC, sd->status.party_id, md->class_);
 	struct map_session_data * sd;
 	struct party_data *p;
-	int mob_id, party;
+	int mob_id, party, killer;
 
 	nullpo_ret(bl);
 	nullpo_ret(sd = (struct map_session_data *)bl);
 
 	party = va_arg(ap,int);
 	mob_id = va_arg(ap,int);
+	killer = va_arg(ap, int);
+
+	if ( pc_isdead(sd) )
+		return 0;
 
 	if (sd->status.party_id != party)
 		return 0;
@@ -576,7 +580,8 @@ int mission_update_sub(struct block_list *bl, va_list ap)
 	if( (p=party_search(party)) == NULL)
 		return 0;
 	
-	if( !party_check_exp_share(p) ) // if the party cannot share exp, then no one but the killer will get a mission kill
+	// if the party cannot share exp, then no one but the killer will get a mission kill
+	if( !party_check_exp_share(p) && (killer != bl->id) ) 
 		return 0;
 
 	return mission_update(sd, mob_id);
@@ -648,8 +653,15 @@ bool mission_submit(struct map_session_data *sd, int index)
 		pc_delitem(sd, n, amount, 0, 0);
 	}
 
+
 	base = mission_db[sd->mission[index].mission_id-1].base_exp;
 	job = mission_db[sd->mission[index].mission_id-1].job_exp;
+
+	
+	if ( (base > 15000000) && (sd->status.base_level < mission_db[sd->mission[index].mission_id-1].min_level) )
+	{
+		return false;
+	}
 
 	pc_gainexp(sd, NULL, base, job, true);
 

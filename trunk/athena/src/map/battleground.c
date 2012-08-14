@@ -67,7 +67,7 @@ int battleground_countlogin(struct map_session_data *sd, bool check_bat_room)
 	iter = mapit_getallusers();
 	for( pl_sd = (TBL_PC*)mapit_first(iter); mapit_exists(iter); pl_sd = (TBL_PC*)mapit_next(iter) )
 	{
-		if( (//!pl_sd->qd || 
+		if( !(//!pl_sd->qd || 
 			map[pl_sd->bl.m].flag.battleground || (check_bat_room && pl_sd->bl.m == m)) )
 			continue;
 

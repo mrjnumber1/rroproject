@@ -2352,7 +2352,7 @@ ACMD_FUNC(go)
 	int m;
 	
  	struct unit_data* ud = unit_bl2ud(&sd->bl);
- 
+#define MAP_PARADISE "moc_para01"
 	const struct {
 		char map[MAP_NAME_LENGTH];
 		int x[3], y[3];
@@ -2392,6 +2392,7 @@ ACMD_FUNC(go)
 		{ MAP_DICASTES,	   {194, 120, 195}, {182, 199, 315} }, // 32=Dicastes
 		{ MAP_MARKET,      { 97,  97,  97}, {108, 108, 108} }, // 33=Market
 		{ MAP_BGLOBBY,     {150, 150, 150}, {146, 146, 146} }, // 34=BG
+		{ MAP_PARADISE,    { 28,  28,  28}, { 17,  17,  17} }, // 35=Eden
 	};
 
 	nullpo_retr(-1, sd);
@@ -2400,9 +2401,14 @@ ACMD_FUNC(go)
 	if(ud->skilltimer != INVALID_TIMER)
 		return -1;
 
-if( DIFF_TICK(gettick(),sd->refresh_tick) < (2*1000)) 
+	if ( !pc_islowratechar(sd) )
 	{
-		sprintf(atcmd_output, "%d ms until next go...", 2000-DIFF_TICK(gettick(),sd->refresh_tick));
+		clif_displaymessage(fd, "Sorry, BG Chars may not exit the BG Lobby.");
+		return -1;
+	}
+	if( DIFF_TICK(gettick(),sd->refresh_tick) < (1*1000)) 
+	{
+		sprintf(atcmd_output, "%d ms until next go...", 1000-DIFF_TICK(gettick(),sd->refresh_tick));
 		clif_displaymessage(fd,atcmd_output);
 		return -1;
 	}
@@ -2436,7 +2442,7 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (2*1000))
 		clif_displaymessage(fd, " 24=Veins               25=Moscovia      26=Nameless Island");
 		clif_displaymessage(fd, " 27=Freya Temple        28=Thor Camp     29=Midgard Camp");
 		clif_displaymessage(fd, " 30=Manuk               31=Splendide     32=Dicastes");
-		clif_displaymessage(fd, " 33=Market              34=BG Room");
+		clif_displaymessage(fd, " 33=Market              34=BG Room       35=Mission Zone");
 		return -1;
 	}
 
@@ -2529,17 +2535,21 @@ if( DIFF_TICK(gettick(),sd->refresh_tick) < (2*1000))
 			   strncmp(map_name, "battlegrounds",3) == 0)
 	{
 		town = 34;
+	} else if (strncmp(map_name, "eden",3) == 0 || strncmp(map_name, "mission",3) == 0 || strncmp(map_name, "paradi",3) == 0)
+	{
+		town = 35;
 	}
-
+	
+	
 
 	if (town >= 0 && town < ARRAYLENGTH(data))
 	{
 		m = map_mapname2mapid(data[town].map);
-		if (m >= 0 && map[m].flag.nowarpto && battle_config.any_warp_GM_min_level > pc_isGM(sd)) {
+		if (m >= 0 && map[m].flag.nowarpto && battle_config.any_warp_GM_min_level > pc_isGM(sd) && town != 34) {
 			clif_displaymessage(fd, msg_txt(247));
 			return -1;
 		}
-		if (sd->bl.m >= 0 && map[sd->bl.m].flag.nowarp && battle_config.any_warp_GM_min_level > pc_isGM(sd)) {
+		if (sd->bl.m >= 0 && map[sd->bl.m].flag.nowarp && battle_config.any_warp_GM_min_level > pc_isGM(sd) && town != 34) {
 			clif_displaymessage(fd, msg_txt(248));
 			return -1;
 		}
@@ -9947,7 +9957,11 @@ ACMD_FUNC(gcash)
 		clif_displaymessage(fd, atcmd_output);
 		return -1;
 	}
-
+	if (sd->status.member_id == pl_sd->status.member_id)
+	{
+		clif_displaymessage(fd, "You cannot yourself your own Cash Points!");
+		return -1;
+	}
 
 	sprintf(atcmd_output, "'%s' has given %d Cash Points to you.", sd->status.name, value);
 	clif_disp_onlyself(pl_sd, atcmd_output, strlen(atcmd_output));
@@ -9996,6 +10010,11 @@ ACMD_FUNC(gpoints)
 		return -1;
 	}
 
+	if (sd->status.member_id == pl_sd->status.member_id)
+	{
+		clif_displaymessage(fd, "You cannot yourself your own Kafra Points!");
+		return -1;
+	}
 	sprintf(atcmd_output, "'%s' has given %d Kafra Points to you.", sd->status.name, value);
 	clif_disp_onlyself(pl_sd, atcmd_output, strlen(atcmd_output));
 	sprintf(atcmd_output, "You have given %d Kafra Points to '%s'.", value, pl_sd->status.name);
@@ -10029,10 +10048,6 @@ ACMD_FUNC(battleinfo)
 
 	return 0;
 }
-
-
-
-
 #ifndef TXT_ONLY
 
 
@@ -11189,7 +11204,8 @@ ACMD_FUNC(restock)
 	}
 	else if ( !strcmpi(subcmd, "clear") ) // to clear our restock settings to nothing
 	{
-		memset(&sd->restock[idx], '0', sizeof (sd->restock[idx]));
+		memset(&sd->restock[idx], 0, sizeof (sd->restock[idx]));
+		sd->restock[idx].size = 0;
 		clif_displaymessage(fd, "EMPTIED!");
 	}
 	else if ( !strcmpi(subcmd, "set") ) // to record our restock settings

@@ -6845,8 +6845,15 @@ VALUES ( 5451, 'Dragonhelm_Gold', 'RWC 2008 Dragon Helm Gold', 5, 20, NULL , 250
 (12275, 'Gold_Pill_2', 'Taecheongdan', 0, 0, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_INCMSPRATE,36000000,5; percentheal 0,5;', NULL, NULL);
 
 REPLACE INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
-(12098, 'Luk_Dish08', 'Strawberry Flavored Rice Ball', 0, 60000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_LUKFOOD, 1200000, 8; percentheal 9,3;', NULL, NULL);
+(12098, 'Luk_Dish08', 'Strawberry Flavored Rice Ball', 0, 60000, NULL, 1, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'sc_start SC_LUKFOOD, 1200000, 8; percentheal 1,1;', NULL, NULL);
 
 REPLACE INTO `item_db2` (`id`, `name_english`, `name_japanese`, `type`, `price_buy`, `price_sell`, `weight`, `attack`, `defence`, `range`, `slots`, `equip_jobs`, `equip_upper`, `equip_genders`, `equip_locations`, `weapon_level`, `equip_level`, `refineable`, `view`, `script`, `equip_script`, `unequip_script`) VALUES
-(2462, 'Sleipnir_C', 'Sleipnir', 5, 20, NULL, 0, NULL, 40, NULL, 0, 4294967295, 7, 2, 64, NULL, 94, 0, 0, 'bonus bUseSPrate,-200; bonus bAspdRate,100; bonus bDelayRate,-200; bonus bCastrate,-200; bonus bIgnoreDefRace,RC_NonBoss; bonus bIgnoreMDefRace,RC_NonBoss;   bonus bDoubleRate,100;', 'sc_start4 SC_ENDURE,60000,10,0,0,1;', 'sc_end SC_ENDURE;');
-
+(4800, 'SP50', 'SP+50', 6, 20, NULL, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16, NULL, NULL, NULL, NULL, 'bonus bMaxSP,50;', NULL, NULL),
+(4801, 'SP100', 'SP+100', 6, 20, NULL, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16, NULL, NULL, NULL, NULL, 'bonus bMaxSP,100;', NULL, NULL),
+(4802, 'SP150', 'SP+150', 6, 20, NULL, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16, NULL, NULL, NULL, NULL, 'bonus bMaxSP,150;', NULL, NULL),
+(5483, 'Odin_Mask', 'Odin Mask', 5, 20, NULL, 100, NULL, 1, NULL, 0, 4294967295, 7, 2, 513, NULL, 50, 0, 480, 'bonus2 bSubRace,RC_Boss,2;', NULL, NULL),
+(12395, 'Tantanmen', 'Tantan Noodle', 2, 20, NULL, 50, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'pet 1631;', NULL, NULL),
+(13826, 'Power_Box1', 'Power Box 1', 2, 20, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'getitem 682,3; getitem 12123,3; getitem 12122,3;', NULL, NULL),
+(13827, 'Power_Box2', 'Power Box 2', 2, 20, NULL, 10, NULL, NULL, NULL, NULL, 4294967295, 7, 2, NULL, NULL, NULL, NULL, NULL, 'getitem 683,3; getitem 12123,3; getitem 12122,3;', NULL, NULL),
+(5564, 'Crown_Of_Deceit', 'Crown of Deceit', 5, 20, NULL, 300, NULL, 3, NULL, 1, 4294967295, 7, 2, 768, NULL, 85, 1, 544, 'bonus bInt,4; bonus bMdef,10; bonus bCastRate,-10; if(getrefine()>6){bonus bDef,2; bonus bMatkRate,5; bonus bCastRate,-5;} if(getrefine()>8){bonus bMdef,5; bonus bMatkRate,5; bonus bCastRate,-5;}', NULL, NULL),
+(5151, 'Headset_OST', 'Note Headphones', 5, 20, NULL, 200, NULL, 4, NULL, 1, 4294967295, 7, 2, 256, NULL, 0, 1, 220, 'bonus bMdef,3; bonus2 bResEff,Eff_Stun,1000; bonus2 bResEff,Eff_Freeze,1000;', NULL, NULL);

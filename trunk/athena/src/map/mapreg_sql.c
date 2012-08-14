@@ -25,7 +25,7 @@ static bool mapreg_dirty = false;
 /// Looks up the value of an integer variable using its uid.
 int mapreg_readreg(int uid)
 {
-	return (int)idb_get(mapreg_db, uid);
+	return (int)__64BPTRSIZE(idb_get(mapreg_db, uid));
 }
 
 /// Looks up the value of a string variable using its uid.
@@ -43,7 +43,7 @@ bool mapreg_setreg(int uid, int val)
 
 	if( val != 0 )
 	{
-		if( idb_put(mapreg_db,uid,(void*)val) )
+		if( idb_put(mapreg_db,uid,(void*)__64BPTRSIZE(val)) )
 			mapreg_dirty = true; // already exists, delay write
 		else if(name[1] != '@')
 		{// write new wariable to database
@@ -135,7 +135,7 @@ static void script_load_mapreg(void)
 		if( varname[length-1] == '$' )
 			idb_put(mapregstr_db, (i<<24)|s, aStrdup(value));
 		else
-			idb_put(mapreg_db, (i<<24)|s, (void *)atoi(value));
+			idb_put(mapreg_db, (i<<24)|s, (void *)__64BPTRSIZE(atoi(value)));
 	}
 	
 	SqlStmt_Free(stmt);
@@ -160,7 +160,7 @@ static void script_save_mapreg(void)
 		if( name[1] == '@' )
 			continue;
 
-		if( SQL_ERROR == Sql_Query(mmysql_handle, "UPDATE `%s` SET `value`='%d' WHERE `varname`='%s' AND `index`='%d'", mapreg_table, (int)data, name, i) )
+		if( SQL_ERROR == Sql_Query(mmysql_handle, "UPDATE `%s` SET `value`='%d' WHERE `varname`='%s' AND `index`='%d'", mapreg_table, (int)__64BPTRSIZE(data), name, i) )
 			Sql_ShowDebug(mmysql_handle);
 	}
 	dbi_destroy(iter);

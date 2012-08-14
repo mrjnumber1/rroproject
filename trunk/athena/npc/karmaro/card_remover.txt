@@ -1,19 +1,5 @@
-//===== eAthena Script ======================================= 
-//= Card Removal NPC
-//===== By: ================================================== 
-//= TyrNemesis^
-//===== Current Version: ===================================== 
-//= 1.2
-//===== Compatible With: ===================================== 
-//= eAthena SVN
-//===== Description: ========================================= 
-//= Removes cards from equipped items.
-//===== Additional Comments: ================================= 
-//= 1.0 First version. [TyrNemesis^]
-//= 1.2 Optimized and fixed getequipname menu. [Kisuka]
-//============================================================ 
-
-prt_in,28,73,4	script	Wise Old Woman#eAcustom	78,{
+/// looted from old eathena script
+ -	script	f_decarder	-1,{
 	mes "[Wise Old Woman]";
 	mes "Good day, young one. I have the power to remove cards that you have compounded onto your equipment. Does this idea please you?";
 	next;
@@ -33,15 +19,15 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	78,{
 				set .@menu$, .@menu$ + ":";
 			}
 			set .@part,select(.@menu$);
+			if(!getequipisequiped(.@part)) {
+				mes "[Wise Old Woman]";
+				mes "Young one... You're not wearing anything there that I can remove cards from.";
+				close;
+			}
 			if(getequipisrental(.@part) == 1)
 			{
 				mes "[Wise Old Woman]";
 				mes "Ah.. it seems this item is a rental item, and as such... I cannot work on it. It must be returned as it was found.";
-				close;
-			}
-			if(!getequipisequiped(.@part)) {
-				mes "[Wise Old Woman]";
-				mes "Young one... Your not wearing anything there that I can remove cards from.";
 				close;
 			}
 			if(getequipcardcnt(.@part) == 0) {
@@ -76,15 +62,11 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	78,{
 			set zeny,zeny - (200000+(.@cardcount * 25000));
 			delitem 1000,1;
 			delitem 715,1;
-			
-			// Replace the constants in the next 3 lines with failure chance values defined in refine_db.txt
-			// First value = Total failure chance (item and cards destroyed)
-			// Second value = Partial failure chance (one or the other is destroyed, player decides which one is safe)
-			// Third value = Harmless failure chance (all that's lost is your investment)
 
 			set .@failchance,rand(100);
 
-			if(.@failchance < 10) {
+			if(.@failchance < 10) 
+			{
 				next;
 				failedremovecards .@part,3;				
 				mes "[Wise Old Woman]";
@@ -106,3 +88,7 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	78,{
 			close;
 	}
 }
+
+
+
+moc_para01,166,22,5	duplicate(f_decarder)	Wise Old Woman#para	78

@@ -2528,7 +2528,7 @@ static int set_reg(struct script_state* st, TBL_PC* sd, int num, const char* nam
 				if( val == 0 )
 					linkdb_erase(n, (void*)__64BPTRSIZE(num));
 				else
-					linkdb_replace(n, (void*)__64BPTRSIZE(num), (void*)val);
+					linkdb_replace(n, (void*)__64BPTRSIZE(num), (void*)__64BPTRSIZE(val));
 				return 1;
 			}
 		default:
@@ -3308,7 +3308,7 @@ void script_stop_sleeptimers(int id)
 	struct script_state* st;
 	for(;;)
 	{
-		st = (struct script_state*)linkdb_erase(&sleep_db,(void*)id);
+		st = (struct script_state*)linkdb_erase(&sleep_db,(void*)__64BPTRSIZE(id));
 		if( st == NULL )
 			break; // no more sleep timers
 		script_free_state(st);
@@ -7125,7 +7125,7 @@ BUILDIN_FUNC(getequipisequiped)
 /*==========================================
  * 装備品精錬可能チェック
  *------------------------------------------*/
-BUILDIN_FUNC(getequipisenableref)
+BUILDIN_FUNC(getequipisrental)
 {
 	int i=-1,num;
 	TBL_PC *sd;
@@ -7137,6 +7137,25 @@ BUILDIN_FUNC(getequipisenableref)
 
 	if( num > 0 && num <= ARRAYLENGTH(equip) )
 		i = pc_checkequip(sd,equip[num-1]);
+	if( i >= 0 && sd->inventory_data[i] && sd->status.inventory[i].expire_time )
+		script_pushint(st,1);
+	else
+		script_pushint(st,0);
+
+	return 0;
+}
+BUILDIN_FUNC(getequipisenableref)
+{
+	int i=-1,num;
+	TBL_PC *sd;
+
+	num=script_getnum(st,2);
+	sd = script_rid2sd(st);
+	if( sd == NULL )
+		return 0;
+
+	if( num > 0 && num <= ARRAYLENGTH(equip) )
+		i = pc_checkequip(sd,equip[num-1]); 
 	if( i >= 0 && sd->inventory_data[i] && !sd->inventory_data[i]->flag.no_refine && !sd->status.inventory[i].expire_time )
 		script_pushint(st,1);
 	else
@@ -10782,7 +10801,7 @@ BUILDIN_FUNC(getequipcardcnt)
 
 	count = 0;
 	for( j = 0; j < sd->inventory_data[i]->slot; j++ )
-		if( sd->status.inventory[i].card[j] && itemdb_type(sd->status.inventory[i].card[j]) == IT_CARD )
+		if( sd->status.inventory[i].card[j] && itemdb_type(sd->status.inventory[i].card[j]) == IT_CARD && !itemdb_isenchant(sd->status.inventory[i].card[j]) )
 			count++;
 
 	script_pushint(st,count);
@@ -10811,7 +10830,7 @@ BUILDIN_FUNC(successremovecards)
 
 	for( c = sd->inventory_data[i]->slot - 1; c >= 0; --c )
 	{
-		if( sd->status.inventory[i].card[c] && itemdb_type(sd->status.inventory[i].card[c]) == IT_CARD )
+		if( sd->status.inventory[i].card[c] && itemdb_type(sd->status.inventory[i].card[c]) == IT_CARD && !itemdb_isenchant(sd->status.inventory[i].card[c]) )
 		{// extract this card from the item
 			int flag;
 			struct item item_tmp;
@@ -10888,7 +10907,7 @@ BUILDIN_FUNC(failedremovecards)
 
 	for( c = sd->inventory_data[i]->slot - 1; c >= 0; --c )
 	{
-		if( sd->status.inventory[i].card[c] && itemdb_type(sd->status.inventory[i].card[c]) == IT_CARD )
+		if( sd->status.inventory[i].card[c] && itemdb_type(sd->status.inventory[i].card[c]) == IT_CARD && !itemdb_isenchant(sd->status.inventory[i].card[c]) )
 		{
 			cardflag = 1;
 
@@ -13022,7 +13041,7 @@ BUILDIN_FUNC(cardscnt)
 			if (sd->inventory_data[index]->nameid == id)
 				ret+= sd->status.inventory[index].amount;
 		} else {
-			if (itemdb_isspecial(sd->status.inventory[index].card[0]))
+			if (itemdb_isspecial(sd->status.inventory[index].card[0]) || itemdb_isenchant(id))
 				continue;
 			for(k=0; k<sd->inventory_data[index]->slot; k++) {
 				if (sd->status.inventory[index].card[k] == id)
@@ -14203,7 +14222,7 @@ int buildin_query_sql_sub(struct script_state* st, Sql* handle)
 			if( is_string_variable(name) )
 				setd_sub(st, sd, name, i, (void *)(str?str:""), reference_getref(data));
 			else
-				setd_sub(st, sd, name, i, (void *)(str?atoi(str):0), reference_getref(data));
+				setd_sub(st, sd, name, i, (void *)(str?__64BPTRSIZE(atoi(str)):0), reference_getref(data));
 		}
 	}
 	if( i == max_rows && max_rows < Sql_NumRows(handle) )
@@ -18500,6 +18519,7 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(repairall,""),
 	BUILDIN_DEF(getequipisequiped,"i"),
 	BUILDIN_DEF(getequipisenableref,"i"),
+	BUILDIN_DEF(getequipisrental,"i"),
 	BUILDIN_DEF(getequipisidentify,"i"),
 	BUILDIN_DEF(getequiprefinerycnt,"i"),
 	BUILDIN_DEF(getequipweaponlv,"i"),

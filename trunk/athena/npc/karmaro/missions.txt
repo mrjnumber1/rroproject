@@ -236,8 +236,8 @@ L_cancelMission:
 	
 	remove_mission(.@slotref[.@choice-1]);
 	mes "Mission deleted.";
-	next;
-	goto L_mainMenu;
+	close;
+	//goto L_mainMenu;
 
 L_submitMission:
 
@@ -297,10 +297,8 @@ L_submitMission:
 		mes "You are not done yet!";
 	}
 	
-	next;	
-	goto L_mainMenu;
-
-	
+	close;	
+	//goto L_mainMenu;
 }
 
 

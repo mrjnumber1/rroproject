@@ -10,11 +10,10 @@ Feather Beret (5170)
 	50 Soft Feathers (7063)
 	1 Beret (5172)
 	50 Kafra Points
-	
-Holy Marcher Hat (5225)
-	50 Manacles (1098)
-	100 Soft Feathers (7063)
-	$200 Kafra Points
+Parade Hat[1] (5225)
+	1 Magician Hat (5045)
+	20 Blue Feather (7441)
+	5 Star Crumb (1000)
 
 Dress Hat[1] (5211)
 	10 Soft Feathers (7063)
@@ -44,7 +43,7 @@ Bullock Helm (5560)
 	5 Flash Light (7327)
 	1 Bone Helm (5017)
 	30 Steel (999)
-   
+	
 ILOVECHINA (5423)
 	1 Apple O' Archer (2285)
 	1 Angeling Hat (5132)
@@ -65,6 +64,8 @@ Filir Hat (5405)
 Flapping Evil Wing[1] (5376)
 	Flapping Angel Wing (5210)
 	Evil Wing (2255)
+	Gemstone (7300)
+	Hand of God (1009)
 	666 Little Evil Wing (1039)
 Helm of Abyss[1] (5363)
 	1 Army Cap (2261)
@@ -136,8 +137,8 @@ Octopus Hat (5554)
 	8 Yggdrasil Leaf (610) // number of legs an octopus has
 
 Valkyrie Feather Band[1] (5256)
-	1 Valhalla's Flower (7510)
-	1 Kafra Band (5020)
+	2 Valhalla's Flower (7510)
+	1 Hair Band (2210)
 	$10 Kafra Points
 
 
@@ -163,7 +164,7 @@ Leaf Cat Hat (5555)
 
 
 Nekomimi Kafra Band[1] (5387)
-	Kafra Band (5020)
+	Hair Band (2210)
 	Black Cat Ears (5057)
 	
 Hyegun Hat[1] (5367)
@@ -171,11 +172,10 @@ Hyegun Hat[1] (5367)
 	Bongun Hat (5046)
 	100 Amulet (609)
 
-
 Ifrit Mask (5420)
-	99 Flame Heart (994)
+	66 Flame Heart (994)
 	$50 Kafra Points
-	55 Golden Feather (6394)
+	55 PecoPeco Feather (7101)
 
 
 Close Helmet (5131)
@@ -204,11 +204,12 @@ Rabbit Earplugs[1] (5520)
 
 
 Dark Randgris Helm (5373)
-	10 Valhalla's Flower (7510)
+	5 Valhalla's Flower (7510)
 	1 Evil Wing (2255)
 	666 Rune of Darkness (7511)
+	20 Crystal of Darkness (7799)
 
-Dokebi Wig[0] (5276)
+Dokeb Wig[0] (5276)
 	4 Cobaltblue Dyestuffs (978)
 	4 Scarlet Dyestuffs (975)
 	4 Lemon Dyestuffs (976)
@@ -216,10 +217,8 @@ Dokebi Wig[0] (5276)
 
 Note Headphones[1] (5151)
 	1 Headset (5001)
-	5 Angel Magic Powder (6395)
+	5 Freezing Snow Powder (7574)
 	5 Metal Fragment (7095)
-
-Wings of Victory (5347)
 	
 Moonlight Flower Hat (5214)
 	500 Nine Tails (1022)
@@ -230,11 +229,10 @@ Afro Wig (5258)
 	1 Scarlet Dyestuffs (975)
 	1 Lemon Dyestuffs (976)
 	111 Dark Hair (1020)
-
+	
 	
 Rainbow Scarf (5463)
 	$1000 Kafra Points
-	1 F
 	1 Red Muffler (7216)		
 	1 Black Dyestuffs (983)
 	1 Cobaltblue Dyestuffs (978)
@@ -322,7 +320,7 @@ Sunglasses[1] (2202)
 	2 Sunglasses (2201)
 	100 1carat Diamonds (730)
 //	100 Battle Badges (7773)
-	$1000 Kafra Points
+	$300 Kafra Points
 	
 Red Glasses (5288)
 	$50 Kafra Points
@@ -334,20 +332,66 @@ Peco Ears (5358)
 	Elven Ears (2286)
 	$25 Kafra Points
 
+Army Cap (5686)
+	100 Sticky Mucus (938)
+	Cap (2226)
+	100,000 zeny
+	
+Ifrit of Ears (5421)
+	100 Live Coal (7098)
+	50 Flame Heart (994)
+	Elven Ears (2286)
+	$500 Kafra Points
+	
 Cyclops Visor (5135)
 	1 Gold (969)
 	55 Fine Sand (7043)
 	1 Mini Furnace (612)
 //	1 Dragon Breath Cocktail (12080)
 	$50 Kafra Points
-   
-Army Cap (5685)
-   100 Sticky Mucus (938)
-   Cap (2265)
-   100,000 zeny
-   
-Ifrit of Ears (5421)
-   100 Live coal (7098)
-   50 Flame Heart (994)
-   Elven Ears (2286)
-   $500 Kafra Points
+	
+RWC Copper (5453)
+	$500 Kafra Points
+	30 Handcuffs (7345)
+	100 Dragon Fang (7266)
+	100 Dragon Canine (1035)
+	100 Dragon Horn (7265)
+	100 Dragon Scale (1036)
+	100 Dragon Skin (7123)
+	100 Dragon Tail (1037)
+	1 Legacy of Dragon (1559)
+	1 Helm of Angel (5025)
+	1 Majestic Goat (2256)
+	1 Fire Dragon Scale (7451)
+	1 Grand Circlet (5007)
+	10 Biotite (7297)
+	5 Peridot (7289)
+	5 Emperium (714)
+RWC Silver (5452)
+	$1000 Kafra Points
+	1 RWC Copper (5453)
+	100 Steel (999)
+	30 Elunium (985)
+	15 Valhalla Flowers (7510)
+	1 Fragment of Rosetta Stone (7211)
+	1 Piece of Shield (7108)
+	1 Skeletal Armor Piece (7450)
+	3 Turquoise (7294)
+	5 Pyroxene (7296)
+	10 Muscovite (7292)
+RWC Gold (5451)
+	$1000 Kafra Points
+	1 RWC Silver (5452)
+	500 Bloody Rune (7563)
+	1 Will of Red Darkness (7566)
+	1 Ice Scale (7562)
+	1 Bloody Edge (7024)
+	1 Broken Crown (7754)
+	1 Tae Goo Lyeon (1181)
+	10 Gold (969)
+	5 Emperium (714)
+	10 Phlogopite (7290)
+	3 Agate (7291)
+	5 Citrin (7295)
+	3 Rose Quartz (7293)
+	

@@ -1,108 +1,108 @@
 // Badges Exchange
 // *********************************************************************
-bat_room,174,141,3	script	BG Rental Tops	495,{
+bat_room,174,141,3	script	BG Rental Tops	861,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
-bat_room,173,144,3	script	BG Rental Mids	496,{
+bat_room,173,144,3	script	BG Rental Mids	721,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
-bat_room,172,147,3	script	BG Rental Lower	513,{
+bat_room,172,147,3	script	BG Rental Lower	860,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
-bat_room,177,147,3	script	BG Rental Armors	514,{
+bat_room,177,147,3	script	BG Rental Armors	117,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
-bat_room,180,148,3	script	BG Rental Shields	515,{
+bat_room,180,148,3	script	BG Rental Shields	116,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
-bat_room,183,147,3	script	BG Rental Shoes	544,{
+bat_room,183,147,3	script	BG Rental Shoes	115,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
-bat_room,186,147,3	script	BG Rental Garments	545,{
+bat_room,186,147,3	script	BG Rental Garments	114,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
-bat_room,188,144,3	script	BG Rental Accessories	555,{
+bat_room,188,144,3	script	BG Rental Accessories	113,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
-bat_room,189,141,3	script	BG Rental Weapons	559,{
+bat_room,189,141,3	script	BG Rental Weapons	112,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
 
 
-bat_room,142,140,5	script	Tierra BG Items	413,{
+bat_room,142,140,5	script	Tierra BG Items	419,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
-bat_room,137,140,5	script	Flavius BG Items	418,{
+bat_room,137,140,5	script	Flavius BG Items	413,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
-bat_room,142,140,5	script	KvM BG Items	420,{
+bat_room,140,145,5	script	KvM BG Items	420,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	vending_open();
 }
 bat_room,148,150,5	script	Kafra Point Exchanger	894,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	set .@n$, "[Kafra Point Exchanger]";
 	set .cq_required, 10;
@@ -232,18 +232,13 @@ OnInit:
 }
 
 // Boss Cat!!
-bat_room,180,136,3	script	Boss Cat	412,{
-	mes "[Boss Cat]";
-	mes "THE BOSS IS IN.";
+bat_room,180,136,3	script	Kafra Corp. Rep	894,{
+	set .@n$, "[Kafra Corp. Rep]";
+	mes .@n$;
+	mes "Welcome to the Kafra Rentals Marketplace. We have a special contract with Maroll to exchange Battle Badges for Battlegrounds Gears specially crafted by Mann Co. Engineers to match anything that young adventurers have been able to find.";
 	next;
-	mes "[Boss Cat]";
-	mes "I am Boss Cat. Welcome to the Cathand Marketplace. We have a special contract with Mrroll.. Maroll to exchange Battle Badges for Battlegrounds Gears specially crafted by our Cathand Engineers to match anything your best hooomans could produce.";
-	next;
-	mes "[Boss Cat]";
-	mes "You must ackmeowledge that these items are all temporary per the conditions of our contract. We will provide you the best services our contract ameows.";
-	next;
-	mes "[Boss Cat]";
-	mes "THE BOSS IS MEOWT.";	
+	mes .@n$;
+	mes "Please know that these items are all temporary per the conditions of our contract. We will provide you the best services our contract allows.";
 	close;
 }
 
@@ -253,8 +248,8 @@ bat_room,168,142,3	script	Mann Co. Sorceror	64,{
 
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	
 	mes "[Mann Co. Sorceror]";
@@ -311,8 +306,8 @@ bat_room,168,142,3	script	Mann Co. Sorceror	64,{
 bat_room,169,145,6	script	Mann Co. Refiner	63,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	set .@n$, "[Mann Co. Refiner]";
 	mes .@n$;
@@ -432,7 +427,7 @@ bat_room,169,145,6	script	Mann Co. Refiner	63,{
 		mes "You said so..Hmm so be it...";
 		close;
 	}
-	if(countitem(.@material) < .@refinecnt || ##KAFRAPOINTS < .@fullprice) 
+	if(##KAFRAPOINTS < .@fullprice) 
 	{
 		mes .@n$;
 		mes "Is that all you got? Unfortunately I can't work for you at a lower price. Try putting yourself in my shoes.";
@@ -464,7 +459,7 @@ bat_room,169,145,6	script	Mann Co. Refiner	63,{
 			mes "WAHHHH!!! I'm so sorry... I warned you this could happen...";
 			set .@refinecnt,.@refinecnt - 1;
 			if(.@refinecnt == 0) close;
-			mes "Here's the unused Zeny and Material back...";
+			mes "Here's the unused Kafra Points back...";
 			set .@fullprice,.@refinecnt * .@price;
 			givepoints(.@fullprice);
 
@@ -483,13 +478,13 @@ bat_room,169,145,6	script	Mann Co. Refiner	63,{
 bat_room,150,161,2	script	Saxton Hale	731,{
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "This function is only available to BG chars!";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	mes "[Saxton Hale]";
 	mes "What do you need?";
 	mes "Remember, these items go Directly to Storage.";
-	switch(select("BG Supply:WoE Supply:WoE Boxes:Universal Ammo"))
+	switch(select("BG Supply:WoE Supply:WoE Boxes:BG Ammo:WoE Ammo"))
 	{
 	case 1:
 		setarray .@Items[0], 11501,11502, 547, 505, 526, 14509, 14510, 14511, 678, 7135, 7136, 7137, 7138, 7139,  715,  716,  717,12016, 1025, 7321,  662,12073,12077,12082,12087,12093,12098, 12114, 12115, 12116, 12117, 12020, 12118, 12119, 12120, 12121, 12319, 12320, 14536, 605, 606, 12029, 12124, 682, 683, 12033, 12034, 12299, 14544, 14542, 12274, 12275, 14530, 12247, 12351, 12298, 12018;
@@ -523,12 +518,19 @@ bat_room,150,161,2	script	Saxton Hale	731,{
 		set .@cID, 0;
 		set .@Tarjet$, "WoE";
 		break;
-	case 4: // Arrows
+	case 4: // BG Arrows
 		setarray .@Items[0], 12004,12005,12006,12009,12008,12012,12010,12011,12014,12015,12013,12007,12183,1773,1774,1758,1759,1761,1763,1764,1766,1768,1769,13200,13201,13202,13203,13204,13205,13206,13207,13250,13251,13252,13253,13254,7521,7522,7523,7524,1771;
 		setarray .@Amount[0],5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500;
 		setarray .@Value[0], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,    1, 1,   1,   1,   1,   1,   1,   1;
-		set .@cID, 0;
-		set .@Tarjet$, "Universal";
+		set .@cID, getbattleflag("bg_reserved_char_id");
+		set .@Tarjet$, "BG";
+		break;
+	case 5: // WoE  Arrows
+		setarray .@Items[0], 12004,12005,12006,12009,12008,12012,12010,12011,12014,12015,12013,12007,12183,1773,1774,1758,1759,1761,1763,1764,1766,1768,1769,13200,13201,13202,13203,13204,13205,13206,13207,13250,13251,13252,13253,13254,7521,7522,7523,7524,1771;
+		setarray .@Amount[0],5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500;
+		setarray .@Value[0], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,    1, 1,   1,   1,   1,   1,   1,   1;
+		set .@cID, getbattleflag("woe_reserved_char_id");
+		set .@Tarjet$, "WoE";
 		break;
 		
 		
@@ -700,8 +702,8 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 
 	if (islowratechar() == 1)
 	{
-		message strcharinfo(0), "Sorry, only BG Chars may use this feature";
-		end;
+		mes "This function is only available to BG chars!";
+		close;
 	}
 	mes "[Mann Co. Engineer]";
 	mes "I'm a man who can apply special bonuses to your equipment in exchange for BG badges";
@@ -742,6 +744,12 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 			{
 				mes "[Mann Co. Engineer]";
 				mes "You're not wearing anything there...";
+				close;
+			}
+			if(!getequipisenableref(.@Part)) 
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Oh... this item is not refineable, I'm sorry.";
 				close;
 			}
 			if( getequipweaponlv(.@Part) == 0 )
@@ -844,6 +852,12 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 				mes "If you need information, just ask me...";
 				close;
 			}
+			if(!getequipisenableref(2)) 
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Oh... this item is not refineable, I'm sorry.";
+				close;
+			}
 
 			mes "[Mann Co. Engineer]";
 			mes "You want to enchant your " + getitemname(.@Item) + "?";
@@ -940,6 +954,12 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 				mes "I am sorry, I cannot work on signed items.";
 				close;
 			}
+			if(!getequipisenableref(1)) 
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Oh... this item is not refineable, I'm sorry.";
+				close;
+			}
 			
 	//		if( .@Slot3 != 0 )
 	//		{
@@ -951,7 +971,7 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 
 			mes "[Mann Co. Engineer]";
 			mes "You want to enchant your " + getitemname(getequipid(1)) + "?";
-			mes "The cost of this work is ^0000FF200 Battle Badges, 100 Kafra Points^000000.";
+			mes "The cost of this work is ^0000FF200 Battle Badges and 100 Kafra Points^000000.";
 			mes "Once the headgear receives the enchant, ^FF0000it will lose refine and cards^000000.";
 			mes "Do you still want to Enchant?";
 			next;
@@ -967,7 +987,7 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 			{
 				mes "[Mann Co. Engineer]";
 				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
-				mes "You sure that you have the badges, Zeny, and Kafra Points?";
+				mes "You sure that you have the badges and Kafra Points?";
 				close;
 			}
 
@@ -1019,6 +1039,12 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 				mes "Your body is not ready!";
 				close;
 			}
+			if(!getequipisenableref(.@Equip)) 
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Oh... this item is not refineable, I'm sorry.";
+				close;
+			}
 
 			set .@Slot0, getequipcardid(.@Equip,0);
 			if( .@Slot0 == 255 || .@Slot0 == 254 || .@Slot0 < 0 )
@@ -1030,7 +1056,7 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 
 			mes "[Mann Co. Engineer]";
 			mes "You want to enchant your " + getitemname(getequipid(.@Equip)) + "?";
-			mes "The cost of this work is ^0000FF30 Battle Badges, and 10 Kafra Points^000000.";
+			mes "The cost of this work is ^0000FF30 Battle Badges and 10 Kafra Points^000000.";
 			mes "But before that, I must warn you of the risk.";
 			mes "Once the equip receives the enchant ^FF0000it will lose refine and cards^000000.";
 			mes "Do you still want to Enchant?";
@@ -1048,7 +1074,7 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 			{
 				mes "[Mann Co. Engineer]";
 				mes "I'd like to go ahead with this Enchant attempt, but you're missing a few things.";
-				mes "You sure that you have the badges and Zeny?";
+				mes "You sure that you have the badges and Kafra Points?";
 				close;
 			}
 
@@ -1112,6 +1138,12 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 			{
 				mes "[Mann Co. Engineer]";
 				mes "This enchant is for Shields, not weapons...";
+				close;
+			}
+			if(!getequipisenableref(3)) 
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Oh... this item is not refineable, I'm sorry.";
 				close;
 			}
 
@@ -1209,7 +1241,13 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 			if( !getequipisequiped(.@Part) )
 			{
 				mes "[Mann Co. Engineer]";
-				mes "Your not wearing anything there...";
+				mes "You're not wearing anything there...";
+				close;
+			}
+			if(!getequipisenableref(.@Part)) 
+			{
+				mes "[Mann Co. Engineer]";
+				mes "Oh... this item is not refineable, I'm sorry.";
 				close;
 			}
 
@@ -1225,7 +1263,7 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 
 			mes "[Mann Co. Engineer]";
 			mes "You want to enchant your " + getitemname(.@Item) + "?";
-			mes "The cost of this work is ^0000FF200 Battle Badges, 1,000,000 Zeny, and 100 Kafra Points^000000.";
+			mes "The cost of this work is ^0000FF200 Battle Badges, and 100 Kafra Points^000000.";
 			mes "I must warn you of the risk.";
 			mes "Once the Accesory receives the enchant ^FF0000it will loose cards^000000.";
 			mes "Do you still want to Enchant?";
@@ -1297,5 +1335,103 @@ bat_room,166,145,4	script	Mann Co. Engineer	448,{
 			mes "If you ever want to try to enchant your armors, come back and let me know.";
 			close;
 	}
+}
+
+
+bat_room,163,147,4	script	Wise Old Woman#bgroom	78,{
+	set .@n$, "[Wise Old Woman]";
+	
+	if (islowratechar() == 1)
+	{
+		mes "This function is only available to BG chars!";
+		close;
+	}
+	
+	mes .@n$;
+	mes "Hello there, I'm a woman recruited by Mann Co. for my special abilities. You see, I have the power to remove cards compounded onto eequipment. Would you like to try it?";
+	next;
+	switch (select("Of course!:How much does it cost?:No thanks."))
+	{
+		case 1:
+			mes .@n$;
+			mes "Aye, and what shall I examine for you?";
+			next;
+			
+			setarray .@position$[1], "Head","Body","Left hand","Right hand","Robe","Shoes","Accessory 1","Accessory 2","Head 2","Head 3";
+			set .@menu$,"";
+			for( set .@i,1; .@i <= 10; set .@i,.@i+1 )
+			{
+				if( getequipisequiped(.@i) )
+					set .@menu$, .@menu$ + .@position$[.@i] + "-" + "[" + getequipname(.@i) + "]";
+
+				set .@menu$, .@menu$ + ":";
+			}
+			set .@part,select(.@menu$);
+			if(!getequipisequiped(.@part)) {
+				mes .@n$;
+				mes "Young one... You're not wearing anything there that I can remove cards from.";
+				close;
+			}
+			if(getequipisrental(.@part) == 1)
+			{
+				mes .@n$;
+				mes "Ah.. it seems this item is a rental item, and as such... I cannot work on it. It must be returned as it was found.";
+				close;
+			}
+			if(getequipcardcnt(.@part) == 0) {
+				mes "[Wise Old Woman]";
+				mes "Young one... There are no cards compounded on this item. I can do nothing with it, I'm afraid.";
+				close;
+			}
+			set .@cardcount,getequipcardcnt(.@part);
+			
+			if (!checkweight(1202,(.@cardcount+1))) 
+			{ 
+				mes "^3355FFJust a minute!";
+				mes "I can't offer any of my services to you because you're carrying too much stuff. Put your extra items in Kafra Storage and come again~";
+				close;
+			}
+			
+			mes .@n$;
+			mes "This item has " + .@cardcount + " cards compounded on it. To perform my magic, I will need " + (50+(.@cardcount * 10)) + " Kafra Points";
+			next;
+			if(select("Very well. Do it.:Nevermind.") == 2) 
+			{
+				mes .@n$;
+				mes "Very well. Return at once if you seek my services.";
+				close;
+			}
+			if( ##KAFRAPOINTS < (50+(.@cardcount*10)) ) {
+				mes .@n$;
+				mes "You do not have all the items I require to work my magic, child. Come again when you do.";
+				close;
+			}
+			paypoints(50+(.@cardcount*10));
+
+			set .@failchance,rand(100);
+
+			if(.@failchance < 10) 
+			{
+				next;
+				failedremovecards .@part,3;				
+				mes .@n$;
+				mes "I have failed to remove the cards. Luckily, however, both the item and the cards are still okay.";
+				close;	
+			}
+			next;
+			successremovecards .@part;
+			mes .@n$;
+			mes "The process was a success. Here are your cards and your item. Farewell.";
+			close;		
+		case 2:
+			mes .@n$;
+			mes "I charge a flat fee of 50 Kafra Points, plus 10 Kafra Points for each card I remove from the item. Don't worry, Mann Co. has provided me plenty of Yellow Gemstones to use this magic. Their supply is practically infinite...";
+			close;
+		case 3:
+			mes .@n$;
+			mes "Very well. Return at once if you seek my services.";
+			close;
+	}
+
 }
 

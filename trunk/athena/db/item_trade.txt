@@ -165,7 +165,7 @@
 
 // India Father's Day Event items
 5154,219,100	// Sunglasses_F
-5155,219,100	// Granpa_Beard_F
+//5155,219,100	// Granpa_Beard_F
 5156,219,100	// Flu_Mask_F
 
 // Indonesia Jewel Event items
@@ -331,9 +331,9 @@
 5150,200,100	// Joker_Jester_
 5184,200,100	// Captain_Hat
 5148,200,100	// Phrygian_Cap
-5151,200,100	// Headset_OST
-2358,200,100	// Dress_Of_Angel
-5243,200,100	// Chullos
+//5151,200,100	// Headset_OST
+//2358,200,100	// Dress_Of_Angel
+//5243,200,100	// Chullos
 // 13538,201,100	// Meteor_10_Scroll_Box
 // 13539,201,100	// Storm_10_Scroll_Box
 // 13540,201,100	// Vermilion_10_Scroll_Box
@@ -411,7 +411,7 @@
 //5305,201,100	// Pirate_Dagger A normal item for our server, removed
 
 5373,201,100	// Darkness_Helm
-7773,8,100	// War_Badge
+7773,75,100	// War_Badge
 
 // Moscovia Quest Items -----
 7876,243,100	// Gold_Key
@@ -1452,7 +1452,7 @@
 5337,201,100	// Party_Recruiter_Hat
 5338,201,100	// Bf_Recruiter_Hat
 5339,201,100	// Friend_Recruiter_Hat
-5372,201,100	// Drooping_White_Kitty
+//5372,201,100	// Drooping_White_Kitty
 13905,201,100	// Hard_Core_Set_Box
 13906,201,100	// Kitty_Set_Box
 13907,201,100	// Soft_Core_Set_Box
@@ -1540,7 +1540,7 @@
 13424,243,100	// P_Sabre2
 15009,243,100	// Para_Team_Uniform1
 15010,243,100	// Para_Team_Uniform2
-15011,243,100	// Para_Team_Uniform3
+//15011,243,100	// Para_Team_Uniform3
 16004,243,100	// P_Mace1
 16005,243,100	// P_Mace2
 

@@ -47,7 +47,7 @@ struct unit_data {
 
 struct view_data {
 #ifdef __64BIT__
-	unsigned int class_,
+	unsigned int class_;
 #endif
 	unsigned short
 #ifndef __64BIT__

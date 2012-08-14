@@ -1251,7 +1251,7 @@ You will receive 1.5 times more EXP from hunting monsters for the next 30 minute
 This character will not receive any EXP penalty if killed within the next 30 minutes.#
 Regular item drops from monsters will be doubled for the next 30 minutes.#
 Boss Monster Map Information available for 10 minutes.#
-Do you really want to purchase '%s'? %d points will be deducted from your total Kafra Points.#
+Do you really want to purchase '%s'? %d points will be deducted from your total Points.#
 You cannot afford this.#
 ^ff0000Expiration Date: %s^000000#
 '%s' will disappear in %d minutes.#
