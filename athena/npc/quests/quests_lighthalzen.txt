@@ -2000,10 +2000,10 @@ OnTouch:
 		mes "cost 15,000 zeny. So";
 		mes "what do you say?";
 		next;
-		switch(select("Give me 1.:Give me 2.:Give me 3.:No, I'm fine.")) {
+		switch(select("Give me 10.:Give me 50.:Give me 100.:No, I'm fine.")) {
 		case 1: set .@number,1; set .@price,15000*1; break;
-		case 2: set .@number,2; set .@price,15000*2; break;
-		case 3: set .@number,3; set .@price,15000*3; break;
+		case 2: set .@number,50; set .@price,15000*50; break;
+		case 3: set .@number,100; set .@price,15000*100; break;
 		case 4:
 			mes "[Suspicious Guy]";
 			mes "Well...";
@@ -2055,14 +2055,14 @@ OnTouch:
 						mes "take this and I hope we never";
 						mes "bump into each other again!";
 					}
-					else if (.@number == 2) {
-						mes "Two, huh? I can dig it.";
+					else if (.@number == 50) {
+						mes "Fifty, huh? I can dig it.";
 						mes "Now take these and I hope";
 						mes "we never see each other";
 						mes "ever again! Ciao, baby~";
 					}
 					else {
-						mes "You want all three?";
+						mes "You want 100?";
 						mes "Heh, you're much smarter";
 						mes "than I thought! Alright, take";
 						mes "these with my compliments,";

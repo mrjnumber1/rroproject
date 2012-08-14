@@ -225,14 +225,16 @@ function	script	f_kafra_checkpass	{
 		}
 		case 2: //storage
 		{
+			
 			close2;
+			openstorage();
 			cutin "",255;
 			end;
 		}
 		case 3: //mstorage
 		{
 			close2;
-			if (guildopenstorage() == 1)
+			if (memberopenstorage() == 1)
 			{
 				mes "[Kafra Employee]";
 				mes "Sorry, another guild member is using the storage for now. Please wait until they are done.";
@@ -413,3 +415,4 @@ splendide, 360, 239,5	duplicate(f_kafra)	Kafra#95	861
 dicastes01, 196, 189,5	duplicate(f_kafra)	Kafra#96	861
 dicastes01, 122, 206,5	duplicate(f_kafra)	Kafra#97	861
 dicastes01, 197, 322,5	duplicate(f_kafra)	Kafra#98	861
+moc_para01,  15,  31,5	duplicate(f_kafra)	Kafra#99	861

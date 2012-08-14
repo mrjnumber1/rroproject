@@ -46,7 +46,7 @@
 
 #ifndef PACKETVER
 	//#define PACKETVER	20081126
-	#define PACKETVER 20101116
+	#define PACKETVER 20100616
 #endif
 
 // backward compatible PACKETVER 8 and 9

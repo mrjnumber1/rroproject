@@ -1259,6 +1259,11 @@ int pc_reg_received(struct map_session_data *sd)
 		sprintf(output, "Battleground Happy Hour. Rates at + %d %%", erate);
 		clif_displaymessage(sd->fd, output);
 	}
+	
+	sd->state.mainchat = 1;
+	clif_displaymessage(sd->fd, msg_txt(380)); // Main chat has been activated.
+	
+				
 
 	if (sd->state.connect_new == 0 && sd->fd)
 	{	//Character already loaded map! Gotta trigger LoadEndAck manually.
@@ -3464,12 +3469,26 @@ int pc_insert_card(struct map_session_data* sd, int idx_card, int idx_equip)
 	if( sd->status.inventory[idx_equip].equip != 0 )
 		return 0; // item must be unequipped
 
-	ARR_FIND( 0, sd->inventory_data[idx_equip]->slot, i, sd->status.inventory[idx_equip].card[i] == 0 );
-	if( i == sd->inventory_data[idx_equip]->slot )
-		return 0; // no free slots
+
 
 	// remember the card id to insert
 	nameid = sd->status.inventory[idx_card].nameid;
+
+	if( itemdb_isenchant(nameid) && sd->status.inventory[idx_equip].card[3] == 0 && sd->inventory_data[idx_equip]->slot < 4)
+	{
+		//switch( sd->inventory_data[idx_equip]->nameid )
+		//{ // Non Enchantable Equipment
+		//case 2357: return 0;
+		//}
+		i = 3; 
+		clif_displaymessage(sd->fd, "Putting into slot 3!");
+	}
+	else
+	{
+		ARR_FIND( 0, sd->inventory_data[idx_equip]->slot, i, sd->status.inventory[idx_equip].card[i] == 0 );
+		if( i == sd->inventory_data[idx_equip]->slot )
+			return 0; // no free slots
+	}
 
 	if( pc_delitem(sd,idx_card,1,1,0) == 1 )
 	{// failed
@@ -4228,12 +4247,13 @@ int pc_useitem(struct map_session_data *sd,int n)
 	if( sd->status.inventory[n].card[0] == CARD0_CREATE )
 	{ // Do not allow use BG /woe / etc
 		char_id = MakeDWord(sd->status.inventory[n].card[2],sd->status.inventory[n].card[3]);
-		if(pc_islowratechar(sd) || (BG_CHARID && char_id == BG_CHARID && !map_bg_items(sd->bl.m)) )
+
+		if ( RAID_CHARID && char_id == RAID_CHARID && !map_raid_items(sd->bl.m) )
 			return 0;
-		if(pc_islowratechar(sd) || (WOE_CHARID && char_id == WOE_CHARID && !map_gvg_items(sd->bl.m)) )
+		if ( BG_CHARID && char_id == BG_CHARID && !map_bg_items(sd->bl.m) )
 			return 0;
-		if( RAID_CHARID && char_id == RAID_CHARID && !map_raid_items(sd->bl.m))
-			return 0;
+		if ( WOE_CHARID && char_id == WOE_CHARID && !map_gvg_items(sd->bl.m) )
+		 	return 0;
 	}
 
 	sd->itemid = sd->status.inventory[n].nameid;
@@ -5520,7 +5540,7 @@ int pc_gainexp(struct map_session_data *sd, struct block_list *src, unsigned int
 	
 	//Cap exp to the level up requirement of the previous level when you are at max level, otherwise cap at UINT_MAX (this is required for some S. Novice bonuses). [Skotlex]
 	if (base_exp) {
-		nextb = (nextb&&(sd->status.class_==JOB_SUPER_NOVICE||sd->status.class_==JOB_SUPER_BABY))?UINT_MAX:pc_thisbaseexp(sd);
+		nextb = nextb?UINT_MAX:pc_thisbaseexp(sd);
 		if(sd->status.base_exp > nextb - base_exp)
 			sd->status.base_exp = nextb;
 		else
@@ -5530,7 +5550,7 @@ int pc_gainexp(struct map_session_data *sd, struct block_list *src, unsigned int
 	}
 
 	if (job_exp) {
-		nextj = (nextj&&(sd->status.class_==JOB_SUPER_NOVICE||sd->status.class_==JOB_SUPER_BABY))?UINT_MAX:pc_thisjobexp(sd);
+		nextj = nextj?UINT_MAX:pc_thisjobexp(sd);
 		if(sd->status.job_exp > nextj - job_exp)
 			sd->status.job_exp = nextj;
 		else

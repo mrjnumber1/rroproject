@@ -26,7 +26,7 @@ alberta,105,52,3	script	Port Manager	855,{
 		
 		for (set .@i, 0; .@i < .@num; set .@i, .@i + 1)
 			getitem(.@rewardi[.@i], .@rewardc[.@i]);
-		getexp(.@bexp[.@num-1], .@jexp[.@num-1]);
+		getexp(.@bexp[6-.@num], .@jexp[6-.@num]);
 		
 		close;
 		
@@ -292,7 +292,7 @@ prontera,165,191,3	script	Church Worker	790,{
 	}
 	
 	mes .npcname$;
-	mes "We seek donations of impure minerals of Rune-Midgard. We offer our special blessing to donaters.";
+	mes "The Prontera Church seeks donations of impure minerals of Rune-Midgard. We offer our special blessing to donaters.";
 	mes "Would you like to exchange ^BFBF00"+.cost[.@i]+"^000000 zeny and 1 Cursed Ruby for our blessing?";
 	next;
 	
@@ -311,8 +311,6 @@ prontera,165,191,3	script	Church Worker	790,{
 		mes "Please come back soon!";
 		close;
 	}
-	set Zeny, Zeny - .cost[.@i];
-	delitem(724, 1);
 	
 	mes .npcname$;
 	mes "~ O Father who art in heaven,";
@@ -321,11 +319,14 @@ prontera,165,191,3	script	Church Worker	790,{
 	mes .npcname$;
 	mes "  Give this adventurer our daily bread,";
 	
+	next;
 	mes .npcname$;
 	mes "~ Let him deliver us from evil!!";
 	next;
 
 	
+	set Zeny, Zeny - .cost[.@i];
+	delitem(724, 1);
 	getexp(.bexp[.@i], .jexp[.@i]);
 	set dq_cd_time, gettimetick(2);
 	

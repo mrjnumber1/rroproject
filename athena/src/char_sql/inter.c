@@ -653,6 +653,9 @@ int inter_restock_tosql(int char_id, char index, struct restock_data *rs)
 	{
 		it = &rs->items[i];
 
+		if (!it)
+			continue;
+
 		if (i > 0)
 			StringBuf_AppendStr(&buf, ",");
 

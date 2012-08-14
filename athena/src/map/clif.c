@@ -5293,7 +5293,7 @@ void clif_GlobalMessage(struct block_list* bl, const char* message)
 void clif_MainChatMessage(const char* message)
 {
     uint8 *buf;
-    unsigned long color = 0xEE55FF; // pinkish
+    unsigned long color = 0x1FDFDF; // bluish
     int len;
 
     nullpo_retv(message);
@@ -5556,7 +5556,7 @@ void clif_use_card(struct map_session_data *sd,int idx)
 {
 	int i,c,ep;
 	int fd=sd->fd;
-
+	int nameid = sd->inventory_data[idx]->nameid;
 	nullpo_retv(sd);
 	if (idx < 0 || idx >= MAX_INVENTORY) //Crash-fix from bad packets.
 		return;
@@ -5587,9 +5587,17 @@ void clif_use_card(struct map_session_data *sd,int idx)
 		if(sd->inventory_data[i]->type==IT_WEAPON && ep==EQP_SHIELD) //Shield card won't go on left weapon.
 			continue;
 
-		ARR_FIND( 0, sd->inventory_data[i]->slot, j, sd->status.inventory[i].card[j] == 0 );
-		if( j == sd->inventory_data[i]->slot )	// No room
-			continue;
+		if( itemdb_isenchant(nameid) )
+		{
+			if ( !(sd->status.inventory[i].card[3] == 0 && sd->inventory_data[i]->slot < 3) )
+				continue;
+		}
+		else
+		{
+			ARR_FIND( 0, sd->inventory_data[i]->slot, j, sd->status.inventory[i].card[j] == 0 );
+			if( j == sd->inventory_data[i]->slot )	// No room
+				continue;
+		}
 
 		WFIFOW(fd,4+c*2)=i+2;
 		c++;
@@ -14150,7 +14158,7 @@ void clif_parse_cashshop_buy(int fd, struct map_session_data *sd)
 		fail = 1;
 	else
     {
-#if PACKETVER < 20101116
+#if PACKETVER < 20100803
         short nameid = RFIFOW(fd,2);
         short amount = RFIFOW(fd,4);
         int points = RFIFOL(fd,6);

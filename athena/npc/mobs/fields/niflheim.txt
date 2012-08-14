@@ -37,8 +37,8 @@ nif_fild02,62,327,15,15	monster	Bloody Murderer	1507,1,1200000,600000,0
 nif_fild02,0,0,0,0	monster	Bloody Murderer	1507,7,0,0,0
 nif_fild02,114,136,15,15	monster	Loli Ruri	1505,2,1200000,600000,0
 nif_fild02,52,115,10,10	monster	Heirozoist	1510,4,1200000,600000,0
-nif_fild02,84,276,15,15	monster	Gibbet	1503,5,1200000,600000,0
-nif_fild02,352,273,15,15	monster	Gibbet	1503,5,300000,150000,0
+nif_fild02,84,276,15,15	monster	Gibbet	1503,5,0,0,0
+nif_fild02,352,273,15,15	monster	Gibbet	1503,5,0,0,0
 nif_fild02,0,0,0,0	monster	Loli Ruri	1505,19,120000,60000,0
 nif_fild02,352,273,15,15	monster	Dullahan	1504,5,600000,300000,0
 nif_fild02,0,0,0,0	monster	Dullahan	1504,5,0,0,0

@@ -250,7 +250,7 @@ int npc_event_dequeue(struct map_session_data* sd)
  *------------------------------------------*/
 int npc_event_export(char* lname, void* data, va_list ap)
 {
-	int pos = (int)data;
+	int pos = (int)__64BPTRSIZE(data);
 	struct npc_data* nd = va_arg(ap, struct npc_data *);
 
 	if ((lname[0]=='O' || lname[0]=='o')&&(lname[1]=='N' || lname[1]=='n')) {
@@ -426,7 +426,7 @@ void npc_event_do_oninit(void)
  *------------------------------------------*/
 int npc_timerevent_import(char* lname, void* data, va_list ap)
 {
-	int pos = (int)data;
+	int pos = (int)__64BPTRSIZE(data);
 	struct npc_data *nd = va_arg(ap,struct npc_data *);
 	int t = 0, i = 0;
 
@@ -2306,7 +2306,7 @@ static const char* npc_parse_shop(char* w1, char* w2, char* w3, char* w4, const 
 int npc_convertlabel_db(DBKey key, void* data, va_list ap)
 {
 	const char* lname = (const char*)key.str;
-	int lpos = (int)data;
+	int lpos = (int)__64BPTRSIZE(data);
 	struct npc_label_list** label_list;
 	int* label_list_num;
 	const char* filepath;

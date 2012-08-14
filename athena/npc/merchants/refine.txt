@@ -571,6 +571,10 @@ prt_in,63,60,0	script	Hollgrehenn	85,{
 	callfunc "refinemain","Hollgrehenn",1;
 	end;
 }
+moc_para01,183,21,0	script	Hollgrehenn#para	85,{
+	callfunc "refinemain","Hollgrehenn",1;
+	end;
+}
 morocc_in,73,38,6	script	Aragham	99,{
 	callfunc "refinemain","Aragham",1;
 	end;
@@ -1021,6 +1025,10 @@ function	script	phramain	{
 //==============================================================================
 // Ori/Elu Refiners
 //==============================================================================
+moc_para01,174,21,3	script	Dietrich#para	84,{
+	callfunc "orimain","Dietrich";
+	end;
+}
 prt_in,63,69,3	script	Dietrich	84,{
 	callfunc "orimain","Dietrich";
 	end;

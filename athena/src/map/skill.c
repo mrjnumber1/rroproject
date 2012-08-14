@@ -1995,7 +1995,7 @@ int skill_attack (int attack_type, struct block_list* src, struct block_list *ds
 
 	if( !dmg.amotion )
 	{ //Instant damage
-		if( !sc || !sc->data[SC_DEVOTION] && skillid != CR_REFLECTSHIELD)
+		if( !sc || (!sc->data[SC_DEVOTION] && skillid != CR_REFLECTSHIELD) )
 			status_fix_damage(src,bl,damage,dmg.dmotion,skillid); //Deal damage before knockback to allow stuff like firewall+storm gust combo.
 		if( !status_isdead(bl) )
 			skill_additional_effect(src,bl,skillid,skilllv,dmg.flag,dmg.dmg_lv,tick);
@@ -2063,7 +2063,7 @@ int skill_attack (int attack_type, struct block_list* src, struct block_list *ds
 	if( rdamage > 0 )
 	{
 		if( dmg.amotion )
-			battle_delay_damage(tick, dmg.amotion,bl,src,0,0,0,rdamage,ATK_DEF,0);
+			battle_delay_damage(tick, dmg.amotion,bl,src,0,CR_REFLECTSHIELD,0,rdamage,ATK_DEF,0);
 		else
 			status_fix_damage(bl,src,rdamage,0, skillid);
 		clif_damage(src,src,tick, dmg.amotion,0,rdamage,dmg.div_>1?dmg.div_:1,4,0);
@@ -3827,6 +3827,8 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, in
 	case NPC_MAGICMIRROR:
 	case ST_PRESERVE:
 	case NPC_INVINCIBLE:
+		//if (skillid == NPC_INVINCIBLE)
+		//	status_change_end(bl, SC_INVINCIBLEOFF, INVALID_TIMER);
 	case NPC_INVINCIBLEOFF:
 		clif_skill_nodamage(src,bl,skillid,skilllv,
 			sc_start(bl,type,100,skilllv,skill_get_time(skillid,skilllv)));
@@ -8802,7 +8804,7 @@ int skill_check_condition_castbegin(struct map_session_data* sd, short skill, sh
 			status_change_end(&sd->bl, SC_COMBO, INVALID_TIMER);
 			return 0;
 		}
-		if(sc->data[SC_COMBO]->val1 != skill)
+		if (sc->data[SC_COMBO]->val1 != skill && !( sd && sd->status.base_level >= 90 && pc_famerank(sd->status.char_id, MAPID_TAEKWON) ))
 		{	//Cancel combo wait.
 			unit_cancel_combo(&sd->bl);
 			return 0;
@@ -9264,7 +9266,7 @@ int skill_consume_requirement( struct map_session_data *sd, short skill, short l
 			if( sd->status.zeny < req.zeny )
 				req.zeny = sd->status.zeny;
 
-			if ( !pc_islowratechar(sd) )
+			if ( pc_islowratechar(sd) )
 				pc_payzeny(sd,req.zeny);
 
 			if(area == 1) //woe

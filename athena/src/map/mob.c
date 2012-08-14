@@ -1784,9 +1784,16 @@ bool mob_process_aloot(struct map_session_data* sd, int nameid)
 {
 	int i;
 
-	if(!sd->state.autolootactive)
+	if (sd)
+	{
+		if(!sd->state.autolootactive)
+			return false;
+		ARR_FIND(0, MAX_ALOOTITEM, i, sd->state.autolootid[i] == nameid);
+	}
+	else
+	{
 		return false;
-	ARR_FIND(0, MAX_ALOOTITEM, i, sd->state.autolootid[i] == nameid);
+	}
 	
 	return (i != MAX_ALOOTITEM);
 }
@@ -1795,10 +1802,17 @@ bool mob_process_noloot(struct map_session_data* sd, int nameid)
 {
 	int i;
 
-	if (sd->state.nolootactive)
-		for (i=0; i<MAX_ALOOTITEM; ++i)
-			if (nameid == sd->state.nolootid[i])
-				return false;
+	if (sd)
+	{
+		if (sd->state.nolootactive)
+			for (i=0; i<MAX_ALOOTITEM; ++i)
+				if (nameid == sd->state.nolootid[i])
+					return false;
+	}
+	else
+	{
+		return false;
+	}
 
 	return true;
 
@@ -2021,7 +2035,7 @@ int mob_showmvpdead(struct block_list* bl,va_list ap)
 	if(ksd->bl.id == bl->id)
 		return 0;
 
-	sprintf(out,"%s destroyed the Boss %s with %d damage!",ksd->status.name,md->name,dmg);
+	sprintf(out,"%s destroyed the MVP '%s' with %d damage!",ksd->status.name,md->name,dmg);
 	clif_displaymessage( ((TBL_PC*)bl)->fd, out);
 	return 1;
 }
@@ -2124,11 +2138,14 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 				pc_getcash(sd, 0, cash);
 			}
 		}
+
+		
+
 		if( sd->status.party_id )
 		{
 				
 			map_foreachinrange(quest_update_objective_sub,&md->bl,AREA_SIZE,BL_PC,sd->status.party_id,md->class_);
-			map_foreachinrange(mission_update_sub,&md->bl, AREA_SIZE*5, BL_PC, sd->status.party_id, md->class_);
+			map_foreachinmap(mission_update_sub, sd->bl.m, BL_PC, sd->status.party_id, md->class_, sd->bl.id);
 		}
 		else
 		{
@@ -2136,6 +2153,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 				quest_update_objective(sd, md->class_);
 
 			mission_update(sd, md->class_);
+			
 		}
 
 	}
@@ -2537,7 +2555,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 
 				if(p && p->party.count > 1)
 				{
-					party_foreachsamemap(mob_showmvpdead, mvp_sd, AREA_SIZE*3, mvp_sd, md, mvp_damage);
+					party_foreachsamemap(mob_showmvpdead, mvp_sd, AREA_SIZE*20, mvp_sd, md, mvp_damage);
 				}
 			}
 

@@ -140,18 +140,13 @@ LWarpEnd2:
 	/////////// The above is incomplete code!	
 	
 ActuallyImplemented:
-	if(!@warp_x || !@warp_y)
-	{
-		set @warp_cost, 0;
-		set @warp_name$, "Prontera";
-		set @warp_map$, "prontera";
-		set @warp_x, 153+rand(5);
-		set @warp_y, 174+rand(5);
-	}
+	if(!warp_x || !warp_y)
+		set warp_name$, "Prontera";
+	
 			
 	mes "[Warp NPC]";
 	mes "Where would you like to be warped to?";
-	menu	("(Last)-" + @warp_name$),LWarpEnd,"Towns",town,"Dungeons",dungeon,"Fields",field,"WoE",woe;
+	menu	("(Last)-" + warp_name$),LWarpEnd,"Towns",town,"Dungeons",dungeon,"Fields",field,"WoE",woe;
 
 	woe:
 		message strcharinfo(0), "not implemented yet!";
@@ -1169,7 +1164,21 @@ ActuallyImplemented:
 			goto LWarpEnd;
 
 	LWarpEnd:
-		warp @warp_map$, @warp_x, @warp_y;
+		if(!warp_x || !warp_y)
+		{
+			set warp_name$, "Prontera";
+			set warp_map$, "prontera";
+			set warp_x, 153+rand(5);
+			set warp_y, 174+rand(5);
+		}
+		if (@warp_x && @warp_x && @warp_y)
+		{
+			set warp_name$, @warp_name$;
+			set warp_map$, @warp_map$;
+			set warp_x, @warp_x;
+			set warp_y, @warp_y;
+		}
+		warp warp_map$, warp_x, warp_y;
 		end;
 		
 		
@@ -1544,7 +1553,8 @@ ActuallyImplemented:
 		"Level 9",dthat9,
 		"Level 10",dthat10,
 		"Level 11",dthat11,
-		"Level 12",dthat12;
+		"Level 12",dthat12,
+		"Top Floor",dthatboss;
 
 	wkieldun:
 
@@ -1630,8 +1640,8 @@ ActuallyImplemented:
 		"Culvert 2",dglastcul2,
 		"Culvert 3",dglastcul3,
 		"Culvert 4",dglastcul4,
-		"Inside GH",dglastin,
 		"St.Abbey",dglastchur,
+		"Inside GH",dglastin,
 		"Staircase Dungeon",dglaststep,
 		"Underground Cave 1",dglastcave1,
 		"Underground Cave 2",dglastcave2,
@@ -1949,8 +1959,8 @@ ActuallyImplemented:
 	dabyss1:
 	set @warp_name$, "Abyss Lakes Underground Cave F1";
 	set @warp_map$,"abyss_01"; 
-	set @warp_x,192; 
-	set @warp_y,207; 
+	set @warp_x,262; 
+	set @warp_y,270; 
 	goto LWarpEnd;
 	end;
 	dabyss2:
@@ -2051,6 +2061,12 @@ ActuallyImplemented:
 	set @warp_y,52; 
 	goto LWarpEnd;
 	end;
+	dthatboss:
+	set @warp_name$, "Thanatos Tower - Boss Area";
+	set @warp_map$,"thana_boss";
+	set @warp_x,136;
+	set @warp_y,116;
+	goto LWarpEnd;
 	danthell1:
 	set @warp_name$, "Ant Hell - F1";
 	set @warp_map$,"anthell01"; 
@@ -2262,28 +2278,28 @@ ActuallyImplemented:
 	goto LWarpEnd;
 	end;
 	dglastcast1:
-	set @warp_name$, "Glast Heim F1";
+	set @warp_name$, "Glast Heim Castle F1";
 	set @warp_map$,"gl_cas01"; 
 	set @warp_x,199; 
 	set @warp_y,29; 
 	goto LWarpEnd;
 	end;
 	dglastcast2:
-	set @warp_name$, "Glast Heim F2";
+	set @warp_name$, "Glast Heim Castle F2";
 	set @warp_map$,"gl_cas02"; 
 	set @warp_x,104; 
 	set @warp_y,25; 
 	goto LWarpEnd;
 	end;
 	dglastchiv1:
-	set @warp_name$, "Inside Glast Heim Chivalry F1";
+	set @warp_name$, "Glast Heim Chivalry F1";
 	set @warp_map$,"gl_knt01"; 
 	set @warp_x,150; 
 	set @warp_y,15; 
 	goto LWarpEnd;
 	end;
 	dglastchiv2:
-	set @warp_name$, "Inside Glast Heim Chivalry F2";
+	set @warp_name$, "Glast Heim Chivalry F2";
 	set @warp_map$,"gl_knt02"; 
 	set @warp_x,157; 
 	set @warp_y,287; 
@@ -2294,6 +2310,13 @@ ActuallyImplemented:
 	set @warp_map$,"gl_chyard"; 
 	set @warp_x,147; 
 	set @warp_y,15; 
+	goto LWarpEnd;
+	end;
+	dglastin:
+	set @warp_name$, "Inside Glast Heim";
+	set @warp_map$, "gl_in01";
+	set @warp_x,73;
+	set @warp_y,70;
 	goto LWarpEnd;
 	end;
 	dglastcul1:
@@ -2324,13 +2347,6 @@ ActuallyImplemented:
 	set @warp_y,277; 
 	goto LWarpEnd;
 	end;
-	dglastin:
-	set @warp_name$, "Inside Glast Heim";
-	set @warp_map$, "gl_in01";
-	set @warp_x,73;
-	set @warp_y,70;
-	goto LWarpEnd;
-	end;
 	dglastchur:
 	set @warp_name$, "Glast Heim St.Abbey";
 	set @warp_map$,"gl_church"; 
@@ -2339,7 +2355,7 @@ ActuallyImplemented:
 	goto LWarpEnd;
 	end;
 	dglaststep:
-	set @warp_name$, "Glast Heim Staircase Dungeon";
+	set @warp_name$, "Glast Heim Staircase";
 	set @warp_map$,"gl_step"; 
 	set @warp_x,12; 
 	set @warp_y,7; 
@@ -2451,7 +2467,7 @@ ActuallyImplemented:
 	goto LWarpEnd;
 	end;
 	dmosk3:
-	set @warp_name$, "Dremuci";
+	set @warp_name$, "Dremuci Forest";
 	set @warp_map$,"mosk_dun03"; 
 	set @warp_x,33; 
 	set @warp_y,136; 
@@ -2758,30 +2774,35 @@ ActuallyImplemented:
 	goto LWarpEnd;
 	end;
 	dbradun1:
+	set @warp_name$, "Brasilis Dungeon F1";
 	set @warp_map$,"bra_dun01"; 
 	set @warp_x,147; 
 	set @warp_y,139; 
 	goto LWarpEnd;
 	end;
 	dbradun2:
+	set @warp_name$, "Brasilis Dungeon F2";
 	set @warp_map$,"bra_dun02"; 
 	set @warp_x,261; 
 	set @warp_y,259; 
 	goto LWarpEnd;
 	end;
 	dgorge0:
+	set @warp_name$, "Continental Guard Quarantine";
 	set @warp_map$,"moc_fild20"; 
 	set @warp_x,210; 
 	set @warp_y,332; 
 	goto LWarpEnd;
 	end;
 	dgorge1:
+	set @warp_name$, "Dimensional Gorge 1";
 	set @warp_map$,"moc_fild21"; 
 	set @warp_x,31; 
 	set @warp_y,196; 
 	goto LWarpEnd;
 	end;
 	dgorge2:
+	set @warp_name$, "Dimensional Gorge 2";
 	set @warp_map$,"moc_fild22"; 
 	set @warp_x,37; 
 	set @warp_y,196; 

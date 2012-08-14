@@ -2,7 +2,8 @@ bat_room,148,155,5	script	Battlegrounds Guide	430,{
 
 	mes "[Battle Maiden Wendy]";
 	mes "Hey there! I'm Wendy! Battlegrounds is amazing!! I'm a real expert around these parts, so I can tell you just about anything you want to know. From how this place works to the special commands you need to know to get stuff done to where you can trade them hard earned badges of yours!";
-	switch(select("What is Battlegrounds?:What are the @commands for BG?:Where can I trade badges?:Nah, I already know them!")) 
+	next;
+	switch(select("What is Battlegrounds?:What are the @commands for BG?:Where can I trade badges?:Nah, I already know everything!")) 
 	{
 		case 1:
 			mes "[Battle Maiden Wendy]";

@@ -628,6 +628,12 @@ static int storage_additem(struct map_session_data* sd, struct item* item_data, 
 		return 1;
 	}
 
+	if ( item_data->expire_time)
+	{
+		clif_displaymessage (sd->fd, msg_txt(264));
+		return 1;
+	}
+
 	if( item_data->card[0]==CARD0_CREATE ) 
 	{
 		int char_id = MakeDWord(item_data->card[2],item_data->card[3]);

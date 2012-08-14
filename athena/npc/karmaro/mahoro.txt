@@ -19,9 +19,10 @@
 //= - Now walks randomly, and uses singing emote randomly.
 //= v1.99b
 //= - Moved back to Prontera for KarmaRO
+//= And Sakuya'd her!!
 //============================================================ 
 
-prontera.gat,156,191,3	script	Mahoro	1275,{
+prontera.gat,156,191,3	script	Sakuya	1275,{
 	end;
 
 OnInit:

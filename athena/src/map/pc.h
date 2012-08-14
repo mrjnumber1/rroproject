@@ -178,6 +178,7 @@ struct map_session_data {
 		unsigned bg_loser : 1;
 		//unsigned evade_antiwpefilter : 1;
 		unsigned lowratechar : 1;
+		unsigned guild_hp : 1;
 		unsigned int restock_dirty : MAX_RESTOCK_SLOTS; // [misterj]
 	} state;
 	struct {

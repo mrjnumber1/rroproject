@@ -35,7 +35,7 @@ OnInit:
 	add_bg_rental(EQP_HEAD_TOP, 2285,   10); // aoa
 	add_bg_rental(EQP_HEAD_TOP, 5172,   10); // beret
 	add_bg_rental(EQP_HEAD_TOP, 5137,  200, 0, 4269); // fatasm alice doll
-	add_bg_rental(EQP_HEAD_TOP, 5451, 1000, 0, 4087); // Fatasm RWC Gold
+	add_bg_rental(EQP_HEAD_TOP, 5451, 1000, 0, 4269); // Fatasm RWC Gold
 	add_bg_rental(EQP_HEAD_TOP, 5423,  500); // i love china
 	add_bg_rental(EQP_HEAD_TOP, 2289,    5); // poopoo hat
 	add_bg_rental(EQP_HEAD_TOP, 5451, 1000, 0, 4412); // Order RWC Gold
@@ -267,7 +267,7 @@ OnInit:
 	// add_bg_rental(EQP_ACC, 2733,   50); // Sheriff Badge do not move; belongs with the medals!
 	
 	
-	add_bg_rental(EQP_ACC, 2710,   10); // refined BSB ATK+30 w/o combo
+//	add_bg_rental(EQP_ACC, 2710,   10); // refined BSB ATK+30 w/o combo
 	
 	add_bg_rental(EQP_ACC, 2678,   15); // Ring of Flame Lord
 	add_bg_rental(EQP_ACC, 2679,   15); // Ring of Resonance
@@ -303,6 +303,7 @@ OnInit:
 	add_bg_rental(EQP_WEAPON, 1925,   50, 0, 4072, 4452, 4452); // Solid double Magical Cello
 	add_bg_rental(EQP_WEAPON, 1925,   50, 0, 4072, 4002, 4002); // Solid double Vital Cello
 	
+	add_bg_rental(EQP_WEAPON, 1980,   50, 0, 4072, 4004, 4004); // Solid double dexterous whip of unbalance
 	add_bg_rental(EQP_WEAPON, 1980,   50, 0, 4072, 4026, 4026); // Solid double shrewd whip of unbalance
 	add_bg_rental(EQP_WEAPON, 1980,   50, 0, 4072, 4002, 4002); // Solid double Vital whip of unbalance
 	

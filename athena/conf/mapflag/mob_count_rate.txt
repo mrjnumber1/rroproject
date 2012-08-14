@@ -15,10 +15,14 @@ gef_fild00	mapflag	mob_count_rate	5
 gef_fild04	mapflag	mob_count_rate	5
 gef_fild07	mapflag	mob_count_rate	5
 gl_dun02	mapflag	mob_count_rate	5
+
 gld_dun01	mapflag	mob_count_rate	5
 gld_dun02	mapflag	mob_count_rate	5
 gld_dun03	mapflag	mob_count_rate	5
 gld_dun04	mapflag	mob_count_rate	5
+schg_dun01	mapflag	mob_count_rate	5
+arug_dun01	mapflag	mob_count_rate	5
+
 lou_dun03	mapflag	mob_count_rate	10
 pay_fild01	mapflag	mob_count_rate	5	
 pay_fild03	mapflag	mob_count_rate	5
@@ -44,6 +48,7 @@ prt_sewb4	mapflag	mob_count_rate	2
 thor_v03	mapflag	mob_count_rate	2
 tur_dun03	mapflag	mob_count_rate	2
 tur_dun04	mapflag	mob_count_rate	2
+moc_fild21	mapflag	mob_count_rate	2
 moc_fild22	mapflag	mob_count_rate	2
 
 
