@@ -27,6 +27,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <math.h>
 
 static DBMap* bg_team_db; // int bg_id -> struct battleground_data*
 static unsigned int bg_team_counter = 0; // Next bg_id
@@ -839,7 +840,7 @@ int bg_team_leave(struct map_session_data *sd, int flag)
 
 	if (flag > 1 && battle_config.bg_autojail_kicks) // 1 = dc/quit
 	{
-		pc_setmemreg(sd, "##BG_kicks", pc_readmemreg(sd, "##BG_kicks") + 1 );
+		pc_adjust_memreg(sd, "##BG_kicks", 1);
 	}
 
 	switch( flag )
@@ -977,7 +978,9 @@ int bg_send_xy_timer_sub(DBKey key, void *data, va_list ap)
 
 		// if a player has only performed one type of action, they're clearly afking
 		// if the diff between kb and mouse ticks is too huge, we autokick
-		if ( battle_config.bg_idle_autokick && abs(DIFF_TICK(sd->mouse_action_tick, sd->keyboard_action_tick)) >= (battle_config.bg_idle_autokick*1000) && && bg->g ) 
+		if ( battle_config.bg_idle_autokick && 
+			 bg->g &&
+			 ( abs(DIFF_TICK(sd->mouse_action_tick, sd->keyboard_action_tick)) >= (battle_config.bg_idle_autokick*1000) )  ) 
 		{
 			sprintf(output, "- AFK [%s] Kicked - ", sd->status.name);
 			clif_bg_message(bg, bg->bg_id, bg->g->name, output, (int)strlen(output) + 1);

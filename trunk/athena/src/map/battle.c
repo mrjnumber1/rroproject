@@ -2958,7 +2958,7 @@ struct Damage battle_calc_misc_attack(struct block_list *src,struct block_list *
 			pc_payzeny(sd, md.damage);
 		else if (zone == 1) //woe
 			add2limit(sd->status.woe_stats.zeny_used, md.damage, UINT_MAX);
-		else if(area == 2) //bg
+		else if(zone == 2) //bg
 				add2limit(sd->status.bg_round_stats.zeny_used, md.damage, UINT_MAX);
 	}
 

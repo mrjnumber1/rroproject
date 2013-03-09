@@ -16132,7 +16132,15 @@ BUILDIN_FUNC(bg_balance_teams)
 */
 BUILDIN_FUNC(getipnum)
 {
-	script_pushint(st, (int)session[sd->fd]->client_addr);
+	TBL_PC *sd = script_rid2sd(st);
+
+	if ( sd )
+		script_pushint(st, (int)session[sd->fd]->client_addr);
+	else
+	{
+		ShowError("buildin_getipnum: no sd attached!\n");
+		script_pushint(st, 0);
+	}
 	return 0;
 }
 
@@ -17266,7 +17274,7 @@ BUILDIN_FUNC(sc_check) // sc_check sc_type, (valnum?)
 {
 	int id, type;
 	struct map_session_data* sd = script_rid2sd(st);
-	status_change_entry* sc = NULL;
+	struct status_change_entry* sc = NULL;
 
 	if( sd == NULL )
 		return 0;
