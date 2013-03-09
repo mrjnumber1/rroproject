@@ -868,7 +868,7 @@ OnMatchEnd:
 	end;
 	
 	function toggleFlags {
-		set .@position, getarg(0), getvariableofnpc(.Score, "Conquest");
+		set .@position, getarg(0, getvariableofnpc(.Score, "Conquest"));
 		set .@castle, getvariableofnpc(.Index, "Conquest");
 		
 		switch(.@castle$)
@@ -1014,11 +1014,11 @@ OnMatchEnd:
 				else if (.@position == 2) // gstones
 				{
 					disablenpc("LF-01"+.@name$);
+					disablenpc("LF-03"+.@name$);
 				}
-					disablenpc("LF-04"+.@name$);
 				else if (.@position == 3)
 				{
-					disablenpc("LF-03"+.@name$);
+					disablenpc("LF-04"+.@name$);
 				}
 				else if (.@position == 4) //cade2
 				{

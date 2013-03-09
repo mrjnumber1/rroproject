@@ -129,7 +129,7 @@ bat_room,148,131,5	script	Plagiarist	810,{
 	set .@min_skill_level, getskilllv("RG_PLAGIARISM");
 	if (.@min_skill_level < 1)
 	{
-		mes "Wait a minute my man, you got the looks but you ain't even got Plagiarism yet! You need to finish up skills.";
+		mes "...wait a minute my man, you got the looks but you ain't even got Plagiarism yet! You need to finish up skills.";
 		close;
 	}
 	set .@size, getarraysize(.skill_id);
@@ -140,11 +140,11 @@ bat_room,148,131,5	script	Plagiarist	810,{
 		// this makes it so we don't have to iterate through and re-index everything for the player's choice.
 		//if ( .skill_lv[.@i] > .@min_skill_level )
 		//	continue;
-		set .@mstr$, ":"+getskillname(.skill_id[.@i])+" (" + .skill_lv[.@i] + ")";
+		set .@mstr$, .@mstr$ + ":"+getskillname(.skill_id[.@i])+" (" + .skill_lv[.@i] + ")";
 	}
 	next;
 	set .@choice, select(.@mstr$) - 2;
-	if (select(.@mstr$) == -1)
+	if (.@choice == -1)
 	{
 		mes .n$;
 		mes "All right brother man, so be it.";
@@ -160,8 +160,8 @@ bat_room,148,131,5	script	Plagiarist	810,{
 
 OnInit:
 	set .n$, "[Plagiarist]";
-	setarray .skill_id[0],542,527, 14, 84, 83, 89, 537, 536,  5,  7, 11, 13, 15, 16, 17, 18, 19, 20, 21, 24, 28, 42, 46, 47, 52, 61, 62, 70, 77, 79, 80, 81, 85, 86, 88, 90, 91, 91, 116, 121, 122, 123, 147, 148, 149, 152, 156, 229, 230, 250, 251, 253, 263, 263, 337, 421, 526, 527, 534, 535, 539, 540, 541, 542;
-	setarray .skill_lv[0],  5,  5, 10, 10, 10, 10,  10,   5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,  1, 10, 10, 10, 10, 10,  5, 10, 10, 10, 10, 10, 10, 10,  5, 10,  5 ,  1,  5,   5,   5,   5,   5,   1,   1,   1,   1,   1,   5,   5,   5,   5,  10,   5,  10,   1,   7,  10,   5,  10,  10,   5,  10,   5,   5;
+	setarray .skill_id[0],542,527, 14, 84, 83, 89, 537, 536,  5,  7, 11, 13, 15, 16, 17, 18, 19, 20, 21, 24, 28, 42, 46, 47, 52, 61, 62, 70, 77, 79, 80, 81, 85, 86, 88, 90, 91, 91, 116, 121, 122, 123, 148, 149, 152, 156, 229, 230, 250, 251, 253, 263, 263, 337, 421, 526, 527, 534, 535, 539, 540, 541, 542;
+	setarray .skill_lv[0],  5,  5, 10, 10, 10, 10,  10,   5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,  1, 10, 10, 10, 10, 10,  5, 10, 10, 10, 10, 10, 10, 10,  5, 10,  5 ,  1,  5,   5,   5,   5,   5,   1,   1,   1,   1,   5,   5,   5,   5,  10,   5,  10,   1,   7,  10,   5,  10,  10,   5,  10,   5,   5;
 
 }
 
