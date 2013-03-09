@@ -84,7 +84,17 @@ OnClock2200:
 
 bat_room,159,178,5	script	Blutarch Mann#1	420,{
 	cutin "bat_kiyom2",2;
-	
+
+	set .@num, getbattleflag("bg_autojail_kicks");
+	if ( .@num && .@num >= ##BG_kicks)
+	{
+		mes "[An Omnipotent Voice]";
+		// todo: log the ip or mac or account of this guy
+		logmes "user with excessive kicks => mid: " + getcharid(5) + " | ip: " + getipnum() + " | aid: " + getcharid(3) + " | cid: " + getcharid(0);
+		mes "It appears you've been kicked from BG too many times to be allowed to participate.. if you'd like to play again, please contact an administrator.";
+		close;
+		
+	}
 	if (islowratechar() == 1)
 	{
 		mes "[Blutarch Mann]";
@@ -152,6 +162,16 @@ bat_room,159,178,5	script	Blutarch Mann#1	420,{
 bat_room,156,178,5	script	Redmond Mann#2	416,{
 
 	cutin "bat_crua1",2;	
+	set .@num, getbattleflag("bg_autojail_kicks");
+	if ( .@num && .@num >= ##BG_kicks)
+	{
+		mes "[An Omnipotent Voice]";
+		// todo: log the ip or mac or account of this guy
+		logmes "user with excessive kicks => mid: " + getcharid(5) + " | ip: " + getipnum() + " | aid: " + getcharid(3) + " | cid: " + getcharid(0);
+		mes "It appears you've been kicked from BG too many times to be allowed to participate.. if you'd like to play again, please contact an administrator.";
+		close;
+		
+	}
 	if (islowratechar() == 1)
 	{
 		mes "[Redmond Mann]";

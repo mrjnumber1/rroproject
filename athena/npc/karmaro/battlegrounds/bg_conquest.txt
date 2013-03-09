@@ -8,7 +8,7 @@
 bat_room,169,74,0	script	Registration::ConR_Guillaume	418,{
 	end;
 OnInit:
-	set .CQ_Wait_Size, 3;
+	set .CQ_Wait_Size, 2;
 	waitingroom "BLU Team",getvariableofnpc(.CQ_Wait_Size,"ConR_Guillaume"),"Conquest::OnGuillaumeJoin",1;
 	end;
 OnEnterBG:
@@ -30,12 +30,12 @@ OnEnterBG:
 //Conquest Randomizer
 bat_room,159,175,4	script	Randomizer::ConR_Randomizer	734,{
 	
-	if (islowratechar() == 1)
-	{
-		mes "[Randomizer]";
-		mes "As you are a low rate character, this function is of no use to you..";
-		close;
-	}
+	// if (islowratechar() == 1)
+	// {
+		// mes "[Randomizer]";
+		// mes "As you are a low rate character, this function is of no use to you..";
+		// close;
+	// }
 	if( $@Conquest != 1)
 	{
 		mes "[Randomizer]";
@@ -77,22 +77,50 @@ OnInit:
 
 }
 
+
+
+
+
+
+
+
+
 // Battleground Engine
 // *********************************************************************
 -	script	Conquest	-1,{
 	end;
 
+	function joinByValueClass;
+	function toggleFlags;
 OnSetRotation:
  	if( set(.Index,.Index + 1) > 5 ) set .Index, 0;
 
 	switch( .Index )
 	{
-	case 0: set .Castle$,"schg_cas06"; set .GX,264; set .GY,379; set .CX,295; set .CY,379; set .DX,120; set .DY,290; set .AX,119; set .AY,  8; break;
-	case 1: set .Castle$,"schg_cas07"; set .GX, 90; set .GY,311; set .CX,113; set .CY,311; set .DX,136; set .DY,188; set .AX,339; set .AY, 78; break;
-	case 2: set .Castle$,"schg_cas08"; set .GX, 28; set .GY, 50; set .CX, 87; set .CY, 50; set .DX,308; set .DY,208; set .AX,337; set .AY,330; break;
-	case 3: set .Castle$,"arug_cas06"; set .GX, 30; set .GY,381; set .CX,126; set .CY,357; set .DX, 67; set .DY,193; set .AX,275; set .AY, 93; break;
-	case 4: set .Castle$,"arug_cas07"; set .GX,300; set .GY,339; set .CX,298; set .CY,308; set .DX, 43; set .DY,256; set .AX,139; set .AY, 31; break;
-	case 5: set .Castle$,"arug_cas08"; set .GX,313; set .GY,154; set .CX,330; set .CY,154; set .DX,121; set .DY,318; set .AX,141; set .AY, 45; break;
+	case 0: 
+		set .Castle$,"schg_cas06"; set .GX,264; set .GY,379; set .CX,295; set .CY,379; set .DX,120; set .DY,290; set .AX,119; set .AY,  8; 
+		set .AXa, 119; set .AYa,  46; set .AXb, 119; set .AYb, 140; set .AXc, 119; set .AYc, 218;
+		break;
+	case 1: 
+		set .Castle$,"schg_cas07"; set .GX, 90; set .GY,311; set .CX,113; set .CY,311; set .DX,136; set .DY,188; set .AX,339; set .AY, 78; 
+		set .AXa, 295; set .AYa, 100; set .AXb, 243; set .AYb, 215; set .AXc, 161; set .AYc, 125;
+		break;
+	case 2: 
+		set .Castle$,"schg_cas08"; set .GX, 28; set .GY, 50; set .CX, 87; set .CY, 50; set .DX,308; set .DY,208; set .AX,337; set .AY,330; 
+		set .AXa, 326; set .AYa, 286; set .AXb, 212; set .AYb, 230; set .AXc, 262; set .AYc, 200;
+		break;
+	case 3: 
+		set .Castle$,"arug_cas06"; set .GX, 30; set .GY,381; set .CX,126; set .CY,357; set .DX, 67; set .DY,193; set .AX,275; set .AY, 93; 
+		set .AXa, 240; set .AYa,  58; set .AXb, 108; set .AYb, 113; set .AXc, 139; set .AYc, 175;
+		break;
+	case 4: 
+		set .Castle$,"arug_cas07"; set .GX,300; set .GY,339; set .CX,298; set .CY,308; set .DX, 43; set .DY,256; set .AX,139; set .AY, 31; 
+		set .AXa, 136; set .AYa, 202; set .AXb, 152; set .AYb, 323; set .AXc,  42; set .AYc, 331;
+		break;
+	case 5: 
+		set .Castle$,"arug_cas08"; set .GX,313; set .GY,154; set .CX,330; set .CY,154; set .DX,121; set .DY,318; set .AX,141; set .AY, 45; 
+		set .AXa, 140; set .AYa, 104; set .AXb, 104; set .AYb, 176; set .AXc, 104; set .AYc, 230;
+		break;
 	}
 	set .CQ_Wait_Size, getvariableofnpc(.CQ_Wait_Size,"ConR_Guillaume");
 	// set .Index, 0;
@@ -126,9 +154,15 @@ OnInit:
 	setwall "arug_cas08",317,150,8,0,0,"conquest_wall_k";
 	setwall "arug_cas08",326,150,8,0,0,"conquest_wall_l";
 	
-
+	//TODO: setcell for basilicas and shit. this should intentionally error. this'll kep people from breaking fuckin cades early
 	set .Index,0;
 	donpcevent "Conquest::OnSetRotation";
+	set .MAX_DIFF, 3;
+	set .MAX_TEAM_SIZE, 50;
+	set .MAX_VC_SORT_SIZE, 35;
+	set $BLU_size, 0;
+	set $RED_size, 0;
+	setarray .valueclasses[0], Job_Clown, Job_Professor, Job_Creator, Job_High_Wizard, Job_Paladin, Job_Soul_Linker, Job_Sniper;
 	end;
 
 OnGuillaumeQuit:
@@ -189,10 +223,68 @@ OnDoBalance:
 		set .@Croix, .@Croix + .@Limit;
 		set $BLU_size, .@Guillaume;
 		set $RED_size, .@Croix;
-		mapannounce "bat_room","Conquest -- BLU: " + .@Guillaume + "/50, RED: " + .@Croix + "/50 (Playing)",1,0xFFA500;
+		mapannounce "bat_room","Conquest -- BLU: " + .@Guillaume + "/" + .MAX_TEAM_SIZE + ", RED: " + .@Croix + "/" + .MAX_TEAM_SIZE + " (Playing)",1,0xFFA500;
 	}
 	end;
 
+	function joinByValueClass {
+		
+		if (.MAX_VC_SORT_SIZE > .MAX_TEAM_SIZE)
+		{
+			// error somehow here lok
+			announce "did you know that mrj is a dope? tell him he's a dope! this script error shouldn't be here. shame on me.",bc_all;
+			logmes "max value class sort size exceeds max bg team size... why? you fucking moron!";
+		}
+		
+				
+		set .@vc_size, getarraysize(.valueclasses);
+		set .@is_vc, 0;
+		
+		for (set .@i, 0; .@i < .@vc_size; set .@i, .@i + 1)
+		{
+			if ( Class == .@valueclasses[.@i] )
+			{
+				set .@is_vc, 1;
+				break;
+			}
+		}
+		
+		for (set .@i, 0; .@i < .@vc_size; set .@i, .@i + 1)
+		{
+			if ( Class != .valueclasses[.@i] )
+				continue;
+				
+			set .@vc_blu_count, bg_classcount(bg_get_data($@Conquest_id1, 0), .valueclasses[.@i]);
+			set .@vc_red_count, bg_classcount(bg_get_data($@Conquest_id2, 0), .valueclasses[.@i]);
+			
+			// if there's more of the value class in one side, put this player on the side lacking
+			if (.@vc_blu_count > .@vc_red_count)
+				waitingroom2bg_single $@Conquest_id1,.Castle$,.GX,.GY,"ConR_Randomizer";
+			else if (.@vc_blu_count < .@vc_red_count)
+				waitingroom2bg_single $@Conquest_id2,.Castle$,.CX,.CY,"ConR_Randomizer";
+			else if ( $BLU_size > $RED_size) // equal vc but blu is bigger
+				waitingroom2bg_single $@Conquest_id2,.Castle$,.CX,.CY,"ConR_Randomizer";
+			else if ( $RED_size > $BLU_size) // equal vc but red is bigger
+				waitingroom2bg_single $@Conquest_id1,.Castle$,.GX,.GY,"ConR_Randomizer";
+			else
+			{ // all equals so just throw the fuckers somewhere already
+				if (rand(1) == 1)
+					waitingroom2bg_single $@Conquest_id2,.Castle$,.CX,.CY,"ConR_Randomizer";
+				else
+					waitingroom2bg_single $@Conquest_id1,.Castle$,.GX,.GY,"ConR_Randomizer";
+			}
+			
+			
+
+			set $BLU_size, bg_get_data($@Conquest_id1, 0);
+			set $RED_size, bg_get_data($@Conquest_id2, 0);
+			
+			mapannounce "bat_room","Conquest -- BLU: " + $BLU_size + "/" + .MAX_TEAM_SIZE + ", RED: " + $RED_size + "/" + .MAX_TEAM_SIZE + " (active)",1,0xFFA500;
+		}
+			
+			
+	}
+	
 OnRandomizer:
 	if( $@Conquest == 1 && islowratechar() == 0 && bg_logincount() <= 3) // CQ running, BG char, under 4 from the ip in
 	{
@@ -202,7 +294,31 @@ OnRandomizer:
 		set $BLU_size, .@Guillaume;
 		set $RED_size, .@Croix;
 
-		if( .@Guillaume < .@Croix )
+		
+		set .@num, getbattleflag("bg_autojail_kicks");
+		if ( .@num && .@num >= ##BG_kicks)
+		{	
+			kickwaitingroomall "ConR_Randomizer";
+			mes "[An Omnipotent Voice]";
+			// todo: log the ip or mac or account of this guy
+			logmes "user with excessive kicks => mid: " + getcharid(5) + " | ip: " + getipnum() + " | aid: " + getcharid(3) + " | cid: " + getcharid(0);
+			mes "It appears you've been kicked from BG too many times to be allowed to participate.. if you'd like to play again, please contact an administrator.";
+			close;
+			
+		}
+		set .@diff, abs($BLU_size - $RED_size);
+
+			
+		// for team gaps being small enough we sort by classes first instead
+		// we assume that ~30 sized teams are well enough composed so that it's not necessary
+		if  ( (.@is_vc == 1) && 
+			  ($BLU_size < .MAX_VC_SORT_SIZE || $RED_size < .@MAX_VC_SORT_SIZE) && 
+			  (.@diff < .MAX_DIFF) 
+			) 
+		{
+			joinByValueClass();
+		}
+		else if( .@Guillaume < .@Croix )
 				waitingroom2bg_single $@Conquest_id1,.Castle$,.GX,.GY,"ConR_Randomizer";
 		else if( .@Guillaume > .@Croix )
 				waitingroom2bg_single $@Conquest_id2,.Castle$,.CX,.CY,"ConR_Randomizer";
@@ -231,7 +347,7 @@ OnRandomizer:
 				set .@Croix, .@Croix + .@Limit;
 				set $BLU_size, .@Guillaume;
 				set $RED_size, .@Croix;
-				mapannounce "bat_room","Conquest -- BLU: " + .@Guillaume + "/50, RED: " + .@Croix + "/50 (Playing)",1,0xFFA500;
+				mapannounce "bat_room","Conquest -- BLU: " + .@Guillaume + "/" + .MAX_TEAM_SIZE + ", RED: " + .@Croix + "/" + .MAX_TEAM_SIZE + " (Playing)",1,0xFFA500;
 		}
 		end;
 	}
@@ -286,6 +402,45 @@ OnReadyCheck:
 	switch( .Index )
 	{
 	case 0: // =========================================================================
+		// setarray .@x_base[0], 114,114,114,116;
+		// setarray .@y_base[0],  48, 51,154,241;
+		// setarray .@size[0],    13, 13, 13, 11;
+		// setarray .@dir[0],      6,  6,  6,  6;
+		// setarray .@shoot[0],    0,  1,  1,  1;
+// DIR_NORTH	0
+// DIR_NORTHWEST	1
+// DIR_WEST	2
+// DIR_SOUTHWEST	3
+// DIR_SOUTH	4
+// DIR_SOUTHEAST	5
+// DIR_EAST	6
+// DIR_NORTHEAST	7
+
+		// for (set .@i, 0; .@i < 4; set .@i + 1)
+		// {
+			
+			// set .@xA, .@x_base[.@i];
+			// set .@yA, .@y_base[.@i];
+			// set .@xB, 0;
+			// set .@yB, 0;
+			
+			// switch(.@dir[.@i])
+			// {
+				// case DIR_NORTH:
+					// set .@xB, .@xA;
+					// set .@yB, .@yA + .@size[.@i];
+					// break;
+				// case DIR_EAST:
+					// set .@xB, .@xA + .@size[.@i];
+					// set .@yB, .@yA;
+					// break;
+				// case 
+			// }
+			
+			// setcell .Castle$, .@xA, .@yA, .@xB, .@yB, cell_basilica, 1;
+			// setcell .Castle$, .@xA, .@yA, .@xB, .@yB, cell_walkable, 1;
+			// setcell .Castle$, .@xA, .@yA, .@xB, .@yB, cell_shootable,.@shoot[.@i];
+		// }
 		setwall .Castle$,114,48,13,6,0,"conq_RL00";
 		setwall .Castle$,114,51,13,6,1,"conq_RL01";
 		setwall .Castle$,114,154,13,6,1,"conq_RL02";
@@ -327,7 +482,8 @@ OnReadyCheck:
 		setwall .Castle$,271,98,8,0,1,"conq_RL01";
 		setwall .Castle$,230,213,6,0,1,"conq_RL02";
 		setwall .Castle$,160,141,6,6,1,"conq_RL03";
-
+//DIR_NORTH	0
+// DIR_EAST	6
 		bg_monster .Defender,.Castle$,289,98,"Barricade",1906,"Conquest::OnBarricade0";
 		bg_monster .Defender,.Castle$,289,100,"Barricade",1906,"Conquest::OnBarricade0";
 		bg_monster .Defender,.Castle$,289,102,"Barricade",1906,"Conquest::OnBarricade0";
@@ -362,7 +518,8 @@ OnReadyCheck:
 		setwall .Castle$,325,277,8,6,1,"conq_RL01";
 		setwall .Castle$,200,230,8,0,1,"conq_RL02";
 		setwall .Castle$,285,198,8,0,1,"conq_RL03";
-
+//DIR_NORTH	0
+// DIR_EAST	6
 		bg_monster .Defender,.Castle$,326,300,"Barricade",1906,"Conquest::OnBarricade0";
 		bg_monster .Defender,.Castle$,328,300,"Barricade",1906,"Conquest::OnBarricade0";
 		bg_monster .Defender,.Castle$,330,300,"Barricade",1906,"Conquest::OnBarricade0";
@@ -396,7 +553,7 @@ OnReadyCheck:
 		setwall .Castle$,239,53,8,6,1,"conq_RL01";
 		setwall .Castle$,107,124,6,6,1,"conq_RL02";
 		setwall .Castle$,84,171,8,6,1,"conq_RL03";
-
+// DIR_EAST	6
 		bg_monster .Defender,.Castle$,239,73,"Barricade",1906,"Conquest::OnBarricade0";
 		bg_monster .Defender,.Castle$,241,73,"Barricade",1906,"Conquest::OnBarricade0";
 		bg_monster .Defender,.Castle$,243,73,"Barricade",1906,"Conquest::OnBarricade0";
@@ -431,7 +588,8 @@ OnReadyCheck:
 		setwall .Castle$,150,223,12,6,1,"conq_RL01";
 		setwall .Castle$,125,342,8,0,1,"conq_RL02";
 		setwall .Castle$,38,314,12,6,1,"conq_RL03";
-
+//DIR_NORTH	0
+// DIR_EAST	6
 		bg_monster .Defender,.Castle$,137,137,"Barricade",1906,"Conquest::OnBarricade0";
 		bg_monster .Defender,.Castle$,139,137,"Barricade",1906,"Conquest::OnBarricade0";
 		bg_monster .Defender,.Castle$,141,137,"Barricade",1906,"Conquest::OnBarricade0";
@@ -466,7 +624,8 @@ OnReadyCheck:
 		setwall .Castle$,139,158,6,6,1,"conq_RL01";
 		setwall .Castle$,138,210,8,6,1,"conq_RL02";
 		setwall .Castle$,138,263,8,6,1,"conq_RL03";
-
+//DIR_NORTH	0
+// DIR_EAST	6
 		bg_monster .Defender,.Castle$,139,111,"Barricade",1906,"Conquest::OnBarricade0";
 		bg_monster .Defender,.Castle$,141,111,"Barricade",1906,"Conquest::OnBarricade0";
 		bg_monster .Defender,.Castle$,143,111,"Barricade",1906,"Conquest::OnBarricade0";
@@ -508,35 +667,43 @@ OnReadyCheck:
 	setmapflag .Castle$,mf_bg_active;
 	bg_warp .Defender,.Castle$,.DX,.DY; // start defenders by emperium
 	bg_warp .Atacker,.Castle$,.GX,.GY; // start attackers in their warmup room
-	mapannounce .Castle$,"Conquest will start in 5 seconds!",1,0xFFA500;
-	sleep 5000;
+	mapannounce .Castle$,"Conquest will start in 10 seconds!",1,0xFFA500;
+	sleep 10000;
 	bg_warp .Atacker,.Castle$,.AX,.AY; // warp attackers to the castle entrance after the "beginning"
 
 	initnpctimer;
 	initnpctimer "Conquest_Respawn";
 	sleep 500;
 	if( .Atacker == $@Conquest_id1 )
-		mapannounce .Castle$,"Blutarch Mann: Move out warriors!! Let's capture this castle!!",1,0x0000FF;
+		mapannounce .Castle$,"Blutarch Mann: The fortress is ours, siege, warriors!!",1,0x0000FF;
 	else
-		mapannounce .Castle$,"Redmond Mann: Move out warriors!! Let's capture this castle!!",1,0xFF0000;
+		mapannounce .Castle$,"Redmond Mann: The fortress is ours, siege, warriors!!",1,0xFF0000;
 	sleep 100;
 	if( .Defender == $@Conquest_id1 )
-		mapannounce .Castle$,"Blutarch Mann: Protect the Castle and its defenses at all costs!!",1,0x0000FF;
+		mapannounce .Castle$,"Blutarch Mann: They're here to desecrate our homes, kill them all!!",1,0x0000FF;
 	else
-		mapannounce .Castle$,"Redmond Mann: Protect the Castle and its defenses at all costs!!",1,0xFF0000;
+		mapannounce .Castle$,"Redmond Mann: They're here to desecrate our homes, kill them all!!",1,0xFF0000;
 	end;
 
 OnGuardianStone1:
 	set .Stone, .Stone - 1;
 	set .Score, .Score + 1;
-	if( .Stone > 0 ) mapannounce .Castle$,"1st Guardian Stone has fallen - 6 minutes to destroy the 2nd",1,0xFFA500;
+	if( .Stone > 0 ) 
+	{
+		toggleflags(.Score);
+		mapannounce .Castle$,"1st Guardian Stone has fallen - 6 minutes to destroy the 2nd",1,0xFFA500;
+	}
 	donpcevent "Conquest::OnCheckGStone";
 	end;
 
 OnGuardianStone2:
 	set .Stone, .Stone - 1;
 	set .Score, .Score + 1;
-	if( .Stone > 0 ) mapannounce .Castle$,"2nd Guardian Stone has fallen - 6 minutes to destroy the 1st",1,0xFFA500;
+	if( .Stone > 0 ) 
+	{
+		toggleflags(.Score);
+		mapannounce .Castle$,"2nd Guardian Stone has fallen - 6 minutes to destroy the 1st",1,0xFFA500;
+	}
 	donpcevent "Conquest::OnCheckGStone";
 	end;
 
@@ -544,9 +711,10 @@ OnCheckGStone:
 	initnpctimer;
 	if( .Stone < 1 )
 	{
-		mapannounce .Castle$,"Both Guardian Stones have fallen - 6 minutes to destroy the 1st Fortress Gate",1,0xFFA500;
+		mapannounce .Castle$,"Both Guardian Stones have fallen - 6 minutes to destroy the 1st Barricade",1,0xFFA500;
 		killmonster .Castle$,"Conquest::OnBarricade0";
 		delwall "conq_RL00";
+		toggleFlags(.Score);
 	}
 	end;
 
@@ -557,27 +725,30 @@ OnBarricade1:
 	if( set(.Wall1,.Wall1 - 1) < 1 )
 	{
 		initnpctimer; // Restart Timer
-		mapannounce .Castle$,"1st Fortress Gate has fallen - 6 minutes to destroy the 2nd",1,0xFFA500;
+		mapannounce .Castle$,"1st Barricade has fallen - 6 minutes to destroy the 2nd",1,0xFFA500;
 		set .Score, .Score + 1;
 		delwall "conq_RL01";
+		toggleFlags(.Score);
 	}
 	end;
 OnBarricade2:
 	if( set(.Wall2,.Wall2 - 1) < 1 )
 	{
 		initnpctimer; // Restart Timer
-		mapannounce .Castle$,"2nd Fortress Gate has fallen - 6 minutes to destroy the 3rd",1,0xFFA500;
+		mapannounce .Castle$,"2nd Barricade has fallen - 6 minutes to destroy the 3rd",1,0xFFA500;
 		set .Score, .Score + 1;
 		delwall "conq_RL02";
+		toggleFlags(.Score);
 	}
 	end;
 OnBarricade3:
 	if( set(.Wall3,.Wall3 - 1) < 1 )
 	{
 		initnpctimer; // Restart Timer
-		mapannounce .Castle$,"3rd Fortress Gate has fallen - 6 minutes to destroy the Emperium",1,0xFFA500;
+		mapannounce .Castle$,"3rd Barricade has fallen - 6 minutes to destroy the Emperium",1,0xFFA500;
 		set .Score, .Score + 1;
 		delwall "conq_RL03";
+		toggleFlags(.Score);
 	}
 	end;
 
@@ -600,17 +771,17 @@ OnTimer300000:
 OnEmperium:
 	set .Score, .Score + 1;
 	if( .Atacker == $@Conquest_id1 )
-		mapannounce .Castle$,"BLU Team has won the battle and captured the castle!!",1,0x0000FF;
+		mapannounce .Castle$,"BLU Team has won the battle and captured the castle!",1,0x0000FF;
 	else
-		mapannounce .Castle$,"RED Team has won the battle and captured the castle!!",1,0xFF0000;
+		mapannounce .Castle$,"RED Team has won the battle and captured the castle!",1,0xFF0000;
 	donpcevent "Conquest::OnMatchEnd";
 	end;
 
 OnTimer360000:
 	if( .Defender == $@Conquest_id1 )
-		mapannounce .Castle$,"BLU Team has won the battle and protected the castle!!",1,0x0000FF;
+		mapannounce .Castle$,"BLU Team has won the battle and protected the castle!",1,0x0000FF;
 	else
-		mapannounce .Castle$,"RED Team has won the battle and protected the castle!!",1,0xFF0000;
+		mapannounce .Castle$,"RED Team has won the battle and protected the castle!",1,0xFF0000;
 	donpcevent "Conquest::OnMatchEnd";
 	end;
 
@@ -626,37 +797,46 @@ OnMatchEnd:
 	killmonster .Castle$,"Conquest::OnGuardianStone2";
 	killmonster .Castle$,"Conquest::OnEmperium";
 	removemapflag .Castle$,mf_bg_active;
+	ToggleFlags(6);
 	// =======================================================
 	// Team Rewards
 	// =======================================================
-	set .@Reward, 15 + (.Score * 3);
-	set .@KPoints, 10;
+	
+	
+	set .@size_bonus, ($BLU_size + $RED_size) * 2 / 3; // every 3 players we give bonus badges, so a 15v15 bg = 30 niggas, so 30*2/3=20 bonus badges and bonus kp basically
+	set .@base_reward, 15 + (.Score * 4) + .@size_bonus;
+	
+	set .@Reward, 0;
+	set .@KPoints,0;
 	set .@Won,2;
 
+	
+	
 	if( .Score >= 6 )
 	{ // Emperium Taken
-		set .@Reward, .@Reward + 12;
-		set .@KPoints, .@Reward / 2;
+		set .@Reward, .@base_reward + 10;
+		set .@KPoints, .@base_reward / 2;
 		set .@Won,0;
 	}
-	set .@Reward, .@Reward * 2;
+	//set .@Reward, .@Reward * 2;
 	bg_reward .Atacker,7773,.@Reward,.@KPoints,0,"Conquest_Participation",1,6,.@Won;
 
+	
+	
+	
 	set .Score, 6 - .Score; // Switch for Defender
-
-	set .@Reward, 15 + (.Score * 3);
-	set .@KPoints, 10;
-	set .@Won,2;
 
 	if( .Score >= 1 )
 	{ // Emperium Defended
-		set .@Reward, .@Reward + 12;
-		set .@KPoints, .@Reward / 2;
+		set .@Reward, .@base_reward + 10;
+		set .@KPoints, .@base_reward / 2;
 		set .@Won,0;
 	}
 
-	set .@Reward, .@Reward * 2;
+	//set .@Reward, .@Reward * 2;
 	bg_reward .Defender,7773,.@Reward,.@KPoints,0,"Conquest_Participation",1,6,.@Won;
+	
+	
 	bg_check_best .Defender, .Atacker;
 	// =======================================================
 	//mapannounce .Castle$,"Battle of Conquest will start 15 in seconds!",1,0xFFA500;
@@ -678,13 +858,232 @@ OnMatchEnd:
 	sleep 200;
 	set $@Conquest, 0;
 	set .Score, 0;
-	
+	set $BLU_size, 0;
+	set $RED_size, 0;
 	kickwaitingroomall "ConR_Randomizer";
 	delwaitingroom "ConR_Randomizer";
 	donpcevent "Conquest::OnSetRotation";
 	donpcevent "Conquest::OnReadyCheck";
 	
 	end;
+	
+	function toggleFlags {
+		set .@position, getarg(0), getvariableofnpc(.Score, "Conquest");
+		set .@castle, getvariableofnpc(.Index, "Conquest");
+		
+		switch(.@castle$)
+		{
+			case 0: //"schg_cas06":
+				set .@name$, "#schg_cas06";
+				if (.@position == 1)
+				{
+					disablenpc("LF-02"+.@name$);
+				}
+				else if (.@position == 2) // gstones
+				{
+					disablenpc("LF-01"+.@name$);
+				}
+				else if (.@position == 4) //cade2
+				{
+					disablenpc("LF-03"+.@name$);
+					disablenpc("LF-04"+.@name$);
+				}
+				else if (.@position == 5) //cade3
+				{
+					disablenpc("LF-05"+.@name$);
+					disablenpc("LF-06"+.@name$);
+					disablenpc("LF-07"+.@name$);
+				}
+				else if (.@position == 6) //restore
+				{
+					enablenpc("LF-01"+.@name$);
+					enablenpc("LF-02"+.@name$);
+					enablenpc("LF-03"+.@name$);
+					enablenpc("LF-04"+.@name$);
+					enablenpc("LF-05"+.@name$);
+					enablenpc("LF-06"+.@name$);
+					enablenpc("LF-07"+.@name$);
+				}
+				break;
+			case 1: //"schg_cas07":
+				// for schg_cas07
+				// after any breaks, LF-02
+				//after gstnoes, LF-01,
+				//after cade1, LF-03
+				//after cade2, LF-04
+				//after cade3, LF-05
+				set .@name$, "#schg_cas07";
+				if (.@position == 1)
+				{
+					disablenpc("LF-02"+.@name$);
+				}
+				else if (.@position == 2) // gstones
+				{
+					disablenpc("LF-01"+.@name$);
+				}
+				else if (.@position == 3) // cade1
+				{
+					disablenpc("LF-03"+.@name$);
+				}
+				else if (.@position == 4) //cade2
+				{
+					disablenpc("LF-04"+.@name$);
+				}
+				else if (.@position == 5) //cade3
+				{
+					disablenpc("LF-05"+.@name$);
+				}
+				else if (.@position == 6) //restore
+				{
+					enablenpc("LF-01"+.@name$);
+					enablenpc("LF-02"+.@name$);
+					enablenpc("LF-03"+.@name$);
+					enablenpc("LF-04"+.@name$);
+					enablenpc("LF-05"+.@name$);
+				}
+				break;
+			case 2: //"schg_cas08":
+				// after gstones, LF-07
+				// after cade1, LF-08
+				// after cade3, LF-09
+				set .@name$, "#schg_cas08";
+				if (.@position == 2)
+					disablenpc("LF-07"+.@name$);
+				else if (.@position == 3)
+					disablenpc("LF-08" + .@name$);
+				else if (.@position == 5)
+					disablenpc("LF-09" + .@name$);
+				else if (.@position == 9)
+				{
+					enablenpc("LF-07"+.@name$);
+					enablenpc("LF-08"+.@name$);
+					enablenpc("LF-09"+.@name$);
+				}
+				}
+				break;
+			case 3: //"arug_cas06":
+				// after any breaks, LF-07, LF-02
+				// after gstones, LF-01, 
+				// after cade1, LF-03
+				// after cade2, LF-04, LF-05 
+				// after cade3, LF-06
+				set .@name$, "#arug_cas06";
+				if (.@position == 1)
+				{
+					disablenpc("LF-02"+.@name$);
+					disablenpc("LF-07"+.@name$);
+				}
+				else if (.@position == 2) // gstones
+				{
+					disablenpc("LF-01"+.@name$);
+				}
+				else if (.@position == 3)
+				{
+					disablenpc("LF-03"+.@name$);
+				}
+				else if (.@position == 4) //cade2
+				{
+					disablenpc("LF-04"+.@name$);
+					disablenpc("LF-05"+.@name$);
+				}
+				else if (.@position == 5) //cade3
+				{
+					disablenpc("LF-06"+.@name$);
+				}
+				else if (.@position == 6) //restore
+				{
+					enablenpc("LF-01"+.@name$);
+					enablenpc("LF-02"+.@name$);
+					enablenpc("LF-03"+.@name$);
+					enablenpc("LF-04"+.@name$);
+					enablenpc("LF-05"+.@name$);
+					enablenpc("LF-06"+.@name$);
+					enablenpc("LF-07"+.@name$);
+				}				
+				break;
+			case 4: //"arug_cas07":
+				// after any breaks, LF-02
+				// after gstones, LF-01, LF-03
+				// after cade1, LF-04
+				// after cade2, LF-07, LF-05
+				// after cade3, LF-06
+				set .@name$, "#arug_cas07";
+				if (.@position == 1)
+				{
+					disablenpc("LF-02"+.@name$);
+				}
+				else if (.@position == 2) // gstones
+				{
+					disablenpc("LF-01"+.@name$);
+				}
+					disablenpc("LF-04"+.@name$);
+				else if (.@position == 3)
+				{
+					disablenpc("LF-03"+.@name$);
+				}
+				else if (.@position == 4) //cade2
+				{
+					disablenpc("LF-05"+.@name$);
+					disablenpc("LF-07"+.@name$);
+				}
+				else if (.@position == 5) //cade3
+				{
+					disablenpc("LF-06"+.@name$);
+				}
+				else if (.@position == 6) //restore
+				{
+					enablenpc("LF-01"+.@name$);
+					enablenpc("LF-02"+.@name$);
+					enablenpc("LF-03"+.@name$);
+					enablenpc("LF-04"+.@name$);
+					enablenpc("LF-05"+.@name$);
+					enablenpc("LF-06"+.@name$);
+					enablenpc("LF-07"+.@name$);
+				}	
+				break;
+			case 5: //"arug_cas08":
+				// after any breaks, LF-03
+				// after gstones, LF-01, LF-02
+				// after cade1, LF-04
+				// after cade2, LF-05
+				// after cade3, LF-06
+				
+				if (.@position == 1)
+				{
+					disablenpc("LF-03"+.@name$);
+				}
+				else if (.@position == 2)
+				{
+					disablenpc("LF-01"+.@name$);
+					disablenpc("LF-02"+.@name$);
+				}
+				else if (.@position == 3)
+				{
+					disablenpc("LF-04"+.@name$);
+				}
+				else if (.@position == 4)
+				{
+					disablenpc("LF-05"+.@name$);
+				}
+				else if (.@position == 5)
+				{
+					disablenpc("LF-06"+.@name$);
+				}
+				else if (.@position == 6)
+				{
+					enablenpc("LF-01"+.@name$);
+					enablenpc("LF-02"+.@name$);
+					enablenpc("LF-03"+.@name$);
+					enablenpc("LF-04"+.@name$);
+					enablenpc("LF-05"+.@name$);
+					enablenpc("LF-06"+.@name$);
+				}
+				break;
+		}
+		
+		
+			
+	}
 }
 
 // Battleground Respawn
@@ -704,7 +1103,14 @@ OnTimer25000:
 	set .@DY,getvariableofnpc(.DY,"Conquest");
 	set .@AX,getvariableofnpc(.AX,"Conquest");
 	set .@AY,getvariableofnpc(.AY,"Conquest");
-
+	set .@score, getvariableofnpc(.Score, "Conquest");
+	//set .AXa, 326; set .AYa, 286; set .AXb, 212; set .AYb, 230; set .AXc, 262; set .AYc, 200;
+	setarray .@ax_cp[0], .@AX, .@AX, .@AX, getvariableofnpc(.AXa,"Conquest"), getvariableofnpc(.AXb,"Conquest"), getvariableofnpc(.AXc,"Conquest");
+	setarray .@ay_cp[0], .@AY, .@AY, .@AY, getvariableofnpc(.AYa,"Conquest"), getvariableofnpc(.AYb,"Conquest"), getvariableofnpc(.AYc,"Conquest");
+	
+	if (.@score > getarraysize(.@ax_cp) )
+		set(.@score, getarraysize(.@ax_cp));
+	
 	switch( getvariableofnpc(.Index,"Conquest") )
 	{
 	case 0: // schg_cas06 ========================================================================
@@ -713,11 +1119,11 @@ OnTimer25000:
 		if( $@Conquest_id1 == getvariableofnpc(.Defender,"Conquest") )
 		{
 			areawarp .@Castle$,260,376,267,383,.@Castle$,.@DX,.@DY;
-			areawarp .@Castle$,292,376,299,383,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,292,376,299,383,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 		}
 		else
 		{
-			areawarp .@Castle$,260,376,267,383,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,260,376,267,383,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 			areawarp .@Castle$,292,376,299,383,.@Castle$,.@DX,.@DY;
 		}
 		break;
@@ -727,11 +1133,11 @@ OnTimer25000:
 		if( $@Conquest_id1 == getvariableofnpc(.Defender,"Conquest") )
 		{
 			areawarp .@Castle$,80,301,92,321,.@Castle$,.@DX,.@DY;
-			areawarp .@Castle$,111,301,123,321,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,111,301,123,321,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 		}
 		else
 		{
-			areawarp .@Castle$,80,301,92,321,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,80,301,92,321,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 			areawarp .@Castle$,111,301,123,321,.@Castle$,.@DX,.@DY;
 		}
 		break;
@@ -741,11 +1147,11 @@ OnTimer25000:
 		if( $@Conquest_id1 == getvariableofnpc(.Defender,"Conquest") )
 		{
 			areawarp .@Castle$,18,44,33,55,.@Castle$,.@DX,.@DY;
-			areawarp .@Castle$,82,44,97,55,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,82,44,97,55,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 		}
 		else
 		{
-			areawarp .@Castle$,18,44,33,55,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,18,44,33,55,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 			areawarp .@Castle$,82,44,97,55,.@Castle$,.@DX,.@DY;
 		}
 		break;
@@ -755,11 +1161,11 @@ OnTimer25000:
 		if( $@Conquest_id1 == getvariableofnpc(.Defender,"Conquest") )
 		{
 			areawarp .@Castle$,26,378,33,385,.@Castle$,.@DX,.@DY;
-			areawarp .@Castle$,122,354,129,361,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,122,354,129,361,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 		}
 		else
 		{
-			areawarp .@Castle$,26,378,33,385,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,26,378,33,385,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 			areawarp .@Castle$,122,354,129,361,.@Castle$,.@DX,.@DY;
 		}
 		break;
@@ -769,11 +1175,11 @@ OnTimer25000:
 		if( $@Conquest_id1 == getvariableofnpc(.Defender,"Conquest") )
 		{
 			areawarp .@Castle$,291,336,304,342,.@Castle$,.@DX,.@DY;
-			areawarp .@Castle$,291,305,304,311,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,291,305,304,311,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 		}
 		else
 		{
-			areawarp .@Castle$,291,336,304,342,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,291,336,304,342,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 			areawarp .@Castle$,291,305,304,311,.@Castle$,.@DX,.@DY;
 		}
 		break;
@@ -783,11 +1189,11 @@ OnTimer25000:
 		if( $@Conquest_id1 == getvariableofnpc(.Defender,"Conquest") )
 		{
 			areawarp .@Castle$,310,150,316,157,.@Castle$,.@DX,.@DY;
-			areawarp .@Castle$,327,150,333,157,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,327,150,333,157,.@ax_cp[.@score],.@ay_cp[.@score];
 		}
 		else
 		{
-			areawarp .@Castle$,310,150,316,157,.@Castle$,.@AX,.@AY;
+			areawarp .@Castle$,310,150,316,157,.@ax_cp[.@score],.@ay_cp[.@score];
 			areawarp .@Castle$,327,150,333,157,.@Castle$,.@DX,.@DY;
 		}
 		break;
@@ -954,55 +1360,55 @@ schg_cas06,124,302,0	script	LF-07#schg_cas06	723,{
 	end;
 }
 
-schg_cas06,127,302,0	script	LF-08#schg_cas06	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Area 1-1:Area 2-1:Area 3-1:Cancel") )
-		{
-		case 1:
-			warp "schg_cas06",89,43;
-			end;
-		case 2:
-			warp "schg_cas06",94,147;
-			end;
-		case 3:
-			warp "schg_cas06",100,242;
-			end;
-		case 4:
-			close;
-		}
-	}
-	end;
-}
+// schg_cas06,127,302,0	script	LF-08#schg_cas06	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Area 1-1:Area 2-1:Area 3-1:Cancel") )
+		// {
+		// case 1:
+			// warp "schg_cas06",89,43;
+			// end;
+		// case 2:
+			// warp "schg_cas06",94,147;
+			// end;
+		// case 3:
+			// warp "schg_cas06",100,242;
+			// end;
+		// case 4:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
-schg_cas06,130,302,0	script	LF-09#schg_cas06	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Area 1-2:Area 2-3:Area 3-2:Cancel") )
-		{
-		case 1:
-			warp "schg_cas06",141,45;
-			end;
-		case 2:
-			warp "schg_cas06",163,140;
-			end;
-		case 3:
-			warp "schg_cas06",136,243;
-			end;
-		case 4:
-			close;
-		}
-	}
-	end;
-}
+// schg_cas06,130,302,0	script	LF-09#schg_cas06	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Area 1-2:Area 2-3:Area 3-2:Cancel") )
+		// {
+		// case 1:
+			// warp "schg_cas06",141,45;
+			// end;
+		// case 2:
+			// warp "schg_cas06",163,140;
+			// end;
+		// case 3:
+			// warp "schg_cas06",136,243;
+			// end;
+		// case 4:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
 schg_cas06,17,45,0	script	Castle#LF_sc06_1::LF_sc06_1	723,{
 	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
@@ -1174,75 +1580,6 @@ schg_cas07,180,208,0	script	LF-05#schg_cas07	723,{
 	end;
 }
 
-schg_cas07,182,206,0	script	LF-06#schg_cas07	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Defense area 1-1:Defense area 2-1:Defense area 3-1:Cancel") )
-		{
-		case 1:
-			warp "schg_cas07",317,83;
-			end;
-		case 2:
-			warp "schg_cas07",283,79;
-			end;
-		case 3:
-			warp "schg_cas07",215,110;
-			end;
-		case 4:
-			close;
-		}
-	}
-	end;
-}
-
-schg_cas07,182,202,0	script	LF-07#schg_cas07	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Area 1-2:Area 2-2:Area 3-2:Cancel") )
-		{
-		case 1:
-			warp "schg_cas07",359,83;
-			end;
-		case 2:
-			warp "schg_cas07",280,122;
-			end;
-		case 3:
-			warp "schg_cas07",255,215;
-			end;
-		case 4:
-			close;
-		}
-	}
-	end;
-}
-
-schg_cas07,235,222,0	script	Andlangr#LF_sc07_1::LF_sc07_1	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Would";
-		mes "you like to teleport to";
-		mes "the Emperium Center?^000000";
-		switch( select("Teleport:Cancel") )
-		{
-		case 1:
-			warp "schg_cas07",136,188;
-			end;
-		case 2:
-			close;
-		}
-	}
-	end;
-}
-
 schg_cas07,157,136,0	duplicate(LF_sc07_1)	Andlangr#LF_sc07_2	723
 schg_cas07,168,136,4	duplicate(LF_sc07_1)	Andlangr#LF_sc07_3	723
 schg_cas07,320,232,4	duplicate(LF_sc07_1)	Andlangr#LF_sc07_4	723
@@ -1261,128 +1598,128 @@ schg_cas07,235,207,0	duplicate(LF_sc07_1)	Andlangr#LF_sc07_15	723
 // Flags schg_cas08
 // *********************************************************************
 
-schg_cas08,346,211,0	script	LF-01#schg_cas08	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("First Gate House:Second Gate House:Cancel") )
-		{
-		case 1:
-			warp "schg_cas08",262,323;
-			end;
-		case 2:
-			warp "schg_cas08",378,263;
-			end;
-		case 3:
-			close;
-		}
-	}
-	end;
-}
+// schg_cas08,346,211,0	script	LF-01#schg_cas08	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("First Gate House:Second Gate House:Cancel") )
+		// {
+		// case 1:
+			// warp "schg_cas08",262,323;
+			// end;
+		// case 2:
+			// warp "schg_cas08",378,263;
+			// end;
+		// case 3:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
-schg_cas08,346,207,0	script	LF-02#schg_cas08	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Center 1 Area:Cancel") )
-		{
-		case 1:
-			warp "schg_cas08",306,320;
-			end;
-		case 2:
-			close;
-		}
-	}
-	end;
-}
+// schg_cas08,346,207,0	script	LF-02#schg_cas08	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Center 1 Area:Cancel") )
+		// {
+		// case 1:
+			// warp "schg_cas08",306,320;
+			// end;
+		// case 2:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
-schg_cas08,346,203,0	script	LF-03#schg_cas08	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Defense area 2-1:Defense area 2-2:Cancel") )
-		{
-		case 1:
-			warp "schg_cas08",309,292;
-			end;
-		case 2:
-			warp "schg_cas08",348,292;
-			end;
-		case 3:
-			close;
-		}
-	}
-	end;
-}
+// schg_cas08,346,203,0	script	LF-03#schg_cas08	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Defense area 2-1:Defense area 2-2:Cancel") )
+		// {
+		// case 1:
+			// warp "schg_cas08",309,292;
+			// end;
+		// case 2:
+			// warp "schg_cas08",348,292;
+			// end;
+		// case 3:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
-schg_cas08,346,199,0	script	LF-04#schg_cas08	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Center 2 Area:Cancel") )
-		{
-		case 1:
-			warp "schg_cas08",266,263;
-			end;
-		case 2:
-			close;
-		}
-	}
-	end;
-}
+// schg_cas08,346,199,0	script	LF-04#schg_cas08	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Center 2 Area:Cancel") )
+		// {
+		// case 1:
+			// warp "schg_cas08",266,263;
+			// end;
+		// case 2:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
-schg_cas08,346,195,0	script	LF-05#schg_cas08	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Defense Area 3-1:Defense Area 3-2:Cancel") )
-		{
-		case 1:
-			warp "schg_cas08",226,220;
-			end;
-		case 2:
-			warp "schg_cas08",185,249;
-			end;
-		case 3:
-			close;
-		}
-	}
-	end;
-}
+// schg_cas08,346,195,0	script	LF-05#schg_cas08	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Defense Area 3-1:Defense Area 3-2:Cancel") )
+		// {
+		// case 1:
+			// warp "schg_cas08",226,220;
+			// end;
+		// case 2:
+			// warp "schg_cas08",185,249;
+			// end;
+		// case 3:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
-schg_cas08,346,191,0	script	LF-06#schg_cas08	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Center 3 Area:Cancel") )
-		{
-		case 1:
-			warp "schg_cas08",271,226;
-			end;
-		case 2:
-			close;
-		}
-	}
-	end;
-}
+// schg_cas08,346,191,0	script	LF-06#schg_cas08	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Center 3 Area:Cancel") )
+		// {
+		// case 1:
+			// warp "schg_cas08",271,226;
+			// end;
+		// case 2:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
 schg_cas08,301,213,0	script	LF-07#schg_cas08	723,{
 	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
@@ -1669,55 +2006,55 @@ arug_cas06,92,232,0	script	LF-07#arug_cas06	723,{
 	end;
 }
 
-arug_cas06,95,232,0	script	LF-08#arug_cas06	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Area 1-1:Area 2-1:Area 3-1:Cancel") )
-		{
-		case 1:
-			warp "arug_cas06",197,144;
-			end;
-		case 2:
-			warp "arug_cas06",256,35;
-			end;
-		case 3:
-			warp "arug_cas06",146,65;
-			end;
-		case 4:
-			close;
-		}
-	}
-	end;
-}
+// arug_cas06,95,232,0	script	LF-08#arug_cas06	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Area 1-1:Area 2-1:Area 3-1:Cancel") )
+		// {
+		// case 1:
+			// warp "arug_cas06",197,144;
+			// end;
+		// case 2:
+			// warp "arug_cas06",256,35;
+			// end;
+		// case 3:
+			// warp "arug_cas06",146,65;
+			// end;
+		// case 4:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
-arug_cas06,98,232,0	script	LF-09#arug_cas06	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Area 1-2:Area 2-2:Area 3-3:Cancel") )
-		{
-		case 1:
-			warp "arug_cas06",245,103;
-			end;
-		case 2:
-			warp "arug_cas06",186,26;
-			end;
-		case 3:
-			warp "arug_cas06",68,171;
-			end;
-		case 4:
-			close;
-		}
-	}
-	end;
-}
+// arug_cas06,98,232,0	script	LF-09#arug_cas06	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Area 1-2:Area 2-2:Area 3-3:Cancel") )
+		// {
+		// case 1:
+			// warp "arug_cas06",245,103;
+			// end;
+		// case 2:
+			// warp "arug_cas06",186,26;
+			// end;
+		// case 3:
+			// warp "arug_cas06",68,171;
+			// end;
+		// case 4:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
 arug_cas06,72,176,0	script	Mardol#LF_ar06_1::LF_ar06_1	723,{
 	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
@@ -2126,77 +2463,77 @@ arug_cas08,149,314,0	script	LF-06#arug_cas08	723,{
 	end;
 }
 
-arug_cas08,152,314,0	script	LF-07#arug_cas08	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Defense Area 1-1:Defense Area 2-1:Defense Area 3-1:Cancel") )
-		{
-		case 1:
-			warp "arug_cas08",65,94;
-			end;
-		case 2:
-			warp "arug_cas08",112,152;
-			end;
-		case 3:
-			warp "arug_cas08",116,235;
-			end;
-		case 4:
-			close;
-		}
-	}
-	end;
-}
+// arug_cas08,152,314,0	script	LF-07#arug_cas08	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Defense Area 1-1:Defense Area 2-1:Defense Area 3-1:Cancel") )
+		// {
+		// case 1:
+			// warp "arug_cas08",65,94;
+			// end;
+		// case 2:
+			// warp "arug_cas08",112,152;
+			// end;
+		// case 3:
+			// warp "arug_cas08",116,235;
+			// end;
+		// case 4:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
-arug_cas08,155,314,0	script	LF-08#arug_cas08	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Defense Area 1-2:Defense Area 2-2:Defense Area 3-2:Cancel") )
-		{
-		case 1:
-			warp "arug_cas08",211,97;
-			end;
-		case 2:
-			warp "arug_cas08",172,152;
-			end;
-		case 3:
-			warp "arug_cas08",164,235;
-			end;
-		case 4:
-			close;
-		}
-	}
-	end;
-}
+// arug_cas08,155,314,0	script	LF-08#arug_cas08	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Defense Area 1-2:Defense Area 2-2:Defense Area 3-2:Cancel") )
+		// {
+		// case 1:
+			// warp "arug_cas08",211,97;
+			// end;
+		// case 2:
+			// warp "arug_cas08",172,152;
+			// end;
+		// case 3:
+			// warp "arug_cas08",164,235;
+			// end;
+		// case 4:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
-arug_cas08,158,314,0	script	LF-09#arug_cas08	723,{
-	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
-	{
-		mes "^3355FFThis is the Stronghold";
-		mes "Teleport Service. Please";
-		mes "choose a destination";
-		mes "within the stronghold.^000000";
-		switch( select("Defense Area 1-4:Defense Area 2-4:Cancel") )
-		{
-		case 1:
-			warp "arug_cas08",171,73;
-			end;
-		case 2:
-			warp "arug_cas08",162,186;
-			end;
-		case 3:
-			close;
-		}
-	}
-	end;
-}
+// arug_cas08,158,314,0	script	LF-09#arug_cas08	723,{
+	// if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+	// {
+		// mes "^3355FFThis is the Stronghold";
+		// mes "Teleport Service. Please";
+		// mes "choose a destination";
+		// mes "within the stronghold.^000000";
+		// switch( select("Defense Area 1-4:Defense Area 2-4:Cancel") )
+		// {
+		// case 1:
+			// warp "arug_cas08",171,73;
+			// end;
+		// case 2:
+			// warp "arug_cas08",162,186;
+			// end;
+		// case 3:
+			// close;
+		// }
+	// }
+	// end;
+// }
 
 arug_cas08,45,158,0	script	Horn#LF_ar08_01::LF_ar08_01	723,{
 	if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )

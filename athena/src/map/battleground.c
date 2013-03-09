@@ -791,6 +791,10 @@ int bg_team_leave(struct map_session_data *sd, int flag)
 	sd->state.bmaster_flag = NULL;
 	//bg_member_removeskulls(sd);
 
+	status_change_end(&sd->bl, SC_GUILDAURA, INVALID_TIMER);
+	status_change_end(&sd->bl, SC_REGENERATION, INVALID_TIMER);
+	status_change_end(&sd->bl, SC_BATTLEORDERS, INVALID_TIMER);
+
 	if( sd->status.guild_id && (g = guild_search(sd->status.guild_id)) != NULL )
 	{ // Refresh Guild Information
 		clif_guild_belonginfo(sd, g);
@@ -832,6 +836,11 @@ int bg_team_leave(struct map_session_data *sd, int flag)
 		clif_bg_memberlist(pl_sd);
 	}
 
+
+	if (flag > 1 && battle_config.bg_autojail_kicks) // 1 = dc/quit
+	{
+		pc_setmemreg(sd, "##BG_kicks", pc_readmemreg(sd, "##BG_kicks") + 1 );
+	}
 
 	switch( flag )
 	{
@@ -965,6 +974,22 @@ int bg_send_xy_timer_sub(DBKey key, void *data, va_list ap)
 		}
 		if( bg->reveal_pos && bg->reveal_flag && sd->bl.m == m ) // Reveal each 4 seconds
 			map_foreachinmap(bg_reveal_pos,m,BL_PC,sd,1,bg->color);
+
+		// if a player has only performed one type of action, they're clearly afking
+		// if the diff between kb and mouse ticks is too huge, we autokick
+		if ( battle_config.bg_idle_autokick && abs(DIFF_TICK(sd->mouse_action_tick, sd->keyboard_action_tick)) >= (battle_config.bg_idle_autokick*1000) && && bg->g ) 
+		{
+			sprintf(output, "- AFK [%s] Kicked - ", sd->status.name);
+			clif_bg_message(bg, bg->bg_id, bg->g->name, output, (int)strlen(output) + 1);
+			bg_team_leave(sd,3);
+			sprintf(output, "Possible AFK macro [%s] (m: %d a: %d c: %d)", sd->status.name, sd->status.member_id, sd->status.account_id, sd->status.char_id);
+			log_npc(sd, output);
+
+			clif_displaymessage(sd->fd, "You have been kicked from Battleground because of your AFK status.");
+			pc_setpos(sd, sd->status.save_point.map, sd->status.save_point.x, sd->status.save_point.y, CLR_TELEPORT);
+
+			continue;
+		}
 
 		if( battle_config.bg_idle_autokick && DIFF_TICK(last_tick, sd->idletime) >= battle_config.bg_idle_autokick && bg->g )
 		{
@@ -1180,7 +1205,7 @@ void bg_team_getitem(int bg_id, int nameid, int amount)
 					rank = 1;
 			}
 		}
-
+		// we need to get the info for each class's count and apply the bonus as necessary in here
 		get_amount = amount;
 		if( rank ) get_amount += battle_config.bg_ranking_bonus * get_amount / 100;
 
@@ -1253,15 +1278,16 @@ void bg_team_rewards(int bg_id, int nameid, int amount, int kafrapoints, int que
 	}
 
 	bg_result = cap_value(bg_result,0,2);
+
 	memset(&it,0,sizeof(it));
+	it.identify = 1;
 
 	if( nameid == ITEMID_BRAVERY_BADGE || nameid == ITEMID_VALOR_BADGE || nameid == ITEMID_WAR_BADGE )
 	{
 		it.nameid = nameid;
-		it.identify = 1;
 	}
 	else 
-		nameid = 0;
+		nameid = ITEMID_WAR_BADGE;
 
 
 	for(i=0; i < MAX_BG_MEMBERS; i++ )
@@ -1284,8 +1310,10 @@ void bg_team_rewards(int bg_id, int nameid, int amount, int kafrapoints, int que
 		}
 
 		if( quest_id ) 
+		{
 			quest_add(sd,quest_id);
-		ShowDebug("Adding quest %d to %s(%d)\n",quest_id, sd->status.name, sd->status.char_id);
+			ShowDebug("Adding quest %d to %s(%d)\n",quest_id, sd->status.name, sd->status.char_id);
+		}
 
 		pc_setglobalreg(sd,var,pc_readglobalreg(sd,var) + add_value);
 
@@ -1295,6 +1323,8 @@ void bg_team_rewards(int bg_id, int nameid, int amount, int kafrapoints, int que
 
 			if( rank ) 
 				get_amount += battle_config.bg_ranking_bonus * get_amount / 100;
+			//if ( sd->donate_bonus.kafra_point > 0 )
+			//	get_amount += sd->donate_bonus.kafra_point * get_amount / 100;
 
 			pc_getcash(sd,0,get_amount);
 		}
@@ -1303,8 +1333,10 @@ void bg_team_rewards(int bg_id, int nameid, int amount, int kafrapoints, int que
 		{
 			get_amount = amount;
 
-			if( rank ) get_amount += battle_config.bg_ranking_bonus * get_amount / 100;
-
+			if( rank ) 
+				get_amount += battle_config.bg_ranking_bonus * get_amount / 100;
+			if ( sd->donate_bonus.badge > 0 )
+				get_amount += sd->donate_bonus.badge * get_amount / 100;
 			if( (flag = pc_additem(sd,&it,get_amount)) )
 				clif_additem(sd,0,0,flag);
 

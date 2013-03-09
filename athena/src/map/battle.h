@@ -518,11 +518,11 @@ extern struct Battle_Config
 	int bg_ranked_mode;
 	int bg_ranked_max_games;
 
+	int bg_autojail_kicks;
 	
 	int bg_reserved_char_id;
 	int raid_reserved_char_id;
 	int woe_reserved_char_id;
-
 	// [Action Limits]
 	int action_keyboard_limit;
 	int action_mouse_limit;

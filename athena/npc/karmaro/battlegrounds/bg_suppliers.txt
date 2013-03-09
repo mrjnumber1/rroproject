@@ -98,6 +98,73 @@ bat_room,140,145,5	script	KvM BG Items	420,{
 	}
 	vending_open();
 }
+
+bat_room,148,131,5	script	Plagiarist	810,{
+
+	if (islowratechar() == 1)
+	{
+		mes "This function is only available to BG chars!";
+		close;
+	}
+	if (Class != Job_Stalker)
+	{
+		mes .n$;
+		mes "Get outta here, I don't help anyone but my brothers, and you ain't my brother for damn sure..";
+		close;
+	}
+	mes .n$;
+	mes "Yo, I can set your skills for plagiarize. If you needs, I gots it, man.";
+	mes "What you need?";
+	next;
+	
+	if ( select("Nothin, I'm good.:Let me set a new skill for plagiarizing") == 1)
+	{
+		mes .n$;
+		mes "Right on, do it big then.. peace.";
+		close;
+	}
+	
+	mes .n$;
+	mes "All right let's figure it out.";
+	set .@min_skill_level, getskilllv("RG_PLAGIARISM");
+	if (.@min_skill_level < 1)
+	{
+		mes "Wait a minute my man, you got the looks but you ain't even got Plagiarism yet! You need to finish up skills.";
+		close;
+	}
+	set .@size, getarraysize(.skill_id);
+	set .@mstr$, "Oh nah, I'm good!";
+	for (set .@i, 0; .@i < .@size; set .@i, .@i+1)
+	{
+		// for sanity, we don't care what level it is - people likely have it maxed anyways
+		// this makes it so we don't have to iterate through and re-index everything for the player's choice.
+		//if ( .skill_lv[.@i] > .@min_skill_level )
+		//	continue;
+		set .@mstr$, ":"+getskillname(.skill_id[.@i])+" (" + .skill_lv[.@i] + ")";
+	}
+	next;
+	set .@choice, select(.@mstr$) - 2;
+	if (select(.@mstr$) == -1)
+	{
+		mes .n$;
+		mes "All right brother man, so be it.";
+		close;
+	}
+	else
+	{
+		mes .n$;
+		mes "There it goes! Show em who runs this joint... peace.";
+		setcloneskill(.skill_id[.@choice], .skill_lv[.@choice]);
+		close;
+	}
+
+OnInit:
+	set .n$, "[Plagiarist]";
+	setarray .skill_id[0],542,527, 14, 84, 83, 89, 537, 536,  5,  7, 11, 13, 15, 16, 17, 18, 19, 20, 21, 24, 28, 42, 46, 47, 52, 61, 62, 70, 77, 79, 80, 81, 85, 86, 88, 90, 91, 91, 116, 121, 122, 123, 147, 148, 149, 152, 156, 229, 230, 250, 251, 253, 263, 263, 337, 421, 526, 527, 534, 535, 539, 540, 541, 542;
+	setarray .skill_lv[0],  5,  5, 10, 10, 10, 10,  10,   5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,  1, 10, 10, 10, 10, 10,  5, 10, 10, 10, 10, 10, 10, 10,  5, 10,  5 ,  1,  5,   5,   5,   5,   5,   1,   1,   1,   1,   1,   5,   5,   5,   5,  10,   5,  10,   1,   7,  10,   5,  10,  10,   5,  10,   5,   5;
+
+}
+
 bat_room,148,150,5	script	Kafra Point Exchanger	894,{
 	if (islowratechar() == 1)
 	{
@@ -128,7 +195,7 @@ bat_room,148,150,5	script	Kafra Point Exchanger	894,{
 	}
 	
 	set Conquest_Participation, Conquest_Participation - (Conquest_Participation * .@gained);
-	givepoints(.@gained* .kp_bonus);
+	givepoints(.@gained * .kp_bonus);
 	
 	mes .@n$;
 	mes "You now have: ^FF0000"+Conquest_Participation+"^000000 Conquest Points.";
@@ -311,7 +378,7 @@ bat_room,169,145,6	script	Mann Co. Refiner	63,{
 	}
 	set .@n$, "[Mann Co. Refiner]";
 	mes .@n$;
-	mes "I'm the armsmith who can upgrade your items, for only 10 Kafra Points per level. What would you like me to refine?";
+	mes "I'm the armsmith who can upgrade your items, for only 5 Kafra Points per level. What would you like me to refine?";
 	next;
 	
 	setarray .@position$[1], "Head","Body","Left Hand","Right Hand","Robe","Shoes";
@@ -347,7 +414,7 @@ bat_room,169,145,6	script	Mann Co. Refiner	63,{
 	
 	set .@refineitemid, getequipid(.@part); // save id of the item
 	set .@refinerycnt, getequiprefinerycnt(.@part); //save refinery count
-	set .@price, 10;
+	set .@price, 5;
 	switch(getequipweaponlv(.@part))
 	{
 	case 0: 	//Refine Armor
@@ -483,7 +550,8 @@ bat_room,150,161,2	script	Saxton Hale	731,{
 	}
 	mes "[Saxton Hale]";
 	mes "What do you need?";
-	mes "Remember, these items go Directly to Storage.";
+	mes "Remember, these items go directly to Storage.";
+	mes "Keep in mind that BG-only items are unconsumed.";
 	switch(select("BG Supply:WoE Supply:WoE Boxes:BG Ammo:WoE Ammo"))
 	{
 	case 1:
@@ -491,7 +559,7 @@ bat_room,150,161,2	script	Saxton Hale	731,{
 		
 		for (set .@i, 0; .@i < getarraysize(.@Items); set .@i, .@i + 1)
 		{
-			set .@Amount[.@i], 1000;
+			set .@Amount[.@i], 1;
 			set .@Value[.@i], 1;
 		}
 		//setarray .@Amount[0], 10000,  10000,  10000,  10000, 10000, 10000,  10000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,   10000,   10000,  1000,  1000,    1000,    1000,    1000,    1000,    1000,    1000,    10000,    10000,    10000,    10000,    10000,    10000,    10000,    10000,    10000,     1000,    1000,    1000,    1000,  1000,  1000,    1000,    1000,  1000,  1000,    1000,    1000,    1000,     1000,     1000,     1000,     1000,     1000,     1000,    1000,     1000,     1000,     1000,    1000;  

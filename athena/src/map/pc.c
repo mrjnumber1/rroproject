@@ -300,7 +300,6 @@ void pc_addfame(struct map_session_data *sd,int count, short flag)
 				
 		}
 		return;
-		break;
 	case 2: // Bg Normal Matches
 		{
 			int old = (sd->status.bg_stats.points)/100;
@@ -315,7 +314,6 @@ void pc_addfame(struct map_session_data *sd,int count, short flag)
 			chrif_updatefamelist(sd,2);
 		}
 		return;
-		break;
 	}
 
 	// Normal Rankings
@@ -971,8 +969,11 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 	sd->cansendmail_tick = tick;
 	sd->keyboard_action_tick = tick;
 	sd->mouse_action_tick = tick;
+	sd->main_cantalk_tick = tick;
 	sd->refresh_tick = tick;
+
 	sd->last_tick = last_tick;
+	sd->hit_tick = tick;
 	sd->expinfo.start_time = last_tick;
 	sd->expinfo.base_exp = 0;
 	sd->expinfo.job_exp = 0;
@@ -1247,6 +1248,9 @@ int pc_reg_received(struct map_session_data *sd)
 	status_calc_pc(sd,1);
 	chrif_scdata_request(sd->status.account_id, sd->status.char_id);
 
+	if( (sd->class_&MAPID_UPPERMASK) == MAPID_STAR_GLADIATOR)	//SG_MIRACLE [Komurka]
+		sc_start(src,SC_MIRACLE,100,1,battle_config.sg_miracle_skill_duration*24);
+
 #ifndef TXT_ONLY
 	intif_Mail_requestinbox(sd->status.char_id, 0); // MAIL SYSTEM - Request Mail Inbox
 	intif_request_questlog(sd);
@@ -1255,8 +1259,7 @@ int pc_reg_received(struct map_session_data *sd)
 	if( battle_config.bg_reward_rates != 100 )
 	{
 		char output[128];
-		int erate = battle_config.bg_reward_rates - 100;
-		sprintf(output, "Battleground Happy Hour. Rates at + %d %%", erate);
+		sprintf(output, "Battleground Happy Hour. Rates at + %d %%", (battle_config.bg_reward_rates - 100));
 		clif_displaymessage(sd->fd, output);
 	}
 	
@@ -3512,15 +3515,23 @@ int pc_insert_card(struct map_session_data* sd, int idx_card, int idx_equip)
  *------------------------------------------*/
 int pc_modifybuyvalue(struct map_session_data *sd,int orig_value)
 {
-	int skill,val = orig_value,rate1 = 0,rate2 = 0;
+	int skill, val = orig_value, rate1 = 0, rate2 = 0;
+
+	if ( !pc_islowratechar(sd) ) // bg chars don't have discount/oc/compulsion take effect
+		return orig_value;
 	if((skill=pc_checkskill(sd,MC_DISCOUNT))>0)	// ディスカウント
 		rate1 = 5+skill*2-((skill==10)? 1:0);
+
 	if((skill=pc_checkskill(sd,RG_COMPULSION))>0)	// コムパルションディスカウント
 		rate2 = 5+skill*4;
+
 	if(rate1 < rate2) rate1 = rate2;
+
 	if(rate1)
 		val = (int)((double)orig_value*(double)(100-rate1)/100.);
+
 	if(val < 0) val = 0;
+
 	if(orig_value > 0 && val < 1) val = 1;
 
 	return val;
@@ -3532,7 +3543,11 @@ int pc_modifybuyvalue(struct map_session_data *sd,int orig_value)
 int pc_modifysellvalue(struct map_session_data *sd,int orig_value)
 {
 	int skill,val = orig_value,rate = 0;
-	if((skill=pc_checkskill(sd,MC_OVERCHARGE))>0)	// オ?バ?チャ?ジ
+
+	if ( !pc_islowratechar(sd) ) // bg chars cannot overcharge
+		return orig_value;
+
+	if((skill=pc_checkskill(sd,MC_OVERCHARGE))>0)	
 		rate = 5+skill*2-((skill==10)? 1:0);
 	if(rate)
 		val = (int)((double)orig_value*(double)(100+rate)/100.);
@@ -3693,7 +3708,7 @@ void pc_getcash(struct map_session_data *sd, int cash, int points)
 	nullpo_retv(sd);
 
 	cur_cashpoints = pc_readaccountreg2(sd, "##CASHPOINTS");
-	cur_kafrapoints = pc_readaccountreg2(sd, "##KAFRAPOINTS");
+	x = pc_readaccountreg2(sd, "##KAFRAPOINTS");
 
 	if( cash > 0 )
 	{
@@ -3723,6 +3738,9 @@ void pc_getcash(struct map_session_data *sd, int cash, int points)
 			ShowWarning("pc_getcash: Kafra point overflow (points=%d, have points=%d, account_id=%d, char_id=%d).\n", points, cur_kafrapoints, sd->status.account_id, sd->status.char_id);
 			points = MAX_ZENY-cur_kafrapoints;
 		}
+		
+		if (sd->donate_bonus.kafra_point > 0)
+			points += points * sd->donate_bonus.kafra_point/100;
 
 		pc_setaccountreg2(sd, "##KAFRAPOINTS", cur_kafrapoints+points);
 
@@ -4275,7 +4293,9 @@ int pc_useitem(struct map_session_data *sd,int n)
 			//Logs (C)onsumable items [Lupus]
 			log_pick_pc(sd, LOG_TYPE_CONSUME, sd->status.inventory[n].nameid, -1, &sd->status.inventory[n], sd->status.inventory[n].serial);
 
-			pc_delitem(sd,n,1,1,0); // Rental Usable Items are not deleted until expiration
+			if (!(map_bg_items(sd->bl.m) && !pc_islowratechar(sd)) )
+				pc_delitem(sd,n,1,1,0); // Rental Usable Items are not deleted until expiration
+			
 		}
 		else
 			clif_useitemack(sd,n,0,false);
@@ -4693,7 +4713,7 @@ int pc_setpos(struct map_session_data* sd, unsigned short mapindex, int x, int y
 			status_change_end(&sd->bl, SC_SUN_COMFORT, INVALID_TIMER);
 			status_change_end(&sd->bl, SC_MOON_COMFORT, INVALID_TIMER);
 			status_change_end(&sd->bl, SC_STAR_COMFORT, INVALID_TIMER);
-			status_change_end(&sd->bl, SC_MIRACLE, INVALID_TIMER);
+			//status_change_end(&sd->bl, SC_MIRACLE, INVALID_TIMER);
 			if (sd->sc.data[SC_KNOWLEDGE]) {
 				struct status_change_entry *sce = sd->sc.data[SC_KNOWLEDGE];
 				if (sce->timer != INVALID_TIMER)
@@ -6197,6 +6217,12 @@ int pc_resetfeel(struct map_session_data* sd)
 		sd->feel_map[i].m = -1;
 		sd->feel_map[i].index = 0;
 		pc_setglobalreg(sd,sg_info[i].feel_var,0);
+		sd->hate_mob[i] = -1;
+		pc_setglobalreg(sd,sg_info[i].hate_var,-1);
+	}
+
+	for (i=0; i < pc_checkskill(sd,SG_HATE); ++i)
+	{
 	}
 
 	return 0;
@@ -6298,6 +6324,7 @@ void pc_damage(struct map_session_data *sd,struct block_list *src,unsigned int h
 	{
 		pc_setstand(sd);
 		skill_sit(sd,0);
+		clif_standing(&sd->bl);
 	}
 
 	if( sd->progressbar.npc_id )
@@ -6480,63 +6507,64 @@ void pc_record_damage(struct block_list *src, struct block_list *dst, int damage
 	switch( dst->type )
 	{
 		case BL_PC:
-			{
+		{
 			struct map_session_data *dstsd = BL_CAST(BL_PC, dst);
 			int points=0;
-				if( count_bg_stats(src->m) && sd->state.bg_id)
+
+			if( count_bg_stats(src->m) && sd->state.bg_id)
+			{
+				add2limit(sd->status.bg_round_stats.damage_done, damage, UINT_MAX);
+				add2limit(dstsd->status.bg_round_stats.damage_received, damage, UINT_MAX);
+
+				if(sd->state.battle_info)
 				{
-					add2limit(sd->status.bg_round_stats.damage_done, damage, UINT_MAX);
-					add2limit(dstsd->status.bg_round_stats.damage_received, damage, UINT_MAX);
-
-					if(sd->state.battle_info)
-					{
-						char out[CHAT_SIZE_MAX];
-						sprintf(out,"%s received %d damage!", dstsd->status.name, damage);
-						clif_disp_onlyself(sd,out,strlen(out));
-					}
-
-					switch(sd->class_)
-					{
-						case MAPID_HIGH_WIZARD:
-							points = damage/1500;
-							break;
-						case MAPID_CREATOR:
-							points = damage/2000;
-							break;
-						case MAPID_CHAMPION:
-						case MAPID_ASSASSIN_CROSS:
-							points = damage/3000;
-							break;
-						default:
-							points = damage/1000;
-							break;
-					}
-
-					if(points)
-					{
-						pc_addfame(sd,points,type);
-
-						if(dstsd->class_ == MAPID_PALADIN)
-							pc_addfame(dstsd,points/2,type);
-					}
-
-				}
-				else if(damage && map_allowed_woe(src->m) )
-				{
-					add2limit(sd->status.woe_stats.damage_done, damage, UINT_MAX);
-					add2limit(((TBL_PC*)dst)->status.woe_stats.damage_received, damage, UINT_MAX);
-					
-					if(dstsd->state.battle_info&2)
-					{
-						char out[CHAT_SIZE_MAX];
-						sprintf(out," %s received %d damage!", dstsd->status.name, damage);
-						clif_disp_onlyself(dstsd,out,CHAT_SIZE_MAX);
-					}
+					char out[CHAT_SIZE_MAX];
+					sprintf(out,"%s received %d damage!", dstsd->status.name, damage);
+					clif_disp_onlyself(sd,out,strlen(out));
 				}
 
+				switch(sd->class_)
+				{
+					case MAPID_HIGH_WIZARD:
+						points = damage/1500;
+						break;
+					case MAPID_CREATOR:
+						points = damage/2000;
+						break;
+					case MAPID_CHAMPION:
+					case MAPID_ASSASSIN_CROSS:
+						points = damage/3000;
+						break;
+					default:
+						points = damage/1000;
+						break;
+				}
+
+				if(points)
+				{
+					pc_addfame(sd,points,type);
+
+					if(dstsd->class_ == MAPID_PALADIN)
+						pc_addfame(dstsd,points/2,type);
+				}
 
 			}
-			break;
+			else if(damage && map_allowed_woe(src->m) )
+			{
+				add2limit(sd->status.woe_stats.damage_done, damage, UINT_MAX);
+				add2limit(((TBL_PC*)dst)->status.woe_stats.damage_received, damage, UINT_MAX);
+					
+				if(dstsd->state.battle_info&2)
+				{
+					char out[CHAT_SIZE_MAX];
+					sprintf(out," %s received %d damage!", dstsd->status.name, damage);
+					clif_disp_onlyself(dstsd,out,CHAT_SIZE_MAX);
+				}
+			}
+
+
+		}
+		break;
 		case BL_MOB:
 		{
 			struct mob_data *md = BL_CAST(BL_MOB, dst);
@@ -6744,7 +6772,7 @@ int pc_update_last_action(struct map_session_data *sd, int type)
 //	{ // Battleground AFK announce
 //		char output[128];
 //		sprintf(output, "%s: %s is no longer away", bg->g->name, sd->status.name);
-	//	clif_bg_message(bg, bg->bg_id, bg->g->name, output, strlen(output) + 1);
+//		clif_bg_message(bg, bg->bg_id, bg->g->name, output, strlen(output) + 1);
 //		sd->state.bg_afk = 0;
 //	}
 	if(type)
@@ -7108,7 +7136,10 @@ int pc_dead(struct map_session_data *sd,struct block_list *src, int skillid)
 	}
 
 
-	//Reset "can log out" tick.
+	//if (sd->state.autotrade)
+	//{
+	//	map_quit(sd);
+	//}
 	if( battle_config.prevent_logout )
 		sd->canlog_tick = gettick() - battle_config.prevent_logout;
 	return 1;

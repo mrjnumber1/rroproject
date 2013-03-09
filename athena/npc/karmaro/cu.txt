@@ -2,8 +2,8 @@
 ConfigStart:
 	set .@menuopts$, "Cancel:Autolog Commands:Stylist:Rental:Class Change";
  
-	if (islowratechar() == 1)
-		set .@menuopts$, .@menuopts$ + ":Stat/Skill Reset";
+	//if (islowratechar() == 1)
+	//	set .@menuopts$, .@menuopts$ + ":Stat/Skill Reset";
 	mes "[Karma Control Unit]";
 	mes "Please select what you would like to configure";
 	
@@ -23,8 +23,6 @@ ConfigStart:
 		case 5:
 			callfunc "F_cu_jobchange";
 			break;
-		case 6:
-			callfunc "F_cu_resetter";
 	}
 	
 	close;
@@ -51,8 +49,8 @@ alogcmdstart:
 	else
 	{
 		message strcharinfo(0),"No Autolog Commands found, use @control/!control to configure.";
-		message strcharinfo(0),"Automatically setting @autoloot, @showdelay, @showexp, @expinfo on, and @showzeny.";
-		set Autolog_Commands, 128|8|4|2|1;
+		message strcharinfo(0),"Automatically setting @autoloot, @showdelay, @showexp, and @showzeny.";
+		set Autolog_Commands, 8|4|2|1;
 		goto alogcmdstart;
 	}
 		

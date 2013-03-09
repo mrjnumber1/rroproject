@@ -1,43 +1,26 @@
 -	script	f_healer	-1,{
 
-	set .@isbg, ( islowratechar() == 0 );
-	if(islowratechar() == 1)
-		goto OnClick;
-OnTouch:
-	set .@isbg, ( islowratechar() == 0 );
-	if(islowratechar() == 1)
-		end;
-		
-OnClick:	
-	
-	set .@mustpay, 0;
 
+OnTouch:
+OnClick:	
 					
 	set .@rightnow, gettimetick(2);
 	if( .@rightnow - LastUsedHealer < 2)
 		end;
 	set LastUsedHealer, .@rightnow;
-	set .@healed, 0;
-	
-//	if(islowratechar() == 1 && BaseLevel > 90 && !.@isbg)
-//		set .@mustpay, 1;
-		
-//	if(.@mustpay == 1)
-//		if(Zeny < 500)
-//			goto nocash;
 
 OnDebuffs:
 					
-	setarray .@bad_sc[0], SC_STONE, SC_FREEZE, SC_SLEEP, SC_CURSE, SC_SILENCE, SC_CONFUSION, SC_BLIND, SC_BLEEDING, SC_POISON, SC_HALLUCINATION, 
-	SC_STRIPWEAPON, SC_STRIPARMOR, SC_STRIPHELM, SC_STRIPSHIELD, SC_JOINTBEAT, SC_DONTFORGETME, SC_DECREASEAGI, SC_CHANGEUNDEAD, SC_SLOWCAST, SC_CRITICALWOUND, SC_ORCISH, SC_BERSERK;
+	setarray .@bad_sc[0], SC_STONE, SC_FREEZE, SC_POISON, SC_CURSE, SC_SILENCE, SC_CONFUSION, SC_BLIND, SC_BLEEDING, SC_HALLUCINATION, 
+	SC_STRIPWEAPON, SC_STRIPARMOR, SC_STRIPHELM, SC_STRIPSHIELD, SC_JOINTBEAT, SC_DONTFORGETME, SC_DECREASEAGI, SC_CHANGEUNDEAD, SC_SLOWCAST, SC_CRITICALWOUND, SC_ORCISH;
 
 	for(set .@i, 0; .@i < getarraysize(.@bad_sc); set .@i, .@i + 1)
-		if(sc_check(.@bad_sc[.@i]) == true)
+	{
+		if( sc_check(.@bad_sc[.@i]) == 1 ) //TODO: apparently this is buggy? qq
 		{
 			sc_end .@bad_sc[.@i];	
-			set .@healed, 1;
 		}			
-
+	}
 		
 OnBuffs:
 	set .@npcgid, getnpcid(0);
@@ -49,9 +32,6 @@ OnBuffs:
 	unitskilluseid .@npcgid,"AL_BLESSING",10,.@chargid;
 	unitskilluseid .@npcgid,"AL_INCAGI",10,.@chargid;
 	
-		
-	if(islowratechar() == 1 && !.@isbg)
-		goto OnRepairs;
 	//unitskilluseid .@npcgid,"PR_IMPOSITIO",5,.@chargid;
 	//unitskilluseid .@npcgid,"PR_SUFFRAGIUM",3,.@chargid;
 	//unitskilluseid .@npcgid,"PR_MAGNIFICAT",5,.@chargid;
@@ -59,80 +39,80 @@ OnBuffs:
 	
 	
 	//unitskilluseid .@npcgid,"PR_KYRIE",10,.@chargid;
-
+-
 	
 	set .@spirit, 0;
 	switch(BaseJob)
 	{
-	case Job_Knight:
-	case Job_Knight2:
-		set .@spirit, 452;
-		break;
-	case Job_Priest:
-		set .@spirit, 454;
-		break;
-	case Job_Wizard:
-		set .@spirit, 453;
-		break;
-	case Job_Blacksmith:
-		set .@spirit, 458;
-		break;
-	case Job_Hunter:
-		set .@spirit, 460;
-		break;
-	case Job_Assassin:
-		set .@spirit, 457;
-		break;
-	case Job_Crusader:
-	case Job_Crusader2:
-		set .@spirit, 450;
-		break;
-	case Job_Monk:
-		set .@spirit, 447;
-		break;
-	case Job_Sage:
-		set .@spirit, 449;
-		break;
-	case Job_Rogue:
-		set .@spirit, 456;
-		break;
-	case Job_Alchemist:
-		set .@spirit, 445;
-		break;
-	case Job_Bard:
-	case Job_Dancer:
-		set .@spirit, 455;
-		break;
-	case Job_SuperNovice:
-		set .@spirit, 451;
-		break;
-	case Job_Soul_Linker:
-		set .@spirit, 461;
-		break;
-	case Job_Star_Gladiator:
-	case Job_Star_Gladiator2:
-		set .@spirit, 448;
-		break;
-
+		case Job_Knight:
+		case Job_Knight2:
+			set .@spirit, 452;
+			break;
+		case Job_Priest:
+			set .@spirit, 454;
+			break;
+		case Job_Wizard:
+			set .@spirit, 453;
+			break;
+		case Job_Blacksmith:
+			set .@spirit, 458;
+			break;
+		case Job_Hunter:
+			set .@spirit, 460;
+			break;
+		case Job_Assassin:
+			set .@spirit, 457;
+			break;
+		case Job_Crusader:
+		case Job_Crusader2:
+			set .@spirit, 450;
+			break;
+		case Job_Monk:
+			set .@spirit, 447;
+			break;
+		case Job_Sage:
+			set .@spirit, 449;
+			break;
+		case Job_Rogue:
+			set .@spirit, 456;
+			break;
+		case Job_Alchemist:
+			set .@spirit, 445;
+			break;
+		case Job_Bard:
+		case Job_Dancer:
+			set .@spirit, 455;
+			break;
+		case Job_SuperNovice:
+			set .@spirit, 451;
+			break;
+		case Job_Soul_Linker:
+			set .@spirit, 461;
+			break;
+		case Job_Star_Gladiator:
+		case Job_Star_Gladiator2:
+			set .@spirit, 448;
+			break;
 	}
 	
 	unitskilluseid .@npcgid,.@spirit,5,.@chargid;
 	
 	
+	// use FCP
+	unitskilluseid .@npcgid,479, .@chargid; //does this work or do we need to make it ignore restrictions? lololol qq
 	
-	
-
 
 	
 OnScrollbuffs:
 	//ensure that these indices are consistent!
-	setarray .@items[0],		12219,			 12220,			 14520,			14518,	       14519, 		 14517,	  12351					;
-	setarray .@status[0], SC_WINDWALK,	 SC_ADRENALINE,	  SC_CP_WEAPON,	 SC_CP_SHIELD,	 SC_CP_ARMOR, 	SC_CP_HELM, SC_LOUD					;
-	setarray .@skill[0],		  383, 			   111,			   234,			   235,			 236, 		   237,		155					;
-	setarray .@level[0],		   10,				 5,				 5,				 5,			   5,			 5,		  1					;
-	setarray .@onself[0],			0,				 0,			 	 0,			 	 0,		  	   0,		 	 0,	   	  1					;
+	setarray .@items[0],		12219,			12220,	  12351					;
+	setarray .@status[0], SC_WINDWALK,	SC_ADRENALINE,	SC_LOUD					;
+	setarray .@skill[0],		  383, 			  111,		155					;
+	setarray .@level[0],		   10,				5,		  1					;
+	setarray .@onself[0],			0,				0,		  1					;
 
 	for(set .@i, 0; .@i < getarraysize(.@items); set .@i, .@i + 1)
+	{
 		if(countitem(.@items[.@i]) > 0 && sc_check(.@status[.@i]) == 0)
 		{
 			if(.@status[.@i] == SC_ADRENALINE) // to ensure that adrenaline scrolls are only consumed with mace/1h/2axes equipped
@@ -149,6 +129,7 @@ OnScrollbuffs:
 
 			delitem .@items[.@i], 1;
 		}
+	}
 	
 	//specialeffect2 7;
 	
@@ -157,23 +138,10 @@ OnRepairs:
 	repairall;
 	
 OnHeals:
-        set .@healed, 0;
-        if( (Hp != MaxHp) || (Sp != MaxSp) )
-		set .@healed, 1;
-//        if(.@healed && .@mustpay)
-//	        set Zeny, Zeny - 500;
+	if( (Hp != MaxHp) || (Sp != MaxSp) )
+		percentheal 100,100;
 	
-	percentheal 100,100;
 
-
-	
-	
-//	end;
-	
-nocash:
-//	mes "Low Rate Characters above level 90 need 5k zeny to use the Healer outside of BG! Go kill some porings. :)";
-//	close2;
-//	end;
 }
 
 prontera, 152, 180,5	duplicate(f_healer)	Healer#0	895,10,10

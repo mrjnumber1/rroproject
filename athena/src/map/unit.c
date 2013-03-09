@@ -901,8 +901,9 @@ int unit_set_walkdelay(struct block_list *bl, unsigned int tick, int delay, int 
 	struct unit_data *ud = unit_bl2ud(bl);
 	if (delay <= 0 || !ud) return 0;
 	
-	if( bl->type == BL_MOB && (((TBL_MOB*)bl)->status.mode&MD_BOSS) )
+	if( bl->type == BL_MOB && (((TBL_MOB*)bl)->db->mexp) ) // mvps have no walkdelay basically :D
 		return 0;
+	
 
 	if (type) {
 		if (DIFF_TICK(ud->canmove_tick, tick+delay) > 0)

@@ -5995,9 +5995,9 @@ ACMD_FUNC(displayskill)
 	}
 	status = status_get_status_data(&sd->bl);
 	tick = gettick();
-	clif_skill_damage(&sd->bl,&sd->bl, tick, status->amotion, status->dmotion, 1, 1, skillnum, skilllv, 5);
+	//clif_skill_damage(&sd->bl,&sd->bl, tick, status->amotion, status->dmotion, 1, 1, skillnum, skilllv, 5);
 	clif_skill_nodamage(&sd->bl, &sd->bl, skillnum, skilllv, 1);
-	clif_skill_poseffect(&sd->bl, skillnum, skilllv, sd->bl.x, sd->bl.y, tick);
+	//clif_skill_poseffect(&sd->bl, skillnum, skilllv, sd->bl.x, sd->bl.y, tick);
 	return 0;
 }
 
@@ -7340,18 +7340,25 @@ ACMD_FUNC(refresh)
 	nullpo_retr(-1, sd);
 	nullpo_retr(-1, &sd->ud);
 
-	if(sd->ud.skilltimer != INVALID_TIMER)
-		return -1;
-
-	if( DIFF_TICK(gettick(),sd->refresh_tick) < (5*100)) 
+	if(*(command+1) != 'u' && *(command+1) != 'U')
 	{
-		sprintf(atcmd_output, "%d ms until next refresh...", 500-DIFF_TICK(gettick(),sd->refresh_tick));
-		clif_displaymessage(fd,atcmd_output);
-		return -1;
+		if(sd->ud.skilltimer != INVALID_TIMER)
+			return -1;
+
+		if( DIFF_TICK(gettick(),sd->refresh_tick) < (5*100)) 
+		{
+			sprintf(atcmd_output, "%d ms until next refresh...", 500-DIFF_TICK(gettick(),sd->refresh_tick));
+			clif_displaymessage(fd,atcmd_output);
+			return -1;
+		}
 	}
 	sd->refresh_tick = gettick();
 	clif_refresh(sd);
 	return 0;
+}
+ACMD_FUNC(unsaferefresh)
+{
+	return atcommand_refresh(fd, sd, "@unsaferefresh", message);
 }
 
 /*==========================================
@@ -8355,9 +8362,9 @@ ACMD_FUNC(fakename)
  * => Shows information about the map flags [map name]
  * Also set flags
  *------------------------------------------*/
-ACMD_FUNC(mapflag)
+ACMD_FUNC(mapflag) 
 {
-// WIP
+	//wip :/
 	return 0;
 }
 
@@ -8366,40 +8373,37 @@ ACMD_FUNC(mapflag)
  *-----------------------------------*/
 ACMD_FUNC(showexp)
 {
-	if (sd->state.showexp) {
-		sd->state.showexp = 0;
-		clif_displaymessage(fd, "Gained exp will not be shown.");
-		return 0;
-	}
+	sd->state.showexp = !sd->state.showexp;
 
-	sd->state.showexp = 1;
-	clif_displaymessage(fd, "Gained exp is now shown");
+	if (sd->state.showexp)
+		clif_displaymessage(fd, "Gained exp is now shown");
+	else
+		clif_displaymessage(fd, "Gained exp will not be shown.");
+
 	return 0;
 }
 
 ACMD_FUNC(showzeny)
 {
-	if (sd->state.showzeny) {
-		sd->state.showzeny = 0;
-		clif_displaymessage(fd, "Gained zeny will not be shown.");
-		return 0;
-	}
+	sd->state.showzeny = !sd->state.showzeny;
 
-	sd->state.showzeny = 1;
-	clif_displaymessage(fd, "Gained zeny is now shown");
+	if (sd->state.showzeny)
+		clif_displaymessage(fd, "Gained zeny is now shown.");
+	else
+		clif_displaymessage(fd, "Gained zeny will not be shown.");
+
 	return 0;
 }
 
 ACMD_FUNC(showdelay)
 {
-	if (sd->state.showdelay) {
-		sd->state.showdelay = 0;
+	sd->state.showdelay = !sd->state.showdelay;
+
+	if (sd->state.showdelay)
+		clif_displaymessage(fd, "Skill delay failures are shown now.");
+	else
 		clif_displaymessage(fd, "Skill delay failures won't be shown.");
-		return 0;
-	}
-	
-	sd->state.showdelay = 1;
-	clif_displaymessage(fd, "Skill delay failures are shown now.");
+
 	return 0;
 }
 
@@ -8696,14 +8700,15 @@ ACMD_FUNC(main)
 				clif_displaymessage(fd, msg_txt(387));
 				return -1;
 			}
-			sprintf(atcmd_output, msg_txt(386), sd->status.name, message);
+			//sprintf(atcmd_output, msg_txt(386), sd->status.name, message);
 			// I use 0xFE000000 color for signalizing that this message is
 			// main chat message. 0xFE000000 is invalid color, same using
 			// 0xFF000000 for simple (not colored) GM messages. [LuzZza]
-			intif_broadcast2(atcmd_output, strlen(atcmd_output) + 1, 0xFE000000, 0, 0, 0, 0);
+			intif_main_message(sd, message, NULL);
+			//intif_broadcast2(atcmd_output, strlen(atcmd_output) + 1, 0xFE000000, 0, 0, 0, 0);
 
 			// Chat logging type 'M' / Main Chat
-			log_chat(LOG_CHAT_MAINCHAT, 0, sd->status.char_id, sd->status.account_id, mapindex_id2name(sd->mapindex), sd->bl.x, sd->bl.y, NULL, message);
+			//log_chat(LOG_CHAT_MAINCHAT, 0, sd->status.char_id, sd->status.account_id, mapindex_id2name(sd->mapindex), sd->bl.x, sd->bl.y, NULL, message);
 		}
 		
 	} else {
@@ -11323,7 +11328,52 @@ ACMD_FUNC(restock)
 }
 
 
+ACMD_FUNC(packetfilter)
+{
+	nullpo_retr(-1,sd);
+	
+	if( !message || !*message )
+	{
+		clif_displaymessage(fd, "<<----- Packet Filtering Usage ----->>");
+		clif_displaymessage(fd, ".   @packetfilter <options>");
+		clif_displaymessage(fd, ".   C : To filter global chat messages.");
+		clif_displaymessage(fd, ".   I : To filter item usage.");
+		clif_displaymessage(fd, ".   H : To filter heal effect.");
+		clif_displaymessage(fd, ".   - Samples");
+		clif_displaymessage(fd, ".   @packetfilter CIH : To filter the 3 options.");
+		clif_displaymessage(fd, ".   @packetfilter I   : Only filter item usage.");
+		clif_displaymessage(fd, ".   @packetfilter off : To turn packet filter off.");
+	}
+	else if( !strcmpi(message, "off") )
+	{
+		sd->state.packet_filter = P_FILTER_NONE;
+		clif_displaymessage(fd,"<< Packet Filtering Off >>");
+	}
+	else
+	{
+		char *mes = aStrdup(message);
+		for ( ; *mes; ++mes) *mes = TOLOWER(*mes);
+		
+		if ( strstr(mes, "c") )
+			sd->state.packet_filter |= P_FILTER_CHAT;
+		if ( strstr(mes, "i") )
+			sd->state.packet_filter |= P_FILTER_ITEM;
+		if ( strstr(mes, "h") )
+			sd->state.packet_filter |= P_FILTER_HEAL;
 
+		aFree(mes);
+
+		sprintf(atcmd_output,"<< Packet Filtering | Chat %s | Items %s | Heal %s >>", 
+			(sd->state.packet_filter&P_FILTER_CHAT) ? "ON" : "OFF", 
+			(sd->state.packet_filter&P_FILTER_ITEM) ? "ON" : "OFF",
+			(sd->state.packet_filter&P_FILTER_HEAL) ? "ON" : "OFF"
+		);
+			
+		clif_displaymessage(fd,atcmd_output);
+	}
+
+	return 0;
+}
 
 /*==========================================
  * atcommand_info[] structure definition
@@ -11617,6 +11667,8 @@ void atcommand_basecommands(void) {
 
 		{ "gmc",			    2,2,	  atcommand_gmc, false },
 		{ "ngmc",				2,2,	  atcommand_ngmc, false },
+
+		{ "unsaferefresh",      0,2,      atcommand_unsaferefresh, false },
 		
 		{ "buy",                0,2,      atcommand_buysell, false },
 		{ "sell",               0,2,      atcommand_sell,   false },
@@ -11629,6 +11681,7 @@ void atcommand_basecommands(void) {
 		{ "mstorage",			0,60,	  atcommand_memberstorage, false },
 		
 		{ "bump",              99,99,     atcommand_bump, false },
+		{ "packetfilter",       0,99,     atcommand_packetfilter, false },
 
 		{ "missioninfo",        0,60,     atcommand_missioninfo, false },
 		

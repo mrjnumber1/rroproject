@@ -6675,6 +6675,7 @@ BUILDIN_FUNC(getcharid)
 	case 2: script_pushint(st,sd->status.guild_id); break;
 	case 3: script_pushint(st,sd->status.account_id); break;
 	case 4: script_pushint(st,sd->state.bg_id); break;
+	case 5: script_pushint(st,sd->status.member_id); break;
 	default:
 		ShowError("buildin_getcharid: invalid parameter (%d).\n", num);
 		script_pushint(st,0);
@@ -8248,7 +8249,8 @@ BUILDIN_FUNC(cooking)
 		return 0;
 
 	trigger=script_getnum(st,2);
-	clif_cooking_list(sd, trigger);
+	if ( pc_islowratechar(sd) )
+		clif_cooking_list(sd, trigger);
 	return 0;
 }
 /*==========================================
@@ -16128,6 +16130,11 @@ BUILDIN_FUNC(bg_balance_teams)
 }
 
 */
+BUILDIN_FUNC(getipnum)
+{
+	script_pushint(st, (int)session[sd->fd]->client_addr);
+	return 0;
+}
 
 BUILDIN_FUNC(bg_logincount)
 {
@@ -16675,6 +16682,7 @@ BUILDIN_FUNC(bg_reward)
 	return 0;
 }
 
+// usage: bg_classcount(team, classid);
 BUILDIN_FUNC(bg_classcount)
 {
 	int bg_id, jobid, i, result;
@@ -17258,36 +17266,39 @@ BUILDIN_FUNC(sc_check) // sc_check sc_type, (valnum?)
 {
 	int id, type;
 	struct map_session_data* sd = script_rid2sd(st);
+	status_change_entry* sc = NULL;
 
 	if( sd == NULL )
-	{// no player attached
 		return 0;
-	}
+	
 
 	id = script_getnum(st, 2);
 	type = script_hasdata(st, 3) ? script_getnum(st, 3) : 0;
 
 	if( id <= SC_NONE || id >= SC_MAX )
-	{// invalid status type given
+	{
 		ShowWarning("buildin_sc_check: Invalid status type given (%d).\n", id);
 		return 0;
 	}
 
-	if( sd->sc.count == 0 || !sd->sc.data[id] )
-	{// no status is active
+	sc = sd->sc.data[id];
+
+	if( sd->sc.count == 0 || !sc )
+	{
 		script_pushint(st, 0);
 		return 0;
 	}
 	
+	
 	switch( type )
 	{
-		case 1:	 script_pushint(st, sd->sc.data[id]->val1);	break;
-		case 2:  script_pushint(st, sd->sc.data[id]->val2);	break;
-		case 3:  script_pushint(st, sd->sc.data[id]->val3);	break;
-		case 4:  script_pushint(st, sd->sc.data[id]->val4);	break;
+		case 1:	 script_pushint(st, sc->val1);	break;
+		case 2:  script_pushint(st, sc->val2);	break;
+		case 3:  script_pushint(st, sc->val3);	break;
+		case 4:  script_pushint(st, sc->val4);	break;
 		case 5:
 			{
-				struct TimerData* timer = (struct TimerData*)get_timer(sd->sc.data[id]->timer);
+				struct TimerData* timer = (struct TimerData*)get_timer(sc->timer);
 
 				if( timer )
 				{// return the amount of time remaining
@@ -18437,6 +18448,175 @@ BUILDIN_FUNC(force_disconnect)
 
 // end storage passwords
 
+// 
+BUILDIN_FUNC(sendmail)
+{
+	struct mail_message msg;
+	const char* body; 
+	const char* title; 
+	int zeny, nameid, amount;
+	struct script_data *data;
+
+
+	memset(&msg, '\0', sizeof (msg));
+
+	amount = script_getnum(st, 4);
+	zeny = script_getnum(st, 5);
+	title = script_getstr(st, 6);
+	body = script_getstr(st, 7);
+
+	if (script_hasdata(st, 8))
+	{
+		const char* sender_name = script_getstr(st, 8);
+
+		if (strlen(sender_name) < 4)
+			safestrncpy(msg.send_name, "Server", NAME_LENGTH);
+		else
+			safestrncpy(msg.send_name, sender_name, NAME_LENGTH);
+	}
+	else
+	{
+		TBL_PC *sender_sd = script_rid2sd(st);
+		
+		if (sender_sd == NULL)
+			safestrncpy(msg.send_name, "Server", strlen("Server")+1);
+		else
+		{
+			msg.send_id = sender_sd->status.char_id;
+			safestrncpy(msg.send_name, sender_sd->status.name, NAME_LENGTH);
+		}
+	}
+	
+	data = script_getdata(st, 2);
+	get_val(st, data);
+	
+	if ( data_isint(data) )
+	{
+		int char_id = conv_num(st, data);
+		const char *name;
+		
+		msg.dest_id = char_id;
+		
+		if ( (name = map_charid2nick(char_id)) != NULL )
+			safestrncpy(msg.dest_name, name, NAME_LENGTH);
+		else
+		{
+			ShowError("buildin_sendmail: Nonexistant destination char_id %d requested.\n", char_id);
+			return 1; 
+		}
+	}
+	else if ( data_isstring(data) )
+	{
+		const char* destination_name = conv_str(st, data);
+		
+		if (strlen(destination_name) < 4 ) // bad dest? then it fails!
+		{
+			ShowError("buildin_sendmail: Bad destination player %s requested.\n", destination_name);
+			script_pushint(st, -1);
+			return 1;
+		}
+		else
+			safestrncpy(msg.dest_name, destination_name, NAME_LENGTH);
+	}
+	
+	
+	data = script_getdata(st, 3);
+	get_val(st, data);
+	
+	if ( data_isstring(data) )
+	{
+		const char *name=conv_str(st,data);
+		struct item_data *item_data = itemdb_searchname(name);
+		
+		if( item_data == NULL )
+		{
+			ShowError("buildin_sendmail: Nonexistant item %s requested.\n", name);
+			return 1; //No item created.
+		}
+		
+		nameid = item_data->nameid;
+	}	
+
+	if ( strlen(title) < 1 )
+		safestrncpy(msg.title, "Mail Scripting System", MAIL_TITLE_LENGTH);
+	else
+		safestrncpy(msg.title, title, MAIL_TITLE_LENGTH );
+	
+	if ( strlen(body) < 1 || strlen(body) > MAIL_BODY_LENGTH)
+		memset(msg.body, 0, MAIL_BODY_LENGTH);
+	else
+		safestrncpy(msg.body, body, strlen(body)+1);
+		
+	msg.status = MAIL_NEW;
+	msg.timestamp = time(NULL);
+	msg.zeny = zeny;
+
+	if (amount)
+	{
+		msg.item.nameid = nameid;
+		msg.item.amount = amount;
+		msg.item.identify = 1;
+	}
+
+
+	script_pushint(st, intif_Mail_send(0, &msg));
+
+	return 0;
+}
+
+BUILDIN_FUNC(abs)
+{
+	script_pushint(st, abs(script_getnum(st, 2)));
+	
+	return 0;
+}
+BUILDIN_FUNC(setcloneskill) 
+{
+	TBL_PC *sd;
+	int skillid = script_getnum( st, 2 );
+	int skilllvl = script_getnum( st, 3 );
+	sd = script_rid2sd(st);
+	
+	if ( sd == NULL || skillid == 1 )
+		return 0; // basic skill MUST not reset
+	
+	if ( skillid == 0 || skilllvl == 0 ) 
+	{
+		sd->status.skill[sd->cloneskill_id].id = 0;
+		sd->status.skill[sd->cloneskill_id].lv = 0;
+		sd->status.skill[sd->cloneskill_id].flag = 0;
+		pc_setglobalreg( sd, "CLONE_SKILL", 0 );
+		pc_setglobalreg( sd, "CLONE_SKILL_LV", 0 );
+		clif_deleteskill(sd,sd->cloneskill_id);
+		sd->cloneskill_id = 0;
+		return 0;
+	}
+	
+	if ( sd->status.skill[sd->cloneskill_id].id > 0 )
+		clif_deleteskill( sd, sd->cloneskill_id );
+		
+	sd->cloneskill_id = skillid;
+	sd->status.skill[sd->cloneskill_id].id = skillid;
+	sd->status.skill[sd->cloneskill_id].lv = skilllvl;
+	sd->status.skill[sd->cloneskill_id].flag = SKILL_FLAG_PLAGIARIZED;
+	
+	pc_setglobalreg( sd, "CLONE_SKILL", skillid );
+	pc_setglobalreg( sd, "CLONE_SKILL_LV", skilllvl );
+	
+	clif_addskill( sd, skillid );
+	
+	return 0;
+}
+
+BUILDIN_FUNC(getskillname)
+{
+	int skill_id = script_getnum(st, 2);
+
+	script_pushstrcopy(st, skill_get_name(skill_id));
+
+	return 0;
+}
+
 // declarations that were supposed to be exported from npc_chat.c
 #ifdef PCRE_SUPPORT
 BUILDIN_FUNC(defpattern);
@@ -18832,6 +19012,7 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(bg_team_create,"siiiss"),
 	BUILDIN_DEF(bg_check_best, "ii"),
 
+	BUILDIN_DEF(getipnum, ""),
 	BUILDIN_DEF(waitingroom2bg,"siiiss"),
 	BUILDIN_DEF(waitingroom2bg_single,"isiis"),
 
@@ -18965,10 +19146,13 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(check_storage_password, "s"),
 	BUILDIN_DEF(check_mstorage_password, "s"),
 	BUILDIN_DEF(check_gstorage_password, "s"),
+
 	BUILDIN_DEF(setjobchangelevel, "i"),
 	BUILDIN_DEF(force_disconnect, ""),
-
-
+	BUILDIN_DEF(sendmail, "vviiss?"), // note: this doesn't work. i think! lmfbo :(
+	 
+	BUILDIN_DEF(abs, "ii"),
+	BUILDIN_DEF(setcloneskill,"ii"),
 
 
 	{NULL,NULL,NULL},

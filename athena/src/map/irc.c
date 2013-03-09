@@ -372,8 +372,9 @@ void irc_parse_sub(int fd, char *incoming_string)
 				{// private message (public really) from the channel
 					if( irc.main_auto )
 					{// messages spoken in the IRC channel should be relayed as @main messages
-						snprintf( send_string, sizeof(send_string), ">> (IRC)%s : %s", source_nick, message );
-						intif_broadcast2( send_string, strlen(send_string) + 1, 0xFE000000, 0, 0, 0, 0 );
+						intif_main_message(NULL, message, source_nick);
+						//snprintf( send_string, sizeof(send_string), "Main :(IRC)[%s] : %s", source_nick, message );
+						//intif_broadcast2( send_string, strlen(send_string) + 1, 0xFE000000, 0, 0, 0, 0 );
 					}
 
 					if( sscanf(message, "@%255s %255[^\r\n]", cmdname, cmdargs) )

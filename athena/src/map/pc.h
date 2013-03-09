@@ -180,6 +180,7 @@ struct map_session_data {
 		unsigned lowratechar : 1;
 		unsigned guild_hp : 1;
 		unsigned int restock_dirty : MAX_RESTOCK_SLOTS; // [misterj]
+		short packet_filter;
 	} state;
 	struct {
 		unsigned char no_weapon_damage, no_magic_damage, no_misc_damage;
@@ -252,8 +253,10 @@ struct map_session_data {
 	unsigned int cantalk_tick;
 	unsigned int canchanneltalk_tick;
 	unsigned int cansendmail_tick; // [Mail System Flood Protection]
+	unsigned int main_cantalk_tick;
 	unsigned int ks_floodprotect_tick; // [Kill Steal Protection]
 	time_t last_tick;
+	unsigned int hit_tick;
 	
 	struct {
 		int nameid;
@@ -486,6 +489,12 @@ struct map_session_data {
 	struct s_mission_data mission[MAX_MISSION_SLOTS];
 
 	struct restock_data restock[MAX_RESTOCK_SLOTS];
+	struct
+	{
+		int badge;
+		int kafra_point;
+	} donate_bonus;
+
 
 	char memreg_str_val[256];
 
@@ -497,6 +506,13 @@ struct map_session_data {
 //#define MAX_SKILL_TREE 55
 //Total number of classes (for data storage)
 #define CLASS_COUNT (JOB_MAX - JOB_NOVICE_HIGH + JOB_MAX_BASIC)
+enum packet_filter_option
+{
+	P_FILTER_NONE = 0x0,
+	P_FILTER_CHAT = 1<<0,
+	P_FILTER_ITEM = 1<<1,
+	P_FILTER_HEAL = 1<<2,
+};
 
 enum weapon_type {
 	W_FIST,	//Bare hands

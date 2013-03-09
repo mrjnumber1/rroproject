@@ -22,6 +22,7 @@
 #include "homunculus.h"
 #include "mail.h"
 #include "quest.h"
+#include "log.h"
 
 #include <sys/types.h>
 #include <stdio.h>
@@ -220,6 +221,44 @@ int intif_broadcast2(const char* mes, int len, unsigned long fontColor, short fo
 	WFIFOW(inter_fd,14) = fontY;
 	memcpy(WFIFOP(inter_fd,16), mes, len);
 	WFIFOSET(inter_fd, WFIFOW(inter_fd,2));
+
+	return 0;
+}
+
+/// send a message using the main chat system
+/// <sd>         the source of message
+/// <message>    the message that was sent
+/// <source_nick>the nick if sd is null
+int intif_main_message(struct map_session_data* sd, const char* message, const char* source_nick)
+{
+	char output[256];
+
+	// format the message for main broadcasting
+	if (sd)
+		snprintf(output, sizeof (output), msg_txt(386), sd->status.name, message );
+	else if (source_nick)
+		snprintf(output, sizeof (output), "Main : (IRC)[%s] : %s", source_nick, message );
+	else
+		return 1;
+
+	// log the chat message
+	if (sd)
+	{
+		if ( DIFF_TICK(sd->main_cantalk_tick, gettick()) > 0)
+		{
+			clif_displaymessage(sd->fd, "Main chat rejected the message [flood protection]");
+			return 1;
+		}
+
+		sd->main_cantalk_tick = gettick()+500;
+		log_chat(LOG_CHAT_MAINCHAT, 0, sd->status.char_id, sd->status.account_id, mapindex_id2name(sd->mapindex), sd->bl.x, sd->bl.y, NULL, message);
+
+	}
+
+	// send the message using the inter-server broadcast service
+		intif_broadcast2( output, strlen(output) + 1, 0xFE000000, 0, 0, 0, 0 );
+
+
 	return 0;
 }
 
@@ -227,6 +266,7 @@ int intif_broadcast2(const char* mes, int len, unsigned long fontColor, short fo
 int intif_wis_message(struct map_session_data *sd, char *nick, char *mes, int mes_len)
 {
 	nullpo_ret(sd);
+	
 	if (CheckForCharServer())
 		return 0;
 
