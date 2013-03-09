@@ -39,7 +39,7 @@ OnBuffs:
 	
 	
 	//unitskilluseid .@npcgid,"PR_KYRIE",10,.@chargid;
--
+
 	
 	set .@spirit, 0;
 	switch(BaseJob)
