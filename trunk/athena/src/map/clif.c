@@ -343,12 +343,22 @@ static int clif_send_sub(struct block_list *bl, va_list ap)
 
 	switch(type)
 	{
+
+	case AREA:
+		if ( RBUFW(buf,0) == 0x01C8 && (map[sd->bl.m].flag.gvg || map[sd->bl.m].flag.battleground) && bl != src_bl && sd->state.packet_filter&P_FILTER_ITEM )
+			return 0; // Ignore other player's item usage
+		if ( RBUFW(buf,0) == 0x011A && RBUFW(buf,2) == AL_HEAL && (map[sd->bl.m].flag.gvg || map[sd->bl.m].flag.battleground) && bl->type != BL_MOB && sd->state.packet_filter&P_FILTER_HEAL )
+			return 0; // Ignore heal effect
+	break;
+
 	case AREA_WOS:
 		if (bl == src_bl)
 			return 0;
 	break;
 	case AREA_WOC:
 		if (sd->chatID || bl == src_bl)
+			return 0;
+		if( RBUFW(buf,0) == 0x8D && (map[sd->bl.m].flag.gvg || map[sd->bl.m].flag.battleground) && sd->state.packet_filter&P_FILTER_CHAT )
 			return 0;
 	break;
 	case AREA_WOSC:
@@ -358,7 +368,6 @@ static int clif_send_sub(struct block_list *bl, va_list ap)
 			return 0;
 	}
 	break;
-
 
 
 	}
@@ -3899,7 +3908,8 @@ static int clif_calc_walkdelay(struct block_list *bl,int delay, int type, int da
 	if (type == 4 || type == 9 || damage <=0)
 		return 0;
 	
-	if (bl->type == BL_PC) {
+	if (bl->type == BL_PC) 
+	{
 		if (battle_config.pc_walk_delay_rate != 100)
 			delay = delay*battle_config.pc_walk_delay_rate/100;
 	} 
@@ -3913,6 +3923,13 @@ static int clif_calc_walkdelay(struct block_list *bl,int delay, int type, int da
 	if (div_ > 1) //Multi-hit skills mean higher delays.
 		delay += battle_config.multihit_delay*(div_-1);
 
+	if (bl->type == BL_PC)
+	{
+		TBL_PC *sd = BL_CAST(BL_PC, bl);
+		nullpo_retr(delay>0?delay:1, sd);
+
+		sd->hit_tick = gettick();
+	}
 	return delay>0?delay:1; //Return 1 to specify there should be no noticeable delay, but you should stop walking.
 }
 
@@ -5116,17 +5133,48 @@ void clif_cooking_list(struct map_session_data *sd, int trigger)
 	}
 }
 
+static enum si_type clif_get_secondary_si(enum si_type type)
+{
+	enum si_type secondary = SI_BLANK;
+
+	switch (type)
+	{
+	case SI_EXPLOSIONSPIRITS:
+		secondary = SI_C_FURY;
+		break;
+	case SI_STEELBODY:
+		secondary = SI_C_STEELBODY;
+		break;
+	case SI_KAITE:
+		secondary = SI_C_KAITE;
+		break;
+	case SI_INTRAVISION:
+		secondary = SI_C_INTRAVISION;
+		break;
+	}
+
+	return secondary;
+}
+
 /*==========================================
  * Sends a status change packet to the object only, used for loading status changes. [Skotlex]
  *------------------------------------------*/
 int clif_status_load(struct block_list *bl,int type, int flag)
 {
 	int fd;
+	enum si_type secondary = SI_BLANK;
+
 	if (type == SI_BLANK)  //It shows nothing on the client...
 		return 0;
 	
 	if (bl->type != BL_PC)
 		return 0;
+
+	// for applying a second icon thing
+	secondary = clif_get_secondary_si((enum si_type)type);
+
+	if (secondary != SI_BLANK && (int)secondary != type) //make sure you can't recursively send this
+		clif_status_load(bl, secondary, flag);
 
 	fd = ((struct map_session_data*)bl)->fd;
 	
@@ -5141,9 +5189,11 @@ int clif_status_load(struct block_list *bl,int type, int flag)
 /*==========================================
  * 状態異常アイコン/メッセージ表示
  *------------------------------------------*/
+
 void clif_status_change(struct block_list *bl,int type,int flag,unsigned int tick)
 {
 	unsigned char buf[32];
+	enum si_type secondary = SI_BLANK;
 
 	if (type == SI_BLANK)  //It shows nothing on the client...
 		return;
@@ -5158,6 +5208,12 @@ void clif_status_change(struct block_list *bl,int type,int flag,unsigned int tic
 		type == SI_READYTURN || type == SI_READYCOUNTER || type == SI_DODGE ||
 		type == SI_DEVIL || type == SI_NIGHT || type == SI_INTRAVISION)
 		tick=0;
+
+	// for applying a second icon thing
+	secondary = clif_get_secondary_si((enum si_type)type);
+
+	if (secondary != SI_BLANK && (int)secondary != type) //make sure you can't recursively send this
+		clif_status_change(bl, secondary, flag, tick);
 
 // TODO: 0x43f PACKETVER?
 	if( battle_config.display_status_timers && tick>0 )
@@ -7388,7 +7444,7 @@ void clif_guild_skillinfo(struct map_session_data* sd)
 		g = guild_search(sd->status.guild_id);
 
 
-	nullpo_retv(sd);
+	nullpo_retv(g);
 	fd = sd->fd;
 	WFIFOHEAD(fd, 6 + MAX_GUILDSKILL*37);
 	WFIFOW(fd,0) = 0x0162;
@@ -9775,15 +9831,9 @@ void clif_parse_WisMessage(int fd, struct map_session_data* sd)
 	{
 		if(!sd->state.mainchat)
 			clif_displaymessage(fd, msg_txt(388)); // You should enable main chat with "@main on" command.
-		else {
-			char output[256];
-			snprintf(output, ARRAYLENGTH(output), msg_txt(386), sd->status.name, message);
-			intif_broadcast2(output, strlen(output) + 1, 0xFE000000, 0, 0, 0, 0);
-		}
-
-		// Chat logging type 'M' / Main Chat
-		log_chat(LOG_CHAT_MAINCHAT, 0, sd->status.char_id, sd->status.account_id, mapindex_id2name(sd->mapindex), sd->bl.x, sd->bl.y, NULL, message);
-
+		else 
+			intif_main_message(sd, message, NULL);
+		
 		return;
 	}
 
@@ -12655,6 +12705,14 @@ void clif_parse_FriendsListAdd(int fd, struct map_session_data *sd)
 		return;
 	}	
 
+	ARR_FIND(0, MAX_FRIENDS, i, sd->status.friends[i].char_id == 0);
+	
+	if (i==MAX_FRIENDS)
+	{
+		clif_friendslist_reqack(sd, f_sd, 2);
+		return;
+	}
+
 	if( sd->bl.id == f_sd->bl.id )
 	{// adding oneself as friend
 		return;
@@ -12668,13 +12726,7 @@ void clif_parse_FriendsListAdd(int fd, struct map_session_data *sd)
 	}
 	
 	
-	ARR_FIND(0, MAX_FRIENDS, i, sd->status.friends[i].char_id == 0);
-	
-	if (i==MAX_FRIENDS)
-	{
-		clif_friendslist_reqack(sd, f_sd, 2);
-		return;
-	}
+
 
 	// Friend already exists
 	for (i = 0; i < MAX_FRIENDS && sd->status.friends[i].char_id != 0; i++) 

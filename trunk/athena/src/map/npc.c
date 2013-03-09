@@ -1286,7 +1286,7 @@ int npc_cashshop_buy(struct map_session_data *sd, int nameid, int amount, int po
 		{
 			int i = pc_search_inventory(sd, nd->cashitem);
 
-			if(i < 0) 
+			if(i < 0 || sd->status.inventory[i].amount < price) 
 				return 6;
 
 			pc_delitem(sd, i, price, 0,0);
@@ -1400,7 +1400,7 @@ int npc_cashshop_buylist(struct map_session_data *sd, int points, int count, uns
 		{
 			int i = pc_search_inventory(sd, nd->cashitem);
 
-			if(i < 0) 
+			if(i < 0  || sd->status.inventory[i].amount < points) 
 				return 6;
 
 			pc_delitem(sd, i, vt, 0,0);

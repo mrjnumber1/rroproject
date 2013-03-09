@@ -1287,12 +1287,15 @@ void login_auth_failed(struct login_session_data* sd, int result)
 //----------------------------------------------------------------------------------------
 int parse_login(int fd)
 {
+	
+	char md5buf1[32+1], md5buf2[64+1]; 
 	struct login_session_data* sd = (struct login_session_data*)session[fd]->session_data;
 	int result;
 	char ip[16];
 	uint32 ipl = session[fd]->client_addr;
 	// MD5 salt modification START [Valaris for KarmaRO]
-	char md5buf1[32], md5buf2[64+1]; 
+	memset(&md5buf1, '\0', sizeof (md5buf1));
+	memset(&md5buf2, '\0', sizeof (md5buf2));
 	// MD5 salt modification END [Valaris for KarmaRO]
 
 	ip2str(ipl, ip);
@@ -1400,6 +1403,8 @@ int parse_login(int fd)
 						MD5_String(sd->passwd, md5buf1);
 						snprintf(md5buf2, sizeof(md5buf2), "%s%s", md5buf1, login_config.md5_salt);
 						MD5_String(md5buf2, sd->passwd);
+						memset(&md5buf1, 0, sizeof (md5buf1));
+						memset(&md5buf2, 0, sizeof (md5buf2));
 					} else
 						MD5_String(sd->passwd, sd->passwd);
 				}

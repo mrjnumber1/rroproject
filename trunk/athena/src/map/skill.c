@@ -6,6 +6,7 @@
 #include "../common/nullpo.h"
 #include "../common/malloc.h"
 #include "../common/showmsg.h"
+#include "../common/socket.h"
 #include "../common/strlib.h"
 #include "../common/utils.h"
 #include "../common/ers.h"
@@ -1302,9 +1303,6 @@ int skill_counter_additional_effect (struct block_list* src, struct block_list *
 		break;
 	}
 
-	if(sd && (sd->class_&MAPID_UPPERMASK) == MAPID_STAR_GLADIATOR &&
-		rnd()%10000 < battle_config.sg_miracle_skill_ratio)	//SG_MIRACLE [Komurka]
-		sc_start(src,SC_MIRACLE,100,1,battle_config.sg_miracle_skill_duration);
 
 	if(sd && skillid && attack_type&BF_MAGIC && status_isdead(bl) &&
 	 	!(skill_get_inf(skillid)&(INF_GROUND_SKILL|INF_SELF_SKILL)) &&
@@ -1773,10 +1771,11 @@ int skill_attack (int attack_type, struct block_list* src, struct block_list *ds
 			//Spirit of Wizard blocks Kaite's reflection
 			if( type == 2 && sc && sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_WIZARD )
 			{	//Consume one Fragment per hit of the casted skill? [Skotlex]
-			  	type = tsd?pc_search_inventory (tsd, ITEMID_CRYSTAL_FRAGMENT):0;
+			  	type = tsd ? pc_search_inventory (tsd, ITEMID_CRYSTAL_FRAGMENT) : 0;
 				if (type >= 0) 
 				{
-					if ( tsd ) pc_delitem(tsd, type, 1, 0, 1);
+					if ( tsd  && !(map_bg_items(tsd->bl.m) && !pc_islowratechar(tsd))  ) 
+						pc_delitem(tsd, type, 1, 0, 1);
 
 					dmg.damage = dmg.damage2 = 0;
 					dmg.dmg_lv = ATK_MISS;
@@ -4086,14 +4085,22 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, in
 		break;
 
 	case AM_PHARMACY:
-		if(sd) {
+		if(sd) 
+		{
+			if (!pc_islowratechar(sd))
+				clif_skill_fail(sd, skillid, USESKILL_FAIL_LEVEL, 0);
+
 			clif_skill_produce_mix_list(sd, skillid, 22);
 			clif_skill_nodamage(src,bl,skillid,skilllv,1);
 		}
 		break;
 
 	case SA_CREATECON:
-		if(sd) {
+		if(sd) 
+		{
+			if (!pc_islowratechar(sd))
+				clif_skill_fail(sd, skillid, USESKILL_FAIL_LEVEL, 0);
+
 			clif_skill_produce_mix_list(sd,AM_PHARMACY,23);
 			clif_skill_nodamage(src,bl,skillid,skilllv,1);
 		}
@@ -8659,7 +8666,7 @@ int skill_check_condition_castbegin(struct map_session_data* sd, short skill, sh
 			sd->itemid = sd->itemindex = -1;
 			if( skill == WZ_EARTHSPIKE && sc && sc->data[SC_EARTHSCROLL] && rnd()%100 > sc->data[SC_EARTHSCROLL]->val2 ) // [marquis007]
 				; //Do not consume item.
-			else if( sd->status.inventory[i].expire_time == 0 )
+			else if( sd->status.inventory[i].expire_time == 0 && !(map_bg_items(sd->bl.m) && !pc_islowratechar(sd))  )
 				pc_delitem(sd,i,1,0,0); // Rental usable items are not consumed until expiration
 		}
 		return 1;
@@ -9291,10 +9298,9 @@ int skill_consume_requirement( struct map_session_data *sd, short skill, short l
 			if( itemid_isgemstone(req.itemid[i]) && skill != HW_GANBANTEIN && sc && sc->data[SC_SPIRIT] && sc->data[SC_SPIRIT]->val2 == SL_WIZARD )
 				continue; //Gemstones are checked, but not substracted from inventory.
 
-			if( (n = pc_search_inventory(sd,req.itemid[i])) >= 0 )
-				pc_delitem(sd,n,req.amount[i],0,1);
 
 			if( area )
+			{
 				switch( req.itemid[i] )
 				{
 				case ITEMID_POISON_BOTTLE:
@@ -9322,6 +9328,14 @@ int skill_consume_requirement( struct map_session_data *sd, short skill, short l
 						add2limit(sd->status.bg_round_stats.blue_gemstones, req.amount[i], UINT_MAX);
 					break;
 				}
+
+				if ( area == 2 && !pc_islowratechar(sd) ) //in bg, items are not consumed by bg chars
+					continue;
+			}
+
+				
+			if( (n = pc_search_inventory(sd,req.itemid[i])) >= 0 )
+				pc_delitem(sd,n,req.amount[i],0,1);
 		}
 	}
 
@@ -9583,42 +9597,57 @@ int skill_castfix_sc (struct block_list *bl, int time)
  *------------------------------------------*/
 
 // this is for server-side skill delays to prevent no-delay shit
-static int skill_min_delay(int skill_id)
+// these numbers are chosen based off testing done by goodgamersro and proro staff, investigating it myself felt like a waste of time
+static int skill_min_delay(struct map_session_data *sd, int skill_id)
 {
-	int min = battle_config.min_skill_delay_limit?battle_config.min_skill_delay_limit:111;
+	int min = battle_config.min_skill_delay_limit?battle_config.min_skill_delay_limit:200; //the 200 is arbitrarily chosen
+	int minimum_min = min;
+	static int instance = 0;
+	unsigned int time = gettick();
+
+
 	switch(skill_id)
 	{
+		case AL_HEAL:
 		case MG_FIREBOLT:
 		case MG_COLDBOLT:
 		case MG_LIGHTNINGBOLT:
+		case MG_SOULSTRIKE:
 		case WZ_EARTHSPIKE: 
+		case WZ_JUPITEL:
 		case AS_GRIMTOOTH:
+		case CR_SHIELDCHARGE:
+		case CR_SHIELDBOOMERANG:
+		case PA_SHIELDCHAIN:
 		case SN_FALCONASSAULT:
 		case WS_CARTTERMINATION:
 			min = 192;
 			break;
+
+		case SM_BASH:
+		case PA_PRESSURE:
 		case AC_DOUBLE:
 		case SN_SHARPSHOOTING:
+		case NJ_HYOUSENSOU:
+		case NJ_KAMAITACHI:
+		case NJ_BAKUENRYU:
 			min = 224;
 			break;
-		case PA_PRESSURE:
-			min = 248;
-			break;
 		case CR_DEVOTION:
+		case SA_DISPELL:
+		case AL_BLESSING:
 			min = 312;
 			break;
 		case HW_GANBANTEIN:
+		case SA_LANDPROTECTOR:
 			min = 480;
 			break;
 		case WZ_HEAVENDRIVE:
 			min = 512;
 			break;
-		case AL_BLESSING:
-		case AL_HEAL:
 		case PR_STRECOVERY:
 		case PR_LEXAETERNA:
 		case HT_DETECTING:
-		case SA_LANDPROTECTOR:
 		case SL_KAUPE:
 		case SL_KAITE:
 			min = 544;
@@ -9628,7 +9657,13 @@ static int skill_min_delay(int skill_id)
 			break;
 	}
 
-	return min;
+
+
+	if ( min > minimum_min && DIFF_TICK(time, sd->hit_tick) < minimum_min*5 ) // that is, you've been hit between now ~600 ms ago
+		min = minimum_min;
+
+
+	return max(min, minimum_min);
 }
 
 int skill_delayfix (struct block_list *bl, int skill_id, int skill_lv)
@@ -9715,7 +9750,9 @@ int skill_delayfix (struct block_list *bl, int skill_id, int skill_lv)
 		time = status_get_amotion(bl); // Delay can never be below amotion [Playtester]
 
 
-	time = max(time, skill_min_delay(skill_id));
+	if (sd)
+		time = max(time, skill_min_delay(sd, skill_id));
+	
 
 	if(sd && sd->state.showcastdelay)
 	{
@@ -9946,16 +9983,25 @@ void skill_repairweapon (struct map_session_data *sd, int idx)
 		material = materials [itemdb_wlv(item->nameid)-1]; // Lv1/2/3/4 weapons consume 1 Iron Ore/Iron/Steel/Rough Oridecon
 	else
 		material = materials [2]; // Armors consume 1 Steel
-	if (pc_search_inventory(sd,material) < 0 ) {
+
+	if (pc_search_inventory(sd,material) < 0 ) 
+	{
 		clif_skill_fail(sd,sd->menuskill_id,USESKILL_FAIL_LEVEL,0);
 		return;
 	}
+
 	clif_skill_nodamage(&sd->bl,&target_sd->bl,sd->menuskill_id,1,1);
+
 	item->attribute=0;
+
 	clif_equiplist(target_sd);
-	pc_delitem(sd,pc_search_inventory(sd,material),1,0,0);
+
+	if( !(!pc_islowratechar(sd) && map_bg_items(sd->bl.m)) )
+		pc_delitem(sd,pc_search_inventory(sd,material),1,0,0);
+
 	clif_item_repaireffect(sd,item->nameid,0);
-	if(sd!=target_sd)
+
+	if(sd != target_sd)
 		clif_item_repaireffect(target_sd,item->nameid,0);
 }
 

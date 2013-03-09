@@ -2760,6 +2760,13 @@ int mob_class_change (struct mob_data *md, int class_)
 	if( md->class_ == class_ )
 		return 0; //Nothing to change.
 
+	if (md->state.bg_id)
+		return 0; //don't change BG mobs!
+	
+
+	if (md->master_id)
+		return 0; //so that slaves don't have changeable mobs @_@
+
 	hp_rate = get_percentage(md->status.hp, md->status.max_hp);
 	md->class_ = class_;
 	md->db = mob_db(class_);

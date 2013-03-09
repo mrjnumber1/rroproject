@@ -180,6 +180,7 @@ int battle_delay_damage_sub(int tid, unsigned int tick, int id, intptr_t data)
 			 * it was monster reflected damage, and the monster died, we pass the damage to the character as expected
 			 **/
 			map_freeblock_lock();
+			
 			status_fix_damage(target, target, dat->damage, dat->delay, dat->skill_id);
 			map_freeblock_unlock();
 		}
@@ -936,7 +937,8 @@ void battle_consume_ammo(TBL_PC*sd, int skill, int lv)
 
 	if(sd->equip_index[EQI_AMMO]>=0) //Qty check should have been done in skill_check_condition
 	{
-		pc_delitem(sd,sd->equip_index[EQI_AMMO],qty,0,1);
+		if (!(map_bg_items(sd->bl.m) && !pc_islowratechar(sd)) )
+			pc_delitem(sd,sd->equip_index[EQI_AMMO],qty,0,1);
 
 		if( sd->status.guild_id && map_allowed_woe(sd->bl.m) )
 			add2limit(sd->status.woe_stats.ammo_used, qty, UINT_MAX);
@@ -1568,7 +1570,7 @@ static struct Damage battle_calc_weapon_attack(struct block_list *src,struct blo
 					break;
 				case RG_BACKSTAP:
 					if(sd && sd->status.weapon == W_BOW && battle_config.backstab_bow_penalty)
-						skillratio += (200+40*skill_lv)/2;
+						skillratio += ((200+40*skill_lv)>>1);
 					else
 						skillratio += 200+40*skill_lv;
 					break;
@@ -1811,7 +1813,7 @@ static struct Damage battle_calc_weapon_attack(struct block_list *src,struct blo
 			case AS_SONICBLOW:
 				if (sc && sc->data[SC_SPIRIT] &&
 					sc->data[SC_SPIRIT]->val2 == SL_ASSASIN)
-					ATK_ADDRATE( (map_flag_gvg(src->m)||map[src->m].flag.battleground)?25:100); //+25% dmg on woe/bg /+100% dmg on nonwoe
+					ATK_ADDRATE( ((map_flag_gvg(src->m)||map[src->m].flag.battleground)?25:100 ) ); //+25% dmg on woe/bg /+100% dmg on nonwoe
 
 				if(sd && pc_checkskill(sd,AS_SONICACCEL)>0)
 					ATK_ADDRATE(10);
@@ -2688,6 +2690,7 @@ struct Damage battle_calc_magic_attack(struct block_list *src,struct block_list 
 
 	damage_div_fix(ad.damage, ad.div_);
 	
+
 	if (flag.infdef && ad.damage)
 		ad.damage = ad.damage>0?1:-1;
 
@@ -2940,11 +2943,23 @@ struct Damage battle_calc_misc_attack(struct block_list *src,struct block_list *
 	else if( map[target->m].flag.battleground )
 		md.damage=battle_calc_bg_damage(src,target,md.damage,md.div_,skill_num,skill_lv,md.flag);
 
-	if (skill_num == NJ_ZENYNAGE && sd)
+	if (skill_num == NJ_ZENYNAGE && sd )
 	{	//Time to Pay Up.
+		int zone = 0;
+		if (map_allowed_woe(sd->bl.m) && sd->status.guild_id)
+			zone = 1;
+		else if (count_bg_stats(sd->bl.m) && sd->state.bg_id)
+			zone = 2;
+
 		if ( md.damage > sd->status.zeny )
 			md.damage=sd->status.zeny;
-		pc_payzeny(sd, md.damage);
+
+		if (zone == 0)
+			pc_payzeny(sd, md.damage);
+		else if (zone == 1) //woe
+			add2limit(sd->status.woe_stats.zeny_used, md.damage, UINT_MAX);
+		else if(area == 2) //bg
+				add2limit(sd->status.bg_round_stats.zeny_used, md.damage, UINT_MAX);
 	}
 
 	return md;
@@ -4090,10 +4105,11 @@ static const struct _battle_data {
 	{ "raid_misc_attack_damage_rate",       &battle_config.raid_misc_damage_rate,           60,     0,      INT_MAX,        },
 	{ "raid_flee_penalty",                  &battle_config.raid_flee_penalty,               20,     0,      INT_MAX,        },
 
-	{ "bg_idle_autokick",					&battle_config.bg_idle_autokick,				60,		0,		INT_MAX,		},
+	{ "bg_idle_autokick",					&battle_config.bg_idle_autokick,				120,	0,		INT_MAX,		},
 	{ "bg_reserved_char_id",                &battle_config.bg_reserved_char_id,             999996, 0,      INT_MAX,        },
 	{ "raid_reserved_char_id",				&battle_config.raid_reserved_char_id,			999998,	0,		INT_MAX,		},
 	{ "woe_reserved_char_id",               &battle_config.woe_reserved_char_id,            999999, 0,      INT_MAX,        },
+	{ "bg_autojail_kicks",					&battle_config.bg_autojail_kicks,               40,     0,      100,            },
 	{ "action_keyboard_limit",              &battle_config.action_keyboard_limit,           0,      0,      500,            },
 	{ "action_mouse_limit",                 &battle_config.action_mouse_limit,              0,      0,      500,            },
 	{ "action_dual_limit",                  &battle_config.action_dual_limit,               0,      0,      1000,           },
