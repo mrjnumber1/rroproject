@@ -1249,7 +1249,7 @@ int pc_reg_received(struct map_session_data *sd)
 	chrif_scdata_request(sd->status.account_id, sd->status.char_id);
 
 	if( (sd->class_&MAPID_UPPERMASK) == MAPID_STAR_GLADIATOR)	//SG_MIRACLE [Komurka]
-		sc_start(src,SC_MIRACLE,100,1,battle_config.sg_miracle_skill_duration*24);
+		sc_start(&sd->bl,SC_MIRACLE,100,1,battle_config.sg_miracle_skill_duration*24);
 
 #ifndef TXT_ONLY
 	intif_Mail_requestinbox(sd->status.char_id, 0); // MAIL SYSTEM - Request Mail Inbox
@@ -3708,7 +3708,7 @@ void pc_getcash(struct map_session_data *sd, int cash, int points)
 	nullpo_retv(sd);
 
 	cur_cashpoints = pc_readaccountreg2(sd, "##CASHPOINTS");
-	x = pc_readaccountreg2(sd, "##KAFRAPOINTS");
+	cur_kafrapoints = pc_readaccountreg2(sd, "##KAFRAPOINTS");
 
 	if( cash > 0 )
 	{
