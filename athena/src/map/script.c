@@ -19159,8 +19159,9 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(force_disconnect, ""),
 	BUILDIN_DEF(sendmail, "vviiss?"), // note: this doesn't work. i think! lmfbo :(
 	 
-	BUILDIN_DEF(abs, "ii"),
+	BUILDIN_DEF(abs, "i"),
 	BUILDIN_DEF(setcloneskill,"ii"),
+	BUILDIN_DEF(getskillname, "i"),
 
 
 	{NULL,NULL,NULL},

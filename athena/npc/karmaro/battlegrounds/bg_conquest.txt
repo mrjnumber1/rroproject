@@ -1187,11 +1187,11 @@ OnTimer25000:
 		if( $@Conquest_id1 == getvariableofnpc(.Defender,"Conquest") )
 		{
 			areawarp .@Castle$,310,150,316,157,.@Castle$,.@DX,.@DY;
-			areawarp .@Castle$,327,150,333,157,.@ax_cp[.@score],.@ay_cp[.@score];
+			areawarp .@Castle$,327,150,333,157,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 		}
 		else
 		{
-			areawarp .@Castle$,310,150,316,157,.@ax_cp[.@score],.@ay_cp[.@score];
+			areawarp .@Castle$,310,150,316,157,.@Castle$,.@ax_cp[.@score],.@ay_cp[.@score];
 			areawarp .@Castle$,327,150,333,157,.@Castle$,.@DX,.@DY;
 		}
 		break;
@@ -1577,7 +1577,24 @@ schg_cas07,180,208,0	script	LF-05#schg_cas07	723,{
 	}
 	end;
 }
-
+schg_cas07,235,222,0	script	Andlangr#LF_sc07_1::LF_sc07_1	111,{
+    if( getcharid(4) == getvariableofnpc(.Defender,"Conquest") )
+    {
+        mes "^3355FFThis is the Stronghold";
+        mes "Teleport Service. Would";
+        mes "you like to teleport to";
+        mes "the Emperium Center?^000000";
+        switch( select("Teleport:Cancel") )
+        {
+        case 1:
+            warp "schg_cas07",136,188;
+            end;
+        case 2:
+            close;
+        }
+    }
+    end;
+}
 schg_cas07,157,136,0	duplicate(LF_sc07_1)	Andlangr#LF_sc07_2	723
 schg_cas07,168,136,4	duplicate(LF_sc07_1)	Andlangr#LF_sc07_3	723
 schg_cas07,320,232,4	duplicate(LF_sc07_1)	Andlangr#LF_sc07_4	723
