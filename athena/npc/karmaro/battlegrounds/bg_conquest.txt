@@ -959,7 +959,6 @@ OnMatchEnd:
 					enablenpc("LF-08"+.@name$);
 					enablenpc("LF-09"+.@name$);
 				}
-				}
 				break;
 			case 3: //"arug_cas06":
 				// after any breaks, LF-07, LF-02
@@ -1047,6 +1046,7 @@ OnMatchEnd:
 				// after cade1, LF-04
 				// after cade2, LF-05
 				// after cade3, LF-06
+				set .@name$, "#arug_cas08";
 				
 				if (.@position == 1)
 				{
@@ -1080,8 +1080,6 @@ OnMatchEnd:
 				}
 				break;
 		}
-		
-		
 			
 	}
 }
