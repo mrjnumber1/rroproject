@@ -18462,7 +18462,7 @@ BUILDIN_FUNC(sendmail)
 	struct mail_message msg;
 	const char* body; 
 	const char* title; 
-	int zeny, nameid, amount;
+	int zeny, nameid, amount; //nameid may be uninitialized..
 	struct script_data *data;
 
 
@@ -18585,21 +18585,45 @@ BUILDIN_FUNC(setcloneskill)
 	int skilllvl = script_getnum( st, 3 );
 	sd = script_rid2sd(st);
 	
-	if ( sd == NULL || skillid == 1 )
+	if ( sd == NULL || skillid == 1)
 		return 0; // basic skill MUST not reset
+
+	/*sd->status.skill[sd->cloneskill_id].id = 0;
+	sd->status.skill[sd->cloneskill_id].lv = 0;
+	sd->status.skill[sd->cloneskill_id].flag = 0;
+	pc_setglobalreg( sd, "CLONE_SKILL", 0 );
+	pc_setglobalreg( sd, "CLONE_SKILL_LV", 0 );
+	clif_deleteskill(sd,sd->cloneskill_id);
+	sd->cloneskill_id = 0;
+	*/
+
 	
-	if ( skillid == 0 || skilllvl == 0 ) 
+
+	if (sd->cloneskill_id && sd->status.skill[sd->cloneskill_id].flag == SKILL_FLAG_PLAGIARIZED)
 	{
 		sd->status.skill[sd->cloneskill_id].id = 0;
 		sd->status.skill[sd->cloneskill_id].lv = 0;
 		sd->status.skill[sd->cloneskill_id].flag = 0;
-		pc_setglobalreg( sd, "CLONE_SKILL", 0 );
-		pc_setglobalreg( sd, "CLONE_SKILL_LV", 0 );
+		sd->status.skill[sd->cloneskill_id].id = 0;
 		clif_deleteskill(sd,sd->cloneskill_id);
-		sd->cloneskill_id = 0;
-		return 0;
 	}
-	
+
+	if (  skillid == 0 || skilllvl == 0 )
+		return 0;
+
+	if ( (pc_checkskill(sd, RG_PLAGIARISM) < skilllvl) )
+		skilllvl = pc_checkskill(sd, RG_PLAGIARISM);
+
+	sd->cloneskill_id = skillid;
+	pc_setglobalreg(sd, "CLONE_SKILL", skillid);
+	pc_setglobalreg(sd, "CLONE_SKILL_LV", skilllvl);
+
+	sd->status.skill[skillid].id = skillid;
+	sd->status.skill[skillid].lv = skilllvl;
+	sd->status.skill[skillid].flag = SKILL_FLAG_PLAGIARIZED;
+	clif_addskill(sd, skillid);
+
+	/* old
 	if ( sd->status.skill[sd->cloneskill_id].id > 0 )
 		clif_deleteskill( sd, sd->cloneskill_id );
 		
@@ -18612,7 +18636,35 @@ BUILDIN_FUNC(setcloneskill)
 	pc_setglobalreg( sd, "CLONE_SKILL_LV", skilllvl );
 	
 	clif_addskill( sd, skillid );
-	
+	*/
+
+
+	/*the code from skill_attack
+
+
+	if ((tsd->status.skill[skillid].id == 0 || tsd->status.skill[skillid].flag == SKILL_FLAG_PLAGIARIZED) &&
+		can_copy(tsd,skillid,bl))	// Split all the check into their own function [Aru]
+	{
+		int lv = skilllv;
+		if (tsd->cloneskill_id && tsd->status.skill[tsd->cloneskill_id].flag == SKILL_FLAG_PLAGIARIZED){
+			tsd->status.skill[tsd->cloneskill_id].id = 0;
+			tsd->status.skill[tsd->cloneskill_id].lv = 0;
+			tsd->status.skill[tsd->cloneskill_id].flag = 0;
+			clif_deleteskill(tsd,tsd->cloneskill_id);
+		}
+
+		if ((type = pc_checkskill(tsd,RG_PLAGIARISM)) < lv)
+			lv = type;
+
+		tsd->cloneskill_id = skillid;
+		pc_setglobalreg(tsd, "CLONE_SKILL", skillid);
+		pc_setglobalreg(tsd, "CLONE_SKILL_LV", lv);
+
+		tsd->status.skill[skillid].id = skillid;
+		tsd->status.skill[skillid].lv = lv;
+		tsd->status.skill[skillid].flag = SKILL_FLAG_PLAGIARIZED;
+		clif_addskill(tsd,skillid);
+	*/
 	return 0;
 }
 
@@ -18620,7 +18672,7 @@ BUILDIN_FUNC(getskillname)
 {
 	int skill_id = script_getnum(st, 2);
 
-	script_pushstrcopy(st, skill_get_name(skill_id));
+	script_pushstrcopy(st, skill_get_desc(skill_id));
 
 	return 0;
 }

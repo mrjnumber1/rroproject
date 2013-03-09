@@ -99,9 +99,10 @@ OnBuffs:
 	
 	
 	// use FCP
-	unitskilluseid .@npcgid,479, .@chargid; //does this work or do we need to make it ignore restrictions? lololol qq
-	
-
+	//unitskilluseid .@npcgid, 479, 5,.@chargid; //does this work or do we need to make it ignore restrictions? lololol qq
+	// this method seems to fail, so let's just sc_start -_-
+	for (set .@i, 0; .@i < 4; set .@i, .@i + 1) // 234 = weapon coating
+		sc_start(SC_CP_WEAPON+.@i, 600000, 5);
 	
 OnScrollbuffs:
 	//ensure that these indices are consistent!
